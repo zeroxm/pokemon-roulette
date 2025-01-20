@@ -1,0 +1,22 @@
+<h1 class="title">Gen?</h1>
+<app-wheel  #wheel
+            [items]="generations"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
+
+<ng-template #content let-modal>
+	<div class="modal-body">
+        <h1>Welcome to {{ selectedItem?.region }}</h1>
+        <p>Are you a boy or a girl?</p>
+        <div class="trainer-gender">
+            <a  (click)="selectTrainerGender('male')">
+                <img [src]="boySprite" alt="Boy" width="128" height="128">
+                <p>Boy</p>
+            </a>
+            <a  (click)="selectTrainerGender('female')">
+                <img [src]="girlSprite" alt="Girl" width="128" height="128">
+                <p>Girl</p>
+            </a>
+        </div>
+	</div>
+</ng-template>

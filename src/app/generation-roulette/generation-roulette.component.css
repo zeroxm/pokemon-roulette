@@ -1,0 +1,19 @@
+.title {
+    text-align: center;
+}
+
+.modal-body {
+    color: black;
+    text-align: center;
+}
+
+.trainer-gender {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trainer-gender > a {
+    text-decoration: underline;
+    cursor: pointer;
+}

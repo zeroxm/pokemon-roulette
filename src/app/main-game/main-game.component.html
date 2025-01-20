@@ -1,0 +1,33 @@
+<p>main-game works!</p>
+<div class="game-container">
+
+    <div class="badges">
+        <app-badges></app-badges>
+    </div>
+
+    <div class="main-game">
+        <ng-container [ngSwitch]="getGameState()">
+            <app-generation-roulette
+                *ngSwitchCase="'game-start'"
+                (itemSelectedEvent)="storeGeneration($event)"
+                (trainerGenderEvent)="storeTrainerSprite($event)">
+            </app-generation-roulette>
+            <app-starter-roulette
+                *ngSwitchCase="'starter-pokemon'"
+                [generation]="generation.id"
+                (selectedStarterEvent)="storeStarter($event)">
+            </app-starter-roulette>
+        </ng-container>
+    </div>
+
+    <div class="trainer-info">
+        <div class="trainer-team">
+            <app-trainer-team [trainer]="trainer" [team]="trainerTeam">
+            </app-trainer-team>
+        </div>
+
+        <div class="items">
+            <app-items></app-items>
+        </div>
+    </div>
+</div>

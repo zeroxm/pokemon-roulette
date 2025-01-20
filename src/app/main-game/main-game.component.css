@@ -1,0 +1,25 @@
+.game-container {
+    display: flex;
+}
+
+.badges {
+    flex: 1 1 auto;
+}
+
+.main-game {
+    flex: 1 1 auto;
+}
+
+.trainer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.trainer-team {
+    flex: 1 1 auto;
+}
+
+.items {
+    flex: 1 1 auto;
+}

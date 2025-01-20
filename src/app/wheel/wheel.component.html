@@ -1,0 +1,19 @@
+<div class="wheel-container">
+    <p>{{ currentSegment }}</p>
+    <div class="canvas-container">
+        <canvas id="wheel"
+                [width]="wheelWidth"
+                [height]="canvasHeight"
+                (click)="spinWheel()">
+        </canvas>
+        <canvas id="pointer"
+                [width]="cursorWidth"
+                [height]="canvasHeight">
+        </canvas>
+    </div>
+    <button class="btn btn-light my-3"
+            (click)="spinWheel()">
+            Click to Spin!
+    </button>
+</div>
+
