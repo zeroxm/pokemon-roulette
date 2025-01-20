@@ -7,6 +7,9 @@
     text-align: center;
 }
 
+.modal-body p {
+    font-size: x-large;
+}
 .trainer-gender {
     display: flex;
     justify-content: center;

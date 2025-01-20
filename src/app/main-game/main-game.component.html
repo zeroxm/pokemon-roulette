@@ -1,4 +1,5 @@
 <p>main-game works!</p>
+
 <div class="game-container">
 
     <div class="badges">
@@ -6,7 +7,7 @@
     </div>
 
     <div class="main-game">
-        <ng-container [ngSwitch]="getGameState()">
+        <ng-container [ngSwitch]="gameStateService.currentState | async">
             <app-generation-roulette
                 *ngSwitchCase="'game-start'"
                 (itemSelectedEvent)="storeGeneration($event)"
@@ -15,7 +16,7 @@
             <app-starter-roulette
                 *ngSwitchCase="'starter-pokemon'"
                 [generation]="generation.id"
-                (selectedStarterEvent)="storeStarter($event)">
+                (selectedStarterEvent)="storePokemon($event)">
             </app-starter-roulette>
         </ng-container>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GenerationItem, GenerationRouletteComponent } from "../generation-roulette/generation-roulette.component";
 import { BadgesComponent } from "../badges/badges.component";
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
@@ -7,7 +7,6 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { CommonModule } from '@angular/common';
 import { StarterRouletteComponent } from "../starter-roulette/starter-roulette.component";
 import { Item } from '../wheel/wheel.component';
-import { map } from 'rxjs';
 import { PokemonSpriteService } from '../services/pokemon-sprite-service/pokemon-sprite.service';
 
 export interface PokemonItem extends Item {
@@ -16,6 +15,7 @@ export interface PokemonItem extends Item {
     front_default: string;
     front_shiny: string;
   } | null;
+  shiny: boolean;
 }
 
 @Component({
@@ -29,9 +29,9 @@ export interface PokemonItem extends Item {
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
-export class MainGameComponent implements OnInit {
+export class MainGameComponent {
 
-  constructor(private gameStateService: GameStateService,
+  constructor(public gameStateService: GameStateService,
               private pokemonSpriteService: PokemonSpriteService
   ) {
 
@@ -43,12 +43,10 @@ export class MainGameComponent implements OnInit {
 
   trainerTeam: PokemonItem[] = [];
 
-  ngOnInit(): void {
-    this.gameStateService.setState('game-start');
-  }
-
   getGameState(): string {
-    return this.gameStateService.getState();
+    let currentState = '';
+    this.gameStateService.currentState.subscribe(state => currentState = state);
+    return currentState 
   }
 
   storeGeneration(generation: GenerationItem): void {
@@ -57,19 +55,21 @@ export class MainGameComponent implements OnInit {
 
   storeTrainerSprite(sprite: string): void {
     this.trainer.sprite = sprite;
-    this.gameStateService.setState('starter-pokemon');
+    this.gameStateService.finishCurrentState();
   }
 
-  storeStarter(starter: PokemonItem): void {
-    this.starter = starter;
-    this.addToTeam(this.starter);
-    // this.gameStateService.setState('start-adventure');
+  storePokemon(pokemon: PokemonItem): void {
+    if(this.trainerTeam.length === 0) {
+      this.starter = pokemon;
+    }
+    this.addToTeam(pokemon);
+    this.gameStateService.setNextState('check-shininess');
+    this.gameStateService.finishCurrentState();
   }
 
   addToTeam(pokemon: PokemonItem): void {
     if(! pokemon.sprite) {
       this.pokemonSpriteService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        console.debug(response);
         pokemon.sprite = response.sprite;
       });
     }
