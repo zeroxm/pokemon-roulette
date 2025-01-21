@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { WheelItem } from '../interfaces/wheel-item';
 
-export interface Item {
-  text: string,
-  fillStyle: string
-}
 @Component({
   selector: 'app-wheel',
   imports: [],
@@ -16,7 +13,7 @@ export class WheelComponent implements AfterViewInit {
   wheelCtx!: CanvasRenderingContext2D;
   pointerCanvas!: HTMLCanvasElement;
   pointerCtx!: CanvasRenderingContext2D;
-  @Input() items: Item[] = [];
+  @Input() items: WheelItem[] = [];
   @Output() selectedItemEvent = new EventEmitter<number>();
   spinning = false;
 

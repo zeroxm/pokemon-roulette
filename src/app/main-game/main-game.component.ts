@@ -1,37 +1,34 @@
 import { Component } from '@angular/core';
-import { GenerationItem, GenerationRouletteComponent } from "../generation-roulette/generation-roulette.component";
 import { BadgesComponent } from "../badges/badges.component";
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { CommonModule } from '@angular/common';
-import { StarterRouletteComponent } from "../starter-roulette/starter-roulette.component";
-import { Item } from '../wheel/wheel.component';
 import { PokemonSpriteService } from '../services/pokemon-sprite-service/pokemon-sprite.service';
-
-export interface PokemonItem extends Item {
-  pokemonId: number;
-  sprite: {
-    front_default: string;
-    front_shiny: string;
-  } | null;
-  shiny: boolean;
-}
+import { GameState } from '../services/game-state-service/game-state';
+import { Observable } from 'rxjs';
+import { GenerationRouletteComponent } from './roulettes/generation-roulette/generation-roulette.component';
+import { StarterRouletteComponent } from './roulettes/starter-roulette/starter-roulette.component';
+import { GenerationItem } from '../interfaces/generation-item';
+import { PokemonItem } from '../interfaces/pokemon-item';
+import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
+import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
 
 @Component({
   selector: 'app-main-game',
   imports: [CommonModule,
-            GenerationRouletteComponent,
-            BadgesComponent,
-            TrainerTeamComponent,
-            ItemsComponent,
-            StarterRouletteComponent],
+    GenerationRouletteComponent,
+    BadgesComponent,
+    TrainerTeamComponent,
+    ItemsComponent,
+    StarterRouletteComponent,
+    ShinyRouletteComponent, StartAdventureRouletteComponent],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
 export class MainGameComponent {
 
-  constructor(public gameStateService: GameStateService,
+  constructor(private gameStateService: GameStateService,
               private pokemonSpriteService: PokemonSpriteService
   ) {
 
@@ -43,10 +40,8 @@ export class MainGameComponent {
 
   trainerTeam: PokemonItem[] = [];
 
-  getGameState(): string {
-    let currentState = '';
-    this.gameStateService.currentState.subscribe(state => currentState = state);
-    return currentState 
+  getGameState(): Observable<GameState> {
+    return this.gameStateService.currentState; 
   }
 
   storeGeneration(generation: GenerationItem): void {
@@ -74,5 +69,26 @@ export class MainGameComponent {
       });
     }
     this.trainerTeam.push(pokemon);
+  }
+
+  setShininess(shiny: boolean): void {
+    this.trainerTeam[this.trainerTeam.length - 1].shiny = shiny;
+    this.gameStateService.finishCurrentState();
+  }
+
+  doNothing(): void {
+    this.gameStateService.finishCurrentState();
+  }
+
+  buyPotions(): void {
+    this.gameStateService.finishCurrentState();
+  }
+
+  catchPokemon(): void {
+    this.gameStateService.finishCurrentState();
+  }
+
+  evolvePokemon(): void {
+    this.gameStateService.finishCurrentState();
   }
 }

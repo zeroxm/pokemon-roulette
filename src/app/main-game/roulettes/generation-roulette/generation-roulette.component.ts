@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Item, WheelComponent } from "../wheel/wheel.component";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TrainerSpriteService } from '../services/trainer-sprite-service/trainer-sprite.service';
+import { WheelComponent } from '../../../wheel/wheel.component';
+import { TrainerSpriteService } from '../../../services/trainer-sprite-service/trainer-sprite.service';
+import { GenerationItem } from '../../../interfaces/generation-item';
 
-export interface GenerationItem extends Item {
-  region: string;
-  id: number;
-}
+
 @Component({
   selector: 'app-generation-roulette',
   imports: [
@@ -27,7 +25,7 @@ export class GenerationRouletteComponent {
   selectedItem: GenerationItem | null = null;
   boySprite: string = "";
   girlSprite: string = "";
-  @Output () itemSelectedEvent = new EventEmitter<GenerationItem>();
+  @Output () generationSelectedEvent = new EventEmitter<GenerationItem>();
   @Output () trainerGenderEvent = new EventEmitter<string>();
 
   generations: GenerationItem[] = [
@@ -43,7 +41,7 @@ export class GenerationRouletteComponent {
 
   onItemSelected(index: number): void {
     this.selectedItem = this.generations[index];
-    this.itemSelectedEvent.emit(this.selectedItem);
+    this.generationSelectedEvent.emit(this.selectedItem);
     this.boySprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'male');
     this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');
     this.modalService.open(this.contentTemplate, {

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { WheelComponent } from '../wheel/wheel.component';
 import { starterByGeneration } from './starter-by-generation';
-import { PokemonItem } from '../main-game/main-game.component';
+import { WheelComponent } from '../../../wheel/wheel.component';
+import { PokemonItem } from '../../../interfaces/pokemon-item';
 
 @Component({
   selector: 'app-starter-roulette',

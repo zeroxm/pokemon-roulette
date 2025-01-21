@@ -1,4 +1,4 @@
-import { PokemonItem } from "../main-game/main-game.component";
+import { PokemonItem } from "../../../interfaces/pokemon-item";
 
 export const starterByGeneration: Record<number, PokemonItem[]> = {
     1: [

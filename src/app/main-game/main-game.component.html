@@ -1,5 +1,5 @@
 <p>main-game works!</p>
-
+{{getGameState() | async}}
 <div class="game-container">
 
     <div class="badges">
@@ -7,10 +7,10 @@
     </div>
 
     <div class="main-game">
-        <ng-container [ngSwitch]="gameStateService.currentState | async">
+        <ng-container [ngSwitch]="getGameState() | async">
             <app-generation-roulette
                 *ngSwitchCase="'game-start'"
-                (itemSelectedEvent)="storeGeneration($event)"
+                (generationSelectedEvent)="storeGeneration($event)"
                 (trainerGenderEvent)="storeTrainerSprite($event)">
             </app-generation-roulette>
             <app-starter-roulette
@@ -18,6 +18,17 @@
                 [generation]="generation.id"
                 (selectedStarterEvent)="storePokemon($event)">
             </app-starter-roulette>
+            <app-shiny-roulette
+                *ngSwitchCase="'check-shininess'"
+                (isShinyEvent)="setShininess($event)">
+            </app-shiny-roulette>
+            <app-start-adventure-roulette
+                *ngSwitchCase="'start-adventure'"
+                (catchPokemonEvent)="catchPokemon()"
+                (battleTrainerEvent)="evolvePokemon()"
+                (buyPotionsEvent)="buyPotions()"
+                (doNothingEvent)="doNothing()">
+            </app-start-adventure-roulette>
         </ng-container>
     </div>
 
