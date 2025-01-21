@@ -19,10 +19,11 @@ export class StartAdventureRouletteComponent {
     { text: 'Catch a Pokémon', fillStyle: 'crimson' },
     { text: 'Battle Trainer', fillStyle: 'darkorange' },
     { text: 'Buy Potions', fillStyle: 'green' },
-    { text: 'Straight to the Gym', fillStyle: 'darkcyan' }
+    { text: 'Do Nothing', fillStyle: 'darkcyan' }
   ];
 
   onItemSelected(index: number): void {
+    console.debug(index);
     switch (index) {
       case 0:
         this.catchPokemonEvent.emit();

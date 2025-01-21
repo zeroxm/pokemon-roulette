@@ -34,12 +34,16 @@
 
     <div class="trainer-info">
         <div class="trainer-team">
-            <app-trainer-team [trainer]="trainer" [team]="trainerTeam">
+            <app-trainer-team
+                [trainer]="trainer"
+                [team]="trainerTeam">
             </app-trainer-team>
         </div>
 
         <div class="items">
-            <app-items></app-items>
+            <app-items
+                [trainerItems]="trainerItems">
+            </app-items>
         </div>
     </div>
 </div>

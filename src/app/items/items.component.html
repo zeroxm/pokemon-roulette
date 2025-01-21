@@ -1,1 +1,65 @@
-<p>items works!</p>
+<div class="item-box rounded-3 p-3 m-3" [ngClass]="(darkMode | async) ? 'border white-shadow' : 'black-border shadow'">
+    <h2 class="title">Items</h2>
+    <div class="item-section">
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[0]?.sprite" [src]="trainerItems[0].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[0].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[1]?.sprite" [src]="trainerItems[1].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[1].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[2]?.sprite" [src]="trainerItems[2].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[2].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[3]?.sprite" [src]="trainerItems[3].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[3].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[4]?.sprite" [src]="trainerItems[4].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[4].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[5]?.sprite" [src]="trainerItems[5].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[5].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[6]?.sprite" [src]="trainerItems[6].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[6].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[7]?.sprite" [src]="trainerItems[7].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[7].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[8]?.sprite" [src]="trainerItems[8].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[8].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[9]?.sprite" [src]="trainerItems[9].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[9].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[10]?.sprite" [src]="trainerItems[10].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[10].text}}">
+        </div>
+        <div class="item-container rounded-3 d-flex justify-content-center align-items-center"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="trainerItems[11]?.sprite" [src]="trainerItems[11].sprite" class="img-fluid" placement="bottom"
+                ngbTooltip="{{trainerItems[11].text}}">
+        </div>
+    </div>
+</div>

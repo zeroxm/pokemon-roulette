@@ -1,27 +1,59 @@
-<div class="trainer-team-box border rounded-3 shadow p-3 m-3">
+<div class="trainer-team-box rounded-3 p-3 m-3"
+     [ngClass]="(darkMode | async) ? 'border white-shadow' : 'black-border shadow'">
     <div class="trainer-section" >
-        <div class="trainer-sprite border rounded-3">
+        <div class="trainer-sprite rounded-3"
+             [ngClass]="(darkMode | async) ? 'border white-shadow' : 'black-border shadow'">
             <img [src]="trainer.sprite" alt="Trainer Sprite" class="img-fluid">
         </div>
     </div>
     <div class="team-section">
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[0]?.sprite" [src]="getSprite(team[0])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[0]?.sprite"
+                 [src]="getSprite(team[0])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[0].text}}">
         </div>
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[1]?.sprite" [src]="getSprite(team[1])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[1]?.sprite"
+                 [src]="getSprite(team[1])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[1].text}}">
         </div>
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[2]?.sprite" [src]="getSprite(team[2])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[2]?.sprite"
+                 [src]="getSprite(team[2])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[2].text}}">
         </div>
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[3]?.sprite" [src]="getSprite(team[3])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[3]?.sprite"
+                 [src]="getSprite(team[3])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[3].text}}">
         </div>
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[4]?.sprite" [src]="getSprite(team[4])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[4]?.sprite"
+                 [src]="getSprite(team[4])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[4].text}}">
         </div>
-        <div class="pokemon-container border rounded-3 d-flex justify-content-center align-items-center">
-            <img *ngIf="team[5]?.sprite" [src]="getSprite(team[5])" class="img-fluid">
+        <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"
+             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+            <img *ngIf="team[5]?.sprite"
+                 [src]="getSprite(team[5])"
+                 class="img-fluid"
+                 placement="bottom"
+                 ngbTooltip="{{team[5].text}}">
         </div>
     </div>
 </div>

@@ -1,16 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { PokemonItem } from '../interfaces/pokemon-item';
+import { Observable } from 'rxjs';
+import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-trainer-team',
-  imports: [CommonModule],
+  imports: [CommonModule,
+            NgbTooltipModule],
   templateUrl: './trainer-team.component.html',
   styleUrl: './trainer-team.component.css'
 })
 export class TrainerTeamComponent {
   @Input() trainer!: { sprite: string; }; 
   @Input() team!: PokemonItem[];
+
+  darkMode!: Observable<boolean>; 
+
+  constructor(private darkModeService: DarkModeService) {
+    this.darkMode = this.darkModeService.darkMode$;
+  }
 
   getSprite(pokemon: PokemonItem): string {
     if (pokemon.shiny) {

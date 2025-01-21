@@ -13,6 +13,8 @@ import { GenerationItem } from '../interfaces/generation-item';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
+import { ItemItem } from '../interfaces/item-item';
+import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.service';
 
 @Component({
   selector: 'app-main-game',
@@ -29,7 +31,8 @@ import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-rou
 export class MainGameComponent {
 
   constructor(private gameStateService: GameStateService,
-              private pokemonSpriteService: PokemonSpriteService
+              private pokemonSpriteService: PokemonSpriteService,
+              private itemSpriteService: ItemSpriteService
   ) {
 
   }
@@ -39,6 +42,7 @@ export class MainGameComponent {
   trainer = { sprite: 'place-holder-pixel.png' };
 
   trainerTeam: PokemonItem[] = [];
+  trainerItems: ItemItem[] = [];
 
   getGameState(): Observable<GameState> {
     return this.gameStateService.currentState; 
@@ -81,7 +85,24 @@ export class MainGameComponent {
   }
 
   buyPotions(): void {
+    let potion: ItemItem = {
+      text: 'Potion',
+      name: 'potion',
+      sprite: '',
+      fillStyle: 'darkpurple'
+    }
+    this.addToItems(potion);
     this.gameStateService.finishCurrentState();
+  }
+
+  addToItems(item: ItemItem): void {
+    console.debug(item);
+    if(! item.sprite) {
+      this.itemSpriteService.getItemSprite(item.name).subscribe(response => {
+        item.sprite = response.sprite;
+      });
+    }
+    this.trainerItems.push(item);
   }
 
   catchPokemon(): void {

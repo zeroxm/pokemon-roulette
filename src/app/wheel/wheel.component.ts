@@ -17,9 +17,10 @@ export class WheelComponent implements AfterViewInit {
   @Output() selectedItemEvent = new EventEmitter<number>();
   spinning = false;
 
-  canvasHeight  = 400;
-  wheelWidth = 400;
-  cursorWidth = 40;
+  canvasHeight: number;
+  wheelWidth: number;
+  cursorWidth: number;
+  fontSize: number;
   currentRotation = 0;
   startTime = 0;
   totalRotations = Math.floor(Math.random() * 4) + 1;
@@ -31,7 +32,10 @@ export class WheelComponent implements AfterViewInit {
   currentSegment: string = '-';
 
   constructor() {
-
+    this.canvasHeight = window.innerHeight * 0.50;
+    this.wheelWidth = this.canvasHeight;
+    this.cursorWidth = 40;
+    this.fontSize = this.wheelWidth / 20;
   }
 
   ngAfterViewInit(): void {
@@ -65,9 +69,9 @@ export class WheelComponent implements AfterViewInit {
         this.wheelCtx.translate(centerX, centerY);
         this.wheelCtx.rotate((index + 0.5) * arcSize + rotation);
         this.wheelCtx.fillStyle = '#fff';
-        this.wheelCtx.font = '18px Arial';
-        this.wheelCtx.textAlign = 'center';
-        this.wheelCtx.fillText(item.text, radius/2, 5);
+        this.wheelCtx.font = this.fontSize+'px Arial';
+        this.wheelCtx.textAlign = 'right';
+        this.wheelCtx.fillText(item.text, radius - 7, 5);
         this.wheelCtx.restore();
       }
     }
@@ -82,7 +86,7 @@ export class WheelComponent implements AfterViewInit {
     this.pointerCtx.beginPath();
     this.pointerCtx.moveTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) - 20);
     this.pointerCtx.lineTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) + 20);
-    this.pointerCtx.lineTo(this.pointerCanvas.width - 42, this.pointerCanvas.height / 2);
+    this.pointerCtx.lineTo(this.pointerCanvas.width - this.cursorWidth, this.pointerCanvas.height / 2);
     this.pointerCtx.lineTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) - 20);
     this.pointerCtx.stroke();
     this.pointerCtx.fill();
@@ -98,11 +102,7 @@ export class WheelComponent implements AfterViewInit {
 
     this.startTime = performance.now();
     const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    if(this.items.length < 5) {
-      this.winningNumber = Math.floor(Math.random() * this.items.length * this.getMultiplier());
-    } else {
-      this.winningNumber = 0;
-    }
+    this.winningNumber = 0;
     
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
     const winningAngle = this.winningNumber * arcSize;
