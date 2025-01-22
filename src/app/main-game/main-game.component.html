@@ -15,7 +15,7 @@
             </app-generation-roulette>
             <app-starter-roulette
                 *ngSwitchCase="'starter-pokemon'"
-                [generation]="generation.id"
+                [generation]="generation"
                 (selectedStarterEvent)="storePokemon($event)">
             </app-starter-roulette>
             <app-shiny-roulette
@@ -29,6 +29,11 @@
                 (buyPotionsEvent)="buyPotions()"
                 (doNothingEvent)="doNothing()">
             </app-start-adventure-roulette>
+            <app-pokemon-from-generation-roulette
+                *ngSwitchCase="'catch-pokemon'"
+                [generation]="generation"
+                (selectedPokemonEvent)="storePokemon($event)">
+            </app-pokemon-from-generation-roulette>
         </ng-container>
     </div>
 

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { starterByGeneration } from './starter-by-generation';
+import { starterByGeneration } from '../../../game-data/starter-by-generation';
 import { WheelComponent } from '../../../wheel/wheel.component';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
+import { GenerationItem } from '../../../interfaces/generation-item';
 
 @Component({
   selector: 'app-starter-roulette',
@@ -13,18 +14,16 @@ export class StarterRouletteComponent {
 
   startersByGeneration = starterByGeneration;
 
-  selectedStarter!: PokemonItem;
-
-  @Input() generation!: number;
+  @Input() generation!: GenerationItem;
   @Output() selectedStarterEvent = new EventEmitter<PokemonItem>();
 
   getStarters(): PokemonItem[] {
-    return this.startersByGeneration[this.generation];
+    return this.startersByGeneration[this.generation.id];
   }
 
   onItemSelected(index: number): void {
     const starters = this.getStarters();
-    this.selectedStarter = starters[index];
-    this.selectedStarterEvent.emit(this.selectedStarter);
+    const selectedStarter = starters[index];
+    this.selectedStarterEvent.emit(selectedStarter);
   }
 }

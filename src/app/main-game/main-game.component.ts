@@ -15,6 +15,7 @@ import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulett
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
 import { ItemItem } from '../interfaces/item-item';
 import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.service';
+import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -24,7 +25,7 @@ import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.s
     TrainerTeamComponent,
     ItemsComponent,
     StarterRouletteComponent,
-    ShinyRouletteComponent, StartAdventureRouletteComponent],
+    ShinyRouletteComponent, StartAdventureRouletteComponent, PokemonFromGenerationRouletteComponent],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -106,6 +107,7 @@ export class MainGameComponent {
   }
 
   catchPokemon(): void {
+    this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.finishCurrentState();
   }
 

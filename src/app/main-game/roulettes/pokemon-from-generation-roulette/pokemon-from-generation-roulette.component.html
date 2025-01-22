@@ -1,1 +1,5 @@
-<p>pokemon-from-generation-roulette works!</p>
+<h1 class="title">Which {{generation.text}} Pokémon?</h1>
+<app-wheel  #wheel
+            [items]="getFromGeneration()"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
