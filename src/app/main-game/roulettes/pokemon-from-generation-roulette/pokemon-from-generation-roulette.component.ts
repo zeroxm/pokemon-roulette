@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { pokemonByGeneration } from '../../../game-data/pokemon-by-generation';
 
 @Component({
   selector: 'app-pokemon-from-generation-roulette',
@@ -11,6 +12,8 @@ import { WheelComponent } from "../../../wheel/wheel.component";
 })
 export class PokemonFromGenerationRouletteComponent {
 
+  pokemonByGeneration = pokemonByGeneration;
+  
     @Input() generation!: GenerationItem;
     @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
   
@@ -21,6 +24,6 @@ export class PokemonFromGenerationRouletteComponent {
     }
 
     getFromGeneration(): PokemonItem[] {
-      return [] as PokemonItem[];
+      return this.pokemonByGeneration[this.generation.id];
     }
 }

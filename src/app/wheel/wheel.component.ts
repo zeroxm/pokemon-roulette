@@ -23,7 +23,7 @@ export class WheelComponent implements AfterViewInit {
   fontSize: number;
   currentRotation = 0;
   startTime = 0;
-  totalRotations = Math.floor(Math.random() * 4) + 1;
+  totalRotations!: number;
   duration = Math.floor(Math.random() * (5000 - 3000)) + 3000;
   finalRotation = 0;
   pointerStrokeColor = 'blue';
@@ -43,6 +43,9 @@ export class WheelComponent implements AfterViewInit {
     this.wheelCtx = this.wheelCanvas.getContext('2d')!;
     this.pointerCanvas = <HTMLCanvasElement>document.getElementById('pointer');
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
+    if (this.items.length > 32) {
+      this.fontSize = 10;
+    }
     this.drawWheel();
   }
 
@@ -102,8 +105,12 @@ export class WheelComponent implements AfterViewInit {
 
     this.startTime = performance.now();
     const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    this.winningNumber = 0;
-    
+    if (this.items.length === 8 || this.items[0].text === 'Catch a Pokémon') {
+      this.winningNumber = 0;
+    } else {
+      this.winningNumber = Math.round(Math.random() * this.items.length);
+    }
+
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
     const winningAngle = this.winningNumber * arcSize;
     const fixedOffset = arcSize / 2;
