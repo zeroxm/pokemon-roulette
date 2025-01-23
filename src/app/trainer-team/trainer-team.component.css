@@ -33,7 +33,7 @@
 }
 
 .pokemon-container {
-  flex-basis: 30%;
+  flex-basis: 29%;
   aspect-ratio: 1;
 
   img {

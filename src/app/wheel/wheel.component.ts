@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 
 @Component({
@@ -7,7 +7,7 @@ import { WheelItem } from '../interfaces/wheel-item';
   templateUrl: './wheel.component.html',
   styleUrl: './wheel.component.css'
 })
-export class WheelComponent implements AfterViewInit {
+export class WheelComponent implements AfterViewInit, OnChanges {
 
   wheelCanvas!: HTMLCanvasElement;
   wheelCtx!: CanvasRenderingContext2D;
@@ -47,6 +47,13 @@ export class WheelComponent implements AfterViewInit {
       this.fontSize = 10;
     }
     this.drawWheel();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['items'] && changes['items'].previousValue !== undefined) {
+      console.debug(changes['items']);
+      this.drawWheel();
+    }
   }
 
   private drawWheel(rotation = 0): void {
@@ -105,10 +112,12 @@ export class WheelComponent implements AfterViewInit {
 
     this.startTime = performance.now();
     const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    if (this.items.length === 8 || this.items[0].text === 'Catch a Pokémon') {
+    if (this.items.length === 8 || this.items[0].text === 'Battle Trainer') {
       this.winningNumber = 0;
+    } else if (this.items[1].text === 'Eevee') {
+      this.winningNumber = 1;
     } else {
-      this.winningNumber = Math.round(Math.random() * this.items.length);
+      this.winningNumber = Math.floor(Math.random() * this.items.length);
     }
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;

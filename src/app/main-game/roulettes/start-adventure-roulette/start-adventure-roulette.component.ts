@@ -16,20 +16,19 @@ export class StartAdventureRouletteComponent {
   @Output () doNothingEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
-    { text: 'Catch a Pokémon', fillStyle: 'crimson' },
     { text: 'Battle Trainer', fillStyle: 'darkorange' },
+    { text: 'Catch a Pokémon', fillStyle: 'crimson' },
     { text: 'Buy Potions', fillStyle: 'green' },
     { text: 'Do Nothing', fillStyle: 'darkcyan' }
   ];
 
   onItemSelected(index: number): void {
-    console.debug(index);
     switch (index) {
       case 0:
-        this.catchPokemonEvent.emit();
+        this.battleTrainerEvent.emit();
         break;
       case 1:
-        this.battleTrainerEvent.emit();
+        this.catchPokemonEvent.emit();        
         break;
       case 2:
         this.buyPotionsEvent.emit();
