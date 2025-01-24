@@ -21,7 +21,7 @@ export class GenerationRouletteComponent {
               private trainerSpriteService: TrainerSpriteService
   ) { }
 
-  @ViewChild('content', { static: true }) contentTemplate!: TemplateRef<any>;
+  @ViewChild('trainerGenderModal', { static: true }) contentTemplate!: TemplateRef<any>;
   selectedItem: GenerationItem | null = null;
   boySprite: string = "";
   girlSprite: string = "";

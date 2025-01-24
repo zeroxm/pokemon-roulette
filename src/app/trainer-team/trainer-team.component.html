@@ -5,6 +5,8 @@
              [ngClass]="(darkMode | async) ? 'border white-shadow' : 'black-border shadow'">
             <img [src]="trainer.sprite" alt="Trainer Sprite" class="img-fluid">
         </div>
+        
+        <app-badges></app-badges>
     </div>
     <div class="team-section">
         <div class="pokemon-container rounded-3 d-flex justify-content-center align-items-center"

@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { BadgesComponent } from "../badges/badges.component";
+import { Component } from '@angular/core';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
@@ -18,19 +17,24 @@ import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.s
 import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 import { EvolutionService } from '../services/evolution-service/evolution.service';
 import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component";
+import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
+import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
 
 @Component({
   selector: 'app-main-game',
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
+    DarkModeToggleComponent, 
     GenerationRouletteComponent,
-    BadgesComponent,
     TrainerTeamComponent,
     ItemsComponent,
     StarterRouletteComponent,
     ShinyRouletteComponent,
     StartAdventureRouletteComponent,
     PokemonFromGenerationRouletteComponent,
-    PokemonFromAuxListRouletteComponent],
+    PokemonFromAuxListRouletteComponent,
+    GymBattleRouletteComponent
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -48,15 +52,12 @@ export class MainGameComponent {
 
   generation!: GenerationItem;
   starter!: PokemonItem;
-  currentContextPokemon!: PokemonItem;
-  trainer = {
-    sprite: 'place-holder-pixel.png'
-  };
-
+  
+  trainer = { sprite: 'place-holder-pixel.png' };
   trainerTeam: PokemonItem[] = [];
-  auxPokemonList: PokemonItem[] = [];
   trainerItems: ItemItem[] = [];
-
+  auxPokemonList: PokemonItem[] = [];
+  currentContextPokemon!: PokemonItem;
 
   getGameState(): Observable<GameState> {
     return this.gameStateService.currentState;
@@ -107,7 +108,6 @@ export class MainGameComponent {
   }
 
   battleTrainer(): void {
-
     this.auxPokemonList = [];
 
     this.trainerTeam.forEach(pokemon => {
@@ -182,7 +182,6 @@ export class MainGameComponent {
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
-
     pokemonIn.shiny = pokemonOut.shiny;
     const index = this.trainerTeam.indexOf(pokemonOut);
 

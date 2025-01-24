@@ -4,11 +4,12 @@ import { PokemonItem } from '../interfaces/pokemon-item';
 import { Observable } from 'rxjs';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { BadgesComponent } from "../badges/badges.component";
 
 @Component({
   selector: 'app-trainer-team',
   imports: [CommonModule,
-            NgbTooltipModule],
+    NgbTooltipModule, BadgesComponent],
   templateUrl: './trainer-team.component.html',
   styleUrl: './trainer-team.component.css'
 })

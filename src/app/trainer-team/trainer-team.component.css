@@ -13,7 +13,11 @@
   border: 1px solid #333;
 }
 
-.trainer-section {}
+.trainer-section {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5em;
+}
 
 .trainer-sprite {
   width: 30%;

@@ -2,8 +2,10 @@
 {{getGameState() | async}}
 <div class="game-container">
 
-    <div class="badges">
-        <app-badges></app-badges>
+    <div class="extra-options">
+        <div class="toolbar p-2">
+            <app-dark-mode-toggle></app-dark-mode-toggle>
+        </div>        
     </div>
 
     <div class="main-game">
@@ -41,6 +43,9 @@
                 [trainerTeam]="auxPokemonList"
                 (selectedMemberEvent)="continueWithPokemon($event)">
             </app-pokemon-from-aux-list-roulette>
+            <app-gym-battle-roulette
+                *ngSwitchCase="'gym-battle'">
+            </app-gym-battle-roulette>
         </ng-container>
     </div>
 

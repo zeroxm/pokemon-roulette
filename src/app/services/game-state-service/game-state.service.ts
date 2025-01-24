@@ -17,28 +17,30 @@ export class GameStateService {
   }
 
   private initializeStates(): void {
-    this.stateStack.push('champion-battle');
-    this.stateStack.push('elite-four-battle-4');
-    this.stateStack.push('elite-four-battle-3');
-    this.stateStack.push('elite-four-battle-2');
-    this.stateStack.push('elite-four-battle-1');
-    this.stateStack.push('gym-battle-8');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-7');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-6');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-5');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-4');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-3');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-2');
-    this.stateStack.push('adventure-continues');
-    this.stateStack.push('gym-battle-1');
-    this.stateStack.push('start-adventure');
-    this.stateStack.push('starter-pokemon');
+    this.stateStack = [
+      'champion-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'start-adventure',
+      'starter-pokemon',
+    ];
   }
 
   setNextState(newState: GameState): void {
