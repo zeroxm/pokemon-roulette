@@ -112,13 +112,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     this.startTime = performance.now();
     const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    if (this.items.length === 8 || this.items[0].text === 'Battle Trainer') {
-      this.winningNumber = 0;
-    } else if (this.items[1].text === 'Eevee') {
-      this.winningNumber = 1;
-    } else {
-      this.winningNumber = Math.floor(Math.random() * this.items.length);
-    }
+    this.winningNumber = Math.floor(Math.random() * this.items.length);
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
     const winningAngle = this.winningNumber * arcSize;

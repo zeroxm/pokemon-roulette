@@ -1,0 +1,34 @@
+.title {
+    text-align: center;
+}
+
+.modal-body {
+    color: black;
+    text-align: center;
+}
+
+.modal-body p {
+    font-size: medium;
+}
+
+.leader-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quotes {
+    background-color: #FFF;
+    border: 2px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 10px;
+    margin: 5px;
+}
+
+.modal-footer {
+    justify-content: center;
+}

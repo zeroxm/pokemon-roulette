@@ -50,12 +50,13 @@ export class MainGameComponent {
 
   customWheelTitle = '';
 
-  generation!: GenerationItem;
+  generation: GenerationItem = { "text": "Gen 1", "region": "Kanto", "fillStyle": "crimson", "id": 1 };
   starter!: PokemonItem;
   
-  trainer = { sprite: 'place-holder-pixel.png' };
-  trainerTeam: PokemonItem[] = [];
+  trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
+  trainerTeam: PokemonItem[] = [ { "text": "Pikachu", "pokemonId": 25, "fillStyle": "goldenrod", "sprite": { "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png" }, "shiny": false, "power": 1 } ];
   trainerItems: ItemItem[] = [];
+  leadersDefeatedAmount: number = 0;
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
 
@@ -145,6 +146,16 @@ export class MainGameComponent {
           break;
       }
     });
+  }
+
+  gymBattleResult(result: boolean): void {
+    if (result) {
+      this.leadersDefeatedAmount++;
+      this.gameStateService.finishCurrentState();
+    } else {
+      this.gameStateService.setNextState('game-over');
+    }
+    console.debug(result);
   }
 
   private addToTeam(pokemon: PokemonItem): void {

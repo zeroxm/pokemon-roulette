@@ -1,11 +1,15 @@
 <p>main-game works!</p>
-{{getGameState() | async}}
 <div class="game-container">
 
     <div class="extra-options">
         <div class="toolbar p-2">
             <app-dark-mode-toggle></app-dark-mode-toggle>
-        </div>        
+        </div>
+        <div>GameState: {{ getGameState() | async }}</div>
+        <div>Generation: {{ generation | json }}</div>
+        <div>Trainer: {{ trainer | json }}</div>
+        <div>TrainerTeam: {{ trainerTeam | json }}</div>
+        <div>TrainerItems: {{ trainerItems | json }}</div>
     </div>
 
     <div class="main-game">
@@ -44,7 +48,11 @@
                 (selectedMemberEvent)="continueWithPokemon($event)">
             </app-pokemon-from-aux-list-roulette>
             <app-gym-battle-roulette
-                *ngSwitchCase="'gym-battle'">
+                *ngSwitchCase="'gym-battle'"
+                [generation]="generation"
+                [currentRound]="leadersDefeatedAmount"
+                [trainerTeam]="trainerTeam"
+                (battleResultEvent)="gymBattleResult($event)">
             </app-gym-battle-roulette>
         </ng-container>
     </div>
