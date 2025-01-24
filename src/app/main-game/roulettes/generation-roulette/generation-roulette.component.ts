@@ -25,8 +25,8 @@ export class GenerationRouletteComponent {
   selectedItem: GenerationItem | null = null;
   boySprite: string = "";
   girlSprite: string = "";
-  @Output () generationSelectedEvent = new EventEmitter<GenerationItem>();
-  @Output () trainerGenderEvent = new EventEmitter<string>();
+  @Output() generationSelectedEvent = new EventEmitter<GenerationItem>();
+  @Output() trainerGenderEvent = new EventEmitter<string>();
 
   generations: GenerationItem[] = [
     { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 },
@@ -46,9 +46,7 @@ export class GenerationRouletteComponent {
     this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');
     this.modalService.open(this.contentTemplate, {
       centered: true,
-      size: 'md',
-      backdrop: 'static',
-      keyboard: false
+      size: 'md'
     });
   }
 

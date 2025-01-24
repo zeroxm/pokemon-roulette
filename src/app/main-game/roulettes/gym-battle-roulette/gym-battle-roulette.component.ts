@@ -5,6 +5,7 @@ import { WheelItem } from '../../../interfaces/wheel-item';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameStateService } from '../../../services/game-state-service/game-state.service';
+import { GymLeader } from '../../../interfaces/gym-leader';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -29,6 +30,9 @@ export class GymBattleRouletteComponent {
   @Input() generation!: GenerationItem;
   @Input() currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
+
+  currentLeader!: GymLeader;
+
 
   onItemSelected(index: number): void {
     this.battleResultEvent.emit(this.victoryOdds[index].text === 'Yes');

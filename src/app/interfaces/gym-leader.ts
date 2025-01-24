@@ -1,5 +1,5 @@
 export interface GymLeader{
   name: string;
-  sprite: string;
+  sprite: string | string[];
   quotes: string[]
 }
