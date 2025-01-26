@@ -40,8 +40,7 @@ export class GenerationRouletteComponent {
   ];
 
   onItemSelected(index: number): void {
-    // this.selectedItem = this.generations[index];
-    this.selectedItem = this.generations[0];
+    this.selectedItem = this.generations[index];
     this.generationSelectedEvent.emit(this.selectedItem);
     this.boySprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'male');
     this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');

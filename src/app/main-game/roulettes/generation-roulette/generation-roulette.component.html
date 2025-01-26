@@ -8,14 +8,16 @@
 	<div class="modal-body">
         <h1>Welcome to {{ selectedItem?.region }}!</h1>
         <p>Are you a boy or a girl?</p>
-        <div class="trainer-gender">
-            <a  (click)="selectTrainerGender('male')">
+        <div class="trainer-gender row">
+            <a  (click)="selectTrainerGender('male')"
+                class="col-6">
                 <img [src]="boySprite" alt="Boy" width="128" height="128">
-                <p>Boy</p>
+                <p class="ms-2">Boy</p>
             </a>
-            <a  (click)="selectTrainerGender('female')">
+            <a  (click)="selectTrainerGender('female')"
+                class="col-6">
                 <img [src]="girlSprite" alt="Girl" width="128" height="128">
-                <p>Girl</p>
+                <p class="me-2">Girl</p>
             </a>
         </div>
 	</div>
