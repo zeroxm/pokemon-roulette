@@ -191,6 +191,7 @@ export class MainGameComponent {
   gymBattleResult(result: boolean): void {
     if (result) {
       this.leadersDefeatedAmount++;
+      // add badge to list
       this.gameStateService.finishCurrentState();
     } else {
       if (this.checkForPotions()) {

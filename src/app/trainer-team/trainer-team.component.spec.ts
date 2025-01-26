@@ -14,6 +14,9 @@ describe('TrainerTeamComponent', () => {
 
     fixture = TestBed.createComponent(TrainerTeamComponent);
     component = fixture.componentInstance;
+    component.trainer = { sprite: './place-holder-pixel.png' };
+    component.trainerTeam = [];
+    component.trainerBadges = [];
     fixture.detectChanges();
   });
 

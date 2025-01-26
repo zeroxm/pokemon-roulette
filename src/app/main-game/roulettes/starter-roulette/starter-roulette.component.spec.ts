@@ -14,6 +14,7 @@ describe('StarterRouletteComponent', () => {
 
     fixture = TestBed.createComponent(StarterRouletteComponent);
     component = fixture.componentInstance;
+    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
     fixture.detectChanges();
   });
 

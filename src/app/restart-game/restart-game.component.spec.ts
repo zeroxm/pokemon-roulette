@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RestartGameComponent } from './restart-game.component';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
 
 describe('RestartGameComponent', () => {
   let component: RestartGameComponent;
@@ -8,7 +10,13 @@ describe('RestartGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RestartGameComponent]
+      imports: [
+        RestartGameComponent,
+        NgIconsModule
+      ],
+      providers: [
+        provideIcons({ bootstrapArrowRepeat }),
+      ],
     })
     .compileComponents();
 

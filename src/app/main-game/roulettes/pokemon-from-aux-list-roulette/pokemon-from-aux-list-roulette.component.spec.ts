@@ -14,6 +14,7 @@ describe('PokemonFromAuxListRouletteComponent', () => {
 
     fixture = TestBed.createComponent(PokemonFromAuxListRouletteComponent);
     component = fixture.componentInstance;
+    component.trainerTeam = [];
     fixture.detectChanges();
   });
 

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokemonFromGenerationRouletteComponent } from './pokemon-from-generation-roulette.component';
+import { GenerationItem } from '../../../interfaces/generation-item';
 
 describe('PokemonFromGenerationRouletteComponent', () => {
   let component: PokemonFromGenerationRouletteComponent;
@@ -14,6 +15,7 @@ describe('PokemonFromGenerationRouletteComponent', () => {
 
     fixture = TestBed.createComponent(PokemonFromGenerationRouletteComponent);
     component = fixture.componentInstance;
+    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
     fixture.detectChanges();
   });
 
