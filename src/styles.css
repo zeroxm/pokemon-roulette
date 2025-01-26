@@ -8,3 +8,8 @@ body.dark-mode {
     background-color: #dfe6e9;
     color: #2d3436;
   }
+
+  .row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }

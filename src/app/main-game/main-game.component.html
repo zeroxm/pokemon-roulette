@@ -1,74 +1,69 @@
-<p>main-game works!</p>
 <div class="game-container">
-
-    <div class="extra-options">
-        <div class="toolbar p-2">
-            <app-dark-mode-toggle></app-dark-mode-toggle>
+    <div class="row">
+        <div class="extra-options col-12 col-sm-3">
+            <div class="toolbar p-2">
+                <app-dark-mode-toggle></app-dark-mode-toggle>
+            </div>
         </div>
-        <div>GameState: {{ getGameState() | async }}</div>
-        <div>Generation: {{ generation | json }}</div>
-        <div>Trainer: {{ trainer | json }}</div>
-        <div>TrainerTeam: {{ trainerTeam | json }}</div>
-        <div>TrainerItems: {{ trainerItems | json }}</div>
-    </div>
-
-    <div class="main-game">
-        <ng-container [ngSwitch]="getGameState() | async">
-            <app-generation-roulette
-                *ngSwitchCase="'game-start'"
-                (generationSelectedEvent)="storeGeneration($event)"
-                (trainerGenderEvent)="storeTrainerSprite($event)">
-            </app-generation-roulette>
-            <app-starter-roulette
-                *ngSwitchCase="'starter-pokemon'"
-                [generation]="generation"
-                (selectedStarterEvent)="storePokemon($event)">
-            </app-starter-roulette>
-            <app-shiny-roulette
-                *ngSwitchCase="'check-shininess'"
-                (isShinyEvent)="setShininess($event)">
-            </app-shiny-roulette>
-            <app-start-adventure-roulette
-                *ngSwitchCase="'start-adventure'"
-                (catchPokemonEvent)="catchPokemon()"
-                (battleTrainerEvent)="battleTrainer()"
-                (buyPotionsEvent)="buyPotions()"
-                (doNothingEvent)="doNothing()">
-            </app-start-adventure-roulette>
-            <app-pokemon-from-generation-roulette
-                *ngSwitchCase="'catch-pokemon'"
-                [generation]="generation"
-                (selectedPokemonEvent)="storePokemon($event)">
-            </app-pokemon-from-generation-roulette>
-            <app-pokemon-from-aux-list-roulette
-                #auxListRoulette
-                *ngSwitchCase="'select-from-pokemon-list'"
-                [wheelTitle]="customWheelTitle"
-                [trainerTeam]="auxPokemonList"
-                (selectedMemberEvent)="continueWithPokemon($event)">
-            </app-pokemon-from-aux-list-roulette>
-            <app-gym-battle-roulette
-                *ngSwitchCase="'gym-battle'"
-                [generation]="generation"
-                [currentRound]="leadersDefeatedAmount"
-                [trainerTeam]="trainerTeam"
-                (battleResultEvent)="gymBattleResult($event)">
-            </app-gym-battle-roulette>
-        </ng-container>
-    </div>
-
-    <div class="trainer-info">
-        <div class="trainer-team">
-            <app-trainer-team
-                [trainer]="trainer"
-                [team]="trainerTeam">
-            </app-trainer-team>
+    
+        <div class="main-game col-12 col-sm-5">
+            <ng-container [ngSwitch]="getGameState() | async">
+                <app-generation-roulette
+                    *ngSwitchCase="'game-start'"
+                    (generationSelectedEvent)="storeGeneration($event)"
+                    (trainerGenderEvent)="storeTrainerSprite($event)">
+                </app-generation-roulette>
+                <app-starter-roulette
+                    *ngSwitchCase="'starter-pokemon'"
+                    [generation]="generation"
+                    (selectedStarterEvent)="storePokemon($event)">
+                </app-starter-roulette>
+                <app-shiny-roulette
+                    *ngSwitchCase="'check-shininess'"
+                    (isShinyEvent)="setShininess($event)">
+                </app-shiny-roulette>
+                <app-start-adventure-roulette
+                    *ngSwitchCase="'start-adventure'"
+                    (catchPokemonEvent)="catchPokemon()"
+                    (battleTrainerEvent)="battleTrainer()"
+                    (buyPotionsEvent)="buyPotions()"
+                    (doNothingEvent)="doNothing()">
+                </app-start-adventure-roulette>
+                <app-pokemon-from-generation-roulette
+                    *ngSwitchCase="'catch-pokemon'"
+                    [generation]="generation"
+                    (selectedPokemonEvent)="storePokemon($event)">
+                </app-pokemon-from-generation-roulette>
+                <app-pokemon-from-aux-list-roulette
+                    #auxListRoulette
+                    *ngSwitchCase="'select-from-pokemon-list'"
+                    [wheelTitle]="customWheelTitle"
+                    [trainerTeam]="auxPokemonList"
+                    (selectedMemberEvent)="continueWithPokemon($event)">
+                </app-pokemon-from-aux-list-roulette>
+                <app-gym-battle-roulette
+                    *ngSwitchCase="'gym-battle'"
+                    [generation]="generation"
+                    [currentRound]="leadersDefeatedAmount"
+                    [trainerTeam]="trainerTeam"
+                    (battleResultEvent)="gymBattleResult($event)">
+                </app-gym-battle-roulette>
+            </ng-container>
         </div>
-
-        <div class="items">
-            <app-items
-                [trainerItems]="trainerItems">
-            </app-items>
+    
+        <div class="trainer-info col-12 col-sm-4">
+            <div class="trainer-team">
+                <app-trainer-team
+                    [trainer]="trainer"
+                    [team]="trainerTeam">
+                </app-trainer-team>
+            </div>
+    
+            <div class="items">
+                <app-items
+                    [trainerItems]="trainerItems">
+                </app-items>
+            </div>
         </div>
     </div>
 </div>

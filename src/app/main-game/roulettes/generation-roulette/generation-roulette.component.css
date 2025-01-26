@@ -11,9 +11,6 @@
     font-size: x-large;
 }
 .trainer-gender {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .trainer-gender > a {

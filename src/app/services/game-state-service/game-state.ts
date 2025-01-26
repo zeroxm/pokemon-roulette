@@ -8,6 +8,7 @@ export type GameState =
   | 'select-from-pokemon-list'
   | 'select-evolution'
   | 'gym-battle'
+  | 'game-over'
   | 'adventure-continues'
   | 'elite-four-battle'
   | 'champion-battle';

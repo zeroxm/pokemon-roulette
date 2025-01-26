@@ -1,7 +1,4 @@
 .item-box {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
     background-color: rgba(211, 211, 211, 0.5);
 }
 
@@ -14,14 +11,11 @@
 }
 
 .item-section {
-    display: flex;
-    flex-direction: row;
-    flex-flow: wrap;
     gap: 0.5em;
   }
 
 .item-container {
-    flex-basis: 12%;
+    padding: 0px;
     aspect-ratio: 1;
 
     img {

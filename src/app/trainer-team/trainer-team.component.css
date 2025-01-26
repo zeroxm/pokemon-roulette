@@ -1,7 +1,4 @@
 .trainer-team-box {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
   background-color: rgba(211, 211, 211, 0.5);
 }
 
@@ -14,13 +11,11 @@
 }
 
 .trainer-section {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5em;
+  
 }
 
 .trainer-sprite {
-  width: 30%;
+  padding: 0px;
   aspect-ratio: 1;
 
   img {
@@ -30,14 +25,11 @@
 }
 
 .team-section {
-  display: flex;
-  flex-direction: row;
-  flex-flow: wrap;
-  gap: 0.5em;
+
 }
 
 .pokemon-container {
-  flex-basis: 29%;
+  padding: 0px;
   aspect-ratio: 1;
 
   img {

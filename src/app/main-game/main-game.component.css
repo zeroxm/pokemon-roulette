@@ -1,28 +1,18 @@
 .game-container {
-    display: flex;
+    width: 100%;
 }
 
 .extra-options {
-    width: 35%;
-    flex: 1 1 auto;
 }
 
 .main-game {
-    width: 40%;
-    flex: 1 1 auto;
 }
 
 .trainer-info {
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch; 
 }
 
 .trainer-team {
-    flex: 1 1 auto;
 }
 
 .items {
-    flex: 1 1 auto;
 }

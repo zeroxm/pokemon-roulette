@@ -1,9 +1,14 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
+import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-wheel',
-  imports: [],
+  imports: [
+    CommonModule
+  ],
   templateUrl: './wheel.component.html',
   styleUrl: './wheel.component.css'
 })
@@ -16,6 +21,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   @Input() items: WheelItem[] = [];
   @Output() selectedItemEvent = new EventEmitter<number>();
   spinning = false;
+  darkMode!: Observable<boolean>; 
+  
 
   canvasHeight: number;
   wheelWidth: number;
@@ -31,12 +38,15 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   winningNumber!: number;
   currentSegment: string = '-';
 
-  constructor() {
-    this.canvasHeight = window.innerHeight * 0.50;
+  constructor(private darkModeService: DarkModeService) {
+    this.darkMode = this.darkModeService.darkMode$;
+    this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
     this.cursorWidth = 40;
     this.fontSize = this.wheelWidth / 20;
   }
+
+  
 
   ngAfterViewInit(): void {
     this.wheelCanvas = <HTMLCanvasElement>document.getElementById('wheel');

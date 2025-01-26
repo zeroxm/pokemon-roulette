@@ -43,19 +43,41 @@ export class MainGameComponent {
   constructor(private evolutionService: EvolutionService,
     private gameStateService: GameStateService,
     private itemSpriteService: ItemSpriteService,
-    private pokemonSpriteService: PokemonSpriteService
-  ) {
-
+    private pokemonSpriteService: PokemonSpriteService) {
   }
 
   customWheelTitle = '';
 
-  generation: GenerationItem = { "text": "Gen 1", "region": "Kanto", "fillStyle": "crimson", "id": 1 };
+  generation: GenerationItem = {
+    text: "Gen 1",
+    region: "Kanto",
+    fillStyle: "crimson",
+    id: 1 
+  };
+
   starter!: PokemonItem;
   
   trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
-  trainerTeam: PokemonItem[] = [ { "text": "Pikachu", "pokemonId": 25, "fillStyle": "goldenrod", "sprite": { "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png" }, "shiny": false, "power": 1 } ];
-  trainerItems: ItemItem[] = [];
+  trainerTeam: PokemonItem[] = [
+    { text: "Pikachu",
+      pokemonId: 25,
+      fillStyle: "goldenrod",
+      sprite:
+      {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+      }, 
+      shiny: false, 
+      power: 1
+    }
+  ];
+  trainerItems: ItemItem[] = [
+    { text: "Potion",
+      name: "potion",
+      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+      fillStyle: "darkpurple" 
+    }
+  ];
   leadersDefeatedAmount: number = 0;
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
@@ -153,6 +175,10 @@ export class MainGameComponent {
       this.leadersDefeatedAmount++;
       this.gameStateService.finishCurrentState();
     } else {
+      // check if there's a potion to use
+      // if not, game over
+      // if there is, remove from item list and show a message saying that you can roll again
+      // 
       this.gameStateService.setNextState('game-over');
     }
     console.debug(result);
@@ -168,7 +194,6 @@ export class MainGameComponent {
   }
 
   private addToItems(item: ItemItem): void {
-    console.debug(item);
     if (!item.sprite) {
       this.itemSpriteService.getItemSprite(item.name).subscribe(response => {
         item.sprite = response.sprite;

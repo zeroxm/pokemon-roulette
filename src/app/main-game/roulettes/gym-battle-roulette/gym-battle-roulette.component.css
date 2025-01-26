@@ -13,20 +13,27 @@
 
 .leader-panel {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
 .quotes {
-    background-color: #FFF;
-    border: 2px solid #000;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #000;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    padding: 10px;
-    margin: 5px;
+    text-align: start;
+	cursor: default;
+	font-size: 8.6px;
+	font-family: "Pokemon GB", Monospace, sans-serif;
+	border-radius: 2px;
+	padding: 8px;
+	position: relative;
+	line-height: 16px;
+	margin: auto;
+	background: white;
+	border: 1px solid white;
+	box-shadow: 0 1px 0 1px black,
+			  inset 0 1px 0 1px black,
+			  0 0 0 1px black,
+			  inset 0 0 0 1px black;
+	user-select: none;
 }
 
 .modal-footer {
