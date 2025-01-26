@@ -19,6 +19,7 @@ import { EvolutionService } from '../services/evolution-service/evolution.servic
 import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component";
 import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
 import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
+import { Badge } from '../interfaces/badge';
 
 @Component({
   selector: 'app-main-game',
@@ -78,6 +79,7 @@ export class MainGameComponent {
       fillStyle: "darkpurple" 
     }
   ];
+  trainerBadges: Badge[] = [];
   leadersDefeatedAmount: number = 0;
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
