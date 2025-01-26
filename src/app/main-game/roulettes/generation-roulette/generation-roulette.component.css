@@ -11,6 +11,10 @@
     font-size: x-large;
 }
 .trainer-gender {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .trainer-gender > a {

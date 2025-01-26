@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PokemonItem } from '../../interfaces/pokemon-item';
-import { evolutionChain } from '../../game-data/evolution-chain';
+import { evolutionChain } from './evolution-chain';
 import { nationalDexPokemon } from '../../game-data/national-dex-pokemon';
 
 @Injectable({

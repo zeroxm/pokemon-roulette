@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { CommonModule } from '@angular/common';
-import { WheelItem } from '../../../interfaces/wheel-item';
-import { GenerationItem } from '../../../interfaces/generation-item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameStateService } from '../../../services/game-state-service/game-state.service';
-import { GymLeader } from '../../../interfaces/gym-leader';
 import { gymLeadersByGeneration } from '../../../game-data/gym-leaders-by-generation';
+import { GenerationItem } from '../../../interfaces/generation-item';
+import { GymLeader } from '../../../interfaces/gym-leader';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
+import { WheelItem } from '../../../interfaces/wheel-item';
 
 @Component({
   selector: 'app-gym-battle-roulette',

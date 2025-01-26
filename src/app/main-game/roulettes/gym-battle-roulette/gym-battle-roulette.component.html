@@ -10,8 +10,7 @@
         <div class="leader-panel">
             <img [src]="currentLeader.sprite"
                  alt="{{currentLeader.name}}"
-                 height="128"
-                 loop="0">
+                 height="128">
             <div class="quotes">
                 <p *ngFor="let quote of currentLeader.quotes">{{quote}}</p>
             </div>

@@ -40,13 +40,16 @@ export class GenerationRouletteComponent {
   ];
 
   onItemSelected(index: number): void {
-    this.selectedItem = this.generations[index];
+    // this.selectedItem = this.generations[index];
+    this.selectedItem = this.generations[0];
     this.generationSelectedEvent.emit(this.selectedItem);
     this.boySprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'male');
     this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');
     this.modalService.open(this.contentTemplate, {
       centered: true,
-      size: 'md'
+      size: 'md',
+      backdrop: 'static',
+      keyboard: false
     });
   }
 

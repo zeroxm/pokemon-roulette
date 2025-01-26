@@ -1,4 +1,4 @@
-import { ItemName } from "../services/item-sprite-service/item-names";
+import { ItemName } from "../services/items-service/item-names";
 import { WheelItem } from "./wheel-item";
 
 export interface ItemItem extends WheelItem {

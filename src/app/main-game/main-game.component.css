@@ -2,17 +2,47 @@
     width: 100%;
 }
 
-.extra-options {
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
 }
 
-.main-game {
+.modal-footer {
+    justify-content: center;
 }
 
-.trainer-info {
+.modal-body {
+    color: black;
+    text-align: center;
 }
 
-.trainer-team {
+.modal-body p {
+    font-size: medium;
 }
 
-.items {
+.explain-panel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.quotes {
+    text-align: start;
+	cursor: default;
+	font-size: 8.6px;
+	font-family: "Pokemon GB", Monospace, sans-serif;
+	border-radius: 2px;
+	padding: 8px;
+	position: relative;
+	line-height: 16px;
+	margin: auto;
+	background: white;
+	border: 1px solid white;
+	box-shadow: 0 1px 0 1px black,
+			  inset 0 1px 0 1px black,
+			  0 0 0 1px black,
+			  inset 0 0 0 1px black;
+	user-select: none;
 }

@@ -3,6 +3,12 @@
         <div class="extra-options col-12 col-sm-3">
             <div class="toolbar p-2">
                 <app-dark-mode-toggle></app-dark-mode-toggle>
+                <br>
+                {{ getGameState() | async }}
+
+                <button class="btn btn-primary" (click)="closeGameOverModal()">
+                    <ng-icon name="bootstrapArrowRepeat"></ng-icon> Restart
+                </button>
             </div>
         </div>
     
@@ -68,3 +74,37 @@
         </div>
     </div>
 </div>
+
+<ng-template #explainEventModal let-modal>
+	<div class="modal-body">
+        <h1>{{ explainEventModalTitle }}</h1>
+        <div class="explain-panel">
+            <img [src]="explainEventModalImg"
+                 height="128">
+            <div class="quotes">
+                <p>{{explainEventModalText}}</p>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeExplainEventModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #gameOverModal let-modal>
+	<div class="modal-body">
+        <h1>Run is Over.</h1>
+        <div class="explain-panel">
+            <div class="quotes">
+                <p>Try Again?</p>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeGameOverModal()">Restart</button>
+    </div>
+</ng-template>

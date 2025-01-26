@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
@@ -8,11 +9,8 @@ import { GameState } from '../services/game-state-service/game-state';
 import { Observable, take } from 'rxjs';
 import { GenerationRouletteComponent } from './roulettes/generation-roulette/generation-roulette.component';
 import { StarterRouletteComponent } from './roulettes/starter-roulette/starter-roulette.component';
-import { GenerationItem } from '../interfaces/generation-item';
-import { PokemonItem } from '../interfaces/pokemon-item';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
-import { ItemItem } from '../interfaces/item-item';
 import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.service';
 import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 import { EvolutionService } from '../services/evolution-service/evolution.service';
@@ -20,6 +18,11 @@ import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-au
 import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
 import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
 import { Badge } from '../interfaces/badge';
+import { GenerationItem } from '../interfaces/generation-item';
+import { ItemItem } from '../interfaces/item-item';
+import { PokemonItem } from '../interfaces/pokemon-item';
+import { ItemsService } from '../services/items-service/items.service';
+import { NgIconsModule } from '@ng-icons/core';
 
 @Component({
   selector: 'app-main-game',
@@ -34,7 +37,8 @@ import { Badge } from '../interfaces/badge';
     StartAdventureRouletteComponent,
     PokemonFromGenerationRouletteComponent,
     PokemonFromAuxListRouletteComponent,
-    GymBattleRouletteComponent
+    GymBattleRouletteComponent,
+    NgIconsModule
   ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -42,47 +46,61 @@ import { Badge } from '../interfaces/badge';
 export class MainGameComponent {
 
   constructor(private evolutionService: EvolutionService,
-    private gameStateService: GameStateService,
-    private itemSpriteService: ItemSpriteService,
-    private pokemonSpriteService: PokemonSpriteService) {
+              private gameStateService: GameStateService,
+              private itemService: ItemsService,
+              private itemSpriteService: ItemSpriteService,
+              private pokemonSpriteService: PokemonSpriteService,
+              private modalService: NgbModal) {
   }
 
+  @ViewChild('explainEventModal', { static: true }) explainEventModalTemplate!: TemplateRef<any>;
+  @ViewChild('gameOverModal', { static: true }) gameOverModalTemplate!: TemplateRef<any>;
+  
   customWheelTitle = '';
 
-  generation: GenerationItem = {
-    text: "Gen 1",
-    region: "Kanto",
-    fillStyle: "crimson",
-    id: 1 
-  };
-
+  generation: GenerationItem = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
   starter!: PokemonItem;
-  
+
   trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
+  // trainer = { sprite: './place-holder-pixel.png' };
   trainerTeam: PokemonItem[] = [
-    { text: "Pikachu",
-      pokemonId: 25,
-      fillStyle: "goldenrod",
-      sprite:
-      {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-      }, 
-      shiny: false, 
-      power: 1
-    }
+    // { text: "Pikachu",
+    //   pokemonId: 25,
+    //   fillStyle: "goldenrod",
+    //   sprite:
+    //   {
+    //     front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
+    //     front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+    //   }, 
+    //   shiny: false, 
+    //   power: 1
+    // }
   ];
   trainerItems: ItemItem[] = [
-    { text: "Potion",
-      name: "potion",
-      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
-      fillStyle: "darkpurple" 
-    }
+    // { text: "Potion",
+    //   name: "potion",
+    //   sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+    //   fillStyle: "darkpurple" 
+    // }
   ];
   trainerBadges: Badge[] = [];
   leadersDefeatedAmount: number = 0;
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
+
+  explainEventModalTitle = '';
+  explainEventModalText = '';
+  explainEventModalImg = '';
+
+  closeExplainEventModal(): void {
+    this.modalService.dismissAll();
+  }
+
+  closeGameOverModal(): void {
+    this.resetGame();
+    this.modalService.dismissAll();
+  }
+  
 
   getGameState(): Observable<GameState> {
     return this.gameStateService.currentState;
@@ -116,13 +134,9 @@ export class MainGameComponent {
   }
 
   buyPotions(): void {
-    let potion: ItemItem = {
-      text: 'Potion',
-      name: 'potion',
-      sprite: '',
-      fillStyle: 'darkpurple'
-    }
-    this.addToItems(potion);
+    this.itemService.getItem('potion').subscribe(potion => {
+      this.addToItems(potion);
+    })
     this.gameStateService.finishCurrentState();
   }
 
@@ -177,13 +191,28 @@ export class MainGameComponent {
       this.leadersDefeatedAmount++;
       this.gameStateService.finishCurrentState();
     } else {
-      // check if there's a potion to use
-      // if not, game over
-      // if there is, remove from item list and show a message saying that you can roll again
-      // 
-      this.gameStateService.setNextState('game-over');
+      if (this.checkForPotions()) {
+        this.usePotion();
+      } else {
+        this.gameStateService.setNextState('game-over');
+        this.gameStateService.finishCurrentState();
+        this.modalService.open(this.gameOverModalTemplate, {
+          centered: true,
+          size: 'md',
+          backdrop: 'static',
+          keyboard: false
+        });
+      }
     }
-    console.debug(result);
+  }
+
+  private resetGame(): void {
+    this.trainer = { sprite: './place-holder-pixel.png' };
+    this.trainerTeam = [];
+    this.trainerItems = [];
+    this.trainerBadges = [];
+    this.leadersDefeatedAmount = 0;
+    this.gameStateService.resetGameState();
   }
 
   private addToTeam(pokemon: PokemonItem): void {
@@ -229,5 +258,29 @@ export class MainGameComponent {
       });
     }
     this.trainerTeam.splice(index, 1, pokemonIn);
+  }
+
+  private checkForPotions(): string {
+    const potionItem = this.trainerItems.find(item => item.name === 'potion');
+    return potionItem ? potionItem.name : '';
+  }
+
+  private usePotion(): void {
+    const index = this.trainerItems.findIndex(item => item.name === 'potion');
+    if (index !== -1) {
+      this.trainerItems.splice(index, 1);
+    }
+
+    this.explainEventModalTitle = 'Used a Potion!';
+    this.itemSpriteService.getItemHiResSprite('potion').subscribe(response => {
+      this.explainEventModalImg = response.sprite;
+    });
+    this.explainEventModalText = 'Potions let you spin again whenever you would lose a battle!';
+
+    this.modalService.open(this.explainEventModalTemplate, {
+      centered: true,
+      size: 'md'
+    });
+
   }
 }

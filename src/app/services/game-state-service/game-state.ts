@@ -10,5 +10,6 @@ export type GameState =
   | 'gym-battle'
   | 'game-over'
   | 'adventure-continues'
+  | 'elite-four-preparation'
   | 'elite-four-battle'
   | 'champion-battle';
