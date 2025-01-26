@@ -1,0 +1,13 @@
+
+.modal-body {
+    color: black;
+    text-align: center;
+}
+
+.restart-panel {
+    text-align: center;
+}
+
+.modal-footer {
+    justify-content: center;
+}

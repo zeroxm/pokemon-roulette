@@ -4,11 +4,11 @@
             <div class="toolbar p-2">
                 <app-dark-mode-toggle></app-dark-mode-toggle>
                 <br>
+                <app-restart-game
+                    (restartEvent)="closeGameOverModal()">
+                </app-restart-game>
+                <br>
                 {{ getGameState() | async }}
-
-                <button class="btn btn-primary" (click)="closeGameOverModal()">
-                    <ng-icon name="bootstrapArrowRepeat"></ng-icon> Restart
-                </button>
             </div>
         </div>
     

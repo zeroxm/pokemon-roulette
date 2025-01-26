@@ -23,12 +23,13 @@ import { ItemItem } from '../interfaces/item-item';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { ItemsService } from '../services/items-service/items.service';
 import { NgIconsModule } from '@ng-icons/core';
+import { RestartGameComponent } from "../restart-game/restart-game.component";
 
 @Component({
   selector: 'app-main-game',
   imports: [
     CommonModule,
-    DarkModeToggleComponent, 
+    DarkModeToggleComponent,
     GenerationRouletteComponent,
     TrainerTeamComponent,
     ItemsComponent,
@@ -38,8 +39,9 @@ import { NgIconsModule } from '@ng-icons/core';
     PokemonFromGenerationRouletteComponent,
     PokemonFromAuxListRouletteComponent,
     GymBattleRouletteComponent,
-    NgIconsModule
-  ],
+    NgIconsModule,
+    RestartGameComponent
+],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -64,24 +66,24 @@ export class MainGameComponent {
   trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
   // trainer = { sprite: './place-holder-pixel.png' };
   trainerTeam: PokemonItem[] = [
-    // { text: "Pikachu",
-    //   pokemonId: 25,
-    //   fillStyle: "goldenrod",
-    //   sprite:
-    //   {
-    //     front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
-    //     front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-    //   }, 
-    //   shiny: false, 
-    //   power: 1
-    // }
+    { text: "Pikachu",
+      pokemonId: 25,
+      fillStyle: "goldenrod",
+      sprite:
+      {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+      }, 
+      shiny: false, 
+      power: 1
+    }
   ];
   trainerItems: ItemItem[] = [
-    // { text: "Potion",
-    //   name: "potion",
-    //   sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
-    //   fillStyle: "darkpurple" 
-    // }
+    { text: "Potion",
+      name: "potion",
+      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+      fillStyle: "darkpurple" 
+    }
   ];
   trainerBadges: Badge[] = [];
   leadersDefeatedAmount: number = 0;

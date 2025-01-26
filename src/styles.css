@@ -1,15 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
-body.dark-mode {
-    background-color: #2d3436;
-    color: #dfe6e9;
-  }
-  
-  body.light-mode {
-    background-color: #dfe6e9;
-    color: #2d3436;
-  }
 
-  .row {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
+body {
+  font-family: "Pokemon GB", Monospace, sans-serif;
+}
+
+body.dark-mode {
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+body.light-mode {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}

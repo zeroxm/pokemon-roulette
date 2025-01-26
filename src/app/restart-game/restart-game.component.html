@@ -1,0 +1,19 @@
+<button class="btn btn-primary"
+        (click)="showRestartGameConfirmModal()">
+    <ng-icon name="bootstrapArrowRepeat"></ng-icon> Restart
+</button>
+
+<ng-template #restartGameModal let-modal>
+	<div class="modal-body">
+        <h1>Restart Game?</h1>
+        <div class="restart-panel">
+            <div class="quotes">
+                <p>You'll lose all your progress this far.</p>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="confirmRestart()">Yes, Let's Go!</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">No, Go back! </button>
+    </div>
+</ng-template>
