@@ -87,7 +87,6 @@ export class DarkModeService {
   }
 
   private removePreloadingClass(): void {
-    // defer to next tick
     setTimeout(() => {
       this.renderer.removeClass(
         this.options.element,

@@ -61,7 +61,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items'] && changes['items'].previousValue !== undefined) {
-      console.debug(changes['items']);
       this.drawWheel();
     }
   }
@@ -122,12 +121,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     this.startTime = performance.now();
     const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    if (this.items.length === 2) {
-      this.winningNumber = 0;
-    } else {
-      this.winningNumber = Math.floor(Math.random() * this.items.length);
-    }
-    
+    this.winningNumber = Math.floor(Math.random() * this.items.length);
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
     const winningAngle = this.winningNumber * arcSize;

@@ -1,1 +1,5 @@
-<p>check-evolution-roulette works!</p>
+<h1 class="title">Does your Pokémon Evolve?</h1>
+<app-wheel  #wheel
+            [items]="evolveOdds"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

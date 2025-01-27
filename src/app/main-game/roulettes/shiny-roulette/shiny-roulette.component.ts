@@ -16,7 +16,7 @@ export class ShinyRouletteComponent implements OnInit {
 
   ngOnInit(): void {
     this.shinyOdds.push({ text: 'yes', fillStyle: 'green' });
-    for (let index = 0; index < 31; index++) {
+    for (let index = 0; index < 63; index++) {
       this.shinyOdds.push({ text: 'no', fillStyle: 'crimson' });
     }
   }

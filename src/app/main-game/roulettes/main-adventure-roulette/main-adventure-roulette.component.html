@@ -1,1 +1,5 @@
-<p>main-adventure-roulette works!</p>
+<h1 class="title">What do you do between Gyms?</h1>
+<app-wheel  #wheel
+            [items]="actions"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

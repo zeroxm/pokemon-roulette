@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,9 +19,11 @@ import { WheelItem } from '../../../interfaces/wheel-item';
   templateUrl: './gym-battle-roulette.component.html',
   styleUrl: './gym-battle-roulette.component.css'
 })
-export class GymBattleRouletteComponent implements OnInit {
+export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   gymLeadersByGeneration = gymLeadersByGeneration;
+
+  private subscription: Subscription | null = null;
 
   constructor(private modalService: NgbModal,
               private gameStateService: GameStateService,
@@ -43,9 +46,9 @@ export class GymBattleRouletteComponent implements OnInit {
   currentLeader!: GymLeader;
 
   ngOnInit(): void {
-    this.gameStateService.currentState.subscribe(state => {
+    this.subscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'gym-battle') {
-        this.currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
+        this.currentLeader = this.getCurrentLeader();
         this.victoryOdds = [];
         this.trainerTeam.forEach(pokemon => {
           for (let i = 0; i < pokemon.power; i++) {
@@ -67,6 +70,31 @@ export class GymBattleRouletteComponent implements OnInit {
     });
   }
 
+  private getCurrentLeader(): GymLeader {
+    let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
+    if((this.generation.id === 5 && this.currentRound === 0 || this.currentRound === 7)
+    || (this.generation.id === 8 && this.currentRound === 3 || this.currentRound === 5)) {
+      const leaderNames = currentLeader.name.split('/');
+      const leaderSprites = currentLeader.sprite;
+      const leaderQuotes = currentLeader.quotes;
+      const randomIndex = Math.floor(Math.random() * leaderNames.length);
+
+      currentLeader = {
+        name: leaderNames[randomIndex],
+        sprite: leaderSprites[randomIndex],
+        quotes: [leaderQuotes[randomIndex]]
+      }
+    }
+
+    return currentLeader;
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
+
   closeModal(): void {
     this.modalService.dismissAll();
   }
@@ -75,3 +103,4 @@ export class GymBattleRouletteComponent implements OnInit {
     this.battleResultEvent.emit(this.victoryOdds[index].text === 'Yes');
   }
 }
+

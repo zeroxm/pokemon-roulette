@@ -31,7 +31,7 @@
                 <app-start-adventure-roulette
                     *ngSwitchCase="'start-adventure'"
                     (catchPokemonEvent)="catchPokemon()"
-                    (battleTrainerEvent)="battleTrainer()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve()"
                     (buyPotionsEvent)="buyPotions()"
                     (doNothingEvent)="doNothing()">
                 </app-start-adventure-roulette>
@@ -54,6 +54,20 @@
                     [trainerTeam]="trainerTeam"
                     (battleResultEvent)="gymBattleResult($event)">
                 </app-gym-battle-roulette>
+                <app-check-evolution-roulette
+                    *ngSwitchCase="'check-evolution'"
+                    [evolutionCredits]="evolutionCredits"
+                    (evolvePokemonEvent)="chooseWhoWillEvolve()"
+                    (doNothingEvent)="doNothing()"
+                    (setEvolutionCreditEvent)="setEvolutionCredits($event)">
+                </app-check-evolution-roulette>
+                <app-main-adventure-roulette
+                    *ngSwitchCase="'adventure-continues'"
+                    (battleTrainerEvent)="chooseWhoWillEvolve()"
+                    (catchPokemonEvent)="catchPokemon()"
+                    (buyPotionsEvent)="buyPotions()"
+                    (doNothingEvent)="doNothing()">
+                </app-main-adventure-roulette>
             </ng-container>
         </div>
     

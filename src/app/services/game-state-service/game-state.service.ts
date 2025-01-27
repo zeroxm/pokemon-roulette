@@ -8,7 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 export class GameStateService {
 
   private stateStack: GameState[] = [];
-  private state = new BehaviorSubject<GameState>('gym-battle');
+  // private state = new BehaviorSubject<GameState>('gym-battle');
+  private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
 
   constructor() {
@@ -38,9 +39,9 @@ export class GameStateService {
       'adventure-continues',
       'gym-battle',
       'adventure-continues',
-      // 'gym-battle',
-      // 'start-adventure',
-      // 'starter-pokemon',
+      'gym-battle',
+      'start-adventure',
+      'starter-pokemon',
     ];
   }
 
