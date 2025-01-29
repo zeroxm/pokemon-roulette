@@ -8,18 +8,15 @@ import { WheelComponent } from "../../../wheel/wheel.component";
   templateUrl: './shiny-roulette.component.html',
   styleUrl: './shiny-roulette.component.css'
 })
-export class ShinyRouletteComponent implements OnInit {
+export class ShinyRouletteComponent {
   
   @Output () isShinyEvent = new EventEmitter<boolean>();
 
-  shinyOdds: WheelItem[] = [];
+  shinyOdds: WheelItem[] = [
+    { text: 'yes', fillStyle: 'green', weight: 1 },
+    { text: 'no', fillStyle: 'crimson', weight: 63 }
+  ];
 
-  ngOnInit(): void {
-    this.shinyOdds.push({ text: 'yes', fillStyle: 'green', weight: 1 });
-    for (let index = 0; index < 63; index++) {
-      this.shinyOdds.push({ text: 'no', fillStyle: 'crimson', weight: 1 });
-    }
-  }
 
   onItemSelected(index: number): void {
     if (this.shinyOdds[index].text === 'yes') {

@@ -4,16 +4,10 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     1: [
         {   name: 'Brock',
             sprite: "https://archives.bulbagarden.net/media/upload/1/1c/Spr_B2W2_Brock.png",
-            quotes: [
-                "You're going to challenge me knowing that you'll lose?", 
-                "That's the Trainer's honor that compels you to challenge me.",
-                "Fine, then! Show me your best!"] },
+            quotes: ["Fine, then! Show me your best!"] },
         {   name: 'Misty',
             sprite: "https://archives.bulbagarden.net/media/upload/e/ed/Spr_B2W2_Misty.png",
-            quotes: [
-                "What is your approach when you catch and train Pokémon?",
-                "My policy is an all out offensive with Water-type Pokémon!"
-            ] },
+            quotes: ["My policy is an all out offensive with Water-type Pokémon!"] },
         {   name: 'Lt. Surge',
             sprite: "https://archives.bulbagarden.net/media/upload/d/df/Spr_B2W2_Lt_Surge.png",
             quotes: [
@@ -24,7 +18,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         {   name: 'Erika',
             sprite: "https://archives.bulbagarden.net/media/upload/0/0c/Spr_B2W2_Erika.png",
             quotes: [
-                "I am a student of the art of flower arranging. My Pokémon are solely of the Grass type.",
                 "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
                 "Very well, but I shall not lose."
             ] },
@@ -32,7 +25,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/1/18/Spr_HGSS_Koga.png",
             quotes: [
                 "Very well, I shall show you true terror as a ninja master!",
-                "Poison brings steady doom. Sleep renders foes helpless.",
                 "Despair to the creeping horror of Poison-type Pokémon!"
             ] },
         {   name: 'Sabrina',
@@ -45,8 +37,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/1/11/Spr_B2W2_Blaine.png",
             quotes: [
                 "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!", 
-                "My fiery Pokémon are all ready with intense heat! ",
-                "They incinerate all challengers!"
+                "My fiery Pokémon are all ready with intense heat! "
             ] },
         {   name: 'Giovanni',
             sprite: "https://archives.bulbagarden.net/media/upload/1/17/Spr_B2W2_Giovanni.png",
@@ -59,14 +50,11 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         {   name: 'Falkner',
             sprite: "https://archives.bulbagarden.net/media/upload/c/c1/Spr_B2W2_Falkner.png",
             quotes: [
-                "People say you can clip Flying-type Pokémon's wings with a jolt of electricity...",
-                "I won't allow such insults to bird Pokémon!",
                 "I'll show you the real power of the magnificent bird Pokémon!"
             ] },
         {   name: 'Bugsy',
             sprite: "https://archives.bulbagarden.net/media/upload/d/da/Spr_B2W2_Bugsy.png",
             quotes: [
-                "I never lose when it comes to Bug-type Pokémon.",
                 "My research is going to make me an authority on Bug-type Pokémon!",
                 "Let me demonstrate what I've learned from my studies."
             ] },
@@ -94,13 +82,11 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/6/62/Spr_B2W2_Jasmine.png",
             quotes: [
                 "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
-                "...Do you know about the Steel type?",
                 "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
             ] },
         {   name: 'Pryce',
             sprite: "https://archives.bulbagarden.net/media/upload/e/e5/Spr_B2W2_Pryce.png",
             quotes: [
-                "Since I am your elder, let me show you what I have seen and suffered.",
                 "I have been training Pokémon since before you were born. I do not lose easily.",
                 "I, Pryce - the Winter Trainer - shall demonstrate my power!"
             ] },
@@ -108,44 +94,37 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/5/57/Spr_B2W2_Clair.png",
             quotes: [
                 "I am Clair. The world's best Dragon-type master.",
-                "Do you still want to take me on?",
-                "...Fine. Let's do this! As a Gym Leader, I will use my full power against any opponent!"
+                "As a Gym Leader, I will use my full power against any opponent!"
             ] },
     ],
     3: [
         {   name: 'Roxanne',
             sprite: "https://archives.bulbagarden.net/media/upload/b/bb/Spr_B2W2_Roxanne.png",
             quotes: [
-                "Just as I expected…",
-                "I knew you and your Pokémon would be able to get this far.",
                 "Now, would you kindly demonstrate how you battle with your Pokémon?"
             ] },
         {   name: 'Brawly',
             sprite: "https://archives.bulbagarden.net/media/upload/e/e6/Spr_B2W2_Brawly.png",
             quotes: [
                 "I'm Brawly! Dewford's Gym Leader!",
-                "I've grown tough using the cave at the outskirts of this town as my training ground, as well as using the equipment in this Gym.",
                 "So you want to challenge me? Let me see what you're made of!"
             ] },
         {   name: 'Wattson',
             sprite: "https://archives.bulbagarden.net/media/upload/8/8d/Spr_B2W2_Wattson.png",
             quotes: [
-                "What? You say you've gotten past all my rigged doors?",
                 "Wahahahah! Now, that is amusing!",
-                "Then I, Wattson, the Leader of Mauville Gym, shall electrify you!"
+                "I, Wattson, the Leader of Mauville Gym, shall electrify you!"
             ] },
         {   name: 'Flannery',
             sprite: "https://archives.bulbagarden.net/media/upload/3/30/Spr_B2W2_Flannery.png",
             quotes: [
                 "Welcome!",
-                "No, wait. I mean… Puny Trainer, you've done well to make it this far!",
                 "No, I mean… I'm Flannery, and I'm in charge here!",
                 "I'm gonna, uh, demonstrate the hot moves we've honed in this land!"
             ] },
         {   name: 'Norman',
             sprite: "https://archives.bulbagarden.net/media/upload/8/82/Spr_B2W2_Norman.png",
             quotes: [
-                "Being able to have a real battle with you like this makes me happier than I can really describe.",
                 "I will do everything within my power as a Gym Leader to win!",
                 "You'd better give it your best shot, too!"
             ] },
@@ -153,8 +132,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/9/97/Spr_B2W2_Winona.png",
             quotes: [
                 "I am Winona. I am the Leader of the Fortree Pokémon Gym.",
-                "I have become one with bird Pokémon and have soared the skies...",
-                "However grueling the battle, we will triumph with grace...",
                 "Witness the elegant choreography of my bird Pokémon and me!"
             ] },
         {   name: 'Liza & Tate',
@@ -168,8 +145,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/5/59/Spr_B2W2_Wallace.png",
             quotes: [
                 "Allow me to formally introduce myself. I am Wallace. The Gym Leader of Sootopolis.",
-                "Now, show me. Show me the power you wield with your Pokémon.",
-                "And I, in turn, shall present you with a performance of illusions in water by me and my Pokémon!"
+                "Now, show me. Show me the power you wield with your Pokémon."
             ] },
     ],
     4: [
@@ -177,27 +153,23 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/9/9f/Spr_B2W2_Roark.png",
             quotes: [
                 "This is the Oreburgh Pokémon Gym! I'm Roark, the Gym Leader!",
-                "As the Gym Leader, I need to see your potential as a Trainer.",
-                "And, I'll need to see the toughness of the Pokémon that battle with you!"
+                "As the Gym Leader, I need to see your potential as a Trainer."
             ] },
         {   name: 'Gardenia',
             sprite: "https://archives.bulbagarden.net/media/upload/9/9c/Spr_B2W2_Gardenia.png",
             quotes: [
-                "When I first saw you, I was convinced you'd find your way to me.",
                 "You have a winning aura about you.",
                 "So, anyway, this will be fun. Let's have our battle!"
             ] },
         {   name: 'Maylene',
             sprite: "https://archives.bulbagarden.net/media/upload/e/ec/Spr_B2W2_Maylene.png",
             quotes: [
-                "I don't really know what it means to be strong, or how I got to be the Gym Leader.",
-                "But I will do the best I can as the Gym Leader.",
+                "I will do the best I can as the Gym Leader.",
                 "I take battling very seriously. Whenever you're ready!"
             ] },
         {   name: 'Crasher Wake',
             sprite: "https://archives.bulbagarden.net/media/upload/1/1d/Spr_B2W2_Crasher_Wake.png",
             quotes: [
-                "Welcome! I don't get challenged very often!",
                 "My Pokémon were toughened up by stormy white waters!",
                 "Victory will be ours! Come on, let's get it done!"
             ] },
@@ -205,29 +177,26 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/5/5d/Spr_B2W2_Fantina.png",
             quotes: [
                 "Ohohoho!! Finally, you have arrived!",
-                "I have come to be Gym Leader. And, uh, so it shall be that you challenge me.",
                 "But I shall win. That is what a Gym Leader does, non?"
             ] },
         {   name: 'Byron',
             sprite: "https://archives.bulbagarden.net/media/upload/a/a7/Spr_B2W2_Byron.png",
             quotes: [
-                "You've defeated my son.",
+                "You've defeated my son, Roark.",
                 "But that's no surprise. He still has much to learn.",
-                "In place of my son Roark, I, Byron, will take your challenge!"
+                "I, Byron, will take your challenge!"
             ] },
         {   name: 'Candice',
             sprite: "https://archives.bulbagarden.net/media/upload/9/95/Spr_B2W2_Candice.png",
             quotes: [
                 "Sure thing! I was waiting for someone tough!",
-                "But I should tell you, I'm tough because I know how to focus. Pokémon, fashion, romance...",
                 "It's all about focus! I'll show you just what I mean. Get ready to lose!"
             ] },
         {   name: 'Volkner',
             sprite: "https://archives.bulbagarden.net/media/upload/4/4c/Spr_B2W2_Volkner.png",
             quotes: [
                 "Sigh... I'm Volkner, the Gym Leader.",
-                "They say I'm the top Gym Leader in Sinnoh, but...",
-                "Anyway, I guess we'd better get this done. I hope you're the Trainer who'll make me remember how fun it is to battle!"
+                "I hope you're the Trainer who'll make me remember how fun it is to battle!"
             ] },
     ],
     5: [
@@ -248,7 +217,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Lenora',
             sprite: "https://archives.bulbagarden.net/media/upload/e/e3/Spr_B2W2_Lenora.png",
             quotes: [
-                "Welcome!",
                 "The director of the Nacrene Museum and the Nacrene Gym's Leader is me! Lenora!",
                 "Well then, challenger, I'm going to research how you battle with the Pokémon you've so lovingly raised!"
             ]
@@ -283,7 +251,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "Hee-hee! I've been waiting for you.",
                 "Did you enjoy flying with the help of the Mistralton Gym cannons?",
-                "They're my pride and joy! This time, let's try something else!"
             ]
         },
         {
@@ -311,7 +278,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Viola',
             sprite: "https://archives.bulbagarden.net/media/upload/8/87/VSViola.png",
             quotes: [
-                "That determined expression... That glint in your eye that says you're up to the challenge...",
                 "It's fantastic! Just fantastic! A great subjects for my camera!",
                 "My lens is always focused on victory--I won't let anything ruin this shot!"
             ]
@@ -321,7 +287,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/0/03/VSGrant.png",
             quotes: [
                 "I've been waiting in eager anticipation! For a worthy challenger to appear!",
-                "It's quite an achievement to have climbed all the way up here. Very impressive, actually!",
                 "I hope you'll show me that your skill as a Trainer surpasses even mine."
             ]
         },
@@ -330,8 +295,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/4/4c/VSKorrina.png",
             quotes: [
                 "I'm not exactly sure, but I think Lucario is saying it wants to battle with you.",
-                "Would you battle with us? So, I have two Lucario...",
-                "But do you know which is the one that has taken a shine to you?"
             ]
         },
         {
@@ -339,16 +302,13 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/0/06/VSRamos.png",
             quotes: [
                 "So what'd yeh think, whippersnapper?",
-                "Did yeh enjoy the garden playground I made with all these sturdy plants o' mine?",
-                "Their strength is a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
+                "My sturdy plants are a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
             ]
         },
         {
             name: 'Clemont',
             sprite: "https://archives.bulbagarden.net/media/upload/e/e7/VSClemont.png",
             quotes: [
-                "I was just telling my sister Bonnie...",
-                "It's not my own strength that matters, nor any other Trainer's. None of us would be here if it weren't for our Pokémon.",
                 "Let's both do our best in battle."
             ]
         },
@@ -357,7 +317,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/2/22/VSValerie.png",
             quotes: [
                 "Oh, if it isn't a young Trainer...",
-                "I hope your visit will prove entertaining to you.",
                 "The elusive Fairy types may appear frail as a breeze and delicate as a bloom, but they are strong."
             ]
         },
@@ -374,7 +333,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/f/f0/VSWulfric.png",
             quotes: [
                 "Ice is both extremely hard and terribly fragile at the same time.",
-                "I could be your most challenging opponent yet or I could be a total pushover.",
                 "Let's get this show on the road!"
             ]
         },
@@ -402,7 +360,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/c/c6/VSLana_USUM.png",
             quotes: [
                 "Hello. I'm Lana. I serve as the captain of Brooklet Hill.",
-                "Didn't you notice? You passed through the Captain's gate by my side.",
                 "Which means that you will undergo my trial!"
             ]
         },
@@ -411,7 +368,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/3/34/VSKiawe.png",
             quotes: [
                 "I am Kiawe. My Marowak and I are students of the ancient dances.",
-                "The trial of Kiawe... You will find that it is a bit different than the trials you have faced.",
                 "My trial will test your powers of observation!"
             ]
         },
@@ -420,15 +376,13 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/9/92/VSMallow.png",
             quotes: [
                 "I'm Mallow, one of the captains here!",
-                "Yup! My trial will be a chance for all the fine ingredients that make up your team to shine!",
-                "Especially you two! Your Pokémon look ready to cook with gas!"
+                "Your Pokémon look ready to cook with gas!"
             ]
         },
         {
             name: 'Olivia',
             sprite: "https://archives.bulbagarden.net/media/upload/7/71/VSOlivia_2_USUM.png",
             quotes: [
-                "All right, then! You've completed the trials of all three captains here on Akala Island.",
                 "Now you face the grand trial of the kahuna—me!",
                 "Get ready for your hardest Pokémon battle yet on Akala!"
             ]
@@ -456,7 +410,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "You there.",
                 "I'm an island kahuna, you know. Battle against me.",
-                "It'll be a good experience for you if you're really hoping to master the island challenge."
             ]
         },
         {
@@ -464,7 +417,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/4/48/VSMina_2_USUM.png",
             quotes: [
                 "Have a battle against Captain Mina!",
-                "Then here I go! I'm going all out, big-time!",
                 "Me and my team are all full-powered to the max!"
             ]
         },
@@ -472,7 +424,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Hapu',
             sprite: "https://archives.bulbagarden.net/media/upload/f/ff/VSHapu.png",
             quotes: [
-                "Do you want to try to take me and my Pokémon on at our full strength?",
                 "This is the first grand trial of Kahuna Hapu! I will battle you with everything that I have got!"
             ]
         },
@@ -482,7 +433,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Milo',
             sprite: "https://archives.bulbagarden.net/media/upload/3/34/VSMilo.png",
             quotes: [
-                "My Gym's the first one people face, so we get a lot of challengers.",
                 "Sure seems like you understand Pokémon real well.",
                 "This is gonna be a doozy of a battle!"
             ]
@@ -492,7 +442,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/b/b9/VSNessa.png",
             quotes: [
                 "Welcome, honored Gym Challenger!",
-                "I think you already realize, but I'm Nessa.",
                 "No matter what kind of plan your refined mind may be plotting, my partner and I will be sure to sink it."
             ]
         },
@@ -501,9 +450,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/e/ef/VSKabu.png",
             quotes: [
                 "Welcome! I am Kabu, the Fire-type Gym Leader.",
-                "Every Trainer and Pokémon trains hard in pursuit of victory.",
-                "But that means your opponent is also working hard to win.",
-                "In the end, the match is decided by which side is able to unleash their true potential."
+                "The match is decided by which side is able to unleash their true potential."
             ]
         },
         {
@@ -522,7 +469,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/3/37/VSOpal.png",
             quotes: [
                 "I'm Opal, the Gym Leader.",
-                "The last part of the mission is me...",
                 "Let me have a look at how you and your partner Pokémon behave!"
             ]
         },
@@ -542,7 +488,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://archives.bulbagarden.net/media/upload/7/77/VSPiers.png",
             quotes: [
                 "*sigh*... So you're finally here, huh?",
-                "You wanna challenge me, even though you know you'll lose? Then this song's for you, foolish Trainer!",
                 "Get ready for a mosh pit with me and my party! Spikemuth, it's time to rock!"
             ]
         },
@@ -550,7 +495,6 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Raihan',
             sprite: "https://archives.bulbagarden.net/media/upload/7/70/VSRaihan.png",
             quotes: [
-                "Finally, a challenger made it! I've been waiting for someone to battle... ",
                 "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
                 "As his greatest rival, I guess that I—Raihan—will have to show you!"
             ]

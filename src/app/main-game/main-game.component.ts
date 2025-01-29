@@ -289,7 +289,7 @@ export class MainGameComponent {
     }
 
     this.explainEventModalTitle = 'Used a Potion!';
-    this.itemSpriteService.getItemHiResSprite('potion').subscribe(response => {
+    this.itemSpriteService.getItemSprite('potion').subscribe(response => {
       this.explainEventModalImg = response.sprite;
     });
     this.explainEventModalText = 'Potions let you spin again whenever you would lose a battle!';
