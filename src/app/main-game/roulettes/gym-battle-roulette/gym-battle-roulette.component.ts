@@ -34,8 +34,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   @ViewChild('gymLeaderPresentationModal', { static: true }) contentTemplate!: TemplateRef<any>;
 
   victoryOdds: WheelItem[] = [
-    { text: 'Yes', fillStyle: 'green' },
-    { text: 'No', fillStyle: 'crimson' }
+    { text: 'Yes', fillStyle: 'green', weight: 1 },
+    { text: 'No', fillStyle: 'crimson', weight: 1 }
   ];
 
   @Input() generation!: GenerationItem;
@@ -52,15 +52,15 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         this.victoryOdds = [];
         this.trainerTeam.forEach(pokemon => {
           for (let i = 0; i < pokemon.power; i++) {
-            this.victoryOdds.push({ text: "Yes", fillStyle: "green" });
+            this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
           }
         })
 
         for (let index = 0; index < this.currentRound; index++) {
-          this.victoryOdds.push({ text: "No", fillStyle: "crimson" });
+          this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
         }
 
-        this.victoryOdds.push({ text: "No", fillStyle: "crimson" });
+        this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
 
         this.modalService.open(this.contentTemplate, {
           centered: true,

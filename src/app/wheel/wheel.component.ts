@@ -21,8 +21,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   @Input() items: WheelItem[] = [];
   @Output() selectedItemEvent = new EventEmitter<number>();
   spinning = false;
-  darkMode!: Observable<boolean>; 
-  
+  darkMode!: Observable<boolean>;
 
   canvasHeight: number;
   wheelWidth: number;
@@ -46,8 +45,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.fontSize = this.wheelWidth / 20;
   }
 
-  
-
   ngAfterViewInit(): void {
     this.wheelCanvas = <HTMLCanvasElement>document.getElementById('wheel');
     this.wheelCtx = this.wheelCanvas.getContext('2d')!;
@@ -57,11 +54,13 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.fontSize = 10;
     }
     this.drawWheel();
+    this.drawPointer();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['items'] && changes['items'].previousValue !== undefined) {
+    if (changes['items'] && !changes['items'].firstChange) {
       this.drawWheel();
+      this.drawPointer();
     }
   }
 
@@ -70,31 +69,35 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const centerY = this.wheelCanvas.height / 2;
     const radius = (this.wheelCanvas.width / 2);
 
-    const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-
+    const totalWeight = this.getTotalWeights();
+    const arcSize = (2 * Math.PI) / (totalWeight);
     this.wheelCtx.clearRect(0, 0, this.wheelCanvas.width, this.wheelCanvas.height);
 
-    for (let i = 0; i < this.items.length; i++) {
-      for (let j = 0; j < this.getMultiplier(); j++) {
-        const index = i * this.getMultiplier() + j;
-        let item = this.items[index % this.items.length];
-        this.wheelCtx.beginPath();
-        this.wheelCtx.arc(centerX, centerY, radius, index * arcSize + rotation, (index + 1) * arcSize + rotation);
-        this.wheelCtx.lineTo(centerX, centerY);
-        this.wheelCtx.fillStyle = item.fillStyle;
-        this.wheelCtx.fill();
+    let startAngle = rotation;
+    for (let index = 0; index < this.items.length; index++) {
+      const item = this.items[index];
+      const segmentSize = arcSize * item.weight;
+      const endAngle = startAngle + segmentSize;
 
-        this.wheelCtx.save();
-        this.wheelCtx.translate(centerX, centerY);
-        this.wheelCtx.rotate((index + 0.5) * arcSize + rotation);
-        this.wheelCtx.fillStyle = '#fff';
-        this.wheelCtx.font = this.fontSize+'px Arial';
-        this.wheelCtx.textAlign = 'right';
-        this.wheelCtx.fillText(item.text, radius - 7, 5);
-        this.wheelCtx.restore();
-      }
+      // Draw the segment
+      this.wheelCtx.beginPath();
+      this.wheelCtx.arc(centerX, centerY, radius, startAngle, endAngle);
+      this.wheelCtx.lineTo(centerX, centerY);
+      this.wheelCtx.fillStyle = item.fillStyle;
+      this.wheelCtx.fill();
+
+      // Draw the text
+      this.wheelCtx.save();
+      this.wheelCtx.translate(centerX, centerY);
+      this.wheelCtx.rotate(startAngle + segmentSize / 2);
+      this.wheelCtx.fillStyle = '#fff';
+      this.wheelCtx.font = this.fontSize + 'px Arial';
+      this.wheelCtx.textAlign = 'right';
+      this.wheelCtx.fillText(item.text, radius - 7, 5);
+      this.wheelCtx.restore();
+
+      startAngle = endAngle;
     }
-    this.drawPointer();
   }
 
   drawPointer(): void {
@@ -120,13 +123,27 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.spinning = true;
 
     this.startTime = performance.now();
-    const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    this.winningNumber = Math.floor(Math.random() * this.items.length);
-
+    const totalWeight = this.getTotalWeights();
+    const arcSize = (2 * Math.PI) / (totalWeight);
+    this.winningNumber = this.getRandomWeightedIndex();
+    console.debug('winning number', this.winningNumber);
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
-    const winningAngle = this.winningNumber * arcSize;
-    const fixedOffset = arcSize / 2;
-    this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle - fixedOffset);
+
+    let winningAngle = 0;
+    const winningSegmentSize = arcSize * this.items[this.winningNumber].weight;
+
+    for (let index = 0; index < this.items.length; index++) {
+      const item = this.items[index];
+      winningAngle += arcSize * item.weight;
+      if (index === this.winningNumber) {
+        break;
+      }
+    }
+
+    const offset = Math.random() * winningSegmentSize;
+    this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
+    console.debug('finalRotation', this.finalRotation);
+    console.debug('final angle', this.finalRotation % (2 * Math.PI));
 
     requestAnimationFrame(this.animate.bind(this));
   }
@@ -137,38 +154,53 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const easedProgress = 1 - Math.pow(1 - progress, 3);
     this.currentRotation = easedProgress * this.finalRotation;
 
+    const totalWeight = this.getTotalWeights();
+
     this.drawWheel(this.currentRotation);
 
     if (progress < 1) {
       requestAnimationFrame(this.animate.bind(this));
     } else {
       this.spinning = false;
-      this.selectedItemEvent.emit(this.winningNumber % this.items.length);
+      this.selectedItemEvent.emit(this.winningNumber);
     }
 
     this.currentSegment = this.getCurrentSegment();
   }
 
   private getCurrentSegment(): string {
-    const currentAngle = this.currentRotation % (2 * Math.PI);
-    const arcSize = (2 * Math.PI) / (this.items.length * this.getMultiplier());
-    const segmentIndex = Math.floor(currentAngle / arcSize);
-    const segmentAmount = this.items.length * this.getMultiplier();
-    const currentIndex = (segmentAmount - segmentIndex - 1) % this.items.length;
-    return this.items[currentIndex]?.text;
-  }
+    const totalWeight = this.getTotalWeights();
 
-  private getMultiplier(): number {
-    if (this.items.length === 4) {
-      return 2;
-    } else if (this.items.length === 3) {
-      return 3;
-    } else if (this.items.length === 2) {
-      return 4;
+    const currentAngle = (2 * Math.PI - (this.currentRotation % (2 * Math.PI))) % (2 * Math.PI);
+    let accumulatedWeight = 0;
+
+    for (const item of this.items) {
+      accumulatedWeight += item.weight;
+      const segmentEnd = (accumulatedWeight / totalWeight) * 2 * Math.PI;
+
+      if (currentAngle <= segmentEnd) {
+        return item.text;
+      }
     }
-    return 1; // Default to 1 for 5 or more items
+    return '-';
   }
-  
-}
 
+  private getTotalWeights(): number {
+    return this.items.reduce((sum, item) => sum + item.weight, 0);
+  }
+
+  private getRandomWeightedIndex(): number {
+    const totalWeight = this.getTotalWeights();
+    let random = Math.random() * totalWeight;
+    let accumulatedWeight = 0;
+
+    for (let i = 0; i < this.items.length; i++) {
+      accumulatedWeight += this.items[i].weight;
+      if (random < accumulatedWeight) {
+        return i;
+      }
+    }
+    return this.items.length - 1;
+  }
+}
 

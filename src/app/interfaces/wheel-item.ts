@@ -1,4 +1,5 @@
 export interface WheelItem {
   text: string,
-  fillStyle: string
+  fillStyle: string,
+  weight: number;
 }

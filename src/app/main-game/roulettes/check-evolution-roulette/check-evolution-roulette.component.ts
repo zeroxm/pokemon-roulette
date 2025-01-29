@@ -34,10 +34,10 @@ export class CheckEvolutionRouletteComponent implements OnInit {
 
     private resetOdds(): void {
       this.evolveOdds = [
-        { text: 'yes', fillStyle: 'green' },
-        { text: 'no', fillStyle: 'crimson' },
-        { text: 'no', fillStyle: 'crimson' },
-        { text: 'no', fillStyle: 'crimson' }
+        { text: 'yes', fillStyle: 'green', weight: 1 },
+        { text: 'no', fillStyle: 'crimson', weight: 1 },
+        { text: 'no', fillStyle: 'crimson', weight: 1 },
+        { text: 'no', fillStyle: 'crimson', weight: 1 },
       ];
 
       for (let i = 0; i < this.evolutionCredits; i++) {
