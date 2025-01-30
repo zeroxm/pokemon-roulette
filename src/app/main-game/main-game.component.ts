@@ -31,6 +31,7 @@ import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/te
 import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
 import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
+import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -53,8 +54,9 @@ import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-rou
     TeamRocketRouletteComponent,
     MysteriousEggRouletteComponent,
     LegendaryRouletteComponent,
-    CatchLegendaryRouletteComponent
-  ],
+    CatchLegendaryRouletteComponent,
+    TradePokemonRouletteComponent
+],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -91,7 +93,7 @@ export class MainGameComponent {
       shiny: false,
       power: 1,
       weight: 1
-    }
+    },
   ];
   trainerItems: ItemItem[] = [
     {
@@ -227,6 +229,9 @@ export class MainGameComponent {
           this.removeFromTeam(pokemon);
           this.gameStateService.finishCurrentState();
           break;
+        case 'trade-pokemon':
+          this.currentContextPokemon = pokemon;
+          break;
         default:
           break;
       }
@@ -274,6 +279,15 @@ export class MainGameComponent {
 
   tradePokemon(): void {
     this.gameStateService.setNextState('trade-pokemon');
+
+    if (this.trainerTeam.length === 1) {
+      this.currentContextPokemon = this.trainerTeam[0];
+    } else {
+      this.auxPokemonList = this.trainerTeam;
+      this.customWheelTitle = 'Which Pokémon?';
+      this.gameStateService.setNextState('select-from-pokemon-list');
+    }
+
     this.gameStateService.finishCurrentState();
   }
 
@@ -315,7 +329,6 @@ export class MainGameComponent {
   }
 
   stealPokemon(): void {
-
     if (this.trainerTeam.length === 1) {
       return this.doNothing();
     }
@@ -324,6 +337,20 @@ export class MainGameComponent {
     this.customWheelTitle = 'Which Pokémon?';
     this.gameStateService.setNextState('steal-pokemon');
     this.gameStateService.setNextState('select-from-pokemon-list');
+    this.gameStateService.finishCurrentState();
+  }
+
+  performTrade(pokemon: PokemonItem): void {
+    if (!pokemon.sprite) {
+      this.pokemonSpriteService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
+        pokemon.sprite = response.sprite;
+      });
+    }
+
+    const index = this.trainerTeam.indexOf(this.currentContextPokemon);
+    if (index > -1) {
+      this.trainerTeam.splice(index, 1, pokemon);
+    }
     this.gameStateService.finishCurrentState();
   }
 

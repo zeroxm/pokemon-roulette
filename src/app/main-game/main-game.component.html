@@ -100,6 +100,10 @@
                     (catchLegendaryEvent)="legendaryCaptureSuccess()"
                     (nothingHappensEvent)="doNothing()">
                 </app-catch-legendary-roulette>
+                <app-trade-pokemon-roulette
+                    *ngSwitchCase="'trade-pokemon'"
+                    (selectedPokemonEvent)="performTrade($event)">
+                </app-trade-pokemon-roulette>
             </ng-container>
         </div>
     
