@@ -29,6 +29,8 @@ import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-rou
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
 import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/team-rocket-roulette.component";
 import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
+import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
+import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -49,8 +51,10 @@ import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roule
     CheckEvolutionRouletteComponent,
     MainAdventureRouletteComponent,
     TeamRocketRouletteComponent,
-    MysteriousEggRouletteComponent
-],
+    MysteriousEggRouletteComponent,
+    LegendaryRouletteComponent,
+    CatchLegendaryRouletteComponent
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -172,6 +176,19 @@ export class MainGameComponent {
     this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.finishCurrentState();
   }
+
+  legendaryCaptureChance(pokemon: PokemonItem): void {
+    this.currentContextPokemon = pokemon;
+    this.gameStateService.setNextState('catch-legendary');
+    this.gameStateService.finishCurrentState();
+  }
+
+  legendaryCaptureSuccess(): void {
+    this.gameStateService.setNextState('check-shininess');
+    this.addToTeam(this.currentContextPokemon);
+    this.gameStateService.finishCurrentState();
+  }
+
   chooseWhoWillEvolve(): void {
     this.auxPokemonList = [];
 
@@ -295,10 +312,6 @@ export class MainGameComponent {
   battleRival(): void {
     this.gameStateService.setNextState('battle-rival');
     this.gameStateService.finishCurrentState();
-  }
-
-  setEvolutionCredits(credits: number): void {
-    this.evolutionCredits = credits;
   }
 
   stealPokemon(): void {

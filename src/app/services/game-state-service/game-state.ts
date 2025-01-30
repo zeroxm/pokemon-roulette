@@ -15,6 +15,7 @@ export type GameState =
   | 'steal-pokemon'
   | 'mysterious-egg'
   | 'legendary-encounter'
+  | 'catch-legendary'
   | 'trade-pokemon'
   | 'find-item'
   | 'explore-cave'

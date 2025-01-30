@@ -56,10 +56,9 @@
                 </app-gym-battle-roulette>
                 <app-check-evolution-roulette
                     *ngSwitchCase="'check-evolution'"
-                    [evolutionCredits]="evolutionCredits"
+                    [(evolutionCredits)]="evolutionCredits"
                     (evolvePokemonEvent)="chooseWhoWillEvolve()"
-                    (doNothingEvent)="doNothing()"
-                    (setEvolutionCreditEvent)="setEvolutionCredits($event)">
+                    (doNothingEvent)="doNothing()">
                 </app-check-evolution-roulette>
                 <app-main-adventure-roulette
                     *ngSwitchCase="'adventure-continues'"
@@ -91,6 +90,16 @@
                     *ngSwitchCase="'mysterious-egg'"
                     (selectedPokemonEvent)="storePokemon($event)">
                 </app-mysterious-egg-roulette>
+                <app-legendary-roulette
+                    *ngSwitchCase="'legendary-encounter'"
+                    [generation]="generation"
+                    (selectedPokemonEvent)="legendaryCaptureChance($event)">
+                </app-legendary-roulette>
+                <app-catch-legendary-roulette
+                    *ngSwitchCase="'catch-legendary'"
+                    (catchLegendaryEvent)="legendaryCaptureSuccess()"
+                    (nothingHappensEvent)="doNothing()">
+                </app-catch-legendary-roulette>
             </ng-container>
         </div>
     

@@ -14,7 +14,7 @@ export class CheckEvolutionRouletteComponent implements OnInit {
 
   @Input() evolutionCredits!: number;
   @Output() evolvePokemonEvent = new EventEmitter<void>();
-  @Output() setEvolutionCreditEvent = new EventEmitter<number>();
+  @Output() evolutionCreditsChange = new EventEmitter<number>();
   @Output() doNothingEvent = new EventEmitter<void>();
 
   ngOnInit(): void {
@@ -23,10 +23,10 @@ export class CheckEvolutionRouletteComponent implements OnInit {
 
   onItemSelected(index: number): void {
     if (this.evolveOdds[index].text === 'yes') {
-      this.setEvolutionCreditEvent.emit(0);
+      this.evolutionCreditsChange.emit(0);
       this.evolvePokemonEvent.emit();
     } else {
-      this.setEvolutionCreditEvent.emit(this.evolutionCredits + 1);
+      this.evolutionCreditsChange.emit(this.evolutionCredits + 1);
       this.doNothingEvent.emit();
     };
   }

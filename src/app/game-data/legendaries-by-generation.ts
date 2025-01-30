@@ -4,7 +4,7 @@ export const legendaryByGeneration: Record<number, PokemonItem[]> = {
     1: [
         { text: "Articuno", pokemonId: 144, fillStyle: "darkblue", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Zapdos", pokemonId: 145, fillStyle: "goldenrod", sprite: null, shiny: false, power: 5, weight: 1 },
-        { text: "Moltres", pokemonId: 146, fillStyle: "goldenrod", sprite: null, shiny: false, power: 5, weight: 1 },
+        { text: "Moltres", pokemonId: 146, fillStyle: "darkorange", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Mewtwo", pokemonId: 150, fillStyle: "purple", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Mew", pokemonId: 151, fillStyle: "pink", sprite: null, shiny: false, power: 5, weight: 1 }],
     2: [
@@ -16,10 +16,10 @@ export const legendaryByGeneration: Record<number, PokemonItem[]> = {
         { text: "Celebi", pokemonId: 251, fillStyle: "green", sprite: null, shiny: false, power: 5, weight: 1 }],
     3: [
         { text: "Regirock", pokemonId: 377, fillStyle: "brown", sprite: null, shiny: false, power: 5, weight: 1 },
-        { text: "Regice", pokemonId: 378, fillStyle: "darkblue", sprite: null, shiny: false, power: 5, weight: 1 },
+        { text: "Regice", pokemonId: 378, fillStyle: "darkcyan", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Registeel", pokemonId: 379, fillStyle: "gray", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Latias", pokemonId: 380, fillStyle: "darkred", sprite: null, shiny: false, power: 5, weight: 1 },
-        { text: "Latios", pokemonId: 381, fillStyle: "darkblue", sprite: null, shiny: false, power: 5, weight: 1 },
+        { text: "Latios", pokemonId: 381, fillStyle: "darkcyan", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Kyogre", pokemonId: 382, fillStyle: "darkblue", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Groudon", pokemonId: 383, fillStyle: "darkred", sprite: null, shiny: false, power: 5, weight: 1 },
         { text: "Rayquaza", pokemonId: 384, fillStyle: "green", sprite: null, shiny: false, power: 5, weight: 1 },

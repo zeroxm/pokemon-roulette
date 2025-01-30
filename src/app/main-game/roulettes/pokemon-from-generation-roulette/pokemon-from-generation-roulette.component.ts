@@ -13,17 +13,17 @@ import { pokemonByGeneration } from '../../../game-data/pokemon-by-generation';
 export class PokemonFromGenerationRouletteComponent {
 
   pokemonByGeneration = pokemonByGeneration;
-  
-    @Input() generation!: GenerationItem;
-    @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
-  
-    onItemSelected(index: number): void {
-      const pokemon = this.getFromGeneration();
-      const selectedPokemon = pokemon[index];
-      this.selectedPokemonEvent.emit(selectedPokemon);
-    }
 
-    getFromGeneration(): PokemonItem[] {
-      return this.pokemonByGeneration[this.generation.id];
-    }
+  @Input() generation!: GenerationItem;
+  @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
+
+  onItemSelected(index: number): void {
+    const pokemon = this.getFromGeneration();
+    const selectedPokemon = pokemon[index];
+    this.selectedPokemonEvent.emit(selectedPokemon);
+  }
+
+  getFromGeneration(): PokemonItem[] {
+    return this.pokemonByGeneration[this.generation.id];
+  }
 }
