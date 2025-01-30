@@ -27,6 +27,8 @@ import { RestartGameComponent } from "../restart-game/restart-game.component";
 import { BadgesService } from '../services/badges-service/badges.service';
 import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-roulette/check-evolution-roulette.component";
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
+import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/team-rocket-roulette.component";
+import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -45,7 +47,9 @@ import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roule
     NgIconsModule,
     RestartGameComponent,
     CheckEvolutionRouletteComponent,
-    MainAdventureRouletteComponent
+    MainAdventureRouletteComponent,
+    TeamRocketRouletteComponent,
+    MysteriousEggRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -53,45 +57,55 @@ import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roule
 export class MainGameComponent {
 
   constructor(private badgesService: BadgesService,
-              private evolutionService: EvolutionService,
-              private gameStateService: GameStateService,
-              private itemService: ItemsService,
-              private itemSpriteService: ItemSpriteService,
-              private pokemonSpriteService: PokemonSpriteService,
-              private modalService: NgbModal) {
+    private evolutionService: EvolutionService,
+    private gameStateService: GameStateService,
+    private itemService: ItemsService,
+    private itemSpriteService: ItemSpriteService,
+    private pokemonSpriteService: PokemonSpriteService,
+    private modalService: NgbModal) {
   }
 
   @ViewChild('explainEventModal', { static: true }) explainEventModalTemplate!: TemplateRef<any>;
   @ViewChild('gameOverModal', { static: true }) gameOverModalTemplate!: TemplateRef<any>;
 
-  // generation: GenerationItem = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
-  generation!: GenerationItem;
+  generation: GenerationItem = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 };
+  // generation!: GenerationItem;
   starter!: PokemonItem;
 
-  // trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
-  trainer = { sprite: './place-holder-pixel.png' };
+  trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
+  // trainer = { sprite: './place-holder-pixel.png' };
   trainerTeam: PokemonItem[] = [
-    // { text: "Pikachu",
-    //   pokemonId: 25,
-    //   fillStyle: "goldenrod",
-    //   sprite:
-    //   {
-    //     front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png", 
-    //     front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-    //   }, 
-    //   shiny: false, 
-    //   power: 1
-    // }
+    {
+      text: "Pikachu",
+      pokemonId: 25,
+      fillStyle: "goldenrod",
+      sprite:
+      {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+      },
+      shiny: false,
+      power: 1,
+      weight: 1
+    }
   ];
   trainerItems: ItemItem[] = [
-    // { text: "Potion",
-    //   name: "potion",
-    //   sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
-    //   fillStyle: "darkpurple" 
-    // }
+    {
+      text: "Potion",
+      name: "potion",
+      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
+      fillStyle: "darkpurple",
+      weight: 1
+    }
   ];
-  trainerBadges: Badge[] = [];
-  leadersDefeatedAmount: number = 0;
+  trainerBadges: Badge[] = [
+    {
+      name: 'Boulder Badge',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png'
+    },
+  ];
+  // leadersDefeatedAmount: number = 0;
+  leadersDefeatedAmount: number = 1;
   customWheelTitle = '';
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
@@ -109,7 +123,6 @@ export class MainGameComponent {
     this.resetGame();
     this.modalService.dismissAll();
   }
-  
 
   getGameState(): Observable<GameState> {
     return this.gameStateService.currentState;
@@ -149,8 +162,13 @@ export class MainGameComponent {
     this.gameStateService.finishCurrentState();
   }
 
-
   catchPokemon(): void {
+    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.finishCurrentState();
+  }
+
+  catchTwoPokemon(): void {
+    this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.finishCurrentState();
   }
@@ -185,7 +203,11 @@ export class MainGameComponent {
           this.evolvePokemon(pokemon);
           break;
         case 'select-evolution':
-          this.replaceForEvolution(this.currentContextPokemon,pokemon);
+          this.replaceForEvolution(this.currentContextPokemon, pokemon);
+          this.gameStateService.finishCurrentState();
+          break;
+        case 'steal-pokemon':
+          this.removeFromTeam(pokemon);
           this.gameStateService.finishCurrentState();
           break;
         default:
@@ -218,8 +240,78 @@ export class MainGameComponent {
     }
   }
 
+  teamRocketEncounter(): void {
+    this.gameStateService.setNextState('team-rocket-encounter');
+    this.gameStateService.finishCurrentState();
+  }
+
+  mysteriousEgg(): void {
+    this.gameStateService.setNextState('mysterious-egg');
+    this.gameStateService.finishCurrentState();
+  }
+
+  legendaryEncounter(): void {
+    this.gameStateService.setNextState('legendary-encounter');
+    this.gameStateService.finishCurrentState();
+  }
+
+  tradePokemon(): void {
+    this.gameStateService.setNextState('trade-pokemon');
+    this.gameStateService.finishCurrentState();
+  }
+
+  findItem(): void {
+    this.gameStateService.setNextState('find-item');
+    this.gameStateService.finishCurrentState();
+  }
+
+  exploreCave(): void {
+    this.gameStateService.setNextState('explore-cave');
+    this.gameStateService.finishCurrentState();
+  }
+
+  snorlaxEncounter(): void {
+    this.gameStateService.setNextState('snorlax-encounter');
+    this.gameStateService.finishCurrentState();
+  }
+
+  multitask(): void {
+    this.gameStateService.setNextState('adventure-continues');
+    this.gameStateService.setNextState('adventure-continues');
+    this.gameStateService.finishCurrentState();
+    // Show a message to the player that multitasking lets them spin the wheel twice
+  }
+
+  goFishing(): void {
+    this.gameStateService.setNextState('go-fishing');
+    this.gameStateService.finishCurrentState();
+  }
+
+  findFossil(): void {
+    this.gameStateService.setNextState('find-fossil');
+    this.gameStateService.finishCurrentState();
+  }
+
+  battleRival(): void {
+    this.gameStateService.setNextState('battle-rival');
+    this.gameStateService.finishCurrentState();
+  }
+
   setEvolutionCredits(credits: number): void {
     this.evolutionCredits = credits;
+  }
+
+  stealPokemon(): void {
+
+    if (this.trainerTeam.length === 1) {
+      return this.doNothing();
+    }
+
+    this.auxPokemonList = this.trainerTeam;
+    this.customWheelTitle = 'Which Pokémon?';
+    this.gameStateService.setNextState('steal-pokemon');
+    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.gameStateService.finishCurrentState();
   }
 
   private resetGame(): void {
@@ -298,6 +390,12 @@ export class MainGameComponent {
       centered: true,
       size: 'md'
     });
+  }
 
+  private removeFromTeam(pokemon: PokemonItem): void {
+    const index = this.trainerTeam.indexOf(pokemon);
+    if (index !== -1) {
+      this.trainerTeam.splice(index, 1);
+    }
   }
 }

@@ -50,8 +50,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.wheelCtx = this.wheelCanvas.getContext('2d')!;
     this.pointerCanvas = <HTMLCanvasElement>document.getElementById('pointer');
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
-    if (this.items.length > 32) {
+    if (this.items.length >= 32) {
       this.fontSize = 10;
+    } else if(this.items.length >= 16) {
+      this.fontSize = 14;
     }
     this.drawWheel();
     this.drawPointer();
@@ -86,15 +88,17 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.wheelCtx.fillStyle = item.fillStyle;
       this.wheelCtx.fill();
 
-      // Draw the text
-      this.wheelCtx.save();
-      this.wheelCtx.translate(centerX, centerY);
-      this.wheelCtx.rotate(startAngle + segmentSize / 2);
-      this.wheelCtx.fillStyle = '#fff';
-      this.wheelCtx.font = this.fontSize + 'px Arial';
-      this.wheelCtx.textAlign = 'right';
-      this.wheelCtx.fillText(item.text, radius - 7, 5);
-      this.wheelCtx.restore();
+      if (this.items.length < 160) {
+        // Draw the text
+        this.wheelCtx.save();
+        this.wheelCtx.translate(centerX, centerY);
+        this.wheelCtx.rotate(startAngle + segmentSize / 2);
+        this.wheelCtx.fillStyle = '#fff';
+        this.wheelCtx.font = this.fontSize + 'px Arial';
+        this.wheelCtx.textAlign = 'right';
+        this.wheelCtx.fillText(item.text, radius - 7, 5);
+        this.wheelCtx.restore();  
+      }
 
       startAngle = endAngle;
     }
@@ -125,8 +129,12 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.startTime = performance.now();
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
-    this.winningNumber = this.getRandomWeightedIndex();
-    console.debug('winning number', this.winningNumber);
+    if(this.items.length === 17){
+      this.winningNumber = 7;
+    } else {
+      this.winningNumber = this.getRandomWeightedIndex();
+    }
+    
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
 
     let winningAngle = 0;
@@ -142,8 +150,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     const offset = Math.random() * winningSegmentSize;
     this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
-    console.debug('finalRotation', this.finalRotation);
-    console.debug('final angle', this.finalRotation % (2 * Math.PI));
 
     requestAnimationFrame(this.animate.bind(this));
   }

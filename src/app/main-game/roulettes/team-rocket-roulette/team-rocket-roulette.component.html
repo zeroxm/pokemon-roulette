@@ -1,0 +1,28 @@
+<h1 class="title">Victory?</h1>
+<app-wheel  #wheel
+            [items]="outcomes"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
+
+<ng-template #teamRockerModal let-modal>
+	<div class="modal-body">
+        <h1>Team Rocket!</h1>
+        <div class="team-rocket-panel">
+            <img [src]="james.sprite"
+                 alt="{{james.name}}"
+                 height="128">
+            <div class="quotes">
+                <p>Prepare for trouble!</p>
+                <p>And make it double!</p>
+            </div>
+            <img [src]="jessie.sprite"
+                 alt="{{jessie.name}}"
+                 height="128">
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeModal()">Meowth, that's right!</button>
+    </div>
+</ng-template>

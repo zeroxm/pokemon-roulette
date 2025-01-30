@@ -63,11 +63,34 @@
                 </app-check-evolution-roulette>
                 <app-main-adventure-roulette
                     *ngSwitchCase="'adventure-continues'"
-                    (battleTrainerEvent)="chooseWhoWillEvolve()"
                     (catchPokemonEvent)="catchPokemon()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve()"
                     (buyPotionsEvent)="buyPotions()"
-                    (doNothingEvent)="doNothing()">
+                    (doNothingEvent)="doNothing()"
+                    (catchTwoPokemonEvent)="catchTwoPokemon()"
+                    (visitDaycareEvent)="chooseWhoWillEvolve()"
+                    (teamRocketEncounterEvent)="teamRocketEncounter()"
+                    (mysteriousEggEvent)="mysteriousEgg()"
+                    (legendaryEncounterEvent)="legendaryEncounter()"
+                    (tradePokemonEvent)="tradePokemon()"
+                    (findItemEvent)="findItem()"
+                    (exploreCaveEvent)="exploreCave()"
+                    (snorlaxEncounterEvent)="snorlaxEncounter()"
+                    (multitaskEvent)="multitask()"
+                    (goFishingEvent)="goFishing()"
+                    (findFossilEvent)="findFossil()"
+                    (battleRivalEvent)="battleRival()">
                 </app-main-adventure-roulette>
+                <app-team-rocket-roulette
+                    *ngSwitchCase="'team-rocket-encounter'"
+                    (stealPokemonEvent)="stealPokemon()"
+                    (nothingHappensEvent)="doNothing()"
+                    (defeatInBattleEvent)="chooseWhoWillEvolve()">
+                </app-team-rocket-roulette>
+                <app-mysterious-egg-roulette
+                    *ngSwitchCase="'mysterious-egg'"
+                    (selectedPokemonEvent)="storePokemon($event)">
+                </app-mysterious-egg-roulette>
             </ng-container>
         </div>
     

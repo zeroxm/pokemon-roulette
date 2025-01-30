@@ -13,21 +13,47 @@ export class MainAdventureRouletteComponent {
   @Output() battleTrainerEvent = new EventEmitter<void>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() doNothingEvent = new EventEmitter<void>();
+  @Output() catchTwoPokemonEvent = new EventEmitter<void>();
+  @Output() visitDaycareEvent = new EventEmitter<void>();
+  @Output() teamRocketEncounterEvent = new EventEmitter<void>();
+  @Output() mysteriousEggEvent = new EventEmitter<void>();
+  @Output() legendaryEncounterEvent = new EventEmitter<void>();
+  @Output() tradePokemonEvent = new EventEmitter<void>();
+  @Output() findItemEvent = new EventEmitter<void>();
+  @Output() exploreCaveEvent = new EventEmitter<void>();
+  @Output() snorlaxEncounterEvent = new EventEmitter<void>();
+  @Output() multitaskEvent = new EventEmitter<void>();
+  @Output() goFishingEvent = new EventEmitter<void>();
+  @Output() findFossilEvent = new EventEmitter<void>();
+  @Output() battleRivalEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
+    { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 3 },
     { text: 'Battle Trainer', fillStyle: 'darkorange', weight: 1 },
-    { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 1 },
-    { text: 'Buy Potions', fillStyle: 'green', weight: 1 },
-    { text: 'Do Nothing', fillStyle: 'darkcyan', weight: 1 }
+    { text: 'Buy Potions', fillStyle: 'darkgoldenrod', weight: 1 },
+    { text: 'Do Nothing', fillStyle: 'green', weight: 1 },
+    { text: 'Catch two Pokémon', fillStyle: 'darkcyan', weight: 1 },
+    { text: 'Visit the Daycare', fillStyle: 'blue', weight: 1 },
+    { text: 'Team Rocket Encounter', fillStyle: 'purple', weight: 1 },
+    { text: 'Mysterious Egg', fillStyle: 'deeppink', weight: 1 },
+    { text: 'Legendary Encounter', fillStyle: 'crimson', weight: 1 },
+    { text: 'Trade Pokémon', fillStyle: 'darkorange', weight: 1 },
+    { text: 'Find an Item', fillStyle: 'darkgoldenrod', weight: 1 },
+    { text: 'Explore a Cave', fillStyle: 'green', weight: 1 },
+    { text: 'Snorlax Encounter', fillStyle: 'darkcyan', weight: 1 },
+    { text: 'Multitask (Spin twice)', fillStyle: 'blue', weight: 1 },
+    { text: 'Go Fishing', fillStyle: 'purple', weight: 1 },
+    { text: 'Find a Fossil', fillStyle: 'deeppink', weight: 1 },
+    { text: 'Battle Rival', fillStyle: 'black', weight: 1 },
   ];
 
   onItemSelected(index: number): void {
     switch (index) {
       case 0:
-        this.battleTrainerEvent.emit();
+        this.catchPokemonEvent.emit();
         break;
       case 1:
-        this.catchPokemonEvent.emit();        
+        this.battleTrainerEvent.emit();
         break;
       case 2:
         this.buyPotionsEvent.emit();
@@ -35,6 +61,46 @@ export class MainAdventureRouletteComponent {
       case 3:
         this.doNothingEvent.emit();
         break;
+      case 4:
+        this.catchTwoPokemonEvent.emit();
+        break;
+      case 5:
+        this.visitDaycareEvent.emit();
+        break;
+      case 6:
+        this.teamRocketEncounterEvent.emit();
+        break;
+      case 7:
+        this.mysteriousEggEvent.emit();
+        break;
+      case 8:
+        this.legendaryEncounterEvent.emit();
+        break;
+      case 9:
+        this.tradePokemonEvent.emit();
+        break;
+      case 10:
+        this.findItemEvent.emit();
+        break;
+      case 11:
+        this.exploreCaveEvent.emit();
+        break;
+      case 12:
+        this.snorlaxEncounterEvent.emit();
+        break;
+      case 13:
+        this.multitaskEvent.emit();
+        break;
+      case 14:
+        this.goFishingEvent.emit();
+        break;
+      case 15:
+        this.findFossilEvent.emit();
+        break;
+      case 16:
+        this.battleRivalEvent.emit();
+        break;
     }
   }
 }
+
