@@ -32,6 +32,7 @@ import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roule
 import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
+import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -55,7 +56,8 @@ import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulett
     MysteriousEggRouletteComponent,
     LegendaryRouletteComponent,
     CatchLegendaryRouletteComponent,
-    TradePokemonRouletteComponent
+    TradePokemonRouletteComponent,
+    FindItemRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -101,7 +103,8 @@ export class MainGameComponent {
       name: "potion",
       sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
       fillStyle: "darkpurple",
-      weight: 1
+      weight: 1,
+      description: "Potion let you spin again whenever you would lose a Gym battle!"
     }
   ];
   trainerBadges: Badge[] = [
@@ -188,6 +191,11 @@ export class MainGameComponent {
   legendaryCaptureSuccess(): void {
     this.gameStateService.setNextState('check-shininess');
     this.addToTeam(this.currentContextPokemon);
+    this.gameStateService.finishCurrentState();
+  }
+
+  recieveItem(item: ItemItem): void {
+    this.addToItems(item);
     this.gameStateService.finishCurrentState();
   }
 

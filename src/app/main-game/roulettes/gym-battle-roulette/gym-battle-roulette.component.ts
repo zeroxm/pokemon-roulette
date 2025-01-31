@@ -31,7 +31,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   }
 
-  @ViewChild('gymLeaderPresentationModal', { static: true }) contentTemplate!: TemplateRef<any>;
+  @ViewChild('gymLeaderPresentationModal', { static: true }) gymLeaderPresentationModal!: TemplateRef<any>;
 
   victoryOdds: WheelItem[] = [
     { text: 'Yes', fillStyle: 'green', weight: 1 },
@@ -62,7 +62,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
         this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
 
-        this.modalService.open(this.contentTemplate, {
+        this.modalService.open(this.gymLeaderPresentationModal, {
           centered: true,
           size: 'lg'
         });

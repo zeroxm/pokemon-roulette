@@ -21,7 +21,7 @@ export class GenerationRouletteComponent {
               private trainerSpriteService: TrainerSpriteService
   ) { }
 
-  @ViewChild('trainerGenderModal', { static: true }) contentTemplate!: TemplateRef<any>;
+  @ViewChild('trainerGenderModal', { static: true }) trainerGenderModal!: TemplateRef<any>;
   selectedItem: GenerationItem | null = null;
   boySprite: string = "";
   girlSprite: string = "";
@@ -44,7 +44,7 @@ export class GenerationRouletteComponent {
     this.generationSelectedEvent.emit(this.selectedItem);
     this.boySprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'male');
     this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');
-    this.modalService.open(this.contentTemplate, {
+    this.modalService.open(this.trainerGenderModal, {
       centered: true,
       size: 'md',
       backdrop: 'static',

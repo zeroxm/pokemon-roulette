@@ -16,11 +16,11 @@ export class RestartGameComponent {
 
   }
 
-  @ViewChild('restartGameModal', { static: true }) contentTemplate!: TemplateRef<any>;
+  @ViewChild('restartGameModal', { static: true }) restartGameModal!: TemplateRef<any>;
   @Output() restartEvent = new EventEmitter<boolean>();
 
   showRestartGameConfirmModal() {
-    this.modalService.open(this.contentTemplate, {
+    this.modalService.open(this.restartGameModal, {
       centered: true,
       size: 'lg'
     });

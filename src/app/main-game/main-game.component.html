@@ -104,6 +104,10 @@
                     *ngSwitchCase="'trade-pokemon'"
                     (selectedPokemonEvent)="performTrade($event)">
                 </app-trade-pokemon-roulette>
+                <app-find-item-roulette
+                    *ngSwitchCase="'find-item'"
+                    (itemSelectedEvent)="recieveItem($event)">
+                </app-find-item-roulette>
             </ng-container>
         </div>
     

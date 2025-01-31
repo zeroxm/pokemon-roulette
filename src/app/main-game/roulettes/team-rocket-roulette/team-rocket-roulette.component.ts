@@ -18,7 +18,7 @@ export class TeamRocketRouletteComponent implements OnInit {
   @Output() stealPokemonEvent = new EventEmitter<void>();
   @Output() nothingHappensEvent = new EventEmitter<void>();
   @Output() defeatInBattleEvent = new EventEmitter<void>();
-  @ViewChild('teamRockerModal', { static: true }) contentTemplate!: TemplateRef<any>;
+  @ViewChild('teamRockerModal', { static: true }) teamRockerModal!: TemplateRef<any>;
 
   outcomes: WheelItem[] = [
     { text: 'They steal a Pokémon', fillStyle: 'crimson', weight: 2 },
@@ -37,7 +37,7 @@ export class TeamRocketRouletteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.modalService.open(this.contentTemplate, {
+    this.modalService.open(this.teamRockerModal, {
       centered: true,
       size: 'lg'
     });

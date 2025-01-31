@@ -1,0 +1,23 @@
+<h1 class="title">Which Item?</h1>
+<app-wheel  #wheel
+            [items]="items"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
+
+<ng-template #itemExplainerModal let-modal>
+	<div class="modal-body">
+        <h1>Found a {{ selectedItem?.text  }}</h1>
+        <div class="explain-panel">
+            <img [src]="selectedItem?.sprite"
+                 height="64">
+            <div class="quotes">
+                <p>{{ selectedItem?.description }}</p>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeItemExplainerModal()">Ok</button>
+    </div>
+</ng-template>

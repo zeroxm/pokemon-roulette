@@ -19,4 +19,8 @@ export class ItemsService {
       observer.complete();
     });
   }
+
+  getAllItems(): ItemItem[] {
+    return Object.values(this.itemsData);
+  }
 }
