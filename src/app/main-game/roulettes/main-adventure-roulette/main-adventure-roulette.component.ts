@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
 
@@ -9,6 +9,8 @@ import { WheelItem } from '../../../interfaces/wheel-item';
   styleUrl: './main-adventure-roulette.component.css'
 })
 export class MainAdventureRouletteComponent {
+
+  @Input() respinReason!: string;
   @Output() catchPokemonEvent = new EventEmitter<void>();
   @Output() battleTrainerEvent = new EventEmitter<void>();
   @Output() buyPotionsEvent = new EventEmitter<void>();

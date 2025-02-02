@@ -64,6 +64,6 @@ export const itemsData: Record<ItemName, ItemItem> = {
         sprite: '',
         fillStyle: 'maroon',
         weight: 1,
-        description: 'Next time you would lose a Spin between Gyms, Escape Rope resets that spin!'
+        description: 'Escape Rope saves you from bad situations!'
     }
 }

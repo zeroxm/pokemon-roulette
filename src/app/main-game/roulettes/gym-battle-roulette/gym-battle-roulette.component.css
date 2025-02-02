@@ -1,24 +1,34 @@
 .title {
-    text-align: center;
+	text-align: center;
+}
+
+.respin-reason {
+	text-align: center;
 }
 
 .modal-body {
-    color: black;
-    text-align: center;
+	color: black;
+	text-align: center;
 }
 
 .modal-body p {
-    font-size: medium;
+	font-size: medium;
 }
 
 .leader-panel {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.item-panel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .quotes {
-    text-align: start;
+	text-align: start;
 	cursor: default;
 	font-size: 8.6px;
 	border-radius: 2px;
@@ -29,12 +39,12 @@
 	background: white;
 	border: 1px solid white;
 	box-shadow: 0 1px 0 1px black,
-			  inset 0 1px 0 1px black,
-			  0 0 0 1px black,
-			  inset 0 0 0 1px black;
+		inset 0 1px 0 1px black,
+		0 0 0 1px black,
+		inset 0 0 0 1px black;
 	user-select: none;
 }
 
 .modal-footer {
-    justify-content: center;
+	justify-content: center;
 }

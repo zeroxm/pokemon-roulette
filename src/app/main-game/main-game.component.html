@@ -8,12 +8,14 @@
                     (restartEvent)="closeGameOverModal()">
                 </app-restart-game>
                 <br>
-                {{ getGameState() | async }}
+                {{ getGameState() }}
+                <br>
+                {{ stolenPokemon | json}}
             </div>
         </div>
     
         <div class="main-game col-12 col-sm-5">
-            <ng-container [ngSwitch]="getGameState() | async">
+            <ng-container [ngSwitch]="getGameState()">
                 <app-generation-roulette
                     *ngSwitchCase="'game-start'"
                     (generationSelectedEvent)="storeGeneration($event)"
@@ -52,6 +54,7 @@
                     [generation]="generation"
                     [currentRound]="leadersDefeatedAmount"
                     [trainerTeam]="trainerTeam"
+                    [(trainerItems)]="trainerItems"
                     (battleResultEvent)="gymBattleResult($event)">
                 </app-gym-battle-roulette>
                 <app-check-evolution-roulette
@@ -62,6 +65,7 @@
                 </app-check-evolution-roulette>
                 <app-main-adventure-roulette
                     *ngSwitchCase="'adventure-continues'"
+                    [respinReason]="respinReason"
                     (catchPokemonEvent)="catchPokemon()"
                     (battleTrainerEvent)="chooseWhoWillEvolve()"
                     (buyPotionsEvent)="buyPotions()"
@@ -82,9 +86,10 @@
                 </app-main-adventure-roulette>
                 <app-team-rocket-roulette
                     *ngSwitchCase="'team-rocket-encounter'"
+                    [stolenPokemon]="stolenPokemon"
                     (stealPokemonEvent)="stealPokemon()"
                     (nothingHappensEvent)="doNothing()"
-                    (defeatInBattleEvent)="chooseWhoWillEvolve()">
+                    (defeatInBattleEvent)="teamRocketDefeated()">
                 </app-team-rocket-roulette>
                 <app-mysterious-egg-roulette
                     *ngSwitchCase="'mysterious-egg'"
@@ -106,7 +111,7 @@
                 </app-trade-pokemon-roulette>
                 <app-find-item-roulette
                     *ngSwitchCase="'find-item'"
-                    (itemSelectedEvent)="recieveItem($event)">
+                    (itemSelectedEvent)="receiveItem($event)">
                 </app-find-item-roulette>
             </ng-container>
         </div>
@@ -122,36 +127,19 @@
     
             <div class="items">
                 <app-items
-                    [trainerItems]="trainerItems">
+                    [trainerItems]="trainerItems"
+                    (rareCandyInterrupt)="rareCandyInterrupt($event)">
                 </app-items>
             </div>
         </div>
     </div>
 </div>
 
-<ng-template #explainEventModal let-modal>
-	<div class="modal-body">
-        <h1>{{ explainEventModalTitle }}</h1>
-        <div class="explain-panel">
-            <img [src]="explainEventModalImg"
-                 height="128">
-            <div class="quotes">
-                <p>{{explainEventModalText}}</p>
-            </div>
-        </div>
-	</div>
-    <div class="modal-footer">
-        <button type="button"
-                class="btn btn-outline-primary"
-                (click)="closeExplainEventModal()">Ok</button>
-    </div>
-</ng-template>
-
 <ng-template #gameOverModal let-modal>
 	<div class="modal-body">
         <h1>Run is Over.</h1>
         <div class="explain-panel">
-            <div class="quotes">
+            <div class="message">
                 <p>Try Again?</p>
             </div>
         </div>
@@ -160,5 +148,36 @@
         <button type="button"
                 class="btn btn-outline-primary"
                 (click)="closeGameOverModal()">Restart</button>
+    </div>
+</ng-template>
+
+<ng-template #itemActivateModal let-modal>
+    <div class="modal-body">
+        <h1>{{ currentContextItem.text }} activates!</h1>
+        <div class="item-panel">
+            <img [src]="currentContextItem.sprite" height="128">
+            <div class="message">
+                <p>{{ currentContextItem.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #infoModal let-modal>
+	<div class="modal-body">
+        <h1>{{ infoModalTitle }}</h1>
+        <div class="explain-panel">
+            <div class="message">
+                <p>{{ infoModalMessage }}</p>
+            </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeModal()">Ok</button>
     </div>
 </ng-template>

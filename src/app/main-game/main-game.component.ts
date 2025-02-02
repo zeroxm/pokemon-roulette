@@ -6,7 +6,6 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { CommonModule } from '@angular/common';
 import { PokemonSpriteService } from '../services/pokemon-sprite-service/pokemon-sprite.service';
 import { GameState } from '../services/game-state-service/game-state';
-import { Observable, take } from 'rxjs';
 import { GenerationRouletteComponent } from './roulettes/generation-roulette/generation-roulette.component';
 import { StarterRouletteComponent } from './roulettes/starter-roulette/starter-roulette.component';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
@@ -33,6 +32,7 @@ import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legen
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
+import { ItemName } from '../services/items-service/item-names';
 
 @Component({
   selector: 'app-main-game',
@@ -58,7 +58,7 @@ import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-i
     CatchLegendaryRouletteComponent,
     TradePokemonRouletteComponent,
     FindItemRouletteComponent
-],
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -71,10 +71,25 @@ export class MainGameComponent {
     private itemSpriteService: ItemSpriteService,
     private pokemonSpriteService: PokemonSpriteService,
     private modalService: NgbModal) {
+    this.gameStateService.currentState.subscribe(state => {
+      this.currentGameState = state;
+      if (this.currentGameState === 'adventure-continues') {
+        if (this.multitaskCounter > 0) {
+          this.respinReason = 'Multitask x' + this.multitaskCounter;
+          this.multitaskCounter--;
+        }
+        if (this.runningShoesUsed) {
+          this.respinReason = '(Running Shoes)';
+        }
+      }
+    })
   }
 
-  @ViewChild('explainEventModal', { static: true }) explainEventModalTemplate!: TemplateRef<any>;
   @ViewChild('gameOverModal', { static: true }) gameOverModalTemplate!: TemplateRef<any>;
+  @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
+  @ViewChild('infoModal', { static: true }) infoModal!: TemplateRef<any>;
+
+  currentGameState!: GameState;
 
   generation: GenerationItem = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 };
   // generation!: GenerationItem;
@@ -83,29 +98,30 @@ export class MainGameComponent {
   trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
   // trainer = { sprite: './place-holder-pixel.png' };
   trainerTeam: PokemonItem[] = [
-    {
-      text: "Pikachu",
-      pokemonId: 25,
-      fillStyle: "goldenrod",
-      sprite:
-      {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+    { text: "Bulbasaur", pokemonId: 1, fillStyle: "green", 
+      sprite: {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/1.png"
       },
-      shiny: false,
-      power: 1,
-      weight: 1
+      shiny: false, power: 1, weight: 1 
     },
+    { text: "Bulbasaur", pokemonId: 1, fillStyle: "green", 
+      sprite: {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/1.png"
+      },
+      shiny: false, power: 1, weight: 1 
+    }
   ];
   trainerItems: ItemItem[] = [
-    {
-      text: "Potion",
-      name: "potion",
-      sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png",
-      fillStyle: "darkpurple",
-      weight: 1,
-      description: "Potion let you spin again whenever you would lose a Gym battle!"
-    }
+    // {
+    //   text: 'Escape Rope',
+    //   name: 'escape-rope',
+    //   sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/escape-rope.png',
+    //   fillStyle: 'maroon',
+    //   weight: 1,
+    //   description: 'Escape Rope saves you from bad situations!'
+    // }
   ];
   trainerBadges: Badge[] = [
     {
@@ -114,27 +130,32 @@ export class MainGameComponent {
     },
   ];
   // leadersDefeatedAmount: number = 0;
-  leadersDefeatedAmount: number = 1;
-  customWheelTitle = '';
+  runningShoesUsed: boolean = false;
+  expShareUsed: boolean = false;
   auxPokemonList: PokemonItem[] = [];
   currentContextPokemon!: PokemonItem;
+  expSharePokemon: PokemonItem | null = null;
+  stolenPokemon!: PokemonItem | null;
+  currentContextItem!: ItemItem;
+  leadersDefeatedAmount: number = 1;
   evolutionCredits: number = 0;
-
-  explainEventModalTitle = '';
-  explainEventModalText = '';
-  explainEventModalImg = '';
-
-  closeExplainEventModal(): void {
-    this.modalService.dismissAll();
-  }
+  multitaskCounter: number = 0;
+  customWheelTitle = '';
+  respinReason = '';
+  infoModalTitle = '';
+  infoModalMessage = '';
 
   closeGameOverModal(): void {
     this.resetGame();
     this.modalService.dismissAll();
   }
 
-  getGameState(): Observable<GameState> {
-    return this.gameStateService.currentState;
+  closeModal(): void {
+    this.modalService.dismissAll();
+  }
+
+  getGameState(): string {
+    return this.currentGameState;
   }
 
   storeGeneration(generation: GenerationItem): void {
@@ -143,7 +164,7 @@ export class MainGameComponent {
 
   storeTrainerSprite(sprite: string): void {
     this.trainer.sprite = sprite;
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   storePokemon(pokemon: PokemonItem): void {
@@ -152,51 +173,65 @@ export class MainGameComponent {
     }
     this.addToTeam(pokemon);
     this.gameStateService.setNextState('check-shininess');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   setShininess(shiny: boolean): void {
     this.trainerTeam[this.trainerTeam.length - 1].shiny = shiny;
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   doNothing(): void {
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   buyPotions(): void {
     this.itemService.getItem('potion').subscribe(potion => {
       this.addToItems(potion);
     })
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   catchPokemon(): void {
     this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   catchTwoPokemon(): void {
     this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   legendaryCaptureChance(pokemon: PokemonItem): void {
     this.currentContextPokemon = pokemon;
     this.gameStateService.setNextState('catch-legendary');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   legendaryCaptureSuccess(): void {
     this.gameStateService.setNextState('check-shininess');
     this.addToTeam(this.currentContextPokemon);
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
-  recieveItem(item: ItemItem): void {
+  receiveItem(item: ItemItem): void {
     this.addToItems(item);
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
+  }
+
+  rareCandyInterrupt(rareCandy: ItemItem): void {
+    this.trainerTeam.forEach(pokemon => {
+      if (this.evolutionService.canEvolve(pokemon)) {
+        this.auxPokemonList.push(pokemon);
+      }
+    });
+
+    if (this.auxPokemonList.length !== 0) {
+      this.gameStateService.repeatCurrentState();
+      this.removeItem(rareCandy);
+      this.chooseWhoWillEvolve();
+    }
   }
 
   chooseWhoWillEvolve(): void {
@@ -219,70 +254,94 @@ export class MainGameComponent {
     this.customWheelTitle = 'Who will evolve?';
     this.gameStateService.setNextState('evolve-pokemon');
     this.gameStateService.setNextState('select-from-pokemon-list');
-    this.gameStateService.finishCurrentState();
+
+    this.finishCurrentState();
+  }
+
+  secondEvolution(): void {
+    this.auxPokemonList = [];
+
+    this.trainerTeam.forEach(pokemon => {
+      if (this.evolutionService.canEvolve(pokemon)) {
+        this.auxPokemonList.push(pokemon);
+      }
+    });
+
+    if (this.expSharePokemon) {
+      const index = this.auxPokemonList.indexOf(this.expSharePokemon);
+      if (index > -1) {
+        this.auxPokemonList.splice(index, 1);
+      }
+    }
+
+    if (this.auxPokemonList.length === 1) {
+      return this.evolveSecondPokemon(this.auxPokemonList[0]);
+    }
+
+    this.customWheelTitle = 'Who will evolve (Exp. Share)?';
+    this.gameStateService.setNextState('evolve-pokemon');
+    this.gameStateService.setNextState('select-from-pokemon-list');
   }
 
   continueWithPokemon(pokemon: PokemonItem): void {
-    this.gameStateService.finishCurrentState();
-    this.getGameState().pipe(take(1)).subscribe(state => {
-      switch (state) {
-        case 'evolve-pokemon':
-          this.evolvePokemon(pokemon);
-          break;
-        case 'select-evolution':
-          this.replaceForEvolution(this.currentContextPokemon, pokemon);
-          this.gameStateService.finishCurrentState();
-          break;
-        case 'steal-pokemon':
-          this.removeFromTeam(pokemon);
-          this.gameStateService.finishCurrentState();
-          break;
-        case 'trade-pokemon':
-          this.currentContextPokemon = pokemon;
-          break;
-        default:
-          break;
-      }
-    });
+    this.finishCurrentState();
+    switch (this.currentGameState) {
+      case 'evolve-pokemon':
+        this.evolvePokemon(pokemon);
+        break;
+      case 'select-evolution':
+        this.replaceForEvolution(this.currentContextPokemon, pokemon);
+        this.finishCurrentState();
+        break;
+      case 'steal-pokemon':
+        this.stolenPokemon = pokemon;
+        this.removeFromTeam(pokemon);
+        this.finishCurrentState();
+        break;
+      case 'trade-pokemon':
+        this.currentContextPokemon = pokemon;
+        break;
+      default:
+        break;
+    }
   }
 
   gymBattleResult(result: boolean): void {
+    this.runningShoesUsed = false;
+    this.respinReason = '';
+
     if (result) {
       this.badgesService.getBadge(this.generation, this.leadersDefeatedAmount).subscribe(badge => {
         this.trainerBadges.push(badge);
       })
       this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
-      this.gameStateService.finishCurrentState();
+
     } else {
-      if (this.checkForPotions()) {
-        this.usePotion();
-      } else {
-        this.gameStateService.setNextState('game-over');
-        this.gameStateService.finishCurrentState();
-        this.modalService.open(this.gameOverModalTemplate, {
-          centered: true,
-          size: 'md',
-          backdrop: 'static',
-          keyboard: false
-        });
-      }
+      this.gameStateService.setNextState('game-over');
+      this.modalService.open(this.gameOverModalTemplate, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static',
+        keyboard: false
+      });
     }
+    this.finishCurrentState();
   }
 
   teamRocketEncounter(): void {
     this.gameStateService.setNextState('team-rocket-encounter');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   mysteriousEgg(): void {
     this.gameStateService.setNextState('mysterious-egg');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   legendaryEncounter(): void {
     this.gameStateService.setNextState('legendary-encounter');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   tradePokemon(): void {
@@ -296,56 +355,101 @@ export class MainGameComponent {
       this.gameStateService.setNextState('select-from-pokemon-list');
     }
 
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   findItem(): void {
     this.gameStateService.setNextState('find-item');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   exploreCave(): void {
     this.gameStateService.setNextState('explore-cave');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   snorlaxEncounter(): void {
     this.gameStateService.setNextState('snorlax-encounter');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   multitask(): void {
     this.gameStateService.setNextState('adventure-continues');
     this.gameStateService.setNextState('adventure-continues');
-    this.gameStateService.finishCurrentState();
-    // Show a message to the player that multitasking lets them spin the wheel twice
+    this.multitaskCounter = this.multitaskCounter + 2;
+    this.respinReason = 'Multitask x' + this.multitaskCounter;
+    this.finishCurrentState();
   }
 
   goFishing(): void {
     this.gameStateService.setNextState('go-fishing');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   findFossil(): void {
     this.gameStateService.setNextState('find-fossil');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   battleRival(): void {
     this.gameStateService.setNextState('battle-rival');
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
   }
 
   stealPokemon(): void {
     if (this.trainerTeam.length === 1) {
-      return this.doNothing();
+      this.infoModalTitle = 'Team Rocket Fails';
+      this.infoModalMessage = 'Team Rocket fails to steal your last Pokémon.';
+      const modalRef = this.modalService.open(this.infoModal, {
+        centered: true,
+        size: 'md'
+      });
+
+      modalRef.result.then(() => {
+        return this.doNothing();
+      }, () => {
+        return this.doNothing();
+      });
+    } else if (this.hasItem('escape-rope')) {
+      const item = this.getItem('escape-rope')
+      if (item) {
+        this.removeItem(item);
+        this.gameStateService.setNextState('adventure-continues');
+
+        const modalRef = this.modalService.open(this.itemActivateModal, {
+          centered: true,
+          size: 'md'
+        });
+
+        modalRef.result.then(() => {
+          return this.doNothing();
+        }, () => {
+          return this.doNothing();
+        });
+      }
+    } else {
+      this.auxPokemonList = this.trainerTeam;
+      this.customWheelTitle = 'Which Pokémon?';
+      this.gameStateService.setNextState('steal-pokemon');
+      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.finishCurrentState();
+    }
+  }
+
+  teamRocketDefeated(): void {
+
+    if (this.stolenPokemon) {
+      this.trainerTeam.push(this.stolenPokemon);
+      this.infoModalTitle = 'Saved '+ this.stolenPokemon.text + '!';
+      this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
+      this.stolenPokemon = null;
+      this.modalService.open(this.infoModal, {
+        centered: true,
+        size: 'md'
+      });
     }
 
-    this.auxPokemonList = this.trainerTeam;
-    this.customWheelTitle = 'Which Pokémon?';
-    this.gameStateService.setNextState('steal-pokemon');
-    this.gameStateService.setNextState('select-from-pokemon-list');
-    this.gameStateService.finishCurrentState();
+    this.chooseWhoWillEvolve();
   }
 
   performTrade(pokemon: PokemonItem): void {
@@ -359,7 +463,28 @@ export class MainGameComponent {
     if (index > -1) {
       this.trainerTeam.splice(index, 1, pokemon);
     }
+    this.auxPokemonList = [];
+    this.finishCurrentState();
+  }
+
+  private finishCurrentState(): void {
+
     this.gameStateService.finishCurrentState();
+
+    if (this.currentGameState === 'adventure-continues') {
+      if (this.hasItem('running-shoes') && !this.runningShoesUsed) {
+        this.runningShoesUsed = true;
+        this.gameStateService.setNextState('adventure-continues');
+      }
+    }
+  }
+
+  private hasItem(itemName: ItemName): boolean {
+    return this.trainerItems.some(item => item.name === itemName);
+  }
+
+  private getItem(itemName: ItemName): ItemItem | undefined {
+    return this.trainerItems.find(item => item.name === itemName);
   }
 
   private resetGame(): void {
@@ -402,7 +527,21 @@ export class MainGameComponent {
       this.gameStateService.setNextState('select-evolution');
       this.gameStateService.setNextState('select-from-pokemon-list');
     }
-    this.gameStateService.finishCurrentState();
+    this.finishCurrentState();
+  }
+
+  private evolveSecondPokemon(pokemon: PokemonItem): void {
+    const pokemonEvolutions = this.evolutionService.getEvolutions(pokemon);
+
+    if (pokemonEvolutions.length === 1) {
+      this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
+    } else {
+      this.auxPokemonList = pokemonEvolutions;
+      this.currentContextPokemon = pokemon;
+      this.customWheelTitle = 'Which evolution?';
+      this.gameStateService.setNextState('select-evolution');
+      this.gameStateService.setNextState('select-from-pokemon-list');
+    }
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
@@ -415,35 +554,31 @@ export class MainGameComponent {
       });
     }
     this.trainerTeam.splice(index, 1, pokemonIn);
-  }
+    this.auxPokemonList = [];
 
-  private checkForPotions(): string {
-    const potionItem = this.trainerItems.find(item => item.name === 'potion');
-    return potionItem ? potionItem.name : '';
-  }
-
-  private usePotion(): void {
-    const index = this.trainerItems.findIndex(item => item.name === 'potion');
-    if (index !== -1) {
-      this.trainerItems.splice(index, 1);
+    if (this.hasItem('exp-share') && this.expShareUsed === false) {
+      this.expShareUsed = true;
+      this.expSharePokemon = pokemonIn;
+      this.secondEvolution();
+    } else if (this.hasItem('exp-share') && this.expShareUsed === true) {
+      this.expShareUsed = false;
+      this.expSharePokemon = null;
     }
-
-    this.explainEventModalTitle = 'Used a Potion!';
-    this.itemSpriteService.getItemSprite('potion').subscribe(response => {
-      this.explainEventModalImg = response.sprite;
-    });
-    this.explainEventModalText = 'Potions let you spin again whenever you would lose a battle!';
-
-    this.modalService.open(this.explainEventModalTemplate, {
-      centered: true,
-      size: 'md'
-    });
   }
 
   private removeFromTeam(pokemon: PokemonItem): void {
     const index = this.trainerTeam.indexOf(pokemon);
     if (index !== -1) {
       this.trainerTeam.splice(index, 1);
+    }
+    this.auxPokemonList = [];
+  }
+
+  private removeItem(item: ItemItem): void {
+    const index = this.trainerItems.indexOf(item);
+    this.currentContextItem = item;
+    if (index !== -1) {
+      this.trainerItems.splice(index, 1);
     }
   }
 }

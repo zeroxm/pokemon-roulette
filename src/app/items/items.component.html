@@ -3,65 +3,65 @@
     <h2 class="title">Items</h2>
     <div class="item-section container">
         <div class="row gap-2">
-            <div class="item-container rounded-3 col-2"
+            <div class="item-container rounded-3 col-2 cursor-pointer"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[0]?.sprite" [src]="trainerItems[0].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[0].text}}">
+                ngbTooltip="{{trainerItems[0].text}}" (click)="useItem(trainerItems[0])">
         </div>
-        <div class="item-container rounded-3 col-2"
+        <div class="item-container rounded-3 col-2 cursor-pointer"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[1]?.sprite" [src]="trainerItems[1].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[1].text}}">
+                ngbTooltip="{{trainerItems[1].text}}" (click)="useItem(trainerItems[1])">
         </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+        <div class="item-container rounded-3 col-2 cursor-pointer"
+            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow '">
             <img *ngIf="trainerItems[2]?.sprite" [src]="trainerItems[2].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[2].text}}">
+                ngbTooltip="{{trainerItems[2].text}}" (click)="useItem(trainerItems[2])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[3]?.sprite" [src]="trainerItems[3].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[3].text}}">
+                ngbTooltip="{{trainerItems[3].text}}" (click)="useItem(trainerItems[3])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[4]?.sprite" [src]="trainerItems[4].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[4].text}}">
+                ngbTooltip="{{trainerItems[4].text}}" (click)="useItem(trainerItems[4])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[5]?.sprite" [src]="trainerItems[5].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[5].text}}">
+                ngbTooltip="{{trainerItems[5].text}}" (click)="useItem(trainerItems[5])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[6]?.sprite" [src]="trainerItems[6].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[6].text}}">
+                ngbTooltip="{{trainerItems[6].text}}" (click)="useItem(trainerItems[6])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[7]?.sprite" [src]="trainerItems[7].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[7].text}}">
+                ngbTooltip="{{trainerItems[7].text}}" (click)="useItem(trainerItems[7])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[8]?.sprite" [src]="trainerItems[8].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[8].text}}">
+                ngbTooltip="{{trainerItems[8].text}}" (click)="useItem(trainerItems[8])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[9]?.sprite" [src]="trainerItems[9].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[9].text}}">
+                ngbTooltip="{{trainerItems[9].text}}" (click)="useItem(trainerItems[9])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[10]?.sprite" [src]="trainerItems[10].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[10].text}}">
+                ngbTooltip="{{trainerItems[10].text}}" (click)="useItem(trainerItems[10])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
             <img *ngIf="trainerItems[11]?.sprite" [src]="trainerItems[11].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[11].text}}">
+                ngbTooltip="{{trainerItems[11].text}}" (click)="useItem(trainerItems[11])">
         </div>
         </div>
 

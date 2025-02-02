@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PokemonItem } from '../../../interfaces/pokemon-item';
 
 @Component({
   selector: 'app-team-rocket-roulette',
@@ -12,19 +13,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class TeamRocketRouletteComponent implements OnInit {
 
   constructor(private modalService: NgbModal) {
-
   }
 
+  @Input() stolenPokemon!: PokemonItem | null;
   @Output() stealPokemonEvent = new EventEmitter<void>();
   @Output() nothingHappensEvent = new EventEmitter<void>();
   @Output() defeatInBattleEvent = new EventEmitter<void>();
   @ViewChild('teamRockerModal', { static: true }) teamRockerModal!: TemplateRef<any>;
 
-  outcomes: WheelItem[] = [
-    { text: 'They steal a Pokémon', fillStyle: 'crimson', weight: 2 },
-    { text: 'You run away', fillStyle: 'darkorange', weight: 2 },
-    { text: 'You defeat them', fillStyle: 'green', weight: 1 }
-  ];
+  outcomes: WheelItem[] = [];
 
   jessie = {
     name: 'Jessie',
@@ -37,6 +34,17 @@ export class TeamRocketRouletteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.outcomes = [
+      { text: 'They steal a Pokémon', fillStyle: 'crimson', weight: 2 },
+      { text: 'You run away', fillStyle: 'darkorange', weight: 2 },
+    ];
+
+    if (this.stolenPokemon) {
+      this.outcomes.push({ text: 'You defeat them', fillStyle: 'green', weight: 4 });
+    } else {
+      this.outcomes.push({ text: 'You defeat them', fillStyle: 'green', weight: 1 });
+    }
+
     this.modalService.open(this.teamRockerModal, {
       centered: true,
       size: 'lg'

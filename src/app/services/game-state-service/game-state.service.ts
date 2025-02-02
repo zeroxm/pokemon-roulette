@@ -60,6 +60,10 @@ export class GameStateService {
     return 'game-start';
   }
 
+  repeatCurrentState(): void {
+    this.stateStack.push(this.state.value);
+  }
+
   resetGameState(): void {
     this.initializeStates();
     this.setNextState('game-start');

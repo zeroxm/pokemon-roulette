@@ -20,7 +20,7 @@ export class FindItemRouletteComponent {
   constructor(private modalService: NgbModal,
     private itemService: ItemsService,
     private itemSpriteService: ItemSpriteService) {
-      this.items = itemService.getAllItems();   
+    this.items = itemService.getAllItems();
   }
 
   @ViewChild('itemExplainerModal', { static: true }) itemExplainerModal!: TemplateRef<any>;
@@ -30,13 +30,13 @@ export class FindItemRouletteComponent {
 
   onItemSelected(index: number): void {
     this.selectedItem = this.items[index];
-    
+
     this.itemSpriteService.getItemSprite(this.selectedItem.name).pipe(take(1)).subscribe(response => {
       if (this.selectedItem) {
         this.selectedItem.sprite = response.sprite;
       }
     });
-    
+
     const modalRef = this.modalService.open(this.itemExplainerModal, {
       centered: true,
       size: 'md',

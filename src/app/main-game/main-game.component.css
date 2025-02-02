@@ -1,35 +1,35 @@
 .game-container {
-    width: 100%;
+	width: 100%;
 }
 
 .toolbar {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: space-between;
 }
 
 .modal-footer {
-    justify-content: center;
+	justify-content: center;
 }
 
 .modal-body {
-    color: black;
-    text-align: center;
+	color: black;
+	text-align: center;
 }
 
 .modal-body p {
-    font-size: medium;
+	font-size: medium;
 }
 
 .explain-panel {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
-.quotes {
-    text-align: start;
+.message {
+	text-align: start;
 	cursor: default;
 	font-size: 8.6px;
 	font-family: "Pokemon GB", Monospace, sans-serif;
@@ -41,8 +41,8 @@
 	background: white;
 	border: 1px solid white;
 	box-shadow: 0 1px 0 1px black,
-			  inset 0 1px 0 1px black,
-			  0 0 0 1px black,
-			  inset 0 0 0 1px black;
+		inset 0 1px 0 1px black,
+		0 0 0 1px black,
+		inset 0 0 0 1px black;
 	user-select: none;
 }
