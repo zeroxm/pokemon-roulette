@@ -69,11 +69,11 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         this.currentLeader = this.getCurrentLeader();
         this.victoryOdds = [];
 
-        this.trainerTeam.forEach(pokemon => {
+        this.trainerTeam.slice(0, 6).forEach(pokemon => {
           for (let i = 0; i < pokemon.power; i++) {
             this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
           }
-        })
+        });
         const powerModifier = this.plusModifiers();
         for (let i = 0; i < powerModifier; i++) {
           this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
@@ -106,7 +106,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     let power = 0;
     const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
     xAttacks.forEach(() => {
-      const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
+      const meanPower = this.trainerTeam.slice(0, 6).reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.slice(0, 6).length;
       power += meanPower;
     });
 

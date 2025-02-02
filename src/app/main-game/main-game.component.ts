@@ -33,6 +33,7 @@ import { PokemonService } from '../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
+import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -61,7 +62,8 @@ import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-r
     ExploreCaveRouletteComponent,
     CavePokemonRouletteComponent,
     FossilRouletteComponent,
-    SnorlaxRouletteComponent
+    SnorlaxRouletteComponent,
+    FishingRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'

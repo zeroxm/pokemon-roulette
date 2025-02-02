@@ -129,6 +129,10 @@
                     (defeatSnorlaxEvent)="chooseWhoWillEvolve()"
                     (catchSnorlaxEvent)="catchSnorlax()">
                 </app-snorlax-roulette>
+                <app-fishing-roulette
+                    *ngSwitchCase="'go-fishing'"
+                    (selectedPokemonEvent)="storePokemon($event)">
+                </app-fishing-roulette>
             </ng-container>
         </div>
 

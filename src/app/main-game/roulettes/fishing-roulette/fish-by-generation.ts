@@ -1,4 +1,5 @@
-import { PokemonItem } from "../interfaces/pokemon-item";
+import { PokemonItem } from "../../../interfaces/pokemon-item";
+
 
 export const fishByGeneration: Record<number, PokemonItem[]> = {
     1: [
