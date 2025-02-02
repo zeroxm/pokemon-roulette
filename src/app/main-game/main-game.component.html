@@ -122,6 +122,13 @@
                     *ngSwitchCase="'find-fossil'"
                     (selectedPokemonEvent)="storePokemon($event)">
                 </app-fossil-roulette>
+                <app-snorlax-roulette
+                    *ngSwitchCase="'snorlax-encounter'"
+                    [currentRound]="leadersDefeatedAmount"
+                    (runAwayEvent)="doNothing()"
+                    (defeatSnorlaxEvent)="chooseWhoWillEvolve()"
+                    (catchSnorlaxEvent)="catchSnorlax()">
+                </app-snorlax-roulette>
             </ng-container>
         </div>
 

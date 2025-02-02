@@ -32,6 +32,7 @@ import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/
 import { PokemonService } from '../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
+import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -59,7 +60,8 @@ import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roul
     FindItemRouletteComponent,
     ExploreCaveRouletteComponent,
     CavePokemonRouletteComponent,
-    FossilRouletteComponent
+    FossilRouletteComponent,
+    SnorlaxRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -201,6 +203,15 @@ export class MainGameComponent {
     const zubat = this.pokemonService.getPokemonById(41);
     if (zubat) {
       this.trainerService.addToTeam(zubat);
+      this.gameStateService.setNextState('check-shininess');
+    }
+    this.finishCurrentState();
+  }
+
+  catchSnorlax(): void {
+    const snorlax = this.pokemonService.getPokemonById(143);
+    if (snorlax) {
+      this.trainerService.addToTeam(snorlax);
       this.gameStateService.setNextState('check-shininess');
     }
     this.finishCurrentState();
