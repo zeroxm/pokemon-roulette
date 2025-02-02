@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TrainerSpriteService } from './trainer-sprite.service';
+import { GenerationService } from './generation.service';
 
-describe('TrainerSpriteService', () => {
-  let service: TrainerSpriteService;
+describe('GenerationService', () => {
+  let service: GenerationService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TrainerSpriteService);
+    service = TestBed.inject(GenerationService);
   });
 
   it('should be created', () => {

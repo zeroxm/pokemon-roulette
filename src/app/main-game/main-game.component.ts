@@ -4,26 +4,21 @@ import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { CommonModule } from '@angular/common';
-import { PokemonSpriteService } from '../services/pokemon-sprite-service/pokemon-sprite.service';
 import { GameState } from '../services/game-state-service/game-state';
 import { GenerationRouletteComponent } from './roulettes/generation-roulette/generation-roulette.component';
 import { StarterRouletteComponent } from './roulettes/starter-roulette/starter-roulette.component';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
-import { ItemSpriteService } from '../services/item-sprite-service/item-sprite.service';
 import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 import { EvolutionService } from '../services/evolution-service/evolution.service';
 import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component";
 import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
 import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
-import { Badge } from '../interfaces/badge';
-import { GenerationItem } from '../interfaces/generation-item';
 import { ItemItem } from '../interfaces/item-item';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { ItemsService } from '../services/items-service/items.service';
 import { NgIconsModule } from '@ng-icons/core';
 import { RestartGameComponent } from "../restart-game/restart-game.component";
-import { BadgesService } from '../services/badges-service/badges.service';
 import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-roulette/check-evolution-roulette.component";
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
 import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/team-rocket-roulette.component";
@@ -32,10 +27,10 @@ import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legen
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
-import { ItemName } from '../services/items-service/item-names';
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
-import { PokemonService } from '../services/pokemon-service/pokemon.service';
 import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
+import { PokemonService } from '../services/pokemon-service/pokemon.service';
+import { TrainerService } from '../services/trainer-service/trainer.service';
 
 @Component({
   selector: 'app-main-game',
@@ -69,13 +64,11 @@ import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/
 })
 export class MainGameComponent {
 
-  constructor(private badgesService: BadgesService,
-    private evolutionService: EvolutionService,
+  constructor(private evolutionService: EvolutionService,
     private gameStateService: GameStateService,
     private itemService: ItemsService,
-    private itemSpriteService: ItemSpriteService,
     private pokemonService: PokemonService,
-    private pokemonSpriteService: PokemonSpriteService,
+    private trainerService: TrainerService,
     private modalService: NgbModal) {
     this.gameStateService.currentState.subscribe(state => {
       this.currentGameState = state;
@@ -97,45 +90,8 @@ export class MainGameComponent {
 
   currentGameState!: GameState;
 
-  generation: GenerationItem = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 };
-  // generation!: GenerationItem;
   starter!: PokemonItem;
 
-  trainer = { sprite: 'https://archives.bulbagarden.net/media/upload/2/2b/Spr_FRLG_Leaf.png' };
-  // trainer = { sprite: './place-holder-pixel.png' };
-  trainerTeam: PokemonItem[] = [
-    { text: "Bulbasaur", pokemonId: 1, fillStyle: "green", 
-      sprite: {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/1.png"
-      },
-      shiny: false, power: 1, weight: 1 
-    },
-    { text: "Bulbasaur", pokemonId: 1, fillStyle: "green", 
-      sprite: {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/1.png"
-      },
-      shiny: false, power: 1, weight: 1 
-    }
-  ];
-  trainerItems: ItemItem[] = [
-    // {
-    //   text: 'Escape Rope',
-    //   name: 'escape-rope',
-    //   sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/escape-rope.png',
-    //   fillStyle: 'maroon',
-    //   weight: 1,
-    //   description: 'Escape Rope saves you from bad situations!'
-    // }
-  ];
-  trainerBadges: Badge[] = [
-    {
-      name: 'Boulder Badge',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png'
-    },
-  ];
-  // leadersDefeatedAmount: number = 0;
   runningShoesUsed: boolean = false;
   expShareUsed: boolean = false;
   auxPokemonList: PokemonItem[] = [];
@@ -143,7 +99,7 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 1;
+  leadersDefeatedAmount: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
   customWheelTitle = '';
@@ -164,26 +120,27 @@ export class MainGameComponent {
     return this.currentGameState;
   }
 
-  storeGeneration(generation: GenerationItem): void {
-    this.generation = generation;
+  handleTrainerSelected(): void {
+    this.finishCurrentState();
   }
 
-  storeTrainerSprite(sprite: string): void {
-    this.trainer.sprite = sprite;
+  storeStarterPokemon(pokemon: PokemonItem): void {
+    this.starter = pokemon;
+    this.trainerService.addToTeam(pokemon);
+    this.gameStateService.setNextState('check-shininess');
     this.finishCurrentState();
   }
 
   storePokemon(pokemon: PokemonItem): void {
-    if (this.trainerTeam.length === 0) {
-      this.starter = pokemon;
-    }
-    this.addToTeam(pokemon);
+    this.trainerService.addToTeam(pokemon);
     this.gameStateService.setNextState('check-shininess');
     this.finishCurrentState();
   }
 
   setShininess(shiny: boolean): void {
-    this.trainerTeam[this.trainerTeam.length - 1].shiny = shiny;
+    if (shiny) {
+      this.trainerService.makeShiny();
+    }
     this.finishCurrentState();
   }
 
@@ -192,10 +149,11 @@ export class MainGameComponent {
   }
 
   getLost(): void {
-    if (this.hasItem('escape-rope')) {
-      const item = this.getItem('escape-rope')
+    if (this.trainerService.hasItem('escape-rope')) {
+      const item = this.trainerService.getItem('escape-rope')
       if (item) {
-        this.removeItem(item);
+        this.trainerService.removeItem(item);
+        this.currentContextItem = item;
         this.gameStateService.setNextState('adventure-continues');
 
         const modalRef = this.modalService.open(this.itemActivateModal, {
@@ -216,7 +174,7 @@ export class MainGameComponent {
 
   buyPotions(): void {
     this.itemService.getItem('potion').subscribe(potion => {
-      this.addToItems(potion);
+      this.trainerService.addToItems(potion);
     })
     this.finishCurrentState();
   }
@@ -240,7 +198,8 @@ export class MainGameComponent {
   catchZubat(): void {
     const zubat = this.pokemonService.getPokemonById(41);
     if (zubat) {
-      this.addToTeam(zubat);  
+      this.trainerService.addToTeam(zubat);
+      this.gameStateService.setNextState('check-shininess');
     }
     this.finishCurrentState();
   }
@@ -253,25 +212,22 @@ export class MainGameComponent {
 
   legendaryCaptureSuccess(): void {
     this.gameStateService.setNextState('check-shininess');
-    this.addToTeam(this.currentContextPokemon);
+    this.trainerService.addToTeam(this.currentContextPokemon);
     this.finishCurrentState();
   }
 
   receiveItem(item: ItemItem): void {
-    this.addToItems(item);
+    this.trainerService.addToItems(item);
     this.finishCurrentState();
   }
 
   rareCandyInterrupt(rareCandy: ItemItem): void {
-    this.trainerTeam.forEach(pokemon => {
-      if (this.evolutionService.canEvolve(pokemon)) {
-        this.auxPokemonList.push(pokemon);
-      }
-    });
+    this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length !== 0) {
       this.gameStateService.repeatCurrentState();
-      this.removeItem(rareCandy);
+      this.trainerService.removeItem(rareCandy);
+      this.currentContextItem = rareCandy;
       this.chooseWhoWillEvolve();
     }
   }
@@ -279,11 +235,7 @@ export class MainGameComponent {
   chooseWhoWillEvolve(): void {
     this.auxPokemonList = [];
 
-    this.trainerTeam.forEach(pokemon => {
-      if (this.evolutionService.canEvolve(pokemon)) {
-        this.auxPokemonList.push(pokemon);
-      }
-    });
+    this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length === 0) {
       return this.doNothing();
@@ -303,17 +255,17 @@ export class MainGameComponent {
   secondEvolution(): void {
     this.auxPokemonList = [];
 
-    this.trainerTeam.forEach(pokemon => {
-      if (this.evolutionService.canEvolve(pokemon)) {
-        this.auxPokemonList.push(pokemon);
-      }
-    });
+    this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.expSharePokemon) {
       const index = this.auxPokemonList.indexOf(this.expSharePokemon);
       if (index > -1) {
         this.auxPokemonList.splice(index, 1);
       }
+    }
+
+    if (this.auxPokemonList.length === 0) {
+      return; 
     }
 
     if (this.auxPokemonList.length === 1) {
@@ -353,9 +305,7 @@ export class MainGameComponent {
     this.respinReason = '';
 
     if (result) {
-      this.badgesService.getBadge(this.generation, this.leadersDefeatedAmount).subscribe(badge => {
-        this.trainerBadges.push(badge);
-      })
+      this.trainerService.addBadge(this.leadersDefeatedAmount);
       this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
 
@@ -389,10 +339,12 @@ export class MainGameComponent {
   tradePokemon(): void {
     this.gameStateService.setNextState('trade-pokemon');
 
-    if (this.trainerTeam.length === 1) {
-      this.currentContextPokemon = this.trainerTeam[0];
+    const trainerTeam = this.trainerService.getTeam();
+
+    if (trainerTeam.length === 1) {
+      this.currentContextPokemon = trainerTeam[0];
     } else {
-      this.auxPokemonList = this.trainerTeam;
+      this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('select-from-pokemon-list');
     }
@@ -439,7 +391,10 @@ export class MainGameComponent {
   }
 
   stealPokemon(): void {
-    if (this.trainerTeam.length === 1) {
+
+    const trainerTeam = this.trainerService.getTeam();
+
+    if (trainerTeam.length === 1) {
       this.infoModalTitle = 'Team Rocket Fails';
       this.infoModalMessage = 'Team Rocket fails to steal your last Pokémon.';
       const modalRef = this.modalService.open(this.infoModal, {
@@ -452,10 +407,11 @@ export class MainGameComponent {
       }, () => {
         return this.doNothing();
       });
-    } else if (this.hasItem('escape-rope')) {
-      const item = this.getItem('escape-rope')
+    } else if (this.trainerService.hasItem('escape-rope')) {
+      const item = this.trainerService.getItem('escape-rope')
       if (item) {
-        this.removeItem(item);
+        this.trainerService.removeItem(item);
+        this.currentContextItem = item;
         this.gameStateService.setNextState('adventure-continues');
 
         const modalRef = this.modalService.open(this.itemActivateModal, {
@@ -470,7 +426,7 @@ export class MainGameComponent {
         });
       }
     } else {
-      this.auxPokemonList = this.trainerTeam;
+      this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('steal-pokemon');
       this.gameStateService.setNextState('select-from-pokemon-list');
@@ -481,7 +437,7 @@ export class MainGameComponent {
   teamRocketDefeated(): void {
 
     if (this.stolenPokemon) {
-      this.trainerTeam.push(this.stolenPokemon);
+      this.trainerService.addToTeam(this.stolenPokemon);
       this.infoModalTitle = 'Saved '+ this.stolenPokemon.text + '!';
       this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
       this.stolenPokemon = null;
@@ -495,16 +451,7 @@ export class MainGameComponent {
   }
 
   performTrade(pokemon: PokemonItem): void {
-    if (!pokemon.sprite) {
-      this.pokemonSpriteService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        pokemon.sprite = response.sprite;
-      });
-    }
-
-    const index = this.trainerTeam.indexOf(this.currentContextPokemon);
-    if (index > -1) {
-      this.trainerTeam.splice(index, 1, pokemon);
-    }
+    this.trainerService.performTrade(this.currentContextPokemon, pokemon);
     this.auxPokemonList = [];
     this.finishCurrentState();
   }
@@ -514,47 +461,21 @@ export class MainGameComponent {
     this.gameStateService.finishCurrentState();
 
     if (this.currentGameState === 'adventure-continues') {
-      if (this.hasItem('running-shoes') && !this.runningShoesUsed) {
+      if (this.trainerService.hasItem('running-shoes') && !this.runningShoesUsed) {
         this.runningShoesUsed = true;
         this.gameStateService.setNextState('adventure-continues');
       }
     }
   }
 
-  private hasItem(itemName: ItemName): boolean {
-    return this.trainerItems.some(item => item.name === itemName);
-  }
-
-  private getItem(itemName: ItemName): ItemItem | undefined {
-    return this.trainerItems.find(item => item.name === itemName);
-  }
-
   private resetGame(): void {
-    this.trainer = { sprite: './place-holder-pixel.png' };
-    this.trainerTeam = [];
-    this.trainerItems = [];
-    this.trainerBadges = [];
+    this.trainerService.resetTrainer();
+    this.trainerService.resetTeam();
+    this.trainerService.resetItems();
+    this.trainerService.resetBadges();
     this.leadersDefeatedAmount = 0;
     this.evolutionCredits = 0;
     this.gameStateService.resetGameState();
-  }
-
-  private addToTeam(pokemon: PokemonItem): void {
-    if (!pokemon.sprite) {
-      this.pokemonSpriteService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        pokemon.sprite = response.sprite;
-      });
-    }
-    this.trainerTeam.push(pokemon);
-  }
-
-  private addToItems(item: ItemItem): void {
-    if (!item.sprite) {
-      this.itemSpriteService.getItemSprite(item.name).subscribe(response => {
-        item.sprite = response.sprite;
-      });
-    }
-    this.trainerItems.push(item);
   }
 
   private evolvePokemon(pokemon: PokemonItem): void {
@@ -587,40 +508,23 @@ export class MainGameComponent {
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
-    pokemonIn.shiny = pokemonOut.shiny;
-    const index = this.trainerTeam.indexOf(pokemonOut);
 
-    if (!pokemonIn.sprite) {
-      this.pokemonSpriteService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
-        pokemonIn.sprite = response.sprite;
-      });
-    }
-    this.trainerTeam.splice(index, 1, pokemonIn);
-    this.auxPokemonList = [];
+    this.trainerService.replaceForEvolution(pokemonOut, pokemonIn);
 
-    if (this.hasItem('exp-share') && this.expShareUsed === false) {
+    if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
       this.expShareUsed = true;
       this.expSharePokemon = pokemonIn;
       this.secondEvolution();
-    } else if (this.hasItem('exp-share') && this.expShareUsed === true) {
+    } else if (this.trainerService.hasItem('exp-share') && this.expShareUsed === true) {
       this.expShareUsed = false;
       this.expSharePokemon = null;
     }
   }
 
   private removeFromTeam(pokemon: PokemonItem): void {
-    const index = this.trainerTeam.indexOf(pokemon);
-    if (index !== -1) {
-      this.trainerTeam.splice(index, 1);
-    }
+    this.trainerService.removeFromTeam(pokemon);
     this.auxPokemonList = [];
   }
 
-  private removeItem(item: ItemItem): void {
-    const index = this.trainerItems.indexOf(item);
-    this.currentContextItem = item;
-    if (index !== -1) {
-      this.trainerItems.splice(index, 1);
-    }
-  }
+
 }

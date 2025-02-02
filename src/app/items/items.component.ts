@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ItemItem } from '../interfaces/item-item';
 import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { TrainerService } from '../services/trainer-service/trainer.service';
 
 @Component({
   selector: 'app-items',
@@ -12,15 +13,28 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
-export class ItemsComponent {
+export class ItemsComponent implements OnInit, OnDestroy {
 
-  @Input() trainerItems!: ItemItem[];
+  constructor(private darkModeService: DarkModeService,
+              private trainerService: TrainerService
+  ) {
+    this.darkMode = this.darkModeService.darkMode$;
+  }
+
+  trainerItems!: ItemItem[];
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
 
   darkMode!: Observable<boolean>; 
+  private itemsSubscription!: Subscription;
 
-  constructor(private darkModeService: DarkModeService) {
-    this.darkMode = this.darkModeService.darkMode$;
+  ngOnInit(): void {
+    this.itemsSubscription = this.trainerService.getItemsObservable().subscribe(items => {
+      this.trainerItems = items;
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.itemsSubscription.unsubscribe();
   }
 
   useItem(item: ItemItem) {

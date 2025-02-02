@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { WheelComponent } from '../../../wheel/wheel.component';
-import { TrainerSpriteService } from '../../../services/trainer-sprite-service/trainer-sprite.service';
+import { TrainerService } from '../../../services/trainer-service/trainer.service';
 import { GenerationItem } from '../../../interfaces/generation-item';
+import { GenerationService } from '../../../services/generation-service/generation.service';
 
 
 @Component({
@@ -18,32 +19,27 @@ import { GenerationItem } from '../../../interfaces/generation-item';
 export class GenerationRouletteComponent {
 
   constructor(private modalService: NgbModal,
-              private trainerSpriteService: TrainerSpriteService
-  ) { }
+              private generationService: GenerationService,
+              private trainerService: TrainerService
+  ) {
+    this.generations = this.generationService.getGenerationList();
+  }
 
   @ViewChild('trainerGenderModal', { static: true }) trainerGenderModal!: TemplateRef<any>;
-  selectedItem: GenerationItem | null = null;
+  generations: GenerationItem[];
+  selectedGeneration: GenerationItem | null = null;
   boySprite: string = "";
   girlSprite: string = "";
   @Output() generationSelectedEvent = new EventEmitter<GenerationItem>();
-  @Output() trainerGenderEvent = new EventEmitter<string>();
+  @Output() trainerSelectedEvent = new EventEmitter<string>();
 
-  generations: GenerationItem[] = [
-    { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 },
-    { text: 'Gen 2', region: 'Johto', fillStyle: 'darkorange', id: 2, weight: 1 },
-    { text: 'Gen 3', region: 'Hoenn', fillStyle: 'green', id: 3, weight: 1 },
-    { text: 'Gen 4', region: 'Sinnoh', fillStyle: 'darkcyan', id: 4, weight: 1 },
-    { text: 'Gen 5', region: 'Unova', fillStyle: 'darkblue', id: 5, weight: 1 },
-    { text: 'Gen 6', region: 'Kalos', fillStyle: 'purple', id: 6, weight: 1 },
-    { text: 'Gen 7', region: 'Alola', fillStyle: 'orchid', id: 7, weight: 1 },
-    { text: 'Gen 8', region: 'Galar', fillStyle: 'black', id: 8, weight: 1 },
-  ];
+
 
   onItemSelected(index: number): void {
-    this.selectedItem = this.generations[index];
-    this.generationSelectedEvent.emit(this.selectedItem);
-    this.boySprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'male');
-    this.girlSprite = this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, 'female');
+    this.selectedGeneration = this.generations[index];
+    this.generationService.setGeneration(index);
+    this.boySprite = this.trainerService.getTrainerSprite(this.selectedGeneration.id, 'male');
+    this.girlSprite = this.trainerService.getTrainerSprite(this.selectedGeneration.id, 'female');
     this.modalService.open(this.trainerGenderModal, {
       centered: true,
       size: 'md',
@@ -53,9 +49,10 @@ export class GenerationRouletteComponent {
   }
 
   selectTrainerGender(gender: string): void {
-    if(this.selectedItem) {
+    if(this.selectedGeneration) {
+      this.trainerService.setTrainer(this.selectedGeneration.id, gender);
       this.modalService.dismissAll();
-      this.trainerGenderEvent.emit(this.trainerSpriteService.getTrainerSprite(this.selectedItem.id, gender));
+      this.trainerSelectedEvent.emit();
     }
   }
 }

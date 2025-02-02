@@ -9,21 +9,17 @@
                 </app-restart-game>
                 <br>
                 {{ getGameState() }}
-                <br>
-                {{ stolenPokemon | json}}
             </div>
         </div>
-    
+
         <div class="main-game col-12 col-sm-5">
             <ng-container [ngSwitch]="getGameState()">
                 <app-generation-roulette
                     *ngSwitchCase="'game-start'"
-                    (generationSelectedEvent)="storeGeneration($event)"
-                    (trainerGenderEvent)="storeTrainerSprite($event)">
+                    (trainerSelectedEvent)="handleTrainerSelected()">
                 </app-generation-roulette>
                 <app-starter-roulette
                     *ngSwitchCase="'starter-pokemon'"
-                    [generation]="generation"
                     (selectedStarterEvent)="storePokemon($event)">
                 </app-starter-roulette>
                 <app-shiny-roulette
@@ -39,7 +35,6 @@
                 </app-start-adventure-roulette>
                 <app-pokemon-from-generation-roulette
                     *ngSwitchCase="'catch-pokemon'"
-                    [generation]="generation"
                     (selectedPokemonEvent)="storePokemon($event)">
                 </app-pokemon-from-generation-roulette>
                 <app-pokemon-from-aux-list-roulette
@@ -51,10 +46,7 @@
                 </app-pokemon-from-aux-list-roulette>
                 <app-gym-battle-roulette
                     *ngSwitchCase="'gym-battle'"
-                    [generation]="generation"
                     [currentRound]="leadersDefeatedAmount"
-                    [trainerTeam]="trainerTeam"
-                    [(trainerItems)]="trainerItems"
                     (battleResultEvent)="gymBattleResult($event)">
                 </app-gym-battle-roulette>
                 <app-check-evolution-roulette
@@ -97,7 +89,6 @@
                 </app-mysterious-egg-roulette>
                 <app-legendary-roulette
                     *ngSwitchCase="'legendary-encounter'"
-                    [generation]="generation"
                     (selectedPokemonEvent)="legendaryCaptureChance($event)">
                 </app-legendary-roulette>
                 <app-catch-legendary-roulette
@@ -130,21 +121,13 @@
                 </app-cave-pokemon-roulette>
             </ng-container>
         </div>
-    
+
         <div class="trainer-info col-12 col-sm-4">
             <div class="trainer-team">
-                <app-trainer-team
-                    [trainer]="trainer"
-                    [trainerTeam]="trainerTeam"
-                    [trainerBadges]="trainerBadges">
-                </app-trainer-team>
+                <app-trainer-team></app-trainer-team>
             </div>
-    
             <div class="items">
-                <app-items
-                    [trainerItems]="trainerItems"
-                    (rareCandyInterrupt)="rareCandyInterrupt($event)">
-                </app-items>
+                <app-items (rareCandyInterrupt)="rareCandyInterrupt($event)"></app-items>
             </div>
         </div>
     </div>

@@ -10,6 +10,8 @@ import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { ItemItem } from '../../../interfaces/item-item';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
+import { GenerationService } from '../../../services/generation-service/generation.service';
+import { TrainerService } from '../../../services/trainer-service/trainer.service';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -24,21 +26,24 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   gymLeadersByGeneration = gymLeadersByGeneration;
 
-  private subscription: Subscription | null = null;
-
   constructor(private modalService: NgbModal,
-              private gameStateService: GameStateService,
+    private gameStateService: GameStateService,
+    private generationService: GenerationService,
+    private trainerService: TrainerService
   ) {
 
   }
 
+  private gameSubscription: Subscription | null = null;
+  private generationSubscription: Subscription | null = null;
+
   @ViewChild('gymLeaderPresentationModal', { static: true }) gymLeaderPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
 
-  @Input() generation!: GenerationItem;
+  generation!: GenerationItem;
+  trainerTeam!: PokemonItem[];
+  trainerItems!: ItemItem[];
   @Input() currentRound!: number;
-  @Input() trainerTeam!: PokemonItem[];
-  @Input() trainerItems!: ItemItem[];
   @Output() battleResultEvent = new EventEmitter<boolean>();
   @Output() trainerItemsChange = new EventEmitter<ItemItem[]>();
 
@@ -52,7 +57,14 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   retries = 0;
 
   ngOnInit(): void {
-    this.subscription = this.gameStateService.currentState.subscribe(state => {
+    this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
+      this.generation = gen;
+    });
+
+    this.trainerTeam = this.trainerService.getTeam();
+    this.trainerItems = this.trainerService.getItems();
+
+    this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'gym-battle') {
         this.currentLeader = this.getCurrentLeader();
         this.victoryOdds = [];
@@ -81,12 +93,21 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.gameSubscription) {
+      this.gameSubscription.unsubscribe();
+    }
+    if (this.generationSubscription) {
+      this.generationSubscription.unsubscribe();
+    }
+  }
+
   private plusModifiers(): number {
     let power = 0;
     const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
     xAttacks.forEach(() => {
       const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
-      power+= meanPower;
+      power += meanPower;
     });
 
     return power;
@@ -94,8 +115,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   private getCurrentLeader(): GymLeader {
     let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
-    if((this.generation.id === 5 && this.currentRound === 0 || this.currentRound === 7)
-    || (this.generation.id === 8 && this.currentRound === 3 || this.currentRound === 5)) {
+    if ((this.generation.id === 5 && this.currentRound === 0 || this.currentRound === 7)
+      || (this.generation.id === 8 && this.currentRound === 3 || this.currentRound === 5)) {
       const leaderNames = currentLeader.name.split('/');
       const leaderSprites = currentLeader.sprite;
       const leaderQuotes = currentLeader.quotes;
@@ -111,12 +132,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     return currentLeader;
   }
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
   closeModal(): void {
     this.modalService.dismissAll();
   }
@@ -128,7 +143,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     } else {
       if (this.retries <= 0) {
         const potion = this.hasPotions();
-        if(potion) {
+        if (potion) {
           this.usePotion(potion);
         } else {
           this.battleResultEvent.emit(false);
@@ -138,7 +153,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private hasPotions(): ItemItem | undefined {
-    const potionItem = this.trainerItems.find(item => 
+    const potionItem = this.trainerItems.find(item =>
       item.name === 'potion' || item.name === 'super-potion' || item.name === 'hyper-potion'
     );
     return potionItem;

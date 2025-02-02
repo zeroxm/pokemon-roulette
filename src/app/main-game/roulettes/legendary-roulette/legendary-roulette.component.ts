@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { legendaryByGeneration } from './legendaries-by-generation';
+import { GenerationService } from '../../../services/generation-service/generation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-legendary-roulette',
@@ -10,12 +12,29 @@ import { legendaryByGeneration } from './legendaries-by-generation';
   templateUrl: './legendary-roulette.component.html',
   styleUrl: './legendary-roulette.component.css'
 })
-export class LegendaryRouletteComponent {
+export class LegendaryRouletteComponent implements OnInit, OnDestroy {
+
+  constructor(private generationService: GenerationService) {
+  }
 
   legendaryByGeneration = legendaryByGeneration;
 
-  @Input() generation!: GenerationItem;
+  generation!: GenerationItem;
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
+
+  private generationSubscription: Subscription | null = null;
+
+  ngOnInit(): void {
+    this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
+      this.generation = gen;
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.generationSubscription) {
+      this.generationSubscription.unsubscribe();
+    }
+  }
 
   onItemSelected(index: number): void {
     const legendary = this.getFromGeneration();

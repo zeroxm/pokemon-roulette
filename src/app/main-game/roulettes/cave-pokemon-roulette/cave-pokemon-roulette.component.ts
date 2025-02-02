@@ -20,6 +20,7 @@ export class CavePokemonRouletteComponent {
   }
 
   getFromGeneration(): PokemonItem[] {
-    return this.cavePokemonByGeneration[this.generation.id];
+    return [];
+    // return this.cavePokemonByGeneration[this.generation.id];
   }
 }
