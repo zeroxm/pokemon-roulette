@@ -116,9 +116,12 @@
                 </app-explore-cave-roulette>
                 <app-cave-pokemon-roulette
                     *ngSwitchCase="'catch-cave-pokemon'"
-                    (catchCavePokemonEvent)="catchCavePokemon()"
-                    (nothingHappensEvent)="doNothing()">
+                    (selectedPokemonEvent)="storePokemon($event)">
                 </app-cave-pokemon-roulette>
+                <app-fossil-roulette
+                    *ngSwitchCase="'find-fossil'"
+                    (selectedPokemonEvent)="storePokemon($event)">
+                </app-fossil-roulette>
             </ng-container>
         </div>
 

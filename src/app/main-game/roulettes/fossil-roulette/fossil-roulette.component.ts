@@ -1,24 +1,23 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { GenerationService } from '../../../services/generation-service/generation.service';
+import { fossilByGeneration } from './fossil-by-generation';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
-import { cavePokemonByGeneration } from './cave-pokemon-by-generation';
-import { GenerationService } from '../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-cave-pokemon-roulette',
+  selector: 'app-fossil-roulette',
   imports: [WheelComponent],
-  templateUrl: './cave-pokemon-roulette.component.html',
-  styleUrl: './cave-pokemon-roulette.component.css'
+  templateUrl: './fossil-roulette.component.html',
+  styleUrl: './fossil-roulette.component.css'
 })
-export class CavePokemonRouletteComponent implements OnInit, OnDestroy {
-
+export class FossilRouletteComponent implements OnInit, OnDestroy {
 
   constructor(private generationService: GenerationService) {
   }
 
-  cavePokemonByGeneration = cavePokemonByGeneration;
+  fossilByGeneration = fossilByGeneration;
 
   @Input() generation!: GenerationItem;
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
@@ -43,6 +42,6 @@ export class CavePokemonRouletteComponent implements OnInit, OnDestroy {
   }
 
   getFromGeneration(): PokemonItem[] {
-    return this.cavePokemonByGeneration[this.generation.id];
+    return this.fossilByGeneration[this.generation.id];
   }
 }

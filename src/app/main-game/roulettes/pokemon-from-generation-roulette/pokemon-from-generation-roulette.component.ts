@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './pokemon-from-generation-roulette.component.html',
   styleUrl: './pokemon-from-generation-roulette.component.css'
 })
-export class PokemonFromGenerationRouletteComponent {
+export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy {
 
   constructor(private generationService: GenerationService) {
   }
