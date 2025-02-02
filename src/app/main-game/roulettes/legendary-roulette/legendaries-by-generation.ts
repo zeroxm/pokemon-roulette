@@ -1,4 +1,4 @@
-import { PokemonItem } from "../interfaces/pokemon-item";
+import { PokemonItem } from "../../../interfaces/pokemon-item";
 
 export const legendaryByGeneration: Record<number, PokemonItem[]> = {
     1: [

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
-import { pokemonByGeneration } from '../../../game-data/pokemon-by-generation';
+import { pokemonByGeneration } from './pokemon-by-generation';
 
 @Component({
   selector: 'app-pokemon-from-generation-roulette',

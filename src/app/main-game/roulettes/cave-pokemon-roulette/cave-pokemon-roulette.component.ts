@@ -2,28 +2,24 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
-import { legendaryByGeneration } from './legendaries-by-generation';
 
 @Component({
-  selector: 'app-legendary-roulette',
+  selector: 'app-cave-pokemon-roulette',
   imports: [WheelComponent],
-  templateUrl: './legendary-roulette.component.html',
-  styleUrl: './legendary-roulette.component.css'
+  templateUrl: './cave-pokemon-roulette.component.html',
+  styleUrl: './cave-pokemon-roulette.component.css'
 })
-export class LegendaryRouletteComponent {
-
-  legendaryByGeneration = legendaryByGeneration;
-
+export class CavePokemonRouletteComponent {
   @Input() generation!: GenerationItem;
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
 
   onItemSelected(index: number): void {
-    const legendary = this.getFromGeneration();
-    const selectedPokemon = legendary[index];
+    const pokemon = this.getFromGeneration();
+    const selectedPokemon = pokemon[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
   }
 
   getFromGeneration(): PokemonItem[] {
-    return this.legendaryByGeneration[this.generation.id];
+    return this.cavePokemonByGeneration[this.generation.id];
   }
 }

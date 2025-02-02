@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
-import { nationalDexPokemon } from '../../../game-data/national-dex-pokemon';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
+import { PokemonService } from '../../../services/pokemon-service/pokemon.service';
 
 @Component({
   selector: 'app-mysterious-egg-roulette',
@@ -11,7 +11,11 @@ import { PokemonItem } from '../../../interfaces/pokemon-item';
 })
 export class MysteriousEggRouletteComponent {
 
-  nationalDexPokemon = nationalDexPokemon;
+  constructor(pokemonService: PokemonService) {
+    this.nationalDexPokemon = pokemonService.getAllPokemon();
+  }
+
+  nationalDexPokemon: PokemonItem[];
 
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
 

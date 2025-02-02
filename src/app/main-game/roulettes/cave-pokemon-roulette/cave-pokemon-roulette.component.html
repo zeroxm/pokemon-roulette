@@ -1,0 +1,5 @@
+<h1 class="title">Which {{generation.text}} cave Pokémon?</h1>
+<app-wheel  #wheel
+            [items]="getFromGeneration()"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

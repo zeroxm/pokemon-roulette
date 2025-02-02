@@ -1,4 +1,4 @@
-import { GymLeader } from "../interfaces/gym-leader";
+import { GymLeader } from "../../../interfaces/gym-leader";
 
 export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     1: [

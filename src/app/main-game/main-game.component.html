@@ -113,6 +113,21 @@
                     *ngSwitchCase="'find-item'"
                     (itemSelectedEvent)="receiveItem($event)">
                 </app-find-item-roulette>
+                <app-explore-cave-roulette
+                    *ngSwitchCase="'explore-cave'"
+                    (catchCavePokemonEvent)="catchCavePokemon()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve()"
+                    (findItemEvent)="findItem()"
+                    (getLostEvent)="getLost()"
+                    (catchZubatEvent)="catchZubat()"
+                    (findFossilEvent)="findFossil()"
+                    (teamRocketEncounterEvent)="teamRocketEncounter()">
+                </app-explore-cave-roulette>
+                <app-cave-pokemon-roulette
+                    *ngSwitchCase="'catch-cave-pokemon'"
+                    (catchCavePokemonEvent)="catchCavePokemon()"
+                    (nothingHappensEvent)="doNothing()">
+                </app-cave-pokemon-roulette>
             </ng-container>
         </div>
     

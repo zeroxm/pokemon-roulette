@@ -33,6 +33,9 @@ import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-rou
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 import { ItemName } from '../services/items-service/item-names';
+import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
+import { PokemonService } from '../services/pokemon-service/pokemon.service';
+import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -57,8 +60,10 @@ import { ItemName } from '../services/items-service/item-names';
     LegendaryRouletteComponent,
     CatchLegendaryRouletteComponent,
     TradePokemonRouletteComponent,
-    FindItemRouletteComponent
-  ],
+    FindItemRouletteComponent,
+    ExploreCaveRouletteComponent,
+    CavePokemonRouletteComponent
+],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -69,6 +74,7 @@ export class MainGameComponent {
     private gameStateService: GameStateService,
     private itemService: ItemsService,
     private itemSpriteService: ItemSpriteService,
+    private pokemonService: PokemonService,
     private pokemonSpriteService: PokemonSpriteService,
     private modalService: NgbModal) {
     this.gameStateService.currentState.subscribe(state => {
@@ -185,6 +191,29 @@ export class MainGameComponent {
     this.finishCurrentState();
   }
 
+  getLost(): void {
+    if (this.hasItem('escape-rope')) {
+      const item = this.getItem('escape-rope')
+      if (item) {
+        this.removeItem(item);
+        this.gameStateService.setNextState('adventure-continues');
+
+        const modalRef = this.modalService.open(this.itemActivateModal, {
+          centered: true,
+          size: 'md'
+        });
+
+        modalRef.result.then(() => {
+          return this.doNothing();
+        }, () => {
+          return this.doNothing();
+        });
+      }
+    } else {
+      return this.doNothing();
+    }
+  }
+
   buyPotions(): void {
     this.itemService.getItem('potion').subscribe(potion => {
       this.addToItems(potion);
@@ -200,6 +229,19 @@ export class MainGameComponent {
   catchTwoPokemon(): void {
     this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.setNextState('catch-pokemon');
+    this.finishCurrentState();
+  }
+
+  catchCavePokemon(): void {
+    this.gameStateService.setNextState('catch-cave-pokemon');
+    this.finishCurrentState();
+  }
+
+  catchZubat(): void {
+    const zubat = this.pokemonService.getPokemonById(41);
+    if (zubat) {
+      this.addToTeam(zubat);  
+    }
     this.finishCurrentState();
   }
 

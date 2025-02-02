@@ -1,4 +1,4 @@
-import { PokemonItem } from "../interfaces/pokemon-item";
+import { PokemonItem } from "../../interfaces/pokemon-item";
 
 export const nationalDexPokemon: PokemonItem[] = [
     { text: "Bulbasaur", pokemonId: 1, fillStyle: "green", sprite: null, shiny: false, power: 1, weight: 1 },

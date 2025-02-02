@@ -4,12 +4,12 @@ import { WheelComponent } from "../../../wheel/wheel.component";
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameStateService } from '../../../services/game-state-service/game-state.service';
-import { gymLeadersByGeneration } from '../../../game-data/gym-leaders-by-generation';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { GymLeader } from '../../../interfaces/gym-leader';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { ItemItem } from '../../../interfaces/item-item';
+import { gymLeadersByGeneration } from './gym-leaders-by-generation';
 
 @Component({
   selector: 'app-gym-battle-roulette',
