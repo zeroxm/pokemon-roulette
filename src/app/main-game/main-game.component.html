@@ -133,6 +133,11 @@
                     *ngSwitchCase="'go-fishing'"
                     (selectedPokemonEvent)="storePokemon($event)">
                 </app-fishing-roulette>
+                <app-rival-battle-roulette
+                    *ngSwitchCase="'battle-rival'"
+                    [currentRound]="leadersDefeatedAmount"
+                    (battleResultEvent)="rivalBattleResult($event)">
+                </app-rival-battle-roulette>
             </ng-container>
         </div>
 

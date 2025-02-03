@@ -1,30 +1,29 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { WheelComponent } from "../../../wheel/wheel.component";
-import { CommonModule } from '@angular/common';
+import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GameStateService } from '../../../services/game-state-service/game-state.service';
-import { GenerationItem } from '../../../interfaces/generation-item';
-import { GymLeader } from '../../../interfaces/gym-leader';
-import { PokemonItem } from '../../../interfaces/pokemon-item';
-import { WheelItem } from '../../../interfaces/wheel-item';
-import { ItemItem } from '../../../interfaces/item-item';
-import { gymLeadersByGeneration } from './gym-leaders-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../services/trainer-service/trainer.service';
+import { Subscription } from 'rxjs';
+import { GenerationItem } from '../../../interfaces/generation-item';
+import { PokemonItem } from '../../../interfaces/pokemon-item';
+import { ItemItem } from '../../../interfaces/item-item';
+import { WheelItem } from '../../../interfaces/wheel-item';
+import { GymLeader } from '../../../interfaces/gym-leader';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-gym-battle-roulette',
+  selector: 'app-rival-battle-roulette',
   imports: [
     CommonModule,
-    WheelComponent
-  ],
-  templateUrl: './gym-battle-roulette.component.html',
-  styleUrl: './gym-battle-roulette.component.css'
+    WheelComponent],
+  templateUrl: './rival-battle-roulette.component.html',
+  styleUrl: './rival-battle-roulette.component.css'
 })
-export class GymBattleRouletteComponent implements OnInit, OnDestroy {
+export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
 
-  gymLeadersByGeneration = gymLeadersByGeneration;
+  rivalByGeneration = rivalByGeneration;
 
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
@@ -51,7 +50,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     { text: 'No', fillStyle: 'crimson', weight: 1 }
   ];
 
-  currentLeader!: GymLeader;
+  currentRival!: GymLeader;
   currentItem!: ItemItem;
   retries = 0;
 
@@ -64,8 +63,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     this.trainerItems = this.trainerService.getItems();
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
-      if (state === 'gym-battle') {
-        this.currentLeader = this.getCurrentLeader();
+      if (state === 'battle-rival') {
+        this.currentRival = this.getCurrentRival();
         this.victoryOdds = [];
 
         this.trainerTeam.slice(0, 6).forEach(pokemon => {
@@ -112,23 +111,22 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     return power;
   }
 
-  private getCurrentLeader(): GymLeader {
-    let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
-    if ((this.generation.id === 5 && (this.currentRound === 0 || this.currentRound === 7))
-      || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
-      const leaderNames = currentLeader.name.split('/');
-      const leaderSprites = currentLeader.sprite;
-      const leaderQuotes = currentLeader.quotes;
+  private getCurrentRival(): GymLeader {
+    let currentRival = this.rivalByGeneration[this.generation.id][this.currentRound];
+    if ((this.generation.id === 6)) {
+      const leaderNames = currentRival.name.split('/');
+      const leaderSprites = currentRival.sprite;
+      const leaderQuotes = currentRival.quotes;
       const randomIndex = Math.floor(Math.random() * leaderNames.length);
 
-      currentLeader = {
+      currentRival = {
         name: leaderNames[randomIndex],
         sprite: leaderSprites[randomIndex],
         quotes: [leaderQuotes[randomIndex]]
       }
     }
 
-    return currentLeader;
+    return currentRival;
   }
 
   closeModal(): void {
@@ -136,52 +134,10 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   onItemSelected(index: number): void {
-    this.retries--;
     if (this.victoryOdds[index].text === 'Yes') {
       this.battleResultEvent.emit(true);
     } else {
-      if (this.retries <= 0) {
-        const potion = this.hasPotions();
-        if (potion) {
-          this.usePotion(potion);
-        } else {
-          this.battleResultEvent.emit(false);
-        }
-      }
+      this.battleResultEvent.emit(false);
     }
-  }
-
-  private hasPotions(): ItemItem | undefined {
-    const potionItem = this.trainerItems.find(item =>
-      item.name === 'potion' || item.name === 'super-potion' || item.name === 'hyper-potion'
-    );
-    return potionItem;
-  }
-
-  private usePotion(potion: ItemItem): void {
-    const index = this.trainerItems.indexOf(potion);
-    this.currentItem = potion;
-    if (index !== -1) {
-      this.trainerItems.splice(index, 1);
-      this.trainerService.removeItem(potion);
-    }
-
-    switch (potion.name) {
-      case 'potion':
-        this.retries = 1;
-        break;
-      case 'super-potion':
-        this.retries = 2;
-        break;
-      case 'hyper-potion':
-        this.retries = 3;
-        break;
-    }
-
-    this.modalService.open(this.itemUsedModal, {
-      centered: true,
-      size: 'md'
-    });
   }
 }
-

@@ -3,44 +3,44 @@ import { GymLeader } from "../../../interfaces/gym-leader";
 export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     1: [
         {   name: 'Brock',
-            sprite: "https://archives.bulbagarden.net/media/upload/1/1c/Spr_B2W2_Brock.png",
+            sprite: "./Spr_B2W2_Brock.png",
             quotes: ["Fine, then! Show me your best!"] },
         {   name: 'Misty',
-            sprite: "https://archives.bulbagarden.net/media/upload/e/ed/Spr_B2W2_Misty.png",
+            sprite: "./Spr_B2W2_Misty.png",
             quotes: ["My policy is an all out offensive with Water-type Pokémon!"] },
         {   name: 'Lt. Surge',
-            sprite: "https://archives.bulbagarden.net/media/upload/d/df/Spr_B2W2_Lt_Surge.png",
+            sprite: "./Spr_B2W2_Lt_Surge.png",
             quotes: [
                 "I tell you, kid, electric Pokémon saved me during the war!",
                 "They zapped my enemies into paralysis!",
                 "The same as I'll do to you!"
             ] },
         {   name: 'Erika',
-            sprite: "https://archives.bulbagarden.net/media/upload/0/0c/Spr_B2W2_Erika.png",
+            sprite: "./Spr_B2W2_Erika.png",
             quotes: [
                 "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
                 "Very well, but I shall not lose."
             ] },
         {   name: 'Koga',
-            sprite: "https://archives.bulbagarden.net/media/upload/1/18/Spr_HGSS_Koga.png",
+            sprite: "./Spr_HGSS_Koga.png",
             quotes: [
                 "Very well, I shall show you true terror as a ninja master!",
                 "Despair to the creeping horror of Poison-type Pokémon!"
             ] },
         {   name: 'Sabrina',
-            sprite: "https://archives.bulbagarden.net/media/upload/2/26/Spr_B2W2_Sabrina.png",
+            sprite: "./Spr_B2W2_Sabrina.png",
             quotes: [
                 "I had a vision of your arrival!",
                 "I dislike battling, but if you wish, I will show you my powers!"
             ] },
         {   name: 'Blaine',
-            sprite: "https://archives.bulbagarden.net/media/upload/1/11/Spr_B2W2_Blaine.png",
+            sprite: "./Spr_B2W2_Blaine.png",
             quotes: [
                 "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!", 
                 "My fiery Pokémon are all ready with intense heat! "
             ] },
         {   name: 'Giovanni',
-            sprite: "https://archives.bulbagarden.net/media/upload/1/17/Spr_B2W2_Giovanni.png",
+            sprite: "./Spr_B2W2_Giovanni.png",
             quotes: [
                 "So be it. This time, I'm not holding back!",
                 "You shall face Giovanni, the greatest Trainer!" 
@@ -48,50 +48,50 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     ],
     2: [
         {   name: 'Falkner',
-            sprite: "https://archives.bulbagarden.net/media/upload/c/c1/Spr_B2W2_Falkner.png",
+            sprite: "./Spr_B2W2_Falkner.png",
             quotes: [
                 "I'll show you the real power of the magnificent bird Pokémon!"
             ] },
         {   name: 'Bugsy',
-            sprite: "https://archives.bulbagarden.net/media/upload/d/da/Spr_B2W2_Bugsy.png",
+            sprite: "./Spr_B2W2_Bugsy.png",
             quotes: [
                 "My research is going to make me an authority on Bug-type Pokémon!",
                 "Let me demonstrate what I've learned from my studies."
             ] },
         {   name: 'Whitney',
-            sprite: "https://archives.bulbagarden.net/media/upload/c/c0/Spr_B2W2_Whitney.png",
+            sprite: "./Spr_B2W2_Whitney.png",
             quotes: [
                 "Pokémon are super cute!",
                 "You want to battle?",
                 "I'm warning you--I'm good!"
             ] },
         {   name: 'Morty',
-            sprite: "https://archives.bulbagarden.net/media/upload/2/2c/Spr_B2W2_Morty.png",
+            sprite: "./Spr_B2W2_Morty.png",
             quotes: [
                 "It's said that a rainbow-hued Pokémon will come down to appear before a truly powerful Trainer.",
                 "I believe that person is me!",
                 "You're going to help me reach that level!"
             ] },
         {   name: 'Chuck',
-            sprite: "https://archives.bulbagarden.net/media/upload/d/d6/Spr_B2W2_Chuck.png",
+            sprite: "./Spr_B2W2_Chuck.png",
             quotes: [
                 "I have to warn you that I am a strong Trainer training every day under this waterfall!",
                 "Come on. We shall do battle!"
             ] },
         {   name: 'Jasmine',
-            sprite: "https://archives.bulbagarden.net/media/upload/6/62/Spr_B2W2_Jasmine.png",
+            sprite: "./Spr_B2W2_Jasmine.png",
             quotes: [
                 "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
                 "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
             ] },
         {   name: 'Pryce',
-            sprite: "https://archives.bulbagarden.net/media/upload/e/e5/Spr_B2W2_Pryce.png",
+            sprite: "./Spr_B2W2_Pryce.png",
             quotes: [
                 "I have been training Pokémon since before you were born. I do not lose easily.",
                 "I, Pryce - the Winter Trainer - shall demonstrate my power!"
             ] },
         {   name: 'Clair',
-            sprite: "https://archives.bulbagarden.net/media/upload/5/57/Spr_B2W2_Clair.png",
+            sprite: "./Spr_B2W2_Clair.png",
             quotes: [
                 "I am Clair. The world's best Dragon-type master.",
                 "As a Gym Leader, I will use my full power against any opponent!"

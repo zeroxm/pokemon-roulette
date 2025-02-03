@@ -34,6 +34,7 @@ import { TrainerService } from '../services/trainer-service/trainer.service';
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
+import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/rival-battle-roulette.component';
 
 @Component({
   selector: 'app-main-game',
@@ -63,7 +64,8 @@ import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-r
     CavePokemonRouletteComponent,
     FossilRouletteComponent,
     SnorlaxRouletteComponent,
-    FishingRouletteComponent
+    FishingRouletteComponent,
+    RivalBattleRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -403,6 +405,12 @@ export class MainGameComponent {
   battleRival(): void {
     this.gameStateService.setNextState('battle-rival');
     this.finishCurrentState();
+  }
+
+  rivalBattleResult(result: boolean): void {
+    if (result) {
+      this.chooseWhoWillEvolve();
+    }
   }
 
   stealPokemon(): void {
