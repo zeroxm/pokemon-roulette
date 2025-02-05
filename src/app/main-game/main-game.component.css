@@ -28,6 +28,12 @@
 	align-items: center;
 }
 
+.pokemon-switch-panel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
 .message {
 	text-align: start;
 	cursor: default;

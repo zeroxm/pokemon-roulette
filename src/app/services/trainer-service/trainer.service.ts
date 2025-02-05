@@ -30,14 +30,28 @@ export class TrainerService {
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
-    {
-      text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod",
+    { text: "Eevee", pokemonId: 133, fillStyle: "brown", 
       sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
       },
-      shiny: true, power: 2, weight: 1
+      shiny: false, power: 2, weight: 1 
     },
+    { text: "Eevee", pokemonId: 133, fillStyle: "brown", 
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
+      },
+      shiny: false, power: 2, weight: 1 
+    },
+    // {
+    //   text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod",
+    //   sprite: {
+    //     front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+    //     front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
+    //   },
+    //   shiny: true, power: 2, weight: 1
+    // },
     // { text: "Snorlax", pokemonId: 143, fillStyle: "black",
     //   sprite: {
     // 		"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
@@ -49,6 +63,14 @@ export class TrainerService {
   private lastPokemonAddedIndex: number = 0;
 
   trainerItems: ItemItem[] = [
+    {
+      text: 'Exp Share',
+      name: 'exp-share',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png',
+      fillStyle: 'black',
+      weight: 1,
+      description: 'Whenever a Pokémon evolves, Exp Share makes another Pokémon evolve!'
+    },
     {
       text: 'Potion',
       name: 'potion',

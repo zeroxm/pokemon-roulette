@@ -66,7 +66,7 @@ import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
     RivalBattleRouletteComponent
-],
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -95,11 +95,13 @@ export class MainGameComponent {
   @ViewChild('gameOverModal', { static: true }) gameOverModalTemplate!: TemplateRef<any>;
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
   @ViewChild('infoModal', { static: true }) infoModal!: TemplateRef<any>;
+  @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
+  @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
 
   currentGameState!: GameState;
 
   starter!: PokemonItem;
-
+  lessExplanations: boolean = false;
   runningShoesUsed: boolean = false;
   expShareUsed: boolean = false;
   auxPokemonList: PokemonItem[] = [];
@@ -115,6 +117,14 @@ export class MainGameComponent {
   respinReason = '';
   infoModalTitle = '';
   infoModalMessage = '';
+  pkmnEvoTitle = '';
+  pkmnTradeTitle = '';
+  pkmnOut!: PokemonItem;
+  pkmnIn!: PokemonItem;
+
+  toggleLessExplanations(): void {
+    this.lessExplanations = !this.lessExplanations;
+  }
 
   closeGameOverModal(): void {
     this.resetGame();
@@ -159,23 +169,7 @@ export class MainGameComponent {
 
   getLost(): void {
     if (this.trainerService.hasItem('escape-rope')) {
-      const item = this.trainerService.getItem('escape-rope')
-      if (item) {
-        this.trainerService.removeItem(item);
-        this.currentContextItem = item;
-        this.gameStateService.setNextState('adventure-continues');
-
-        const modalRef = this.modalService.open(this.itemActivateModal, {
-          centered: true,
-          size: 'md'
-        });
-
-        modalRef.result.then(() => {
-          return this.doNothing();
-        }, () => {
-          return this.doNothing();
-        });
-      }
+      this.useEscapeRope();
     } else {
       return this.doNothing();
     }
@@ -283,7 +277,7 @@ export class MainGameComponent {
     }
 
     if (this.auxPokemonList.length === 0) {
-      return; 
+      return;
     }
 
     if (this.auxPokemonList.length === 1) {
@@ -303,7 +297,7 @@ export class MainGameComponent {
         break;
       case 'select-evolution':
         this.replaceForEvolution(this.currentContextPokemon, pokemon);
-        this.finishCurrentState();
+        this.showpkmnEvoModal();
         break;
       case 'steal-pokemon':
         this.stolenPokemon = pokemon;
@@ -432,23 +426,7 @@ export class MainGameComponent {
         return this.doNothing();
       });
     } else if (this.trainerService.hasItem('escape-rope')) {
-      const item = this.trainerService.getItem('escape-rope')
-      if (item) {
-        this.trainerService.removeItem(item);
-        this.currentContextItem = item;
-        this.gameStateService.setNextState('adventure-continues');
-
-        const modalRef = this.modalService.open(this.itemActivateModal, {
-          centered: true,
-          size: 'md'
-        });
-
-        modalRef.result.then(() => {
-          return this.doNothing();
-        }, () => {
-          return this.doNothing();
-        });
-      }
+      this.useEscapeRope();
     } else {
       this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'Which Pokémon?';
@@ -462,7 +440,7 @@ export class MainGameComponent {
 
     if (this.stolenPokemon) {
       this.trainerService.addToTeam(this.stolenPokemon);
-      this.infoModalTitle = 'Saved '+ this.stolenPokemon.text + '!';
+      this.infoModalTitle = 'Saved ' + this.stolenPokemon.text + '!';
       this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
       this.stolenPokemon = null;
       this.modalService.open(this.infoModal, {
@@ -475,9 +453,25 @@ export class MainGameComponent {
   }
 
   performTrade(pokemon: PokemonItem): void {
+    this.pkmnIn = pokemon;
+    this.pkmnOut = this.currentContextPokemon;
+    this.pkmnTradeTitle = "Trade!";
     this.trainerService.performTrade(this.currentContextPokemon, pokemon);
     this.auxPokemonList = [];
-    this.finishCurrentState();
+    if (!this.lessExplanations) {
+      const modalRef = this.modalService.open(this.pkmnTradeModal, {
+        centered: true,
+        size: 'md'
+      });
+
+      modalRef.result.then(() => {
+        this.finishCurrentState();
+      }, () => {
+        this.finishCurrentState();
+      });
+    } else {
+      this.finishCurrentState();
+    }
   }
 
   private finishCurrentState(): void {
@@ -507,14 +501,15 @@ export class MainGameComponent {
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
+      this.showpkmnEvoModal();
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
       this.customWheelTitle = 'Which evolution?';
       this.gameStateService.setNextState('select-evolution');
       this.gameStateService.setNextState('select-from-pokemon-list');
+      this.finishCurrentState();
     }
-    this.finishCurrentState();
   }
 
   private evolveSecondPokemon(pokemon: PokemonItem): void {
@@ -533,6 +528,9 @@ export class MainGameComponent {
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
 
+    this.pkmnOut = pokemonOut;
+    this.pkmnIn = pokemonIn;
+    this.pkmnEvoTitle = "Evolution!"
     this.trainerService.replaceForEvolution(pokemonOut, pokemonIn);
 
     if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
@@ -550,5 +548,44 @@ export class MainGameComponent {
     this.auxPokemonList = [];
   }
 
+  private useEscapeRope(): void {
+    const item = this.trainerService.getItem('escape-rope');
+    if (item) {
+      this.trainerService.removeItem(item);
+      this.currentContextItem = item;
+      this.gameStateService.setNextState('adventure-continues');
 
+      if (!this.lessExplanations) {
+        const modalRef = this.modalService.open(this.itemActivateModal, {
+          centered: true,
+          size: 'md'
+        });
+
+        modalRef.result.then(() => {
+          this.finishCurrentState();
+        }, () => {
+          this.finishCurrentState();
+        });
+      } else {
+        this.finishCurrentState();
+      }
+    }
+  }
+
+  private showpkmnEvoModal(): void {
+    if (!this.lessExplanations) {
+      const modalRef = this.modalService.open(this.pkmnEvoModal, {
+        centered: true,
+        size: 'md'
+      });
+
+      modalRef.result.then(() => {
+        this.finishCurrentState();
+      }, () => {
+        this.finishCurrentState();
+      });
+    } else {
+      this.finishCurrentState();
+    }
+  }
 }

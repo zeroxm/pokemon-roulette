@@ -3,6 +3,12 @@
         <div class="extra-options col-12 col-sm-3">
             <div class="toolbar p-2">
                 <app-dark-mode-toggle></app-dark-mode-toggle>
+                <label>
+                    <input type="checkbox"
+                           [checked]="lessExplanations"
+                           (change)="toggleLessExplanations()"/>
+                      Less Explanations
+                </label>
                 <br>
                 <app-restart-game
                     (restartEvent)="closeGameOverModal()">
@@ -190,6 +196,42 @@
             <div class="message">
                 <p>{{ infoModalMessage }}</p>
             </div>
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #pkmnEvoModal let-modal>
+	<div class="modal-body">
+        <h1>{{ pkmnEvoTitle }}</h1>
+        <div class="pokemon-switch-panel">
+            <img [src]="pkmnOut.sprite?.front_default" height="128">
+            <div class="message">
+                <p>Your {{ pkmnOut.text }} evolved into {{ pkmnIn.text }}!</p>
+            </div>
+            <img [src]="pkmnIn.sprite?.front_default" height="128">
+        </div>
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #pkmnTradeModal let-modal>
+	<div class="modal-body">
+        <h1>{{ pkmnTradeTitle }}</h1>
+        <div class="pokemon-switch-panel">
+            <img [src]="pkmnOut.sprite?.front_default" height="128">
+            <div class="message">
+                <p>You sent {{ pkmnOut.text }} and received a {{ pkmnIn.text }}!</p>
+            </div>
+            <img [src]="pkmnIn.sprite?.front_default" height="128">
         </div>
 	</div>
     <div class="modal-footer">
