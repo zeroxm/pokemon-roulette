@@ -37,9 +37,25 @@ export class ItemsComponent implements OnInit, OnDestroy {
     this.itemsSubscription.unsubscribe();
   }
 
-  useItem(item: ItemItem) {
-    if (item.name === 'rare-candy') {
-      this.rareCandyInterrupt.emit(item);  
+  useItem(item: ItemItem | undefined) {
+    if(item) {
+      if (item.name === 'rare-candy') {
+        this.rareCandyInterrupt.emit(item);  
+      }
     }
+  }
+
+  getItemSprite(index: number): string {
+    if (this.trainerItems[index]) {
+      return this.trainerItems[index].sprite;
+    }
+    return './place-holder-pixel.png';
+  }
+
+  getItemText(index: number): string {
+    if (this.trainerItems[index]) {
+      return this.trainerItems[index].text;
+    }
+    return 'Empty';
   }
 }

@@ -112,7 +112,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentRival(): GymLeader {
-    let currentRival = this.rivalByGeneration[this.generation.id][this.currentRound];
+    let currentRival = this.rivalByGeneration[this.generation.id];
     if ((this.generation.id === 6)) {
       const leaderNames = currentRival.name.split('/');
       const leaderSprites = currentRival.sprite;

@@ -26,6 +26,7 @@ export class TrainerService {
   trainerSpriteData = trainerSpriteData;
 
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: 'https://archives.bulbagarden.net/media/upload/c/ca/Spr_FRLG_Red.png' });
+  // private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
@@ -37,21 +38,38 @@ export class TrainerService {
       },
       shiny: true, power: 2, weight: 1
     },
-    { text: "Snorlax", pokemonId: 143, fillStyle: "black",
-      sprite: {
-				"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
-				"front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
-			},
-      shiny: true, power: 3, weight: 1 },
-
+    // { text: "Snorlax", pokemonId: 143, fillStyle: "black",
+    //   sprite: {
+    // 		"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
+    // 		"front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
+    // 	},
+    //   shiny: true, power: 3, weight: 1 },
   ];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastPokemonAddedIndex: number = 0;
 
-  trainerItems: ItemItem[] = [];
+  trainerItems: ItemItem[] = [
+    {
+      text: 'Potion',
+      name: 'potion',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
+      fillStyle: 'purple',
+      weight: 1,
+      description: 'Potion let you spin again whenever you would lose a Gym battle!'
+    }, {
+      text: 'Potion',
+      name: 'potion',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
+      fillStyle: 'purple',
+      weight: 1,
+      description: 'Potion let you spin again whenever you would lose a Gym battle!'
+    },
+  ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
-  trainerBadges: Badge[] = [];
+  trainerBadges: Badge[] = [
+    { name: 'Boulder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png' }
+  ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
   getTrainer(): Observable<{ sprite: string }> {

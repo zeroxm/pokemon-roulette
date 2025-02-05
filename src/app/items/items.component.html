@@ -5,63 +5,63 @@
         <div class="row gap-2">
             <div class="item-container rounded-3 col-2 cursor-pointer"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[0]?.sprite" [src]="trainerItems[0].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[0].text}}" (click)="useItem(trainerItems[0])">
+            <img [src]="getItemSprite(0)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(0)}}" (click)="useItem(trainerItems[0])">
         </div>
         <div class="item-container rounded-3 col-2 cursor-pointer"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[1]?.sprite" [src]="trainerItems[1].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[1].text}}" (click)="useItem(trainerItems[1])">
+            <img [src]="getItemSprite(1)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(1)}}" (click)="useItem(trainerItems[1])">
         </div>
         <div class="item-container rounded-3 col-2 cursor-pointer"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow '">
-            <img *ngIf="trainerItems[2]?.sprite" [src]="trainerItems[2].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[2].text}}" (click)="useItem(trainerItems[2])">
+            <img [src]="getItemSprite(2)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(2)}}" (click)="useItem(trainerItems[2])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[3]?.sprite" [src]="trainerItems[3].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[3].text}}" (click)="useItem(trainerItems[3])">
+            <img [src]="getItemSprite(3)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(3)}}" (click)="useItem(trainerItems[3])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[4]?.sprite" [src]="trainerItems[4].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[4].text}}" (click)="useItem(trainerItems[4])">
+            <img [src]="getItemSprite(4)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(4)}}" (click)="useItem(trainerItems[4])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[5]?.sprite" [src]="trainerItems[5].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[5].text}}" (click)="useItem(trainerItems[5])">
+            <img [src]="getItemSprite(5)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(5)}}" (click)="useItem(trainerItems[5])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[6]?.sprite" [src]="trainerItems[6].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[6].text}}" (click)="useItem(trainerItems[6])">
+            <img [src]="getItemSprite(5)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(6)}}" (click)="useItem(trainerItems[6])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[7]?.sprite" [src]="trainerItems[7].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[7].text}}" (click)="useItem(trainerItems[7])">
+            <img [src]="getItemSprite(7)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(7)}}" (click)="useItem(trainerItems[7])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[8]?.sprite" [src]="trainerItems[8].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[8].text}}" (click)="useItem(trainerItems[8])">
+            <img [src]="getItemSprite(8)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(8)}}" (click)="useItem(trainerItems[8])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[9]?.sprite" [src]="trainerItems[9].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[9].text}}" (click)="useItem(trainerItems[9])">
+            <img [src]="getItemSprite(9)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(9)}}" (click)="useItem(trainerItems[9])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[10]?.sprite" [src]="trainerItems[10].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[10].text}}" (click)="useItem(trainerItems[10])">
+            <img [src]="getItemSprite(10)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(10)}}" (click)="useItem(trainerItems[10])">
         </div>
         <div class="item-container rounded-3 col-2"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerItems[11]?.sprite" [src]="trainerItems[11].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerItems[11].text}}" (click)="useItem(trainerItems[11])">
+            <img [src]="getItemSprite(11)" class="img-fluid" placement="bottom"
+                ngbTooltip="{{getItemText(11)}}" (click)="useItem(trainerItems[11])">
         </div>
         </div>
 

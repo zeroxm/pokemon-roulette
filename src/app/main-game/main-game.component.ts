@@ -107,7 +107,8 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 0;
+  leadersDefeatedAmount: number = 1;
+  // leadersDefeatedAmount: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
   customWheelTitle = '';

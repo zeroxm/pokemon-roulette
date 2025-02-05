@@ -278,7 +278,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             name: 'Viola',
             sprite: "https://archives.bulbagarden.net/media/upload/8/87/VSViola.png",
             quotes: [
-                "It's fantastic! Just fantastic! A great subjects for my camera!",
+                "It's fantastic! Just fantastic! A great subject for my camera!",
                 "My lens is always focused on victory--I won't let anything ruin this shot!"
             ]
         },
