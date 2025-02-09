@@ -42,7 +42,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
     this.cursorWidth = 40;
-    this.fontSize = this.wheelWidth / 20;
+    this.fontSize = 18;
   }
 
   ngAfterViewInit(): void {

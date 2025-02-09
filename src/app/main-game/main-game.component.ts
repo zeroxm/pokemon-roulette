@@ -35,6 +35,7 @@ import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roul
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/rival-battle-roulette.component';
+import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -65,8 +66,9 @@ import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/
     FossilRouletteComponent,
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
-    RivalBattleRouletteComponent
-  ],
+    RivalBattleRouletteComponent,
+    EliteFourPrepRouletteComponent
+],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })

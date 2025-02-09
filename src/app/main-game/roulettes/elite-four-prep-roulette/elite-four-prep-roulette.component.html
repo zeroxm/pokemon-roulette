@@ -1,0 +1,6 @@
+<h1 class="title">What do you do before the Elite 4?</h1>
+<p class="respin-reason">{{ respinReason }}</p>
+<app-wheel  #wheel
+            [items]="actions"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

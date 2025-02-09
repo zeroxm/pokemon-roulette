@@ -144,6 +144,18 @@
                     [currentRound]="leadersDefeatedAmount"
                     (battleResultEvent)="rivalBattleResult($event)">
                 </app-rival-battle-roulette>
+                <app-elite-four-prep-roulette
+                    *ngSwitchCase="'elite-four-preparation'"
+                    [respinReason]="respinReason"
+                    (catchPokemonEvent)="catchPokemon()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve()"
+                    (buyPotionsEvent)="buyPotions()"
+                    (catchTwoPokemonEvent)="catchTwoPokemon()"
+                    (legendaryEncounterEvent)="legendaryEncounter()"
+                    (findItemEvent)="findItem()"
+                    (doNothingEvent)="doNothing()"
+                    (teamRocketEncounterEvent)="teamRocketEncounter()">
+                </app-elite-four-prep-roulette>
             </ng-container>
         </div>
 
