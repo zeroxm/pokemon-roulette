@@ -30,9 +30,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService
-  ) {
-
-  }
+  ) { }
 
   private gameSubscription: Subscription | null = null;
   private generationSubscription: Subscription | null = null;
@@ -64,6 +62,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     this.trainerItems = this.trainerService.getItems();
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
+
       if (state === 'gym-battle') {
         this.currentLeader = this.getCurrentLeader();
         this.victoryOdds = [];
@@ -73,7 +72,9 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
             this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
           }
         });
+
         const powerModifier = this.plusModifiers();
+
         for (let i = 0; i < powerModifier; i++) {
           this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
         }
@@ -113,9 +114,13 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentLeader(): GymLeader {
+
     let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
+
     if ((this.generation.id === 5 && (this.currentRound === 0 || this.currentRound === 7))
-      || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
+    || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
+    || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
+
       const leaderNames = currentLeader.name.split('/');
       const leaderSprites = currentLeader.sprite;
       const leaderQuotes = currentLeader.quotes;
@@ -184,4 +189,3 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     });
   }
 }
-

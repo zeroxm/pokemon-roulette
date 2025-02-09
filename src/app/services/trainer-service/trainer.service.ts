@@ -25,60 +25,52 @@ export class TrainerService {
 
   trainerSpriteData = trainerSpriteData;
 
-  private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: 'https://archives.bulbagarden.net/media/upload/c/ca/Spr_FRLG_Red.png' });
+  private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_FRLG_Red.png' });
   // private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
-    { text: "Eevee", pokemonId: 133, fillStyle: "brown", 
+    {
+      text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod",
       sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
       },
-      shiny: false, power: 2, weight: 1 
+      shiny: true, power: 2, weight: 1
     },
-    { text: "Eevee", pokemonId: 133, fillStyle: "brown", 
+    { text: "Venusaur", pokemonId: 3, fillStyle: "green",
       sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/3.png"
       },
-      shiny: false, power: 2, weight: 1 
+      shiny: false, power: 3, weight: 1
     },
-    // {
-    //   text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod",
-    //   sprite: {
-    //     front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-    //     front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-    //   },
-    //   shiny: true, power: 2, weight: 1
-    // },
-    // { text: "Snorlax", pokemonId: 143, fillStyle: "black",
-    //   sprite: {
-    // 		"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
-    // 		"front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
-    // 	},
-    //   shiny: true, power: 3, weight: 1 },
+    { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
+      },
+      shiny: false, power: 3, weight: 1
+    },
+    { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png',
+        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/9.png"
+      },
+      shiny: false, power: 3, weight: 1
+    },
+    { text: "Snorlax", pokemonId: 143, fillStyle: "black",
+      sprite: {
+    		"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
+    		"front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
+    	},
+      shiny: true, power: 3, weight: 1 },
   ];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastPokemonAddedIndex: number = 0;
 
   trainerItems: ItemItem[] = [
     {
-      text: 'Exp Share',
-      name: 'exp-share',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png',
-      fillStyle: 'black',
-      weight: 1,
-      description: 'Whenever a Pokémon evolves, Exp Share makes another Pokémon evolve!'
-    },
-    {
-      text: 'Potion',
-      name: 'potion',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
-      fillStyle: 'purple',
-      weight: 1,
-      description: 'Potion let you spin again whenever you would lose a Gym battle!'
-    }, {
       text: 'Potion',
       name: 'potion',
       sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
@@ -90,7 +82,13 @@ export class TrainerService {
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [
-    { name: 'Boulder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png' }
+    { name: 'Boulder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png' },
+    { name: 'Cascade Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/2.png' },
+    { name: 'Thunder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/3.png' },
+    { name: 'Rainbow Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/4.png' },
+    { name: 'Soul Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/5.png' },
+    { name: 'Marsh Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/6.png' },
+    { name: 'Volcano Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/7.png' },
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
@@ -232,7 +230,16 @@ export class TrainerService {
   }
 
   resetItems() {
-    this.trainerItems = [];
+    this.trainerItems = [
+      {
+        text: 'Potion',
+        name: 'potion',
+        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
+        fillStyle: 'purple',
+        weight: 1,
+        description: 'Potion let you spin again whenever you would lose a Gym battle!'
+      },
+    ];
     this.trainerItemsObservable.next(this.trainerItems);
   }
 

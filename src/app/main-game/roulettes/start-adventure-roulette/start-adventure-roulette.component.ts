@@ -16,10 +16,10 @@ export class StartAdventureRouletteComponent {
   @Output () doNothingEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
-    { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 1 },
-    { text: 'Battle Trainer', fillStyle: 'darkorange', weight: 1 },
-    { text: 'Buy Potions', fillStyle: 'green', weight: 1 },
-    { text: 'Do Nothing', fillStyle: 'darkcyan', weight: 1 }
+    { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 2 },
+    { text: 'Battle Trainer', fillStyle: 'darkorange', weight: 2 },
+    { text: 'Buy Potions', fillStyle: 'green', weight: 2 },
+    { text: 'Go Straight', fillStyle: 'darkcyan', weight: 1 }
   ];
 
   onItemSelected(index: number): void {

@@ -109,8 +109,8 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 1;
-  // leadersDefeatedAmount: number = 0;
+  leadersDefeatedAmount: number = 7;
+  //leadersDefeatedAmount: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
   customWheelTitle = '';
@@ -405,6 +405,8 @@ export class MainGameComponent {
   rivalBattleResult(result: boolean): void {
     if (result) {
       this.chooseWhoWillEvolve();
+    } else {
+      this.doNothing();
     }
   }
 

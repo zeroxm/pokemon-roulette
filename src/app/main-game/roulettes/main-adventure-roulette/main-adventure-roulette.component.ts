@@ -33,7 +33,7 @@ export class MainAdventureRouletteComponent {
     { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 3 },
     { text: 'Battle Trainer', fillStyle: 'darkorange', weight: 1 },
     { text: 'Buy Potions', fillStyle: 'darkgoldenrod', weight: 1 },
-    { text: 'Do Nothing', fillStyle: 'green', weight: 1 },
+    { text: 'Go Straight', fillStyle: 'green', weight: 1 },
     { text: 'Catch two Pokémon', fillStyle: 'darkcyan', weight: 1 },
     { text: 'Visit the Daycare', fillStyle: 'blue', weight: 1 },
     { text: 'Team Rocket Encounter', fillStyle: 'purple', weight: 1 },
