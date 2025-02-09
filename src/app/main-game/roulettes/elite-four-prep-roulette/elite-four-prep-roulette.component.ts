@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
@@ -8,7 +9,18 @@ import { WheelComponent } from "../../../wheel/wheel.component";
   templateUrl: './elite-four-prep-roulette.component.html',
   styleUrl: './elite-four-prep-roulette.component.css'
 })
-export class EliteFourPrepRouletteComponent {
+export class EliteFourPrepRouletteComponent implements OnInit {
+
+  constructor(private modalService: NgbModal) { }
+
+  @ViewChild('victoryRoadModal', { static: true }) victoryRoadModal!: TemplateRef<any>;
+
+  ngOnInit(): void {
+    this.modalService.open(this.victoryRoadModal, {
+      centered: true,
+      size: 'lg'
+    });
+  }
 
   @Input() respinReason!: string;
   @Output() catchPokemonEvent = new EventEmitter<void>();
@@ -60,5 +72,9 @@ export class EliteFourPrepRouletteComponent {
       default:
         break;
     }
+  }
+
+  closeModal(): void {
+    this.modalService.dismissAll();
   }
 }

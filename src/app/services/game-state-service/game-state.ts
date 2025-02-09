@@ -26,4 +26,5 @@ export type GameState =
   | 'battle-rival'
   | 'elite-four-preparation'
   | 'elite-four-battle'
-  | 'champion-battle';
+  | 'champion-battle'
+  | 'game-finish';

@@ -1,1 +1,39 @@
-<p>elite-four-battle-roulette works!</p>
+<h1 class="title">Victory?</h1>
+<p class="respin-reason">{{ (retries > 0) ? currentItem.text+" x"+retries : ""}}</p>
+<app-wheel
+    #wheel
+    [items]="victoryOdds"
+    (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
+
+<ng-template #eliteFourPresentationModal let-modal>
+    <div class="modal-body">
+        <h1>Battle against {{ currentElite.name }}!</h1>
+        <div class="elite-panel">
+            <img [src]="currentElite.sprite"
+                 alt="{{currentElite.name}}"
+                 height="128">
+            <div class="quotes">
+                <p *ngFor="let quote of currentElite.quotes">{{quote}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Let's Go!</button>
+    </div>
+</ng-template>
+
+<ng-template #itemUsedModal let-modal>
+    <div class="modal-body">
+        <h1>Used a {{ currentItem.text }}!</h1>
+        <div class="item-panel">
+            <img [src]="currentItem.sprite" height="128">
+            <div class="quotes">
+                <p>{{ currentItem.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>

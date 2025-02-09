@@ -1,4 +1,4 @@
-<h1 class="title">Victory?</h1>
+<h1 class="title">{{currentLeader.name}} Defeated?</h1>
 <p class="respin-reason">{{ (retries > 0) ? currentItem.text+" x"+retries : ""}}</p>
 <app-wheel #wheel [items]="victoryOdds" (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>

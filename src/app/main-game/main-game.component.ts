@@ -36,6 +36,7 @@ import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-r
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/rival-battle-roulette.component';
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
+import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -67,7 +68,8 @@ import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roul
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
     RivalBattleRouletteComponent,
-    EliteFourPrepRouletteComponent
+    EliteFourPrepRouletteComponent,
+    EliteFourBattleRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -111,7 +113,7 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 7;
+  leadersDefeatedAmount: number = 8;
   //leadersDefeatedAmount: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
@@ -323,6 +325,25 @@ export class MainGameComponent {
       this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
 
+    } else {
+      this.gameStateService.setNextState('game-over');
+      this.modalService.open(this.gameOverModalTemplate, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
+    this.finishCurrentState();
+  }
+
+  eliteFourBattleResult(result: boolean): void {
+    this.runningShoesUsed = false;
+    this.respinReason = '';
+
+    if (result) {
+      this.leadersDefeatedAmount++;
+      this.gameStateService.setNextState('check-evolution');
     } else {
       this.gameStateService.setNextState('game-over');
       this.modalService.open(this.gameOverModalTemplate, {

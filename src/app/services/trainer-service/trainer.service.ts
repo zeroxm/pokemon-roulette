@@ -89,6 +89,7 @@ export class TrainerService {
     { name: 'Soul Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/5.png' },
     { name: 'Marsh Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/6.png' },
     { name: 'Volcano Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/7.png' },
+    { name: 'Earth Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/8.png' },
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 

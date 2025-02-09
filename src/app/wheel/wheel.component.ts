@@ -42,7 +42,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
     this.cursorWidth = 40;
-    this.fontSize = 18;
+    this.fontSize = this.wheelWidth / 24;
   }
 
   ngAfterViewInit(): void {
@@ -51,9 +51,9 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.pointerCanvas = <HTMLCanvasElement>document.getElementById('pointer');
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
     if (this.items.length >= 32) {
-      this.fontSize = 10;
+      this.fontSize = Math.min(this.fontSize, 10);
     } else if(this.items.length >= 16) {
-      this.fontSize = 14;
+      this.fontSize = Math.min(this.fontSize, 14);
     }
     this.drawWheel();
     this.drawPointer();
@@ -130,11 +130,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
 
-    // if (this.items.length === 17) {
-    //   this.winningNumber = 16;
-    // } else {
-      this.winningNumber = this.getRandomWeightedIndex();
-    // }
+    this.winningNumber = this.getRandomWeightedIndex();
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
 

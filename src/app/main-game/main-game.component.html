@@ -156,6 +156,11 @@
                     (doNothingEvent)="doNothing()"
                     (teamRocketEncounterEvent)="teamRocketEncounter()">
                 </app-elite-four-prep-roulette>
+                <app-elite-four-battle-roulette
+                    *ngSwitchCase="'elite-four-battle'"
+                    [currentRound]="leadersDefeatedAmount"
+                    (battleResultEvent)="eliteFourBattleResult($event)">
+                </app-elite-four-battle-roulette>
             </ng-container>
         </div>
 
