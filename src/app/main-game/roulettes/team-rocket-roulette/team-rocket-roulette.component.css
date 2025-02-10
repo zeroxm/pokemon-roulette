@@ -34,6 +34,7 @@
 			  0 0 0 1px black,
 			  inset 0 0 0 1px black;
 	user-select: none;
+	max-width: 50%;
 }
 
 .modal-footer {

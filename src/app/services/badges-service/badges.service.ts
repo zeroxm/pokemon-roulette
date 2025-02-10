@@ -13,9 +13,16 @@ export class BadgesService {
 
   badgesByGeneration = badgesByGeneration;
 
-  getBadge(generation: GenerationItem, fromRound: number): Observable<Badge> {
+  getBadge(generation: GenerationItem, fromRound: number, fromLeader: number): Observable<Badge> {
+
+    let badge = this.badgesByGeneration[generation.id][fromRound];
+
+    if (Array.isArray(badge)) {
+      badge = badge[fromLeader];
+    }
+
     return new Observable(observer => {
-      observer.next(this.badgesByGeneration[generation.id][fromRound]);
+      observer.next(badge);
       observer.complete();
     });
   }

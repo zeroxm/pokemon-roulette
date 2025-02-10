@@ -25,12 +25,12 @@ export class TeamRocketRouletteComponent implements OnInit {
 
   jessie = {
     name: 'Jessie',
-    sprite: 'https://archives.bulbagarden.net/media/upload/3/3c/SugimoriJessie.png',
+    sprite: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/SugimoriJessie.png',
   }
 
   james = {
     name: 'James',
-    sprite: 'https://archives.bulbagarden.net/media/upload/7/71/SugimoriJames.png',
+    sprite: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/SugimoriJames.png',
   }
 
   ngOnInit(): void {

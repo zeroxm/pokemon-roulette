@@ -20,6 +20,7 @@
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 }
 
 .dialog {
@@ -30,7 +31,6 @@
 	padding: 8px;
 	position: relative;
 	line-height: 16px;
-	margin: auto;
 	background: white;
 	border: 1px solid white;
 	box-shadow: 0 1px 0 1px black,
@@ -38,6 +38,7 @@
 		0 0 0 1px black,
 		inset 0 0 0 1px black;
 	user-select: none;
+	max-width: 50%;
 }
 
 .modal-footer {

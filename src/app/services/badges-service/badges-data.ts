@@ -1,6 +1,6 @@
 import { Badge } from "../../interfaces/badge";
 
-export const badgesByGeneration: Record<number, Badge[]> = {
+export const badgesByGeneration: Record<number, (Badge | Badge[])[]> = {
     1: [
         { name: 'Boulder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png' },
         { name: 'Cascade Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/2.png' },
@@ -11,7 +11,6 @@ export const badgesByGeneration: Record<number, Badge[]> = {
         { name: 'Volcano Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/7.png' },
         { name: 'Earth Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/8.png' },
     ],
-    
     2: [
         { name: 'Zephyr Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/9.png' },
         { name: 'Hive Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/10.png' },
@@ -65,12 +64,16 @@ export const badgesByGeneration: Record<number, Badge[]> = {
     7: [
         { name: 'Normalium Z', sprite: 'https://archives.bulbagarden.net/media/upload/f/f0/Dream_Normalium_Z_Sprite.png' },
         { name: 'Fightinium Z', sprite: 'https://archives.bulbagarden.net/media/upload/0/08/Dream_Fightinium_Z_Sprite.png' },
-        { name: 'Waterium Z', sprite: 'https://archives.bulbagarden.net/media/upload/e/ee/Dream_Waterium_Z_Sprite.png' },
-        { name: 'Firium Z', sprite: 'https://archives.bulbagarden.net/media/upload/f/f1/Dream_Firium_Z_Sprite.png' },
-        { name: 'Grassium Z', sprite: 'https://archives.bulbagarden.net/media/upload/d/d7/Dream_Grassium_Z_Sprite.png' },
+        [
+            { name: 'Waterium Z', sprite: 'https://archives.bulbagarden.net/media/upload/e/ee/Dream_Waterium_Z_Sprite.png' },
+            { name: 'Firium Z', sprite: 'https://archives.bulbagarden.net/media/upload/f/f1/Dream_Firium_Z_Sprite.png' },
+            { name: 'Grassium Z', sprite: 'https://archives.bulbagarden.net/media/upload/d/d7/Dream_Grassium_Z_Sprite.png' }
+        ],
         { name: 'Rockium Z', sprite: 'https://archives.bulbagarden.net/media/upload/9/9b/Dream_Rockium_Z_Sprite.png' },
-        { name: 'Electrium Z', sprite: 'https://archives.bulbagarden.net/media/upload/e/e4/Dream_Electrium_Z_Sprite.png' },
-        { name: 'Ghostium Z', sprite: 'https://archives.bulbagarden.net/media/upload/d/d1/Dream_Ghostium_Z_Sprite.png' },
+        [
+            { name: 'Electrium Z', sprite: 'https://archives.bulbagarden.net/media/upload/e/e4/Dream_Electrium_Z_Sprite.png' },
+            { name: 'Ghostium Z', sprite: 'https://archives.bulbagarden.net/media/upload/d/d1/Dream_Ghostium_Z_Sprite.png' },
+        ],
         { name: 'Darkinium Z', sprite: 'https://archives.bulbagarden.net/media/upload/1/1e/Dream_Darkinium_Z_Sprite.png' },
         { name: 'Fairium Z', sprite: 'https://archives.bulbagarden.net/media/upload/b/b7/Dream_Fairium_Z_Sprite.png' },
         { name: 'Groundium Z', sprite: 'https://archives.bulbagarden.net/media/upload/7/7e/Dream_Groundium_Z_Sprite.png' },
@@ -79,12 +82,16 @@ export const badgesByGeneration: Record<number, Badge[]> = {
         { name: 'Grass Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/49.png' },
         { name: 'Water Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/50.png' },
         { name: 'Fire Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/51.png' },
-        { name: 'Fighting Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/52.png' },
+        [
+            { name: 'Fighting Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/52.png' },
+            { name: 'Ghost Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/53.png' },
+        ],
         { name: 'Fairy Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/54.png' },
-        { name: 'Rock Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/55.png' },
+        [
+            { name: 'Rock Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/55.png' },
+            { name: 'Ice Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/56.png' },
+        ],
         { name: 'Dark Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/57.png' },
         { name: 'Dragon Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/58.png' },
-        { name: 'Ghost Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/53.png' },
-        { name: 'Ice Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/56.png' },
     ]
 }

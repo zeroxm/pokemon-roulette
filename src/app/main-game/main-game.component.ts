@@ -115,6 +115,7 @@ export class MainGameComponent {
   currentContextItem!: ItemItem;
   leadersDefeatedAmount: number = 8;
   //leadersDefeatedAmount: number = 0;
+  fromLeader: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
   customWheelTitle = '';
@@ -321,7 +322,7 @@ export class MainGameComponent {
     this.respinReason = '';
 
     if (result) {
-      this.trainerService.addBadge(this.leadersDefeatedAmount);
+      this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
 
@@ -334,6 +335,7 @@ export class MainGameComponent {
         keyboard: false
       });
     }
+
     this.finishCurrentState();
   }
 

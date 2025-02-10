@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { trainerSpriteData } from './trainer-sprite-data';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonService } from '../pokemon-service/pokemon.service';
@@ -214,8 +214,8 @@ export class TrainerService {
     return this.trainerBadgesObservable.asObservable();
   }
 
-  addBadge(fromRound: number): void {
-    this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound).subscribe(badge => {
+  addBadge(fromRound: number, fromLeader: number = 0): void {
+    this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound, fromLeader).subscribe(badge => {
       this.trainerBadges.push(badge);
       this.trainerBadgesObservable.next(this.trainerBadges);
     })

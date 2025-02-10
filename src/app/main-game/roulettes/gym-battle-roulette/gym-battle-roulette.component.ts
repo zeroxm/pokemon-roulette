@@ -42,7 +42,9 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   trainerTeam!: PokemonItem[];
   trainerItems!: ItemItem[];
   @Input() currentRound!: number;
+  @Input() fromLeader!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
+  @Output() fromLeaderChange = new EventEmitter<number>();
 
   victoryOdds: WheelItem[] = [
     { text: 'Yes', fillStyle: 'green', weight: 1 },
@@ -118,13 +120,15 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
 
     if ((this.generation.id === 5 && (this.currentRound === 0 || this.currentRound === 7))
-    || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
-    || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
+     || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
+     || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
 
       const leaderNames = currentLeader.name.split('/');
       const leaderSprites = currentLeader.sprite;
       const leaderQuotes = currentLeader.quotes;
       const randomIndex = Math.floor(Math.random() * leaderNames.length);
+
+      this.fromLeaderChange.emit(randomIndex);
 
       currentLeader = {
         name: leaderNames[randomIndex],

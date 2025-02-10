@@ -53,6 +53,7 @@
                 <app-gym-battle-roulette
                     *ngSwitchCase="'gym-battle'"
                     [currentRound]="leadersDefeatedAmount"
+                    [(fromLeader)]="fromLeader"
                     (battleResultEvent)="gymBattleResult($event)">
                 </app-gym-battle-roulette>
                 <app-check-evolution-roulette
