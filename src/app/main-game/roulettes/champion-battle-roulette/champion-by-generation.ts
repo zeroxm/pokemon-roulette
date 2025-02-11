@@ -1,6 +1,6 @@
 import { GymLeader } from "../../../interfaces/gym-leader";
 
-export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
+export const championByGeneration: Record<number, GymLeader[]> = {
     1: [
         {
             name: 'Blue',

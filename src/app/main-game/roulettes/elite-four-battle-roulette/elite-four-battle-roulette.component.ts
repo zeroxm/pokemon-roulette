@@ -67,6 +67,8 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         this.currentElite = this.getCurrentElite();
         this.victoryOdds = [];
 
+        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+
         this.trainerTeam.slice(0, 6).forEach(pokemon => {
           for (let i = 0; i < pokemon.power; i++) {
             this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });

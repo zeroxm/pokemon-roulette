@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 
 @Component({
@@ -7,15 +7,28 @@ import { WheelComponent } from "../../../wheel/wheel.component";
   templateUrl: './catch-legendary-roulette.component.html',
   styleUrl: './catch-legendary-roulette.component.css'
 })
-export class CatchLegendaryRouletteComponent {
+export class CatchLegendaryRouletteComponent implements OnInit {
 
   catchRate = [
     { text: 'yes', fillStyle: 'green', weight: 1 },
-    { text: 'no', fillStyle: 'crimson', weight: 1 },
-    { text: 'no', fillStyle: 'crimson', weight: 1 },
-    { text: 'no', fillStyle: 'crimson', weight: 1 },
+    { text: 'no', fillStyle: 'crimson', weight: 3 }
   ];
 
+  ngOnInit(): void {
+    if (this.currentRound >= 8) {
+      this.catchRate = [
+        { text: 'yes', fillStyle: 'green', weight: 3 },
+        { text: 'no', fillStyle: 'crimson', weight: 1 },
+      ];
+    } else if (this.currentRound >= 4) {
+      this.catchRate = [
+        { text: 'yes', fillStyle: 'green', weight: 2 },
+        { text: 'no', fillStyle: 'crimson', weight: 2 },
+      ];
+    }
+  }
+
+  @Input() currentRound: number = 0;
   @Output() catchLegendaryEvent = new EventEmitter<void>();
   @Output() nothingHappensEvent = new EventEmitter<void>();
 

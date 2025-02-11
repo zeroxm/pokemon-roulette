@@ -37,7 +37,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
     { text: 'Training Arc', fillStyle: 'darkorange', weight: 2 },
     { text: 'Buy Potions', fillStyle: 'darkgoldenrod', weight: 2 },
     { text: 'Catch two Pokémon', fillStyle: 'green', weight: 2 },
-    { text: 'Legendary Encounter', fillStyle: 'darkcyan', weight: 2 },
+    { text: 'Hunt a Legendary', fillStyle: 'darkcyan', weight: 2 },
     { text: 'Find an Item', fillStyle: 'blue', weight: 2 },
     { text: 'Go Straight', fillStyle: 'purple', weight: 1 },
     { text: 'Team Rocket Encounter', fillStyle: 'black', weight: 1 }

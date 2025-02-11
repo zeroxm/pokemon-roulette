@@ -15,6 +15,8 @@
                 </app-restart-game>
                 <br>
                 {{ getGameState() }}
+                <br>
+                {{ 'Leaders Defeated:'+leadersDefeatedAmount}}
             </div>
         </div>
 
@@ -100,6 +102,7 @@
                 </app-legendary-roulette>
                 <app-catch-legendary-roulette
                     *ngSwitchCase="'catch-legendary'"
+                    [currentRound]="leadersDefeatedAmount"
                     (catchLegendaryEvent)="legendaryCaptureSuccess()"
                     (nothingHappensEvent)="doNothing()">
                 </app-catch-legendary-roulette>
@@ -162,6 +165,11 @@
                     [currentRound]="leadersDefeatedAmount"
                     (battleResultEvent)="eliteFourBattleResult($event)">
                 </app-elite-four-battle-roulette>
+                <app-champion-battle-roulette
+                    *ngSwitchCase="'champion-battle'"
+                    [currentRound]="leadersDefeatedAmount"
+                    (battleResultEvent)="championBattleResult($event)">
+                </app-champion-battle-roulette>
             </ng-container>
         </div>
 

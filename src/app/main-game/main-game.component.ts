@@ -37,6 +37,8 @@ import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-r
 import { RivalBattleRouletteComponent } from './roulettes/rival-battle-roulette/rival-battle-roulette.component';
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
 import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component";
+import { ItemName } from '../services/items-service/item-names';
+import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-roulette/champion-battle-roulette.component";
 
 @Component({
   selector: 'app-main-game',
@@ -69,7 +71,8 @@ import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-
     FishingRouletteComponent,
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
-    EliteFourBattleRouletteComponent
+    EliteFourBattleRouletteComponent,
+    ChampionBattleRouletteComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -113,7 +116,7 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 8;
+  leadersDefeatedAmount: number = 12;
   //leadersDefeatedAmount: number = 0;
   fromLeader: number = 0;
   evolutionCredits: number = 0;
@@ -181,7 +184,16 @@ export class MainGameComponent {
   }
 
   buyPotions(): void {
-    this.itemService.getItem('potion').subscribe(potion => {
+
+    let itemName: ItemName = 'potion';
+
+    if (this.leadersDefeatedAmount > 6) {
+      itemName = 'hyper-potion';
+    } else if(this.leadersDefeatedAmount > 3){
+      itemName = 'super-potion';
+    }
+
+    this.itemService.getItem(itemName).subscribe(potion => {
       this.trainerService.addToItems(potion);
     })
     this.finishCurrentState();
@@ -346,6 +358,25 @@ export class MainGameComponent {
     if (result) {
       this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
+    } else {
+      this.gameStateService.setNextState('game-over');
+      this.modalService.open(this.gameOverModalTemplate, {
+        centered: true,
+        size: 'md',
+        backdrop: 'static',
+        keyboard: false
+      });
+    }
+    this.finishCurrentState();
+  }
+
+  championBattleResult(result: boolean): void {
+
+    this.runningShoesUsed = false;
+    this.respinReason = '';
+
+    if (result) {
+      this.leadersDefeatedAmount++;
     } else {
       this.gameStateService.setNextState('game-over');
       this.modalService.open(this.gameOverModalTemplate, {
