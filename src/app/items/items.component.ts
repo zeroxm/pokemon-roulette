@@ -34,7 +34,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.itemsSubscription.unsubscribe();
+    this.itemsSubscription?.unsubscribe();
   }
 
   useItem(item: ItemItem | undefined) {

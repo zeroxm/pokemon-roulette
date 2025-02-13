@@ -29,7 +29,7 @@ export class StarterRouletteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.generationSubscription.unsubscribe();
+    this.generationSubscription?.unsubscribe();
   }
 
   getStarters(): PokemonItem[] {

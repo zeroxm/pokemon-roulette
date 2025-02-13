@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainGameComponent } from './main-game.component';
-import { NgIconsModule, provideIcons } from '@ng-icons/core';
-import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
+import { NgIconsModule } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
 
 describe('MainGameComponent', () => {
@@ -19,8 +18,7 @@ describe('MainGameComponent', () => {
         NgIconsModule
       ],
       providers: [
-        {provide: HttpClient, useValue: httpSpyObj },
-        provideIcons({ bootstrapArrowRepeat }),
+        {provide: HttpClient, useValue: httpSpyObj }
       ],
     })
     .compileComponents();

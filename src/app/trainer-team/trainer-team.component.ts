@@ -37,18 +37,17 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
     });
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
-    })
+    });
     this.badgesSubscription = this.trainerService.getBadgesObservable().subscribe(badges => {
       this.trainerBadges = badges;
-    })
-    this.trainerTeam = this.trainerService.getTeam();
+    });
     this.darkMode = this.darkModeService.darkMode$;
   }
 
   ngOnDestroy(): void {
-    this.trainerSubscription.unsubscribe();
-    this.teamSubscription.unsubscribe();
-    this.badgesSubscription.unsubscribe();
+    this.trainerSubscription?.unsubscribe();
+    this.teamSubscription?.unsubscribe();
+    this.badgesSubscription?.unsubscribe();
   }
 
   getSprite(pokemon: PokemonItem): string {

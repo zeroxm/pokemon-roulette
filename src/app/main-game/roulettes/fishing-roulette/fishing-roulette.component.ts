@@ -30,9 +30,7 @@ export class FishingRouletteComponent {
   }
 
   ngOnDestroy(): void {
-    if (this.generationSubscription) {
-      this.generationSubscription.unsubscribe();
-    }
+      this.generationSubscription?.unsubscribe();
   }
 
   onItemSelected(index: number): void {

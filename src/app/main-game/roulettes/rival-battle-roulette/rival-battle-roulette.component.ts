@@ -94,12 +94,8 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.gameSubscription) {
-      this.gameSubscription.unsubscribe();
-    }
-    if (this.generationSubscription) {
-      this.generationSubscription.unsubscribe();
-    }
+    this.gameSubscription?.unsubscribe();
+    this.generationSubscription?.unsubscribe();
   }
 
   private plusModifiers(): number {

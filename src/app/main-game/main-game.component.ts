@@ -39,6 +39,7 @@ import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roul
 import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component";
 import { ItemName } from '../services/items-service/item-names';
 import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-roulette/champion-battle-roulette.component";
+import { EndGameComponent } from "./end-game/end-game.component";
 
 @Component({
   selector: 'app-main-game',
@@ -72,7 +73,8 @@ import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-rou
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
     EliteFourBattleRouletteComponent,
-    ChampionBattleRouletteComponent
+    ChampionBattleRouletteComponent,
+    EndGameComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'

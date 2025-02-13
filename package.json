@@ -23,6 +23,7 @@
     "@ng-icons/core": "^30.2.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "fireworks-js": "^2.10.8",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

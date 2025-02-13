@@ -31,9 +31,7 @@ export class LegendaryRouletteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.generationSubscription) {
-      this.generationSubscription.unsubscribe();
-    }
+    this.generationSubscription?.unsubscribe();
   }
 
   onItemSelected(index: number): void {

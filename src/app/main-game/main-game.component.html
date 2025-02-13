@@ -170,6 +170,9 @@
                     [currentRound]="leadersDefeatedAmount"
                     (battleResultEvent)="championBattleResult($event)">
                 </app-champion-battle-roulette>
+                <app-end-game
+                    *ngSwitchCase="'game-finish'">
+                </app-end-game>
             </ng-container>
         </div>
 
