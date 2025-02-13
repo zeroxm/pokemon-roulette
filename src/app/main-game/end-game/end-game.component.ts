@@ -8,6 +8,8 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
+// @ts-ignore
+import domtoimage from 'dom-to-image-more'
 
 @Component({
   selector: 'app-end-game',
@@ -29,6 +31,7 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
   darkMode!: Observable<boolean>;
 
   @ViewChild('fireworksContainer', { static: false }) fireworksContainer!: ElementRef;
+  @ViewChild('captureArea', { static: false }) captureArea!: ElementRef;
 
   generation!: GenerationItem;
   trainer!: { sprite: string; };
@@ -89,8 +92,40 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     return pokemon.fillStyle;
   }
 
-  shareResults() {
+  async shareResults() {
+    if (!this.captureArea) return;
 
+    const scale = 2; // Adjust scale (2x, 3x, etc.)
+
+    domtoimage.toBlob(this.captureArea.nativeElement, {
+      width: this.captureArea.nativeElement.scrollWidth * scale,
+      height: this.captureArea.nativeElement.scrollHeight * scale,
+      style: {
+        backgroundColor: this.darkMode ? 'rgba(45, 52, 54, 1);' : "rgba(223, 230, 233, 1)",
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+        width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
+        height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
+      }
+    }).then((blob: Blob) => {
+      const file = new File([blob], 'share.png', { type: 'image/png' });
+    
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'Check this out!',
+          text: 'Look at my achievement!',
+        });
+      } else {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'share.png';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }
+    }).catch((error: Error) => {
+      console.error('Error capturing image:', error);
+    });
   }
 
   showHistory() {
