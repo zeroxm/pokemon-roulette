@@ -6,7 +6,7 @@ export const championByGeneration: Record<number, GymLeader[]> = {
             name: 'Blue',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/FireRed_LeafGreen_Blue.png",
             quotes: [
-                "I assembled teams that would beat any Pokémon type.",
+                "My teams can beat any Pokémon type.",
                 "And now… I am the Pokémon League Champion!",
                 "I'll tell you. I am the most powerful Trainer in the world!"
             ]
