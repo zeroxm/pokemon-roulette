@@ -28,7 +28,7 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     private darkModeService: DarkModeService
   ) { }
 
-  darkMode!: Observable<boolean>;
+  darkMode!: boolean;
 
   @ViewChild('fireworksContainer', { static: false }) fireworksContainer!: ElementRef;
   @ViewChild('captureArea', { static: false }) captureArea!: ElementRef;
@@ -40,8 +40,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
   private fireworks: Fireworks | null = null;
   private generationSubscription: Subscription | null = null;
   private trainerSubscription!: Subscription;
-  private teamSubscription!: Subscription;  
-
+  private teamSubscription!: Subscription;
+  private darkModeSubscription!: Subscription;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
@@ -53,11 +53,12 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
     });
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe(dark => {
+      this.darkMode = dark;
+    });
   }
 
   ngAfterViewInit() {
-    console.debug('ngAfterViewInit');
     const container = this.fireworksContainer.nativeElement;
     this.fireworks = new Fireworks(container, {
       autoresize: false,
@@ -72,6 +73,7 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.generationSubscription?.unsubscribe();
     this.trainerSubscription?.unsubscribe();
     this.teamSubscription?.unsubscribe();
+    this.darkModeSubscription?.unsubscribe();
   }
 
   getPokemonSprite(pokemon: PokemonItem): string {
@@ -88,38 +90,41 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!pokemon) {
       return '';
     }
-    
+
     return pokemon.fillStyle;
   }
 
   async shareResults() {
     if (!this.captureArea) return;
 
-    const scale = 2; // Adjust scale (2x, 3x, etc.)
+    const element = this.captureArea.nativeElement;
+    const originalBg = element.style.backgroundColor;
+    element.style.backgroundColor = this.darkMode ? 'rgb(223, 230, 233)' : 'rgb(45, 52, 54)';
+    const scale = 2;
 
     domtoimage.toBlob(this.captureArea.nativeElement, {
       width: this.captureArea.nativeElement.scrollWidth * scale,
       height: this.captureArea.nativeElement.scrollHeight * scale,
       style: {
-        backgroundColor: this.darkMode ? 'rgba(45, 52, 54, 1);' : "rgba(223, 230, 233, 1)",
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
         width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
     }).then((blob: Blob) => {
-      const file = new File([blob], 'share.png', { type: 'image/png' });
-    
+      const file = new File([blob], this.generation.region+'-champion.png', { type: 'image/png' });
+      element.style.backgroundColor = originalBg;
+
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
           files: [file],
-          title: 'Check this out!',
-          text: 'Look at my achievement!',
+          title: 'Pokemon Champion of '+this.generation.region,
+          text: 'Look what I got!',
         });
       } else {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'share.png';
+        link.download = this.generation.region+'-champion.png';
         link.click();
         URL.revokeObjectURL(link.href);
       }
