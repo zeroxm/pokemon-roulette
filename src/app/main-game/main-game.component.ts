@@ -40,6 +40,7 @@ import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-
 import { ItemName } from '../services/items-service/item-names';
 import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-roulette/champion-battle-roulette.component";
 import { EndGameComponent } from "./end-game/end-game.component";
+import { GameOverComponent } from "./game-over/game-over.component";
 
 @Component({
   selector: 'app-main-game',
@@ -74,7 +75,8 @@ import { EndGameComponent } from "./end-game/end-game.component";
     EliteFourPrepRouletteComponent,
     EliteFourBattleRouletteComponent,
     ChampionBattleRouletteComponent,
-    EndGameComponent
+    EndGameComponent,
+    GameOverComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -101,7 +103,6 @@ export class MainGameComponent {
     })
   }
 
-  @ViewChild('gameOverModal', { static: true }) gameOverModalTemplate!: TemplateRef<any>;
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
   @ViewChild('infoModal', { static: true }) infoModal!: TemplateRef<any>;
   @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
@@ -136,7 +137,7 @@ export class MainGameComponent {
     this.lessExplanations = !this.lessExplanations;
   }
 
-  closeGameOverModal(): void {
+  resetGameAction(): void {
     this.resetGame();
     this.modalService.dismissAll();
   }
@@ -342,12 +343,6 @@ export class MainGameComponent {
 
     } else {
       this.gameStateService.setNextState('game-over');
-      this.modalService.open(this.gameOverModalTemplate, {
-        centered: true,
-        size: 'md',
-        backdrop: 'static',
-        keyboard: false
-      });
     }
 
     this.finishCurrentState();
@@ -362,12 +357,6 @@ export class MainGameComponent {
       this.gameStateService.setNextState('check-evolution');
     } else {
       this.gameStateService.setNextState('game-over');
-      this.modalService.open(this.gameOverModalTemplate, {
-        centered: true,
-        size: 'md',
-        backdrop: 'static',
-        keyboard: false
-      });
     }
     this.finishCurrentState();
   }
@@ -381,12 +370,6 @@ export class MainGameComponent {
       this.leadersDefeatedAmount++;
     } else {
       this.gameStateService.setNextState('game-over');
-      this.modalService.open(this.gameOverModalTemplate, {
-        centered: true,
-        size: 'md',
-        backdrop: 'static',
-        keyboard: false
-      });
     }
     this.finishCurrentState();
   }

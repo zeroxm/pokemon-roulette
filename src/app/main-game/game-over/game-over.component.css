@@ -1,0 +1,73 @@
+.title-text {
+    font-weight: bold;
+    animation: bounce 1.5s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.white-card {
+    background-color: rgba(45, 52, 54, 0.60);
+    color: #dfe6e9;
+}
+
+.black-card {
+    background-color: rgba(223, 230, 233, 0.60);
+    color: #2d3436;
+}
+
+.card {
+    animation: bounceIn 5s;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+
+.white-shadow {
+    box-shadow: 0 0 0.5em 0 white;
+}
+
+.black-border {
+    border: 1px solid #333;
+}
+
+.pokemon-container {
+    padding: 0px;
+    margin: 0.5rem;
+    aspect-ratio: 1;
+    background: rgb(from var(--color) r g b / 50%);
+}
+
+.trainer-container {
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 100%;
+    }
+}

@@ -1,26 +1,28 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { GenerationService } from '../../services/generation-service/generation.service';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
-import { Subscription } from 'rxjs';
-import { GenerationItem } from '../../interfaces/generation-item';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
-import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import Fireworks from 'fireworks-js';
+import { Subscription } from 'rxjs';
 // @ts-ignore
 import domtoimage from 'dom-to-image-more'
-
+import { GenerationItem } from '../../interfaces/generation-item';
+import { GenerationService } from '../../services/generation-service/generation.service';
+import { GymLeader } from '../../interfaces/gym-leader';
+import { gymLeadersByGeneration } from '../roulettes/gym-battle-roulette/gym-leaders-by-generation';
+import { eliteFourByGeneration } from '../roulettes/elite-four-battle-roulette/elite-four-by-generation';
+import { championByGeneration } from '../roulettes/champion-battle-roulette/champion-by-generation';
 @Component({
-  selector: 'app-end-game',
+  selector: 'app-game-over',
   imports: [
     CommonModule,
     NgIconsModule
   ],
-  templateUrl: './end-game.component.html',
-  styleUrl: './end-game.component.css'
+  templateUrl: './game-over.component.html',
+  styleUrl: './game-over.component.css'
 })
-export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GameOverComponent implements OnInit, OnDestroy {
 
   constructor(
     private generationService: GenerationService,
@@ -28,17 +30,21 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     private darkModeService: DarkModeService
   ) { }
 
+  gymLeadersByGeneration = gymLeadersByGeneration;
+  eliteFourByGeneration = eliteFourByGeneration;
+  championByGeneration = championByGeneration;
+
   darkMode!: boolean;
 
-  @ViewChild('fireworksContainer', { static: false }) fireworksContainer!: ElementRef;
   @ViewChild('captureArea', { static: false }) captureArea!: ElementRef;
 
   generation!: GenerationItem;
   trainer!: { sprite: string; };
   trainerTeam!: PokemonItem[];
+  currentLeader: GymLeader | null = null;
+  @Input() currentRound!: number;
 
-  private fireworks: Fireworks | null = null;
-  private generationSubscription: Subscription | null = null;
+  private generationSubscription!: Subscription;
   private trainerSubscription!: Subscription;
   private teamSubscription!: Subscription;
   private darkModeSubscription!: Subscription;
@@ -56,20 +62,11 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.darkModeSubscription = this.darkModeService.darkMode$.subscribe(dark => {
       this.darkMode = dark;
     });
-  }
 
-  ngAfterViewInit() {
-    const container = this.fireworksContainer.nativeElement;
-    this.fireworks = new Fireworks(container, {
-      autoresize: false,
-      particles: 120
-    });
-
-    this.fireworks.start();
+    this.currentLeader = this.getCurrentLeader();
   }
 
   ngOnDestroy(): void {
-    this.fireworks?.stop();
     this.generationSubscription?.unsubscribe();
     this.trainerSubscription?.unsubscribe();
     this.teamSubscription?.unsubscribe();
@@ -112,19 +109,19 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
     }).then((blob: Blob) => {
-      const file = new File([blob], this.generation.region+'-champion.png', { type: 'image/png' });
+      const file = new File([blob], 'run-is-over.png', { type: 'image/png' });
       element.style.backgroundColor = originalBg;
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
           files: [file],
-          title: 'Pokemon Champion of '+this.generation.region,
-          text: 'Look what I got!',
+          title: 'My progress',
+          text: 'See how far I\'ve gone!',
         });
       } else {
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = this.generation.region+'-champion.png';
+        link.download = 'run-is-over.png';
         link.click();
         URL.revokeObjectURL(link.href);
       }
@@ -135,5 +132,21 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   showHistory() {
 
+  }
+
+  private getCurrentLeader(): GymLeader {
+
+    let currentLeader = null
+
+    if (this.currentRound < 8) {
+      currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
+    } else if (this.currentRound < 12) {
+      currentLeader = this.eliteFourByGeneration[this.generation.id][this.currentRound%4];
+    } else {
+      currentLeader = this.championByGeneration[this.generation.id][0];
+    }
+
+
+    return currentLeader;
   }
 }

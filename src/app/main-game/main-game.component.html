@@ -11,7 +11,7 @@
                 </label>
                 <br>
                 <app-restart-game
-                    (restartEvent)="closeGameOverModal()">
+                    (restartEvent)="resetGameAction()">
                 </app-restart-game>
                 <br>
                 {{ getGameState() }}
@@ -173,6 +173,10 @@
                 <app-end-game
                     *ngSwitchCase="'game-finish'">
                 </app-end-game>
+                <app-game-over
+                    *ngSwitchCase="'game-over'"
+                    [currentRound]="leadersDefeatedAmount">
+                </app-game-over>
             </ng-container>
         </div>
 
@@ -186,22 +190,6 @@
         </div>
     </div>
 </div>
-
-<ng-template #gameOverModal let-modal>
-	<div class="modal-body">
-        <h1>Run is Over.</h1>
-        <div class="explain-panel">
-            <div class="message">
-                <p>Try Again?</p>
-            </div>
-        </div>
-	</div>
-    <div class="modal-footer">
-        <button type="button"
-                class="btn btn-outline-primary"
-                (click)="closeGameOverModal()">Restart</button>
-    </div>
-</ng-template>
 
 <ng-template #itemActivateModal let-modal>
     <div class="modal-body">
