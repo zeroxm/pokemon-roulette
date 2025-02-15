@@ -24,4 +24,22 @@
 .pokemon-container {
   padding: 0px;
   aspect-ratio: 1;
+
+  img {
+    animation: pokemon-show 0.5s ease-in-out;
+  }
+}
+
+@keyframes pokemon-show {
+  0% {
+    transform: scale(0);
+  }
+
+  75% {
+    transform: scale(1.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

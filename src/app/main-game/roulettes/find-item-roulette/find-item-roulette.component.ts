@@ -27,6 +27,7 @@ export class FindItemRouletteComponent {
   items: ItemItem[] = [];
   selectedItem: ItemItem | null = null;
   @Output() itemSelectedEvent = new EventEmitter<ItemItem>();
+  itemFoundAudio = new Audio('./ItemFound.mp3');
 
   onItemSelected(index: number): void {
     this.selectedItem = this.items[index];
@@ -36,6 +37,9 @@ export class FindItemRouletteComponent {
         this.selectedItem.sprite = response.sprite;
       }
     });
+
+    this.itemFoundAudio.volume = 0.25;
+    this.itemFoundAudio.play();
 
     const modalRef = this.modalService.open(this.itemExplainerModal, {
       centered: true,

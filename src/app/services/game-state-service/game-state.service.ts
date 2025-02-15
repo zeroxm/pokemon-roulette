@@ -8,8 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class GameStateService {
 
   private stateStack: GameState[] = [];
-  private state = new BehaviorSubject<GameState>('game-over');
-  // private state = new BehaviorSubject<GameState>('game-start');
+  private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
 
   constructor() {
@@ -19,29 +18,29 @@ export class GameStateService {
   private initializeStates(): void {
     this.stateStack = [
       'game-finish',
-      // 'champion-battle',
-      // 'elite-four-battle',
-      // 'elite-four-battle',
-      // 'elite-four-battle',
-      // 'elite-four-battle',
-      // 'elite-four-preparation',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'adventure-continues',
-      // 'gym-battle',
-      // 'start-adventure',
-      // 'starter-pokemon',
+      'champion-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'elite-four-battle',
+      'elite-four-preparation',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'adventure-continues',
+      'gym-battle',
+      'start-adventure',
+      'starter-pokemon',
     ];
   }
 

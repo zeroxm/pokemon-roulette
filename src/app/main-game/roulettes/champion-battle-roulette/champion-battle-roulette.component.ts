@@ -69,7 +69,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
 
         this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
 
-        this.trainerTeam.slice(0, 6).forEach(pokemon => {
+        this.trainerTeam.forEach(pokemon => {
           for (let i = 0; i < pokemon.power; i++) {
             this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
           }
@@ -104,7 +104,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     let power = 0;
     const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
     xAttacks.forEach(() => {
-      const meanPower = this.trainerTeam.slice(0, 6).reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.slice(0, 6).length;
+      const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
       power += meanPower;
     });
 
@@ -112,7 +112,23 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private getChampion(): GymLeader {
-    return this.championByGeneration[this.generation.id][0];
+    let currentChampion = this.championByGeneration[this.generation.id][0];
+
+    if (this.generation.id === 7) {
+ 
+       const leaderNames = currentChampion.name.split('/');
+       const leaderSprites = currentChampion.sprite;
+       const leaderQuotes = currentChampion.quotes;
+       const randomIndex = Math.floor(Math.random() * leaderNames.length);
+ 
+       currentChampion = {
+         name: leaderNames[randomIndex],
+         sprite: leaderSprites[randomIndex],
+         quotes: [leaderQuotes[randomIndex]]
+       }
+     }
+
+     return currentChampion;
   }
 
   closeModal(): void {

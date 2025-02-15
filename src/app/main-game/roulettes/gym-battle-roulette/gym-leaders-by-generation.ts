@@ -99,7 +99,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'Chuck',
-            sprite: "./Spr_B2W2_Chuck.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png",
             quotes: [
                 "I have to warn you that I am a strong Trainer training every day under this waterfall!",
                 "Come on. We shall do battle!"
@@ -107,7 +107,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'Jasmine',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Jasmine.png",
             quotes: [
                 "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
                 "They are very hard, cold, sharp, and really strong! Um... I'm not lying."

@@ -22,5 +22,16 @@
         cursor: pointer;
         width: 100%;
         height: 100%;
+        animation: item-show 1s ease-in-out;
+    }
+}
+
+@keyframes item-show {
+    from {
+        transform: scale(2);
+    }
+
+    to {
+        transform: scale(1);
     }
 }

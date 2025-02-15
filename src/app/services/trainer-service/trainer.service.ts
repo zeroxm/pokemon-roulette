@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { trainerSpriteData } from './trainer-sprite-data';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonService } from '../pokemon-service/pokemon.service';
@@ -25,47 +25,10 @@ export class TrainerService {
 
   trainerSpriteData = trainerSpriteData;
 
-  private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_FRLG_Red.png' });
-  // private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
+  private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [
-    {
-      text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-      },
-      shiny: true, power: 2, weight: 1
-    },
-    { text: "Venusaur", pokemonId: 3, fillStyle: "green",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/3.png"
-      },
-      shiny: false, power: 3, weight: 1
-    },
-    { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
-      },
-      shiny: false, power: 3, weight: 1
-    },
-    { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png',
-        front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/9.png"
-      },
-      shiny: false, power: 3, weight: 1
-    },
-    { text: "Snorlax", pokemonId: 143, fillStyle: "black",
-      sprite: {
-    		"front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
-    		"front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
-    	},
-      shiny: true, power: 3, weight: 1 },
-  ];
+  trainerTeam: PokemonItem[] = [];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastPokemonAddedIndex: number = 0;
 
@@ -81,16 +44,7 @@ export class TrainerService {
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
-  trainerBadges: Badge[] = [
-    { name: 'Boulder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png' },
-    { name: 'Cascade Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/2.png' },
-    { name: 'Thunder Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/3.png' },
-    { name: 'Rainbow Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/4.png' },
-    { name: 'Soul Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/5.png' },
-    { name: 'Marsh Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/6.png' },
-    { name: 'Volcano Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/7.png' },
-    { name: 'Earth Badge', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/8.png' },
-  ];
+  trainerBadges: Badge[] = [];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
   getTrainer(): Observable<{ sprite: string }> {
@@ -114,7 +68,7 @@ export class TrainerService {
     }
     this.trainerTeam.push(pokemon);
     this.lastPokemonAddedIndex = this.trainerTeam.length - 1;
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   removeFromTeam(pokemon: PokemonItem): void {
@@ -122,11 +76,11 @@ export class TrainerService {
     if (index !== -1) {
       this.trainerTeam.splice(index, 1);
     }
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   getTeam(): PokemonItem[] {
-    return this.trainerTeam;
+    return this.trainerTeam.slice(0, 6);
   }
 
   getTeamObservable(): Observable<PokemonItem[]> {
@@ -135,12 +89,12 @@ export class TrainerService {
 
   makeShiny(): void {
     this.trainerTeam[this.lastPokemonAddedIndex].shiny = true;
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   getPokemonThatCanEvolve(): PokemonItem[] {
     const auxPokemonList: PokemonItem[] = [];
-    this.trainerTeam.forEach(pokemon => {
+    this.trainerTeam.slice(0, 6).forEach(pokemon => {
       if (this.evolutionService.canEvolve(pokemon)) {
         auxPokemonList.push(pokemon);
       }
@@ -159,7 +113,7 @@ export class TrainerService {
     }
 
     this.trainerTeam.splice(index, 1, pokemonIn);
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   performTrade(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
@@ -173,7 +127,7 @@ export class TrainerService {
     if (index > -1) {
       this.trainerTeam.splice(index, 1, pokemonIn);
     }
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   getItems(): ItemItem[] {

@@ -36,6 +36,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerFillColor = 'yellow';
   winningNumber!: number;
   currentSegment: string = '-';
+  clickAudio = new Audio('./click.mp3');
 
   constructor(private darkModeService: DarkModeService) {
     this.darkMode = this.darkModeService.darkMode$;
@@ -168,7 +169,12 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.selectedItemEvent.emit(this.winningNumber);
     }
 
-    this.currentSegment = this.getCurrentSegment();
+    const segment = this.getCurrentSegment();
+
+    if (segment !== this.currentSegment) {
+      this.currentSegment = segment;
+      this.clickAudio.play();
+    }
   }
 
   private getCurrentSegment(): string {

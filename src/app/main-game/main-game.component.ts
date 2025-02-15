@@ -119,8 +119,7 @@ export class MainGameComponent {
   expSharePokemon: PokemonItem | null = null;
   stolenPokemon!: PokemonItem | null;
   currentContextItem!: ItemItem;
-  leadersDefeatedAmount: number = 12;
-  //leadersDefeatedAmount: number = 0;
+  leadersDefeatedAmount: number = 0;
   fromLeader: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
@@ -132,6 +131,7 @@ export class MainGameComponent {
   pkmnTradeTitle = '';
   pkmnOut!: PokemonItem;
   pkmnIn!: PokemonItem;
+  itemFoundAudio = new Audio('./ItemFound.mp3');
 
   toggleLessExplanations(): void {
     this.lessExplanations = !this.lessExplanations;
@@ -199,6 +199,8 @@ export class MainGameComponent {
     this.itemService.getItem(itemName).subscribe(potion => {
       this.trainerService.addToItems(potion);
     })
+    this.itemFoundAudio.volume = 0.25;
+    this.itemFoundAudio.play();
     this.finishCurrentState();
   }
 
@@ -337,8 +339,11 @@ export class MainGameComponent {
     this.respinReason = '';
 
     if (result) {
+      this.itemFoundAudio.volume = 0.25;
+      this.itemFoundAudio.play();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.leadersDefeatedAmount++;
+
       this.gameStateService.setNextState('check-evolution');
 
     } else {
@@ -501,6 +506,8 @@ export class MainGameComponent {
     this.pkmnTradeTitle = "Trade!";
     this.trainerService.performTrade(this.currentContextPokemon, pokemon);
     this.auxPokemonList = [];
+    this.itemFoundAudio.volume = 0.25;
+    this.itemFoundAudio.play();
     if (!this.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnTradeModal, {
         centered: true,
@@ -616,6 +623,8 @@ export class MainGameComponent {
   }
 
   private showpkmnEvoModal(): void {
+    this.itemFoundAudio.volume = 0.25;
+    this.itemFoundAudio.play();
     if (!this.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnEvoModal, {
         centered: true,
