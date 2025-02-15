@@ -173,7 +173,11 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     if (segment !== this.currentSegment) {
       this.currentSegment = segment;
-      this.clickAudio.play();
+      if (this.clickAudio.paused) {
+        this.clickAudio.play();
+      } else {
+        this.clickAudio.currentTime = 0;
+      }
     }
   }
 

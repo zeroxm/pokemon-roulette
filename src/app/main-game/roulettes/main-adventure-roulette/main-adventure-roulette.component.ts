@@ -43,7 +43,7 @@ export class MainAdventureRouletteComponent {
     { text: 'Find an Item', fillStyle: 'darkgoldenrod', weight: 1 },
     { text: 'Explore a Cave', fillStyle: 'green', weight: 1 },
     { text: 'Snorlax Encounter', fillStyle: 'darkcyan', weight: 1 },
-    { text: 'Multitask (Spin twice)', fillStyle: 'blue', weight: 1 },
+    { text: 'Multitask (Spin2x)', fillStyle: 'blue', weight: 1 },
     { text: 'Go Fishing', fillStyle: 'purple', weight: 1 },
     { text: 'Find a Fossil', fillStyle: 'deeppink', weight: 1 },
     { text: 'Battle Rival', fillStyle: 'black', weight: 1 },
