@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
@@ -41,6 +41,7 @@ import { ItemName } from '../services/items-service/item-names';
 import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-roulette/champion-battle-roulette.component";
 import { EndGameComponent } from "./end-game/end-game.component";
 import { GameOverComponent } from "./game-over/game-over.component";
+import { AnalyticsService } from '../services/analytics-service/analytics.service';
 
 @Component({
   selector: 'app-main-game',
@@ -77,30 +78,37 @@ import { GameOverComponent } from "./game-over/game-over.component";
     ChampionBattleRouletteComponent,
     EndGameComponent,
     GameOverComponent
-],
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
-export class MainGameComponent {
+export class MainGameComponent implements OnInit {
+
+  NINCADA_ID = 290;
 
   constructor(private evolutionService: EvolutionService,
     private gameStateService: GameStateService,
     private itemService: ItemsService,
     private pokemonService: PokemonService,
     private trainerService: TrainerService,
-    private modalService: NgbModal) {
-    this.gameStateService.currentState.subscribe(state => {
-      this.currentGameState = state;
-      if (this.currentGameState === 'adventure-continues') {
-        if (this.multitaskCounter > 0) {
-          this.respinReason = 'Multitask x' + this.multitaskCounter;
-          this.multitaskCounter--;
+    private modalService: NgbModal,
+    private analyticsService: AnalyticsService) {
+      this.gameStateService.currentState.subscribe(state => {
+        this.currentGameState = state;
+        if (this.currentGameState === 'adventure-continues') {
+          if (this.multitaskCounter > 0) {
+            this.respinReason = 'Multitask x' + this.multitaskCounter;
+            this.multitaskCounter--;
+          }
+          if (this.runningShoesUsed) {
+            this.respinReason = '(Running Shoes)';
+          }
         }
-        if (this.runningShoesUsed) {
-          this.respinReason = '(Running Shoes)';
-        }
-      }
-    })
+      })
+  }
+
+  ngOnInit(): void {
+    this.analyticsService.trackEvent('main-game-loaded', 'Main Game Loaded', 'user acess');
   }
 
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
@@ -192,7 +200,7 @@ export class MainGameComponent {
 
     if (this.leadersDefeatedAmount > 6) {
       itemName = 'hyper-potion';
-    } else if(this.leadersDefeatedAmount > 3){
+    } else if (this.leadersDefeatedAmount > 3) {
       itemName = 'super-potion';
     }
 
@@ -567,6 +575,9 @@ export class MainGameComponent {
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
+    } else if (pokemon.pokemonId === this.NINCADA_ID) {
+      this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
+      this.trainerService.addToTeam(pokemonEvolutions[1]);
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
