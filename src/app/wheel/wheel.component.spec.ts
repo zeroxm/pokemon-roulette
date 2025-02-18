@@ -23,7 +23,7 @@ describe('WheelComponent', () => {
 
   it('should have a fair distribuition of chances', () => {
     const numRuns = 10000;
-    const tolerance = 0.02;
+    const tolerance = 0.01;
     const expectedProbability = 1 / 8;
 
     component.items = [
@@ -54,8 +54,8 @@ describe('WheelComponent', () => {
 
   it('the distribuition should respect the weight', () => {
     const numRuns = 10000;
-    const tolerance = 0.02;
-    const expectedForLower = 1 / 16;
+    const tolerance = 0.01;
+    const expectedForLower = 1 / 14;
     const expectedForHigher = 1 / 2;
 
     component.items = [
