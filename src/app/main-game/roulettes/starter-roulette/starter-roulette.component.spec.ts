@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StarterRouletteComponent } from './starter-roulette.component';
+import { GenerationItem } from '../../../interfaces/generation-item';
 
 describe('StarterRouletteComponent', () => {
   let component: StarterRouletteComponent;
@@ -14,7 +15,7 @@ describe('StarterRouletteComponent', () => {
 
     fixture = TestBed.createComponent(StarterRouletteComponent);
     component = fixture.componentInstance;
-    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
+    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 } as GenerationItem;
     fixture.detectChanges();
   });
 

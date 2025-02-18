@@ -7,7 +7,6 @@ describe('PokemonService', () => {
   let service: PokemonService;
   let httpSpy: jasmine.SpyObj<HttpClient>;
 
-
   beforeEach(() => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 

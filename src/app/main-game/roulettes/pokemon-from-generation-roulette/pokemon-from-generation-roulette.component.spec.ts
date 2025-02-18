@@ -15,7 +15,7 @@ describe('PokemonFromGenerationRouletteComponent', () => {
 
     fixture = TestBed.createComponent(PokemonFromGenerationRouletteComponent);
     component = fixture.componentInstance;
-    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1 };
+    component.generation = { text: 'Gen 1', region: 'Kanto', fillStyle: 'crimson', id: 1, weight: 1 } as GenerationItem;
     fixture.detectChanges();
   });
 

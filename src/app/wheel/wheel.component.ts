@@ -132,6 +132,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const arcSize = (2 * Math.PI) / (totalWeight);
 
     this.winningNumber = this.getRandomWeightedIndex();
+    console.debug(`Winning segment: ${this.items[this.winningNumber].text}`);
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
 
@@ -202,7 +203,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     return this.items.reduce((sum, item) => sum + item.weight, 0);
   }
 
-  private getRandomWeightedIndex(): number {
+  getRandomWeightedIndex(): number {
     const totalWeight = this.getTotalWeights();
     let random = Math.random() * totalWeight;
     let accumulatedWeight = 0;
