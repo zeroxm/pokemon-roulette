@@ -47,9 +47,6 @@ describe('WheelComponent', () => {
 
     const probabilities = results.map(result => result / numRuns);
 
-    console.log('Results:', results);
-    console.log('Probabilities:', probabilities);
-
     for (let i = 0; i < probabilities.length; i++) {
       expect(Math.abs(probabilities[i] - expectedProbability)).toBeLessThan(tolerance);
     }
@@ -81,9 +78,6 @@ describe('WheelComponent', () => {
     }
 
     const probabilities = results.map(result => result / numRuns);
-
-    console.log('Results:', results);
-    console.log('Probabilities:', probabilities);
 
     expect(Math.abs(probabilities[0] - expectedForHigher)).toBeLessThan(tolerance);
 
