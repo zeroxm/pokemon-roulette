@@ -10,6 +10,8 @@ export class GameStateService {
   private stateStack: GameState[] = [];
   private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
+  private currentRound = new BehaviorSubject<number>(0);
+  currentRoundObserver = this.currentRound.asObservable();
 
   constructor() {
     this.initializeStates();
@@ -49,6 +51,11 @@ export class GameStateService {
   }
 
   finishCurrentState(): GameState {
+
+    if(['gym-battle', 'elite-four-battle', 'champion-battle'].includes(this.state.value)) {
+      this.currentRound.next(this.currentRound.value + 1);
+    }
+
     if (this.stateStack.length > 0) {
       const poppedState = this.stateStack.pop();
       if(poppedState) {
@@ -64,6 +71,7 @@ export class GameStateService {
   }
 
   resetGameState(): void {
+    this.currentRound.next(0);
     this.initializeStates();
     this.setNextState('game-start');
     this.finishCurrentState();

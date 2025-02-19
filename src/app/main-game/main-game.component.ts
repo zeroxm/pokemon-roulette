@@ -17,7 +17,6 @@ import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-
 import { ItemItem } from '../interfaces/item-item';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { ItemsService } from '../services/items-service/items.service';
-import { NgIconsModule } from '@ng-icons/core';
 import { RestartGameComponent } from "../restart-game/restart-game.component";
 import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-roulette/check-evolution-roulette.component";
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
@@ -42,6 +41,8 @@ import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-rou
 import { EndGameComponent } from "./end-game/end-game.component";
 import { GameOverComponent } from "./game-over/game-over.component";
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
+import { CreditsButtonComponent } from "./credits-button/credits-button.component";
+import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
 
 @Component({
   selector: 'app-main-game',
@@ -57,7 +58,6 @@ import { AnalyticsService } from '../services/analytics-service/analytics.servic
     PokemonFromGenerationRouletteComponent,
     PokemonFromAuxListRouletteComponent,
     GymBattleRouletteComponent,
-    NgIconsModule,
     RestartGameComponent,
     CheckEvolutionRouletteComponent,
     MainAdventureRouletteComponent,
@@ -77,8 +77,10 @@ import { AnalyticsService } from '../services/analytics-service/analytics.servic
     EliteFourBattleRouletteComponent,
     ChampionBattleRouletteComponent,
     EndGameComponent,
-    GameOverComponent
-  ],
+    GameOverComponent,
+    CreditsButtonComponent,
+    CoffeeButtonComponent
+],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
@@ -86,29 +88,34 @@ export class MainGameComponent implements OnInit {
 
   NINCADA_ID = 290;
 
-  constructor(private evolutionService: EvolutionService,
+  constructor(
+    private evolutionService: EvolutionService,
     private gameStateService: GameStateService,
     private itemService: ItemsService,
     private pokemonService: PokemonService,
     private trainerService: TrainerService,
     private modalService: NgbModal,
-    private analyticsService: AnalyticsService) {
-      this.gameStateService.currentState.subscribe(state => {
-        this.currentGameState = state;
-        if (this.currentGameState === 'adventure-continues') {
-          if (this.multitaskCounter > 0) {
-            this.respinReason = 'Multitask x' + this.multitaskCounter;
-            this.multitaskCounter--;
-          }
-          if (this.runningShoesUsed) {
-            this.respinReason = '(Running Shoes)';
-          }
-        }
-      })
-  }
+    private analyticsService: AnalyticsService) {}
 
   ngOnInit(): void {
     this.analyticsService.trackEvent('main-game-loaded', 'Main Game Loaded', 'user acess');
+
+    this.gameStateService.currentState.subscribe(state => {
+      this.currentGameState = state;
+      if (this.currentGameState === 'adventure-continues') {
+        if (this.multitaskCounter > 0) {
+          this.respinReason = 'Multitask x' + this.multitaskCounter;
+          this.multitaskCounter--;
+        }
+        if (this.runningShoesUsed) {
+          this.respinReason = '(Running Shoes)';
+        }
+      }
+    });
+
+    this.gameStateService.currentRoundObserver.subscribe(round => {
+      this.leadersDefeatedAmount = round;
+    });
   }
 
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
@@ -350,8 +357,6 @@ export class MainGameComponent implements OnInit {
       this.itemFoundAudio.volume = 0.25;
       this.itemFoundAudio.play();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
-      this.leadersDefeatedAmount++;
-
       this.gameStateService.setNextState('check-evolution');
 
     } else {
@@ -366,7 +371,6 @@ export class MainGameComponent implements OnInit {
     this.respinReason = '';
 
     if (result) {
-      this.leadersDefeatedAmount++;
       this.gameStateService.setNextState('check-evolution');
     } else {
       this.gameStateService.setNextState('game-over');
@@ -379,11 +383,10 @@ export class MainGameComponent implements OnInit {
     this.runningShoesUsed = false;
     this.respinReason = '';
 
-    if (result) {
-      this.leadersDefeatedAmount++;
-    } else {
+    if (!result) {
       this.gameStateService.setNextState('game-over');
     }
+
     this.finishCurrentState();
   }
 
@@ -549,7 +552,6 @@ export class MainGameComponent implements OnInit {
     this.trainerService.resetTeam();
     this.trainerService.resetItems();
     this.trainerService.resetBadges();
-    this.leadersDefeatedAmount = 0;
     this.evolutionCredits = 0;
     this.gameStateService.resetGameState();
   }
