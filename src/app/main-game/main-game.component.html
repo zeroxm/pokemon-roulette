@@ -1,31 +1,30 @@
 <div class="game-container">
     <div class="row">
         <div class="extra-options col-12 col-sm-3">
-            <div class="toolbar pt-2">
-                <div class="row gy-2">
-                    <app-dark-mode-toggle class="col-12">
-                    </app-dark-mode-toggle>
-                    <label class="col-12">
-                        <input type="checkbox" [checked]="lessExplanations" (change)="toggleLessExplanations()" />
-                        Less Explanations
-                    </label>
-                </div>
-                <br>
-                <div class="row g-2">
-                    <div class="col-6 col-sm-12 row gy-2 p-0">
-                        <app-restart-game
-                            class="col-12"
-                            (restartEvent)="resetGameAction()">
-                        </app-restart-game>
-                        <app-credits-button
-                            class="col-12">
-                        </app-credits-button>
+            <div class="pt-2">
+                <div class="row gy-2 mb-2">
+                    <div class="col-7 col-sm-12">
+                        <app-dark-mode-toggle class="col-12">
+                        </app-dark-mode-toggle>
+                        <label class="col-12">
+                            <input type="checkbox" [checked]="lessExplanations" (change)="toggleLessExplanations()" />
+                            Less Explanations
+                        </label>
                     </div>
-                    <div class="col-6 col-sm-12 row gy-2 gy-sm-1 p-0">
+                    <div class="col-5 col-sm-12 ps-1">
                         <app-coffee-button
                             class="col-12">
                         </app-coffee-button>
                     </div>
+                </div>
+                <div class="row g-2">    
+                    <app-restart-game
+                        class="col-12"
+                        (restartEvent)="resetGameAction()">
+                    </app-restart-game>
+                    <app-credits-button
+                        class="col-12">
+                    </app-credits-button>
                 </div>
                 <br>
             </div>

@@ -2,13 +2,6 @@
 	width: 100%;
 }
 
-.toolbar {
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	justify-content: space-between;
-}
-
 .modal-footer {
 	justify-content: center;
 }
