@@ -59,6 +59,9 @@ export class GameStateService {
     if (this.stateStack.length > 0) {
       const poppedState = this.stateStack.pop();
       if(poppedState) {
+        if(poppedState === 'game-over') {
+          this.currentRound.next(this.currentRound.value - 1);
+        }
         this.state.next(poppedState);
         return poppedState;
       }

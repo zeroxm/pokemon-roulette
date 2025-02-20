@@ -52,40 +52,24 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   currentElite!: GymLeader;
   currentItem!: ItemItem;
   retries = 0;
+  private teamSubscription!: Subscription;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
       this.generation = gen;
     });
 
-    this.trainerTeam = this.trainerService.getTeam();
     this.trainerItems = this.trainerService.getItems();
 
-    this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
+    this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
+      this.trainerTeam = team;
+      this.calcVictoryOdds();
+    });
 
+    this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'elite-four-battle') {
         this.currentElite = this.getCurrentElite();
-        this.victoryOdds = [];
-
-        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
-
-        this.trainerTeam.forEach(pokemon => {
-          for (let i = 0; i < pokemon.power; i++) {
-            this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
-          }
-        });
-
-        const powerModifier = this.plusModifiers();
-
-        for (let i = 0; i < powerModifier; i++) {
-          this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
-        }
-
-        for (let index = 0; index < this.currentRound; index++) {
-          this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
-        }
-
-        this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+        this.calcVictoryOdds();
 
         this.modalService.open(this.eliteFourPresentationModal, {
           centered: true,
@@ -98,6 +82,51 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
       this.gameSubscription?.unsubscribe();
       this.generationSubscription?.unsubscribe();
+      this.teamSubscription?.unsubscribe();
+  }
+
+  closeModal(): void {
+    this.modalService.dismissAll();
+  }
+
+  onItemSelected(index: number): void {
+    this.retries--;
+    if (this.victoryOdds[index].text === 'Yes') {
+      this.battleResultEvent.emit(true);
+    } else {
+      if (this.retries <= 0) {
+        const potion = this.hasPotions();
+        if (potion) {
+          this.usePotion(potion);
+        } else {
+          this.battleResultEvent.emit(false);
+        }
+      }
+    }
+  }
+
+  private calcVictoryOdds(): void {
+    this.victoryOdds = [];
+
+    this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+
+    this.trainerTeam.forEach(pokemon => {
+      for (let i = 0; i < pokemon.power; i++) {
+        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+      }
+    });
+
+    const powerModifier = this.plusModifiers();
+
+    for (let i = 0; i < powerModifier; i++) {
+      this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+    }
+
+    for (let index = 0; index < this.currentRound; index++) {
+      this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+    }
+
+    this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
   }
 
   private plusModifiers(): number {
@@ -130,26 +159,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     }
 
     return currentElite;
-  }
-
-  closeModal(): void {
-    this.modalService.dismissAll();
-  }
-
-  onItemSelected(index: number): void {
-    this.retries--;
-    if (this.victoryOdds[index].text === 'Yes') {
-      this.battleResultEvent.emit(true);
-    } else {
-      if (this.retries <= 0) {
-        const potion = this.hasPotions();
-        if (potion) {
-          this.usePotion(potion);
-        } else {
-          this.battleResultEvent.emit(false);
-        }
-      }
-    }
   }
 
   private hasPotions(): ItemItem | undefined {

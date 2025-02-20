@@ -7,8 +7,46 @@
 </button>
 
 <ng-template #pcStorageModal let-modal>
-	<div class="modal-body">
-	</div>
+	<div class="modal-body row">
+        <div class="example-container col-5">
+            <h2>Available numbers</h2>
+            <div
+              id="all"
+              cdkDropList
+              [cdkDropListData]="trainerTeam"
+              cdkDropListConnectedTo="even"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              [cdkDropListEnterPredicate]="teamIsFullPredicate">
+              @for (pokemon of trainerTeam; track pokemon) {
+                <div
+                    class="example-box"
+                    [cdkDragData]="pokemon"
+                    cdkDrag>{{pokemon.text}}</div>
+              }
+            </div>
+          </div>
+          
+          <div class="example-container col-5">
+            <h2>Even numbers</h2>
+          
+            <div
+              id="even"
+              cdkDropList
+              [cdkDropListData]="trainerTeam"
+              cdkDropListConnectedTo="all"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)"
+              [cdkDropListEnterPredicate]="lastPokemonPredicate">
+              @for (pokemon of trainerTeam; track pokemon) {
+                <div
+                    class="example-box"
+                    cdkDrag
+                    [cdkDragData]="pokemon">{{pokemon.text}}</div>
+              }
+            </div>
+          </div>
+        </div>
     <div class="modal-footer">
         <button type="button"
                 class="btn btn-outline-dark"
