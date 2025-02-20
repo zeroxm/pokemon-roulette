@@ -1,0 +1,17 @@
+<button type="button"
+        class="btn"
+        [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+        (click)="showPCModal()">
+    <ng-icon name="bootstrapPcDisplayHorizontal"></ng-icon>
+    Access PC
+</button>
+
+<ng-template #pcStorageModal let-modal>
+	<div class="modal-body">
+	</div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-dark"
+                (click)="logOut()">Logout </button>
+    </div>
+</ng-template>

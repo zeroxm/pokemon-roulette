@@ -14,53 +14,58 @@
     </div>
     <div class="container">
           <div class="row gap-2">
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[0]?.sprite"
-                         [src]="getSprite(trainerTeam[0])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[0].text}}">
+               <div class="row col-12 gap-2 p-0">
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[0]?.sprite"
+                              [src]="getSprite(trainerTeam[0])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[0].text}}">
+                    </div>
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[1]?.sprite"
+                              [src]="getSprite(trainerTeam[1])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[1].text}}">
+                    </div>
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[2]?.sprite"
+                              [src]="getSprite(trainerTeam[2])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[2].text}}">
+                    </div>
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[3]?.sprite"
+                              [src]="getSprite(trainerTeam[3])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[3].text}}">
+                    </div>
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[4]?.sprite"
+                              [src]="getSprite(trainerTeam[4])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[4].text}}">
+                    </div>
+                    <div class="pokemon-container rounded-3 col-3"
+                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                         <img *ngIf="trainerTeam[5]?.sprite"
+                              [src]="getSprite(trainerTeam[5])"
+                              class="img-fluid"
+                              placement="bottom"
+                              ngbTooltip="{{trainerTeam[5].text}}">
+                    </div>
                </div>
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[1]?.sprite"
-                         [src]="getSprite(trainerTeam[1])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[1].text}}">
-               </div>
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[2]?.sprite"
-                         [src]="getSprite(trainerTeam[2])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[2].text}}">
-               </div>
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[3]?.sprite"
-                         [src]="getSprite(trainerTeam[3])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[3].text}}">
-               </div>
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[4]?.sprite"
-                         [src]="getSprite(trainerTeam[4])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[4].text}}">
-               </div>
-               <div class="pokemon-container rounded-3 col-3"
-                    [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                    <img *ngIf="trainerTeam[5]?.sprite"
-                         [src]="getSprite(trainerTeam[5])"
-                         class="img-fluid"
-                         placement="bottom"
-                         ngbTooltip="{{trainerTeam[5].text}}">
+               <div class="col-12 p-0">
+                    <app-storage-pc></app-storage-pc>
                </div>
           </div>
     </div>

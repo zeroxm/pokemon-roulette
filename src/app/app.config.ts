@@ -4,7 +4,7 @@ import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { bootstrapArrowRepeat, bootstrapClock, bootstrapController,
-         bootstrapCupHotFill, bootstrapPeopleFill, bootstrapShare } from '@ng-icons/bootstrap-icons';
+         bootstrapCupHotFill, bootstrapPcDisplayHorizontal, bootstrapPeopleFill, bootstrapShare } from '@ng-icons/bootstrap-icons';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,7 +15,8 @@ export const appConfig: ApplicationConfig = {
         bootstrapShare,
         bootstrapPeopleFill,
         bootstrapController,
-        bootstrapCupHotFill
+        bootstrapCupHotFill,
+        bootstrapPcDisplayHorizontal
        }),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true })]

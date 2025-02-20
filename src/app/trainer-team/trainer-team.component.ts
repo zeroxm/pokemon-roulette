@@ -7,12 +7,14 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { BadgesComponent } from "./badges/badges.component";
 import { Badge } from '../interfaces/badge';
 import { TrainerService } from '../services/trainer-service/trainer.service';
+import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 
 @Component({
   selector: 'app-trainer-team',
   imports: [CommonModule,
-            NgbTooltipModule,
-            BadgesComponent],
+    NgbTooltipModule,
+    BadgesComponent,
+    StoragePcComponent],
   templateUrl: './trainer-team.component.html',
   styleUrls: ['./trainer-team.component.css']
 })
