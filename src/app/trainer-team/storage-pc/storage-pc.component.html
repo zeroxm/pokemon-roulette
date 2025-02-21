@@ -1,55 +1,44 @@
-<button type="button"
-        class="btn"
-        [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
-        (click)="showPCModal()">
-    <ng-icon name="bootstrapPcDisplayHorizontal"></ng-icon>
-    Access PC
+<button type="button" class="btn" [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+  (click)="showPCModal()">
+  <ng-icon name="bootstrapPcDisplayHorizontal"></ng-icon>
+  Access PC
 </button>
 
 <ng-template #pcStorageModal let-modal>
-	<div class="modal-body row">
-        <div class="example-container col-5">
-            <h2>Available numbers</h2>
-            <div
-              id="all"
-              cdkDropList
-              [cdkDropListData]="trainerTeam"
-              cdkDropListConnectedTo="even"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)"
-              [cdkDropListEnterPredicate]="teamIsFullPredicate">
-              @for (pokemon of trainerTeam; track pokemon) {
-                <div
-                    class="example-box"
-                    [cdkDragData]="pokemon"
-                    cdkDrag>{{pokemon.text}}</div>
-              }
+  <div class="modal-body" cdkDropListGroup>
+    <h2>On Team</h2>
+    <div  id="trainerTeam"
+          cdkDropList
+          cdkDropListOrientation="mixed"
+          [cdkDropListData]="trainerTeam"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+          [cdkDropListEnterPredicate]="teamIsFullPredicate">
+          @for (pokemon of trainerTeam; track pokemon) {
+            <div  class="example-box shadow"
+                  cdkDrag>
+              <img class="img-fluid" [src]="getSprite(pokemon)">
             </div>
-          </div>
-          
-          <div class="example-container col-5">
-            <h2>Even numbers</h2>
-          
-            <div
-              id="even"
-              cdkDropList
-              [cdkDropListData]="trainerTeam"
-              cdkDropListConnectedTo="all"
-              class="example-list"
-              (cdkDropListDropped)="drop($event)"
-              [cdkDropListEnterPredicate]="lastPokemonPredicate">
-              @for (pokemon of trainerTeam; track pokemon) {
-                <div
-                    class="example-box"
-                    cdkDrag
-                    [cdkDragData]="pokemon">{{pokemon.text}}</div>
-              }
-            </div>
-          </div>
-        </div>
-    <div class="modal-footer">
-        <button type="button"
-                class="btn btn-outline-dark"
-                (click)="logOut()">Logout </button>
+          }
     </div>
+    <h2>Stored</h2>
+    <div  id="storedPokemon"
+          cdkDropList
+          cdkDropListOrientation="mixed"
+          [cdkDropListData]="storedPokemon"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)"
+          [cdkDropListEnterPredicate]="lastPokemonPredicate">
+      @for (pokemon of storedPokemon; track pokemon) {
+        <div  class="example-box shadow"
+              [cdkDragData]="pokemon"
+              cdkDrag>
+          <img [src]="getSprite(pokemon)" class="img-fluid">
+        </div>
+      }
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="logOut()">Logout </button>
+  </div>
 </ng-template>

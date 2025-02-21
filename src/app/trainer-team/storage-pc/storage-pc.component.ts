@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CdkDrag, CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 
 @Component({
@@ -18,7 +18,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
   templateUrl: './storage-pc.component.html',
   styleUrl: './storage-pc.component.css'
 })
-export class StoragePcComponent implements OnInit, OnDestroy {
+export class StoragePcComponent implements OnInit {
 
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
@@ -30,9 +30,8 @@ export class StoragePcComponent implements OnInit, OnDestroy {
     pcLoginAudio = new Audio('./PCLogin.mp3');
     pcLogoutAudio = new Audio('./PCLogout.mp3');
     trainerTeam!: PokemonItem[];
-    
-    private teamSubscription!: Subscription;
-    
+    storedPokemon!: PokemonItem[];
+
     ngOnInit(): void {
       this.darkMode = this.darkModeService.darkMode$;
       this.pcTurningOn.addEventListener('ended', () => {
@@ -41,14 +40,9 @@ export class StoragePcComponent implements OnInit, OnDestroy {
       });
     }
 
-    ngOnDestroy(): void {
-      this.teamSubscription?.unsubscribe();
-    }
-
     showPCModal() {
-      this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
-        this.trainerTeam = team;
-      });
+      this.trainerTeam = this.trainerService.getTeam();
+      this.storedPokemon = this.trainerService.getStored();
       this.pcTurningOn.volume = 0.30;
       this.pcTurningOn.play();
 
@@ -61,10 +55,16 @@ export class StoragePcComponent implements OnInit, OnDestroy {
     }
 
     logOut(): void {
-      this.teamSubscription?.unsubscribe();
       this.pcLogoutAudio.volume = 0.30;
       this.pcLogoutAudio.play();
       this.modalService.dismissAll();
+    }
+
+    getSprite(pokemon: PokemonItem): string {
+      if (pokemon.shiny) {
+        return pokemon.sprite?.front_shiny || 'place-holder-pixel.png';
+      }
+      return pokemon.sprite?.front_default || 'place-holder-pixel.png';
     }
   
     drop(event: CdkDragDrop<PokemonItem[]>) {
@@ -78,6 +78,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
           event.currentIndex,
         );
       }
+      this.trainerService.updateTeam();
     }
 
     lastPokemonPredicate  = () => this.trainerTeam.length > 1
