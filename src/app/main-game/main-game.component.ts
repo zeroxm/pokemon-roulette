@@ -43,6 +43,7 @@ import { GameOverComponent } from "./game-over/game-over.component";
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CreditsButtonComponent } from "./credits-button/credits-button.component";
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
+import { GenerationMapComponent } from "./generation-map/generation-map.component";
 
 @Component({
   selector: 'app-main-game',
@@ -79,7 +80,8 @@ import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
     EndGameComponent,
     GameOverComponent,
     CreditsButtonComponent,
-    CoffeeButtonComponent
+    CoffeeButtonComponent,
+    GenerationMapComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
