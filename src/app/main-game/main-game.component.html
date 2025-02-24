@@ -113,9 +113,13 @@
                 <app-champion-battle-roulette *ngSwitchCase="'champion-battle'" [currentRound]="leadersDefeatedAmount"
                     (battleResultEvent)="championBattleResult($event)">
                 </app-champion-battle-roulette>
-                <app-end-game *ngSwitchCase="'game-finish'">
+                <app-end-game
+                    *ngSwitchCase="'game-finish'">
                 </app-end-game>
-                <app-game-over *ngSwitchCase="'game-over'" [currentRound]="leadersDefeatedAmount">
+                <app-game-over
+                    *ngSwitchCase="'game-over'"
+                    [currentRound]="leadersDefeatedAmount"
+                    (restartEvent)="resetGameAction()">
                 </app-game-over>
             </ng-container>
         </div>

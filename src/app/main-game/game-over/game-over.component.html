@@ -1,6 +1,6 @@
 <div class="d-flex flex-column align-items-center h-100">
     <h4 class="title-text mt-5">Run is Over</h4>
-    <div class="card mx-3"
+    <div class="card mx-3 my-3"
          [ngClass]="(darkMode) ?  'black-card' : 'white-card'">
         <div class="card-body" >
             <div #captureArea>
@@ -62,5 +62,8 @@
             </div>
         </div>
     </div>
+    <app-restart-game
+        (restartEvent)="resetGameAction()">
+    </app-restart-game>
 </div>
 

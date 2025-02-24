@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
@@ -13,12 +13,14 @@ import { GymLeader } from '../../interfaces/gym-leader';
 import { gymLeadersByGeneration } from '../roulettes/gym-battle-roulette/gym-leaders-by-generation';
 import { eliteFourByGeneration } from '../roulettes/elite-four-battle-roulette/elite-four-by-generation';
 import { championByGeneration } from '../roulettes/champion-battle-roulette/champion-by-generation';
+import { RestartGameComponent } from "../../restart-game/restart-game.component";
 @Component({
   selector: 'app-game-over',
   imports: [
     CommonModule,
-    NgIconsModule
-  ],
+    NgIconsModule,
+    RestartGameComponent
+],
   templateUrl: './game-over.component.html',
   styleUrl: './game-over.component.css'
 })
@@ -43,6 +45,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
   trainerTeam!: PokemonItem[];
   currentLeader: GymLeader | null = null;
   @Input() currentRound!: number;
+  @Output() restartEvent = new EventEmitter<boolean>();
 
   private generationSubscription!: Subscription;
   private trainerSubscription!: Subscription;
@@ -71,6 +74,10 @@ export class GameOverComponent implements OnInit, OnDestroy {
     this.trainerSubscription?.unsubscribe();
     this.teamSubscription?.unsubscribe();
     this.darkModeSubscription?.unsubscribe();
+  }
+
+  resetGameAction(): void {
+    this.restartEvent.emit(true);
   }
 
   getPokemonSprite(pokemon: PokemonItem): string {
@@ -145,7 +152,6 @@ export class GameOverComponent implements OnInit, OnDestroy {
     } else {
       currentLeader = this.championByGeneration[this.generation.id][0];
     }
-
 
     return currentLeader;
   }
