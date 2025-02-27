@@ -1,4 +1,4 @@
-<p>You are in Vermilion City</p>
+<p class="text-white">You are in Vermilion City</p>
 <div class="map-container">
     <img src="https://images.shoutwiki.com/pokemmo/e/e8/Map_Kanto.png"
          class="map-image"
@@ -6,7 +6,7 @@
 
     <svg class="overlay">
         <!-- Progress line -->
-        <polyline [attr.points]="getPathData()" stroke="red" stroke-width="3" fill="none" />
+        <polyline [attr.points]="getPathData()" fill-opacity="0" stroke="red" stroke-width="3" fill="none" />
 
         <!-- Player marker -->
         <circle [attr.cx]="getPlayerX()"

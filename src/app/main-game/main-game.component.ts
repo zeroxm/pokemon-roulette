@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
@@ -44,6 +44,9 @@ import { AnalyticsService } from '../services/analytics-service/analytics.servic
 import { CreditsButtonComponent } from "./credits-button/credits-button.component";
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
 import { GenerationMapComponent } from "./generation-map/generation-map.component";
+import { NgIconsModule } from '@ng-icons/core';
+import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-game',
@@ -81,7 +84,9 @@ import { GenerationMapComponent } from "./generation-map/generation-map.componen
     GameOverComponent,
     CreditsButtonComponent,
     CoffeeButtonComponent,
-    GenerationMapComponent
+    GenerationMapComponent,
+    NgIconsModule,
+    NgbCollapseModule
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -91,13 +96,16 @@ export class MainGameComponent implements OnInit {
   NINCADA_ID = 290;
 
   constructor(
+    private darkModeService: DarkModeService,
     private evolutionService: EvolutionService,
     private gameStateService: GameStateService,
     private itemService: ItemsService,
     private pokemonService: PokemonService,
     private trainerService: TrainerService,
     private modalService: NgbModal,
-    private analyticsService: AnalyticsService) {}
+    private analyticsService: AnalyticsService) {
+      this.darkMode = this.darkModeService.darkMode$;
+    }
 
   ngOnInit(): void {
     this.analyticsService.trackEvent('main-game-loaded', 'Main Game Loaded', 'user acess');
@@ -126,6 +134,8 @@ export class MainGameComponent implements OnInit {
   @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
 
   currentGameState!: GameState;
+  darkMode!: Observable<boolean>;
+  mapIsCollapsed: boolean = true;
 
   starter!: PokemonItem;
   lessExplanations: boolean = false;

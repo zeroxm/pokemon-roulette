@@ -10,14 +10,26 @@
                             Less Explanations
                         </label>
                     </div>
-                    <app-coffee-button class="flex-shrink-1"></app-coffee-button>
+                    <app-coffee-button></app-coffee-button>
                 </div>
-                <div class="d-flex flex-column gap-2">
-                    <app-restart-game (restartEvent)="resetGameAction()"></app-restart-game>
-                    <app-credits-button></app-credits-button>
+                <div class="d-flex flex-row flex-sm-column gap-2 justify-content-between">
+                    <div class="d-flex flex-column gap-2">
+                        <app-restart-game (restartEvent)="resetGameAction()"></app-restart-game>
+                        <app-credits-button></app-credits-button>
+                    </div>
+                    <button type="button"
+                            class="btn me-sm-auto"
+                            (click)="mapIsCollapsed = !mapIsCollapsed"
+                            [attr.aria-expanded]="!mapIsCollapsed"
+                            aria-controls="collapseExample"
+                            [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
+                        <ng-icon name="bootstrapMap"></ng-icon> Town Map
+                    </button>
                 </div>
-                <div class="map-container">
-                    <app-generation-map></app-generation-map>
+                <div [(ngbCollapse)]="mapIsCollapsed"
+                     class="map-container"
+                     id="collapseExample">
+                    <app-generation-map [visible]="!mapIsCollapsed"></app-generation-map>
                 </div>
             </div>
         </div>
