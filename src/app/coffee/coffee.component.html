@@ -12,27 +12,28 @@
     </div>
     <div class="col-12 col-sm-9">
         <div class="container text-center">
-            <h1 class="mt-sm-5"><ng-icon name="bootstrapCupHotFill"></ng-icon></h1>
-        
             <div class="mt-4">
                 <h3>Having fun spinning?</h3>
                 <p>If you want to help, you can donate.</p>
-                <p>Donations of any amount will be used to maintain the game online.</p>
+                <p>Donations of any amount will be help with motivation for new features.</p>
             </div>
-        
-            <div class="mt-5">
+            <h1 class="mt-sm-5"><ng-icon name="bootstrapCupHotFill"></ng-icon></h1>
+            <div>
                 <h3>Ways to Support</h3>
                 <div class="row">
                     <div class="col-md-6">
-                    <p>🇧🇷 É do Brasil? 🇧🇷 Manda um PIX! 🇧🇷</p>
-                    <p><strong>PIX Key:</strong> <code>your-pix-key&#64;example.com</code></p>
-                    <!-- Optional: Add a PIX QR code here -->
+                        <p>🇧🇷 É do Brasil? 🇧🇷 Manda um PIX! 🇧🇷</p>
+                        <img src="qr_code.jpeg" alt="PIX QR Code" style="height: 225px;" class="img-fluid" (click)="copyPixCode()">
+                        <br>
+                        <a href="javascript:void(0)" class="link-primary" (click)="copyPixCode()">
+                            {{pixCodeCopied ? 'PIX copiado!' : 'Clique para copiar!'}}
+                        </a>
                     </div>
-                    <div class="col-md-6">
-                    <p>Is there an international option? Try Ko-fi:</p>
-                    <a href="https://ko-fi.com/yourkofilink" target="_blank" class="btn btn-danger">
-                        <ng-icon name="bootstrapCupHotFill"></ng-icon> Buy me a Coffee
-                    </a>
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <p>🌐 Want an international option? 🌐</p><p>Try Ko-fi:</p>
+                        <a href="https://ko-fi.com/zeroxm" target="_blank" class="btn btn-danger">
+                            <ng-icon name="bootstrapCupHotFill"></ng-icon> Buy me a Coffee
+                        </a>
                     </div>
                 </div>
             </div>

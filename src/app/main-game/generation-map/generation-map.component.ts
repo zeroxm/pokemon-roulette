@@ -79,4 +79,5 @@ export class GenerationMapComponent implements AfterViewInit, OnChanges {
   getPlayerY(): number {
     return (this.playerPosition.y / this.originalHeight) * this.currentHeight;
   }
+
 }
