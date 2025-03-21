@@ -5,7 +5,7 @@ export const starterByGeneration: Record<number, PokemonItem[]> = {
         { text: 'Bulbasaur', pokemonId: 1, fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 },
         { text: 'Charmander', pokemonId: 4, fillStyle: 'crimson', sprite: null, shiny: false, power: 1, weight: 1 },
         { text: 'Squirtle', pokemonId: 7, fillStyle: 'darkblue', sprite: null, shiny: false, power: 1, weight: 1 },
-        { text: 'Pikachu', pokemonId: 25, fillStyle: 'goldenrod', sprite: null, shiny: false, power: 1, weight: 1 }],
+        { text: 'Pikachu', pokemonId: 25, fillStyle: 'goldenrod', sprite: null, shiny: false, power: 2, weight: 1 }],
     2: [
         { text: 'Chikorita', pokemonId: 152, fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 },
         { text: 'Cyndaquil', pokemonId: 155, fillStyle: 'crimson', sprite: null, shiny: false, power: 1, weight: 1 },

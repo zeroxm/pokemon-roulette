@@ -21,22 +21,24 @@
                             class="btn me-sm-auto"
                             (click)="mapIsCollapsed = !mapIsCollapsed"
                             [attr.aria-expanded]="!mapIsCollapsed"
-                            aria-controls="collapseExample"
+                            aria-controls="townMapCollapse"
                             [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
                         <ng-icon name="bootstrapMap"></ng-icon> Town Map
                     </button>
                 </div>
                 <div [(ngbCollapse)]="mapIsCollapsed"
                      class="map-container"
-                     id="collapseExample">
+                     id="townMapCollapse">
                     <app-generation-map [visible]="!mapIsCollapsed"></app-generation-map>
                 </div>
             </div>
         </div>
         <div class="main-game col-12 col-sm-5">
             <ng-container [ngSwitch]="getGameState()">
-                <app-generation-roulette *ngSwitchCase="'game-start'" (trainerSelectedEvent)="handleTrainerSelected()">
+                <app-generation-roulette *ngSwitchCase="'game-start'" (generationSelectedEvent)="handleGenerationSelected()">
                 </app-generation-roulette>
+                <app-character-select *ngSwitchCase="'character-select'" (trainerSelectedEvent)="handleTrainerSelected()">
+                </app-character-select>
                 <app-starter-roulette *ngSwitchCase="'starter-pokemon'" (selectedStarterEvent)="storePokemon($event)">
                 </app-starter-roulette>
                 <app-shiny-roulette *ngSwitchCase="'check-shininess'" (isShinyEvent)="setShininess($event)">

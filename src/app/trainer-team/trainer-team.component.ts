@@ -21,7 +21,7 @@ import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 export class TrainerTeamComponent implements OnInit, OnDestroy {
 
   constructor(private trainerService: TrainerService,
-    private darkModeService: DarkModeService) { }
+              private darkModeService: DarkModeService) { }
 
   trainer!: { sprite: string; };
   trainerTeam!: PokemonItem[];

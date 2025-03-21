@@ -1,0 +1,22 @@
+<h1 class="title">Welcome to {{ generation.region }}!</h1>
+<p class="subtitle">Are you a boy or a girl?</p>
+<div class="trainer-gender row">
+    <div class="d-none d-sm-block col-2"></div>
+    <div class="col-6 col-sm-3">
+        <a class="rounded-3"
+             [ngClass]="(darkMode | async) ? 'border white-shadow text-white' : 'black-border shadow text-black'"
+             (click)="selectTrainerGender('male')">
+            <img [src]="boySprite" alt="Boy" height="160">
+            <p class="ms-2">Boy</p>
+        </a>
+    </div>
+    <div class="d-none d-sm-block col-2"></div>
+    <div class="col-6 col-sm-3">
+        <a class="rounded-3"
+             [ngClass]="(darkMode | async) ? 'border white-shadow text-white' : 'black-border shadow text-black'"
+             (click)="selectTrainerGender('female')">
+            <img [src]="girlSprite" alt="Girl" height="160">
+            <p class="me-2">Girl</p>
+        </a>
+    </div>
+</div>

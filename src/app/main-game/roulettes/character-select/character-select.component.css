@@ -1,0 +1,31 @@
+.title {
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: x-large;
+}
+
+.white-shadow {
+    box-shadow: 0 0 0.5em 0 white;
+}
+  
+.black-border {
+    border: 1px solid #333;
+}
+
+.trainer-gender {
+    height: 30vh;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.trainer-gender a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+}

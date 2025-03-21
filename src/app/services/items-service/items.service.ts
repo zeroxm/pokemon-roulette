@@ -13,11 +13,8 @@ export class ItemsService {
 
   itemsData = itemsData;
 
-  getItem(itemName: ItemName): Observable<ItemItem> {
-    return new Observable(observer => {
-      observer.next(this.itemsData[itemName]);
-      observer.complete();
-    });
+  getItem(itemName: ItemName): ItemItem {
+    return structuredClone(this.itemsData[itemName]);
   }
 
   getAllItems(): ItemItem[] {

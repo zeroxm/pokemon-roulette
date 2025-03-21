@@ -1,5 +1,6 @@
 export type GameState =
   | 'game-start'
+  | 'character-select'
   | 'starter-pokemon'
   | 'check-shininess'
   | 'start-adventure'

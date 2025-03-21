@@ -47,6 +47,7 @@ import { GenerationMapComponent } from "./generation-map/generation-map.componen
 import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
+import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
 
 @Component({
   selector: 'app-main-game',
@@ -86,7 +87,8 @@ import { Observable } from 'rxjs';
     CoffeeButtonComponent,
     GenerationMapComponent,
     NgIconsModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    CharacterSelectComponent
 ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -137,7 +139,6 @@ export class MainGameComponent implements OnInit {
   darkMode!: Observable<boolean>;
   mapIsCollapsed: boolean = true;
 
-  starter!: PokemonItem;
   lessExplanations: boolean = false;
   runningShoesUsed: boolean = false;
   expShareUsed: boolean = false;
@@ -177,14 +178,12 @@ export class MainGameComponent implements OnInit {
     return this.currentGameState;
   }
 
-  handleTrainerSelected(): void {
+
+  handleGenerationSelected(): void {
     this.finishCurrentState();
   }
 
-  storeStarterPokemon(pokemon: PokemonItem): void {
-    this.starter = pokemon;
-    this.trainerService.addToTeam(pokemon);
-    this.gameStateService.setNextState('check-shininess');
+  handleTrainerSelected(): void {
     this.finishCurrentState();
   }
 
@@ -223,9 +222,7 @@ export class MainGameComponent implements OnInit {
       itemName = 'super-potion';
     }
 
-    this.itemService.getItem(itemName).subscribe(potion => {
-      this.trainerService.addToItems(potion);
-    })
+    this.trainerService.addToItems(this.itemService.getItem(itemName));
     this.itemFoundAudio.volume = 0.25;
     this.itemFoundAudio.play();
     this.finishCurrentState();

@@ -43,6 +43,7 @@ export class GameStateService {
       'gym-battle',
       'start-adventure',
       'starter-pokemon',
+      'character-select'
     ];
   }
 
@@ -74,9 +75,9 @@ export class GameStateService {
   }
 
   resetGameState(): void {
-    this.currentRound.next(0);
     this.initializeStates();
     this.setNextState('game-start');
     this.finishCurrentState();
+    this.currentRound.next(0);
   }
 }
