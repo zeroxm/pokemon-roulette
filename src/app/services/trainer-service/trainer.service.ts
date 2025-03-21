@@ -160,15 +160,18 @@ export class TrainerService {
   }
 
   addToTeam(pokemon: PokemonItem): void {
+
+    pokemon = structuredClone(pokemon);
+
     if (!pokemon.sprite) {
       this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
         pokemon.sprite = response.sprite;
       });
     }
     if(this.trainerTeam.length < 6) {
-      this.trainerTeam.push(structuredClone(pokemon));
+      this.trainerTeam.push(pokemon);
     } else {
-      this.storedPokemon.push(structuredClone(pokemon));
+      this.storedPokemon.push(pokemon);
     }
 
     this.lastAddedPokemon = pokemon;
@@ -272,12 +275,15 @@ export class TrainerService {
   }
 
   addToItems(item: ItemItem): void {
+
+    item = structuredClone(item);
+
     if (!item.sprite) {
       this.itemSpriteService.getItemSprite(item.name).subscribe(response => {
         item.sprite = response.sprite;
       });
     }
-    this.trainerItems.push(structuredClone(item));
+    this.trainerItems.push(item);
     this.trainerItemsObservable.next(this.trainerItems);
   }
 
