@@ -3,6 +3,7 @@ import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { GameStateService } from '../services/game-state-service/game-state.service';
 
 @Component({
   selector: 'app-wheel',
@@ -38,7 +39,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   currentSegment: string = '-';
   clickAudio = new Audio('./click.mp3');
 
-  constructor(private darkModeService: DarkModeService) {
+  constructor(private darkModeService: DarkModeService,
+              private gameStateService: GameStateService) {
     this.darkMode = this.darkModeService.darkMode$;
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
@@ -126,6 +128,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     }
 
     this.spinning = true;
+    this.gameStateService.setWheelSpinning(this.spinning);
+    
 
     this.startTime = performance.now();
     const totalWeight = this.getTotalWeights();
@@ -167,6 +171,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     } else {
       this.spinning = false;
       this.selectedItemEvent.emit(this.winningNumber);
+      this.gameStateService.setWheelSpinning(false);
     }
 
     const segment = this.getCurrentSegment();

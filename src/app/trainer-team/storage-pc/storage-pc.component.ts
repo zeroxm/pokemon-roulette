@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { PokemonItem } from '../../interfaces/pokemon-item';
+import { GameStateService } from '../../services/game-state-service/game-state.service';
 
 @Component({
   selector: 'app-storage-pc',
@@ -22,7 +23,8 @@ export class StoragePcComponent implements OnInit {
 
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
-                private modalService: NgbModal) { }
+                private modalService: NgbModal,
+                private gameStateService: GameStateService) { }
 
     @ViewChild('pcStorageModal', { static: true }) pcStorageModal!: TemplateRef<any>;
     darkMode!: Observable<boolean>;
@@ -31,6 +33,7 @@ export class StoragePcComponent implements OnInit {
     pcLogoutAudio = new Audio('./PCLogout.mp3');
     trainerTeam!: PokemonItem[];
     storedPokemon!: PokemonItem[];
+    wheelSpinning: boolean = false;
 
     ngOnInit(): void {
       this.darkMode = this.darkModeService.darkMode$;
@@ -38,9 +41,16 @@ export class StoragePcComponent implements OnInit {
         this.pcLoginAudio.volume = 0.30;
         this.pcLoginAudio.play();
       });
+      this.gameStateService.wheelSpinningObserver.subscribe(state => {
+        this.wheelSpinning = state;
+      });
     }
 
     showPCModal() {
+      if(this.wheelSpinning) {
+        return;
+      }
+
       this.trainerTeam = this.trainerService.getTeam();
       this.storedPokemon = this.trainerService.getStored();
       this.pcTurningOn.volume = 0.30;

@@ -128,6 +128,10 @@ export class MainGameComponent implements OnInit {
     this.gameStateService.currentRoundObserver.subscribe(round => {
       this.leadersDefeatedAmount = round;
     });
+
+    this.gameStateService.wheelSpinningObserver.subscribe(state => {
+      this.wheelSpinning = state;
+    });
   }
 
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
@@ -138,7 +142,7 @@ export class MainGameComponent implements OnInit {
   currentGameState!: GameState;
   darkMode!: Observable<boolean>;
   mapIsCollapsed: boolean = true;
-
+  wheelSpinning: boolean = false;
   lessExplanations: boolean = false;
   runningShoesUsed: boolean = false;
   expShareUsed: boolean = false;
@@ -280,6 +284,11 @@ export class MainGameComponent implements OnInit {
   }
 
   rareCandyInterrupt(rareCandy: ItemItem): void {
+
+    if(this.wheelSpinning){
+      return;
+    }
+
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length !== 0) {

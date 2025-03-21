@@ -10,8 +10,12 @@ export class GameStateService {
   private stateStack: GameState[] = [];
   private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
+
   private currentRound = new BehaviorSubject<number>(0);
   currentRoundObserver = this.currentRound.asObservable();
+
+  private wheelSpinning = new BehaviorSubject<boolean>(false);
+  wheelSpinningObserver = this.wheelSpinning.asObservable();
 
   constructor() {
     this.initializeStates();
@@ -72,6 +76,10 @@ export class GameStateService {
 
   repeatCurrentState(): void {
     this.stateStack.push(this.state.value);
+  }
+
+  setWheelSpinning(state: boolean): void {
+    this.wheelSpinning.next(state);
   }
 
   resetGameState(): void {
