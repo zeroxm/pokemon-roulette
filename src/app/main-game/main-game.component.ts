@@ -136,6 +136,7 @@ export class MainGameComponent implements OnInit {
 
   @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
   @ViewChild('infoModal', { static: true }) infoModal!: TemplateRef<any>;
+  @ViewChild('teamRocketFailsModal', { static: true }) teamRocketFailsModal!: TemplateRef<any>;
   @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
   @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
 
@@ -490,9 +491,7 @@ export class MainGameComponent implements OnInit {
     const trainerTeam = this.trainerService.getTeam();
 
     if (trainerTeam.length === 1) {
-      this.infoModalTitle = 'Team Rocket Fails';
-      this.infoModalMessage = 'Team Rocket fails to steal your last Pokémon.';
-      const modalRef = this.modalService.open(this.infoModal, {
+      const modalRef = this.modalService.open(this.teamRocketFailsModal, {
         centered: true,
         size: 'md'
       });

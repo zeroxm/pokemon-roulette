@@ -170,6 +170,25 @@
     </div>
 </ng-template>
 
+<ng-template #teamRocketFailsModal let-modal>
+    <div class="modal-body">
+        <h1>Team Rocket Fails</h1>
+        <div class="explain-panel">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png"
+                 alt="Forte igual o Entei!"
+                 height="128">
+            <div class="message">
+                <p>Entei emerges</p>
+                <p>Entei prevents Team Rocket from stealing your Pokémon.</p>
+                <p>Everything is fine now.</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Thanks Entei!</button>
+    </div>
+</ng-template>
+
 <ng-template #pkmnEvoModal let-modal>
     <div class="modal-body">
         <h1>{{ pkmnEvoTitle }}</h1>

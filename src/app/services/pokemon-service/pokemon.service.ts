@@ -38,7 +38,7 @@ export class PokemonService {
 
   getPokemonById(pokemonId: number): PokemonItem | undefined {
     const pokemon = this.nationalDexPokemon.find(pokemon => pokemon.pokemonId === pokemonId);
-    return structuredClone(pokemon);
+    return pokemon;
   }
 
   getAllPokemon(): PokemonItem[] {

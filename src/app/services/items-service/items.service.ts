@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { itemsData } from './items-data';
-import { Observable } from 'rxjs';
 import { ItemName } from './item-names';
 import { ItemItem } from '../../interfaces/item-item';
 
@@ -14,7 +13,7 @@ export class ItemsService {
   itemsData = itemsData;
 
   getItem(itemName: ItemName): ItemItem {
-    return structuredClone(this.itemsData[itemName]);
+    return this.itemsData[itemName];
   }
 
   getAllItems(): ItemItem[] {

@@ -166,9 +166,9 @@ export class TrainerService {
       });
     }
     if(this.trainerTeam.length < 6) {
-      this.trainerTeam.push(pokemon);
+      this.trainerTeam.push(structuredClone(pokemon));
     } else {
-      this.storedPokemon.push(pokemon);
+      this.storedPokemon.push(structuredClone(pokemon));
     }
 
     this.lastAddedPokemon = pokemon;
@@ -176,10 +176,15 @@ export class TrainerService {
   }
 
   removeFromTeam(pokemon: PokemonItem): void {
-    const index = this.trainerTeam.indexOf(pokemon);
+    let index = this.trainerTeam.indexOf(pokemon);
+
     if (index !== -1) {
       this.trainerTeam.splice(index, 1);
+    } else {
+      index = this.storedPokemon.indexOf(pokemon);
+      this.storedPokemon.splice(index, 1);
     }
+
     this.trainerTeamObservable.next(this.getTeam());
   }
 
@@ -272,7 +277,7 @@ export class TrainerService {
         item.sprite = response.sprite;
       });
     }
-    this.trainerItems.push(item);
+    this.trainerItems.push(structuredClone(item));
     this.trainerItemsObservable.next(this.trainerItems);
   }
 
