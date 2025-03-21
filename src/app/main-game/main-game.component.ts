@@ -432,7 +432,7 @@ export class MainGameComponent implements OnInit {
     if (trainerTeam.length === 1) {
       this.currentContextPokemon = trainerTeam[0];
     } else {
-      this.auxPokemonList = trainerTeam;
+      this.auxPokemonList = structuredClone(trainerTeam);
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('select-from-pokemon-list');
     }

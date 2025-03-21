@@ -185,7 +185,9 @@ export class TrainerService {
       this.trainerTeam.splice(index, 1);
     } else {
       index = this.storedPokemon.indexOf(pokemon);
-      this.storedPokemon.splice(index, 1);
+      if(index !== -1) {
+        this.storedPokemon.splice(index, 1);
+      }
     }
 
     this.trainerTeamObservable.next(this.getTeam());
@@ -251,9 +253,14 @@ export class TrainerService {
       });
     }
 
-    const index = this.trainerTeam.indexOf(pokemonOut);
+    let index = this.trainerTeam.indexOf(pokemonOut);
     if (index > -1) {
       this.trainerTeam.splice(index, 1, pokemonIn);
+    } else {
+      index = this.storedPokemon.indexOf(pokemonOut);
+      if (index > -1) {
+        this.storedPokemon.splice(index, 1, pokemonIn);
+      }
     }
     this.trainerTeamObservable.next(this.getTeam());
   }
