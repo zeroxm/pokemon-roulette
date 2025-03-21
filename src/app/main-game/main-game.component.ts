@@ -505,7 +505,7 @@ export class MainGameComponent implements OnInit {
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
     } else {
-      this.auxPokemonList = trainerTeam;
+      this.auxPokemonList = structuredClone(trainerTeam);
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('steal-pokemon');
       this.gameStateService.setNextState('select-from-pokemon-list');

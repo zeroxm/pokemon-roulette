@@ -49,11 +49,11 @@ export class FindItemRouletteComponent {
 
     modalRef.result.then(() => {
       if (this.selectedItem) {
-        this.itemSelectedEvent.emit(this.selectedItem);
+        this.itemSelectedEvent.emit(structuredClone(this.selectedItem));
       }
     }, () => {
       if (this.selectedItem) {
-        this.itemSelectedEvent.emit(this.selectedItem);
+        this.itemSelectedEvent.emit(structuredClone(this.selectedItem));
       }
     });
   }

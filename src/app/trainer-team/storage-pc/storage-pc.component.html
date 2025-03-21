@@ -42,3 +42,17 @@
     <button type="button" class="btn btn-outline-dark" (click)="logOut()">Logout </button>
   </div>
 </ng-template>
+
+<ng-template #pcInfoModal let-modal>
+  <div class="modal-body">
+      <h1>{{ infoModalTitle }}</h1>
+      <div class="explain-panel">
+          <div class="message">
+              <p>{{ infoModalMessage }}</p>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
+  </div>
+</ng-template>
