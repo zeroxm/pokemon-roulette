@@ -234,7 +234,7 @@ export class TrainerService {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
-    const index = this.trainerTeam.indexOf(pokemonOut);
+    pokemonIn = structuredClone(pokemonIn);
 
     if (!pokemonIn.sprite) {
       this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
@@ -242,7 +242,17 @@ export class TrainerService {
       });
     }
 
-    this.trainerTeam.splice(index, 1, pokemonIn);
+    let index = this.trainerTeam.indexOf(pokemonOut);
+
+    if (index > -1) {
+      this.trainerTeam.splice(index, 1, pokemonIn);
+    } else {
+      index = this.storedPokemon.indexOf(pokemonOut);
+      if (index > -1) {
+        this.storedPokemon.splice(index, 1, pokemonIn);
+      }
+    }
+
     this.trainerTeamObservable.next(this.getTeam());
   }
 
