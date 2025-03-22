@@ -64,12 +64,12 @@ export class TrainerService {
     //     "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/5.png"
     //    },
     //   shiny: false, power: 2, weight: 1 },
-    { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
-      sprite: { 
-        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-        "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
-       },
-      shiny: false, power: 3, weight: 1 }
+    // { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
+    //   sprite: { 
+    //     "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+    //     "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
+    //    },
+    //   shiny: false, power: 3, weight: 1 }
   ];
 
   storedPokemon: PokemonItem[] = [
