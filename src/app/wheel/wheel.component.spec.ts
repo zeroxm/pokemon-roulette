@@ -52,6 +52,40 @@ describe('WheelComponent', () => {
     }
   });
 
+  it('should have a fair distribuition for large numbers of elements', () => {
+    const numRuns = 100000;
+    const tolerance = 0.01;
+    const expectedProbability = 1 / 150;
+
+    component.items = [];
+    const possibleColors = ['red', 'green', 'blue', 'yellow', 'orange', 'black', 'purple', 'pink'];
+
+    for (let i = 1; i <= 150; i++) {
+      const color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+      component.items.push({ text: `${i}`, weight: 1, fillStyle: color });
+    }
+    fixture.detectChanges();
+
+    const results: number[] = new Array(component.items.length).fill(0);
+    const occurrences: number[] = new Array(component.items.length).fill(0);
+
+    for (let i = 0; i < numRuns; i++) {
+      const result = component.getRandomWeightedIndex();
+      results[result]++;
+      occurrences[result]++;
+    }
+
+    const probabilities = results.map(result => result / numRuns);
+
+    const meanProbability = probabilities.reduce((sum, probability) => sum + probability, 0) / probabilities.length;
+    console.log(`Mean probability: ${(meanProbability * 100).toFixed(2)}%`);
+    expect(Math.abs(meanProbability - expectedProbability)).toBeLessThan(tolerance);
+
+    for (let i = 0; i < probabilities.length; i++) {
+      expect(Math.abs(probabilities[i] - expectedProbability)).toBeLessThan(tolerance);
+    }
+  });
+
   it('the distribuition should respect the weight', () => {
     const numRuns = 10000;
     const tolerance = 0.01;

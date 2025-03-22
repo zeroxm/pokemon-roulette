@@ -24,16 +24,7 @@ export class GenerationMapComponent implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     this.progressPath = [];
     this.updateSize();
-    // Add a new point to the progress path
-    this.progressPath.push({ x: 182, y: 450 });
-    this.progressPath.push({ x: 182, y: 215 });
-    this.progressPath.push({ x: 320, y: 215 });
-    this.progressPath.push({ x: 320, y: 180 });
-    this.progressPath.push({ x: 517, y: 180 });
-    this.progressPath.push({ x: 517, y: 383 });
-    
-    // Update the player position
-    this.playerPosition = { x: 517, y: 383 };
+    // this.resetPathData();
   }
 
   @HostListener('window:resize')
@@ -47,7 +38,7 @@ export class GenerationMapComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['visible'] && this.visible) {
-      this.resetPathData();
+      // this.resetPathData();
     }
   }
 
@@ -73,11 +64,12 @@ export class GenerationMapComponent implements AfterViewInit, OnChanges {
   }
 
   getPlayerX(): number {
-    return (this.playerPosition.x / this.originalWidth) * this.currentWidth;
+    // return (this.playerPosition.x / this.originalWidth) * this.currentWidth;
+    return 0;
   }
 
   getPlayerY(): number {
-    return (this.playerPosition.y / this.originalHeight) * this.currentHeight;
+    // return (this.playerPosition.y / this.originalHeight) * this.currentHeight;
+    return 0;
   }
-
 }

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoffeeButtonComponent } from './coffee-button.component';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapCupHotFill } from '@ng-icons/bootstrap-icons';
 
 describe('CoffeeButtonComponent', () => {
   let component: CoffeeButtonComponent;
@@ -8,7 +10,13 @@ describe('CoffeeButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CoffeeButtonComponent]
+      imports: [
+        CoffeeButtonComponent,
+        NgIconsModule
+      ],
+      providers: [
+        provideIcons({ bootstrapCupHotFill }),
+      ],
     })
     .compileComponents();
 

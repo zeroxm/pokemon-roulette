@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrainerTeamComponent } from './trainer-team.component';
 import { HttpClient } from '@angular/common/http';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapPcDisplayHorizontal } from '@ng-icons/bootstrap-icons';
 
 describe('TrainerTeamComponent', () => {
   let component: TrainerTeamComponent;
@@ -12,8 +14,12 @@ describe('TrainerTeamComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [TrainerTeamComponent],
+      imports: [
+        TrainerTeamComponent,
+        NgIconsModule
+      ],
       providers: [
+        provideIcons({ bootstrapPcDisplayHorizontal }),
         {provide: HttpClient, useValue: httpSpyObj }
       ]
     })

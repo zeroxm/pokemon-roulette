@@ -17,20 +17,20 @@
                         <app-restart-game (restartEvent)="resetGameAction()"></app-restart-game>
                         <app-credits-button></app-credits-button>
                     </div>
-                    <button type="button"
+                    <!-- <button type="button"
                             class="btn me-sm-auto"
                             (click)="mapIsCollapsed = !mapIsCollapsed"
                             [attr.aria-expanded]="!mapIsCollapsed"
                             aria-controls="townMapCollapse"
                             [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
                         <ng-icon name="bootstrapMap"></ng-icon> Town Map
-                    </button>
+                    </button> -->
                 </div>
-                <div [(ngbCollapse)]="mapIsCollapsed"
+                <!-- <div [(ngbCollapse)]="mapIsCollapsed"
                      class="map-container"
                      id="townMapCollapse">
                     <app-generation-map [visible]="!mapIsCollapsed"></app-generation-map>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="main-game col-12 col-sm-5">

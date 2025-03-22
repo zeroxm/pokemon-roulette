@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreditsButtonComponent } from './credits-button.component';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapPeopleFill } from '@ng-icons/bootstrap-icons';
 
 describe('CreditsButtonComponent', () => {
   let component: CreditsButtonComponent;
@@ -8,7 +10,13 @@ describe('CreditsButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreditsButtonComponent]
+      imports: [
+        CreditsButtonComponent,
+        NgIconsModule
+      ],
+      providers: [
+        provideIcons({ bootstrapPeopleFill }),
+      ],
     })
     .compileComponents();
 

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainGameButtonComponent } from './main-game-button.component';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapController } from '@ng-icons/bootstrap-icons';
 
 describe('MainGameButtonComponent', () => {
   let component: MainGameButtonComponent;
@@ -8,7 +10,13 @@ describe('MainGameButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainGameButtonComponent]
+      imports: [
+        MainGameButtonComponent,
+        NgIconsModule
+      ],
+      providers: [
+        provideIcons({ bootstrapController }),
+      ]
     })
     .compileComponents();
 
