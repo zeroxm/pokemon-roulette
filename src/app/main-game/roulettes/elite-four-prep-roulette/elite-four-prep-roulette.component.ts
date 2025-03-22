@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
@@ -24,7 +25,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
 
   @Input() respinReason!: string;
   @Output() catchPokemonEvent = new EventEmitter<void>();
-  @Output() battleTrainerEvent = new EventEmitter<void>();
+  @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();
   @Output() legendaryEncounterEvent = new EventEmitter<void>();
@@ -49,7 +50,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
         this.catchPokemonEvent.emit();
         break;
       case 1:
-        this.battleTrainerEvent.emit();
+        this.battleTrainerEvent.emit('battle-trainer');
         break;
       case 2:
         this.buyPotionsEvent.emit();

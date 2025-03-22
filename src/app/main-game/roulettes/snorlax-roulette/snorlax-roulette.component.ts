@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-snorlax-roulette',
@@ -13,7 +14,7 @@ export class SnorlaxRouletteComponent {
   @Input() currentRound!: number;
   @Output() runAwayEvent = new EventEmitter<void>();
   @Output() catchSnorlaxEvent = new EventEmitter<void>();
-  @Output() defeatSnorlaxEvent = new EventEmitter<void>();
+  @Output() defeatSnorlaxEvent = new EventEmitter<EventSource>();
 
   outcomes: WheelItem[] = [];
 
@@ -34,7 +35,7 @@ export class SnorlaxRouletteComponent {
         this.catchSnorlaxEvent.emit();
         break;
       case 2:
-        this.defeatSnorlaxEvent.emit();
+        this.defeatSnorlaxEvent.emit('snorlax-encounter');
         break;
     }
   }

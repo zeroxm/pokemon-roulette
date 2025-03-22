@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-explore-cave-roulette',
@@ -11,7 +12,7 @@ import { WheelItem } from '../../../interfaces/wheel-item';
 export class ExploreCaveRouletteComponent {
 
   @Output() catchCavePokemonEvent = new EventEmitter<void>();
-  @Output() battleTrainerEvent = new EventEmitter<void>();
+  @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() findItemEvent = new EventEmitter<void>();
   @Output() getLostEvent = new EventEmitter<void>();
   @Output() catchZubatEvent = new EventEmitter<void>();
@@ -34,7 +35,7 @@ export class ExploreCaveRouletteComponent {
         this.catchCavePokemonEvent.emit();
         break;
       case 1:
-        this.battleTrainerEvent.emit();
+        this.battleTrainerEvent.emit('battle-trainer');
         break;
       case 2:
         this.findItemEvent.emit();

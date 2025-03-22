@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-start-adventure-roulette',
@@ -11,7 +12,7 @@ import { WheelComponent } from "../../../wheel/wheel.component";
 export class StartAdventureRouletteComponent {
 
   @Output () catchPokemonEvent = new EventEmitter<void>();
-  @Output () battleTrainerEvent = new EventEmitter<void>();
+  @Output () battleTrainerEvent = new EventEmitter<EventSource>();
   @Output () buyPotionsEvent = new EventEmitter<void>();
   @Output () doNothingEvent = new EventEmitter<void>();
 
@@ -28,7 +29,7 @@ export class StartAdventureRouletteComponent {
         this.catchPokemonEvent.emit();        
         break;
       case 1:
-        this.battleTrainerEvent.emit();
+        this.battleTrainerEvent.emit('battle-trainer');
         break;
       case 2:
         this.buyPotionsEvent.emit();

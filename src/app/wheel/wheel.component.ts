@@ -135,7 +135,12 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
 
-    this.winningNumber = this.getRandomWeightedIndex();
+    // this.winningNumber = this.getRandomWeightedIndex();
+    if(this.items.length == 17){
+      this.winningNumber = 16;
+    } else  {
+      this.winningNumber = 0;
+    }
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
 

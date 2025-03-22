@@ -43,11 +43,11 @@ import { GameOverComponent } from "./game-over/game-over.component";
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CreditsButtonComponent } from "./credits-button/credits-button.component";
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
-import { GenerationMapComponent } from "./generation-map/generation-map.component";
 import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
+import { EventSource } from './EventSource';
 
 @Component({
   selector: 'app-main-game',
@@ -85,7 +85,6 @@ import { CharacterSelectComponent } from "./roulettes/character-select/character
     GameOverComponent,
     CreditsButtonComponent,
     CoffeeButtonComponent,
-    GenerationMapComponent,
     NgIconsModule,
     NgbCollapseModule,
     CharacterSelectComponent
@@ -139,6 +138,7 @@ export class MainGameComponent implements OnInit {
   @ViewChild('teamRocketFailsModal', { static: true }) teamRocketFailsModal!: TemplateRef<any>;
   @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
   @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
+  @ViewChild('altPrizeModal', { static: true }) altPrizeModal!: TemplateRef<any>;
 
   currentGameState!: GameState;
   darkMode!: Observable<boolean>;
@@ -156,15 +156,19 @@ export class MainGameComponent implements OnInit {
   fromLeader: number = 0;
   evolutionCredits: number = 0;
   multitaskCounter: number = 0;
+  pkmnOut!: PokemonItem;
+  pkmnIn!: PokemonItem;
+  itemFoundAudio = new Audio('./ItemFound.mp3');
+  // useful strings
   customWheelTitle = '';
   respinReason = '';
   infoModalTitle = '';
   infoModalMessage = '';
   pkmnEvoTitle = '';
   pkmnTradeTitle = '';
-  pkmnOut!: PokemonItem;
-  pkmnIn!: PokemonItem;
-  itemFoundAudio = new Audio('./ItemFound.mp3');
+  altPrizeText = '';
+  altPrizeSprite = '';
+  altPrizeDescription = '';
 
   toggleLessExplanations(): void {
     this.lessExplanations = !this.lessExplanations;
@@ -228,8 +232,7 @@ export class MainGameComponent implements OnInit {
     }
 
     this.trainerService.addToItems(this.itemService.getItem(itemName));
-    this.itemFoundAudio.volume = 0.25;
-    this.itemFoundAudio.play();
+    this.playItemFoundAudio();
     this.finishCurrentState();
   }
 
@@ -296,17 +299,51 @@ export class MainGameComponent implements OnInit {
       this.gameStateService.repeatCurrentState();
       this.trainerService.removeItem(rareCandy);
       this.currentContextItem = rareCandy;
-      this.chooseWhoWillEvolve();
+      this.chooseWhoWillEvolve('rare-candy');
     }
   }
 
-  chooseWhoWillEvolve(): void {
+  chooseWhoWillEvolve(eventSource: EventSource): void {
     this.auxPokemonList = [];
 
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length === 0) {
-      return this.doNothing();
+      switch (eventSource) {
+        case 'gym-battle':
+          this.altPrizeText = 'Got a Bonus Potion!';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
+          this.altPrizeDescription = 'Since no evolution was possible, get the best Potion your money can buy!';
+          this.modalService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.buyPotions();
+          break;
+        case 'visit-daycare':
+            this.altPrizeText = 'Got a Mysterious Egg!';
+            this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png';
+            this.altPrizeDescription = 'The people from the Day Care gave you a Mysterious Egg!';
+            this.modalService.open(this.altPrizeModal, {
+              centered: true,
+              size: 'md'
+            });
+            return this.mysteriousEgg();
+            break;
+        case 'battle-rival':
+          this.altPrizeText = 'Got an Item!';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
+          this.altPrizeDescription = 'Your Rival said you only won by luck and gave you an Item!';
+          this.modalService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.findItem();
+          break;
+        default:
+          return this.doNothing();
+          break;
+      }
     }
 
     if (this.auxPokemonList.length === 1) {
@@ -373,8 +410,7 @@ export class MainGameComponent implements OnInit {
     this.respinReason = '';
 
     if (result) {
-      this.itemFoundAudio.volume = 0.25;
-      this.itemFoundAudio.play();
+      this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.setNextState('check-evolution');
 
@@ -480,7 +516,7 @@ export class MainGameComponent implements OnInit {
 
   rivalBattleResult(result: boolean): void {
     if (result) {
-      this.chooseWhoWillEvolve();
+      this.chooseWhoWillEvolve('battle-rival');
     } else {
       this.doNothing();
     }
@@ -525,7 +561,7 @@ export class MainGameComponent implements OnInit {
       });
     }
 
-    this.chooseWhoWillEvolve();
+    this.chooseWhoWillEvolve('team-rocket-encounter');
   }
 
   performTrade(pokemon: PokemonItem): void {
@@ -534,8 +570,7 @@ export class MainGameComponent implements OnInit {
     this.pkmnTradeTitle = "Trade!";
     this.trainerService.performTrade(this.currentContextPokemon, pokemon);
     this.auxPokemonList = [];
-    this.itemFoundAudio.volume = 0.25;
-    this.itemFoundAudio.play();
+    this.playItemFoundAudio();
     if (!this.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnTradeModal, {
         centered: true,
@@ -653,8 +688,7 @@ export class MainGameComponent implements OnInit {
   }
 
   private showpkmnEvoModal(): void {
-    this.itemFoundAudio.volume = 0.25;
-    this.itemFoundAudio.play();
+    this.playItemFoundAudio();
     if (!this.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnEvoModal, {
         centered: true,
@@ -669,5 +703,10 @@ export class MainGameComponent implements OnInit {
     } else {
       this.finishCurrentState();
     }
+  }
+
+  private playItemFoundAudio(): void {
+    this.itemFoundAudio.volume = 0.25;
+    this.itemFoundAudio.play();
   }
 }

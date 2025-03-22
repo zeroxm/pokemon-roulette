@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-main-adventure-roulette',
@@ -12,11 +13,11 @@ export class MainAdventureRouletteComponent {
 
   @Input() respinReason!: string;
   @Output() catchPokemonEvent = new EventEmitter<void>();
-  @Output() battleTrainerEvent = new EventEmitter<void>();
+  @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() doNothingEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();
-  @Output() visitDaycareEvent = new EventEmitter<void>();
+  @Output() visitDaycareEvent = new EventEmitter<EventSource>();
   @Output() teamRocketEncounterEvent = new EventEmitter<void>();
   @Output() mysteriousEggEvent = new EventEmitter<void>();
   @Output() legendaryEncounterEvent = new EventEmitter<void>();
@@ -55,7 +56,7 @@ export class MainAdventureRouletteComponent {
         this.catchPokemonEvent.emit();
         break;
       case 1:
-        this.battleTrainerEvent.emit();
+        this.battleTrainerEvent.emit('battle-trainer');
         break;
       case 2:
         this.buyPotionsEvent.emit();
@@ -67,7 +68,7 @@ export class MainAdventureRouletteComponent {
         this.catchTwoPokemonEvent.emit();
         break;
       case 5:
-        this.visitDaycareEvent.emit();
+        this.visitDaycareEvent.emit('visit-daycare');
         break;
       case 6:
         this.teamRocketEncounterEvent.emit();

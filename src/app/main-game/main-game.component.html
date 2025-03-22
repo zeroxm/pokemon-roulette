@@ -44,7 +44,7 @@
                 <app-shiny-roulette *ngSwitchCase="'check-shininess'" (isShinyEvent)="setShininess($event)">
                 </app-shiny-roulette>
                 <app-start-adventure-roulette *ngSwitchCase="'start-adventure'" (catchPokemonEvent)="catchPokemon()"
-                    (battleTrainerEvent)="chooseWhoWillEvolve()" (buyPotionsEvent)="buyPotions()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve($event)" (buyPotionsEvent)="buyPotions()"
                     (doNothingEvent)="doNothing()">
                 </app-start-adventure-roulette>
                 <app-pokemon-from-generation-roulette *ngSwitchCase="'catch-pokemon'"
@@ -58,12 +58,12 @@
                     [(fromLeader)]="fromLeader" (battleResultEvent)="gymBattleResult($event)">
                 </app-gym-battle-roulette>
                 <app-check-evolution-roulette *ngSwitchCase="'check-evolution'" [(evolutionCredits)]="evolutionCredits"
-                    (evolvePokemonEvent)="chooseWhoWillEvolve()" (doNothingEvent)="doNothing()">
+                    (evolvePokemonEvent)="chooseWhoWillEvolve($event)" (doNothingEvent)="doNothing()">
                 </app-check-evolution-roulette>
                 <app-main-adventure-roulette *ngSwitchCase="'adventure-continues'" [respinReason]="respinReason"
-                    (catchPokemonEvent)="catchPokemon()" (battleTrainerEvent)="chooseWhoWillEvolve()"
+                    (catchPokemonEvent)="catchPokemon()" (battleTrainerEvent)="chooseWhoWillEvolve($event)"
                     (buyPotionsEvent)="buyPotions()" (doNothingEvent)="doNothing()"
-                    (catchTwoPokemonEvent)="catchTwoPokemon()" (visitDaycareEvent)="chooseWhoWillEvolve()"
+                    (catchTwoPokemonEvent)="catchTwoPokemon()" (visitDaycareEvent)="chooseWhoWillEvolve($event)"
                     (teamRocketEncounterEvent)="teamRocketEncounter()" (mysteriousEggEvent)="mysteriousEgg()"
                     (legendaryEncounterEvent)="legendaryEncounter()" (tradePokemonEvent)="tradePokemon()"
                     (findItemEvent)="findItem()" (exploreCaveEvent)="exploreCave()"
@@ -89,7 +89,7 @@
                 <app-find-item-roulette *ngSwitchCase="'find-item'" (itemSelectedEvent)="receiveItem($event)">
                 </app-find-item-roulette>
                 <app-explore-cave-roulette *ngSwitchCase="'explore-cave'" (catchCavePokemonEvent)="catchCavePokemon()"
-                    (battleTrainerEvent)="chooseWhoWillEvolve()" (findItemEvent)="findItem()" (getLostEvent)="getLost()"
+                    (battleTrainerEvent)="chooseWhoWillEvolve($event)" (findItemEvent)="findItem()" (getLostEvent)="getLost()"
                     (catchZubatEvent)="catchZubat()" (findFossilEvent)="findFossil()"
                     (teamRocketEncounterEvent)="teamRocketEncounter()">
                 </app-explore-cave-roulette>
@@ -99,7 +99,7 @@
                 <app-fossil-roulette *ngSwitchCase="'find-fossil'" (selectedPokemonEvent)="storePokemon($event)">
                 </app-fossil-roulette>
                 <app-snorlax-roulette *ngSwitchCase="'snorlax-encounter'" [currentRound]="leadersDefeatedAmount"
-                    (runAwayEvent)="doNothing()" (defeatSnorlaxEvent)="chooseWhoWillEvolve()"
+                    (runAwayEvent)="doNothing()" (defeatSnorlaxEvent)="chooseWhoWillEvolve($event)"
                     (catchSnorlaxEvent)="catchSnorlax()">
                 </app-snorlax-roulette>
                 <app-fishing-roulette *ngSwitchCase="'go-fishing'" (selectedPokemonEvent)="storePokemon($event)">
@@ -108,7 +108,7 @@
                     (battleResultEvent)="rivalBattleResult($event)">
                 </app-rival-battle-roulette>
                 <app-elite-four-prep-roulette *ngSwitchCase="'elite-four-preparation'" [respinReason]="respinReason"
-                    (catchPokemonEvent)="catchPokemon()" (battleTrainerEvent)="chooseWhoWillEvolve()"
+                    (catchPokemonEvent)="catchPokemon()" (battleTrainerEvent)="chooseWhoWillEvolve($event)"
                     (buyPotionsEvent)="buyPotions()" (catchTwoPokemonEvent)="catchTwoPokemon()"
                     (legendaryEncounterEvent)="legendaryEncounter()" (findItemEvent)="findItem()"
                     (doNothingEvent)="doNothing()" (teamRocketEncounterEvent)="teamRocketEncounter()">
@@ -148,6 +148,21 @@
             <img [src]="currentContextItem.sprite" height="128">
             <div class="message">
                 <p>{{ currentContextItem.description }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #altPrizeModal let-modal>
+    <div class="modal-body">
+        <h1>{{ altPrizeText }}</h1>
+        <div class="item-panel">
+            <img [src]="altPrizeSprite" height="128">
+            <div class="message">
+                <p>{{ altPrizeDescription }}</p>
             </div>
         </div>
     </div>

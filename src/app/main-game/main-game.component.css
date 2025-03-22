@@ -59,3 +59,10 @@
 	user-select: none;
 	max-width: 50%;
 }
+
+.item-panel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}

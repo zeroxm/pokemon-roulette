@@ -772,7 +772,7 @@ export const nationalDexPokemon: PokemonItem[] = [
     { text: "Sandygast", pokemonId: 769, fillStyle: "brown", sprite: null, shiny: false, power: 1, weight: 1 },
     { text: "Palossand", pokemonId: 770, fillStyle: "brown", sprite: null, shiny: false, power: 2, weight: 1 },
     { text: "Pyukumuku", pokemonId: 771, fillStyle: "black", sprite: null, shiny: false, power: 2, weight: 1 },
-    { text: "Type Null", pokemonId: 772, fillStyle: "gray", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "Type: Null", pokemonId: 772, fillStyle: "gray", sprite: null, shiny: false, power: 3, weight: 1 },
     { text: "Silvally", pokemonId: 773, fillStyle: "gray", sprite: null, shiny: false, power: 4, weight: 1 },
     { text: "Minior", pokemonId: 774, fillStyle: "brown", sprite: null, shiny: false, power: 3, weight: 1 },
     { text: "Komala", pokemonId: 775, fillStyle: "darkblue", sprite: null, shiny: false, power: 2, weight: 1 },

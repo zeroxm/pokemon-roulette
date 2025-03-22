@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import { EventSource } from '../../EventSource';
 
 @Component({
   selector: 'app-check-evolution-roulette',
@@ -13,7 +14,7 @@ export class CheckEvolutionRouletteComponent implements OnInit {
   evolveOdds: WheelItem[] = [];
 
   @Input() evolutionCredits!: number;
-  @Output() evolvePokemonEvent = new EventEmitter<void>();
+  @Output() evolvePokemonEvent = new EventEmitter<EventSource>();
   @Output() evolutionCreditsChange = new EventEmitter<number>();
   @Output() doNothingEvent = new EventEmitter<void>();
 
@@ -24,7 +25,7 @@ export class CheckEvolutionRouletteComponent implements OnInit {
   onItemSelected(index: number): void {
     if (this.evolveOdds[index].text === 'yes') {
       this.evolutionCreditsChange.emit(0);
-      this.evolvePokemonEvent.emit();
+      this.evolvePokemonEvent.emit('gym-battle');
     } else {
       this.evolutionCreditsChange.emit(this.evolutionCredits + 1);
       this.doNothingEvent.emit();
