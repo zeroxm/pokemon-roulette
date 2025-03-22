@@ -84,7 +84,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       const segmentSize = arcSize * item.weight;
       const endAngle = startAngle + segmentSize;
 
-      // Draw the segment
+      /** Draw the segment */ 
       this.wheelCtx.beginPath();
       this.wheelCtx.arc(centerX, centerY, radius, startAngle, endAngle);
       this.wheelCtx.lineTo(centerX, centerY);
@@ -92,7 +92,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.wheelCtx.fill();
 
       if (this.items.length < 160) {
-        // Draw the text
+        /** Draw the text */ 
         this.wheelCtx.save();
         this.wheelCtx.translate(centerX, centerY);
         this.wheelCtx.rotate(startAngle + segmentSize / 2);
@@ -135,12 +135,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
 
-    // this.winningNumber = this.getRandomWeightedIndex();
-    if(this.items.length == 17){
-      this.winningNumber = 16;
-    } else  {
-      this.winningNumber = 0;
-    }
+    this.winningNumber = this.getRandomWeightedIndex();
 
     this.totalRotations = Math.floor(Math.random() * 4) + 1;
 

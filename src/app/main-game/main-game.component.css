@@ -2,10 +2,6 @@
 	width: 100%;
 }
 
-.extra-options {
-
-}
-
 .map-container {
 	flex-shrink: 0;
 	/* Prevents it from shrinking */

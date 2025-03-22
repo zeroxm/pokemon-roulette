@@ -144,10 +144,10 @@ export class TrainerService {
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [
-    {
-      "name": "Boulder Badge",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
-    }
+    // {
+    //   "name": "Boulder Badge",
+    //   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
+    // }
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
@@ -239,7 +239,7 @@ export class TrainerService {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
-    pokemonIn = structuredClone(pokemonIn);
+    pokemonIn = pokemonIn;
 
     if (!pokemonIn.sprite) {
       this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {

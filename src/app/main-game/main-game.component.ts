@@ -565,10 +565,10 @@ export class MainGameComponent implements OnInit {
   }
 
   performTrade(pokemon: PokemonItem): void {
-    this.pkmnIn = pokemon;
+    this.pkmnIn = structuredClone(pokemon);;
     this.pkmnOut = this.currentContextPokemon;
     this.pkmnTradeTitle = "Trade!";
-    this.trainerService.performTrade(this.currentContextPokemon, pokemon);
+    this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
     if (!this.lessExplanations) {
@@ -644,13 +644,13 @@ export class MainGameComponent implements OnInit {
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
 
     this.pkmnOut = pokemonOut;
-    this.pkmnIn = pokemonIn;
+    this.pkmnIn = structuredClone(pokemonIn);
     this.pkmnEvoTitle = "Evolution!"
-    this.trainerService.replaceForEvolution(pokemonOut, pokemonIn);
+    this.trainerService.replaceForEvolution(this.pkmnOut, this.pkmnIn);
 
     if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
       this.expShareUsed = true;
-      this.expSharePokemon = pokemonIn;
+      this.expSharePokemon = this.pkmnIn;
       this.secondEvolution();
     } else if (this.trainerService.hasItem('exp-share') && this.expShareUsed === true) {
       this.expShareUsed = false;
