@@ -468,7 +468,7 @@ export class MainGameComponent implements OnInit {
     if (trainerTeam.length === 1) {
       this.currentContextPokemon = trainerTeam[0];
     } else {
-      this.auxPokemonList = structuredClone(trainerTeam);
+      this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('select-from-pokemon-list');
     }
@@ -540,7 +540,7 @@ export class MainGameComponent implements OnInit {
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
     } else {
-      this.auxPokemonList = structuredClone(trainerTeam);
+      this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'Which Pokémon?';
       this.gameStateService.setNextState('steal-pokemon');
       this.gameStateService.setNextState('select-from-pokemon-list');
