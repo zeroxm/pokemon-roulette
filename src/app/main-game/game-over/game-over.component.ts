@@ -137,10 +137,6 @@ export class GameOverComponent implements OnInit, OnDestroy {
     });
   }
 
-  showHistory() {
-
-  }
-
   private getCurrentLeader(): GymLeader {
 
     let currentLeader = null

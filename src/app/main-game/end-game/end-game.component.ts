@@ -132,8 +132,4 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
       console.error('Error capturing image:', error);
     });
   }
-
-  showHistory() {
-
-  }
 }

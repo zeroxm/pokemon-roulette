@@ -3,6 +3,8 @@ A game involving Pokémon and Roulettes
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.2.
 
+And you may play it here: [https://zeroxm.github.io/pokemon-roulette/](https://zeroxm.github.io/pokemon-roulette/)
+
 ## Development server
 
 To start a local development server, run:
