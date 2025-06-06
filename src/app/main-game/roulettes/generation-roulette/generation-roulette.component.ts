@@ -3,12 +3,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelComponent } from '../../../wheel/wheel.component';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { GenerationService } from '../../../services/generation-service/generation.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generation-roulette',
   imports: [
     CommonModule,
-    WheelComponent
+    WheelComponent,
+    TranslatePipe
   ],
   templateUrl: './generation-roulette.component.html',
   styleUrl: './generation-roulette.component.css'

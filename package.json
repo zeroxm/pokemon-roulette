@@ -22,6 +22,8 @@
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
     "@ng-icons/bootstrap-icons": "^30.2.0",
     "@ng-icons/core": "^30.2.0",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "dom-to-image-more": "^3.5.0",
