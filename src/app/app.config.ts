@@ -1,10 +1,14 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { bootstrapArrowRepeat, bootstrapClock, bootstrapController,
          bootstrapCupHotFill, bootstrapMap, bootstrapPcDisplayHorizontal, bootstrapPeopleFill, bootstrapShare } from '@ng-icons/bootstrap-icons';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
+
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) => new TranslateHttpLoader(http, './i18n/', 'json');
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +24,14 @@ export const appConfig: ApplicationConfig = {
         bootstrapMap
        }),
     provideHttpClient(),
-    provideZoneChangeDetection({ eventCoalescing: true })]
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    importProvidersFrom([TranslateModule.forRoot({
+      loader: {
+        provide: TranslateHttpLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })])
+  ]
 };
 
