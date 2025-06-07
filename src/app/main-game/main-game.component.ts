@@ -48,6 +48,7 @@ import { DarkModeService } from '../services/dark-mode-service/dark-mode.service
 import { Observable } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
 import { EventSource } from './EventSource';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 @Component({
   selector: 'app-main-game',
@@ -87,8 +88,9 @@ import { EventSource } from './EventSource';
     CoffeeButtonComponent,
     NgIconsModule,
     NgbCollapseModule,
-    CharacterSelectComponent
-],
+    CharacterSelectComponent,
+    LanguageSelectorComponent
+  ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
 })
