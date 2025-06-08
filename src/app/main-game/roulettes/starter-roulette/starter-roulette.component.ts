@@ -5,10 +5,11 @@ import { GenerationItem } from '../../../interfaces/generation-item';
 import { starterByGeneration } from './starter-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-starter-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './starter-roulette.component.html',
   styleUrl: './starter-roulette.component.css'
 })

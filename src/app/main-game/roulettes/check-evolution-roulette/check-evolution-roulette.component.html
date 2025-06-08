@@ -1,4 +1,4 @@
-<h1 class="title">Does your Pokémon Evolve?</h1>
+<h1 class="title">{{ 'game.main.roulette.evolution.title' | translate }}</h1>
 <app-wheel  #wheel
             [items]="evolveOdds"
             (selectedItemEvent)="onItemSelected($event)">

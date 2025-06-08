@@ -9,13 +9,15 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-storage-pc',
   imports: [
     DragDropModule,
     CommonModule,
-    NgIconsModule
+    NgIconsModule,
+    TranslatePipe
   ],
   templateUrl: './storage-pc.component.html',
   styleUrl: './storage-pc.component.css'
@@ -72,7 +74,7 @@ export class StoragePcComponent implements OnInit {
         this.storedPokemon = this.trainerService.getStored();
         this.pcTurningOn.volume = 0.30;
         this.pcTurningOn.play();
-  
+
         this.modalService.open(this.pcStorageModal, {
           centered: true,
           size: 'lg',
@@ -98,7 +100,7 @@ export class StoragePcComponent implements OnInit {
       }
       return pokemon.sprite?.front_default || 'place-holder-pixel.png';
     }
-  
+
     drop(event: CdkDragDrop<PokemonItem[]>) {
       if (event.previousContainer === event.container) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);

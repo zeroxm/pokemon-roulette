@@ -3,10 +3,11 @@ import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team-rocket-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './team-rocket-roulette.component.html',
   styleUrl: './team-rocket-roulette.component.css'
 })

@@ -2,10 +2,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { PokemonService } from '../../../services/pokemon-service/pokemon.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-mysterious-egg-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './mysterious-egg-roulette.component.html',
   styleUrl: './mysterious-egg-roulette.component.css'
 })

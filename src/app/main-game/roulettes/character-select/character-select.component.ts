@@ -5,11 +5,13 @@ import { GenerationItem } from '../../../interfaces/generation-item';
 import { TrainerService } from '../../../services/trainer-service/trainer.service';
 import { CommonModule } from '@angular/common';
 import { DarkModeService } from '../../../services/dark-mode-service/dark-mode.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-character-select',
   imports: [
-    CommonModule
+    CommonModule,
+    TranslatePipe
   ],
   templateUrl: './character-select.component.html',
   styleUrl: './character-select.component.css'
