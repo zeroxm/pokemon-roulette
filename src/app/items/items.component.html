@@ -1,6 +1,6 @@
 <div class="item-box rounded-3 p-3 m-3"
      [ngClass]="(darkMode | async) ? 'border white-shadow' : 'black-border shadow'">
-    <h2 class="title">Items</h2>
+    <h2 class="title">{{ 'items.title' | translate }}</h2>
     <div class="item-section container">
         <div class="row gap-2">
             <div class="item-container rounded-3 col-2 cursor-pointer"
@@ -64,6 +64,5 @@
                 ngbTooltip="{{getItemText(11)}}" (click)="useItem(trainerItems[11])">
         </div>
         </div>
-
     </div>
 </div>

@@ -7,7 +7,7 @@
                         <app-dark-mode-toggle></app-dark-mode-toggle>
                         <label>
                             <input type="checkbox" [checked]="lessExplanations" (change)="toggleLessExplanations()" />
-                            Less Explanations
+                            {{ 'game.main.explanations' | translate }}
                         </label>
                     </div>
                     <app-coffee-button></app-coffee-button>
@@ -144,7 +144,7 @@
 
 <ng-template #itemActivateModal let-modal>
     <div class="modal-body">
-        <h1>{{ currentContextItem.text }} activates!</h1>
+        <h1>{{ currentContextItem.text }} {{ 'game.main.activates' | translate }}</h1>
         <div class="item-panel">
             <img [src]="currentContextItem.sprite" height="128">
             <div class="message">
@@ -188,20 +188,20 @@
 
 <ng-template #teamRocketFailsModal let-modal>
     <div class="modal-body">
-        <h1>Team Rocket Fails</h1>
+        <h1>{{ 'game.main.rocket.fails' | translate }}</h1>
         <div class="explain-panel">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png"
                  alt="Forte igual o Entei!"
                  height="128">
             <div class="message">
-                <p>Entei emerges</p>
-                <p>Entei prevents Team Rocket from stealing your Pokémon.</p>
-                <p>Everything is fine now.</p>
+                <p>{{ 'game.main.rocket.entei.emerges' | translate }}</p>
+                <p>{{ 'game.main.rocket.entei.prevents' | translate}}</p>
+                <p>{{ 'game.main.rocket.entei.fine' | translate }}</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Thanks Entei!</button>
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.rocket.entei.thanks' | translate}}</button>
     </div>
 </ng-template>
 
@@ -211,7 +211,7 @@
         <div class="pokemon-switch-panel">
             <img [src]="pkmnOut.sprite?.front_default" height="128">
             <div class="message">
-                <p>Your {{ pkmnOut.text }} evolved into {{ pkmnIn.text }}!</p>
+                <p>{{ 'game.main.evol.your' | translate }} {{ pkmnOut.text }} {{ 'game.main.evol.evolved' | translate }} {{ pkmnIn.text }}!</p>
             </div>
             <img [src]="pkmnIn.sprite?.front_default" height="128">
         </div>
@@ -227,7 +227,7 @@
         <div class="pokemon-switch-panel">
             <img [src]="pkmnOut.sprite?.front_default" height="128">
             <div class="message">
-                <p>You sent {{ pkmnOut.text }} and received a {{ pkmnIn.text }}!</p>
+                <p>{{ 'game.main.trade.sent' | translate }} {{ pkmnOut.text }} {{ 'game.main.trade.received' | translate }} {{ pkmnIn.text }}!</p>
             </div>
             <img [src]="pkmnIn.sprite?.front_default" height="128">
         </div>

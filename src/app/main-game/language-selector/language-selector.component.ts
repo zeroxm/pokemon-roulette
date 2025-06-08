@@ -2,13 +2,15 @@ import {Component, inject} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '../../interfaces/language';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgIcon} from '@ng-icons/core';
 
 @Component({
   selector: 'app-language-selector',
   templateUrl: './language-selector.component.html',
   styleUrl: './language-selector.component.css',
   imports: [
-    NgbDropdownModule
+    NgbDropdownModule,
+    NgIcon
   ],
   standalone: true
 })
