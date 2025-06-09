@@ -248,7 +248,39 @@
     }
   },
   "items": {
-    "title": "Items"
+    "title": "Items",
+    "potion": {
+      "name": "Potion",
+      "description": "Potion let you spin again whenever you would lose a Gym battle !"
+    },
+    "rare-candy": {
+      "name": "Rare Candy",
+      "description": "Use a Rare Candy to Evolve your Pokémon anytime !"
+    },
+    "running-shoes": {
+      "name": "Running Shoes",
+      "description": "Running Shoes let you spin the wheel twice between Gyms !"
+    },
+    "super-potion": {
+      "name": "Super Potion",
+      "description": "Super Potion let you spin again up to two times whenever you would lose a Gym battle !"
+    },
+    "x-attack": {
+      "name": "X Attack",
+      "description": "X Attack makes your Team stronger !"
+    },
+    "exp-share": {
+      "name": "Exp Share",
+      "description": "Whenever a Pokémon evolves, Exp Share makes another Pokémon evolve !"
+    },
+    "hyper-potion": {
+      "name": "Hyper Potion",
+      "description": "Hyper Potion let you spin again up to three times whenever you would lose a Gym battle !"
+    },
+    "escape-rope": {
+      "name": "Escape Rope",
+      "description": "Escape Rope saves you from bad situations !"
+    }
   },
   "trainer": {
     "storage": {
