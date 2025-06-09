@@ -104,7 +104,9 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.wheelCtx.fillStyle = '#fff';
         this.wheelCtx.font = this.fontSize + 'px Arial';
         this.wheelCtx.textAlign = 'right';
+        console.log('ITEM TEXT : ', item);
         const translatedText = this.translateService.instant(item.text);
+        console.log('TRANSLATED TEXT : ', translatedText);
         this.wheelCtx.fillText(translatedText, radius - 7, 5);
         this.wheelCtx.restore();
       }

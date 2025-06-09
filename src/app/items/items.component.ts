@@ -5,7 +5,7 @@ import { ItemItem } from '../interfaces/item-item';
 import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../services/trainer-service/trainer.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-items',
@@ -16,8 +16,10 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class ItemsComponent implements OnInit, OnDestroy {
 
-  constructor(private darkModeService: DarkModeService,
-              private trainerService: TrainerService
+  constructor(
+    private darkModeService: DarkModeService,
+    private trainerService: TrainerService,
+    private translateService: TranslateService
   ) {
     this.darkMode = this.darkModeService.darkMode$;
   }
@@ -55,7 +57,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   getItemText(index: number): string {
     if (this.trainerItems[index]) {
-      return this.trainerItems[index].text;
+      return this.translateService.instant(this.trainerItems[index].text);
     }
     return 'Empty';
   }

@@ -8,13 +8,14 @@ import { BadgesComponent } from "./badges/badges.component";
 import { Badge } from '../interfaces/badge';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trainer-team',
   imports: [CommonModule,
     NgbTooltipModule,
     BadgesComponent,
-    StoragePcComponent],
+    StoragePcComponent, TranslatePipe],
   templateUrl: './trainer-team.component.html',
   styleUrls: ['./trainer-team.component.css']
 })
