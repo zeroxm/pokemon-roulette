@@ -248,7 +248,39 @@
     }
   },
   "items": {
-    "title": "Objets"
+    "title": "Objets",
+    "potion": {
+      "name": "Potion",
+      "description": "La Potion te permet de rejouer si tu perds un combat d'Arène !"
+    },
+    "rare-candy": {
+      "name": "Super Bonbon",
+      "description": "Utilise un Super Bonbon pour faire évoluer ton Pokémon à tout moment !"
+    },
+    "running-shoes": {
+      "name": "Chaussures de Sport",
+      "description": "Les Chaussures de Sport te permettent de faire tourner la roue deux fois entre deux Arènes !"
+    },
+    "super-potion": {
+      "name": "Super Potion",
+      "description": "La Super Potion te permet de rejouer jusqu’à deux fois si tu perds un combat d’Arène !"
+    },
+    "x-attack": {
+      "name": "Attaque +",
+      "description": "L'Attaque + rend ton équipe plus puissante !"
+    },
+    "exp-share": {
+      "name": "Multi Exp",
+      "description": "À chaque fois qu’un Pokémon évolue, le Multi Exp fait évoluer un autre Pokémon !"
+    },
+    "hyper-potion": {
+      "name": "Hyper Potion",
+      "description": "L’Hyper Potion te permet de rejouer jusqu’à trois fois si tu perds un combat d’Arène !"
+    },
+    "escape-rope": {
+      "name": "Corde Sortie",
+      "description": "La Corde Sortie te sauve des mauvaises situations !"
+    }
   },
   "trainer": {
     "storage": {
