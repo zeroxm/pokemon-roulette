@@ -1,109 +1,4 @@
 {
-	"coffee.donations": "Les dons, quel que soit leur montant, aideront à motiver le développement de nouvelles fonctionnalités.",
-	"coffee.help": "Si vous voulez aider, vous pouvez faire un don.",
-	"coffee.hope": "Que vous fassiez un don ou que vous partagiez simplement le jeu avec d'autres, j'espère que vous vous amuserez !",
-	"coffee.question": "Vous amusez-vous à faire tourner la roue ?",
-	"coffee.support": "Façons de soutenir",
-	"coffee.thanks": "Merci d’avoir joué !",
-	"credits.ack": "Crédits et remerciements",
-	"credits.auranrage": "Pour l'aide avec les données de certaines roulettes",
-	"credits.bulbapedia": "Pour les sprites de leur dresseur qui sont utilisés dans ce projet",
-	"credits.check": "Découvrez leur contenu :)",
-	"credits.createdBy": "Créé par",
-	"credits.feedback": "Si vous souhaitez partager vos retours, contactez-moi sur",
-	"credits.hope": "J’espère que vous pourrez vous amuser avec vos amis et votre famille en jouant à ce jeu :)",
-	"credits.images": "Tous les contenus d’images de Pokémon et des éléments liés à Pokémon sont la propriété de The Pokémon Company.",
-	"credits.inspiration": "Ce jeu s’inspire fortement du Victory Road Run de",
-	"credits.pokeapi": "Comme ressource pour les données et les sprites de ce jeu",
-	"credits.rod": "Tests et recherche de bugs",
-	"credits.specialThanks": "Remerciements spéciaux",
-	"credits.thanks": "Merci d’avoir joué !",
-	"credits.willian": "Tests et recherche de bugs",
-	"darkmode": "Mode sombre",
-	"game.coffee.buy": "M’offrir un café ?",
-	"game.credits.title": "Crédits",
-	"game.end.champion": "Champion de",
-	"game.end.congrats": "Félicitations!",
-	"game.end.share": "Partager",
-	"game.main.activates": "s'active!",
-	"game.main.evol.evolved": "a évolué en",
-	"game.main.evol.your": "Votre",
-	"game.main.explanations": "Moins d'explications",
-	"game.main.game.button.title": "Jeu principal",
-	"game.main.rocket.entei.emerges": "Entei apparaît",
-	"game.main.rocket.entei.fine": "Tout va bien maintenant.",
-	"game.main.rocket.entei.prevents": "Entei empêche la Team Rocket de voler votre Pokémon.",
-	"game.main.rocket.entei.thanks": "Merci Entei!",
-	"game.main.rocket.fails": "La Team Rocket échoue",
-	"game.main.roulette.adventure.title": "Que fais-tu entre les arènes ?",
-	"game.main.roulette.cave.cave": "cave Pokémon?",
-	"game.main.roulette.cave.explore.title": "Dans la cave",
-	"game.main.roulette.cave.which": "Quelle",
-	"game.main.roulette.champion.champion": "Champion",
-	"game.main.roulette.champion.go": "C'est parti !",
-	"game.main.roulette.champion.use": "A utilisé un(e)",
-	"game.main.roulette.champion.victory": "Victoire ?",
-	"game.main.roulette.character.boy": "Garçon",
-	"game.main.roulette.character.gender": "Es-tu un garçon ou une fille ?",
-	"game.main.roulette.character.girl": "Fille",
-	"game.main.roulette.character.welcome": "Bienvenue à",
-	"game.main.roulette.egg.title": "Quel Pokémon ?",
-	"game.main.roulette.elite.elite4": "Elite 4",
-	"game.main.roulette.elite.go": "C'est parti !",
-	"game.main.roulette.elite.prep.congrats": "Félicitations !",
-	"game.main.roulette.elite.prep.defeated": "Tu as vaincu les 8 Champions.",
-	"game.main.roulette.elite.prep.go": "C'est parti !",
-	"game.main.roulette.elite.prep.ready": "Prépare-toi maintenant pour le Conseil 4.",
-	"game.main.roulette.elite.prep.title": "Que fais-tu avant le Conseil 4 ?",
-	"game.main.roulette.elite.prep.victoryRoad": "Entre dans la Route Victoire !",
-	"game.main.roulette.elite.title": "Victoire ?",
-	"game.main.roulette.elite.use": "A utilisé un(e)",
-	"game.main.roulette.evolution.title": "Ton Pokémon évolue-t-il ?",
-	"game.main.roulette.fishing.title": "Pêche",
-	"game.main.roulette.fossil.fossil": "Fossile ?",
-	"game.main.roulette.fossil.which": "Quel",
-	"game.main.roulette.generation.pkmn": "Pokémon ?",
-	"game.main.roulette.generation.title": "Gen ?",
-	"game.main.roulette.generation.which": "Quel ",
-	"game.main.roulette.gym.against": "Combat contre",
-	"game.main.roulette.gym.defeated": "Vaincu ?",
-	"game.main.roulette.gym.go": "C'est parti !",
-	"game.main.roulette.gym.used": "A utilisé un(e)",
-	"game.main.roulette.item.found": "A trouvé un(e)",
-	"game.main.roulette.item.title": "Quel objet ?",
-	"game.main.roulette.legendary.chance": "Chance de capture",
-	"game.main.roulette.legendary.legendary": "Légendaire ?",
-	"game.main.roulette.legendary.which": "Quel",
-	"game.main.roulette.rival.against": "Combat contre",
-	"game.main.roulette.rival.go": "C'est parti !",
-	"game.main.roulette.rival.victory": "Victoire ?",
-	"game.main.roulette.shiny.title": "Shiny ?",
-	"game.main.roulette.snorlax.outcome": "Résultat",
-	"game.main.roulette.start.title": "Que faire en premier ?",
-	"game.main.roulette.starter.title": "Pokémon de départ ?",
-	"game.main.roulette.teamrocket.double": "Pour vous jouer un mauvais tour.",
-	"game.main.roulette.teamrocket.meowth": "Miaouss, oui la guerre !",
-	"game.main.roulette.teamrocket.teamrocket": "Team Rocket!",
-	"game.main.roulette.teamrocket.title": "Résultat",
-	"game.main.roulette.teamrocket.trouble": "Nous sommes de retour.",
-	"game.main.roulette.trade.title": "Échanger contre ?",
-	"game.main.trade.received": "et reçu un(e)",
-	"game.main.trade.sent": "Vous avez envoyé",
-	"game.map.vermilion": "Vous êtes à Carmin-sur-Mer",
-	"game.over.share": "Partager",
-	"game.over.stoppedBy": "Partie arrêtée par le",
-	"game.over.title": "La partie est terminée",
-	"game.restart.action": "Redémarrer",
-	"game.restart.cancel": "Non, revenir en arrière !",
-	"game.restart.confirm": "Oui, c’est parti !",
-	"game.restart.title": "Redémarrer la partie ?",
-	"game.restart.warning": "Vous recommencerez depuis le début.",
-	"items.title": "Objets",
-	"trainer.storage.access": "Accéder au PC",
-	"trainer.storage.logout": "Se déconnecter",
-	"trainer.storage.stored": "Stocké",
-	"trainer.storage.team": "Dans l’équipe",
-	"wheel.spin": "Cliquez pour tourner !",
   "badges": {
     "boulder": "Badge Roche",
     "cascade": "Badge Cascade",
@@ -174,5 +69,196 @@
     "ice": "Badge Glace",
     "dark": "Badge Ténèbres",
     "dragon": "Badge Dragon"
+  },
+  "coffee": {
+    "donations": "Les dons, quel que soit leur montant, aideront à motiver le développement de nouvelles fonctionnalités.",
+    "help": "Si vous voulez aider, vous pouvez faire un don.",
+    "hope": "Que vous fassiez un don ou que vous partagiez simplement le jeu avec d'autres, j'espère que vous vous amuserez !",
+    "question": "Vous amusez-vous à faire tourner la roue ?",
+    "support": "Façons de soutenir",
+    "thanks": "Merci d’avoir joué !"
+  },
+  "credits": {
+    "ack": "Crédits et remerciements",
+    "auranrage": "Pour l'aide avec les données de certaines roulettes",
+    "bulbapedia": "Pour les sprites de leur dresseur qui sont utilisés dans ce projet",
+    "check": "Découvrez leur contenu :)",
+    "createdBy": "Créé par",
+    "feedback": "Si vous souhaitez partager vos retours, contactez-moi sur",
+    "hope": "J’espère que vous pourrez vous amuser avec vos amis et votre famille en jouant à ce jeu :)",
+    "images": "Tous les contenus d’images de Pokémon et des éléments liés à Pokémon sont la propriété de The Pokémon Company.",
+    "inspiration": "Ce jeu s’inspire fortement du Victory Road Run de",
+    "pokeapi": "Comme ressource pour les données et les sprites de ce jeu",
+    "rod": "Tests et recherche de bugs",
+    "specialThanks": "Remerciements spéciaux",
+    "thanks": "Merci d’avoir joué !",
+    "willian": "Tests et recherche de bugs"
+  },
+  "darkmode": "Mode sombre",
+  "game": {
+    "coffee": {
+      "buy": "M’offrir un café ?"
+    },
+    "credits": {
+      "title": "Crédits"
+    },
+    "end": {
+      "champion": "Champion de",
+      "congrats": "Félicitations!",
+      "share": "Partager"
+    },
+    "main": {
+      "activates": "s'active!",
+      "evol": {
+        "evolved": "a évolué en",
+        "your": "Votre"
+      },
+      "explanations": "Moins d'explications",
+      "game": {
+        "button": {
+          "title": "Jeu principal"
+        }
+      },
+      "rocket": {
+        "entei": {
+          "emerges": "Entei apparaît",
+          "fine": "Tout va bien maintenant.",
+          "prevents": "Entei empêche la Team Rocket de voler votre Pokémon.",
+          "thanks": "Merci Entei!"
+        },
+        "fails": "La Team Rocket échoue"
+      },
+      "roulette": {
+        "adventure": {
+          "title": "Que fais-tu entre les arènes ?"
+        },
+        "cave": {
+          "cave": "cave Pokémon?",
+          "explore": {
+            "title": "Dans la cave"
+          },
+          "which": "Quelle"
+        },
+        "champion": {
+          "champion": "Champion",
+          "go": "C'est parti !",
+          "use": "A utilisé un(e)",
+          "victory": "Victoire ?"
+        },
+        "character": {
+          "boy": "Garçon",
+          "gender": "Es-tu un garçon ou une fille ?",
+          "girl": "Fille",
+          "welcome": "Bienvenue à"
+        },
+        "egg": {
+          "title": "Quel Pokémon ?"
+        },
+        "elite": {
+          "elite4": "Elite 4",
+          "go": "C'est parti !",
+          "prep": {
+            "congrats": "Félicitations !",
+            "defeated": "Tu as vaincu les 8 Champions.",
+            "go": "C'est parti !",
+            "ready": "Prépare-toi maintenant pour le Conseil 4.",
+            "title": "Que fais-tu avant le Conseil 4 ?",
+            "victoryRoad": "Entre dans la Route Victoire !"
+          },
+          "title": "Victoire ?",
+          "use": "A utilisé un(e)"
+        },
+        "evolution": {
+          "title": "Ton Pokémon évolue-t-il ?"
+        },
+        "fishing": {
+          "title": "Pêche"
+        },
+        "fossil": {
+          "fossil": "Fossile ?",
+          "which": "Quel"
+        },
+        "generation": {
+          "pkmn": "Pokémon ?",
+          "title": "Gen ?",
+          "which": "Quel "
+        },
+        "gym": {
+          "against": "Combat contre",
+          "defeated": "Vaincu ?",
+          "go": "C'est parti !",
+          "used": "A utilisé un(e)"
+        },
+        "item": {
+          "found": "A trouvé un(e)",
+          "title": "Quel objet ?"
+        },
+        "legendary": {
+          "chance": "Chance de capture",
+          "legendary": "Légendaire ?",
+          "which": "Quel"
+        },
+        "rival": {
+          "against": "Combat contre",
+          "go": "C'est parti !",
+          "victory": "Victoire ?"
+        },
+        "shiny": {
+          "title": "Shiny ?"
+        },
+        "snorlax": {
+          "outcome": "Résultat"
+        },
+        "start": {
+          "title": "Que faire en premier ?"
+        },
+        "starter": {
+          "title": "Pokémon de départ ?"
+        },
+        "teamrocket": {
+          "double": "Pour vous jouer un mauvais tour.",
+          "meowth": "Miaouss, oui la guerre !",
+          "teamrocket": "Team Rocket!",
+          "title": "Résultat",
+          "trouble": "Nous sommes de retour."
+        },
+        "trade": {
+          "title": "Échanger contre ?"
+        }
+      },
+      "trade": {
+        "received": "et reçu un(e)",
+        "sent": "Vous avez envoyé"
+      }
+    },
+    "map": {
+      "vermilion": "Vous êtes à Carmin-sur-Mer"
+    },
+    "over": {
+      "share": "Partager",
+      "stoppedBy": "Partie arrêtée par le",
+      "title": "La partie est terminée"
+    },
+    "restart": {
+      "action": "Redémarrer",
+      "cancel": "Non, revenir en arrière !",
+      "confirm": "Oui, c’est parti !",
+      "title": "Redémarrer la partie ?",
+      "warning": "Vous recommencerez depuis le début."
+    }
+  },
+  "items": {
+    "title": "Objets"
+  },
+  "trainer": {
+    "storage": {
+      "access": "Accéder au PC",
+      "logout": "Se déconnecter",
+      "stored": "Stocké",
+      "team": "Dans l’équipe"
+    }
+  },
+  "wheel": {
+    "spin": "Cliquez pour tourner !"
   }
 }

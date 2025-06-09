@@ -4,7 +4,7 @@ import { DarkModeService } from '../services/dark-mode-service/dark-mode.service
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wheel',
@@ -41,8 +41,11 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   currentSegment: string = '-';
   clickAudio = new Audio('./click.mp3');
 
-  constructor(private darkModeService: DarkModeService,
-              private gameStateService: GameStateService) {
+  constructor(
+    private darkModeService: DarkModeService,
+    private gameStateService: GameStateService,
+    private translateService: TranslateService
+  ) {
     this.darkMode = this.darkModeService.darkMode$;
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
@@ -101,7 +104,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.wheelCtx.fillStyle = '#fff';
         this.wheelCtx.font = this.fontSize + 'px Arial';
         this.wheelCtx.textAlign = 'right';
-        this.wheelCtx.fillText(item.text, radius - 7, 5);
+        const translatedText = this.translateService.instant(item.text);
+        this.wheelCtx.fillText(translatedText, radius - 7, 5);
         this.wheelCtx.restore();
       }
 
