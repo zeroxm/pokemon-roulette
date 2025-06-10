@@ -2,10 +2,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-explore-cave-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './explore-cave-roulette.component.html',
   styleUrl: './explore-cave-roulette.component.css'
 })

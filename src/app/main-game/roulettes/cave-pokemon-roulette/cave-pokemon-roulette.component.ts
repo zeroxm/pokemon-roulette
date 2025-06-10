@@ -5,10 +5,11 @@ import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { cavePokemonByGeneration } from './cave-pokemon-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cave-pokemon-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './cave-pokemon-roulette.component.html',
   styleUrl: './cave-pokemon-roulette.component.css'
 })

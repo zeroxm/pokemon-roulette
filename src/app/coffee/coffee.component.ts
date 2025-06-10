@@ -3,6 +3,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
 import { MainGameButtonComponent } from "../main-game-button/main-game-button.component";
 import { CommonModule } from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-coffee',
@@ -10,8 +11,9 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     NgIconsModule,
     DarkModeToggleComponent,
-    MainGameButtonComponent
-],
+    MainGameButtonComponent,
+    TranslatePipe
+  ],
   templateUrl: './coffee.component.html',
   styleUrl: './coffee.component.css'
 })

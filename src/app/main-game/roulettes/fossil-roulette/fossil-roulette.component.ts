@@ -5,10 +5,11 @@ import { fossilByGeneration } from './fossil-by-generation';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fossil-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './fossil-roulette.component.html',
   styleUrl: './fossil-roulette.component.css'
 })

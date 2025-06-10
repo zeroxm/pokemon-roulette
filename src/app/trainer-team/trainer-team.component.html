@@ -21,7 +21,7 @@
                               [src]="getSprite(trainerTeam[0])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[0].text}}">
+                              ngbTooltip="{{trainerTeam[0].text | translate }}">
                     </div>
                     <div class="pokemon-container rounded-3 col-3"
                          [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
@@ -29,7 +29,7 @@
                               [src]="getSprite(trainerTeam[1])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[1].text}}">
+                              ngbTooltip="{{trainerTeam[1].text | translate }}">
                     </div>
                     <div class="pokemon-container rounded-3 col-3"
                          [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
@@ -37,7 +37,7 @@
                               [src]="getSprite(trainerTeam[2])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[2].text}}">
+                              ngbTooltip="{{trainerTeam[2].text | translate }}">
                     </div>
                     <div class="pokemon-container rounded-3 col-3"
                          [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
@@ -45,7 +45,7 @@
                               [src]="getSprite(trainerTeam[3])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[3].text}}">
+                              ngbTooltip="{{trainerTeam[3].text | translate }}">
                     </div>
                     <div class="pokemon-container rounded-3 col-3"
                          [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
@@ -53,7 +53,7 @@
                               [src]="getSprite(trainerTeam[4])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[4].text}}">
+                              ngbTooltip="{{trainerTeam[4].text | translate }}">
                     </div>
                     <div class="pokemon-container rounded-3 col-3"
                          [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
@@ -61,7 +61,7 @@
                               [src]="getSprite(trainerTeam[5])"
                               class="img-fluid"
                               placement="bottom"
-                              ngbTooltip="{{trainerTeam[5].text}}">
+                              ngbTooltip="{{trainerTeam[5].text | translate }}">
                     </div>
                </div>
                <div class="col-12 p-0">

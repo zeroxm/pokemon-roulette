@@ -12,12 +12,14 @@ import { ItemItem } from '../../../interfaces/item-item';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../services/trainer-service/trainer.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gym-battle-roulette',
   imports: [
     CommonModule,
-    WheelComponent
+    WheelComponent,
+    TranslatePipe
   ],
   templateUrl: './gym-battle-roulette.component.html',
   styleUrl: './gym-battle-roulette.component.css'

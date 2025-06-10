@@ -2,10 +2,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { PokemonService } from '../../../services/pokemon-service/pokemon.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-trade-pokemon-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './trade-pokemon-roulette.component.html',
   styleUrl: './trade-pokemon-roulette.component.css'
 })

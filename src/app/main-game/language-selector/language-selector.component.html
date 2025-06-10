@@ -1,0 +1,31 @@
+<div>
+  <div ngbDropdown>
+    <button
+      class="btn btn-primary dropdown-toggle"
+      type="button"
+      id="languageDropdown"
+      ngbDropdownToggle
+    >
+      <span class="me-2">{{ currentLanguage.flag }}</span>
+      <span>{{ currentLanguage.name }}</span>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="languageDropdown">
+      @for (language of languages; track language.code) {
+        <ng-container>
+          <button
+            type="button"
+            class="dropdown-item"
+            [class.active]="language.code === currentLanguage.code"
+            (click)="changeLanguage(language.code)"
+          >
+            <span class="me-2">{{ language.flag }}</span>
+            <span class="me-2">{{ language.name }}</span>
+            @if (language.code === currentLanguage.code) {
+              <ng-icon name="bootstrapCheck"></ng-icon>
+            }
+          </button>
+        </ng-container>
+      }
+    </div>
+  </div>
+</div>

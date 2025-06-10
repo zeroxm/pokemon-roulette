@@ -5,10 +5,11 @@ import { fishByGeneration } from './fish-by-generation';
 import { GenerationItem } from '../../../interfaces/generation-item';
 import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-fishing-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './fishing-roulette.component.html',
   styleUrl: './fishing-roulette.component.css'
 })

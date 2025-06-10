@@ -6,12 +6,15 @@ import { ItemSpriteService } from '../../../services/item-sprite-service/item-sp
 import { ItemItem } from '../../../interfaces/item-item';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-find-item-roulette',
   imports: [
     CommonModule,
-    WheelComponent],
+    WheelComponent,
+    TranslatePipe
+  ],
   templateUrl: './find-item-roulette.component.html',
   styleUrl: './find-item-roulette.component.css'
 })

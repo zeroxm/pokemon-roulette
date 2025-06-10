@@ -2,10 +2,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-start-adventure-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './start-adventure-roulette.component.html',
   styleUrl: './start-adventure-roulette.component.css'
 })
@@ -26,7 +27,7 @@ export class StartAdventureRouletteComponent {
   onItemSelected(index: number): void {
     switch (index) {
       case 0:
-        this.catchPokemonEvent.emit();        
+        this.catchPokemonEvent.emit();
         break;
       case 1:
         this.battleTrainerEvent.emit('battle-trainer');

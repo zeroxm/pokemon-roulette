@@ -3,10 +3,11 @@ import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './elite-four-prep-roulette.component.html',
   styleUrl: './elite-four-prep-roulette.component.css'
 })

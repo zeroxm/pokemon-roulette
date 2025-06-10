@@ -10,12 +10,14 @@ import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
 // @ts-ignore
 import domtoimage from 'dom-to-image-more'
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-end-game',
   imports: [
     CommonModule,
-    NgIconsModule
+    NgIconsModule,
+    TranslatePipe
   ],
   templateUrl: './end-game.component.html',
   styleUrl: './end-game.component.css'

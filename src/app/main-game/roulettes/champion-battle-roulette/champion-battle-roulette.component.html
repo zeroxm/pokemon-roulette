@@ -1,4 +1,4 @@
-<h1 class="title">Victory?</h1>
+<h1 class="title">{{ 'game.main.roulette.champion.victory' | translate }}</h1>
 <p class="respin-reason">{{ (retries > 0) ? currentItem.text+" x"+retries : ""}}</p>
 <app-wheel
     #wheel
@@ -8,7 +8,7 @@
 
 <ng-template #championPresentationModal let-modal>
     <div class="modal-body">
-        <h1>Champion {{ champion.name }}!</h1>
+        <h1>{{ 'game.main.roulette.champion.champion' | translate }} {{ champion.name }}!</h1>
         <div class="champion-panel">
             <img [src]="champion.sprite"
                  alt="{{champion.name}}"
@@ -19,13 +19,13 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Let's Go!</button>
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.roulette.champion.go' | translate }}</button>
     </div>
 </ng-template>
 
 <ng-template #itemUsedModal let-modal>
     <div class="modal-body">
-        <h1>Used a {{ currentItem.text }}!</h1>
+        <h1>{{ 'game.main.roulette.champion.use' | translate }} {{ currentItem.text }}!</h1>
         <div class="item-panel">
             <img [src]="currentItem.sprite" height="128">
             <div class="quotes">

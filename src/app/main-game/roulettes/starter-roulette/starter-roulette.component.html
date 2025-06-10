@@ -1,4 +1,4 @@
-<h1 class="title">Starter?</h1>
+<h1 class="title">{{ 'game.main.roulette.starter.title' | translate }}</h1>
 <app-wheel  #wheel
             [items]="getStarters()"
             (selectedItemEvent)="onItemSelected($event)">

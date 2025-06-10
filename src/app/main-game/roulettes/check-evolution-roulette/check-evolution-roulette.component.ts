@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-check-evolution-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './check-evolution-roulette.component.html',
   styleUrl: './check-evolution-roulette.component.css'
 })

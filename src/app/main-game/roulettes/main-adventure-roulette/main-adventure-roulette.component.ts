@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main-adventure-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './main-adventure-roulette.component.html',
   styleUrl: './main-adventure-roulette.component.css'
 })

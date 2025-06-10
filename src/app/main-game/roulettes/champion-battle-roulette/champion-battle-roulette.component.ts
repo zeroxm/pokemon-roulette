@@ -12,20 +12,22 @@ import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { ItemItem } from '../../../interfaces/item-item';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { GymLeader } from '../../../interfaces/gym-leader';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-champion-battle-roulette',
   imports: [
     CommonModule,
-    WheelComponent
+    WheelComponent,
+    TranslatePipe
   ],
   templateUrl: './champion-battle-roulette.component.html',
   styleUrl: './champion-battle-roulette.component.css'
 })
 export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
-  
+
   championByGeneration = championByGeneration;
-  
+
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
@@ -34,10 +36,10 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
 
   private gameSubscription: Subscription | null = null;
   private generationSubscription: Subscription | null = null;
-  
+
   @ViewChild('championPresentationModal', { static: true }) championPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
-  
+
   generation!: GenerationItem;
   trainerTeam!: PokemonItem[];
   trainerItems!: ItemItem[];
@@ -146,12 +148,12 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     let currentChampion = this.championByGeneration[this.generation.id][0];
 
     if (this.generation.id === 7) {
- 
+
        const leaderNames = currentChampion.name.split('/');
        const leaderSprites = currentChampion.sprite;
        const leaderQuotes = currentChampion.quotes;
        const randomIndex = Math.floor(Math.random() * leaderNames.length);
- 
+
        currentChampion = {
          name: leaderNames[randomIndex],
          sprite: leaderSprites[randomIndex],

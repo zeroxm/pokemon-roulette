@@ -2,11 +2,13 @@ import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angula
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgIconsModule } from '@ng-icons/core';
 import { GameStateService } from '../services/game-state-service/game-state.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-restart-game',
   imports: [
-    NgIconsModule
+    NgIconsModule,
+    TranslatePipe
   ],
   templateUrl: './restart-game.component.html',
   styleUrl: './restart-game.component.css'

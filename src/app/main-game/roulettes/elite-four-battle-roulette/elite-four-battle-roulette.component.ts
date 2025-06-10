@@ -12,12 +12,14 @@ import { ItemItem } from '../../../interfaces/item-item';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { GymLeader } from '../../../interfaces/gym-leader';
 import { CommonModule } from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
   imports: [
     CommonModule,
-    WheelComponent
+    WheelComponent,
+    TranslatePipe
   ],
   templateUrl: './elite-four-battle-roulette.component.html',
   styleUrl: './elite-four-battle-roulette.component.css'

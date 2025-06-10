@@ -1,11 +1,11 @@
-<h1 class="title">{{currentLeader.name}} Defeated?</h1>
+<h1 class="title">{{currentLeader.name}} {{ 'game.main.roulette.gym.defeated' | translate }}</h1>
 <p class="respin-reason">{{ (retries > 0) ? currentItem.text+" x"+retries : ""}}</p>
 <app-wheel #wheel [items]="victoryOdds" (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>
 
 <ng-template #gymLeaderPresentationModal let-modal>
     <div class="modal-body">
-        <h1>Battle against {{ currentLeader.name }}!</h1>
+        <h1>{{ 'game.main.roulette.gym.against' | translate }} {{ currentLeader.name }}!</h1>
         <div class="leader-panel">
             <img [src]="currentLeader.sprite" alt="{{currentLeader.name}}" height="128">
             <div class="quotes">
@@ -14,13 +14,13 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Let's Go!</button>
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.roulette.gym.go' | translate }}</button>
     </div>
 </ng-template>
 
 <ng-template #itemUsedModal let-modal>
     <div class="modal-body">
-        <h1>Used a {{ currentItem.text }}!</h1>
+        <h1>{{ 'game.main.roulette.gym.used' | translate }} {{ currentItem.text }}!</h1>
         <div class="item-panel">
             <img [src]="currentItem.sprite" height="128">
             <div class="quotes">

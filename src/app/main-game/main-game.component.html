@@ -7,13 +7,14 @@
                         <app-dark-mode-toggle></app-dark-mode-toggle>
                         <label>
                             <input type="checkbox" [checked]="lessExplanations" (change)="toggleLessExplanations()" />
-                            Less Explanations
+                            {{ 'game.main.explanations' | translate }}
                         </label>
                     </div>
                     <app-coffee-button></app-coffee-button>
                 </div>
                 <div class="d-flex flex-row flex-sm-column gap-2 justify-content-between">
                     <div class="d-flex flex-column gap-2">
+                      <app-language-selector></app-language-selector>
                         <app-restart-game (restartEvent)="resetGameAction()"></app-restart-game>
                         <app-credits-button></app-credits-button>
                     </div>
@@ -143,11 +144,11 @@
 
 <ng-template #itemActivateModal let-modal>
     <div class="modal-body">
-        <h1>{{ currentContextItem.text }} activates!</h1>
+        <h1>{{ currentContextItem.text | translate }} {{ 'game.main.activates' | translate }}</h1>
         <div class="item-panel">
             <img [src]="currentContextItem.sprite" height="128">
             <div class="message">
-                <p>{{ currentContextItem.description }}</p>
+                <p>{{ currentContextItem.description | translate }}</p>
             </div>
         </div>
     </div>
@@ -158,11 +159,11 @@
 
 <ng-template #altPrizeModal let-modal>
     <div class="modal-body">
-        <h1>{{ altPrizeText }}</h1>
+        <h1>{{ altPrizeText | translate }}</h1>
         <div class="item-panel">
             <img [src]="altPrizeSprite" height="128">
             <div class="message">
-                <p>{{ altPrizeDescription }}</p>
+                <p>{{ altPrizeDescription | translate }}</p>
             </div>
         </div>
     </div>
@@ -176,7 +177,7 @@
         <h1>{{ infoModalTitle }}</h1>
         <div class="explain-panel">
             <div class="message">
-                <p>{{ infoModalMessage }}</p>
+                <p>{{ infoModalMessage | translate }}</p>
             </div>
         </div>
     </div>
@@ -187,30 +188,30 @@
 
 <ng-template #teamRocketFailsModal let-modal>
     <div class="modal-body">
-        <h1>Team Rocket Fails</h1>
+        <h1>{{ 'game.main.rocket.fails' | translate }}</h1>
         <div class="explain-panel">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png"
                  alt="Forte igual o Entei!"
                  height="128">
             <div class="message">
-                <p>Entei emerges</p>
-                <p>Entei prevents Team Rocket from stealing your Pokémon.</p>
-                <p>Everything is fine now.</p>
+                <p>{{ 'game.main.rocket.entei.emerges' | translate }}</p>
+                <p>{{ 'game.main.rocket.entei.prevents' | translate}}</p>
+                <p>{{ 'game.main.rocket.entei.fine' | translate }}</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Thanks Entei!</button>
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.rocket.entei.thanks' | translate}}</button>
     </div>
 </ng-template>
 
 <ng-template #pkmnEvoModal let-modal>
     <div class="modal-body">
-        <h1>{{ pkmnEvoTitle }}</h1>
+        <h1>{{ pkmnEvoTitle | translate }}</h1>
         <div class="pokemon-switch-panel">
             <img [src]="pkmnOut.sprite?.front_default" height="128">
             <div class="message">
-                <p>Your {{ pkmnOut.text }} evolved into {{ pkmnIn.text }}!</p>
+                <p>{{ 'game.main.evol.your' | translate }} {{ pkmnOut.text }} {{ 'game.main.evol.evolved' | translate }} {{ pkmnIn.text }}!</p>
             </div>
             <img [src]="pkmnIn.sprite?.front_default" height="128">
         </div>
@@ -222,11 +223,11 @@
 
 <ng-template #pkmnTradeModal let-modal>
     <div class="modal-body">
-        <h1>{{ pkmnTradeTitle }}</h1>
+        <h1>{{ pkmnTradeTitle | translate }}</h1>
         <div class="pokemon-switch-panel">
             <img [src]="pkmnOut.sprite?.front_default" height="128">
             <div class="message">
-                <p>You sent {{ pkmnOut.text }} and received a {{ pkmnIn.text }}!</p>
+                <p>{{ 'game.main.trade.sent' | translate }} {{ pkmnOut.text | translate }} {{ 'game.main.trade.received' | translate }} {{ pkmnIn.text }}!</p>
             </div>
             <img [src]="pkmnIn.sprite?.front_default" height="128">
         </div>

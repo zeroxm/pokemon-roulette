@@ -1,10 +1,10 @@
 <div class="d-flex flex-column align-items-center h-100">
-    <h4 class="title-text mt-5">Run is Over</h4>
+    <h4 class="title-text mt-5">{{ 'game.over.title' | translate }}</h4>
     <div class="card mx-3 my-3"
          [ngClass]="(darkMode) ?  'black-card' : 'white-card'">
         <div class="card-body" >
             <div #captureArea>
-                <h4 class="card-title text-center">Run stopped by the {{currentRound < 8 ? 'Gym Leader' : currentRound < 12 ? 'Elite Four' : 'Champion'}} {{currentLeader?.name}}</h4>
+                <h4 class="card-title text-center">{{ 'game.over.stoppedBy' | translate }} {{currentRound < 8 ? 'Gym Leader' : currentRound < 12 ? 'Elite Four' : 'Champion'}} {{currentLeader?.name}}</h4>
                 <div class="d-flex row">
                     <div class="d-flex flex-column col-8 ps-0 pe-4">
                         <div class="d-flex">
@@ -53,7 +53,7 @@
             <div class="d-flex justify-content-end gap-2">
                 <button class="btn btn-success"
                         (click)="shareResults()">
-                        <ng-icon name="bootstrapShare"></ng-icon> Share
+                        <ng-icon name="bootstrapShare"></ng-icon> {{ 'game.over.share' | translate }}
                 </button>
             </div>
         </div>
