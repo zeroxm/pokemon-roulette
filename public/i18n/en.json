@@ -1685,5 +1685,40 @@
       "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
       "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
     }
+  },
+  "rival": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Let's check out our Pokémon! Come on, I'll take you on!"
+    },
+    "silver": {
+      "name": "Silver",
+      "quote1": "I too have a good Pokémon. I'll show you what I mean!"
+    },
+    "wally": {
+      "name": "Wally",
+      "quote1": "Please see how much my training has accomplished!"
+    },
+    "barry": {
+      "name": "Barry",
+      "quote1": "You aren't the only one who's getting tougher! I'll prove it to you! Let's go!"
+    },
+    "n": {
+      "name": "N",
+      "quote1": "Let me hear your Pokémon's voice!"
+    },
+    "calem-serena": {
+      "name": "Calem/Serena",
+      "quote1": "I'm a Pokémon Trainer, I want to see things that make Pokémon special.",
+      "quote2": "My Pokémon and I will show you what makes us special!"
+    },
+    "gladion": {
+      "name": "Gladion",
+      "quote1": "Battle me. I won't take no for an answer."
+    },
+    "bede": {
+      "name": "Bede",
+      "quote1": "It's time to prove I'm a notch above the competition to everyone in the Galar region"
+    }
   }
 }
