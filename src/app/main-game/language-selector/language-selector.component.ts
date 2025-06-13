@@ -21,6 +21,7 @@ export class LanguageSelectorComponent {
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'pt', name: 'Português', flag: '🇧🇷' }
   ]
 
   currentLanguage: Language = this.languages[0];
