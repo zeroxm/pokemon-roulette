@@ -3,549 +3,556 @@ import { GymLeader } from "../../../interfaces/gym-leader";
 export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     1: [
         {
-            name: 'Brock',
+            name: 'gymLeaders.brock.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brock.png",
             quotes: [
-                "Fine, then! Show me your best!"
+                'gymLeaders.brock.quote1'
             ]
         },
         {
-            name: 'Misty',
+            name: 'gymLeaders.misty.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Misty.png",
             quotes: [
-                "My policy is an all out offensive with Water-type Pokémon!"
+                'gymLeaders.misty.quote1'
             ]
         },
         {
-            name: 'Lt. Surge',
+            name: 'gymLeaders.surge.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lt_Surge.png",
             quotes: [
-                "I tell you, kid, electric Pokémon saved me during the war!",
-                "They zapped my enemies into paralysis!",
-                "The same as I'll do to you!"
+                "gymLeaders.surge.quote1",
+                "gymLeaders.surge.quote2",
+                "gymLeaders.surge.quote3",
             ]
         },
         {
-            name: 'Erika',
+            name: 'gymLeaders.erika.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Erika.png",
             quotes: [
-                "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
-                "Very well, but I shall not lose."
+                "gymLeaders.erika.quote1",
+                "gymLeaders.erika.quote2",
             ]
         },
         {
-            name: 'Koga',
+            name: 'gymLeaders.koga.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_HGSS_Koga.png",
             quotes: [
-                "Very well, I shall show you true terror as a ninja master!",
-                "Despair to the creeping horror of Poison-type Pokémon!"
+                "gymLeaders.koga.quote1",
+                "gymLeaders.koga.quote2",
             ]
         },
         {
-            name: 'Sabrina',
+            name: 'gymLeaders.sabrina.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Sabrina.png",
             quotes: [
-                "I had a vision of your arrival!",
-                "I dislike battling, but if you wish, I will show you my powers!"
+                "gymLeaders.sabrina.quote1",
+                "gymLeaders.sabrina.quote2",
             ]
         },
         {
-            name: 'Blaine',
+            name: 'gymLeaders.blaine.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Blaine.png",
             quotes: [
-                "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!", 
-                "My fiery Pokémon are all ready with intense heat! "
+                "gymLeaders.blaine.quote1",
+                "gymLeaders.blaine.quote2",
             ]
         },
         {
-            name: 'Giovanni',
+            name: 'gymLeaders.giovanni.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Giovanni.png",
             quotes: [
-                "So be it. This time, I'm not holding back!",
-                "You shall face Giovanni, the greatest Trainer!" 
+                "gymLeaders.giovanni.quote1",
+                "gymLeaders.giovanni.quote2",
             ]
         },
     ],
     2: [
-        {   name: 'Falkner',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Falkner.png",
-            quotes: [
-                "I'll show you the real power of the magnificent bird Pokémon!"
-            ]
-        },
-        {   name: 'Bugsy',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Bugsy.png",
-            quotes: [
-                "My research is going to make me an authority on Bug-type Pokémon!",
-                "Let me demonstrate what I've learned from my studies."
-            ]
-        },
-        {   name: 'Whitney',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Whitney.png",
-            quotes: [
-                "Pokémon are super cute!",
-                "You want to battle?",
-                "I'm warning you--I'm good!"
-            ]
-        },
-        {
-            name: 'Morty',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Morty.png",
-            quotes: [
-                "It's said that a rainbow-hued Pokémon will come down to appear before a truly powerful Trainer.",
-                "I believe that person is me!",
-                "You're going to help me reach that level!"
-            ]
-        },
-        {
-            name: 'Chuck',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png",
-            quotes: [
-                "I have to warn you that I am a strong Trainer training every day under this waterfall!",
-                "Come on. We shall do battle!"
-            ]
-        },
-        {
-            name: 'Jasmine',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Jasmine.png",
-            quotes: [
-                "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
-                "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
-            ]
-        },
-        {
-            name: 'Pryce',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Pryce.png",
-            quotes: [
-                "I have been training Pokémon since before you were born. I do not lose easily.",
-                "I, Pryce - the Winter Trainer - shall demonstrate my power!"
-            ]
-        },
-        {
-            name: 'Clair',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clair.png",
-            quotes: [
-                "I am Clair. The world's best Dragon-type master.",
-                "As a Gym Leader, I will use my full power against any opponent!"
-            ]
-        }
+      {
+        name: 'gymLeaders.falkner.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Falkner.png",
+        quotes: [
+          "gymLeaders.falkner.quote1"
+        ]
+      },
+      {
+        name: 'gymLeaders.bugsy.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Bugsy.png",
+        quotes: [
+          "gymLeaders.bugsy.quote1",
+          "gymLeaders.bugsy.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.whitney.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Whitney.png",
+        quotes: [
+          "gymLeaders.whitney.quote1",
+          "gymLeaders.whitney.quote2",
+          "gymLeaders.whitney.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.morty.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Morty.png",
+        quotes: [
+          "gymLeaders.morty.quote1",
+          "gymLeaders.morty.quote2",
+          "gymLeaders.morty.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.chuck.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png",
+        quotes: [
+          "gymLeaders.chuck.quote1",
+          "gymLeaders.chuck.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.jasmine.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Jasmine.png",
+        quotes: [
+          "gymLeaders.jasmine.quote1",
+          "gymLeaders.jasmine.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.pryce.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Pryce.png",
+        quotes: [
+          "gymLeaders.pryce.quote1",
+          "gymLeaders.pryce.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.clair.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clair.png",
+        quotes: [
+          "gymLeaders.clair.quote1",
+          "gymLeaders.clair.quote2"
+        ]
+      }
     ],
     3: [
-        {
-            name: 'Roxanne',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roxanne.png",
-            quotes: [
-                "Now, would you kindly demonstrate how you battle with your Pokémon?"
-            ]
-        },
-        {
-            name: 'Brawly',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brawly.png",
-            quotes: [
-                "I'm Brawly! Dewford's Gym Leader!",
-                "So you want to challenge me? Let me see what you're made of!"
-            ]
-        },
-        {
-            name: 'Wattson',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wattson.png",
-            quotes: [
-                "Wahahahah! Now, that is amusing!",
-                "I, Wattson, the Leader of Mauville Gym, shall electrify you!"
-            ]
-        },
-        {
-            name: 'Flannery',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Flannery.png",
-            quotes: [
-                "Welcome!",
-                "No, I mean… I'm Flannery, and I'm in charge here!",
-                "I'm gonna, uh, demonstrate the hot moves we've honed in this land!"
-            ]
-        },
-        {
-            name: 'Norman',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Norman.png",
-            quotes: [
-                "I will do everything within my power as a Gym Leader to win!",
-                "You'd better give it your best shot, too!"
-            ]
-        },
-        {
-            name: 'Winona',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Winona.png",
-            quotes: [
-                "I am Winona. I am the Leader of the Fortree Pokémon Gym.",
-                "Witness the elegant choreography of my bird Pokémon and me!"
-            ]
-        },
-        {
-            name: 'Liza & Tate',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_RS_Tate_and_Liza.png",
-            quotes: [
-                "Were you surprised? That there are two Gym Leaders?",
-                "We're twins!",
-                "This combination of ours... Can you beat it?"
-            ]
-        },
-        {
-            name: 'Wallace',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wallace.png",
-            quotes: [
-                "Allow me to formally introduce myself. I am Wallace. The Gym Leader of Sootopolis.",
-                "Now, show me. Show me the power you wield with your Pokémon."
-            ]
-        },
+      {
+        name: 'gymLeaders.roxanne.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roxanne.png",
+        quotes: [
+          "gymLeaders.roxanne.quote1"
+        ]
+      },
+      {
+        name: 'gymLeaders.brawly.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brawly.png",
+        quotes: [
+          "gymLeaders.brawly.quote1",
+          "gymLeaders.brawly.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.wattson.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wattson.png",
+        quotes: [
+          "gymLeaders.wattson.quote1",
+          "gymLeaders.wattson.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.flannery.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Flannery.png",
+        quotes: [
+          "gymLeaders.flannery.quote1",
+          "gymLeaders.flannery.quote2",
+          "gymLeaders.flannery.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.norman.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Norman.png",
+        quotes: [
+          "gymLeaders.norman.quote1",
+          "gymLeaders.norman.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.winona.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Winona.png",
+        quotes: [
+          "gymLeaders.winona.quote1",
+          "gymLeaders.winona.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.liza-tate.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_RS_Tate_and_Liza.png",
+        quotes: [
+          "gymLeaders.liza-tate.quote1",
+          "gymLeaders.liza-tate.quote2",
+          "gymLeaders.liza-tate.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.wallace.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wallace.png",
+        quotes: [
+          "gymLeaders.wallace.quote1",
+          "gymLeaders.wallace.quote2"
+        ]
+      },
     ],
     4: [
-        {
-            name: 'Roark',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roark.png",
-            quotes: [
-                "This is the Oreburgh Pokémon Gym! I'm Roark, the Gym Leader!",
-                "As the Gym Leader, I need to see your potential as a Trainer."
-            ]
-        },
-        {
-            name: 'Gardenia',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Gardenia.png",
-            quotes: [
-                "You have a winning aura about you.",
-                "So, anyway, this will be fun. Let's have our battle!"
-            ]
-        },
-        {
-            name: 'Maylene',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Maylene.png",
-            quotes: [
-                "I will do the best I can as the Gym Leader.",
-                "I take battling very seriously. Whenever you're ready!"
-            ]
-        },
-        {
-            name: 'Crasher Wake',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Crasher_Wake.png",
-            quotes: [
-                "My Pokémon were toughened up by stormy white waters!",
-                "Victory will be ours! Come on, let's get it done!"
-            ]
-        },
-        {
-            name: 'Fantina',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Fantina.png",
-            quotes: [
-                "Ohohoho!! Finally, you have arrived!",
-                "But I shall win. That is what a Gym Leader does, non?"
-            ]
-        },
-        {
-            name: 'Byron',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Byron.png",
-            quotes: [
-                "You've defeated my son, Roark.",
-                "But that's no surprise. He still has much to learn.",
-                "I, Byron, will take your challenge!"
-            ]
-        },
-        {
-            name: 'Candice',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Candice.png",
-            quotes: [
-                "Sure thing! I was waiting for someone tough!",
-                "It's all about focus! I'll show you just what I mean. Get ready to lose!"
-            ]
-        },
-        {
-            name: 'Volkner',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Volkner.png",
-            quotes: [
-                "Sigh... I'm Volkner, the Gym Leader.",
-                "I hope you're the Trainer who'll make me remember how fun it is to battle!"
-            ]
-        },
+      {
+        name: 'gymLeaders.roark.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roark.png",
+        quotes: [
+          "gymLeaders.roark.quote1",
+          "gymLeaders.roark.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.gardenia.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Gardenia.png",
+        quotes: [
+          "gymLeaders.gardenia.quote1",
+          "gymLeaders.gardenia.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.maylene.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Maylene.png",
+        quotes: [
+          "gymLeaders.maylene.quote1",
+          "gymLeaders.maylene.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.crasherWake.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Crasher_Wake.png",
+        quotes: [
+          "gymLeaders.crasherWake.quote1",
+          "gymLeaders.crasherWake.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.fantina.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Fantina.png",
+        quotes: [
+          "gymLeaders.fantina.quote1",
+          "gymLeaders.fantina.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.byron.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Byron.png",
+        quotes: [
+          "gymLeaders.byron.quote1",
+          "gymLeaders.byron.quote2",
+          "gymLeaders.byron.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.candice.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Candice.png",
+        quotes: [
+          "gymLeaders.candice.quote1",
+          "gymLeaders.candice.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.volkner.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Volkner.png",
+        quotes: [
+          "gymLeaders.volkner.quote1",
+          "gymLeaders.volkner.quote2"
+        ]
+      },
     ],
     5: [
-        {
-            name: 'Cilan/Chili/Cress',
-            sprite: [
-                'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cilan.png',
-                'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chili.png',
-                'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cress.png'
-            ],
-            quotes: [
-                "So, um, if you're OK with me, I'll, um, put everything I've got into being, er, you know, your opponent.",
-                "Yeeeeooow! Time to play with FIRE!! I'm the strongest of us brothers!",
-                "What incredible luck for you--you get to battle the best among the three of us."
-            ]
-        },
-        {
-            name: 'Lenora',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lenora.png",
-            quotes: [
-                "The director of the Nacrene Museum and the Nacrene Gym's Leader is me! Lenora!",
-                "Well then, challenger, I'm going to research how you battle with the Pokémon you've so lovingly raised!"
-            ]
-        },
-        {
-            name: 'Burgh',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Burgh.png",
-            quotes: [
-                "My bug Pokémon are scurrying with excitement about getting to battle you.",
-                "Let's get straight to it!"
-            ]
-        },
-        {
-            name: 'Elesa',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Elesa.png",
-            quotes: [
-                "Welcome to the main stage!",
-                "My beloved Pokémon and your Pokémon shall compete!",
-                "We're going to see whose star shines brightest!"
-            ]
-        },
-        {
-            name: 'Clay',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clay.png",
-            quotes: [
-                "Think it's about time to see fer myself what it is about yer skills that makes a Gym Leader like Elesa take such a shine to ya."
-            ]
-        },
-        {
-            name: 'Skyla',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Skyla.png",
-            quotes: [
-                "Hee-hee! I've been waiting for you.",
-                "Did you enjoy flying with the help of the Mistralton Gym cannons?",
-            ]
-        },
-        {
-            name: 'Brycen',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brycen.png",
-            quotes: [
-                "I'm Brycen... Pleased to meet you...",
-                "You appear ready to face a Gym Leader. Then... Bring it!"
-            ]
-        },
-        {
-            name: 'Drayden/Iris',
-            sprite: [
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Drayden.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Iris.png"
-            ],
-            quotes: [
-                "Welcome. Thank you for coming. I am Opelucid Pokémon Gym's Leader, Drayden. I'm searching for now is a young Trainer who can show me a bright future. Perhaps you can show me that future, the way Iris has?",
-                "Hi! I'm Iris, the amazing strong Gym Leader! Tell me... What Pokémon are you using? How will you fight? Ooh, I'm super curious, so let's just get started!",
-            ]
-        }
+      {
+        name: 'gymLeaders.cilan-chili-cress.name',
+        sprite: [
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cilan.png',
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chili.png',
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cress.png'
+        ],
+        quotes: [
+          "gymLeaders.cilan-chili-cress.quote1",
+          "gymLeaders.cilan-chili-cress.quote2",
+          "gymLeaders.cilan-chili-cress.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.lenora.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lenora.png",
+        quotes: [
+          "gymLeaders.lenora.quote1",
+          "gymLeaders.lenora.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.burgh.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Burgh.png",
+        quotes: [
+          "gymLeaders.burgh.quote1",
+          "gymLeaders.burgh.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.elesa.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Elesa.png",
+        quotes: [
+          "gymLeaders.elesa.quote1",
+          "gymLeaders.elesa.quote2",
+          "gymLeaders.elesa.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.clay.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clay.png",
+        quotes: [
+          "gymLeaders.clay.quote1"
+        ]
+      },
+      {
+        name: 'gymLeaders.skyla.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Skyla.png",
+        quotes: [
+          "gymLeaders.skyla.quote1",
+          "gymLeaders.skyla.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.brycen.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brycen.png",
+        quotes: [
+          "gymLeaders.brycen.quote1",
+          "gymLeaders.brycen.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.drayden-iris.name',
+        sprite: [
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Drayden.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Iris.png"
+        ],
+        quotes: [
+          "gymLeaders.drayden-iris.quote1",
+          "gymLeaders.drayden-iris.quote2"
+        ]
+      }
+
     ],
     6: [
-        {
-            name: 'Viola',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSViola.png",
-            quotes: [
-                "It's fantastic! Just fantastic! A great subject for my camera!",
-                "My lens is always focused on victory--I won't let anything ruin this shot!"
-            ]
-        },
-        {
-            name: 'Grant',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGrant.png",
-            quotes: [
-                "I've been waiting in eager anticipation! For a worthy challenger to appear!",
-                "I hope you'll show me that your skill as a Trainer surpasses even mine."
-            ]
-        },
-        {
-            name: 'Korrina',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKorrina.png",
-            quotes: [
-                "I'm not exactly sure, but I think Lucario is saying it wants to battle with you.",
-            ]
-        },
-        {
-            name: 'Ramos',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRamos.png",
-            quotes: [
-                "So what'd yeh think, whippersnapper?",
-                "My sturdy plants are a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
-            ]
-        },
-        {
-            name: 'Clemont',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSClemont.png",
-            quotes: [
-                "Let's both do our best in battle."
-            ]
-        },
-        {
-            name: 'Valerie',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSValerie.png",
-            quotes: [
-                "Oh, if it isn't a young Trainer...",
-                "The elusive Fairy types may appear frail as a breeze and delicate as a bloom, but they are strong."
-            ]
-        },
-        {
-            name: 'Olympia',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlympia.png",
-            quotes: [
-                "A ritual to decide your fate and future. ",
-                "The battle begins!"
-            ]
-        },
-        {
-            name: 'Wulfric',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSWulfric.png",
-            quotes: [
-                "Ice is both extremely hard and terribly fragile at the same time.",
-                "Let's get this show on the road!"
-            ]
-        },
+      {
+        name: 'gymLeaders.viola.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSViola.png",
+        quotes: [
+          "gymLeaders.viola.quote1",
+          "gymLeaders.viola.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.grant.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGrant.png",
+        quotes: [
+          "gymLeaders.grant.quote1",
+          "gymLeaders.grant.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.korrina.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKorrina.png",
+        quotes: [
+          "gymLeaders.korrina.quote1"
+        ]
+      },
+      {
+        name: 'gymLeaders.ramos.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRamos.png",
+        quotes: [
+          "gymLeaders.ramos.quote1",
+          "gymLeaders.ramos.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.clemont.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSClemont.png",
+        quotes: [
+          "gymLeaders.clemont.quote1"
+        ]
+      },
+      {
+        name: 'gymLeaders.valerie.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSValerie.png",
+        quotes: [
+          "gymLeaders.valerie.quote1",
+          "gymLeaders.valerie.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.olympia.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlympia.png",
+        quotes: [
+          "gymLeaders.olympia.quote1",
+          "gymLeaders.olympia.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.wulfric.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSWulfric.png",
+        quotes: [
+          "gymLeaders.wulfric.quote1",
+          "gymLeaders.wulfric.quote2"
+        ]
+      },
+
     ],
     7: [
-        {
-            name: 'Ilima',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSIlima_USUM.png",
-            quotes: [
-                "Greetings! Captain Ilima here.",
-                "My trial is held in Verdant Cavern. The trial of Captain Ilima.",
-            ]
-        },
-        {
-            name: 'Hala',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHala_2_USUM.png",
-            quotes: [
-                "Ho!",
-                "I am Hala, the kahuna of Melemele Island.",
-                "Let the grand trial begin!"
-            ]
-        },
-        {
-            name: 'Lana/Kiawe/Mallow',
-            sprite: [
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSLana_USUM.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKiawe.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMallow.png"
-            ],
-            quotes: [
-                "Hello. I'm Lana. I serve as the captain of Brooklet Hill.",
-                "I am Kiawe. My Marowak and I are students of the ancient dances.",
-                "I'm Mallow, one of the captains here! Your Pokémon look ready to cook with gas!"
-            ]
-        },
-        {
-            name: 'Olivia',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlivia_2_USUM.png",
-            quotes: [
-                "Now you face the grand trial of the kahuna—me!",
-                "Get ready for your hardest Pokémon battle yet on Akala!"
-            ]
-        },
-        {
-            name: 'Sophocles/Acerola',
-            sprite: [
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSSophocles.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAcerola.png"
-            ],
-            quotes: [
-                "Mm-hmm. I've gotta show Big Mo how strong I can be...",
-                "My trial takes place at the abandoned site where the supermarket used to be."
-            ]
-        },
-        {
-            name: 'Nanu',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNanu_2.png",
-            quotes: [
-                "You there.",
-                "I'm an island kahuna, you know. Battle against me.",
-            ]
-        },
-        {
-            name: 'Mina',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMina_2_USUM.png",
-            quotes: [
-                "Have a battle against Captain Mina!",
-                "Me and my team are all full-powered to the max!"
-            ]
-        },
-        {
-            name: 'Hapu',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHapu.png",
-            quotes: [
-                "This is the first grand trial of Kahuna Hapu! I will battle you with everything that I have got!"
-            ]
-        },
+      {
+        name: 'gymLeaders.ilima.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSIlima_USUM.png",
+        quotes: [
+          "gymLeaders.ilima.quote1",
+          "gymLeaders.ilima.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.hala.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHala_2_USUM.png",
+        quotes: [
+          "gymLeaders.hala.quote1",
+          "gymLeaders.hala.quote2",
+          "gymLeaders.hala.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.lana-kiawe-mallow.name',
+        sprite: [
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSLana_USUM.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKiawe.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMallow.png"
+        ],
+        quotes: [
+          "gymLeaders.lana-kiawe-mallow.quote1",
+          "gymLeaders.lana-kiawe-mallow.quote2",
+          "gymLeaders.lana-kiawe-mallow.quote3"
+        ]
+      },
+      {
+        name: 'gymLeaders.olivia.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlivia_2_USUM.png",
+        quotes: [
+          "gymLeaders.olivia.quote1",
+          "gymLeaders.olivia.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.sophocles-acerola.name',
+        sprite: [
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSSophocles.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAcerola.png"
+        ],
+        quotes: [
+          "gymLeaders.sophocles-acerola.quote1",
+          "gymLeaders.sophocles-acerola.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.nanu.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNanu_2.png",
+        quotes: [
+          "gymLeaders.nanu.quote1",
+          "gymLeaders.nanu.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.mina.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMina_2_USUM.png",
+        quotes: [
+          "gymLeaders.mina.quote1",
+          "gymLeaders.mina.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.hapu.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHapu.png",
+        quotes: [
+          "gymLeaders.hapu.quote1"
+        ]
+      },
+
     ],
     8: [
-        {
-            name: 'Milo',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMilo.png",
-            quotes: [
-                "Sure seems like you understand Pokémon real well.",
-                "This is gonna be a doozy of a battle!"
-            ]
-        },
-        {
-            name: 'Nessa',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNessa.png",
-            quotes: [
-                "Welcome, honored Gym Challenger!",
-                "No matter what kind of plan your refined mind may be plotting, my partner and I will be sure to sink it."
-            ]
-        },
-        {
-            name: 'Kabu',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKabu.png",
-            quotes: [
-                "Welcome! I am Kabu, the Fire-type Gym Leader.",
-                "The match is decided by which side is able to unleash their true potential."
-            ]
-        },
-        {
-            name: 'Bea/Allister',
-            sprite: [
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSBea.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAllister.png"
-            ],
-            quotes: [
-                "Welcome, Gym Challenger. I'm Bea. Do you have an unshakable spirit that won't be moved, no matter how you are attacked? I think I'll just test that out, shall I?",
-                ".'M Allister. H-here...I go..."
-            ]
-        },
-        {
-            name: 'Opal',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOpal.png",
-            quotes: [
-                "I'm Opal, the Gym Leader.",
-                "Let me have a look at how you and your partner Pokémon behave!"
-            ]
-        },
-        {
-            name: 'Gordie/Melony',
-            sprite: [
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGordie.png",
-                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMelony.png"
-            ],
-            quotes: [
-                "Hey there. The name's Gordie. Let's get this over with, Challenger!",
-                "I am Melony. As you can clearly see, I've assembled a team of all Ice-type Pokémon. All righty, I suppose we should get started.",
-            ]
-        },
-        {
-            name: 'Piers',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPiers.png",
-            quotes: [
-                "*sigh*... So you're finally here, huh?",
-                "Get ready for a mosh pit with me and my party! Spikemuth, it's time to rock!"
-            ]
-        },
-        {
-            name: 'Raihan',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRaihan.png",
-            quotes: [
-                "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
-                "As his greatest rival, I guess that I—Raihan—will have to show you!"
-            ]
-        }
+      {
+        name: 'gymLeaders.milo.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMilo.png",
+        quotes: [
+          "gymLeaders.milo.quote1",
+          "gymLeaders.milo.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.nessa.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNessa.png",
+        quotes: [
+          "gymLeaders.nessa.quote1",
+          "gymLeaders.nessa.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.kabu.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKabu.png",
+        quotes: [
+          "gymLeaders.kabu.quote1",
+          "gymLeaders.kabu.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.bea-allister.name',
+        sprite: [
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSBea.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAllister.png"
+        ],
+        quotes: [
+          "gymLeaders.bea-allister.quote1",
+          "gymLeaders.bea-allister.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.opal.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOpal.png",
+        quotes: [
+          "gymLeaders.opal.quote1",
+          "gymLeaders.opal.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.gordie-melony.name',
+        sprite: [
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGordie.png",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMelony.png"
+        ],
+        quotes: [
+          "gymLeaders.gordie-melony.quote1",
+          "gymLeaders.gordie-melony.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.piers.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPiers.png",
+        quotes: [
+          "gymLeaders.piers.quote1",
+          "gymLeaders.piers.quote2"
+        ]
+      },
+      {
+        name: 'gymLeaders.raihan.name',
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRaihan.png",
+        quotes: [
+          "gymLeaders.raihan.quote1",
+          "gymLeaders.raihan.quote2"
+        ]
+      }
+
     ]
 }
