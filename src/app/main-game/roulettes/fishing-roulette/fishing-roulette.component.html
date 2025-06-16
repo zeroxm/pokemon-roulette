@@ -1,4 +1,4 @@
-<h1 class="title">{{generation.text}} Fishing</h1>
+<h1 class="title">{{generation.text}} {{ 'game.main.roulette.fishing.title' | translate }}</h1>
 <app-wheel  #wheel
             [items]="getFromGeneration()"
             (selectedItemEvent)="onItemSelected($event)">

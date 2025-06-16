@@ -2,6 +2,15 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
+<<<<<<< feature/translations
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { bootstrapArrowRepeat, bootstrapCheck, bootstrapClock, bootstrapController,
+         bootstrapCupHotFill, bootstrapMap, bootstrapPcDisplayHorizontal, bootstrapPeopleFill, bootstrapShare } from '@ng-icons/bootstrap-icons';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) => new TranslateHttpLoader(http, '/i18n/', '.json');
+=======
 import { provideHttpClient, HttpClient } from '@angular/common/http';
 
 import {
@@ -24,10 +33,36 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 
+>>>>>>> main
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
+<<<<<<< feature/translations
+    provideIcons(
+      { bootstrapArrowRepeat,
+        bootstrapCheck,
+        bootstrapClock,
+        bootstrapController,
+        bootstrapCupHotFill,
+        bootstrapPcDisplayHorizontal,
+        bootstrapPeopleFill,
+        bootstrapShare,
+        bootstrapMap
+       }),
+    provideHttpClient(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    importProvidersFrom([TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: 'en'
+    })])
+  ]
+};
+=======
     provideIcons({
       bootstrapArrowRepeat,
       bootstrapClock,
@@ -40,6 +75,7 @@ export const appConfig: ApplicationConfig = {
     }),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
+>>>>>>> main
 
     importProvidersFrom(
       TranslateModule.forRoot({

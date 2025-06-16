@@ -1,12 +1,12 @@
 <button type="button" class="btn" [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
   (click)="showPCModal()">
   <ng-icon name="bootstrapPcDisplayHorizontal"></ng-icon>
-  Access PC
+  {{ 'trainer.storage.access' | translate }}
 </button>
 
 <ng-template #pcStorageModal let-modal>
   <div class="modal-body" cdkDropListGroup>
-    <h2>On Team</h2>
+    <h2>{{ 'trainer.storage.team' | translate }}</h2>
     <div  id="trainerTeam"
           cdkDropList
           cdkDropListOrientation="mixed"
@@ -21,7 +21,7 @@
             </div>
           }
     </div>
-    <h2>Stored</h2>
+    <h2>{{ 'trainer.storage.stored' | translate }}</h2>
     <div  id="storedPokemon"
           cdkDropList
           cdkDropListOrientation="mixed"
@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="logOut()">Logout </button>
+    <button type="button" class="btn btn-outline-dark" (click)="logOut()">{{ 'trainer.storage.logout' | translate }}</button>
   </div>
 </ng-template>
 

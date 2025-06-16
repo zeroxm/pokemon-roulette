@@ -1,8 +1,11 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-generation-map',
-  imports: [],
+  imports: [
+    TranslatePipe
+  ],
   templateUrl: './generation-map.component.html',
   styleUrl: './generation-map.component.css'
 })
@@ -52,7 +55,7 @@ export class GenerationMapComponent implements AfterViewInit, OnChanges {
     this.progressPath.push({ x: 320, y: 180 });
     this.progressPath.push({ x: 517, y: 180 });
     this.progressPath.push({ x: 517, y: 383 });
-    
+
     // Update the player position
     this.playerPosition = { x: 517, y: 383 };
   }

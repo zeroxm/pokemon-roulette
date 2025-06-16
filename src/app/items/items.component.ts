@@ -5,18 +5,21 @@ import { ItemItem } from '../interfaces/item-item';
 import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../services/trainer-service/trainer.service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-items',
   imports: [CommonModule,
-            NgbTooltipModule],
+    NgbTooltipModule, TranslatePipe],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
 export class ItemsComponent implements OnInit, OnDestroy {
 
-  constructor(private darkModeService: DarkModeService,
-              private trainerService: TrainerService
+  constructor(
+    private darkModeService: DarkModeService,
+    private trainerService: TrainerService,
+    private translateService: TranslateService
   ) {
     this.darkMode = this.darkModeService.darkMode$;
   }
@@ -24,7 +27,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   trainerItems!: ItemItem[];
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
 
-  darkMode!: Observable<boolean>; 
+  darkMode!: Observable<boolean>;
   private itemsSubscription!: Subscription;
 
   ngOnInit(): void {
@@ -40,7 +43,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   useItem(item: ItemItem | undefined) {
     if(item) {
       if (item.name === 'rare-candy') {
-        this.rareCandyInterrupt.emit(item);  
+        this.rareCandyInterrupt.emit(item);
       }
     }
   }
@@ -54,7 +57,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   getItemText(index: number): string {
     if (this.trainerItems[index]) {
-      return this.trainerItems[index].text;
+      return this.translateService.instant(this.trainerItems[index].text);
     }
     return 'Empty';
   }

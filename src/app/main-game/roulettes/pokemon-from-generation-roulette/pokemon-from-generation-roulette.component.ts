@@ -5,10 +5,11 @@ import { WheelComponent } from "../../../wheel/wheel.component";
 import { pokemonByGeneration } from './pokemon-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pokemon-from-generation-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './pokemon-from-generation-roulette.component.html',
   styleUrl: './pokemon-from-generation-roulette.component.css'
 })

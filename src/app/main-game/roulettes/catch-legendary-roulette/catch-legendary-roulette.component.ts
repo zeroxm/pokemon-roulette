@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WheelComponent } from "../../../wheel/wheel.component";
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-catch-legendary-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './catch-legendary-roulette.component.html',
   styleUrl: './catch-legendary-roulette.component.css'
 })

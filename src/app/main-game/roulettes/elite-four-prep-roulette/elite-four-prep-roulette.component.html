@@ -1,4 +1,4 @@
-<h1 class="title">What do you do before the Elite 4?</h1>
+<h1 class="title">{{ 'game.main.roulette.elite.prep.title' | translate }}</h1>
 <p class="respin-reason">{{ respinReason }}</p>
 <app-wheel  #wheel
             [items]="actions"
@@ -7,19 +7,19 @@
 
 <ng-template #victoryRoadModal let-modal>
     <div class="modal-body">
-        <h1>Enter the Victory Road!</h1>
+        <h1>{{ 'game.main.roulette.elite.prep.victoryRoad' | translate }}</h1>
         <div class="info-panel">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/494.png"
                  alt="Good Luck!"
                  height="128">
             <div class="dialog">
-                <p>Congratulations!</p>
-                <p>You Defeated the 8 Leaders.</p>
-                <p>Now get ready for the Elite 4.</p>
+                <p>{{ 'game.main.roulette.elite.prep.congrats' | translate }}</p>
+                <p>{{ 'game.main.roulette.elite.prep.defeated' | translate }}</p>
+                <p>{{ 'game.main.roulette.elite.prep.ready' | translate }}</p>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Let's Go!</button>
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.roulette.elite.prep.go' | translate }}</button>
     </div>
 </ng-template>

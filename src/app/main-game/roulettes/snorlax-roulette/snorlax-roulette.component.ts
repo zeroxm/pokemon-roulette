@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { WheelItem } from '../../../interfaces/wheel-item';
 import { WheelComponent } from "../../../wheel/wheel.component";
 import { EventSource } from '../../EventSource';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-snorlax-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './snorlax-roulette.component.html',
   styleUrl: './snorlax-roulette.component.css'
 })

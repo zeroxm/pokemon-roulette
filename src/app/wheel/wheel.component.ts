@@ -4,11 +4,13 @@ import { DarkModeService } from '../services/dark-mode-service/dark-mode.service
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wheel',
   imports: [
-    CommonModule
+    CommonModule,
+    TranslatePipe
   ],
   templateUrl: './wheel.component.html',
   styleUrl: './wheel.component.css'
@@ -39,8 +41,11 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   currentSegment: string = '-';
   clickAudio = new Audio('./click.mp3');
 
-  constructor(private darkModeService: DarkModeService,
-              private gameStateService: GameStateService) {
+  constructor(
+    private darkModeService: DarkModeService,
+    private gameStateService: GameStateService,
+    private translateService: TranslateService
+  ) {
     this.darkMode = this.darkModeService.darkMode$;
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
@@ -84,7 +89,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       const segmentSize = arcSize * item.weight;
       const endAngle = startAngle + segmentSize;
 
-      /** Draw the segment */ 
+      /** Draw the segment */
       this.wheelCtx.beginPath();
       this.wheelCtx.arc(centerX, centerY, radius, startAngle, endAngle);
       this.wheelCtx.lineTo(centerX, centerY);
@@ -92,15 +97,18 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.wheelCtx.fill();
 
       if (this.items.length < 160) {
-        /** Draw the text */ 
+        /** Draw the text */
         this.wheelCtx.save();
         this.wheelCtx.translate(centerX, centerY);
         this.wheelCtx.rotate(startAngle + segmentSize / 2);
         this.wheelCtx.fillStyle = '#fff';
         this.wheelCtx.font = this.fontSize + 'px Arial';
         this.wheelCtx.textAlign = 'right';
-        this.wheelCtx.fillText(item.text, radius - 7, 5);
-        this.wheelCtx.restore();  
+        console.log('ITEM TEXT : ', item);
+        const translatedText = this.translateService.instant(item.text);
+        console.log('TRANSLATED TEXT : ', translatedText);
+        this.wheelCtx.fillText(translatedText, radius - 7, 5);
+        this.wheelCtx.restore();
       }
 
       startAngle = endAngle;
@@ -129,7 +137,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     this.spinning = true;
     this.gameStateService.setWheelSpinning(this.spinning);
-    
+
 
     this.startTime = performance.now();
     const totalWeight = this.getTotalWeights();

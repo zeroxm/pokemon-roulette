@@ -3,67 +3,67 @@ import { ItemName } from "./item-names";
 
 export const itemsData: Record<ItemName, ItemItem> = {
     'potion': {
-        text: 'Potion',
+        text: 'items.potion.name',
         name: 'potion',
         sprite: '',
         fillStyle: 'purple',
         weight: 1,
-        description: 'Potion let you spin again whenever you would lose a Gym battle!'
+        description: 'items.potion.description'
     },
     'rare-candy': {
-        text: 'Rare Candy',
+        text: 'items.rare-candy.name',
         name: 'rare-candy',
         sprite: '',
         fillStyle: 'darkcyan',
         weight: 1,
-        description: 'Use a Rare Candy to Evolve your Pokémon anytime!'
+        description: 'items.rare-candy.description'
     },
     'running-shoes': {
-        text: 'Running Shoes',
+        text: 'items.running-shoes.name',
         name: 'running-shoes',
         sprite: '',
         fillStyle: 'darkgoldenrod',
         weight: 1,
-        description: 'Running Shoes let you spin the wheel twice between Gyms!'
+        description: 'items.running-shoes.description'
     },
     'super-potion': {
-        text: 'Super Potion',
+        text: 'items.super-potion.name',
         name: 'super-potion',
         sprite: '',
         fillStyle: 'darkorange',
         weight: 1,
-        description: 'Super Potion let you spin again up to two times whenever you would lose a Gym battle!'
+        description: 'items.super-potion.description'
     },
     'x-attack': {
-        text: 'X Attack',
+        text: 'items.x-attack.name',
         name: 'x-attack',
         sprite: '',
         fillStyle: 'crimson',
         weight: 1,
-        description: 'X Attack makes your Team is stronger!'
+        description: 'items.x-attack.description'
     },
     "exp-share": {
-        text: 'Exp Share',
+        text: 'items.exp-share.name',
         name: 'exp-share',
         sprite: '',
         fillStyle: 'black',
         weight: 1,
-        description: 'Whenever a Pokémon evolves, Exp Share makes another Pokémon evolve!'
+        description: 'items.exp-share.description'
     },
     "hyper-potion": {
-        text: 'Hyper Potion',
+        text: 'items.hyper-potion.name',
         name: 'hyper-potion',
         sprite: '',
         fillStyle: 'deeppink',
         weight: 1,
-        description: 'Hyper Potion let you spin again up to three times whenever you would lose a Gym battle!'
+        description: 'items.hyper-potion.description'
     },
     "escape-rope": {
-        text: 'Escape Rope',
+        text: 'items.escape-rope.name',
         name: 'escape-rope',
         sprite: '',
         fillStyle: 'maroon',
         weight: 1,
-        description: 'Escape Rope saves you from bad situations!'
+        description: 'items.escape-rope.description'
     }
 }

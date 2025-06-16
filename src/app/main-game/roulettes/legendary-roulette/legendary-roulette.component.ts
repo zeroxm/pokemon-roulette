@@ -5,10 +5,11 @@ import { PokemonItem } from '../../../interfaces/pokemon-item';
 import { legendaryByGeneration } from './legendaries-by-generation';
 import { GenerationService } from '../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-legendary-roulette',
-  imports: [WheelComponent],
+  imports: [WheelComponent, TranslatePipe],
   templateUrl: './legendary-roulette.component.html',
   styleUrl: './legendary-roulette.component.css'
 })

@@ -1,4 +1,4 @@
-<h1 class="title">Outcome</h1>
+<h1 class="title">{{ 'game.main.roulette.teamrocket.title' | translate }}</h1>
 <app-wheel  #wheel
             [items]="outcomes"
             (selectedItemEvent)="onItemSelected($event)">
@@ -6,14 +6,14 @@
 
 <ng-template #teamRockerModal let-modal>
 	<div class="modal-body">
-        <h1>Team Rocket!</h1>
+        <h1>{{ 'game.main.roulette.teamrocket.teamrocket' | translate }}</h1>
         <div class="team-rocket-panel">
             <img [src]="james.sprite"
                  alt="{{james.name}}"
                  height="128">
             <div class="message">
-                <p>Prepare for trouble!</p>
-                <p>And make it double!</p>
+                <p>{{ 'game.main.roulette.teamrocket.trouble' | translate }}</p>
+                <p>{{ 'game.main.roulette.teamrocket.double' | translate }}</p>
             </div>
             <img [src]="jessie.sprite"
                  alt="{{jessie.name}}"
@@ -23,6 +23,6 @@
     <div class="modal-footer">
         <button type="button"
                 class="btn btn-outline-primary"
-                (click)="closeModal()">Meowth, that's right!</button>
+                (click)="closeModal()">{{ 'game.main.roulette.teamrocket.meowth' | translate }}</button>
     </div>
 </ng-template>

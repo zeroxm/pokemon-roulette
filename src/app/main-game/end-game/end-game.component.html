@@ -1,11 +1,11 @@
 <div class="fireworks-container" #fireworksContainer></div>
 <div class="d-flex flex-column align-items-center h-100">
-    <h4 class="congrats-text mt-5">🎉 Congratulations! 🎉</h4>
+    <h4 class="congrats-text mt-5">🎉 {{ 'game.end.congrats' | translate }} 🎉</h4>
     <div class="card mx-3"
          [ngClass]="(darkMode) ?  'black-card' : 'white-card'">
         <div class="card-body" >
             <div #captureArea>
-                <h4 class="card-title text-center">Champion of {{generation.region}}! </h4>
+                <h4 class="card-title text-center">{{ 'game.end.champion' | translate }} {{generation.region}}! </h4>
                 <div class="d-flex row">
                     <div class="d-flex flex-column col-8 ps-0 pe-4">
                         <div class="d-flex">
@@ -54,7 +54,7 @@
             <div class="d-flex justify-content-end gap-2">
                 <button class="btn btn-success"
                         (click)="shareResults()">
-                        <ng-icon name="bootstrapShare"></ng-icon> Share
+                        <ng-icon name="bootstrapShare"></ng-icon> {{ 'game.end.share' | translate }}
                 </button>
             </div>
         </div>
