@@ -1,0 +1,21 @@
+<h1 class="title">{{ 'game.main.roulette.rival.victory' | translate }}</h1>
+<app-wheel
+    #wheel
+    [items]="victoryOdds"
+    (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
+
+<ng-template #gymLeaderPresentationModal let-modal>
+    <div class="modal-body">
+        <h1>{{ 'game.main.roulette.rival.against' | translate }} {{ currentRival.name | translate }}!</h1>
+        <div class="rival-panel">
+            <img [src]="currentRival.sprite" alt="{{currentRival.name}}" height="128">
+            <div class="quotes">
+                <p *ngFor="let quote of currentRival.quotes">{{quote | translate}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.roulette.rival.go' | translate }}</button>
+    </div>
+</ng-template>

@@ -142,14 +142,14 @@
         "champion": {
           "champion": "Campeão",
           "go": "Vamos lá!",
-          "use": "Usou um(a)",
+          "use": "Usou ",
           "victory": "Vitória?"
         },
         "character": {
           "boy": "Menino",
           "gender": "Você é um menino ou uma menina?",
           "girl": "Menina",
-          "welcome": "Bem-vindo a"
+          "welcome": "Bem-vindo(a) à"
         },
         "egg": {
           "title": "Qual Pokémon?"
@@ -166,7 +166,7 @@
             "victoryRoad": "Entre na Rua da Vitória!"
           },
           "title": "Vitória?",
-          "use": "Usou um(a)"
+          "use": "Usou "
         },
         "evolution": {
           "title": "Seu Pokémon vai evoluir?"
@@ -185,9 +185,9 @@
         },
         "gym": {
           "against": "Batalha contra",
-          "defeated": "Derrotou?",
+          "defeated": "derrotado?",
           "go": "Vamos lá!",
-          "used": "Usou um(a)"
+          "used": "Usou "
         },
         "item": {
           "found": "Encontrou um(a)",
@@ -213,11 +213,11 @@
           "title": "O que fazer primeiro?"
         },
         "starter": {
-          "title": "Inicial?"
+          "title": "Pokémon Inicial?"
         },
         "teamrocket": {
-          "double": "Para dobrar os problemas!",
-          "meowth": "É o Meowth, isso mesmo!",
+          "double": "Encrenca em dobro!",
+          "meowth": "Meowth, é isso mesmo!",
           "teamrocket": "Equipe Rocket!",
           "title": "Resultado",
           "trouble": "Prepare-se para encrenca!"
@@ -227,7 +227,7 @@
         }
       },
       "trade": {
-        "received": "e recebeu um(a)",
+        "received": "e recebeu ",
         "sent": "Você enviou"
       }
     },

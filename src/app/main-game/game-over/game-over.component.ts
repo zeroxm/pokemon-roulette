@@ -10,9 +10,9 @@ import domtoimage from 'dom-to-image-more'
 import { GenerationItem } from '../../interfaces/generation-item';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { GymLeader } from '../../interfaces/gym-leader';
-import { gymLeadersByGeneration } from '../roulettes/gym-battle-roulette/gym-leaders-by-generation';
-import { eliteFourByGeneration } from '../roulettes/elite-four-battle-roulette/elite-four-by-generation';
-import { championByGeneration } from '../roulettes/champion-battle-roulette/champion-by-generation';
+import { gymLeadersByGeneration } from '../roulette-container/roulettes/gym-battle-roulette/gym-leaders-by-generation'; 
+import { eliteFourByGeneration } from '../roulette-container/roulettes/elite-four-battle-roulette/elite-four-by-generation';
+import { championByGeneration } from '../roulette-container/roulettes/champion-battle-roulette/champion-by-generation';
 import { RestartGameComponent } from "../../restart-game/restart-game.component";
 import {TranslatePipe} from '@ngx-translate/core';
 @Component({
