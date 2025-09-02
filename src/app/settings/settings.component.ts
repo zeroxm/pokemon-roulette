@@ -7,6 +7,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { SettingsService, GameSettings } from '../services/settings-service/settings.service';
+import { CreditsButtonComponent } from '../main-game/credits-button/credits-button.component';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +16,7 @@ import { SettingsService, GameSettings } from '../services/settings-service/sett
     LanguageSelectorComponent,
     TranslatePipe,
     MainGameButtonComponent,
+    CreditsButtonComponent,
     NgIconsModule,
     CommonModule
 ],

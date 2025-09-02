@@ -1,5 +1,6 @@
 <button type="button"
-        class="btn btn-secondary w-100"
+        class="btn w-100"
+        [ngClass]="(darkMode | async) ? 'btn-success' : 'btn-success'"
         (click)="goToSettings()">
     <ng-icon name="bootstrapGear,"></ng-icon>
     {{ 'settings.label' | translate }}

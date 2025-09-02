@@ -8,7 +8,6 @@ import { ItemItem } from '../interfaces/item-item';
 import { RestartGameButtonComponent } from "../restart-game-buttom/restart-game-buttom.component";
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
-import { CreditsButtonComponent } from "./credits-button/credits-button.component";
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
 import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
@@ -26,7 +25,6 @@ import { SettingsButtonComponent } from '../settings-button/settings-button.comp
     TrainerTeamComponent,
     ItemsComponent,
     RestartGameButtonComponent,
-    CreditsButtonComponent,
     CoffeeButtonComponent,
     NgIconsModule,
     NgbCollapseModule,
