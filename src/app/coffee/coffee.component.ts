@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { MainGameButtonComponent } from "../main-game-button/main-game-button.component";
 import { CommonModule } from '@angular/common';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { CreditsButtonComponent } from "../main-game/credits-button/credits-button.component";
 
 @Component({
   selector: 'app-coffee',
@@ -10,8 +11,9 @@ import {TranslatePipe} from '@ngx-translate/core';
     CommonModule,
     NgIconsModule,
     MainGameButtonComponent,
-    TranslatePipe
-  ],
+    TranslatePipe,
+    CreditsButtonComponent
+],
   templateUrl: './coffee.component.html',
   styleUrl: './coffee.component.css'
 })

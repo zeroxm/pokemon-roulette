@@ -1,7 +1,7 @@
 <div>
   <div ngbDropdown>
     <button
-      class="btn btn-secondary dropdown-toggle"
+      class="btn btn-secondary dropdown-toggle w-100"
       type="button"
       id="languageDropdown"
       ngbDropdownToggle>
@@ -13,7 +13,7 @@
         <ng-container>
           <button
             type="button"
-            class="dropdown-item"
+            class="dropdown-item w-100"
             [class.active]="language.code === currentLanguage.code"
             (click)="changeLanguage(language.code)"
           >
@@ -28,3 +28,4 @@
     </div>
   </div>
 </div>
+

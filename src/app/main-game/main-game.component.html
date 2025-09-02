@@ -1,30 +1,31 @@
 <div class="game-container">
     <div class="row">
-        <div class="extra-options d-flex flex-column col-12 col-sm-3">
-            <div class="flex-grow-1 d-flex flex-column gap-2 p-3">
-                <div class="d-flex flex-row flex-sm-column gap-2 justify-content-between">
-                    <div class="d-flex flex-column gap-2">
-                        <app-settings-button></app-settings-button>
-                        <app-language-selector></app-language-selector>
-                        <app-restart-game-buttom (restartEvent)="resetGameAction()"></app-restart-game-buttom>
-                        <app-credits-button></app-credits-button>
-                    </div>
-                    <app-coffee-button></app-coffee-button>
-                    <!-- <button type="button"
-                            class="btn me-sm-auto"
-                            (click)="mapIsCollapsed = !mapIsCollapsed"
-                            [attr.aria-expanded]="!mapIsCollapsed"
-                            aria-controls="townMapCollapse"
-                            [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
-                        <ng-icon name="bootstrapMap"></ng-icon> Town Map
-                    </button> -->
+        <div class="extra-options col-12 col-sm-3 d-flex flex-column">
+            <div class="row col-12 col-sm-6 py-2">
+                <div class="col-6 col-sm-12 mb-2">
+                    <app-settings-button></app-settings-button>
                 </div>
-                <!-- <div [(ngbCollapse)]="mapIsCollapsed"
-                     class="map-container"
-                     id="townMapCollapse">
-                    <app-generation-map [visible]="!mapIsCollapsed"></app-generation-map>
-                </div> -->
+                <div class="col-6 col-sm-12 mb-2">
+                    <app-credits-button></app-credits-button>                    
+                </div>
+                <div class="col-6 col-sm-12 mb-2">
+                    <app-coffee-button></app-coffee-button>
+                </div>
+                <div class="col-6 col-sm-12 mb-2">
+                    <app-restart-game-buttom (restartEvent)="resetGameAction()"></app-restart-game-buttom>
+                </div>
+                <div class="col-12 col-sm-12 mb-2">
+                    <app-language-selector></app-language-selector>
+                </div>
             </div>
+                <!-- <button type="button"
+                        class="btn me-sm-auto"
+                        (click)="mapIsCollapsed = !mapIsCollapsed"
+                        [attr.aria-expanded]="!mapIsCollapsed"
+                        aria-controls="townMapCollapse"
+                        [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
+                    <ng-icon name="bootstrapMap"></ng-icon> Town Map
+                </button> -->
         </div>
         <div class="main-game col-12 col-sm-5">
             <app-roulette-container></app-roulette-container>
