@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { AudioService } from '../services/audio-service/audio.service';
 
 @Component({
   selector: 'app-wheel',
@@ -39,13 +40,15 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerFillColor = 'yellow';
   winningNumber!: number;
   currentSegment: string = '-';
-  clickAudio = new Audio('./click.mp3');
+  clickAudio!: HTMLAudioElement;
 
   constructor(
     private darkModeService: DarkModeService,
     private gameStateService: GameStateService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private audioService: AudioService
   ) {
+    this.clickAudio = this.audioService.createAudio('./click.mp3');
     this.darkMode = this.darkModeService.darkMode$;
     this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
     this.wheelWidth = this.canvasHeight;
@@ -186,11 +189,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     if (segment !== this.currentSegment) {
       this.currentSegment = segment;
-      if (this.clickAudio.paused) {
-        this.clickAudio.play();
-      } else {
-        this.clickAudio.currentTime = 0;
-      }
+      this.audioService.playAudio(this.clickAudio, 1.0);
     }
   }
 

@@ -7,6 +7,7 @@ import { WheelComponent } from '../../../../wheel/wheel.component';
 import { ItemsService } from '../../../../services/items-service/items.service';
 import { ItemSpriteService } from '../../../../services/item-sprite-service/item-sprite.service';
 import { ItemItem } from '../../../../interfaces/item-item';
+import { AudioService } from '../../../../services/audio-service/audio.service';
 
 @Component({
   selector: 'app-find-item-roulette',
@@ -22,15 +23,17 @@ export class FindItemRouletteComponent {
 
   constructor(private modalService: NgbModal,
     private itemService: ItemsService,
-    private itemSpriteService: ItemSpriteService) {
+    private itemSpriteService: ItemSpriteService,
+    private audioService: AudioService) {
     this.items = itemService.getAllItems();
+    this.itemFoundAudio = this.audioService.createAudio('./ItemFound.mp3');
   }
 
   @ViewChild('itemExplainerModal', { static: true }) itemExplainerModal!: TemplateRef<any>;
   items: ItemItem[] = [];
   selectedItem: ItemItem | null = null;
   @Output() itemSelectedEvent = new EventEmitter<ItemItem>();
-  itemFoundAudio = new Audio('./ItemFound.mp3');
+  itemFoundAudio!: HTMLAudioElement;
 
   onItemSelected(index: number): void {
     this.selectedItem = this.items[index];
@@ -41,8 +44,7 @@ export class FindItemRouletteComponent {
       }
     });
 
-    this.itemFoundAudio.volume = 0.25;
-    this.itemFoundAudio.play();
+    this.audioService.playAudio(this.itemFoundAudio, 0.25);
 
     const modalRef = this.modalService.open(this.itemExplainerModal, {
       centered: true,

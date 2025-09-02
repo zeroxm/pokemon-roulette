@@ -10,6 +10,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
+import { AudioService } from '../../services/audio-service/audio.service';
 
 @Component({
   selector: 'app-storage-pc',
@@ -27,15 +28,20 @@ export class StoragePcComponent implements OnInit {
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
                 private modalService: NgbModal,
-                private gameStateService: GameStateService) { }
+                private gameStateService: GameStateService,
+                private audioService: AudioService) {
+      this.pcTurningOn = this.audioService.createAudio('./PCTurningOn.mp3');
+      this.pcLoginAudio = this.audioService.createAudio('./PCLogin.mp3');
+      this.pcLogoutAudio = this.audioService.createAudio('./PCLogout.mp3');
+    }
 
     @ViewChild('pcStorageModal', { static: true }) pcStorageModal!: TemplateRef<any>;
     @ViewChild('pcInfoModal', { static: true }) infoModal!: TemplateRef<any>;
 
     darkMode!: Observable<boolean>;
-    pcTurningOn = new Audio('./PCTurningOn.mp3');
-    pcLoginAudio = new Audio('./PCLogin.mp3');
-    pcLogoutAudio = new Audio('./PCLogout.mp3');
+    pcTurningOn!: HTMLAudioElement;
+    pcLoginAudio!: HTMLAudioElement;
+    pcLogoutAudio!: HTMLAudioElement;
     trainerTeam!: PokemonItem[];
     storedPokemon!: PokemonItem[];
     wheelSpinning: boolean = false;
@@ -46,8 +52,7 @@ export class StoragePcComponent implements OnInit {
     ngOnInit(): void {
       this.darkMode = this.darkModeService.darkMode$;
       this.pcTurningOn.addEventListener('ended', () => {
-        this.pcLoginAudio.volume = 0.30;
-        this.pcLoginAudio.play();
+        this.audioService.playAudio(this.pcLoginAudio, 0.30);
       });
       this.gameStateService.wheelSpinningObserver.subscribe(state => {
         this.wheelSpinning = state;
@@ -72,8 +77,7 @@ export class StoragePcComponent implements OnInit {
       } else {
         this.trainerTeam = this.trainerService.getTeam();
         this.storedPokemon = this.trainerService.getStored();
-        this.pcTurningOn.volume = 0.30;
-        this.pcTurningOn.play();
+        this.audioService.playAudio(this.pcTurningOn, 0.30);
 
         this.modalService.open(this.pcStorageModal, {
           centered: true,
@@ -85,8 +89,7 @@ export class StoragePcComponent implements OnInit {
     }
 
     logOut(): void {
-      this.pcLogoutAudio.volume = 0.30;
-      this.pcLogoutAudio.play();
+      this.audioService.playAudio(this.pcLogoutAudio, 0.30);
       this.modalService.dismissAll();
     }
 

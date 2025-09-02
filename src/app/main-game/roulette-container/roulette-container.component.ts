@@ -10,6 +10,7 @@ import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
+import { AudioService } from '../../services/audio-service/audio.service';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
 import { StarterRouletteComponent } from "./roulettes/starter-roulette/starter-roulette.component";
 import { PokemonItem } from '../../interfaces/pokemon-item';
@@ -86,7 +87,9 @@ export class RouletteContainerComponent implements OnInit {
       private itemService: ItemsService,
       private pokemonService: PokemonService,
       private trainerService: TrainerService,
-      private modalService: NgbModal) {
+      private modalService: NgbModal,
+      private audioService: AudioService) {
+      this.itemFoundAudio = this.audioService.createAudio('./ItemFound.mp3');
     }
 
     ngOnInit(): void {
@@ -133,7 +136,7 @@ export class RouletteContainerComponent implements OnInit {
   fromLeader: number = 0;
   infoModalMessage = '';
   infoModalTitle = '';
-  itemFoundAudio = new Audio('./ItemFound.mp3');
+  itemFoundAudio!: HTMLAudioElement;
   leadersDefeatedAmount: number = 0;
   lessExplanations: boolean = false;
   multitaskCounter: number = 0;
@@ -604,8 +607,7 @@ export class RouletteContainerComponent implements OnInit {
   }
 
   private playItemFoundAudio(): void {
-    this.itemFoundAudio.volume = 0.25;
-    this.itemFoundAudio.play();
+    this.audioService.playAudio(this.itemFoundAudio, 0.25);
   }
 
   private showpkmnEvoModal(): void {
