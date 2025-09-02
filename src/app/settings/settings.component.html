@@ -19,16 +19,42 @@
                     </div>
                     <div class="col-12">
                         <div class="form-switch d-flex justify-content-between">
-                            <label class="form-check-label" for="darkModeSwitch">
+                            <label class="form-check-label" for="explanationsSwitch">
                                 {{ 'settings.explanations' | translate }}
                             </label>
                             <input 
                                 class="form-check-input" 
                                 type="checkbox" 
-                                [checked]="lessExplanations" 
+                                [checked]="(settings$ | async)?.lessExplanations" 
                                 (change)="onToggleVerbosity()"
-                                id="darkModeSwitch">
-                            </div>
+                                id="explanationsSwitch">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-switch d-flex justify-content-between">
+                            <label class="form-check-label" for="muteAudioSwitch">
+                                {{ 'settings.muteAudio' | translate }}
+                            </label>
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                [checked]="(settings$ | async)?.muteAudio" 
+                                (change)="onToggleMuteAudio()"
+                                id="muteAudioSwitch">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-switch d-flex justify-content-between">
+                            <label class="form-check-label" for="skipShinySwitch">
+                                {{ 'settings.skipShinyRolls' | translate }}
+                            </label>
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                [checked]="(settings$ | async)?.skipShinyRolls" 
+                                (change)="onToggleSkipShinyRolls()"
+                                id="skipShinySwitch">
+                        </div>
                     </div>
                     <div class="col-12">
                         <app-language-selector></app-language-selector>

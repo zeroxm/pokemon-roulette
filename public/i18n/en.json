@@ -2,7 +2,9 @@
   "settings": {
       "label": "Settings",
       "darkmode": "Dark Mode",
-      "explanations": "Less Explanations"
+      "explanations": "Less Explanations",
+      "muteAudio": "Mute Audio",
+      "skipShinyRolls": "Skip Shiny Rolls"
   },
   "coffee": {
     "title": "Having fun spinning? 😁",

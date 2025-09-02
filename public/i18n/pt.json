@@ -2,7 +2,9 @@
   "settings": {
       "label": "Configurações",
       "darkmode": "Modo escuro",
-      "explanations": "Menos Explicações"
+      "explanations": "Menos Explicações",
+      "muteAudio": "Silenciar Áudio",
+      "skipShinyRolls": "Pular Rolagens Shiny"
   },
   "coffee": {
     "title": "Curtiu a roletinha? 😁",

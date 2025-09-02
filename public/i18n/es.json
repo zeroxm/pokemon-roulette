@@ -2,7 +2,9 @@
   "settings": {
       "label": "Configuración",
       "darkmode": "Modo oscuro",
-      "explanations": "Menos explicaciones"
+      "explanations": "Menos explicaciones",
+      "muteAudio": "Silenciar Audio",
+      "skipShinyRolls": "Omitir Tiradas Shiny"
   },
   "coffee": {
     "title": "¿Te estás divirtiendo girando? 😁",

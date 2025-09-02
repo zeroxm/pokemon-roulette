@@ -2,7 +2,9 @@
   "settings": {
       "label": "Paramètres",
       "darkmode": "Mode sombre",
-      "explanations": "Moins d'explications"
+      "explanations": "Moins d'explications",
+      "muteAudio": "Couper l'Audio",
+      "skipShinyRolls": "Ignorer les Lancés Shiny"
   },
   "coffee": {
     "title": "Vous amusez-vous à faire tourner la roue ? 😁",
