@@ -1,5 +1,37 @@
 <h1 class="title">{{ 'game.main.roulette.generation.title' | translate }}</h1>
-<app-wheel  #wheel
-            [items]="generations"
-            (selectedItemEvent)="onItemSelected($event)">
-</app-wheel>
+
+<div *ngIf="!showChoiceButtons">
+  <app-wheel  #wheel
+              [items]="generations"
+              (selectedItemEvent)="onItemSelected($event)">
+  </app-wheel>
+  <div class="choice-button-container">
+    <button
+      class="btn choice-button"
+      [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+      (click)="toggleChoiceView()">
+      {{ 'game.main.roulette.generation.chooseInstead' | translate }}
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showChoiceButtons" class="generation-choice-container">
+  <div class="generation-buttons">
+    <button 
+      *ngFor="let generation of generations; let i = index"
+      class="btn generation-button"
+      [style.background-color]="generation.fillStyle"
+      (click)="onGenerationChosen(i)">
+      <div class="generation-text">{{ generation.text }}</div>
+      <div class="generation-region">{{ generation.region }}</div>
+    </button>
+  </div>
+  <div class="back-button-container">
+    <button
+      class="btn back-button"
+      [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+      (click)="toggleChoiceView()">
+      {{ 'game.main.roulette.generation.backToWheel' | translate }}
+    </button>
+  </div>
+</div>

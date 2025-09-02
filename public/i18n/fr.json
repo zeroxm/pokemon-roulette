@@ -187,7 +187,10 @@
         "generation": {
           "pkmn": "Pokémon ?",
           "title": "Gen ?",
-          "which": "Quel "
+          "which": "Quel ",
+          "chooseInstead": "Je préfère choisir",
+          "chooseGeneration": "Choisissez votre génération:",
+          "backToWheel": "Je préfère tirer au sort"
         },
         "gym": {
           "against": "Combat contre",

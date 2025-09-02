@@ -11,7 +11,8 @@
                 [height]="canvasHeight">
         </canvas>
     </div>
-    <button class="btn btn-light my-3"
+    <button class="btn my-3"
+            [ngClass]="(darkMode | async) ? 'btn-light' : 'btn-dark'"
             (click)="spinWheel()">
             {{ 'wheel.spin' | translate }}
     </button>

@@ -1,3 +1,98 @@
 .title {
     text-align: center;
 }
+
+.choice-button-container {
+    text-align: center;
+}
+
+.choice-button {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+}
+
+.generation-choice-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.choice-title {
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.generation-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.generation-button {
+    padding: 20px 15px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+}
+
+.generation-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.generation-text {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.generation-region {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.back-button-container {
+    text-align: center;
+}
+
+.back-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .generation-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .generation-button {
+        padding: 15px 10px;
+        min-height: 70px;
+    }
+    
+    .generation-text {
+        font-size: 1.1rem;
+    }
+    
+    .generation-region {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .generation-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
