@@ -4,7 +4,7 @@
       "darkmode": "Dark Mode",
       "explanations": "Less Explanations",
       "muteAudio": "Mute Audio",
-      "skipShinyRolls": "Skip Shiny Rolls"
+      "skipShinyRolls": "Hide Shiny Rolls"
   },
   "coffee": {
     "title": "Having fun spinning? 😁",
@@ -213,7 +213,7 @@
           "victory": "Victory?"
         },
         "shiny": {
-          "title": "Shiny ?"
+          "title": "Shiny?"
         },
         "snorlax": {
           "outcome": "Outcome"
