@@ -5,15 +5,15 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-restart-game',
+  selector: 'app-restart-game-buttom',
   imports: [
     NgIconsModule,
     TranslatePipe
   ],
-  templateUrl: './restart-game.component.html',
-  styleUrl: './restart-game.component.css'
+  templateUrl: './restart-game-buttom.component.html',
+  styleUrl: './restart-game-buttom.component.css'
 })
-export class RestartGameComponent {
+export class RestartGameButtonComponent {
 
   constructor(private modalService: NgbModal,
               private gameStateService: GameStateService

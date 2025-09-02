@@ -13,14 +13,14 @@ import { GymLeader } from '../../interfaces/gym-leader';
 import { gymLeadersByGeneration } from '../roulette-container/roulettes/gym-battle-roulette/gym-leaders-by-generation'; 
 import { eliteFourByGeneration } from '../roulette-container/roulettes/elite-four-battle-roulette/elite-four-by-generation';
 import { championByGeneration } from '../roulette-container/roulettes/champion-battle-roulette/champion-by-generation';
-import { RestartGameComponent } from "../../restart-game/restart-game.component";
+import { RestartGameButtonComponent } from "../../restart-game-buttom/restart-game-buttom.component";
 import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-game-over',
   imports: [
     CommonModule,
     NgIconsModule,
-    RestartGameComponent,
+    RestartGameButtonComponent,
     TranslatePipe
   ],
   templateUrl: './game-over.component.html',

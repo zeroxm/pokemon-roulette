@@ -1,4 +1,17 @@
 {
+  "settings": {
+      "label": "Paramètres",
+      "darkmode": "Mode sombre",
+      "explanations": "Moins d'explications"
+  },
+  "coffee": {
+    "title": "Vous amusez-vous à faire tourner la roue ? 😁",
+    "how_to_help": "Si vous voulez aider, vous pouvez faire un don.",
+    "donations": "Les dons, quel que soit leur montant, aideront à motiver le développement de nouvelles fonctionnalités.",
+    "support": "Façons de soutenir",
+    "thanks": "Merci d’avoir joué !",
+    "hope": "Que vous fassiez un don ou que vous partagiez simplement le jeu avec d'autres, j'espère que vous vous amuserez !"
+  },
   "badges": {
     "boulder": "Badge Roche",
     "cascade": "Badge Cascade",
@@ -70,14 +83,6 @@
     "dark": "Badge Ténèbres",
     "dragon": "Badge Dragon"
   },
-  "coffee": {
-    "donations": "Les dons, quel que soit leur montant, aideront à motiver le développement de nouvelles fonctionnalités.",
-    "help": "Si vous voulez aider, vous pouvez faire un don.",
-    "hope": "Que vous fassiez un don ou que vous partagiez simplement le jeu avec d'autres, j'espère que vous vous amuserez !",
-    "question": "Vous amusez-vous à faire tourner la roue ?",
-    "support": "Façons de soutenir",
-    "thanks": "Merci d’avoir joué !"
-  },
   "credits": {
     "ack": "Crédits et remerciements",
     "auranrage": "Pour l'aide avec les données de certaines roulettes",
@@ -94,7 +99,7 @@
     "thanks": "Merci d’avoir joué !",
     "willian": "Tests et recherche de bugs"
   },
-  "darkmode": "Mode sombre",
+  
   "game": {
     "coffee": {
       "buy": "M’offrir un café ?"
@@ -113,7 +118,6 @@
         "evolved": "a évolué en",
         "your": "Votre"
       },
-      "explanations": "Moins d'explications",
       "game": {
         "button": {
           "title": "Jeu principal"

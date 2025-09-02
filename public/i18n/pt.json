@@ -1,4 +1,17 @@
 {
+  "settings": {
+      "label": "Configurações",
+      "darkmode": "Modo escuro",
+      "explanations": "Menos Explicações"
+  },
+  "coffee": {
+    "title": "Curtiu a roletinha? 😁",
+    "how_to_help": "Se quiser ajudar você pode fazer uma doação.",
+    "donations": "Doações de qualquer valor dão aquela força para implementarmos novidades.",
+    "support": "Formas de apoiar",
+    "thanks": "E obrigado por jogar!",
+    "hope": "Seja doando, seja compartilhando o jogo com os outros, desejo que voce se divirta!"
+  },
   "badges": {
     "boulder": "Insígnia de Rocha",
     "cascade": "Insígnia de Cascata",
@@ -48,17 +61,17 @@
     "fairy": "Insígnia da Fada",
     "psychic": "Insígnia Psíquica",
     "iceberg": "Insígnia do Iceberg",
-    "normalium_z": "Cristal Z de Tipo Normal",
-    "fightinium_z": "Cristal Z de Tipo Lutador",
-    "waterium_z": "Cristal Z de Tipo Água",
-    "firium_z": "Cristal Z de Tipo Fogo",
-    "grassium_z": "Cristal Z de Tipo Planta",
-    "rockium_z": "Cristal Z de Tipo Pedra",
-    "electrium_z": "Cristal Z de Tipo Elétrico",
-    "ghostium_z": "Cristal Z de Tipo Fantasma",
-    "darkinium_z": "Cristal Z de Tipo Noturno",
-    "fairium_z": "Cristal Z de Tipo Fada",
-    "groundium_z": "Cristal Z de Tipo Terrestre",
+    "normalium_z": "Normalium Z",
+    "fightinium_z": "Fightinium Z",
+    "waterium_z": "Waterium Z",
+    "firium_z": "Firium Z",
+    "grassium_z": "Grassium Z",
+    "rockium_z": "Rockium Z",
+    "electrium_z": "Electrium Z",
+    "ghostium_z": "Ghostium Z",
+    "darkinium_z": "Darkinium Z",
+    "fairium_z": "Fairium Z",
+    "groundium_z": "Groundium Z",
     "grass": "Insígnia de Planta",
     "water": "Insígnia de Água",
     "fire": "Insígnia de Fogo",
@@ -69,14 +82,6 @@
     "ice": "Insígnia de Gelo",
     "dark": "Insígnia Noturna",
     "dragon": "Insígnia de Dragão"
-  },
-  "coffee": {
-    "donations": "Donations of any amount will be help with motivation for new features.",
-    "help": "If you want to help, you can donate.",
-    "hope": "Whether you donate or simply share the game with others, I hope you have fun!",
-    "question": "Having fun spinning?",
-    "support": "Ways to Support",
-    "thanks": "Thank You for playing!"
   },
   "credits": {
     "ack": "Créditos e Agradecimentos",
@@ -94,7 +99,7 @@
     "thanks": "Obrigado por jogar!",
     "willian": "Testes e identificação de bugs"
   },
-  "darkmode": "Dark Mode",
+  
   "game": {
     "coffee": {
       "buy": "Me pague um café?"
@@ -113,10 +118,9 @@
         "evolved": "evoluiu para",
         "your": "Seu"
       },
-      "explanations": "Menos Explicações",
       "game": {
         "button": {
-          "title": "Jogo Principal"
+          "title": "Voltar pro Jogo"
         }
       },
       "rocket": {
@@ -1372,7 +1376,7 @@
       "quote1": "My policy is an all out offensive with Water-type Pokémon!"
     },
     "surge": {
-      "name": "Lt. Surge",
+      "name": "Ten. Surge",
       "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
       "quote2": "They zapped my enemies into paralysis!",
       "quote3": "The same as I'll do to you!"

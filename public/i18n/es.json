@@ -1,4 +1,17 @@
 {
+  "settings": {
+      "label": "Configuración",
+      "darkmode": "Modo oscuro",
+      "explanations": "Menos explicaciones"
+  },
+  "coffee": {
+    "title": "¿Te estás divirtiendo girando? 😁",
+    "how_to_help": "Si quieres ayudar, puedes hacer una donación.",
+    "donations": "Las donaciones de cualquier cantidad ayudarán a motivar la incorporación de nuevas funciones.",
+    "support": "Formas de apoyar",
+    "thanks": "¡Gracias por jugar!",
+    "hope": "Ya sea que dones o simplemente compartas el juego con otros, ¡espero que te diviertas!"
+  },
   "badges": {
     "boulder": "Medalla Roca",
     "cascade": "Medalla Cascada",
@@ -70,14 +83,6 @@
     "dark": "Medalla Siniestro",
     "dragon": "Medalla Dragón"
   },
-  "coffee": {
-    "donations": "Las donaciones de cualquier cantidad ayudarán a motivar la incorporación de nuevas funciones.",
-    "help": "Si quieres ayudar, puedes hacer una donación.",
-    "hope": "Ya sea que dones o simplemente compartas el juego con otros, ¡espero que te diviertas!",
-    "question": "¿Te estás divirtiendo girando?",
-    "support": "Formas de apoyar",
-    "thanks": "¡Gracias por jugar!"
-  },
   "credits": {
     "ack": "Créditos y agradecimientos",
     "auranrage": "Por la ayuda con los datos de algunas ruletas",
@@ -94,7 +99,6 @@
     "thanks": "¡Gracias por jugar!",
     "willian": "Pruebas y detección de errores"
   },
-  "darkmode": "Modo oscuro",
   "game": {
     "coffee": {
       "buy": "¿Me invitas a un café?"
@@ -113,7 +117,6 @@
         "evolved": "evolucionó a",
         "your": "Tu"
       },
-      "explanations": "Menos explicaciones",
       "game": {
         "button": {
           "title": "Juego principal"

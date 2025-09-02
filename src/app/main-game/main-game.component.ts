@@ -1,12 +1,11 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbCollapseModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { CommonModule } from '@angular/common';
-import { DarkModeToggleComponent } from "../dark-mode-toggle/dark-mode-toggle.component";
 import { ItemItem } from '../interfaces/item-item';
-import { RestartGameComponent } from "../restart-game/restart-game.component";
+import { RestartGameButtonComponent } from "../restart-game-buttom/restart-game-buttom.component";
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CreditsButtonComponent } from "./credits-button/credits-button.component";
@@ -15,24 +14,23 @@ import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
-import { TranslatePipe } from '@ngx-translate/core';
 import { RouletteContainerComponent } from './roulette-container/roulette-container.component';
+import { SettingsButtonComponent } from '../settings-button/settings-button.component';
 
 @Component({
   selector: 'app-main-game',
   imports: [
     CommonModule,
     RouletteContainerComponent,
-    DarkModeToggleComponent,
+    SettingsButtonComponent,
     TrainerTeamComponent,
     ItemsComponent,
-    RestartGameComponent,
+    RestartGameButtonComponent,
     CreditsButtonComponent,
     CoffeeButtonComponent,
     NgIconsModule,
     NgbCollapseModule,
-    LanguageSelectorComponent,
-    TranslatePipe
+    LanguageSelectorComponent
   ],
   templateUrl: './main-game.component.html',
   styleUrl: './main-game.component.css'
@@ -60,12 +58,6 @@ export class MainGameComponent implements OnInit {
   
   darkMode!: Observable<boolean>;
   mapIsCollapsed: boolean = true;
-  lessExplanations: boolean = false;
-
-  
-  toggleLessExplanations(): void {
-    this.lessExplanations = !this.lessExplanations;
-  }
 
   resetGameAction(): void {
     this.resetGame();

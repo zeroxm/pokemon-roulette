@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RestartGameComponent } from './restart-game.component';
+import { RestartGameButtonComponent } from './restart-game-buttom.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
 
-describe('RestartGameComponent', () => {
-  let component: RestartGameComponent;
-  let fixture: ComponentFixture<RestartGameComponent>;
+describe('RestartGameButtonComponent', () => {
+  let component: RestartGameButtonComponent;
+  let fixture: ComponentFixture<RestartGameButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RestartGameComponent,
+        RestartGameButtonComponent,
         NgIconsModule
       ],
       providers: [
@@ -20,7 +20,7 @@ describe('RestartGameComponent', () => {
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RestartGameComponent);
+    fixture = TestBed.createComponent(RestartGameButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

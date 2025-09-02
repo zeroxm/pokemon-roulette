@@ -1,4 +1,17 @@
 {
+  "settings": {
+      "label": "Settings",
+      "darkmode": "Dark Mode",
+      "explanations": "Less Explanations"
+  },
+  "coffee": {
+    "title": "Having fun spinning? 😁",
+    "how_to_help": "If you want to help, you can donate.",
+    "donations": "Donations of any amount will be help with motivation for new features.",
+    "support": "Ways to Support",
+    "thanks": "Thank You for playing!",
+    "hope": "Whether you donate or simply share the game with others, I hope you have fun!"
+  },
   "badges": {
     "boulder": "Boulder Badge",
     "cascade": "Cascade Badge",
@@ -70,14 +83,6 @@
     "dark": "Dark Badge",
     "dragon": "Dragon Badge"
   },
-  "coffee": {
-    "donations": "Donations of any amount will be help with motivation for new features.",
-    "help": "If you want to help, you can donate.",
-    "hope": "Whether you donate or simply share the game with others, I hope you have fun!",
-    "question": "Having fun spinning?",
-    "support": "Ways to Support",
-    "thanks": "Thank You for playing!"
-  },
   "credits": {
     "ack": "Credits & Acknowledgments",
     "auranrage": "For the help with data for some roulettes",
@@ -94,7 +99,7 @@
     "thanks": "Thank You for Playing!",
     "willian": "Testing and finding bugs"
   },
-	"darkmode": "Dark Mode",
+	
   "game": {
     "coffee": {
       "buy": "Buy me a Coffee? "
@@ -113,7 +118,6 @@
         "evolved": "evolved into",
         "your": "Your"
       },
-      "explanations": "Less Explanations",
       "game": {
         "button": {
           "title": "Main Game"

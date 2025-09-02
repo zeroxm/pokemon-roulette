@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgIconsModule } from '@ng-icons/core';
-import { GameStateService } from '../../services/game-state-service/game-state.service';
+import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { NgIconsModule } from '@ng-icons/core';
 
 @Component({
-  selector: 'app-coffee-button',
+  selector: 'app-settings-button',
   imports: [
     NgIconsModule,
     TranslatePipe
   ],
-  templateUrl: './coffee-button.component.html',
-  styleUrl: './coffee-button.component.css'
+  templateUrl: './settings-button.component.html',
+  styleUrl: './settings-button.component.css'
 })
-export class CoffeeButtonComponent {
+export class SettingsButtonComponent {
 
   constructor(private router: Router,
               private gameStateService: GameStateService) {
@@ -24,10 +24,10 @@ export class CoffeeButtonComponent {
 
   wheelSpinning: boolean = false;
 
-  goToCoffee(): void {
+  goToSettings(): void {
     if (this.wheelSpinning) {
       return;
     }
-    this.router.navigate(['coffee']);
+    this.router.navigate(['settings']);
   }
 }

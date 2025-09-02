@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 
 @Component({
   selector: 'app-dark-mode-toggle',
