@@ -86,28 +86,27 @@
     "dragon": "Insígnia de Dragão"
   },
   "credits": {
-    "ack": "Créditos e Agradecimentos",
-    "auranrage": "Pela ajuda com os dados de algumas roletas",
-    "bulbapedia": "Pelos sprites dos treinadores usados neste projeto",
-    "check": "Confira o conteúdo deles :)",
+    "title": "Créditos e Agradecimentos",
     "createdBy": "Criado por",
     "feedback": "Se quiser enviar um feedback, entre em contato em ",
-    "hope": "Espero que você se divirta com seus amigos e família jogando este jogo :)",
-    "images": "Todos os conteúdos de imagem de Pokémon e itens relacionados são propriedade da The Pokémon Company.",
-    "inspiration": "Este jogo foi fortemente inspirado no Victory Road Run de ",
-    "pokeapi": "Como fonte de dados e sprites para este jogo",
-    "rod": "Testes e identificação de bugs",
+    "inspiration1": "Este jogo foi fortemente inspirado no Victory Road Run de ",
+    "inspiration2": "Confira o conteúdo deles :)",
     "specialThanks": "Agradecimentos Especiais",
-    "thanks": "Obrigado por jogar!",
-    "willian": "Testes e identificação de bugs"
+    "thanks1": "Pela ajuda com os dados de algumas roletas",
+    "thanks2": "Testes e identificação de bugs",
+    "thanks3": "Testes e identificação de bugs",
+    "pokeapi": "Como fonte de dados e sprites para este jogo",
+    "bulbapedia": "Pelos sprites dos treinadores usados neste projeto",
+    "images": "Todos os conteúdos de imagem de Pokémon e itens relacionados são propriedade da The Pokémon Company.",
+    "endThanks": "Obrigado por jogar!",
+    "endWords": "Espero que você se divirta com seus amigos e família jogando este jogo :)"
   },
-  
   "game": {
-    "coffee": {
-      "buy": "Compra um café?"
+    "coffeeButton": {
+      "label": "Compra um café?"
     },
-    "credits": {
-      "title": "Créditos"
+    "creditsButton": {
+      "label": "Créditos"
     },
     "end": {
       "champion": "Campeão de",

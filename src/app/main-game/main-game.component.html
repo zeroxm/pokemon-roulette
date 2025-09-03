@@ -25,7 +25,9 @@
                 </button> -->
         </div>
         <div class="main-game col-12 col-sm-5">
-            <app-roulette-container></app-roulette-container>
+            <app-roulette-container 
+                (resetGameEvent)="resetGame()">
+            </app-roulette-container>
         </div>
 
         <div class="trainer-info col-12 col-sm-4">

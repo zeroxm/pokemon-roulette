@@ -1,5 +1,7 @@
 <h1 class="title">{{currentLeader.name | translate}} {{ 'game.main.roulette.gym.defeated' | translate }}</h1>
-<p class="respin-reason">{{ (retries > 0) ? currentItem.text+" x"+retries : ""}}</p>
+<p class="respin-reason">
+    {{ (retries > 0) ? (currentItem.text | translate) + " x" + retries : ""}}
+</p>
 <app-wheel #wheel [items]="victoryOdds" (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>
 

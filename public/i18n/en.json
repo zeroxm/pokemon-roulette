@@ -86,28 +86,28 @@
     "dragon": "Dragon Badge"
   },
   "credits": {
-    "ack": "Credits & Acknowledgments",
-    "auranrage": "For the help with data for some roulettes",
-    "bulbapedia": "For their trainer's Sprites which are being used in this project",
-    "check": "Check their content :)",
+    "title": "Credits & Acknowledgments",
     "createdBy": "Created By",
     "feedback": "If you'd like share feedback, reach out on ",
-    "hope": "Hope you can have fun with your friends and family playing this game :)",
-    "images": "All image contents of Pokémon and Pokémon related items are Copyright of The Pokémon Company.",
-    "inspiration": "This game was heavily inspired on the Victory Road Run from ",
-    "pokeapi": "As a resource for this game's data and sprites",
-    "rod": "Testing and finding bugs",
+    "inspiration1": "This game was heavily inspired on the Victory Road Run from ",
+    "inspiration2": "Check their content :)",
     "specialThanks": "Special Thanks",
-    "thanks": "Thank You for Playing!",
-    "willian": "Testing and finding bugs"
+    "thanks1": "For the help with data for some roulettes",
+    "thanks2": "Testing and finding bugs",
+    "thanks3": "Testing and finding bugs",
+    "pokeapi": "As a resource for this game's data and sprites",
+    "bulbapedia": "For their trainer's Sprites which are being used in this project",
+    "images": "All image contents of Pokémon and Pokémon related items are Copyright of The Pokémon Company.",
+    "endThanks": "Thank You for Playing!",
+    "endWords": "Hope you can have fun with your friends and family playing this game :)"
   },
 	
   "game": {
-    "coffee": {
-      "buy": "Buy me a Coffee? "
+    "coffeeButton": {
+      "label": "Buy me a Coffee? "
     },
-    "credits": {
-      "title": "Credits"
+    "creditsButton": {
+      "label": "Credits"
     },
     "end": {
       "champion": "Champion of",

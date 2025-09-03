@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { RouletteContainerComponent } from './roulette-container/roulette-container.component';
 import { SettingsButtonComponent } from '../settings-button/settings-button.component';
+import { RareCandyService } from '../services/rare-candy-service/rare-candy.service';
 
 @Component({
   selector: 'app-main-game',
@@ -40,7 +41,8 @@ export class MainGameComponent implements OnInit {
     private gameStateService: GameStateService,
     private trainerService: TrainerService,
     private modalService: NgbModal,
-    private analyticsService: AnalyticsService) {
+    private analyticsService: AnalyticsService,
+    private rareCandyService: RareCandyService) {
       this.darkMode = this.darkModeService.darkMode$;
   }
 
@@ -67,22 +69,14 @@ export class MainGameComponent implements OnInit {
       return;
     }
 
-    // this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
-
-    // if (this.auxPokemonList.length !== 0) {
-    //   this.gameStateService.repeatCurrentState();
-    //   this.trainerService.removeItem(rareCandy);
-    //   this.currentContextItem = rareCandy;
-    //   this.chooseWhoWillEvolve('rare-candy');
-    // }
+    this.rareCandyService.triggerRareCandyEvolution(rareCandy);
   }
 
-  private resetGame(): void {
+  resetGame(): void {
     this.trainerService.resetTrainer();
     this.trainerService.resetTeam();
     this.trainerService.resetItems();
     this.trainerService.resetBadges();
-    //this.evolutionCredits = 0;
     this.gameStateService.resetGameState();
   }
 }

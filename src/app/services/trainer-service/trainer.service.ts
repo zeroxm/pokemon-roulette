@@ -133,12 +133,12 @@ export class TrainerService {
 
   trainerItems: ItemItem[] = [
     {
-      text: 'Potion',
+      text: 'items.potion.name',
       name: 'potion',
       sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
       fillStyle: 'purple',
       weight: 1,
-      description: 'Potion let you spin again whenever you would lose a Gym battle!'
+      description: 'items.potion.description'
     },
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);

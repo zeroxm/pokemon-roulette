@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
@@ -11,15 +11,18 @@ import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
 import { AudioService } from '../../services/audio-service/audio.service';
+import { SettingsService } from '../../services/settings-service/settings.service';
+import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
+import { Subscription } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
 import { StarterRouletteComponent } from "./roulettes/starter-roulette/starter-roulette.component";
 import { PokemonItem } from '../../interfaces/pokemon-item';
+import { ItemItem } from '../../interfaces/item-item';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
 import { ItemName } from '../../services/items-service/item-names';
 import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component";
-import { ItemItem } from '../../interfaces/item-item';
 import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
 import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-roulette/check-evolution-roulette.component";
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
@@ -77,9 +80,12 @@ import { GameOverComponent } from "../game-over/game-over.component";
   templateUrl: './roulette-container.component.html',
   styleUrl: './roulette-container.component.css'
 })
-export class RouletteContainerComponent implements OnInit {
+export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     NINCADA_ID = 290;
+    @Output() resetGameEvent = new EventEmitter<void>();
+
+    private rareCandySubscription?: Subscription;
 
     constructor(
       private evolutionService: EvolutionService,
@@ -88,7 +94,9 @@ export class RouletteContainerComponent implements OnInit {
       private pokemonService: PokemonService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
-      private audioService: AudioService) {
+      private audioService: AudioService,
+      private settingsService: SettingsService,
+      private rareCandyService: RareCandyService) {
       this.itemFoundAudio = this.audioService.createAudio('./ItemFound.mp3');
     }
 
@@ -113,6 +121,26 @@ export class RouletteContainerComponent implements OnInit {
     this.gameStateService.wheelSpinningObserver.subscribe(state => {
       this.wheelSpinning = state;
     });
+
+    // Subscribe to rare candy evolution trigger
+    this.rareCandySubscription = this.rareCandyService.rareCandyTrigger$.subscribe((rareCandy) => {
+      this.handleRareCandyEvolution(rareCandy);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.rareCandySubscription?.unsubscribe();
+  }
+
+  handleRareCandyEvolution(rareCandy: ItemItem): void {
+    const pokemonThatCanEvolve = this.trainerService.getPokemonThatCanEvolve();
+
+    if (pokemonThatCanEvolve.length > 0) {
+      this.gameStateService.repeatCurrentState();
+      this.trainerService.removeItem(rareCandy);
+      this.chooseWhoWillEvolve('rare-candy');
+    }
+    // If no Pokemon can evolve, do nothing (don't consume the rare candy)
   }
 
   @ViewChild('altPrizeModal', { static: true }) altPrizeModal!: TemplateRef<any>;
@@ -138,7 +166,6 @@ export class RouletteContainerComponent implements OnInit {
   infoModalTitle = '';
   itemFoundAudio!: HTMLAudioElement;
   leadersDefeatedAmount: number = 0;
-  lessExplanations: boolean = false;
   multitaskCounter: number = 0;
   pkmnEvoTitle = '';
   pkmnIn!: PokemonItem;
@@ -227,6 +254,9 @@ export class RouletteContainerComponent implements OnInit {
             size: 'md'
           });
           return this.findItem();
+          break;
+        case 'rare-candy':
+          return this.doNothing();
           break;
         default:
           return this.doNothing();
@@ -469,7 +499,7 @@ export class RouletteContainerComponent implements OnInit {
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
-    if (!this.lessExplanations) {
+    if (!this.settingsService.currentSettings.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnTradeModal, {
         centered: true,
         size: 'md'
@@ -549,7 +579,9 @@ export class RouletteContainerComponent implements OnInit {
   }
 
   resetGameAction(): void {
-    console.debug('Reset Game');
+    this.evolutionCredits = 0;
+    this.resetGameEvent.emit();
+    this.modalService.dismissAll();
   }
 
   private evolvePokemon(pokemon: PokemonItem): void {
@@ -612,7 +644,7 @@ export class RouletteContainerComponent implements OnInit {
 
   private showpkmnEvoModal(): void {
     this.playItemFoundAudio();
-    if (!this.lessExplanations) {
+    if (!this.settingsService.currentSettings.lessExplanations) {
       const modalRef = this.modalService.open(this.pkmnEvoModal, {
         centered: true,
         size: 'md'
@@ -635,7 +667,7 @@ export class RouletteContainerComponent implements OnInit {
       this.currentContextItem = item;
       this.gameStateService.setNextState('adventure-continues');
 
-      if (!this.lessExplanations) {
+      if (!this.settingsService.currentSettings.lessExplanations) {
         const modalRef = this.modalService.open(this.itemActivateModal, {
           centered: true,
           size: 'md'

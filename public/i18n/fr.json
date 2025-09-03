@@ -86,28 +86,27 @@
     "dragon": "Badge Dragon"
   },
   "credits": {
-    "ack": "Crédits et remerciements",
-    "auranrage": "Pour l'aide avec les données de certaines roulettes",
-    "bulbapedia": "Pour les sprites de leur dresseur qui sont utilisés dans ce projet",
-    "check": "Découvrez leur contenu :)",
+    "title": "Crédits et remerciements",
     "createdBy": "Créé par",
     "feedback": "Si vous souhaitez partager vos retours, contactez-moi sur",
-    "hope": "J’espère que vous pourrez vous amuser avec vos amis et votre famille en jouant à ce jeu :)",
-    "images": "Tous les contenus d’images de Pokémon et des éléments liés à Pokémon sont la propriété de The Pokémon Company.",
-    "inspiration": "Ce jeu s’inspire fortement du Victory Road Run de",
-    "pokeapi": "Comme ressource pour les données et les sprites de ce jeu",
-    "rod": "Tests et recherche de bugs",
+    "inspiration1": "Ce jeu s’inspire fortement du Victory Road Run de",
+    "inspiration2": "Découvrez leur contenu :)",
     "specialThanks": "Remerciements spéciaux",
-    "thanks": "Merci d’avoir joué !",
-    "willian": "Tests et recherche de bugs"
+    "thanks1": "Pour l'aide avec les données de certaines roulettes",
+    "thanks2": "Tests et recherche de bugs",
+    "thanks3": "Tests et recherche de bugs",
+    "bulbapedia": "Pour les sprites de leur dresseur",
+    "pokeapi": "Comme ressource pour les données et les sprites de ce jeu",
+    "images": "Tous les contenus d’images de Pokémon et des éléments liés à Pokémon sont la propriété de The Pokémon Company.",
+    "endThanks": "Merci d’avoir joué !",
+    "endWords": "J’espère que vous pourrez vous amuser avec vos amis et votre famille en jouant à ce jeu :)"
   },
-  
   "game": {
-    "coffee": {
-      "buy": "M’offrir un café ?"
+    "coffeeButton": {
+      "label": "M’offrir un café ?"
     },
-    "credits": {
-      "title": "Crédits"
+    "creditsButton": {
+      "label": "Crédits"
     },
     "end": {
       "champion": "Champion de",
