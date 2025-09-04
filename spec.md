@@ -25,7 +25,7 @@ Angular-based web game simulating a Pokemon adventure through roulette wheels. P
   - `cave-pokemon-roulette/` - Explore caves
   - `fishing-roulette/` - Go fishing
   - `elite-four-battle-roulette/` - End-game battles
-- **Wheel Component** (`src/app/wheel/wheel.component.ts`): Reusable spinning wheel with canvas rendering and weighted probabilities
+- **Wheel Component** (`src/app/wheel/wheel.component.ts`): Reusable spinning wheel with canvas rendering, weighted probabilities, and i18n support. Preprocesses translations for performance and displays translated text on both wheel segments and current segment indicator.
 - **Services** (`src/app/services/`): Business logic for game state, Pokemon data, items, trainer management
 
 ### Game States
@@ -137,8 +137,22 @@ Located in `public/`:
 - **Services**: Cross-component state sharing (game state, Pokemon data, etc.)
 - **Input/Output**: Component data flow (items, Pokemon selection)
 
+## Translation System
+
+### Implementation Details
+- **Wheel Component Translation**: The wheel component preprocesses all translation keys when items change or on initial load for optimal performance
+- **Translation Timing**: Uses `translateService.get()` to ensure translations are loaded before processing wheel items
+- **Nested Keys**: Supports nested JSON translation keys (e.g., `game.main.roulette.start.actions.catchPokemon`)
+- **Fallback**: Falls back to original text if translation key doesn't exist
+- **Performance**: Avoids calling `translateService.instant()` on every animation frame
+
+### Adding Wheel Item Translations
+1. Add translation keys to all language files in `public/i18n/`
+2. Use nested structure: `"game": { "main": { "roulette": { "start": { "actions": { "catchPokemon": "Translation" } } } } }`
+3. Wheel component automatically picks up new translations on next item change
+
 ## Performance & Compatibility
-- **Optimizations**: Lazy loading, canvas rendering, audio preloading
+- **Optimizations**: Lazy loading, canvas rendering, audio preloading, translation preprocessing
 - **Memory**: Component cleanup, service singletons, event unsubscription
 - **Browsers**: Modern browsers with HTML5 Canvas and Audio API support
 - **Mobile**: Responsive design for mobile devices

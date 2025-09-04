@@ -41,6 +41,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   winningNumber!: number;
   currentSegment: string = '-';
   clickAudio!: HTMLAudioElement;
+  
+  private translatedItems: WheelItem[] = [];
 
   constructor(
     private darkModeService: DarkModeService,
@@ -66,15 +68,30 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     } else if(this.items.length >= 16) {
       this.fontSize = Math.min(this.fontSize, 14);
     }
-    this.drawWheel();
-    this.drawPointer();
+    
+    // Wait for translations to be ready
+    this.translateService.get('wheel.spin').subscribe(() => {
+      this.preprocessTranslations();
+      this.drawWheel();
+      this.drawPointer();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items'] && !changes['items'].firstChange) {
-      this.drawWheel();
-      this.drawPointer();
+      this.translateService.get('wheel.spin').subscribe(() => {
+        this.preprocessTranslations();
+        this.drawWheel();
+        this.drawPointer();
+      });
     }
+  }
+
+  private preprocessTranslations(): void {
+    this.translatedItems = this.items.map(item => ({
+      ...item,
+      text: this.translateService.instant(item.text)
+    }));
   }
 
   private drawWheel(rotation = 0): void {
@@ -87,8 +104,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.wheelCtx.clearRect(0, 0, this.wheelCanvas.width, this.wheelCanvas.height);
 
     let startAngle = rotation;
-    for (let index = 0; index < this.items.length; index++) {
-      const item = this.items[index];
+    for (let index = 0; index < this.translatedItems.length; index++) {
+      const item = this.translatedItems[index];
       const segmentSize = arcSize * item.weight;
       const endAngle = startAngle + segmentSize;
 
@@ -99,7 +116,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.wheelCtx.fillStyle = item.fillStyle;
       this.wheelCtx.fill();
 
-      if (this.items.length < 160) {
+      if (this.translatedItems.length < 160) {
         /** Draw the text */
         this.wheelCtx.save();
         this.wheelCtx.translate(centerX, centerY);
@@ -107,10 +124,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.wheelCtx.fillStyle = '#fff';
         this.wheelCtx.font = this.fontSize + 'px Arial';
         this.wheelCtx.textAlign = 'right';
-        console.log('ITEM TEXT : ', item);
-        const translatedText = this.translateService.instant(item.text);
-        console.log('TRANSLATED TEXT : ', translatedText);
-        this.wheelCtx.fillText(translatedText, radius - 7, 5);
+        this.wheelCtx.fillText(item.text, radius - 7, 5);
         this.wheelCtx.restore();
       }
 
@@ -199,7 +213,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const currentAngle = (2 * Math.PI - (this.currentRotation % (2 * Math.PI))) % (2 * Math.PI);
     let accumulatedWeight = 0;
 
-    for (const item of this.items) {
+    for (const item of this.translatedItems) {
       accumulatedWeight += item.weight;
       const segmentEnd = (accumulatedWeight / totalWeight) * 2 * Math.PI;
 
@@ -211,7 +225,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   }
 
   private getTotalWeights(): number {
-    return this.items.reduce((sum, item) => sum + item.weight, 0);
+    return this.translatedItems.reduce((sum, item) => sum + item.weight, 0);
   }
 
   getRandomWeightedIndex(): number {
@@ -219,12 +233,12 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     let random = Math.random() * totalWeight;
     let accumulatedWeight = 0;
 
-    for (let i = 0; i < this.items.length; i++) {
-      accumulatedWeight += this.items[i].weight;
+    for (let i = 0; i < this.translatedItems.length; i++) {
+      accumulatedWeight += this.translatedItems[i].weight;
       if (random < accumulatedWeight) {
         return i;
       }
     }
-    return this.items.length - 1;
+    return this.translatedItems.length - 1;
   }
 }

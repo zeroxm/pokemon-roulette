@@ -116,10 +116,6 @@
     },
     "main": {
       "activates": "activates!",
-      "evol": {
-        "evolved": "evolved into",
-        "your": "Your"
-      },
       "game": {
         "button": {
           "title": "Main Game"
@@ -135,6 +131,44 @@
         "fails": "Team Rocket fails"
       },
       "roulette": {
+        "generation": {
+          "title": "Generation?",
+          "chooseInstead": "I'd rather choose",
+          "backToWheel": "I'd rather spin"
+        },
+        "character": {
+          "boy": "Boy",
+          "gender": "Are you a boy or a girl?",
+          "girl": "Girl",
+          "welcome": "Welcome to"
+        },
+        "starter": {
+          "title": "Starter?"
+        },
+        "shiny": {
+          "title": "Shiny?"
+        },
+        "start": {
+          "title": "What to do first?",
+          "actions": {
+            "catchPokemon": "Catch a Pokemon",
+            "battleTrainer": "Trainer Battle",
+            "buyPotions": "Buy Potions",
+            "goStraight": "Go Straight"
+          }
+        },
+        "catch": {
+          "which": "Which",
+          "pkmn": "Pokemon?"
+        },
+        "evolve": {
+          "who": "Who will evolve?",
+          "modal": {
+            "title": "Evolution!",
+            "evolved": "evolved into",
+            "your": "Your"
+          }
+        },
         "adventure": {
           "title": "What do you do between Gyms?"
         },
@@ -150,12 +184,6 @@
           "go": "Let's Go!",
           "use": "Used a",
           "victory": "Victory?"
-        },
-        "character": {
-          "boy": "Boy",
-          "gender": "Are you a boy or a girl?",
-          "girl": "Girl",
-          "welcome": "Welcome to"
         },
         "egg": {
           "title": "Which Pokemon ?"
@@ -184,14 +212,6 @@
           "fossil": "Fossil ?",
           "which": "Which"
         },
-        "generation": {
-          "pkmn": "Pokemon ?",
-          "title": "Gen ?",
-          "which": "Which",
-          "chooseInstead": "I'd rather choose",
-          "chooseGeneration": "Choose your generation:",
-          "backToWheel": "I'd rather spin"
-        },
         "gym": {
           "against": "Battle against",
           "defeated": "Defeated?",
@@ -212,17 +232,8 @@
           "go": "Let's Go!",
           "victory": "Victory?"
         },
-        "shiny": {
-          "title": "Shiny?"
-        },
         "snorlax": {
           "outcome": "Outcome"
-        },
-        "start": {
-          "title": "What to do first?"
-        },
-        "starter": {
-          "title": "Starter ?"
         },
         "teamrocket": {
           "double": "And make it double!",

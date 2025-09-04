@@ -140,7 +140,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.trainerService.removeItem(rareCandy);
       this.chooseWhoWillEvolve('rare-candy');
     }
-    // If no Pokemon can evolve, do nothing (don't consume the rare candy)
   }
 
   @ViewChild('altPrizeModal', { static: true }) altPrizeModal!: TemplateRef<any>;
@@ -268,7 +267,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolvePokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'Who will evolve?';
+    this.customWheelTitle = 'game.main.roulette.evolve.who';
     this.gameStateService.setNextState('evolve-pokemon');
     this.gameStateService.setNextState('select-from-pokemon-list');
 
@@ -603,7 +602,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     this.pkmnOut = pokemonOut;
     this.pkmnIn = structuredClone(pokemonIn);
-    this.pkmnEvoTitle = "Evolution!"
+    this.pkmnEvoTitle = "game.main.roulette.evolve.modal.title"
     this.trainerService.replaceForEvolution(this.pkmnOut, this.pkmnIn);
 
     if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {

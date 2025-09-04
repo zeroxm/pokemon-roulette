@@ -115,10 +115,6 @@
     },
     "main": {
       "activates": "se activa!",
-      "evol": {
-        "evolved": "evolucionó a",
-        "your": "Tu"
-      },
       "game": {
         "button": {
           "title": "Juego principal"
@@ -134,6 +130,44 @@
         "fails": "El Team Rocket fracasa"
       },
       "roulette": {
+        "generation": {
+          "title": "¿Generación?",
+          "chooseInstead": "Prefiero elegir",
+          "backToWheel": "Prefiero sortear"
+        },
+        "character": {
+          "boy": "Chico",
+          "gender": "¿Eres un chico o una chica?",
+          "girl": "Chica",
+          "welcome": "Bienvenido a"
+        },
+        "starter": {
+          "title": "¿Pokémon inicial?"
+        },
+        "shiny": {
+          "title": "¿Shiny?"
+        },
+        "start": {
+          "title": "¿Qué hacer primero?",
+          "actions": {
+            "catchPokemon": "Capturar un Pokémon",
+            "battleTrainer": "Combate un Entrenador",
+            "buyPotions": "Comprar Potions",
+            "goStraight": "Ir todo derecho"
+          }
+        },
+        "catch": {
+          "which": "¿Cuál",
+          "pkmn": "Pokémon?"
+        },
+        "evolve": {
+          "who": "¿Quién va a evolucionar?",
+          "modal": {
+            "title": "Evolución!",
+            "evolved": "evolucionó a",
+            "your": "Tu"
+          }
+        },
         "adventure": {
           "title": "¿Qué haces entre los gimnasios?"
         },
@@ -149,12 +183,6 @@
           "go": "¡Vamos!",
           "use": "Usó un(a)",
           "victory": "¿Victoria?"
-        },
-        "character": {
-          "boy": "Niño",
-          "gender": "¿Eres un niño o una niña?",
-          "girl": "Niña",
-          "welcome": "Bienvenido a"
         },
         "egg": {
           "title": "¿Qué Pokémon?"
@@ -183,14 +211,6 @@
           "fossil": "Fósil?",
           "which": "¿Cuál"
         },
-        "generation": {
-          "pkmn": "Pokémon ?",
-          "title": "¿Gen?",
-          "which": "¿Cuál",
-          "chooseInstead": "Prefiero elegir",
-          "chooseGeneration": "Elige tu generación:",
-          "backToWheel": "Prefiero sortear"
-        },
         "gym": {
           "against": "Combate contra",
           "defeated": "Derrotado?",
@@ -211,17 +231,8 @@
           "go": "¡Vamos!",
           "victory": "¿Victoria?"
         },
-        "shiny": {
-          "title": "¿Shiny?"
-        },
         "snorlax": {
           "outcome": "Resultado"
-        },
-        "start": {
-          "title": "¿Qué hacer primero?"
-        },
-        "starter": {
-          "title": "¿Pokémon inicial?"
         },
         "teamrocket": {
           "double": " Permítenos que nos presentemos.",

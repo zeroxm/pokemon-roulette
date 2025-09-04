@@ -1,4 +1,4 @@
-<h1 class="title">{{wheelTitle}}</h1>
+<h1 class="title">{{wheelTitle | translate}}</h1>
 <app-wheel  #wheel
             [items]="trainerTeam"
             (selectedItemEvent)="onItemSelected($event)">

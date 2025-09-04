@@ -1,4 +1,8 @@
-<h1 class="title">{{ 'game.main.roulette.generation.which' | translate }} {{generation.text}} {{ 'game.main.roulette.generation.pkmn' | translate }}</h1>
+<h1 class="title">
+    {{ 'game.main.roulette.catch.which' | translate }} 
+    {{ 'game.main.roulette.catch.pkmn' | translate }} 
+    ({{ generation.text }})
+</h1>
 <app-wheel  #wheel
             [items]="getFromGeneration()"
             (selectedItemEvent)="onItemSelected($event)">
