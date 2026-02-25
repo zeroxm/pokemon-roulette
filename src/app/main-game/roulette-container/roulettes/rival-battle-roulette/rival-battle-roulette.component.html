@@ -5,13 +5,15 @@
     (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>
 
-<ng-template #gymLeaderPresentationModal let-modal>
+<ng-template #rivalPresentationModal let-modal>
     <div class="modal-body">
         <h1>{{ 'game.main.roulette.rival.against' | translate }} {{ currentRival.name | translate }}!</h1>
         <div class="rival-panel">
             <img [src]="currentRival.sprite" alt="{{currentRival.name}}" height="128">
             <div class="quotes">
-                <p *ngFor="let quote of currentRival.quotes">{{quote | translate}}</p>
+                @for (quote of currentRival.quotes; track $index) {
+                    <p>{{quote | translate}}</p>
+                }
             </div>
         </div>
     </div>

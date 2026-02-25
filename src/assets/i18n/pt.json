@@ -257,7 +257,9 @@
         "rival": {
           "against": "Batalha contra",
           "go": "Vamos lá!",
-          "victory": "Vitória?"
+          "victory": "Vitória?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "snorlax": {
           "outcome": "Resultado"
@@ -1424,7 +1426,7 @@
       "quote1": "My policy is an all out offensive with Water-type Pokémon!"
     },
     "surge": {
-      "name": "Ten. Surge",
+      "name": "Lt. Surge",
       "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
       "quote2": "They zapped my enemies into paralysis!",
       "quote3": "The same as I'll do to you!"
@@ -1741,36 +1743,36 @@
   "rival": {
     "blue": {
       "name": "Blue",
-      "quote1": "Let's check out our Pokémon! Come on, I'll take you on!"
+      "quote1": "Vamos ver como estão nossos Pokémon! Pode vir, eu aceito o desafio!"
     },
     "silver": {
       "name": "Silver",
-      "quote1": "I too have a good Pokémon. I'll show you what I mean!"
+      "quote1": "Eu também tenho bons Pokémon. Vou mostrar o que quero dizer!"
     },
     "wally": {
       "name": "Wally",
-      "quote1": "Please see how much my training has accomplished!"
+      "quote1": "Por favor, veja o quanto o meu treinamento me fez avançar!"
     },
     "barry": {
       "name": "Barry",
-      "quote1": "You aren't the only one who's getting tougher! I'll prove it to you! Let's go!"
+      "quote1": "Você não é o único que está ficando mais forte! Vou provar isso para você! Vamos lá!"
     },
     "n": {
       "name": "N",
-      "quote1": "Let me hear your Pokémon's voice!"
+      "quote1": "Deixe-me ouvir a voz dos seus Pokémon!"
     },
     "calem-serena": {
       "name": "Calem/Serena",
-      "quote1": "I'm a Pokémon Trainer, I want to see things that make Pokémon special.",
-      "quote2": "My Pokémon and I will show you what makes us special!"
+      "quote1": "Eu sou um Treinador Pokémon, quero ver coisas que tornam os Pokémon especiais.",
+      "quote2": "Meus Pokémon e eu vamos mostrar o que nos torna especiais!"
     },
     "gladion": {
       "name": "Gladion",
-      "quote1": "Battle me. I won't take no for an answer."
+      "quote1": "Batalha comigo. Eu não vou aceitar um não como resposta."
     },
     "bede": {
       "name": "Bede",
-      "quote1": "It's time to prove I'm a notch above the competition to everyone in the Galar region"
+      "quote1": "É hora de provar que um nível acima do resto da competição na região de Galar."
     }
   }
 }

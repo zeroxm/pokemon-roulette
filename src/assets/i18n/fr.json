@@ -257,7 +257,9 @@
         "rival": {
           "against": "Combat contre",
           "go": "C'est parti !",
-          "victory": "Victoire ?"
+          "victory": "Victoire ?",
+          "yes": "Oui",
+          "no": "Non"
         },
         "snorlax": {
           "outcome": "Résultat"
@@ -1254,12 +1256,12 @@
   },
   "elite4": {
     "lorelei": {
-      "name": "Olga",
+      "name": "Lorelei",
       "quote1": "No one can best me when it comes to icy Pokémon.",
       "quote2": "Freezing moves are powerful. Are you ready?"
     },
     "bruno-gen1": {
-      "name": "Aldo",
+      "name": "Bruno",
       "quote1": "Through rigorous training, people and Pokémon can become stronger without limit.",
       "quote2": "We will grind you down with our superior power! Hoo hah!"
     },
@@ -1269,12 +1271,12 @@
       "quote2": "I'll show you how a real Trainer battles!"
     },
     "lance": {
-      "name": "Peter",
+      "name": "Lance",
       "quote1": "You can call me Lance the dragon Trainer.",
       "quote2": "Your League challenge ends with me!"
     },
     "will": {
-      "name": "Clément",
+      "name": "Will",
       "quote1": "I am Will. I have trained all around the world, making my Psychic-type Pokémon powerful.",
       "quote2": "I can only keep getting better! Losing is not an option!"
     },
@@ -1284,23 +1286,23 @@
       "quote2": "I shall show you true terror as a ninja master!"
     },
     "bruno-gen2": {
-      "name": "Aldo",
+      "name": "Bruno",
       "quote1": "You look determined. Perfect for battle!",
       "quote2": "You will bow down to our overwhelming power! Hoo hah!"
     },
     "karen": {
-      "name": "Marion",
+      "name": "Karen",
       "quote1": "How amusing. I love Dark-type Pokémon.",
       "quote2": "I'm known for my overpowering tactics.",
       "quote3": "Just try to entertain me. Let's go."
     },
     "sidney": {
-      "name": "Damien",
+      "name": "Sidney",
       "quote1": "I like that look you're giving me.",
       "quote2": "I guess you'll give me a good match. That's good!"
     },
     "phoebe": {
-      "name": "Spectra",
+      "name": "Phoebe",
       "quote1": "Ahahaha! I'm Phoebe of the Elite Four.",
       "quote2": "See if you can even inflict damage on my Pokémon!"
     },
@@ -1310,7 +1312,7 @@
       "quote2": "I wonder what you will show me."
     },
     "drake": {
-      "name": "Aragon",
+      "name": "Drake",
       "quote1": "do you know what it takes to battle alongside Pokémon as partners?",
       "quote2": "If you don't, you will never prevail over me"
     },
@@ -1321,37 +1323,37 @@
       "quote3": "Ok! Let me take you on!"
     },
     "bertha": {
-      "name": "Terry",
+      "name": "Bertha",
       "quote1": "Well, well. You're quite the adorable Trainer!",
       "quote2": "Would you show this old lady how much you've learned?"
     },
     "flint": {
-      "name": "Adrien",
+      "name": "Flint",
       "quote1": "You're facing a Fire-type Pokémon user with me.",
       "quote2": "Let Flint see how hot your spirit burns!"
     },
     "lucian": {
-      "name": "Lucio",
+      "name": "Lucian",
       "quote1": "I must say, you've already proven yourself to be outstanding by coming this far.",
       "quote2": "I'm afraid I will have to go all out against you."
     },
     "shauntal": {
-      "name": "Anis",
+      "name": "Shauntal",
       "quote1": "Excuse me. You're a challenger, right?",
       "quotes2": "I'm the Elite Four's Ghost-type Pokémon user, Shauntal, and I shall be your opponent."
     },
     "marshal": {
-      "name": "Kunz",
+      "name": "Marshal",
       "quote1": "I'm training under my mentor, Alder.",
       "quote2": "My mentor sees your potential as a Trainer and is taking an interest in you."
     },
     "grimsley": {
-      "name": "Pieris",
+      "name": "Grimsley",
       "quote1": "Life is a serious battle, and you have to use the tools you're given.",
       "quote2": "Let us begin. And may the best Trainer win!"
     },
     "caitlin": {
-      "name": "Percila",
+      "name": "Caitlin",
       "quote1": "You appear to possess a combination of strength and kindness.",
       "quote2": "Make your best effort not to bore me with a yawn-inducing battle. Clear?"
     },
@@ -1361,31 +1363,31 @@
       "quote2": "I am Malva, and I shall be your opponent today."
     },
     "siebold": {
-      "name": "Narcisse",
+      "name": "Siebold",
       "quote1": "I have a question I must pose to you.",
       "quote2": "Do you think Pokémon battling can ever be worthy of being called an art?"
     },
     "wikstrom": {
-      "name": "Thyméo",
+      "name": "Wikstrom",
       "quote1": "Let us both give our word that our contest shall be fair and honorable.",
       "quote2": "Ready? En garde!"
     },
     "drasna": {
-      "name": "Dracéna",
+      "name": "Drasna",
       "quote1": "You must be a strong Trainer... That's just wonderful news!",
       "quote2": "Facing opponents like you and your team will make my Pokémon grow like weeds!"
     },
     "molayne": {
-      "name": "Molène",
+      "name": "Molayne",
       "quote1": "Kukui asked me to, so I decided to be in the Elite Four.",
       "quote2": "I'm looking forward to battling against you and Sophocles in the Pokémon League."
     },
     "olivia": {
-      "name": "Alyxya",
+      "name": "Olivia",
       "quote1": "No introduction needed here. Time to battle me, Olivia!"
     },
     "acerola": {
-      "name": "Margie",
+      "name": "Acerola",
       "quote1": "Nanu said he was not felling up to be an Elite 4",
       "quote2": "So I guess I'll just have to battle hard enough to make up for his not being here!"
     },
@@ -1394,24 +1396,383 @@
       "quote1": "I heard that they'd made a Pokémon League in my own home region, so I came flying back to serve Alola."
     },
     "marnie": {
-      "name": "Rosemary/Nabil/Travis",
+      "name": "Marnie/Hop/Bede",
       "quote1": "The truth is... I really just wanna become Champion for myself! So don't take it personal when I kick your butt!",
       "quote2": "It's time I finish what I started that day... Got it? The one who'll become Champion is me!",
       "quote3": "It's time to prove I'm a notch above the competition to everyone in the Galar region."
     },
     "nessa": {
-      "name": "Donna",
+      "name": "Nessa",
       "quote1": "I'm sure you remember, but I'm Nessa. And I'm not here to chat. I'm here to win!"
     },
     "bea": {
-      "name": "Faïza/Alistair",
+      "name": "Bea/Allister",
       "quote1": "Focusing too much on winning can cause one to make mistakes. I will face you with a clear head!",
       "quote2": "...Let's start the match."
     },
     "raihan": {
-      "name": "Roy",
+      "name": "Raihan",
       "quote1": "You're really something else, kid. You've made it all the way here!",
       "quote2": "You might be thinking that you beat me once already... But I'm not the same Raihan you faced before"
+    }
+  },
+  "gymLeaders": {
+    "brock": {
+      "name": "Brock",
+      "quote1": "Fine, then! Show me your best!"
+    },
+    "misty": {
+      "name": "Misty",
+      "quote1": "My policy is an all out offensive with Water-type Pokémon!"
+    },
+    "surge": {
+      "name": "Lt. Surge",
+      "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
+      "quote2": "They zapped my enemies into paralysis!",
+      "quote3": "The same as I'll do to you!"
+    },
+    "erika": {
+      "name": "Erika",
+      "quote1": "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
+      "quote2": "Very well, but I shall not lose."
+    },
+    "koga": {
+      "name": "Koga",
+      "quote1": "Very well, I shall show you true terror as a ninja master!",
+      "quote2": "Despair to the creeping horror of Poison-type Pokémon!"
+    },
+    "sabrina": {
+      "name": "Sabrina",
+      "quote1": "I had a vision of your arrival!",
+      "quote2": "I dislike battling, but if you wish, I will show you my powers!"
+    },
+    "blaine": {
+      "name": "Blaine",
+      "quote1": "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!",
+      "quote2": "My fiery Pokémon are all ready with intense heat! "
+    },
+    "giovanni": {
+      "name": "Giovanni",
+      "quote1": "So be it. This time, I'm not holding back!",
+      "quote2": "You shall face Giovanni, the greatest Trainer!"
+    },
+    "falkner": {
+      "name": "Falkner",
+      "quote1": "I'll show you the real power of the magnificent bird Pokémon!"
+    },
+    "bugsy": {
+      "name": "Bugsy",
+      "quote1": "My research is going to make me an authority on Bug-type Pokémon!",
+      "quote2": "Let me demonstrate what I've learned from my studies."
+    },
+    "whitney": {
+      "name": "Whitney",
+      "quote1": "Pokémon are super cute!",
+      "quote2": "You want to battle?",
+      "quote3": "I'm warning you--I'm good!"
+    },
+    "morty": {
+      "name": "Morty",
+      "quote1": "It's said that a rainbow-hued Pokémon will come down to appear before a truly powerful Trainer.",
+      "quote2": "I believe that person is me!",
+      "quote3": "You're going to help me reach that level!"
+    },
+    "chuck": {
+      "name": "Chuck",
+      "quote1": "I have to warn you that I am a strong Trainer training every day under this waterfall!",
+      "quote2": "Come on. We shall do battle!"
+    },
+    "jasmine": {
+      "name": "Jasmine",
+      "quote1": "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
+      "quote2": "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
+    },
+    "pryce": {
+      "name": "Pryce",
+      "quote1": "I have been training Pokémon since before you were born. I do not lose easily.",
+      "quote2": "I, Pryce - the Winter Trainer - shall demonstrate my power!"
+    },
+    "clair": {
+      "name": "Clair",
+      "quote1": "I am Clair. The world's best Dragon-type master.",
+      "quote2": "As a Gym Leader, I will use my full power against any opponent!"
+    },
+    "roxanne": {
+      "name": "Roxanne",
+      "quote1": "Now, would you kindly demonstrate how you battle with your Pokémon?"
+    },
+    "brawly": {
+      "name": "Brawly",
+      "quote1": "I'm Brawly! Dewford's Gym Leader!",
+      "quote2": "So you want to challenge me? Let me see what you're made of!"
+    },
+    "wattson": {
+      "name": "Wattson",
+      "quote1": "Wahahahah! Now, that is amusing!",
+      "quote2": "I, Wattson, the Leader of Mauville Gym, shall electrify you!"
+    },
+    "flannery": {
+      "name": "Flannery",
+      "quote1": "Welcome!",
+      "quote2": "No, I mean… I'm Flannery, and I'm in charge here!",
+      "quote3": "I'm gonna, uh, demonstrate the hot moves we've honed in this land!"
+    },
+    "norman": {
+      "name": "Norman",
+      "quote1": "I will do everything within my power as a Gym Leader to win!",
+      "quote2": "You'd better give it your best shot, too!"
+    },
+    "winona": {
+      "name": "Winona",
+      "quote1": "I am Winona. I am the Leader of the Fortree Pokémon Gym.",
+      "quote2": "Witness the elegant choreography of my bird Pokémon and me!"
+    },
+    "liza-tate": {
+      "name": "Liza & Tate",
+      "quote1": "Were you surprised? That there are two Gym Leaders?",
+      "quote2": "We're twins!",
+      "quote3": "This combination of ours... Can you beat it?"
+    },
+    "wallace": {
+      "name": "Wallace",
+      "quote1": "Allow me to formally introduce myself. I am Wallace. The Gym Leader of Sootopolis.",
+      "quote2": "Now, show me. Show me the power you wield with your Pokémon."
+    },
+    "roark": {
+      "name": "Roark",
+      "quote1": "This is the Oreburgh Pokémon Gym! I'm Roark, the Gym Leader!",
+      "quote2": "As the Gym Leader, I need to see your potential as a Trainer."
+    },
+    "gardenia": {
+      "name": "Gardenia",
+      "quote1": "You have a winning aura about you.",
+      "quote2": "So, anyway, this will be fun. Let's have our battle!"
+    },
+    "maylene": {
+      "name": "Maylene",
+      "quote1": "I will do the best I can as the Gym Leader.",
+      "quote2": "I take battling very seriously. Whenever you're ready!"
+    },
+    "crasher-wake": {
+      "name": "Crasher Wake",
+      "quote1": "My Pokémon were toughened up by stormy white waters!",
+      "quote2": "Victory will be ours! Come on, let's get it done!"
+    },
+    "fantina": {
+      "name": "Fantina",
+      "quote1": "Ohohoho!! Finally, you have arrived!",
+      "quote2": "But I shall win. That is what a Gym Leader does, non?"
+    },
+    "byron": {
+      "name": "Byron",
+      "quote1": "You've defeated my son, Roark.",
+      "quote2": "But that's no surprise. He still has much to learn.",
+      "quote3": "I, Byron, will take your challenge!"
+    },
+    "candice": {
+      "name": "Candice",
+      "quote1": "Sure thing! I was waiting for someone tough!",
+      "quote2": "It's all about focus! I'll show you just what I mean. Get ready to lose!"
+    },
+    "volkner": {
+      "name": "Volkner",
+      "quote1": "Sigh... I'm Volkner, the Gym Leader.",
+      "quote2": "I hope you're the Trainer who'll make me remember how fun it is to battle!"
+    },
+    "cilan-chili-cress": {
+      "name": "Cilan/Chili/Cress",
+      "quote1": "So, um, if you're OK with me, I'll, um, put everything I've got into being, er, you know, your opponent.",
+      "quote2": "Yeeeeooow! Time to play with FIRE!! I'm the strongest of us brothers!",
+      "quote3": "What incredible luck for you--you get to battle the best among the three of us."
+    },
+    "lenora": {
+      "name": "Lenora",
+      "quote1": "The director of the Nacrene Museum and the Nacrene Gym's Leader is me! Lenora!",
+      "quote2": "Well then, challenger, I'm going to research how you battle with the Pokémon you've so lovingly raised!"
+    },
+    "burgh": {
+      "name": "Burgh",
+      "quote1": "My bug Pokémon are scurrying with excitement about getting to battle you.",
+      "quote2": "Let's get straight to it!"
+    },
+    "elesa": {
+      "name": "Elesa",
+      "quote1": "Welcome to the main stage!",
+      "quote2": "My beloved Pokémon and your Pokémon shall compete!",
+      "quote3": "We're going to see whose star shines brightest!"
+    },
+    "clay": {
+      "name": "Clay",
+      "quote1": "Think it's about time to see fer myself what it is about yer skills that makes a Gym Leader like Elesa take such a shine to ya."
+    },
+    "skyla": {
+      "name": "Skyla",
+      "quote1": "Hee-hee! I've been waiting for you.",
+      "quote2": "Did you enjoy flying with the help of the Mistralton Gym cannons?"
+    },
+    "brycen": {
+      "name": "Brycen",
+      "quote1": "I'm Brycen... Pleased to meet you...",
+      "quote2": "You appear ready to face a Gym Leader. Then... Bring it!"
+    },
+    "drayden-iris": {
+      "name": "Drayden/Iris",
+      "quote1": "Welcome. Thank you for coming. I am Opelucid Pokémon Gym's Leader, Drayden. I'm searching for now is a young Trainer who can show me a bright future. Perhaps you can show me that future, the way Iris has?",
+      "quote2": "Hi! I'm Iris, the amazing strong Gym Leader! Tell me... What Pokémon are you using? How will you fight? Ooh, I'm super curious, so let's just get started!"
+    },
+    "viola": {
+      "name": "Viola",
+      "quote1": "It's fantastic! Just fantastic! A great subject for my camera!",
+      "quote2": "My lens is always focused on victory--I won't let anything ruin this shot!"
+    },
+    "grant": {
+      "name": "Grant",
+      "quote1": "I've been waiting in eager anticipation! For a worthy challenger to appear!",
+      "quote2": "I hope you'll show me that your skill as a Trainer surpasses even mine."
+    },
+    "korrina": {
+      "name": "Korrina",
+      "quote1": "I'm not exactly sure, but I think Lucario is saying it wants to battle with you."
+    },
+    "ramos": {
+      "name": "Ramos",
+      "quote1": "So what'd yeh think, whippersnapper?",
+      "quote2": "My sturdy plants are a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
+    },
+    "clemont": {
+      "name": "Clemont",
+      "quote1": "Let's both do our best in battle."
+    },
+    "valerie": {
+      "name": "Valerie",
+      "quote1": "Oh, if it isn't a young Trainer...",
+      "quote2": "The elusive Fairy types may appear frail as a breeze and delicate as a bloom, but they are strong."
+    },
+    "olympia": {
+      "name": "Olympia",
+      "quote1": "A ritual to decide your fate and future. ",
+      "quote2": "The battle begins!"
+    },
+    "wulfric": {
+      "name": "Wulfric",
+      "quote1": "Ice is both extremely hard and terribly fragile at the same time.",
+      "quote2": "Let's get this show on the road!"
+    },
+    "ilima": {
+      "name": "Ilima",
+      "quote1": "Greetings! Captain Ilima here.",
+      "quote2": "My trial is held in Verdant Cavern. The trial of Captain Ilima."
+    },
+    "hala": {
+      "name": "Hala",
+      "quote1": "Ho!",
+      "quote2": "I am Hala, the kahuna of Melemele Island.",
+      "quote3": "Let the grand trial begin!"
+    },
+    "lana-kiawe-mallow": {
+      "name": "Lana/Kiawe/Mallow",
+      "quote1": "Hello. I'm Lana. I serve as the captain of Brooklet Hill.",
+      "quote2": "I am Kiawe. My Marowak and I are students of the ancient dances.",
+      "quote3": "I'm Mallow, one of the captains here! Your Pokémon look ready to cook with gas!"
+    },
+    "olivia": {
+      "name": "Olivia",
+      "quote1": "Now you face the grand trial of the kahuna—me!",
+      "quote2": "Get ready for your hardest Pokémon battle yet on Akala!"
+    },
+    "sophocles-acerola": {
+      "name": "Sophocles/Acerola",
+      "quote1": "Mm-hmm. I've gotta show Big Mo how strong I can be...",
+      "quote2": "My trial takes place at the abandoned site where the supermarket used to be."
+    },
+    "nanu": {
+      "name": "Nanu",
+      "quote1": "You there.",
+      "quote2": "I'm an island kahuna, you know. Battle against me."
+    },
+    "mina": {
+      "name": "Mina",
+      "quote1": "Have a battle against Captain Mina!",
+      "quote2": "Me and my team are all full-powered to the max!"
+    },
+    "hapu": {
+      "name": "Hapu",
+      "quote1": "This is the first grand trial of Kahuna Hapu! I will battle you with everything that I have got!"
+    },
+    "milo": {
+      "name": "Milo",
+      "quote1": "Sure seems like you understand Pokémon real well.",
+      "quote2": "This is gonna be a doozy of a battle!"
+    },
+    "nessa": {
+      "name": "Nessa",
+      "quote1": "Welcome, honored Gym Challenger!",
+      "quote2": "No matter what kind of plan your refined mind may be plotting, my partner and I will be sure to sink it."
+    },
+    "kabu": {
+      "name": "Kabu",
+      "quote1": "Welcome! I am Kabu, the Fire-type Gym Leader.",
+      "quote2": "The match is decided by which side is able to unleash their true potential."
+    },
+    "bea-allister": {
+      "name": "Bea/Allister",
+      "quote1": "Welcome, Gym Challenger. I'm Bea. Do you have an unshakable spirit that won't be moved, no matter how you are attacked? I think I'll just test that out, shall I?",
+      "quote2": ".'M Allister. H-here...I go..."
+    },
+    "opal": {
+      "name": "Opal",
+      "quote1": "I'm Opal, the Gym Leader.",
+      "quote2": "Let me have a look at how you and your partner Pokémon behave!"
+    },
+    "gordie-melony": {
+      "name": "Gordie/Melony",
+      "quote1": "Hey there. The name's Gordie. Let's get this over with, Challenger!",
+      "quote2": "I am Melony. As you can clearly see, I've assembled a team of all Ice-type Pokémon. All righty, I suppose we should get started."
+    },
+    "piers": {
+      "name": "Piers",
+      "quote1": "*sigh*... So you're finally here, huh?",
+      "quote2": "Get ready for a mosh pit with me and my party! Spikemuth, it's time to rock!"
+    },
+    "raihan": {
+      "name": "Raihan",
+      "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
+      "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
+    }
+  },
+  "rival": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Allons voir nos Pokémon ! Viens, je vais t'affronter !"
+    },
+    "silver": {
+      "name": "Silver",
+      "quote1": "Moi aussi j'ai de bons Pokémon. Je te montrerai ce que je veux dire !"
+    },
+    "wally": {
+      "name": "Wally",
+      "quote1": "Regarde combien mon entraînement m'a fait progresser !"
+    },
+    "barry": {
+      "name": "Barry",
+      "quote1": "Tu n'es pas le seul à devenir plus fort ! Je te le prouverai ! Allons-y !"
+    },
+    "n": {
+      "name": "N",
+      "quote1": "Laisse-moi entendre la voix de tes Pokémon !"
+    },
+    "calem-serena": {
+      "name": "Calem/Serena",
+      "quote1": "Je suis Dresseur Pokémon, je veux voir ce qui rend les Pokémon spéciaux.",
+      "quote2": "Mes Pokémon et moi te montrerons ce qui nous rend spéciaux !"
+    },
+    "gladion": {
+      "name": "Gladion",
+      "quote1": "Bats-toi contre moi. Je ne tolérerai pas un non."
+    },
+    "bede": {
+      "name": "Bede",
+      "quote1": "Il est temps de prouver à tout le monde dans la région de Galar que je suis un cran au-dessus de la compétition."
     }
   }
 }

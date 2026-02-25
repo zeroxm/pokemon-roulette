@@ -257,7 +257,9 @@
         "rival":  {
           "against": "Battle against",
           "go": "Let's Go!",
-          "victory": "Victory?"
+          "victory": "Victory?",
+          "yes": "Yes",
+          "no": "No"
         },
         "snorlax": {
           "outcome": "Outcome"

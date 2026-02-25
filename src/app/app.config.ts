@@ -18,12 +18,6 @@ import {
 import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
-// note: TranslateHttpLoader pulls its configuration via the
-// TRANSLATE_HTTP_LOADER_CONFIG injection token.  the factory below
-// simply uses the default constructor; the token must be provided
-// separately or Angular will complain (NG0201).  we could alternatively
-// drop the factory entirely and use `provideTranslateHttpLoader` but
-// the former keeps the original shape of the code.
 const httpLoaderFactory = () => new TranslateHttpLoader();
 
 export const appConfig: ApplicationConfig = {

@@ -39,7 +39,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   private gameSubscription: Subscription | null = null;
   private generationSubscription: Subscription | null = null;
 
-  @ViewChild('gymLeaderPresentationModal', { static: true }) gymLeaderPresentationModal!: TemplateRef<any>;
+  @ViewChild('rivalPresentationModal', { static: true }) rivalPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
 
   generation!: GenerationItem;
@@ -49,8 +49,8 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   @Output() battleResultEvent = new EventEmitter<boolean>();
 
   victoryOdds: WheelItem[] = [
-    { text: 'Yes', fillStyle: 'green', weight: 1 },
-    { text: 'No', fillStyle: 'crimson', weight: 1 }
+    { text: 'game.main.roulette.rival.yes', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.rival.no', fillStyle: 'crimson', weight: 1 }
   ];
 
   currentRival!: GymLeader;
@@ -75,7 +75,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
         this.currentRival = this.getCurrentRival();
         this.calcVictoryOdds();
 
-        this.modalService.open(this.gymLeaderPresentationModal, {
+        this.modalService.open(this.rivalPresentationModal, {
           centered: true,
           size: 'lg'
         });
@@ -94,7 +94,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   onItemSelected(index: number): void {
-    if (this.victoryOdds[index].text === 'Yes') {
+    if (this.victoryOdds[index].text === 'game.main.roulette.rival.yes') {
       this.battleResultEvent.emit(true);
     } else {
       this.battleResultEvent.emit(false);
@@ -104,23 +104,23 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   private calcVictoryOdds(): void {
     this.victoryOdds = [];
 
-    this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+        this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
       }
     });
     const powerModifier = this.plusModifiers();
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
     }
 
-    this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
   }
 
   private plusModifiers(): number {
@@ -137,15 +137,15 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   private getCurrentRival(): GymLeader {
     let currentRival = this.rivalByGeneration[this.generation.id];
     if ((this.generation.id === 6)) {
-      const leaderNames = currentRival.name.split('/');
-      const leaderSprites = currentRival.sprite;
-      const leaderQuotes = currentRival.quotes;
-      const randomIndex = Math.floor(Math.random() * leaderNames.length);
+      const rivalNames = currentRival.name.split('/');
+      const rivalSprites = currentRival.sprite;
+      const rivalQuotes = currentRival.quotes;
+      const randomIndex = Math.floor(Math.random() * rivalNames.length);
 
       currentRival = {
-        name: leaderNames[randomIndex],
-        sprite: leaderSprites[randomIndex],
-        quotes: [leaderQuotes[randomIndex]]
+        name: rivalNames[randomIndex],
+        sprite: rivalSprites[randomIndex],
+        quotes: [rivalQuotes[randomIndex]]
       }
     }
 

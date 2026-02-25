@@ -40,14 +40,14 @@ export class TrainerService {
        "shiny": false,
        "power": 1,
        "weight": 1 },
-*/
+
    { text: "Ivysaur", pokemonId: 2, fillStyle: "green",
        sprite: { 
        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
        "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/2.png"
         },
        shiny: false, power: 2, weight: 1 },
-
+*/
      { text: "Venusaur", pokemonId: 3, fillStyle: "green",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
@@ -136,12 +136,12 @@ export class TrainerService {
 
   trainerItems: ItemItem[] = [
     {
-      text: 'items.escape-rope.name',
-      name: 'escape-rope',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/escape-rope.png',
-      fillStyle: 'maroon',
+      text: 'items.x-attack.name',
+      name: 'x-attack',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-attack.png',
+      fillStyle: 'crimson',
       weight: 1,
-      description: 'items.escape-rope.description'
+      description: 'items.x-attack.description'
     },
     {
       text: 'items.potion.name',
