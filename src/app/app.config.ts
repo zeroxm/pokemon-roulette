@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {
   bootstrapArrowRepeat,
   bootstrapCheck,
@@ -15,16 +15,16 @@ import {
   bootstrapPeopleFill,
   bootstrapShare
 } from '@ng-icons/bootstrap-icons';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) => new TranslateHttpLoader(http, '/i18n/', '.json');
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
-
+// note: TranslateHttpLoader pulls its configuration via the
+// TRANSLATE_HTTP_LOADER_CONFIG injection token.  the factory below
+// simply uses the default constructor; the token must be provided
+// separately or Angular will complain (NG0201).  we could alternatively
+// drop the factory entirely and use `provideTranslateHttpLoader` but
+// the former keeps the original shape of the code.
+const httpLoaderFactory = () => new TranslateHttpLoader();
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -47,9 +47,15 @@ export const appConfig: ApplicationConfig = {
       loader: {
         provide: TranslateLoader,
         useFactory: httpLoaderFactory,
-        deps: [HttpClient]
+        deps: []
       },
       defaultLanguage: 'en'
-    })])
-  ]
+    })]),
+    {
+      provide: TRANSLATE_HTTP_LOADER_CONFIG,
+      useValue: {
+        prefix: './assets/i18n/',
+        suffix: '.json'
+      }
+    }  ]
 };

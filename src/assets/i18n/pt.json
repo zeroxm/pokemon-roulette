@@ -1,68 +1,68 @@
 {
   "settings": {
-      "label": "Settings",
-      "darkmode": "Dark Mode",
-      "explanations": "Less Explanations",
-      "muteAudio": "Mute Audio",
-      "skipShinyRolls": "Hide Shiny Rolls"
+      "label": "Configurações",
+      "darkmode": "Modo escuro",
+      "explanations": "Menos Explicações",
+      "muteAudio": "Silenciar Áudio",
+      "skipShinyRolls": "Ommitir roletas de Shiny"
   },
   "coffee": {
-    "title": "Having fun spinning? 😁",
-    "how_to_help": "If you want to help, you can donate.",
-    "donations": "Donations of any amount will be help with motivation for new features.",
-    "support": "Ways to Support",
-    "thanks": "Thank You for playing!",
-    "hope": "Whether you donate or simply share the game with others, I hope you have fun!"
+    "title": "Curtiu a roletinha? 😁",
+    "how_to_help": "Se quiser ajudar você pode fazer uma doação.",
+    "donations": "Doações de qualquer valor dão aquela força para implementarmos novidades.",
+    "support": "Formas de apoiar",
+    "thanks": "E obrigado por jogar!",
+    "hope": "Seja doando, seja compartilhando o jogo com os outros, desejo que voce se divirta!"
   },
   "badges": {
-    "boulder": "Boulder Badge",
-    "cascade": "Cascade Badge",
-    "thunder": "Thunder Badge",
-    "rainbow": "Rainbow Badge",
-    "soul": "Soul Badge",
-    "marsh": "Marsh Badge",
-    "volcano": "Volcano Badge",
-    "earth": "Earth Badge",
-    "zephyr": "Zephyr Badge",
-    "hive": "Hive Badge",
-    "plain": "Plain Badge",
-    "fog": "Fog Badge",
-    "storm": "Storm Badge",
-    "mineral": "Mineral Badge",
-    "glacier": "Glacier Badge",
-    "rising": "Rising Badge",
-    "stone": "Stone Badge",
-    "knuckle": "Knuckle Badge",
-    "dynamo": "Dynamo Badge",
-    "heat": "Heat Badge",
-    "balance": "Balance Badge",
-    "feather": "Feather Badge",
-    "mind": "Mind Badge",
-    "rain": "Rain Badge",
-    "coal": "Coal Badge",
-    "forest": "Forest Badge",
-    "cobble": "Cobble Badge",
-    "fen": "Fen Badge",
-    "relic": "Relic Badge",
-    "mine": "Mine Badge",
-    "icicle": "Icicle Badge",
-    "beacon": "Beacon Badge",
-    "trio": "Trio Badge",
-    "basic": "Basic Badge",
-    "insect": "Insect Badge",
-    "bolt": "Bolt Badge",
-    "quake": "Quake Badge",
-    "jet": "Jet Badge",
-    "freeze": "Freeze Badge",
-    "legend": "Legend Badge",
-    "bug": "Bug Badge",
-    "cliff": "Cliff Badge",
-    "rumble": "Rumble Badge",
-    "plant": "Plant Badge",
-    "voltage": "Voltage Badge",
-    "fairy": "Fairy Badge",
-    "psychic": "Psychic Badge",
-    "iceberg": "Iceberg Badge",
+    "boulder": "Insígnia de Rocha",
+    "cascade": "Insígnia de Cascata",
+    "thunder": "Insígnia de Trovão",
+    "rainbow": "Insígnia Arco-Íris",
+    "soul": "Insígnia da Alma",
+    "marsh": "Insígnia do Pântano",
+    "volcano": "Insígnia do Vulcão",
+    "earth": "Insígnia da Terra",
+    "zephyr": "Insígnia do Vento",
+    "hive": "Insígnia da Colmeia",
+    "plain": "Insígnia da Planície",
+    "fog": "Insígnia da Névoa",
+    "storm": "Insígnia da Tempestade",
+    "mineral": "Insígnia Mineral",
+    "glacier": "Insígnia da Geleira",
+    "rising": "Insígnia da Ascensão",
+    "stone": "Insígnia da Pedra",
+    "knuckle": "Insígnia do Punho",
+    "dynamo": "Insígnia Dínamo",
+    "heat": "Insígnia do Calor",
+    "balance": "Insígnia do Equilíbrio",
+    "feather": "Insígnia da Pena",
+    "mind": "Insígnia da Mente",
+    "rain": "Insígnia da Chuva",
+    "coal": "Insígnia do Carvão",
+    "forest": "Insígnia da Floresta",
+    "cobble": "Insígnia da Luta",
+    "fen": "Insígnia do Pântano",
+    "relic": "Insígnia da Relíquia",
+    "mine": "Insígnia da Mina",
+    "icicle": "Insígnia do Gelo",
+    "beacon": "Insígnia do Farol",
+    "trio": "Insígnia Trio",
+    "basic": "Insígnia Básica",
+    "insect": "Insígnia do Inseto",
+    "bolt": "Insígnia do Raio",
+    "quake": "Insígnia do Abalo",
+    "jet": "Insígnia Jato",
+    "freeze": "Insígnia do Gelo",
+    "legend": "Insígnia Lendária",
+    "bug": "Insígnia do Inseto",
+    "cliff": "Insígnia do Penhasco",
+    "rumble": "Insígnia da Pancada",
+    "plant": "Insígnia da Planta",
+    "voltage": "Insígnia da Voltagem",
+    "fairy": "Insígnia da Fada",
+    "psychic": "Insígnia Psíquica",
+    "iceberg": "Insígnia do Iceberg",
     "normalium_z": "Normalium Z",
     "fightinium_z": "Fightinium Z",
     "waterium_z": "Waterium Z",
@@ -74,272 +74,276 @@
     "darkinium_z": "Darkinium Z",
     "fairium_z": "Fairium Z",
     "groundium_z": "Groundium Z",
-    "grass": "Grass Badge",
-    "water": "Water Badge",
-    "fire": "Fire Badge",
-    "fighting": "Fighting Badge",
-    "ghost": "Ghost Badge",
-    "fairy_galar": "Fairy Badge",
-    "rock": "Rock Badge",
-    "ice": "Ice Badge",
-    "dark": "Dark Badge",
-    "dragon": "Dragon Badge"
+    "grass": "Insígnia de Planta",
+    "water": "Insígnia de Água",
+    "fire": "Insígnia de Fogo",
+    "fighting": "Insígnia de Luta",
+    "ghost": "Insígnia de Fantasma",
+    "fairy_galar": "Insígnia de Fada",
+    "rock": "Insígnia de Pedra",
+    "ice": "Insígnia de Gelo",
+    "dark": "Insígnia Noturna",
+    "dragon": "Insígnia de Dragão"
   },
   "credits": {
-    "title": "Credits & Acknowledgments",
-    "createdBy": "Created By",
-    "feedback": "If you'd like share feedback, reach out on ",
-    "inspiration1": "This game was heavily inspired on the Victory Road Run from ",
-    "inspiration2": "Check their content :)",
-    "specialThanks": "Special Thanks",
-    "thanks1": "For the help with data for some roulettes",
-    "thanks2": "Testing and finding bugs",
-    "thanks3": "Testing and finding bugs",
-    "pokeapi": "As a resource for this game's data and sprites",
-    "bulbapedia": "For their trainer's Sprites which are being used in this project",
-    "images": "All image contents of Pokémon and Pokémon related items are Copyright of The Pokémon Company.",
-    "endThanks": "Thank You for Playing!",
-    "endWords": "Hope you can have fun with your friends and family playing this game :)"
+    "title": "Créditos e Agradecimentos",
+    "createdBy": "Criado por",
+    "feedback": "Se quiser enviar um feedback, entre em contato em ",
+    "inspiration1": "Este jogo foi fortemente inspirado no Victory Road Run de ",
+    "inspiration2": "Confira o conteúdo deles :)",
+    "specialThanks": "Agradecimentos Especiais",
+    "thanks1": "Pela ajuda com os dados de algumas roletas",
+    "thanks2": "Testes e identificação de bugs",
+    "thanks3": "Testes e identificação de bugs",
+    "pokeapi": "Como fonte de dados e sprites para este jogo",
+    "bulbapedia": "Pelos sprites dos treinadores usados neste projeto",
+    "images": "Todos os conteúdos de imagem de Pokémon e itens relacionados são propriedade da The Pokémon Company.",
+    "endThanks": "Obrigado por jogar!",
+    "endWords": "Espero que você se divirta com seus amigos e família jogando este jogo :)"
   },
   "game": {
     "coffeeButton": {
-      "label": "Buy me a Coffee? "
+      "label": "Compra um café?"
     },
     "creditsButton": {
-      "label": "Credits"
+      "label": "Créditos"
     },
     "end": {
-      "champion": "Champion of",
-      "congrats": "Congratulations!",
-      "share": "Share",
-      "shareTitle": "Pokemon Champion of {{region}}",
-      "shareText": "Look what I got!"
+      "champion": "Campeão de",
+      "congrats": "Parabéns!",
+      "share": "Compartilhar",
+      "shareTitle": "Campeão Pokémon de {{region}}",
+      "shareText": "Veja o que eu consegui!"
     },
     "main": {
       "item": {
-        "activates": "activates!"
+        "activates": "ativada!"
       },
       "game": {
         "button": {
-          "title": "Main Game"
+          "title": "Voltar"
         }
       },
       "rocket": {
         "entei": {
-          "emerges": "Entei emerges",
-          "fine": "Everything is fine now.",
-          "prevents": "Entei prevents Team Rocket from stealing your Pokémon.",
-          "thanks": "Thanks Entei!"
+          "emerges": "Entei aparece",
+          "fine": "Está tudo bem agora.",
+          "prevents": "Entei impediu a Equipe Rocket de roubar seu Pokémon.",
+          "thanks": "Obrigado, Entei!"
         },
-        "fails": "Team Rocket fails"
+        "fails": "A Equipe Rocket falhou"
       },
       "altPrizes": {
         "gymBattle": {
-          "potion": "Got a Bonus Potion!",
-          "potionDesc": "Since no evolution was possible, get the best Potion your money can buy!"
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Como nenhuma evolução era possível, pegue a melhor Poção que seu dinheiro pode comprar!"
         },
         "visitDaycare": {
-          "egg": "Got a Mysterious Egg!",
-          "eggDesc": "The people from the Day Care gave you a Mysterious Egg!"
+          "egg": "Você recebeu um Ovo Misterioso!",
+          "eggDesc": "As pessoas do Day-care lhe deram um Ovo Misterioso!"
         },
         "battleRival": {
-          "item": "Got an Item!",
-          "itemDesc": "Your Rival said you only won by luck and gave you an Item!"
+          "item": "Você recebeu um Item!",
+          "itemDesc": "Seu Rival disse que você só ganhou por sorte e lhe deu um item!"
         },
         "battleTrainer": {
-          "potion": "Got a Bonus Potion!",
-          "potionDesc": "After the battle, the Trainer gave you a Potion!"
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Após a batalha, o Treinador lhe deu uma Poção!"
+        },
+        "teamRocket": {
+          "item": "Você recebeu um Item!",
+          "itemDesc": "Parece que o Team Rocket está decolando de novo! Oh, eles deixaram um Item!"
         }
       },
       "roulette": {
         "generation": {
-          "title": "Generation?",
-          "chooseInstead": "I'd rather choose",
-          "backToWheel": "I'd rather spin"
+          "title": "Geração?",
+          "chooseInstead": "Prefiro escolher",
+          "backToWheel": "Prefiro sortear"
         },
         "character": {
-          "boy": "Boy",
-          "gender": "Are you a boy or a girl?",
-          "girl": "Girl",
-          "welcome": "Welcome to"
+          "boy": "Garoto",
+          "gender": "Você é um garoto ou uma garota?",
+          "girl": "Garota",
+          "welcome": "Bem-vindo(a) à"
         },
         "starter": {
-          "title": "Starter?"
+          "title": "Pokémon Inicial?"
         },
         "shiny": {
           "title": "Shiny?",
-          "yes": "Yes",
-          "no": "No"
+          "yes": "Sim",
+          "no": "Não"
         },
         "start": {
-          "title": "What to do first?",
+          "title": "O que fazer primeiro?",
           "actions": {
-            "catchPokemon": "Catch a Pokemon",
-            "battleTrainer": "Trainer Battle",
-            "buyPotions": "Buy Potions",
-            "goStraight": "Go Straight"
+            "catchPokemon": "Pegar um Pokémon",
+            "battleTrainer": "Batalha de Treinador",
+            "buyPotions": "Comprar Poções",
+            "goStraight": "Avançar direto"
           }
         },
         "catch": {
-          "which": "Which",
-          "pkmn": "Pokemon?"
+          "which": "Qual",
+          "pkmn": "Pokémon?"
         },
         "evolve": {
-          "who": "Who will evolve?",
+          "who": "Quem vai evoluir?",
           "modal": {
-            "title": "Evolution!",
-            "evolved": "evolved into",
-            "your": "Your"
+            "title": "Evolução!",
+            "to": "evoluiu para",
+            "your": "Seu"
           }
         },
         "adventure": {
-          "title": "What do you do between Gyms?"
+          "title": "O que você faz entre os Ginásios?"
         },
         "cave": {
-          "explore" : {
-            "title": "In the cave"
+          "explore": {
+            "title": "Na caverna"
           },
-          "which": "Which Pokemon in the cave?"
+          "which": "Qual Pokémon da caverna?"
         },
         "champion": {
-          "champion": "Champion",
-          "go": "Let's Go!",
-          "use": "Used a",
-          "victory": "Victory?"
+          "champion": "Campeão",
+          "go": "Vamos lá!",
+          "use": "Usou ",
+          "victory": "Vitória?"
         },
         "egg": {
-          "title": "Which Pokemon ?"
+          "title": "Qual Pokémon?"
         },
         "elite": {
-          "elite4": "Elite 4",
-          "go": "Let's Go!",
+          "elite4": "Elite dos 4",
+          "go": "Vamos lá!",
           "prep": {
-            "congrats": "Congratulations!",
-            "defeated": "You Defeated the 8 Leaders.",
-            "go": "Let's Go!",
-            "ready": "Now get ready for the Elite 4.",
-            "title": "What do you do before the Elite 4?",
-            "victoryRoad": "Enter the Victory Road!"
+            "congrats": "Parabéns!",
+            "defeated": "Você derrotou os 8 Líderes.",
+            "go": "Vamos lá!",
+            "ready": "Agora prepare-se para a Elite dos 4.",
+            "title": "O que fazer antes da Elite dos 4?",
+            "victoryRoad": "Entre na Rota da Vitória!"
           },
-          "title": "Victory?",
-          "use": "Used a"
+          "title": "Vitória?",
+          "use": "Usou "
         },
         "checkEvolution": {
-          "title": "Does your Pokemon Evolve?",
-          "yes": "Yes",
-          "no": "No"
+          "title": "Seu Pokémon vai evoluir?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "fishing": {
-          "title": "What did you catch?"
+          "title": "O que você pescou?"
         },
         "fossil": {
-          "which": "Which fossil?"
+          "which": "Qual Fóssil?"
         },
         "gym": {
-          "against": "Battle against",
-          "defeated": "Defeated?",
-          "go": "Let's Go!",
-          "used": "Used a"
+          "against": "Batalha contra",
+          "defeated": "derrotado?",
+          "go": "Vamos lá!",
+          "used": "Usou "
         },
         "item": {
-          "found": "Found a",
-          "title": "Which Item?"
+          "found": "Encontrou um(a)",
+          "title": "Qual item?"
         },
         "legendary": {
-          "chance": "Catch Chance",
-          "legendary": "Legendary ?",
-          "which": "Which"
+          "chance": "Chance de captura",
+          "legendary": "Lendário?",
+          "which": "Qual"
         },
-        "rival":  {
-          "against": "Battle against",
-          "go": "Let's Go!",
-          "victory": "Victory?"
+        "rival": {
+          "against": "Batalha contra",
+          "go": "Vamos lá!",
+          "victory": "Vitória?"
         },
         "snorlax": {
-          "outcome": "Outcome"
+          "outcome": "Resultado"
         },
         "teamrocket": {
-          "double": "And make it double!",
-          "meowth": "Meowth, that's right!",
-          "teamrocket": "Team Rocket!",
-          "title": "Outcome",
-          "trouble": "Prepare for trouble!"
+          "double": "Encrenca em dobro!",
+          "meowth": "Meowth, é isso mesmo!",
+          "teamrocket": "Equipe Rocket!",
+          "title": "Resultado",
+          "trouble": "Prepare-se para encrenca!"
         },
         "trade": {
-          "title": "Trade for ?"
+          "title": "Trocar por?"
         }
       },
       "trade": {
-        "received": "and received a",
-        "sent": "You sent"
+        "received": "e recebeu ",
+        "sent": "Você enviou"
       }
     },
     "map": {
-      "vermilion": "You are in Vermilion City"
+      "vermilion": "Você está em Cidade de Vermilion"
     },
     "over": {
-      "share": "Share",
-      "shareTitle": "My progress",
-      "shareText": "See how far I've gone!",
-      "stoppedBy": "Run stopped by the ",
-      "gymLeader": "Gym Leader",
+      "share": "Compartilhar",
+      "shareTitle": "Meu progresso",
+      "shareText": "Veja até onde cheguei!",
+      "stoppedBy": "Jogo interrompido por ",
+      "gymLeader": "Líder de Ginásio",
       "eliteFour": "Elite 4",
-      "champion": "Champion",
-      "title": "Run is Over"
+      "champion": "Campeão",
+      "title": "Fim da Jornada"
     },
     "restart": {
-      "action": "Restart",
-      "cancel": "No, Go back!",
-      "confirm": "Yes, Let's Go!",
-      "title": "Restart Game?",
-      "warning": "You'll restart from zero."
+      "action": "Reiniciar",
+      "cancel": "Não, voltar!",
+      "confirm": "Sim, vamos lá!",
+      "title": "Reiniciar o Jogo?",
+      "warning": "Você vai recomeçar do zero."
     }
   },
   "items": {
-    "title": "Items",
+    "title": "Itens",
     "potion": {
-      "name": "Potion",
-      "description": "Potion let you spin again whenever you would lose a Gym battle !"
+      "name": "Poção",
+      "description": "A Poção permite girar novamente sempre que você perder uma batalha de Ginásio!"
     },
     "rare-candy": {
-      "name": "Rare Candy",
-      "description": "Use a Rare Candy to Evolve your Pokémon anytime !"
+      "name": "Doce Raro",
+      "description": "Use um Doce Raro para evoluir seu Pokémon a qualquer momento!"
     },
     "running-shoes": {
-      "name": "Running Shoes",
-      "description": "Running Shoes let you spin the wheel twice between Gyms !"
+      "name": "Tênis de Corrida",
+      "description": "Os Tênis de Corrida permitem girar a roleta duas vezes entre os Ginásios!"
     },
     "super-potion": {
-      "name": "Super Potion",
-      "description": "Super Potion let you spin again up to two times whenever you would lose a Gym battle !"
+      "name": "Super Poção",
+      "description": "A Super Poção permite girar novamente até duas vezes sempre que você perder uma batalha de Ginásio!"
     },
     "x-attack": {
-      "name": "X Attack",
-      "description": "X Attack makes your Team stronger !"
+      "name": "Ataque X",
+      "description": "O Ataque X deixa sua equipe mais forte!"
     },
     "exp-share": {
-      "name": "Exp Share",
-      "description": "Whenever a Pokémon evolves, Exp Share makes another Pokémon evolve !"
+      "name": "Compartilhar Exp.",
+      "description": "Sempre que um Pokémon evolui, o Compartilhar Exp. faz outro Pokémon evoluir também!"
     },
     "hyper-potion": {
-      "name": "Hyper Potion",
-      "description": "Hyper Potion let you spin again up to three times whenever you would lose a Gym battle !"
+      "name": "Hiper Poção",
+      "description": "A Hiper Poção permite girar novamente até três vezes sempre que você perder uma batalha de Ginásio!"
     },
     "escape-rope": {
-      "name": "Escape Rope",
-      "description": "Escape Rope saves you from bad situations !"
+      "name": "Corda de Escape",
+      "description": "A Corda de Escape te salva de situações ruins!"
     }
   },
   "trainer": {
     "storage": {
-      "access": "Access PC",
-      "logout": "Logout",
-      "stored": "Stored",
-      "team": "On Team"
+      "access": "Acessar o PC",
+      "logout": "Sair",
+      "stored": "Armazenado",
+      "team": "Na Equipe"
     }
   },
   "wheel": {
-    "spin": "Click to Spin !"
+    "spin": "Clique para girar!"
   },
   "pokemon": {
     "bulbasaur": "Bulbasaur",
@@ -1420,7 +1424,7 @@
       "quote1": "My policy is an all out offensive with Water-type Pokémon!"
     },
     "surge": {
-      "name": "Lt. Surge",
+      "name": "Ten. Surge",
       "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
       "quote2": "They zapped my enemies into paralysis!",
       "quote3": "The same as I'll do to you!"

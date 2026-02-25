@@ -1,345 +1,349 @@
 {
   "settings": {
-      "label": "Configurações",
-      "darkmode": "Modo escuro",
-      "explanations": "Menos Explicações",
-      "muteAudio": "Silenciar Áudio",
-      "skipShinyRolls": "Ommitir roletas de Shiny"
+      "label": "Configuración",
+      "darkmode": "Modo oscuro",
+      "explanations": "Menos explicaciones",
+      "muteAudio": "Silenciar Audio",
+      "skipShinyRolls": "Omitir Tiradas de Shiny"
   },
   "coffee": {
-    "title": "Curtiu a roletinha? 😁",
-    "how_to_help": "Se quiser ajudar você pode fazer uma doação.",
-    "donations": "Doações de qualquer valor dão aquela força para implementarmos novidades.",
-    "support": "Formas de apoiar",
-    "thanks": "E obrigado por jogar!",
-    "hope": "Seja doando, seja compartilhando o jogo com os outros, desejo que voce se divirta!"
+    "title": "¿Te estás divirtiendo girando? 😁",
+    "how_to_help": "Si quieres ayudar, puedes hacer una donación.",
+    "donations": "Las donaciones de cualquier cantidad ayudarán a motivar la incorporación de nuevas funciones.",
+    "support": "Formas de apoyar",
+    "thanks": "¡Gracias por jugar!",
+    "hope": "Ya sea que dones o simplemente compartas el juego con otros, ¡espero que te diviertas!"
   },
   "badges": {
-    "boulder": "Insígnia de Rocha",
-    "cascade": "Insígnia de Cascata",
-    "thunder": "Insígnia de Trovão",
-    "rainbow": "Insígnia Arco-Íris",
-    "soul": "Insígnia da Alma",
-    "marsh": "Insígnia do Pântano",
-    "volcano": "Insígnia do Vulcão",
-    "earth": "Insígnia da Terra",
-    "zephyr": "Insígnia do Vento",
-    "hive": "Insígnia da Colmeia",
-    "plain": "Insígnia da Planície",
-    "fog": "Insígnia da Névoa",
-    "storm": "Insígnia da Tempestade",
-    "mineral": "Insígnia Mineral",
-    "glacier": "Insígnia da Geleira",
-    "rising": "Insígnia da Ascensão",
-    "stone": "Insígnia da Pedra",
-    "knuckle": "Insígnia do Punho",
-    "dynamo": "Insígnia Dínamo",
-    "heat": "Insígnia do Calor",
-    "balance": "Insígnia do Equilíbrio",
-    "feather": "Insígnia da Pena",
-    "mind": "Insígnia da Mente",
-    "rain": "Insígnia da Chuva",
-    "coal": "Insígnia do Carvão",
-    "forest": "Insígnia da Floresta",
-    "cobble": "Insígnia da Luta",
-    "fen": "Insígnia do Pântano",
-    "relic": "Insígnia da Relíquia",
-    "mine": "Insígnia da Mina",
-    "icicle": "Insígnia do Gelo",
-    "beacon": "Insígnia do Farol",
-    "trio": "Insígnia Trio",
-    "basic": "Insígnia Básica",
-    "insect": "Insígnia do Inseto",
-    "bolt": "Insígnia do Raio",
-    "quake": "Insígnia do Abalo",
-    "jet": "Insígnia Jato",
-    "freeze": "Insígnia do Gelo",
-    "legend": "Insígnia Lendária",
-    "bug": "Insígnia do Inseto",
-    "cliff": "Insígnia do Penhasco",
-    "rumble": "Insígnia da Pancada",
-    "plant": "Insígnia da Planta",
-    "voltage": "Insígnia da Voltagem",
-    "fairy": "Insígnia da Fada",
-    "psychic": "Insígnia Psíquica",
-    "iceberg": "Insígnia do Iceberg",
-    "normalium_z": "Normalium Z",
-    "fightinium_z": "Fightinium Z",
-    "waterium_z": "Waterium Z",
-    "firium_z": "Firium Z",
-    "grassium_z": "Grassium Z",
-    "rockium_z": "Rockium Z",
-    "electrium_z": "Electrium Z",
-    "ghostium_z": "Ghostium Z",
-    "darkinium_z": "Darkinium Z",
-    "fairium_z": "Fairium Z",
-    "groundium_z": "Groundium Z",
-    "grass": "Insígnia de Planta",
-    "water": "Insígnia de Água",
-    "fire": "Insígnia de Fogo",
-    "fighting": "Insígnia de Luta",
-    "ghost": "Insígnia de Fantasma",
-    "fairy_galar": "Insígnia de Fada",
-    "rock": "Insígnia de Pedra",
-    "ice": "Insígnia de Gelo",
-    "dark": "Insígnia Noturna",
-    "dragon": "Insígnia de Dragão"
+    "boulder": "Medalla Roca",
+    "cascade": "Medalla Cascada",
+    "thunder": "Medalla Trueno",
+    "rainbow": "Medalla Arcoíris",
+    "soul": "Medalla Alma",
+    "marsh": "Medalla Pantano",
+    "volcano": "Medalla Volcán",
+    "earth": "Medalla Tierra",
+    "zephyr": "Medalla Céfiro",
+    "hive": "Medalla Colmena",
+    "plain": "Medalla Planicie",
+    "fog": "Medalla Niebla",
+    "storm": "Medalla Tormenta",
+    "mineral": "Medalla Mineral",
+    "glacier": "Medalla Glaciar",
+    "rising": "Medalla Naciente",
+    "stone": "Medalla Piedra",
+    "knuckle": "Medalla Puño",
+    "dynamo": "Medalla Dinamo",
+    "heat": "Medalla Calor",
+    "balance": "Medalla Equilibrio",
+    "feather": "Medalla Pluma",
+    "mind": "Medalla Mente",
+    "rain": "Medalla Lluvia",
+    "coal": "Medalla Carbón",
+    "forest": "Medalla Bosque",
+    "cobble": "Medalla Adoquín",
+    "fen": "Medalla Ciénaga",
+    "relic": "Medalla Reliquia",
+    "mine": "Medalla Mina",
+    "icicle": "Medalla Carámbano",
+    "beacon": "Medalla Faro",
+    "trio": "Medalla Trío",
+    "basic": "Medalla Básica",
+    "insect": "Medalla Insecto",
+    "bolt": "Medalla Rayo",
+    "quake": "Medalla Terremoto",
+    "jet": "Medalla Chorro",
+    "freeze": "Medalla Congelación",
+    "legend": "Medalla Leyenda",
+    "bug": "Medalla Bicho",
+    "cliff": "Medalla Acantilado",
+    "rumble": "Medalla Estruendo",
+    "plant": "Medalla Planta",
+    "voltage": "Medalla Voltaje",
+    "fairy": "Medalla Hada",
+    "psychic": "Medalla Psíquico",
+    "iceberg": "Medalla Iceberg",
+    "normalium_z": "Normastal Z",
+    "fightinium_z": "Combital Z",
+    "waterium_z": "Acuastal Z",
+    "firium_z": "Pirostal Z",
+    "grassium_z": "Fitostal Z",
+    "rockium_z": "Litostal Z",
+    "electrium_z": "Electrostal Z",
+    "ghostium_z": "Espectrostal Z",
+    "darkinium_z": "Nictostal Z",
+    "fairium_z": "Feestal Z",
+    "groundium_z": "Geostal Z",
+    "grass": "Medalla Planta",
+    "water": "Medalla Agua",
+    "fire": "Medalla Fuego",
+    "fighting": "Medalla Lucha",
+    "ghost": "Medalla Fantasma",
+    "fairy_galar": "Medalla Hada",
+    "rock": "Medalla Roca",
+    "ice": "Medalla Hielo",
+    "dark": "Medalla Siniestro",
+    "dragon": "Medalla Dragón"
   },
   "credits": {
-    "title": "Créditos e Agradecimentos",
-    "createdBy": "Criado por",
-    "feedback": "Se quiser enviar um feedback, entre em contato em ",
-    "inspiration1": "Este jogo foi fortemente inspirado no Victory Road Run de ",
-    "inspiration2": "Confira o conteúdo deles :)",
-    "specialThanks": "Agradecimentos Especiais",
-    "thanks1": "Pela ajuda com os dados de algumas roletas",
-    "thanks2": "Testes e identificação de bugs",
-    "thanks3": "Testes e identificação de bugs",
-    "pokeapi": "Como fonte de dados e sprites para este jogo",
-    "bulbapedia": "Pelos sprites dos treinadores usados neste projeto",
-    "images": "Todos os conteúdos de imagem de Pokémon e itens relacionados são propriedade da The Pokémon Company.",
-    "endThanks": "Obrigado por jogar!",
-    "endWords": "Espero que você se divirta com seus amigos e família jogando este jogo :)"
+    "title": "Créditos y agradecimientos",
+    "createdBy": "Creado por",
+    "feedback": "Si quieres compartir tus comentarios, contáctame en",
+    "inspiration1": "Este juego está fuertemente inspirado en el Victory Road Run de",
+    "inspiration2": "¡Echa un vistazo a su contenido! :)",
+    "specialThanks": "Agradecimientos especiales",
+    "thanks1": "Por la ayuda con los datos de algunas ruletas",
+    "thanks2": "Pruebas y detección de errores",
+    "thanks3": "Pruebas y detección de errores",
+    "pokeapi": "Como recurso para los datos y los sprites de este juego",
+    "bulbapedia": "Por los sprites de su entrenador que se están utilizando en este proyecto",
+    "images": "Todo el contenido de imágenes de Pokémon y los elementos relacionados con Pokémon son propiedad de The Pokémon Company.",
+    "endThanks": "¡Gracias por jugar!",
+    "endWords": "Espero que puedas divertirte con tus amigos y tu familia jugando a este juego :)"
   },
   "game": {
     "coffeeButton": {
-      "label": "Compra um café?"
+      "label": "¿Me invitas a un café?"
     },
     "creditsButton": {
       "label": "Créditos"
     },
     "end": {
-      "champion": "Campeão de",
-      "congrats": "Parabéns!",
-      "share": "Compartilhar",
-      "shareTitle": "Campeão Pokémon de {{region}}",
-      "shareText": "Veja o que eu consegui!"
+      "champion": "Campeón de",
+      "congrats": "¡Felicidades!",
+      "share": "Compartir",
+      "shareTitle": "Campeón Pokémon de {{region}}",
+      "shareText": "¡Mira lo que conseguí!"
     },
     "main": {
       "item": {
-        "activates": "ativou!"
+        "activates":"se activa!"
       },
       "game": {
         "button": {
-          "title": "Voltar"
+          "title": "Juego principal"
         }
       },
       "rocket": {
         "entei": {
           "emerges": "Entei aparece",
-          "fine": "Está tudo bem agora.",
-          "prevents": "Entei impediu a Equipe Rocket de roubar seus Pokémon.",
-          "thanks": "Obrigado, Entei!"
+          "fine": "Todo está bien ahora.",
+          "prevents": "Entei evita que el Team Rocket robe tu Pokémon.",
+          "thanks": "¡Gracias, Entei!"
         },
-        "fails": "A Equipe Rocket falhou"
+        "fails": "El Team Rocket fracasa"
       },
       "altPrizes": {
         "gymBattle": {
-          "potion": "Você recebeu uma Poção de Bônus!",
-          "potionDesc": "Como nenhuma evolução era possível, pegue a melhor Poção que seu dinheiro pode comprar!"
+          "potion": "¡Recibiste una Poción de Bono!",
+          "potionDesc": "Como no era posible evolucionar, obtén la mejor Poción que tu dinero puede comprar."
         },
         "visitDaycare": {
-          "egg": "Você recebeu um Ovo Misterioso!",
-          "eggDesc": "As pessoas do Day-care lhe deram um Ovo Misterioso!"
+          "egg": "¡Recibiste un Huevo Misterioso!",
+          "eggDesc": "La gente de la Guardería te dio un Huevo Misterioso."
         },
         "battleRival": {
-          "item": "Você recebeu um Item!",
-          "itemDesc": "Seu Rival disse que você só ganhou por sorte e lhe deu um item!"
+          "item": "¡Recibiste un Item!",
+          "itemDesc": "Tu Rival dijo que solo ganaste por suerte y te dio un objeto."
         },
         "battleTrainer": {
-          "potion": "Você recebeu uma Poção de Bônus!",
-          "potionDesc": "Após a batalha, o Treinador lhe deu uma Poção!"
+          "potion": "¡Recibiste una Poción de Bono!",
+          "potionDesc": "Después de la batalla, el Entrenador te dio una Poción."
+        },
+        "teamRocket": {
+          "item": "¡Recibiste un Objeto!",
+          "itemDesc": "Parece que el Team Rocket se está lanzando otra vez. Oh, dejaron un Objeto!"
         }
       },
       "roulette": {
         "generation": {
-          "title": "Geração?",
-          "chooseInstead": "Prefiro escolher",
-          "backToWheel": "Prefiro sortear"
+          "title": "¿Generación?",
+          "chooseInstead": "Prefiero elegir",
+          "backToWheel": "Prefiero sortear"
         },
         "character": {
-          "boy": "Garoto",
-          "gender": "Você é um garoto ou uma garota?",
-          "girl": "Garota",
-          "welcome": "Bem-vindo(a) à"
+          "boy": "Chico",
+          "gender": "¿Eres un chico o una chica?",
+          "girl": "Chica",
+          "welcome": "Bienvenido a"
         },
         "starter": {
-          "title": "Pokémon Inicial?"
+          "title": "¿Pokémon inicial?"
         },
         "shiny": {
-          "title": "Shiny?",
-          "yes": "Sim",
-          "no": "Não"
+          "title": "¿Shiny?",
+          "yes": "Sí",
+          "no": "No"
         },
         "start": {
-          "title": "O que fazer primeiro?",
+          "title": "¿Qué hacer primero?",
           "actions": {
-            "catchPokemon": "Pegar um Pokémon",
-            "battleTrainer": "Batalha de Treinador",
-            "buyPotions": "Comprar Poções",
-            "goStraight": "Avançar direto"
+            "catchPokemon": "Capturar un Pokémon",
+            "battleTrainer": "Combate un Entrenador",
+            "buyPotions": "Comprar Potions",
+            "goStraight": "Ir todo derecho"
           }
         },
         "catch": {
-          "which": "Qual",
+          "which": "¿Cuál",
           "pkmn": "Pokémon?"
         },
         "evolve": {
-          "who": "Quem vai evoluir?",
+          "who": "¿Quién va a evolucionar?",
           "modal": {
-            "title": "Evolução!",
-            "to": "evoluiu para",
-            "your": "Seu"
+            "title": "Evolución!",
+            "evolved": "evolucionó a",
+            "your": "Tu"
           }
         },
         "adventure": {
-          "title": "O que você faz entre os Ginásios?"
+          "title": "¿Qué haces entre los gimnasios?"
         },
         "cave": {
           "explore": {
-            "title": "Na caverna"
+            "title": "En la cueva"
           },
-          "which": "Qual Pokémon da caverna?"
+          "which": "¿Qué Pokémon de la cueva?"
         },
         "champion": {
-          "champion": "Campeão",
-          "go": "Vamos lá!",
-          "use": "Usou ",
-          "victory": "Vitória?"
+          "champion": "Campeón",
+          "go": "¡Vamos!",
+          "use": "Usó un(a)",
+          "victory": "¿Victoria?"
         },
         "egg": {
-          "title": "Qual Pokémon?"
+          "title": "¿Qué Pokémon?"
         },
         "elite": {
-          "elite4": "Elite dos 4",
-          "go": "Vamos lá!",
+          "elite4": "Elite 4",
+          "go": "¡Vamos!",
           "prep": {
-            "congrats": "Parabéns!",
-            "defeated": "Você derrotou os 8 Líderes.",
-            "go": "Vamos lá!",
-            "ready": "Agora prepare-se para a Elite dos 4.",
-            "title": "O que fazer antes da Elite dos 4?",
-            "victoryRoad": "Entre na Rota da Vitória!"
+            "congrats": "¡Felicidades!",
+            "defeated": "Has derrotado a los 8 Líderes.",
+            "go": "¡Vamos!",
+            "ready": "Ahora prepárate para el Alto Mando.",
+            "title": "¿Qué haces antes del Alto Mando?",
+            "victoryRoad": "¡Entra en la Calle Victoria!"
           },
-          "title": "Vitória?",
-          "use": "Usou "
+          "title": "¿Victoria?",
+          "use": "Usó un(a)"
         },
         "checkEvolution": {
-          "title": "Seu Pokémon vai evoluir?",
-          "yes": "Sim",
-          "no": "Não"
+          "title": "¿Tu Pokémon evoluciona?",
+          "yes": "Sí",
+          "no": "No"
         },
         "fishing": {
-          "title": "O que você pegou?"
+          "title": "¿Qué pescaste?"
         },
         "fossil": {
-          "which": "Qual Fóssil?"
+          "which": "¿Cuál Fósil?"
         },
         "gym": {
-          "against": "Batalha contra",
-          "defeated": "derrotado?",
-          "go": "Vamos lá!",
-          "used": "Usou "
+          "against": "Combate contra",
+          "defeated": "Derrotado?",
+          "go": "¡Vamos!",
+          "used": "Usó un(a)"
         },
         "item": {
-          "found": "Encontrou um(a)",
-          "title": "Qual item?"
+          "found": "Encontró un(a)",
+          "title": "¿Qué objeto?"
         },
         "legendary": {
-          "chance": "Chance de captura",
-          "legendary": "Lendário?",
-          "which": "Qual"
+          "chance": "Probabilidad de captura",
+          "legendary": "Legendario?",
+          "which": "¿Qual"
         },
         "rival": {
-          "against": "Batalha contra",
-          "go": "Vamos lá!",
-          "victory": "Vitória?"
+          "against": "Combate contra",
+          "go": "¡Vamos!",
+          "victory": "¿Victoria?"
         },
         "snorlax": {
           "outcome": "Resultado"
         },
         "teamrocket": {
-          "double": "Encrenca em dobro!",
-          "meowth": "Meowth, é isso mesmo!",
-          "teamrocket": "Equipe Rocket!",
+          "double": " Permítenos que nos presentemos.",
+          "meowth": " ¡Meowth, bien dicho!",
+          "teamrocket": "¡Team Rocket!",
           "title": "Resultado",
-          "trouble": "Prepare-se para encrenca!"
+          "trouble": "No te asustes, niñito..."
         },
         "trade": {
-          "title": "Trocar por?"
+          "title": "¿Intercambiar por?"
         }
       },
       "trade": {
-        "received": "e recebeu ",
-        "sent": "Você enviou"
+        "received": "y recibió un(a)",
+        "sent": "Has enviado"
       }
     },
     "map": {
-      "vermilion": "Você está em Cidade de Vermilion"
+      "vermilion": "Estás en Ciudad Carmín"
     },
     "over": {
-      "share": "Compartilhar",
-      "shareTitle": "Meu progresso",
-      "shareText": "Veja até onde cheguei!",
-      "stoppedBy": "Jogo interrompido por ",
-      "gymLeader": "Líder de Ginásio",
+      "share": "Compartir",
+      "shareTitle": "Mi progreso",
+      "shareText": "¡Mira hasta dónde llegué!",
+      "stoppedBy": "Partida detenida por",
+      "gymLeader": "Líder de Gimnasio",
       "eliteFour": "Elite 4",
-      "champion": "Campeão",
-      "title": "Fim da Jornada"
+      "champion": "Campeón",
+      "title": "La partida ha terminado"
     },
     "restart": {
       "action": "Reiniciar",
-      "cancel": "Não, voltar!",
-      "confirm": "Sim, vamos lá!",
-      "title": "Reiniciar o Jogo?",
-      "warning": "Você vai recomeçar do zero."
+      "cancel": "¡No, volver atrás!",
+      "confirm": "¡Sí, vamos!",
+      "title": "¿Reiniciar el juego?",
+      "warning": "Empezarás desde cero."
     }
   },
   "items": {
-    "title": "Itens",
+    "title": "Objetos",
     "potion": {
-      "name": "Poção",
-      "description": "A Poção permite girar novamente sempre que você perder uma batalha de Ginásio!"
+      "name": "Poción",
+      "description": "¡La Poción te permite volver a girar si pierdes un combate de Gimnasio!"
     },
     "rare-candy": {
-      "name": "Doce Raro",
-      "description": "Use um Doce Raro para evoluir seu Pokémon a qualquer momento!"
+      "name": "Caramelo Raro",
+      "description": "¡Usa un caramelo raro para evolucionar a tu Pokémon en cualquier momento!"
     },
     "running-shoes": {
-      "name": "Tênis de Corrida",
-      "description": "Os Tênis de Corrida permitem girar a roleta duas vezes entre os Ginásios!"
+      "name": "Zapatillas de Deporte",
+      "description": "¡Las Zapatillas de Deporte te permiten girar la ruleta dos veces entre Gimnasios!"
     },
     "super-potion": {
-      "name": "Super Poção",
-      "description": "A Super Poção permite girar novamente até duas vezes sempre que você perder uma batalha de Ginásio!"
+      "name": "Superpoción",
+      "description": "¡La Superpoción te permite volver a girar hasta dos veces si pierdes un combate de Gimnasio!"
     },
     "x-attack": {
       "name": "Ataque X",
-      "description": "O Ataque X deixa sua equipe mais forte!"
+      "description": "¡El Ataque X hace que tu equipo sea más fuerte!"
     },
     "exp-share": {
-      "name": "Compartilhar Exp.",
-      "description": "Sempre que um Pokémon evolui, o Compartilhar Exp. faz outro Pokémon evoluir também!"
+      "name": "Repartir Exp",
+      "description": "¡Cada vez que un Pokémon evoluciona, el Repartir Exp hace que otro Pokémon evolucione!"
     },
     "hyper-potion": {
-      "name": "Hiper Poção",
-      "description": "A Hiper Poção permite girar novamente até três vezes sempre que você perder uma batalha de Ginásio!"
+      "name": "Hiperpoción",
+      "description": "¡La Hiperpoción te permite volver a girar hasta tres veces si pierdes un combate de Gimnasio!\n\n"
     },
     "escape-rope": {
-      "name": "Corda de Escape",
-      "description": "A Corda de Escape te salva de situações ruins!"
+      "name": "Cuerda Huida",
+      "description": "¡La Cuerda Huida te salva de las situaciones difíciles!"
     }
   },
   "trainer": {
     "storage": {
-      "access": "Acessar o PC",
-      "logout": "Sair",
-      "stored": "Armazenado",
-      "team": "Na Equipe"
+      "access": "Acceder al PC",
+      "logout": "Cerrar sesión",
+      "stored": "Almacenado",
+      "team": "En el equipo"
     }
   },
   "wheel": {
-    "spin": "Clique para girar!"
+    "spin": "¡Haz clic para girar!"
   },
   "pokemon": {
     "bulbasaur": "Bulbasaur",
@@ -1408,365 +1412,6 @@
       "name": "Raihan",
       "quote1": "You're really something else, kid. You've made it all the way here!",
       "quote2": "You might be thinking that you beat me once already... But I'm not the same Raihan you faced before"
-    }
-  },
-  "gymLeaders": {
-    "brock": {
-      "name": "Brock",
-      "quote1": "Fine, then! Show me your best!"
-    },
-    "misty": {
-      "name": "Misty",
-      "quote1": "My policy is an all out offensive with Water-type Pokémon!"
-    },
-    "surge": {
-      "name": "Ten. Surge",
-      "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
-      "quote2": "They zapped my enemies into paralysis!",
-      "quote3": "The same as I'll do to you!"
-    },
-    "erika": {
-      "name": "Erika",
-      "quote1": "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
-      "quote2": "Very well, but I shall not lose."
-    },
-    "koga": {
-      "name": "Koga",
-      "quote1": "Very well, I shall show you true terror as a ninja master!",
-      "quote2": "Despair to the creeping horror of Poison-type Pokémon!"
-    },
-    "sabrina": {
-      "name": "Sabrina",
-      "quote1": "I had a vision of your arrival!",
-      "quote2": "I dislike battling, but if you wish, I will show you my powers!"
-    },
-    "blaine": {
-      "name": "Blaine",
-      "quote1": "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!",
-      "quote2": "My fiery Pokémon are all ready with intense heat! "
-    },
-    "giovanni": {
-      "name": "Giovanni",
-      "quote1": "So be it. This time, I'm not holding back!",
-      "quote2": "You shall face Giovanni, the greatest Trainer!"
-    },
-    "falkner": {
-      "name": "Falkner",
-      "quote1": "I'll show you the real power of the magnificent bird Pokémon!"
-    },
-    "bugsy": {
-      "name": "Bugsy",
-      "quote1": "My research is going to make me an authority on Bug-type Pokémon!",
-      "quote2": "Let me demonstrate what I've learned from my studies."
-    },
-    "whitney": {
-      "name": "Whitney",
-      "quote1": "Pokémon are super cute!",
-      "quote2": "You want to battle?",
-      "quote3": "I'm warning you--I'm good!"
-    },
-    "morty": {
-      "name": "Morty",
-      "quote1": "It's said that a rainbow-hued Pokémon will come down to appear before a truly powerful Trainer.",
-      "quote2": "I believe that person is me!",
-      "quote3": "You're going to help me reach that level!"
-    },
-    "chuck": {
-      "name": "Chuck",
-      "quote1": "I have to warn you that I am a strong Trainer training every day under this waterfall!",
-      "quote2": "Come on. We shall do battle!"
-    },
-    "jasmine": {
-      "name": "Jasmine",
-      "quote1": "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
-      "quote2": "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
-    },
-    "pryce": {
-      "name": "Pryce",
-      "quote1": "I have been training Pokémon since before you were born. I do not lose easily.",
-      "quote2": "I, Pryce - the Winter Trainer - shall demonstrate my power!"
-    },
-    "clair": {
-      "name": "Clair",
-      "quote1": "I am Clair. The world's best Dragon-type master.",
-      "quote2": "As a Gym Leader, I will use my full power against any opponent!"
-    },
-    "roxanne": {
-      "name": "Roxanne",
-      "quote1": "Now, would you kindly demonstrate how you battle with your Pokémon?"
-    },
-    "brawly": {
-      "name": "Brawly",
-      "quote1": "I'm Brawly! Dewford's Gym Leader!",
-      "quote2": "So you want to challenge me? Let me see what you're made of!"
-    },
-    "wattson": {
-      "name": "Wattson",
-      "quote1": "Wahahahah! Now, that is amusing!",
-      "quote2": "I, Wattson, the Leader of Mauville Gym, shall electrify you!"
-    },
-    "flannery": {
-      "name": "Flannery",
-      "quote1": "Welcome!",
-      "quote2": "No, I mean… I'm Flannery, and I'm in charge here!",
-      "quote3": "I'm gonna, uh, demonstrate the hot moves we've honed in this land!"
-    },
-    "norman": {
-      "name": "Norman",
-      "quote1": "I will do everything within my power as a Gym Leader to win!",
-      "quote2": "You'd better give it your best shot, too!"
-    },
-    "winona": {
-      "name": "Winona",
-      "quote1": "I am Winona. I am the Leader of the Fortree Pokémon Gym.",
-      "quote2": "Witness the elegant choreography of my bird Pokémon and me!"
-    },
-    "liza-tate": {
-      "name": "Liza & Tate",
-      "quote1": "Were you surprised? That there are two Gym Leaders?",
-      "quote2": "We're twins!",
-      "quote3": "This combination of ours... Can you beat it?"
-    },
-    "wallace": {
-      "name": "Wallace",
-      "quote1": "Allow me to formally introduce myself. I am Wallace. The Gym Leader of Sootopolis.",
-      "quote2": "Now, show me. Show me the power you wield with your Pokémon."
-    },
-    "roark": {
-      "name": "Roark",
-      "quote1": "This is the Oreburgh Pokémon Gym! I'm Roark, the Gym Leader!",
-      "quote2": "As the Gym Leader, I need to see your potential as a Trainer."
-    },
-    "gardenia": {
-      "name": "Gardenia",
-      "quote1": "You have a winning aura about you.",
-      "quote2": "So, anyway, this will be fun. Let's have our battle!"
-    },
-    "maylene": {
-      "name": "Maylene",
-      "quote1": "I will do the best I can as the Gym Leader.",
-      "quote2": "I take battling very seriously. Whenever you're ready!"
-    },
-    "crasher-wake": {
-      "name": "Crasher Wake",
-      "quote1": "My Pokémon were toughened up by stormy white waters!",
-      "quote2": "Victory will be ours! Come on, let's get it done!"
-    },
-    "fantina": {
-      "name": "Fantina",
-      "quote1": "Ohohoho!! Finally, you have arrived!",
-      "quote2": "But I shall win. That is what a Gym Leader does, non?"
-    },
-    "byron": {
-      "name": "Byron",
-      "quote1": "You've defeated my son, Roark.",
-      "quote2": "But that's no surprise. He still has much to learn.",
-      "quote3": "I, Byron, will take your challenge!"
-    },
-    "candice": {
-      "name": "Candice",
-      "quote1": "Sure thing! I was waiting for someone tough!",
-      "quote2": "It's all about focus! I'll show you just what I mean. Get ready to lose!"
-    },
-    "volkner": {
-      "name": "Volkner",
-      "quote1": "Sigh... I'm Volkner, the Gym Leader.",
-      "quote2": "I hope you're the Trainer who'll make me remember how fun it is to battle!"
-    },
-    "cilan-chili-cress": {
-      "name": "Cilan/Chili/Cress",
-      "quote1": "So, um, if you're OK with me, I'll, um, put everything I've got into being, er, you know, your opponent.",
-      "quote2": "Yeeeeooow! Time to play with FIRE!! I'm the strongest of us brothers!",
-      "quote3": "What incredible luck for you--you get to battle the best among the three of us."
-    },
-    "lenora": {
-      "name": "Lenora",
-      "quote1": "The director of the Nacrene Museum and the Nacrene Gym's Leader is me! Lenora!",
-      "quote2": "Well then, challenger, I'm going to research how you battle with the Pokémon you've so lovingly raised!"
-    },
-    "burgh": {
-      "name": "Burgh",
-      "quote1": "My bug Pokémon are scurrying with excitement about getting to battle you.",
-      "quote2": "Let's get straight to it!"
-    },
-    "elesa": {
-      "name": "Elesa",
-      "quote1": "Welcome to the main stage!",
-      "quote2": "My beloved Pokémon and your Pokémon shall compete!",
-      "quote3": "We're going to see whose star shines brightest!"
-    },
-    "clay": {
-      "name": "Clay",
-      "quote1": "Think it's about time to see fer myself what it is about yer skills that makes a Gym Leader like Elesa take such a shine to ya."
-    },
-    "skyla": {
-      "name": "Skyla",
-      "quote1": "Hee-hee! I've been waiting for you.",
-      "quote2": "Did you enjoy flying with the help of the Mistralton Gym cannons?"
-    },
-    "brycen": {
-      "name": "Brycen",
-      "quote1": "I'm Brycen... Pleased to meet you...",
-      "quote2": "You appear ready to face a Gym Leader. Then... Bring it!"
-    },
-    "drayden-iris": {
-      "name": "Drayden/Iris",
-      "quote1": "Welcome. Thank you for coming. I am Opelucid Pokémon Gym's Leader, Drayden. I'm searching for now is a young Trainer who can show me a bright future. Perhaps you can show me that future, the way Iris has?",
-      "quote2": "Hi! I'm Iris, the amazing strong Gym Leader! Tell me... What Pokémon are you using? How will you fight? Ooh, I'm super curious, so let's just get started!"
-    },
-    "viola": {
-      "name": "Viola",
-      "quote1": "It's fantastic! Just fantastic! A great subject for my camera!",
-      "quote2": "My lens is always focused on victory--I won't let anything ruin this shot!"
-    },
-    "grant": {
-      "name": "Grant",
-      "quote1": "I've been waiting in eager anticipation! For a worthy challenger to appear!",
-      "quote2": "I hope you'll show me that your skill as a Trainer surpasses even mine."
-    },
-    "korrina": {
-      "name": "Korrina",
-      "quote1": "I'm not exactly sure, but I think Lucario is saying it wants to battle with you."
-    },
-    "ramos": {
-      "name": "Ramos",
-      "quote1": "So what'd yeh think, whippersnapper?",
-      "quote2": "My sturdy plants are a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
-    },
-    "clemont": {
-      "name": "Clemont",
-      "quote1": "Let's both do our best in battle."
-    },
-    "valerie": {
-      "name": "Valerie",
-      "quote1": "Oh, if it isn't a young Trainer...",
-      "quote2": "The elusive Fairy types may appear frail as a breeze and delicate as a bloom, but they are strong."
-    },
-    "olympia": {
-      "name": "Olympia",
-      "quote1": "A ritual to decide your fate and future. ",
-      "quote2": "The battle begins!"
-    },
-    "wulfric": {
-      "name": "Wulfric",
-      "quote1": "Ice is both extremely hard and terribly fragile at the same time.",
-      "quote2": "Let's get this show on the road!"
-    },
-    "ilima": {
-      "name": "Ilima",
-      "quote1": "Greetings! Captain Ilima here.",
-      "quote2": "My trial is held in Verdant Cavern. The trial of Captain Ilima."
-    },
-    "hala": {
-      "name": "Hala",
-      "quote1": "Ho!",
-      "quote2": "I am Hala, the kahuna of Melemele Island.",
-      "quote3": "Let the grand trial begin!"
-    },
-    "lana-kiawe-mallow": {
-      "name": "Lana/Kiawe/Mallow",
-      "quote1": "Hello. I'm Lana. I serve as the captain of Brooklet Hill.",
-      "quote2": "I am Kiawe. My Marowak and I are students of the ancient dances.",
-      "quote3": "I'm Mallow, one of the captains here! Your Pokémon look ready to cook with gas!"
-    },
-    "olivia": {
-      "name": "Olivia",
-      "quote1": "Now you face the grand trial of the kahuna—me!",
-      "quote2": "Get ready for your hardest Pokémon battle yet on Akala!"
-    },
-    "sophocles-acerola": {
-      "name": "Sophocles/Acerola",
-      "quote1": "Mm-hmm. I've gotta show Big Mo how strong I can be...",
-      "quote2": "My trial takes place at the abandoned site where the supermarket used to be."
-    },
-    "nanu": {
-      "name": "Nanu",
-      "quote1": "You there.",
-      "quote2": "I'm an island kahuna, you know. Battle against me."
-    },
-    "mina": {
-      "name": "Mina",
-      "quote1": "Have a battle against Captain Mina!",
-      "quote2": "Me and my team are all full-powered to the max!"
-    },
-    "hapu": {
-      "name": "Hapu",
-      "quote1": "This is the first grand trial of Kahuna Hapu! I will battle you with everything that I have got!"
-    },
-    "milo": {
-      "name": "Milo",
-      "quote1": "Sure seems like you understand Pokémon real well.",
-      "quote2": "This is gonna be a doozy of a battle!"
-    },
-    "nessa": {
-      "name": "Nessa",
-      "quote1": "Welcome, honored Gym Challenger!",
-      "quote2": "No matter what kind of plan your refined mind may be plotting, my partner and I will be sure to sink it."
-    },
-    "kabu": {
-      "name": "Kabu",
-      "quote1": "Welcome! I am Kabu, the Fire-type Gym Leader.",
-      "quote2": "The match is decided by which side is able to unleash their true potential."
-    },
-    "bea-allister": {
-      "name": "Bea/Allister",
-      "quote1": "Welcome, Gym Challenger. I'm Bea. Do you have an unshakable spirit that won't be moved, no matter how you are attacked? I think I'll just test that out, shall I?",
-      "quote2": ".'M Allister. H-here...I go..."
-    },
-    "opal": {
-      "name": "Opal",
-      "quote1": "I'm Opal, the Gym Leader.",
-      "quote2": "Let me have a look at how you and your partner Pokémon behave!"
-    },
-    "gordie-melony": {
-      "name": "Gordie/Melony",
-      "quote1": "Hey there. The name's Gordie. Let's get this over with, Challenger!",
-      "quote2": "I am Melony. As you can clearly see, I've assembled a team of all Ice-type Pokémon. All righty, I suppose we should get started."
-    },
-    "piers": {
-      "name": "Piers",
-      "quote1": "*sigh*... So you're finally here, huh?",
-      "quote2": "Get ready for a mosh pit with me and my party! Spikemuth, it's time to rock!"
-    },
-    "raihan": {
-      "name": "Raihan",
-      "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
-      "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
-    }
-  },
-  "rival": {
-    "blue": {
-      "name": "Blue",
-      "quote1": "Let's check out our Pokémon! Come on, I'll take you on!"
-    },
-    "silver": {
-      "name": "Silver",
-      "quote1": "I too have a good Pokémon. I'll show you what I mean!"
-    },
-    "wally": {
-      "name": "Wally",
-      "quote1": "Please see how much my training has accomplished!"
-    },
-    "barry": {
-      "name": "Barry",
-      "quote1": "You aren't the only one who's getting tougher! I'll prove it to you! Let's go!"
-    },
-    "n": {
-      "name": "N",
-      "quote1": "Let me hear your Pokémon's voice!"
-    },
-    "calem-serena": {
-      "name": "Calem/Serena",
-      "quote1": "I'm a Pokémon Trainer, I want to see things that make Pokémon special.",
-      "quote2": "My Pokémon and I will show you what makes us special!"
-    },
-    "gladion": {
-      "name": "Gladion",
-      "quote1": "Battle me. I won't take no for an answer."
-    },
-    "bede": {
-      "name": "Bede",
-      "quote1": "It's time to prove I'm a notch above the competition to everyone in the Galar region"
     }
   }
 }

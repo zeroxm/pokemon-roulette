@@ -264,6 +264,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           });
           return this.buyPotions();
           break;
+        case 'team-rocket-encounter': 
+          this.altPrizeText = 'game.main.altPrizes.teamRocket.item';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
+          this.altPrizeDescription = 'game.main.altPrizes.teamRocket.itemDesc';
+          this.modalService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.findItem();
+          break;
         case 'rare-candy':
           return this.doNothing();
           break;

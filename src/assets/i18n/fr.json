@@ -149,6 +149,10 @@
         "battleTrainer": {
           "potion": "Vous avez obtenu une Potion bonus !",
           "potionDesc": "Après la bataille, l'Entraîneur vous a donné une Potion."
+        },
+        "teamRocket": {
+          "item": "Vous avez obtenu un objet !",
+          "itemDesc": "Il semble que le Team Rocket est en train de décoller à nouveau ! Oh, ils ont laissé un objet !"
         }
       },
       "roulette": {
@@ -230,7 +234,7 @@
           "no": "Non"
         },
         "fishing": {
-          "title": "Quel attrape?"
+          "title": "Qu'avez-vous pêché ?"
         },
         "fossil": {
           "which": "Quel Fossile?"

@@ -1,52 +1,61 @@
-<ng-container [ngSwitch]="getGameState()">
+@switch (getGameState()) {
+  @case ('game-start') {
     <app-generation-roulette
-        *ngSwitchCase="'game-start'"
         (generationSelectedEvent)="handleGenerationSelected()">
     </app-generation-roulette>
+  }
+  @case ('character-select') {
     <app-character-select
-        *ngSwitchCase="'character-select'"
         (trainerSelectedEvent)="handleTrainerSelected()">
     </app-character-select>
+  }
+  @case ('starter-pokemon') {
     <app-starter-roulette
-        *ngSwitchCase="'starter-pokemon'"
         (selectedStarterEvent)="storePokemon($event)">
     </app-starter-roulette>
+  }
+  @case ('check-shininess') {
     <app-shiny-roulette
-        *ngSwitchCase="'check-shininess'"
         (isShinyEvent)="setShininess($event)">
     </app-shiny-roulette>
+  }
+  @case ('start-adventure') {
     <app-start-adventure-roulette
-        *ngSwitchCase="'start-adventure'"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
         (doNothingEvent)="doNothing()">
     </app-start-adventure-roulette>
+  }
+  @case ('catch-pokemon') {
     <app-pokemon-from-generation-roulette
-        *ngSwitchCase="'catch-pokemon'"
         (selectedPokemonEvent)="storePokemon($event)">
     </app-pokemon-from-generation-roulette>
+  }
+  @case ('select-from-pokemon-list') {
     <app-pokemon-from-aux-list-roulette
         #auxListRoulette
-        *ngSwitchCase="'select-from-pokemon-list'"
         [wheelTitle]="customWheelTitle"
         [trainerTeam]="auxPokemonList"
         (selectedMemberEvent)="continueWithPokemon($event)">
     </app-pokemon-from-aux-list-roulette>
+  }
+  @case ('gym-battle') {
     <app-gym-battle-roulette
-        *ngSwitchCase="'gym-battle'"
         [currentRound]="leadersDefeatedAmount"
         [(fromLeader)]="fromLeader"
         (battleResultEvent)="gymBattleResult($event)">
     </app-gym-battle-roulette>
+  }
+  @case ('check-evolution') {
     <app-check-evolution-roulette
-        *ngSwitchCase="'check-evolution'"
         [(evolutionCredits)]="evolutionCredits"
         (evolvePokemonEvent)="chooseWhoWillEvolve($event)"
         (doNothingEvent)="doNothing()">
     </app-check-evolution-roulette>
+  }
+  @case ('adventure-continues') {
     <app-main-adventure-roulette
-        *ngSwitchCase="'adventure-continues'"
         [respinReason]="respinReason"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
@@ -66,37 +75,44 @@
         (findFossilEvent)="findFossil()"
         (battleRivalEvent)="battleRival()">
     </app-main-adventure-roulette>
+  }
+  @case ('team-rocket-encounter') {
     <app-team-rocket-roulette
-        *ngSwitchCase="'team-rocket-encounter'"
         [stolenPokemon]="stolenPokemon"
         (stealPokemonEvent)="stealPokemon()"
         (nothingHappensEvent)="doNothing()"
         (defeatInBattleEvent)="teamRocketDefeated()">
     </app-team-rocket-roulette>
+  }
+  @case ('mysterious-egg') {
     <app-mysterious-egg-roulette
-        *ngSwitchCase="'mysterious-egg'"
         (selectedPokemonEvent)="storePokemon($event)">
     </app-mysterious-egg-roulette>
+  }
+  @case ('legendary-encounter') {
     <app-legendary-roulette
-        *ngSwitchCase="'legendary-encounter'"
         (selectedPokemonEvent)="legendaryCaptureChance($event)">
     </app-legendary-roulette>
+  }
+  @case ('catch-legendary') {
     <app-catch-legendary-roulette
-        *ngSwitchCase="'catch-legendary'"
         [currentRound]="leadersDefeatedAmount"
         (catchLegendaryEvent)="legendaryCaptureSuccess()"
         (nothingHappensEvent)="doNothing()">
     </app-catch-legendary-roulette>
+  }
+  @case ('trade-pokemon') {
     <app-trade-pokemon-roulette
-        *ngSwitchCase="'trade-pokemon'"
         (selectedPokemonEvent)="performTrade($event)">
     </app-trade-pokemon-roulette>
+  }
+  @case ('find-item') {
     <app-find-item-roulette
-        *ngSwitchCase="'find-item'"
         (itemSelectedEvent)="receiveItem($event)">
     </app-find-item-roulette>
+  }
+  @case ('explore-cave') {
     <app-explore-cave-roulette
-        *ngSwitchCase="'explore-cave'"
         (catchCavePokemonEvent)="catchCavePokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (findItemEvent)="findItem()"
@@ -105,32 +121,38 @@
         (findFossilEvent)="findFossil()"
         (teamRocketEncounterEvent)="teamRocketEncounter()">
     </app-explore-cave-roulette>
+  }
+  @case ('catch-cave-pokemon') {
     <app-cave-pokemon-roulette
-        *ngSwitchCase="'catch-cave-pokemon'"
         (selectedPokemonEvent)="storePokemon($event)">
     </app-cave-pokemon-roulette>
+  }
+  @case ('find-fossil') {
     <app-fossil-roulette
-        *ngSwitchCase="'find-fossil'"
         (selectedPokemonEvent)="storePokemon($event)">
     </app-fossil-roulette>
+  }
+  @case('snorlax-encounter') {
     <app-snorlax-roulette
-        *ngSwitchCase="'snorlax-encounter'"
         [currentRound]="leadersDefeatedAmount"
         (runAwayEvent)="doNothing()"
         (defeatSnorlaxEvent)="chooseWhoWillEvolve($event)"
         (catchSnorlaxEvent)="catchSnorlax()">
     </app-snorlax-roulette>
+  }
+  @case ('go-fishing') {
     <app-fishing-roulette
-        *ngSwitchCase="'go-fishing'"
         (selectedPokemonEvent)="storePokemon($event)">
     </app-fishing-roulette>
+  }
+  @case ('battle-rival') {
     <app-rival-battle-roulette
-        *ngSwitchCase="'battle-rival'"
         [currentRound]="leadersDefeatedAmount"
         (battleResultEvent)="rivalBattleResult($event)">
     </app-rival-battle-roulette>
+  }
+  @case ('elite-four-preparation') {
     <app-elite-four-prep-roulette
-        *ngSwitchCase="'elite-four-preparation'"
         [respinReason]="respinReason"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
@@ -141,25 +163,29 @@
         (doNothingEvent)="doNothing()"
         (teamRocketEncounterEvent)="teamRocketEncounter()">
     </app-elite-four-prep-roulette>
+  }
+  @case ('elite-four-battle') {
     <app-elite-four-battle-roulette
-        *ngSwitchCase="'elite-four-battle'"
         [currentRound]="leadersDefeatedAmount"
         (battleResultEvent)="eliteFourBattleResult($event)">
     </app-elite-four-battle-roulette>
+  }
+  @case ('champion-battle') {
     <app-champion-battle-roulette
-        *ngSwitchCase="'champion-battle'"
         [currentRound]="leadersDefeatedAmount"
         (battleResultEvent)="championBattleResult($event)">
     </app-champion-battle-roulette>
-    <app-end-game
-        *ngSwitchCase="'game-finish'">
-    </app-end-game>
+  }
+  @case ('game-finish') {
+    <app-end-game></app-end-game>
+  }
+  @case ('game-over') {
     <app-game-over
-        *ngSwitchCase="'game-over'"
         [currentRound]="leadersDefeatedAmount"
         (restartEvent)="resetGameAction()">
     </app-game-over>
-</ng-container>
+  }
+ }
 
 <ng-template #altPrizeModal let-modal>
     <div class="modal-body">
@@ -210,7 +236,7 @@
 
 <ng-template #itemActivateModal let-modal>
     <div class="modal-body">
-        <h1>{{ currentContextItem.text | translate }} {{ 'game.main.activates' | translate }}</h1>
+        <h1>{{ currentContextItem.text | translate }} {{ 'game.main.item.activates' | translate }}</h1>
         <div class="item-panel">
             <img [src]="currentContextItem.sprite" height="128">
             <div class="message">
