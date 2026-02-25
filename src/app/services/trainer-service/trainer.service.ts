@@ -29,7 +29,7 @@ export class TrainerService {
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
-/*      { "text": "Bulbasaur",
+/*     { "text": "Bulbasaur",
        "pokemonId": 1,
        "fillStyle":
        "green",
@@ -40,6 +40,7 @@ export class TrainerService {
        "shiny": false,
        "power": 1,
        "weight": 1 },
+
      { text: "Ivysaur", pokemonId: 2, fillStyle: "green",
        sprite: { 
        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
@@ -132,14 +133,14 @@ export class TrainerService {
   private lastAddedPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
-/*     {
+    {
       text: 'items.potion.name',
       name: 'potion',
       sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
       fillStyle: 'purple',
       weight: 1,
       description: 'items.potion.description'
-    }, */
+    },
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 

@@ -133,6 +133,24 @@
         },
         "fails": "Team Rocket fails"
       },
+      "altPrizes": {
+        "gymBattle": {
+          "potion": "Got a Bonus Potion!",
+          "potionDesc": "Since no evolution was possible, get the best Potion your money can buy!"
+        },
+        "visitDaycare": {
+          "egg": "Got a Mysterious Egg!",
+          "eggDesc": "The people from the Day Care gave you a Mysterious Egg!"
+        },
+        "battleRival": {
+          "item": "Got an Item!",
+          "itemDesc": "Your Rival said you only won by luck and gave you an Item!"
+        },
+        "battleTrainer": {
+          "potion": "Got a Bonus Potion!",
+          "potionDesc": "After the battle, the Trainer gave you a Potion!"
+        }
+      },
       "roulette": {
         "generation": {
           "title": "Generation?",
@@ -178,11 +196,10 @@
           "title": "What do you do between Gyms?"
         },
         "cave": {
-          "cave": "Pokemon cave?",
           "explore" : {
             "title": "In the cave"
           },
-          "which": "Wich"
+          "which": "Which Pokemon in the cave?"
         },
         "champion": {
           "champion": "Champion",
@@ -208,16 +225,15 @@
           "use": "Used a"
         },
         "checkEvolution": {
-          "title": "Does your Pokemon Evolve ?",
+          "title": "Does your Pokemon Evolve?",
           "yes": "Yes",
           "no": "No"
         },
         "fishing": {
-          "title": "fishing"
+          "title": "What did you catch?"
         },
         "fossil": {
-          "fossil": "Fossil ?",
-          "which": "Which"
+          "which": "Which fossil?"
         },
         "gym": {
           "against": "Battle against",

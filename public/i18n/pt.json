@@ -133,6 +133,24 @@
         },
         "fails": "A Equipe Rocket falhou"
       },
+      "altPrizes": {
+        "gymBattle": {
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Como nenhuma evolução era possível, pegue a melhor Poção que seu dinheiro pode comprar!"
+        },
+        "visitDaycare": {
+          "egg": "Você recebeu um Ovo Misterioso!",
+          "eggDesc": "As pessoas do Day-care lhe deram um Ovo Misterioso!"
+        },
+        "battleRival": {
+          "item": "Você recebeu um Item!",
+          "itemDesc": "Seu Rival disse que você só ganhou por sorte e lhe deu um item!"
+        },
+        "battleTrainer": {
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Após a batalha, o Treinador lhe deu uma Poção!"
+        }
+      },
       "roulette": {
         "generation": {
           "title": "Geração?",
@@ -178,11 +196,10 @@
           "title": "O que você faz entre os Ginásios?"
         },
         "cave": {
-          "cave": "Caverna Pokémon?",
           "explore": {
             "title": "Na caverna"
           },
-          "which": "Qual"
+          "which": "Qual Pokémon da caverna?"
         },
         "champion": {
           "champion": "Campeão",
@@ -213,11 +230,10 @@
           "no": "Não"
         },
         "fishing": {
-          "title": "Pesca"
+          "title": "O que você pegou?"
         },
         "fossil": {
-          "fossil": "Fóssil?",
-          "which": "Qual"
+          "which": "Qual Fóssil?"
         },
         "gym": {
           "against": "Batalha contra",

@@ -4,11 +4,11 @@
 
 <ng-template #itemExplainerModal let-modal>
     <div class="modal-body">
-        <h1>{{ 'game.main.roulette.item.found' | translate }} {{ selectedItem?.text }}</h1>
+        <h1>{{ 'game.main.roulette.item.found' | translate }} {{ selectedItem!.text | translate}}</h1>
         <div class="explain-panel">
             <img [src]="selectedItem?.sprite" height="64">
             <div class="message">
-                <p>{{ selectedItem?.description }}</p>
+                <p>{{ selectedItem!.description | translate}}</p>
             </div>
         </div>
     </div>

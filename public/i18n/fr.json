@@ -133,6 +133,24 @@
         },
         "fails": "La Team Rocket échoue"
       },
+      "altPrizes": {
+        "gymBattle": {
+          "potion": "Vous avez obtenu une Potion bonus !",
+          "potionDesc": "Comme aucune évolution n'était possible, prenez la meilleure Potion que votre argent peut acheter !"
+        },
+        "visitDaycare": {
+          "egg": "Vous avez obtenu un Œuf Mystérieux !",
+          "eggDesc": "Les gens de la pension vous ont donné un Œuf Mystérieux !"
+        },
+        "battleRival": {
+          "item": "Vous avez obtenu un objet !",
+          "itemDesc": "Votre rival a dit que vous n'avez gagné que par chance et vous a donné un objet !"
+        },
+        "battleTrainer": {
+          "potion": "Vous avez obtenu une Potion bonus !",
+          "potionDesc": "Après la bataille, l'Entraîneur vous a donné une Potion."
+        }
+      },
       "roulette": {
         "generation": {
           "title": "Génération?",
@@ -178,11 +196,10 @@
           "title": "Que fais-tu entre les arènes ?"
         },
         "cave": {
-          "cave": "cave Pokémon?",
           "explore": {
             "title": "Dans la cave"
           },
-          "which": "Quelle"
+          "which": "Quel Pokémon de la cave ?"
         },
         "champion": {
           "champion": "Champion",
@@ -208,16 +225,15 @@
           "use": "A utilisé un(e)"
         },
         "checkEvolution": {
-          "title": "Ton Pokémon évolue-t-il ?",
+          "title": "Ton Pokémon évolue-t-il?",
           "yes": "Oui",
           "no": "Non"
         },
         "fishing": {
-          "title": "Pêche"
+          "title": "Quel attrape?"
         },
         "fossil": {
-          "fossil": "Fossile ?",
-          "which": "Quel"
+          "which": "Quel Fossile?"
         },
         "gym": {
           "against": "Combat contre",

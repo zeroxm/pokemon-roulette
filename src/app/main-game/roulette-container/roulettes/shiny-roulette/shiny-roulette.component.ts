@@ -32,7 +32,7 @@ export class ShinyRouletteComponent implements OnInit {
   }
 
   onItemSelected(index: number): void {
-    if (this.shinyOdds[index].text === 'yes') {
+    if (this.shinyOdds[index].text === 'game.main.roulette.shiny.yes') {
       this.isShinyEvent.emit(true);
     } else {
       this.isShinyEvent.emit(false);

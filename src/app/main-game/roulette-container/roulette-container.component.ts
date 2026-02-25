@@ -225,9 +225,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (this.auxPokemonList.length === 0) {
       switch (eventSource) {
         case 'gym-battle':
-          this.altPrizeText = 'Got a Bonus Potion!';
+          this.altPrizeText = 'game.main.altPrizes.gymBattle.potion';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
-          this.altPrizeDescription = 'Since no evolution was possible, get the best Potion your money can buy!';
+          this.altPrizeDescription = 'game.main.altPrizes.gymBattle.potionDesc';
           this.modalService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
@@ -235,9 +235,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           return this.buyPotions();
           break;
         case 'visit-daycare':
-            this.altPrizeText = 'Got a Mysterious Egg!';
+            this.altPrizeText = 'game.main.altPrizes.visitDaycare.egg';
             this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png';
-            this.altPrizeDescription = 'The people from the Day Care gave you a Mysterious Egg!';
+            this.altPrizeDescription = 'game.main.altPrizes.visitDaycare.eggDesc';
             this.modalService.open(this.altPrizeModal, {
               centered: true,
               size: 'md'
@@ -245,14 +245,24 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             return this.mysteriousEgg();
             break;
         case 'battle-rival':
-          this.altPrizeText = 'Got an Item!';
+          this.altPrizeText = 'game.main.altPrizes.battleRival.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
-          this.altPrizeDescription = 'Your Rival said you only won by luck and gave you an Item!';
+          this.altPrizeDescription = 'game.main.altPrizes.battleRival.itemDesc';
           this.modalService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
           return this.findItem();
+          break;
+        case 'battle-trainer':
+          this.altPrizeText = 'game.main.altPrizes.battleTrainer.potion';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
+          this.altPrizeDescription = 'game.main.altPrizes.battleTrainer.potionDesc';
+          this.modalService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.buyPotions();
           break;
         case 'rare-candy':
           return this.doNothing();
