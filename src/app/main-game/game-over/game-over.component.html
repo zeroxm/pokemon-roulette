@@ -4,7 +4,9 @@
          [ngClass]="(darkMode) ?  'black-card' : 'white-card'">
         <div class="card-body" >
             <div #captureArea>
-                <h4 class="card-title text-center">{{ 'game.over.stoppedBy' | translate }} {{currentRound < 8 ? 'Gym Leader' : currentRound < 12 ? 'Elite Four' : 'Champion'}} {{currentLeader?.name}}</h4>
+                <h4 class="card-title text-center">
+                    {{ 'game.over.stoppedBy' | translate }} {{ currentRound < 8 ? ('game.over.gymLeader' | translate) : currentRound < 12 ? ('game.over.eliteFour' | translate) : ('game.over.champion' | translate) }} {{currentLeader!.name | translate}}
+                </h4>
                 <div class="d-flex row">
                     <div class="d-flex flex-column col-8 ps-0 pe-4">
                         <div class="d-flex">

@@ -101,7 +101,6 @@
     "endThanks": "Thank You for Playing!",
     "endWords": "Hope you can have fun with your friends and family playing this game :)"
   },
-	
   "game": {
     "coffeeButton": {
       "label": "Buy me a Coffee? "
@@ -112,10 +111,14 @@
     "end": {
       "champion": "Champion of",
       "congrats": "Congratulations!",
-      "share": "Share"
+      "share": "Share",
+      "shareTitle": "Pokemon Champion of {{region}}",
+      "shareText": "Look what I got!"
     },
     "main": {
-      "activates": "activates!",
+      "item": {
+        "activates": "activates!"
+      },
       "game": {
         "button": {
           "title": "Main Game"
@@ -146,7 +149,9 @@
           "title": "Starter?"
         },
         "shiny": {
-          "title": "Shiny?"
+          "title": "Shiny?",
+          "yes": "Yes",
+          "no": "No"
         },
         "start": {
           "title": "What to do first?",
@@ -202,8 +207,10 @@
           "title": "Victory?",
           "use": "Used a"
         },
-        "evolution": {
-          "title": "Does your Pokemon Evolve ?"
+        "checkEvolution": {
+          "title": "Does your Pokemon Evolve ?",
+          "yes": "Yes",
+          "no": "No"
         },
         "fishing": {
           "title": "fishing"
@@ -256,7 +263,12 @@
     },
     "over": {
       "share": "Share",
+      "shareTitle": "My progress",
+      "shareText": "See how far I've gone!",
       "stoppedBy": "Run stopped by the ",
+      "gymLeader": "Gym Leader",
+      "eliteFour": "Elite 4",
+      "champion": "Champion",
       "title": "Run is Over"
     },
     "restart": {

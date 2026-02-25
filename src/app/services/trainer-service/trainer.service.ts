@@ -126,28 +126,28 @@ export class TrainerService {
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/196.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/196.png"
         },
-       shiny: false, power: 3, weight: 1 }, */
+       shiny: false, power: 3, weight: 1 } */
   ];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
-    {
+/*     {
       text: 'items.potion.name',
       name: 'potion',
       sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
       fillStyle: 'purple',
       weight: 1,
       description: 'items.potion.description'
-    },
+    }, */
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [
-    // {
-    //   "name": "Boulder Badge",
-    //   "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
-    // }
+/*     {
+      "name": "Boulder Badge",
+      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
+    } */
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 

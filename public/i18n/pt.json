@@ -111,10 +111,14 @@
     "end": {
       "champion": "Campeão de",
       "congrats": "Parabéns!",
-      "share": "Compartilhar"
+      "share": "Compartilhar",
+      "shareTitle": "Campeão Pokémon de {{region}}",
+      "shareText": "Veja o que eu consegui!"
     },
     "main": {
-      "activates": "ativou!",
+      "item": {
+        "activates": "ativou!"
+      },
       "game": {
         "button": {
           "title": "Voltar"
@@ -145,7 +149,9 @@
           "title": "Pokémon Inicial?"
         },
         "shiny": {
-          "title": "Shiny?"
+          "title": "Shiny?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "start": {
           "title": "O que fazer primeiro?",
@@ -196,13 +202,15 @@
             "go": "Vamos lá!",
             "ready": "Agora prepare-se para a Elite dos 4.",
             "title": "O que fazer antes da Elite dos 4?",
-            "victoryRoad": "Entre na Rua da Vitória!"
+            "victoryRoad": "Entre na Rota da Vitória!"
           },
           "title": "Vitória?",
           "use": "Usou "
         },
-        "evolution": {
-          "title": "Seu Pokémon vai evoluir?"
+        "checkEvolution": {
+          "title": "Seu Pokémon vai evoluir?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "fishing": {
           "title": "Pesca"
@@ -255,7 +263,12 @@
     },
     "over": {
       "share": "Compartilhar",
+      "shareTitle": "Meu progresso",
+      "shareText": "Veja até onde cheguei!",
       "stoppedBy": "Jogo interrompido por ",
+      "gymLeader": "Líder de Ginásio",
+      "eliteFour": "Elite 4",
+      "champion": "Campeão",
       "title": "Fim da Jornada"
     },
     "restart": {

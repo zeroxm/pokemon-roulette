@@ -28,7 +28,7 @@ export class GenerationRouletteComponent {
   generations: GenerationItem[];
   darkMode!: Observable<boolean>;
   selectedGeneration: GenerationItem | null = null;
-  showChoiceButtons = false;
+  showChoiceButtons = true;
   @Output() generationSelectedEvent = new EventEmitter<GenerationItem>();
 
   onItemSelected(index: number): void {

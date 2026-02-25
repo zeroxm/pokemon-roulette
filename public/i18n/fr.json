@@ -111,10 +111,14 @@
     "end": {
       "champion": "Champion de",
       "congrats": "Félicitations!",
-      "share": "Partager"
+      "share": "Partager",
+      "shareTitle": "Champion Pokémon de {{region}}",
+      "shareText": "Regarde ce que j'ai obtenu !"
     },
     "main": {
-      "activates": "s'active!",
+      "item": {
+        "activates": "s'active!"
+      },
       "game": {
         "button": {
           "title": "Jeu principal"
@@ -145,7 +149,9 @@
           "title": "Pokémon de départ ?"
         },
         "shiny": {
-          "title": "Shiny ?"
+          "title": "Shiny ?",
+          "yes": "Oui",
+          "no": "Non"
         },
         "start": {
           "title": "Que faire en premier ?",
@@ -201,8 +207,10 @@
           "title": "Victoire ?",
           "use": "A utilisé un(e)"
         },
-        "evolution": {
-          "title": "Ton Pokémon évolue-t-il ?"
+        "checkEvolution": {
+          "title": "Ton Pokémon évolue-t-il ?",
+          "yes": "Oui",
+          "no": "Non"
         },
         "fishing": {
           "title": "Pêche"
@@ -255,7 +263,12 @@
     },
     "over": {
       "share": "Partager",
+      "shareTitle": "Mon progrès",
+      "shareText": "Voyez jusqu'où je suis allé !",
       "stoppedBy": "Partie arrêtée par le",
+      "gymLeader": "Chef d'Arène",
+      "eliteFour": "Elite 4",
+      "champion": "Champion",
       "title": "La partie est terminée"
     },
     "restart": {

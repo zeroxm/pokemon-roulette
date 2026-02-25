@@ -16,8 +16,8 @@ export class ShinyRouletteComponent implements OnInit {
   @Output () isShinyEvent = new EventEmitter<boolean>();
 
   shinyOdds: WheelItem[] = [
-    { text: 'yes', fillStyle: 'green', weight: 1 },
-    { text: 'no', fillStyle: 'crimson', weight: 63 }
+    { text: 'game.main.roulette.shiny.yes', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.shiny.no', fillStyle: 'crimson', weight: 63 }
   ];
 
   constructor(public settingsService: SettingsService) {}

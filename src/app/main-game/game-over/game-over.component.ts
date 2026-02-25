@@ -5,6 +5,7 @@ import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 // @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import { GenerationItem } from '../../interfaces/generation-item';
@@ -31,7 +32,8 @@ export class GameOverComponent implements OnInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private translate: TranslateService
   ) { }
 
   gymLeadersByGeneration = gymLeadersByGeneration;
@@ -124,8 +126,8 @@ export class GameOverComponent implements OnInit, OnDestroy {
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
           files: [file],
-          title: 'My progress',
-          text: 'See how far I\'ve gone!',
+          title: this.translate.instant('game.over.shareTitle'),
+          text: this.translate.instant('game.over.shareText'),
         });
       } else {
         const link = document.createElement('a');

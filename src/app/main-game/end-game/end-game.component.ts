@@ -10,7 +10,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
 // @ts-ignore
 import domtoimage from 'dom-to-image-more'
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-end-game',
@@ -27,7 +27,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private translate: TranslateService
   ) { }
 
   darkMode!: boolean;
@@ -120,8 +121,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         navigator.share({
           files: [file],
-          title: 'Pokemon Champion of '+this.generation.region,
-          text: 'Look what I got!',
+          title: this.translate.instant('game.end.shareTitle', { region: this.generation.region }),
+          text: this.translate.instant('game.end.shareText'),
         });
       } else {
         const link = document.createElement('a');
