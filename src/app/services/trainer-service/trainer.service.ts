@@ -29,6 +29,18 @@ export class TrainerService {
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
+      { text: "pokemon.eevee",
+        pokemonId: 133,
+        fillStyle: "brown",
+        sprite: { 
+       "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
+       "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
+        },
+        shiny: false,
+        power: 2,
+        weight: 1
+      },
+
 /*     { "text": "Bulbasaur",
        "pokemonId": 1,
        "fillStyle":
@@ -47,7 +59,7 @@ export class TrainerService {
        "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/2.png"
         },
        shiny: false, power: 2, weight: 1 },
-*/
+
      { text: "Venusaur", pokemonId: 3, fillStyle: "green",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
@@ -55,7 +67,7 @@ export class TrainerService {
         },
        shiny: false, power: 3, weight: 1 },
 
-/*     { text: "Charmander", pokemonId: 4, fillStyle: "darkred",
+     { text: "Charmander", pokemonId: 4, fillStyle: "darkred",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/4.png"

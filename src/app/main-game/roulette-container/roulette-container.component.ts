@@ -274,6 +274,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           });
           return this.findItem();
           break;
+        case 'snorlax-encounter':
+          this.altPrizeText = 'game.main.altPrizes.snorlax.item';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
+          this.altPrizeDescription = 'game.main.altPrizes.snorlax.itemDesc';
+          this.modalService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.findItem();
+          break;
         case 'rare-candy':
           return this.doNothing();
           break;
@@ -365,7 +375,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolveSecondPokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'Who will evolve (Exp. Share)?';
+    this.customWheelTitle = 'game.main.roulette.evolve.whoExpShare';
     this.gameStateService.setNextState('evolve-pokemon');
     this.gameStateService.setNextState('select-from-pokemon-list');
   }
@@ -411,7 +421,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.currentContextPokemon = trainerTeam[0];
     } else {
       this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'Which Pokémon?';
+      this.customWheelTitle = 'game.main.roulette.trade.which';
       this.gameStateService.setNextState('select-from-pokemon-list');
     }
 
@@ -477,7 +487,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.useEscapeRope();
     } else {
       this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'Which Pokémon?';
+      this.customWheelTitle = 'game.main.roulette.teamrocket.steal.which';
       this.gameStateService.setNextState('steal-pokemon');
       this.gameStateService.setNextState('select-from-pokemon-list');
       this.finishCurrentState();
@@ -612,7 +622,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'Which evolution?';
+      this.customWheelTitle = 'game.main.roulette.evolve.which';
       this.gameStateService.setNextState('select-evolution');
       this.gameStateService.setNextState('select-from-pokemon-list');
       this.finishCurrentState();
@@ -646,7 +656,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'Which evolution?';
+      this.customWheelTitle = 'game.main.roulette.evolve.which';
       this.gameStateService.setNextState('select-evolution');
       this.gameStateService.setNextState('select-from-pokemon-list');
     }

@@ -153,6 +153,10 @@
         "teamRocket": {
           "item": "Você recebeu um Item!",
           "itemDesc": "Parece que o Team Rocket está decolando de novo! Oh, eles deixaram um Item!"
+        },
+        "snorlax": {
+          "item": "Encontrou um Item!",
+          "itemDesc": "Aquele Snorlax estava segurando um Item!"
         }
       },
       "roulette": {
@@ -190,11 +194,13 @@
         },
         "evolve": {
           "who": "Quem vai evoluir?",
+          "whoExpShare": "Quem vai evoluir (Comp. Exp)?",
           "modal": {
             "title": "Evolução!",
             "to": "evoluiu para",
             "your": "Seu"
-          }
+          },
+          "which": "Qual Evolução?"
         },
         "adventure": {
           "title": "O que você faz entre os Ginásios?"
@@ -266,12 +272,16 @@
         "teamrocket": {
           "double": "Encrenca em dobro!",
           "meowth": "Meowth, é isso mesmo!",
+          "steal": {
+            "which": "Qual Pokémon?"
+          },
           "teamrocket": "Equipe Rocket!",
           "title": "Resultado",
           "trouble": "Prepare-se para encrenca!"
         },
         "trade": {
-          "title": "Trocar por?"
+          "title": "Trocar por?",
+          "which": "Qual Pokémon?"
         }
       },
       "trade": {

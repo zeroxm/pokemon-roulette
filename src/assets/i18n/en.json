@@ -152,7 +152,11 @@
         },
         "teamRocket": {
           "item": "Got an Item!",
-          "itemDesc": "Look like Team Rocket is blasting off again! Oh, they left an Item!"
+          "itemDesc": "Looks like Team Rocket is blasting off again! Oh, they left an Item!"
+        },
+        "snorlax": {
+          "item": "Found an Item!",
+          "itemDesc": "That Snorlax was holding an Item!"
         }
       },
       "roulette": {
@@ -190,11 +194,13 @@
         },
         "evolve": {
           "who": "Who will evolve?",
+          "whoExpShare": "Who will evolve (Exp. Share)?",
           "modal": {
             "title": "Evolution!",
             "evolved": "evolved into",
             "your": "Your"
-          }
+          },
+          "which": "Which Evolution?"
         },
         "adventure": {
           "title": "What do you do between Gyms?"
@@ -266,12 +272,16 @@
         "teamrocket": {
           "double": "And make it double!",
           "meowth": "Meowth, that's right!",
+          "steal": {
+            "which": "Which Pokemon?"
+          },
           "teamrocket": "Team Rocket!",
           "title": "Outcome",
           "trouble": "Prepare for trouble!"
         },
         "trade": {
-          "title": "Trade for ?"
+          "title": "Trade for?",
+          "which": "Which Pokemon?"
         }
       },
       "trade": {
