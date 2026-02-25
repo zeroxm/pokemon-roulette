@@ -167,10 +167,10 @@ export class TrainerService {
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [
-/*     {
+    {
       "name": "Boulder Badge",
       "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
-    } */
+    }
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 

@@ -203,7 +203,26 @@
           "which": "Which Evolution?"
         },
         "adventure": {
-          "title": "What do you do between Gyms?"
+          "title": "What do you do between Gyms?",
+          "actions": {
+            "catchPokemon": "Catch a Pokemon",
+            "battleTrainer": "Trainer Battle",
+            "buyPotions": "Buy Potions",
+            "goStraight": "Go Straight",
+            "catchTwoPokemon": "Catch Two Pokemon",
+            "visitDaycare": "Visit the Daycare",
+            "teamRocket": "Team Rocket Encounter",
+            "mysteriousEgg": "Mysterious Egg",
+            "legendaryEncounter": "Legendary Encounter",
+            "tradePokemon": "Trade Pokémon",
+            "findItem": "Find an Item",
+            "exploreCave": "Explore a Cave",
+            "snorlaxEncounter": "Snorlax Encounter",
+            "multitask": "Multitask (Spin2x)",
+            "goFishing": "Go Fishing",
+            "findFossil": "Find a Fossil",
+            "battleRival": "Battle Rival"
+          }
         },
         "cave": {
           "explore" : {

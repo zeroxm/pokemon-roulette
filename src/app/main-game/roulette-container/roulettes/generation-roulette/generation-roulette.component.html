@@ -1,6 +1,6 @@
 <h1 class="title">{{ 'game.main.roulette.generation.title' | translate }}</h1>
 
-<div *ngIf="!showChoiceButtons">
+@if (!showChoiceButtons) {
   <app-wheel  #wheel
               [items]="generations"
               (selectedItemEvent)="onItemSelected($event)">
@@ -13,9 +13,10 @@
       {{ 'game.main.roulette.generation.chooseInstead' | translate }}
     </button>
   </div>
-</div>
+}
 
-<div *ngIf="showChoiceButtons" class="generation-choice-container">
+@if (showChoiceButtons) {
+<div class="generation-choice-container">
   <div class="generation-buttons">
     <button 
       *ngFor="let generation of generations; let i = index"
@@ -35,3 +36,4 @@
     </button>
   </div>
 </div>
+}

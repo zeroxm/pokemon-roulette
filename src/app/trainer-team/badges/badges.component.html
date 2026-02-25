@@ -2,52 +2,61 @@
     <div class="row">
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[0]?.sprite" [src]="trainerBadges[0].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[0].name | translate }}">
+            @if (trainerBadges[0]?.sprite) {
+                <img [src]="trainerBadges[0].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[0].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[1]?.sprite"
-                [src]="trainerBadges[1].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[1].name | translate }}">
+            @if (trainerBadges[1]?.sprite) {
+                <img [src]="trainerBadges[1].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[1].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[2]?.sprite"
-                [src]="trainerBadges[2].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[2].name | translate }}">
+            @if (trainerBadges[2]?.sprite) {
+                <img [src]="trainerBadges[2].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[2].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[3]?.sprite"
-                [src]="trainerBadges[3].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[3].name | translate }}">
+            @if (trainerBadges[3]?.sprite) {
+                <img [src]="trainerBadges[3].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[3].name | translate }}">
+            }
         </div>
     </div>
     <div class="row">
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[4]?.sprite"
-                [src]="trainerBadges[4].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[4].name | translate }}">
+            @if (trainerBadges[4]?.sprite) {
+                <img [src]="trainerBadges[4].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[4].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[5]?.sprite"
-                [src]="trainerBadges[5].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[5].name | translate }}">
+            @if (trainerBadges[5]?.sprite) {
+                <img [src]="trainerBadges[5].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[5].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[6]?.sprite"
-                [src]="trainerBadges[6].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[6].name | translate }}">
+            @if (trainerBadges[6]?.sprite) {
+                <img [src]="trainerBadges[6].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[6].name | translate }}">
+            }
         </div>
         <div class="badge-container rounded-3 col"
             [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img *ngIf="trainerBadges[7]?.sprite"
-                [src]="trainerBadges[7].sprite" class="img-fluid" placement="bottom"
-                ngbTooltip="{{trainerBadges[7].name | translate }}">
+            @if (trainerBadges[7]?.sprite) {
+                <img [src]="trainerBadges[7].sprite" class="img-fluid" placement="bottom"
+                    ngbTooltip="{{trainerBadges[7].name | translate }}">
+            }
         </div>
     </div>
 </div>

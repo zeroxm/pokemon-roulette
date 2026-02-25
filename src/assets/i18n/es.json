@@ -152,7 +152,7 @@
         },
         "teamRocket": {
           "item": "¡Recibiste un Objeto!",
-          "itemDesc": "Parece que el Team Rocket se está lanzando otra vez. Oh, dejaron un Objeto!"
+          "itemDesc": "Parece que el Equipo Rocket se está lanzando otra vez. Oh, dejaron un Objeto!"
         },
         "snorlax": {
           "item": "¡Encontraste un Item!",
@@ -184,8 +184,8 @@
           "actions": {
             "catchPokemon": "Capturar un Pokémon",
             "battleTrainer": "Combate un Entrenador",
-            "buyPotions": "Comprar Potions",
-            "goStraight": "Ir todo derecho"
+            "buyPotions": "Comprar Pociones",
+            "goStraight": "Avanzar recto"
           }
         },
         "catch": {
@@ -203,7 +203,26 @@
           "which": "¿Qué evolución?"
         },
         "adventure": {
-          "title": "¿Qué haces entre los gimnasios?"
+          "title": "¿Qué haces entre los gimnasios?",
+          "actions": {
+        "catchPokemon": "Capturar un Pokémon",
+            "battleTrainer": "Combate contra un Entrenador",
+            "buyPotions": "Comprar Pociones",
+            "goStraight": "Avanzar recto",
+            "catchTwoPokemon": "Capturar dos Pokémon",
+            "visitDaycare": "Visitar la Guardería Pokémon",
+            "teamRocket": "Equipo Rocket",
+            "mysteriousEgg": "Huevo Misterioso",
+            "legendaryEncounter": "Encuentro Legendario",
+            "tradePokemon": "Intercambiar Pokémon",
+            "findItem": "Encontrar un objeto",
+            "exploreCave": "Explorar una cueva",
+            "snorlaxEncounter": "Snorlax bloqueando el camino",
+            "multitask": "Multitarea (Girar 2x)",
+            "goFishing": "Pescar",
+            "findFossil": "Encontrar un fósil",
+            "battleRival": "Combate contra el Rival"
+          }
         },
         "cave": {
           "explore": {
@@ -275,7 +294,7 @@
           "steal": {
             "which": "¿Qué Pokémon?"
           },
-          "teamrocket": "¡Team Rocket!",
+          "teamrocket": "¡Equipo Rocket!",
           "title": "Resultado",
           "trouble": "No te asustes, niñito..."
         },

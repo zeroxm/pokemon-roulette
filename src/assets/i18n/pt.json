@@ -203,7 +203,26 @@
           "which": "Qual Evolução?"
         },
         "adventure": {
-          "title": "O que você faz entre os Ginásios?"
+          "title": "O que você faz entre os Ginásios?",
+          "actions": {
+            "catchPokemon": "Capturar um Pokémon",
+            "battleTrainer": "Batalha de Treinador",
+            "buyPotions": "Comprar Poções",
+            "goStraight": "Avançar direto",
+            "catchTwoPokemon": "Capturar Dois Pokémon",
+            "visitDaycare": "Visitar o Daycare",
+            "teamRocket": "Equipe Rocket",
+            "mysteriousEgg": "Ovo Misterioso",
+            "legendaryEncounter": "Encontro Lendário",
+            "tradePokemon": "Trocar Pokémon",
+            "findItem": "Encontrar um Item",
+            "exploreCave": "Explorar uma Caverna",
+            "snorlaxEncounter": "Snorlax no caminho",
+            "multitask": "Multitask (Girar2x)",
+            "goFishing": "Pescar",
+            "findFossil": "Encontrar um Fóssil",
+            "battleRival": "Batalha contra o Rival"
+          }
         },
         "cave": {
           "explore": {

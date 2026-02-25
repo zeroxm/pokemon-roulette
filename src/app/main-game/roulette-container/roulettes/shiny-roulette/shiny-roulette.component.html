@@ -1,7 +1,7 @@
-<div *ngIf="!settingsService.currentSettings.skipShinyRolls">
+@if (!settingsService.currentSettings.skipShinyRolls) {
   <h1 class="title">{{ 'game.main.roulette.shiny.title' | translate }}</h1>
   <app-wheel  #wheel
               [items]="shinyOdds"
               (selectedItemEvent)="onItemSelected($event)">
   </app-wheel>
-</div>
+}

@@ -203,7 +203,26 @@
           "which": "Quelle évolution ?"
         },
         "adventure": {
-          "title": "Que fais-tu entre les arènes ?"
+          "title": "Que fais-tu entre les arènes ?",
+          "actions": {
+              "catchPokemon": "Capturer un Pokémon",
+              "battleTrainer": "Combattre un entraîneur",
+              "buyPotions": "Acheter des potions",
+              "goStraight": "Aller tout droit",
+              "catchTwoPokemon": "Capturer deux Pokémon",
+              "visitDaycare": "Visiter la pension",
+              "teamRocket": "Team Rocket",
+              "mysteriousEgg": "Œuf mystérieux",
+              "legendaryEncounter": "Rencontre légendaire",
+              "tradePokemon": "Échanger un Pokémon",
+              "findItem": "Trouver un objet",
+              "exploreCave": "Explorer une grotte",
+              "snorlaxEncounter": "Rencontre avec Snorlax",
+              "multitask": "Multitâche (Tourner 2x)",
+              "goFishing": "Pêcher",
+              "findFossil": "Trouver un fossile",
+              "battleRival": "Combattre le rival"
+            }
         },
         "cave": {
           "explore": {
