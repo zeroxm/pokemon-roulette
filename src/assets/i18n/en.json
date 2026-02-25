@@ -250,9 +250,8 @@
           "title": "Which Item?"
         },
         "legendary": {
-          "chance": "Catch Chance",
-          "legendary": "Legendary ?",
-          "which": "Which"
+          "catch": "Catch Legendary?",
+          "which": "Which Legendary?"
         },
         "rival":  {
           "against": "Battle against",

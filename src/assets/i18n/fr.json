@@ -250,9 +250,8 @@
           "title": "Quel objet ?"
         },
         "legendary": {
-          "chance": "Chance de capture",
-          "legendary": "Légendaire ?",
-          "which": "Quel"
+          "catch": "Attraper le Légendaire ?",
+          "which": "Quel Légendaire ?"
         },
         "rival": {
           "against": "Combat contre",
