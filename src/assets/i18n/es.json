@@ -1449,325 +1449,325 @@
   "gymLeaders": {
     "brock": {
       "name": "Brock",
-      "quote1": "Fine, then! Show me your best!"
+      "quote1": "¡Muy bien! ¡Muéstrame lo mejor que tienes!"
     },
     "misty": {
       "name": "Misty",
-      "quote1": "My policy is an all out offensive with Water-type Pokémon!"
+      "quote1": "¡Mi estilo es atacar con todo con Pokémon de tipo Agua!"
     },
     "surge": {
       "name": "Lt. Surge",
-      "quote1": "I tell you, kid, electric Pokémon saved me during the war!",
-      "quote2": "They zapped my enemies into paralysis!",
-      "quote3": "The same as I'll do to you!"
+      "quote1": "Déjame contarte, joven, ¡los Pokémon eléctricos me salvaron durante la guerra!",
+      "quote2": "¡Paralizaron a mis enemigos!",
+      "quote3": "¡Lo mismo que haré contigo!"
     },
     "erika": {
       "name": "Erika",
-      "quote1": "...Oh, I'm sorry, I had no idea that you wished to challenge me.",
-      "quote2": "Very well, but I shall not lose."
+      "quote1": "...Oh, perdón, no tenía idea de que querías desafiarme.",
+      "quote2": "Muy bien, pero no perderé."
     },
     "koga": {
       "name": "Koga",
-      "quote1": "Very well, I shall show you true terror as a ninja master!",
-      "quote2": "Despair to the creeping horror of Poison-type Pokémon!"
+      "quote1": "Muy bien, voy a mostrarte el verdadero terror de un maestro ninja!",
+      "quote2": "¡Desesperate con el horror latente de los Pokémon de tipo Veneno!"
     },
     "sabrina": {
       "name": "Sabrina",
-      "quote1": "I had a vision of your arrival!",
-      "quote2": "I dislike battling, but if you wish, I will show you my powers!"
+      "quote1": "¡Tuve la visión de tu llegada!",
+      "quote2": "No me gusta pelear, pero si lo deseas, te mostraré mis poderes!"
     },
     "blaine": {
       "name": "Blaine",
-      "quote1": "Hah! I am Blaine, the red-hot Leader of Cinnabar Gym!",
-      "quote2": "My fiery Pokémon are all ready with intense heat! "
+      "quote1": "¡Ja! Soy Blaine, el ardiente líder del Gimnasio Cinnabar!",
+      "quote2": "¡Mis Pokémon llameantes están todos listos para un calor intenso!"
     },
     "giovanni": {
       "name": "Giovanni",
-      "quote1": "So be it. This time, I'm not holding back!",
-      "quote2": "You shall face Giovanni, the greatest Trainer!"
+      "quote1": "Que así sea entonces. ¡Esta vez no me conteneré!",
+      "quote2": "¡Vas a enfrentarte a Giovanni, el mayor de todos los entrenadores!"
     },
     "falkner": {
       "name": "Falkner",
-      "quote1": "I'll show you the real power of the magnificent bird Pokémon!"
+      "quote1": "¡Te voy a mostrar el verdadero poder de los magníficos Pokémon Ave!"
     },
     "bugsy": {
       "name": "Bugsy",
-      "quote1": "My research is going to make me an authority on Bug-type Pokémon!",
-      "quote2": "Let me demonstrate what I've learned from my studies."
+      "quote1": "¡Mis investigaciones me convertirán en una autoridad sobre Pokémon de tipo Bicho!",
+      "quote2": "Déjame demostrar lo que he aprendido con mis estudios."
     },
     "whitney": {
       "name": "Whitney",
-      "quote1": "Pokémon are super cute!",
-      "quote2": "You want to battle?",
-      "quote3": "I'm warning you--I'm good!"
+      "quote1": "¡Los Pokémon son super lindos!",
+      "quote2": "¿Quieres pelear?",
+      "quote3": "¡Te aviso, soy buena eh!"
     },
     "morty": {
       "name": "Morty",
-      "quote1": "It's said that a rainbow-hued Pokémon will come down to appear before a truly powerful Trainer.",
-      "quote2": "I believe that person is me!",
-      "quote3": "You're going to help me reach that level!"
+      "quote1": "Dicen que un Pokémon arcoíris aparecerá ante un entrenador verdaderamente poderoso.",
+      "quote2": "¡Creo que esa persona soy yo!",
+      "quote3": "¡Y tú me ayudarás a alcanzar ese nivel!"
     },
     "chuck": {
       "name": "Chuck",
-      "quote1": "I have to warn you that I am a strong Trainer training every day under this waterfall!",
-      "quote2": "Come on. We shall do battle!"
+      "quote1": "Tengo que avisarte que soy un entrenador fuerte que entrena todos los días bajo esta cascada!",
+      "quote2": "Vamos. ¡Debemos luchar!"
     },
     "jasmine": {
       "name": "Jasmine",
-      "quote1": "I'm Jasmine, a Gym Leader. I use the...clang! Steel type!",
-      "quote2": "They are very hard, cold, sharp, and really strong! Um... I'm not lying."
+      "quote1": "Soy Jasmine, una Líder de Gimnasio. ¡Uso el... clang! Tipo Acero!",
+      "quote2": "¡Son muy duros, fríos, afilados y muy fuertes! Um... No estoy mintiendo."
     },
     "pryce": {
       "name": "Pryce",
-      "quote1": "I have been training Pokémon since before you were born. I do not lose easily.",
-      "quote2": "I, Pryce - the Winter Trainer - shall demonstrate my power!"
+      "quote1": "He estado entrenando Pokémon desde antes de que nacieras. No pierdo fácilmente.",
+      "quote2": "Yo, Pryce - el Entrenador del Invierno - ¡demostraré mi poder!"
     },
     "clair": {
       "name": "Clair",
-      "quote1": "I am Clair. The world's best Dragon-type master.",
-      "quote2": "As a Gym Leader, I will use my full power against any opponent!"
+      "quote1": "Soy Clair. ¡La mejor maestra de tipo Dragón del mundo!",
+      "quote2": "Como Líder de Gimnasio, ¡usaré todo mi poder contra cualquier oponente!"
     },
     "roxanne": {
       "name": "Roxanne",
-      "quote1": "Now, would you kindly demonstrate how you battle with your Pokémon?"
+      "quote1": "Ahora, ¿me harías el favor de demostrarme cómo luchas con tus Pokémon?"
     },
     "brawly": {
       "name": "Brawly",
-      "quote1": "I'm Brawly! Dewford's Gym Leader!",
-      "quote2": "So you want to challenge me? Let me see what you're made of!"
+      "quote1": "¡Soy Brawly! ¡Líder del Gimnasio Dewford!",
+      "quote2": "¿Entonces quieres desafiarme? ¡Vamos a ver de qué eres capaz!"
     },
     "wattson": {
       "name": "Wattson",
-      "quote1": "Wahahahah! Now, that is amusing!",
-      "quote2": "I, Wattson, the Leader of Mauville Gym, shall electrify you!"
+      "quote1": "¡Wahahahah! ¡Vaya, qué divertido!",
+      "quote2": "Yo, Wattson, la Líder del Gimnasio Mauville, ¡te electrificaré!"
     },
     "flannery": {
       "name": "Flannery",
-      "quote1": "Welcome!",
-      "quote2": "No, I mean… I'm Flannery, and I'm in charge here!",
-      "quote3": "I'm gonna, uh, demonstrate the hot moves we've honed in this land!"
+      "quote1": "¡Bienvenido!",
+      "quote2": "No, digo… soy Flannery, ¡y soy la líder aquí!",
+      "quote3": "Voy a, eh, demostrar los movimientos calientes que hemos perfeccionado en esta tierra!"
     },
     "norman": {
       "name": "Norman",
-      "quote1": "I will do everything within my power as a Gym Leader to win!",
-      "quote2": "You'd better give it your best shot, too!"
+      "quote1": "¡Haré todo lo que esté a mi alcance como Líder de Gimnasio para ganar!",
+      "quote2": "¡Será mejor que des lo mejor de ti también!"
     },
     "winona": {
       "name": "Winona",
-      "quote1": "I am Winona. I am the Leader of the Fortree Pokémon Gym.",
-      "quote2": "Witness the elegant choreography of my bird Pokémon and me!"
+      "quote1": "Me llamo Winona. Soy la Líder del Gimnasio Pokémon de Fortree.",
+      "quote2": "¡Testimonio la elegante coreografía de mis Pokémon Ave y yo!"
     },
     "liza-tate": {
       "name": "Liza & Tate",
-      "quote1": "Were you surprised? That there are two Gym Leaders?",
-      "quote2": "We're twins!",
-      "quote3": "This combination of ours... Can you beat it?"
+      "quote1": "¿Te sorprende? ¿Que haya dos Líderes de Gimnasio?",
+      "quote2": "¡Somos gemelos!",
+      "quote3": "Esta combinación nuestra... ¿Podrás derrotarla?"
     },
     "wallace": {
       "name": "Wallace",
-      "quote1": "Allow me to formally introduce myself. I am Wallace. The Gym Leader of Sootopolis.",
-      "quote2": "Now, show me. Show me the power you wield with your Pokémon."
+      "quote1": "Permíteme presentarme formalmente. Soy Wallace, el Líder del Gimnasio de Sootopolis.",
+      "quote2": "Ahora, muéstrame. ¡Muéstrame el poder que tienes con tus Pokémon."
     },
     "roark": {
       "name": "Roark",
-      "quote1": "This is the Oreburgh Pokémon Gym! I'm Roark, the Gym Leader!",
-      "quote2": "As the Gym Leader, I need to see your potential as a Trainer."
+      "quote1": "¡Este es el Gimnasio de Oreburgh! ¡Soy Roark, el Líder del Gimnasio!",
+      "quote2": "Como Líder de Gimnasio, necesito ver tu potencial como Entrenador."
     },
     "gardenia": {
       "name": "Gardenia",
-      "quote1": "You have a winning aura about you.",
-      "quote2": "So, anyway, this will be fun. Let's have our battle!"
+      "quote1": "Tienes un aura ganadora.",
+      "quote2": "Entonces, de cualquier forma, esto va a ser divertido. ¡Tengamos nuestra batalla!"
     },
     "maylene": {
       "name": "Maylene",
-      "quote1": "I will do the best I can as the Gym Leader.",
-      "quote2": "I take battling very seriously. Whenever you're ready!"
+      "quote1": "Haré lo mejor que pueda como Líder de Gimnasio.",
+      "quote2": "Tomo las batallas muy en serio. ¡Cuando estés listo, vamos!"
     },
     "crasherWake": {
       "name": "Crasher Wake",
-      "quote1": "My Pokémon were toughened up by stormy white waters!",
-      "quote2": "Victory will be ours! Come on, let's get it done!"
+      "quote1": "¡Mis Pokémon se fortalecieron con las aguas blancas y tempestuosas!",
+      "quote2": "¡La victoria será nuestra! ¡Vamos, es hora de acabar con esto!"
     },
     "fantina": {
       "name": "Fantina",
-      "quote1": "Ohohoho!! Finally, you have arrived!",
-      "quote2": "But I shall win. That is what a Gym Leader does, non?"
+      "quote1": "¡Ohohoho!! ¡Finalmente, estás aquí!",
+      "quote2": "¡Pero yo seré la ganadora! Eso es lo que hace una Líder de Gimnasio, ¿no?"
     },
     "byron": {
       "name": "Byron",
-      "quote1": "You've defeated my son, Roark.",
-      "quote2": "But that's no surprise. He still has much to learn.",
-      "quote3": "I, Byron, will take your challenge!"
+      "quote1": "Derrotaste a mi hijo, Roark.",
+      "quote2": "Pero eso no es sorpresa. Aún tiene mucho que aprender.",
+      "quote3": "Yo, Byron, aceptaré tu desafío!"
     },
     "candice": {
       "name": "Candice",
-      "quote1": "Sure thing! I was waiting for someone tough!",
-      "quote2": "It's all about focus! I'll show you just what I mean. Get ready to lose!"
+      "quote1": "¡Está bien! ¡Estaba esperando a alguien fuerte!",
+      "quote2": "¡Lo importante es el enfoque! Te mostraré a qué me refiero. ¡Prepárate para perder!"
     },
     "volkner": {
       "name": "Volkner",
-      "quote1": "Sigh... I'm Volkner, the Gym Leader.",
-      "quote2": "I hope you're the Trainer who'll make me remember how fun it is to battle!"
+      "quote1": "Ugh... Soy Volkner, el Líder del Gimnasio.",
+      "quote2": "¡Espero que seas el Entrenador que me haga recordar lo divertido que es batallar!"
     },
     "cilan-chili-cress": {
       "name": "Cilan/Chili/Cress",
-      "quote1": "So, um, if you're OK with me, I'll, um, put everything I've got into being, er, you know, your opponent.",
-      "quote2": "Yeeeeooow! Time to play with FIRE!! I'm the strongest of us brothers!",
-      "quote3": "What incredible luck for you--you get to battle the best among the three of us."
+      "quote1": "Um, si estás de acuerdo, pondré todo lo que tengo en ser, eh, ya sabes, tu oponente.",
+      "quote2": "¡Yeeeeooow! ¡Hora de jugar con FUEGO!! ¡Soy el más fuerte de los tres hermanos!",
+      "quote3": "Qué increíble suerte la tuya--tener la oportunidad de batallar contra el mejor de los tres."
     },
     "lenora": {
       "name": "Lenora",
-      "quote1": "The director of the Nacrene Museum and the Nacrene Gym's Leader is me! Lenora!",
-      "quote2": "Well then, challenger, I'm going to research how you battle with the Pokémon you've so lovingly raised!"
+      "quote1": "¡La directora del Museo de Nacrene y la Líder del Gimnasio de Nacrene soy yo! ¡Lenora!",
+      "quote2": "Muy bien, retador, voy a investigar cómo luchas con los Pokémon que has criado con tanto amor."
     },
     "burgh": {
       "name": "Burgh",
-      "quote1": "My bug Pokémon are scurrying with excitement about getting to battle you.",
-      "quote2": "Let's get straight to it!"
+      "quote1": "Mis Pokémon insecto están emocionados por la idea de batallar contigo.",
+      "quote2": "¡Vamos directo al grano!"
     },
     "elesa": {
       "name": "Elesa",
-      "quote1": "Welcome to the main stage!",
-      "quote2": "My beloved Pokémon and your Pokémon shall compete!",
-      "quote3": "We're going to see whose star shines brightest!"
+      "quote1": "¡Bienvenido al escenario principal!",
+      "quote2": "¡Mis queridos Pokémon y tus Pokémon competirán!",
+      "quote3": "¡Vamos a ver de quién brilla la estrella más brillante!"
     },
     "clay": {
       "name": "Clay",
-      "quote1": "Think it's about time to see fer myself what it is about yer skills that makes a Gym Leader like Elesa take such a shine to ya."
+      "quote1": "Creo que ya es hora de verme por mí mismo en qué consisten tus habilidades que hacen que una Líder de Gimnasio como Elesa se interese por ti."
     },
     "skyla": {
       "name": "Skyla",
-      "quote1": "Hee-hee! I've been waiting for you.",
-      "quote2": "Did you enjoy flying with the help of the Mistralton Gym cannons?"
+      "quote1": "¡Jeje! Te he estado esperando.",
+      "quote2": "¿Disfrutaste volar con la ayuda de los cañones del Gimnasio Mistralton?"
     },
     "brycen": {
       "name": "Brycen",
-      "quote1": "I'm Brycen... Pleased to meet you...",
-      "quote2": "You appear ready to face a Gym Leader. Then... Bring it!"
+      "quote1": "Soy Brycen... Encantado de conocerte...",
+      "quote2": "Pareces listo para enfrentarte a un Líder de Gimnasio. ¡Entonces... tráelo!"
     },
     "drayden-iris": {
       "name": "Drayden/Iris",
-      "quote1": "Welcome. Thank you for coming. I am Opelucid Pokémon Gym's Leader, Drayden. I'm searching for now is a young Trainer who can show me a bright future. Perhaps you can show me that future, the way Iris has?",
-      "quote2": "Hi! I'm Iris, the amazing strong Gym Leader! Tell me... What Pokémon are you using? How will you fight? Ooh, I'm super curious, so let's just get started!"
+      "quote1": "Bienvenido. Gracias por venir. Soy el Líder del Gimnasio Pokémon de Opelucid, Drayden. Ahora busco a un joven Entrenador que pueda mostrarme un futuro brillante. Quizás tú puedas mostrarme ese futuro, ¿como lo hizo Iris?",
+      "quote2": "¡Hola! Soy Iris, la increíblemente fuerte Líder de Gimnasio! Dime... ¿Qué Pokémon estás usando? ¿Cómo lucharás? ¡Ooh, estoy súper curiosa, así que empecemos ya!"
     },
     "viola": {
       "name": "Viola",
-      "quote1": "It's fantastic! Just fantastic! A great subject for my camera!",
-      "quote2": "My lens is always focused on victory--I won't let anything ruin this shot!"
+      "quote1": "¡Es fantástico! ¡Simplemente fantástico! ¡Un gran sujeto para mi cámara!",
+      "quote2": "Mi lente siempre está enfocada en la victoria--¡no dejaré que nada arruine esta toma!"
     },
     "grant": {
       "name": "Grant",
-      "quote1": "I've been waiting in eager anticipation! For a worthy challenger to appear!",
-      "quote2": "I hope you'll show me that your skill as a Trainer surpasses even mine."
+      "quote1": "¡He estado esperando con grandes expectativas! ¡La aparición de un retador digno!",
+      "quote2": "Espero que me demuestres que tu habilidad como Entrenador supera incluso la mía."
     },
     "korrina": {
       "name": "Korrina",
-      "quote1": "I'm not exactly sure, but I think Lucario is saying it wants to battle with you."
+      "quote1": "No estoy exactamente segura, pero creo que Lucario está diciendo que quiere batallar contigo."
     },
     "ramos": {
       "name": "Ramos",
-      "quote1": "So what'd yeh think, whippersnapper?",
-      "quote2": "My sturdy plants are a sign o' my strength as a gardener and a Gym Leader! Yeh sure yer up to facing all that?"
+      "quote1": "¿Qué opinas, mocoso?",
+      "quote2": "¡Mis plantas robustas son una señal de mi fuerza como jardinero y Líder de Gimnasio! ¿Seguro que estás listo para enfrentar todo eso?"
     },
     "clemont": {
       "name": "Clemont",
-      "quote1": "Let's both do our best in battle."
+      "quote1": "Vamos ambos a dar lo mejor en la batalla."
     },
     "valerie": {
       "name": "Valerie",
-      "quote1": "Oh, if it isn't a young Trainer...",
-      "quote2": "The elusive Fairy types may appear frail as a breeze and delicate as a bloom, but they are strong."
+      "quote1": "Oh, si no es un joven entrenador... ",
+      "quote2": "Los elusivos tipo Hada pueden parecer frágiles como una brisa y delicados como una flor, pero son fuertes."
     },
     "olympia": {
       "name": "Olympia",
-      "quote1": "A ritual to decide your fate and future. ",
-      "quote2": "The battle begins!"
+      "quote1": "Un ritual para decidir tu destino y futuro.",
+      "quote2": "¡La batalla comienza!"
     },
     "wulfric": {
       "name": "Wulfric",
-      "quote1": "Ice is both extremely hard and terribly fragile at the same time.",
-      "quote2": "Let's get this show on the road!"
+      "quote1": "El hielo es extremadamente duro y terriblemente frágil al mismo tiempo.",
+      "quote2": "¡Vamos a poner este show en marcha!"
     },
     "ilima": {
       "name": "Ilima",
-      "quote1": "Greetings! Captain Ilima here.",
-      "quote2": "My trial is held in Verdant Cavern. The trial of Captain Ilima."
+      "quote1": "¡Saludos! Capitán Ilima aquí.",
+      "quote2": "Mi prueba se lleva a cabo en Verdant Cavern. El desafío del Capitán Ilima."
     },
     "hala": {
       "name": "Hala",
-      "quote1": "Ho!",
-      "quote2": "I am Hala, the kahuna of Melemele Island.",
-      "quote3": "Let the grand trial begin!"
+      "quote1": "¡Ho!",
+      "quote2": "Soy Hala, el kahuna de la Isla Melemele.",
+      "quote3": "¡Que comience el gran desafío!"
     },
     "lana-kiawe-mallow": {
       "name": "Lana/Kiawe/Mallow",
-      "quote1": "Hello. I'm Lana. I serve as the captain of Brooklet Hill.",
-      "quote2": "I am Kiawe. My Marowak and I are students of the ancient dances.",
-      "quote3": "I'm Mallow, one of the captains here! Your Pokémon look ready to cook with gas!"
+      "quote1": "Hola. Soy Lana. Sirvo como capitana de Brooklet Hill.",
+      "quote2": "Soy Kiawe. Mi Marowak y yo somos estudiantes de las danzas antiguas.",
+      "quote3": "Soy Mallow, ¡una de las capitanas aquí! ¡Tus Pokémon parecen listos para cocinar con gas!"
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "Now you face the grand trial of the kahuna—me!",
-      "quote2": "Get ready for your hardest Pokémon battle yet on Akala!"
+      "quote1": "¡Ahora vas a enfrentar el gran desafío del kahuna—yo!",
+      "quote2": "¡Prepárate para tu batalla Pokémon más difícil en Akala!"
     },
     "sophocles-acerola": {
       "name": "Sophocles/Acerola",
-      "quote1": "Mm-hmm. I've gotta show Big Mo how strong I can be...",
-      "quote2": "My trial takes place at the abandoned site where the supermarket used to be."
+      "quote1": "Mm-hmm. Tengo que mostrarle a Big Mo cuán fuerte puedo ser!",
+      "quote2": "Mi prueba tiene lugar en el sitio abandonado donde solía estar el supermercado."
     },
     "nanu": {
       "name": "Nanu",
-      "quote1": "You there.",
-      "quote2": "I'm an island kahuna, you know. Battle against me."
+      "quote1": "Tú ahí.",
+      "quote2": "Soy un kahuna de la isla, ¿sabes? Bátete conmigo."
     },
     "mina": {
       "name": "Mina",
-      "quote1": "Have a battle against Captain Mina!",
-      "quote2": "Me and my team are all full-powered to the max!"
+      "quote1": "¡Ten una batalla contra la capitana Mina!",
+      "quote2": "¡Yo y mi equipo estamos totalmente potenciados al máximo!"
     },
     "hapu": {
       "name": "Hapu",
-      "quote1": "This is the first grand trial of Kahuna Hapu! I will battle you with everything that I have got!"
+      "quote1": "¡Este es el primer gran desafío de Kahuna Hapu! ¡Te batallaré con todo lo que tengo!"
     },
     "milo": {
       "name": "Milo",
-      "quote1": "Sure seems like you understand Pokémon real well.",
-      "quote2": "This is gonna be a doozy of a battle!"
+      "quote1": "Parece que entiendes muy bien los Pokémon.",
+      "quote2": "¡Esta va a ser una batalla extraordinaria!"
     },
     "nessa": {
       "name": "Nessa",
-      "quote1": "Welcome, honored Gym Challenger!",
-      "quote2": "No matter what kind of plan your refined mind may be plotting, my partner and I will be sure to sink it."
+      "quote1": "¡Bienvenido, honorable Desafiante de Gimnasio!",
+      "quote2": "No importa qué tipo de plan tu mente refinada pueda estar elaborando, mi compañero y yo nos aseguraremos de hundirlo."
     },
     "kabu": {
       "name": "Kabu",
-      "quote1": "Welcome! I am Kabu, the Fire-type Gym Leader.",
-      "quote2": "The match is decided by which side is able to unleash their true potential."
+      "quote1": "¡Bienvenido! Soy Kabu, el líder de gimnasio de tipo Fuego.",
+      "quote2": "La partida se decide por qué lado es capaz de liberar su verdadero potencial."
     },
     "bea-allister": {
       "name": "Bea/Allister",
-      "quote1": "Welcome, Gym Challenger. I'm Bea. Do you have an unshakable spirit that won't be moved, no matter how you are attacked? I think I'll just test that out, shall I?",
-      "quote2": ".'M Allister. H-here...I go..."
+      "quote1": "¡Bienvenido, desafiante de gimnasio! Soy Bea. ¿Tienes un espíritu inquebrantable que no titubea, no importa cómo seas atacado? Creo que voy a probar eso, ¿puede ser?",
+      "quote2": "Soy Allister. A-aquí... voy yo..."
     },
     "opal": {
       "name": "Opal",
-      "quote1": "I'm Opal, the Gym Leader.",
-      "quote2": "Let me have a look at how you and your partner Pokémon behave!"
+      "quote1": "Soy Opal, la Líder de gimnasio.",
+      "quote2": "¡Vamos a echar un vistazo a cómo tú y tu Pokémon compañero se comportan!"
     },
     "gordie-melony": {
       "name": "Gordie/Melony",
-      "quote1": "Hey there. The name's Gordie. Let's get this over with, Challenger!",
-      "quote2": "I am Melony. As you can clearly see, I've assembled a team of all Ice-type Pokémon. All righty, I suppose we should get started."
+      "quote1": "Ey. Me llamo Gordie. ¡Vamos a acabar con esto, Desafiante!",
+      "quote2": "Soy Melony. Como puedes ver claramente, he montado un equipo solo de Pokémon de tipo Hielo. Está bien, supongo que deberíamos empezar."
     },
     "piers": {
       "name": "Piers",
-      "quote1": "*sigh*... So you're finally here, huh?",
-      "quote2": "Get ready for a mosh pit with me and my party! Spikemuth, it's time to rock!"
+      "quote1": "*Ugh*... Entonces por fin estás aquí, ¿eh?",
+      "quote2": "¡Prepárate para un mosh pit conmigo y mi equipo! Spikemuth, ¡es hora de rock!"
     },
     "raihan": {
       "name": "Raihan",
-      "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
-      "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
+      "quote1": "¿Tú apuntas a derrotar a Leon... tienes alguna idea de lo alto que es ese obstáculo?",
+      "quote2": "Como su mayor rival, supongo que yo — Raihan — tendré que mostrártelo!"
     }
   },
   "rival": {
