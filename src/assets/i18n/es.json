@@ -268,7 +268,9 @@
           "against": "Combate contra",
           "defeated": "Derrotado?",
           "go": "¡Vamos!",
-          "used": "Usó un(a)"
+          "used": "Usó un(a)",
+          "yes": "Sí",
+          "no": "No"
         },
         "item": {
           "found": "Encontró un(a)",
@@ -1581,7 +1583,7 @@
       "quote1": "I will do the best I can as the Gym Leader.",
       "quote2": "I take battling very seriously. Whenever you're ready!"
     },
-    "crasher-wake": {
+    "crasherWake": {
       "name": "Crasher Wake",
       "quote1": "My Pokémon were toughened up by stormy white waters!",
       "quote2": "Victory will be ours! Come on, let's get it done!"

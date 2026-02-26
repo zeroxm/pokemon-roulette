@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -31,7 +31,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
-    private trainerService: TrainerService
+    private trainerService: TrainerService,
+    private translate: TranslateService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -49,8 +50,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   @Output() fromLeaderChange = new EventEmitter<number>();
 
   victoryOdds: WheelItem[] = [
-    { text: 'Yes', fillStyle: 'green', weight: 1 },
-    { text: 'No', fillStyle: 'crimson', weight: 1 }
+    { text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 }
   ];
 
   currentLeader!: GymLeader;
@@ -95,7 +96,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   onItemSelected(index: number): void {
     this.retries--;
-    if (this.victoryOdds[index].text === 'Yes') {
+    if (this.victoryOdds[index].text === 'game.main.roulette.gym.yes') {
       this.battleResultEvent.emit(true);
     } else {
       if (this.retries <= 0) {
@@ -112,25 +113,25 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   private calcVictoryOdds(): void {
     this.victoryOdds = [];
 
-    this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+        this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
 
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
     }
 
-    this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
   }
 
   private plusModifiers(): number {
@@ -152,18 +153,20 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
       || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
       || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
 
-      const leaderNames = currentLeader.name.split('/');
-      const leaderSprites = currentLeader.sprite;
-      const leaderQuotes = currentLeader.quotes;
-      const randomIndex = Math.floor(Math.random() * leaderNames.length);
+      this.translate.get(currentLeader.name).subscribe(translated => {
+        const leaderNames = translated.split('/');
+        const leaderSprites = Array.isArray(currentLeader.sprite) ? currentLeader.sprite : [currentLeader.sprite];
+        const leaderQuotes = Array.isArray(currentLeader.quotes) ? currentLeader.quotes : currentLeader.quotes;
+        const randomIndex = Math.floor(Math.random() * leaderNames.length);
 
-      this.fromLeaderChange.emit(randomIndex);
+        this.fromLeaderChange.emit(randomIndex);
 
-      currentLeader = {
-        name: leaderNames[randomIndex],
-        sprite: leaderSprites[randomIndex],
-        quotes: [leaderQuotes[randomIndex]]
-      }
+        this.currentLeader = {
+          name: leaderNames[randomIndex],
+          sprite: leaderSprites[randomIndex],
+          quotes: [Array.isArray(leaderQuotes) ? leaderQuotes[randomIndex] : leaderQuotes]
+        } as GymLeader;
+      });
     }
 
     return currentLeader;

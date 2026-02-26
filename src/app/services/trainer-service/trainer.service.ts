@@ -29,95 +29,38 @@ export class TrainerService {
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
-      { text: "pokemon.eevee",
-        pokemonId: 133,
-        fillStyle: "brown",
-        sprite: { 
-       "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
-       "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
-        },
-        shiny: false,
-        power: 2,
-        weight: 1
+    { text: "pokemon.eevee",
+      pokemonId: 133,
+      fillStyle: "brown",
+      sprite: { 
+      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
+      "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
       },
-
-/*     { "text": "Bulbasaur",
-       "pokemonId": 1,
-       "fillStyle":
-       "green",
-       "sprite": { 
-       "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-       "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/1.png"
-        },
-       "shiny": false,
-       "power": 1,
-       "weight": 1 },
-
-   { text: "Ivysaur", pokemonId: 2, fillStyle: "green",
-       sprite: { 
-       "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
-       "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/2.png"
-        },
-       shiny: false, power: 2, weight: 1 },
-
-     { text: "Venusaur", pokemonId: 3, fillStyle: "green",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/4.png"
-        },
-       shiny: false, power: 3, weight: 1 },
-
-     { text: "Charmander", pokemonId: 4, fillStyle: "darkred",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/4.png"
-        },
-       shiny: false, power: 1, weight: 1 },
-     { text: "Charmeleon", pokemonId: 5, fillStyle: "darkred",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/5.png"
-        },
-       shiny: false, power: 2, weight: 1 },
+      shiny: false,
+      power: 2,
+      weight: 1
+    },
+    { text: "Venusaur", pokemonId: 3, fillStyle: "green",
+      sprite: { 
+        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+        "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/4.png"
+      },
+      shiny: false, power: 3, weight: 1 },
      { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
         },
-       shiny: false, power: 3, weight: 1 } */
+       shiny: false, power: 3, weight: 1 }
   ];
 
   storedPokemon: PokemonItem[] = [
-/*      { text: "Squirtle", pokemonId: 7, fillStyle: "darkblue",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/7.png"
-        },
-       shiny: false, power: 1, weight: 1 },
-     { text: "Wartortle", pokemonId: 8, fillStyle: "darkblue",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/8.png"
-        },
-       shiny: false, power: 2, weight: 1 },
      { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/9.png"
         },
        shiny: false, power: 3, weight: 1 },
-     { text: "Caterpie", pokemonId: 10, fillStyle: "green",
-      sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/10.png"
-        },
-       shiny: false, power: 1, weight: 1 },
-     { text: "Metapod", pokemonId: 11, fillStyle: "green",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/11.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/11.png"
-        },
-       shiny: false, power: 1, weight: 1 },
      { text: "Butterfree", pokemonId: 12, fillStyle: "gray",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png",
@@ -135,13 +78,7 @@ export class TrainerService {
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
         },
-       shiny: false, power: 3, weight: 1 },
-     { text: "Espeon", pokemonId: 196, fillStyle: "purple",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/196.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/196.png"
-        },
-       shiny: false, power: 3, weight: 1 } */
+       shiny: false, power: 3, weight: 1 }
   ];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
@@ -167,10 +104,10 @@ export class TrainerService {
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [
-    {
+ /*    {
       "name": "Boulder Badge",
       "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
-    }
+    } */
   ];
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
