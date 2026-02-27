@@ -3,7 +3,7 @@ import { championByGeneration } from './champion-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -31,7 +31,8 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
-    private trainerService: TrainerService
+    private trainerService: TrainerService,
+    private translate: TranslateService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -45,13 +46,14 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   trainerItems!: ItemItem[];
   @Input() currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
+  @Output() fromChampionChange = new EventEmitter<number>();
 
   victoryOdds: WheelItem[] = [
-    { text: 'Yes', fillStyle: 'green', weight: 1 },
-    { text: 'No', fillStyle: 'crimson', weight: 1 }
+    { text: 'game.main.roulette.champion.yes', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 }
   ];
 
-  champion!: GymLeader;
+  currentChampion!: GymLeader;
   currentItem!: ItemItem;
   retries = 0;
   private teamSubscription!: Subscription;
@@ -71,7 +73,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
 
       if (state === 'champion-battle') {
-        this.champion = this.getChampion();
+        this.currentChampion = this.getChampion();
         this.calcVictoryOdds();
 
         this.modalService.open(this.championPresentationModal, {
@@ -95,7 +97,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
 
   onItemSelected(index: number): void {
     this.retries--;
-    if (this.victoryOdds[index].text === 'Yes') {
+    if (this.victoryOdds[index].text === 'game.main.roulette.champion.yes') {
       this.battleResultEvent.emit(true);
     } else {
       if (this.retries <= 0) {
@@ -112,25 +114,25 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   private calcVictoryOdds(): void {
     this.victoryOdds = [];
 
-    this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+        this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
 
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
     }
 
-    this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
   }
 
   private plusModifiers(): number {
@@ -147,18 +149,23 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   private getChampion(): GymLeader {
     let currentChampion = this.championByGeneration[this.generation.id][0];
 
+    console.log('Selected champion:', currentChampion);
     if (this.generation.id === 7) {
 
-       const leaderNames = currentChampion.name.split('/');
-       const leaderSprites = currentChampion.sprite;
-       const leaderQuotes = currentChampion.quotes;
-       const randomIndex = Math.floor(Math.random() * leaderNames.length);
+      this.translate.get(currentChampion.name).subscribe(translated => {
+        const championNames = translated.split('/');
+        const championSprites = Array.isArray(currentChampion.sprite) ? currentChampion.sprite : [currentChampion.sprite];
+        const championQuotes = Array.isArray(currentChampion.quotes) ? currentChampion.quotes : currentChampion.quotes;
+        const randomIndex = Math.floor(Math.random() * championNames.length);
 
-       currentChampion = {
-         name: leaderNames[randomIndex],
-         sprite: leaderSprites[randomIndex],
-         quotes: [leaderQuotes[randomIndex]]
-       }
+        this.fromChampionChange.emit(randomIndex);
+
+        this.currentChampion = {
+          name: championNames[randomIndex],
+          sprite: championSprites[randomIndex],
+          quotes: [Array.isArray(championQuotes) ? championQuotes[randomIndex] : championQuotes]
+        } as GymLeader;
+      });
      }
 
      return currentChampion;

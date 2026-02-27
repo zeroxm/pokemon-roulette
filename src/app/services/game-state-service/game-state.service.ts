@@ -8,10 +8,10 @@ import { BehaviorSubject } from 'rxjs';
 export class GameStateService {
 
   private stateStack: GameState[] = [];
-  private state = new BehaviorSubject<GameState>('elite-four-preparation');
+  private state = new BehaviorSubject<GameState>('champion-battle');
   currentState = this.state.asObservable();
 
-  private currentRound = new BehaviorSubject<number>(0);
+  private currentRound = new BehaviorSubject<number>(12);
   currentRoundObserver = this.currentRound.asObservable();
 
   private wheelSpinning = new BehaviorSubject<boolean>(false);

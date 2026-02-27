@@ -234,7 +234,9 @@
           "champion": "Champion",
           "go": "Let's Go!",
           "use": "Used a",
-          "victory": "Victory?"
+          "victory": "Victory?",
+          "yes": "Yes",
+          "no": "No"
         },
         "egg": {
           "title": "Which Pokemon ?"
@@ -1817,6 +1819,47 @@
     "bede": {
       "name": "Bede",
       "quote1": "It's time to prove I'm a notch above the competition to everyone in the Galar region"
+    }
+  },
+  "champion": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "My teams can beat any Pokémon type.",
+      "quote2": "And now… I am the Pokémon League Champion!",
+      "quote3": "I'll tell you. I am the most powerful Trainer in the world!!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "As the most powerful Trainer and as the Pokémon League Champion…",
+      "quote2": "I, Lance the dragon master, accept your challenge!"
+    },
+    "steven": {
+      "name": "Steven",
+      "quote1": "Traveling this rich land of Hoenn… Has it awoken something inside you?",
+      "quote2": "I want you to come at me with all that you've learned."
+    },
+    "cynthia": {
+      "name": "Cynthia",
+      "quote1": "I'm so glad that you're the one who's challenging me today!",
+      "quote2": "I will accept your challenge with everything I've got!"
+    },
+    "alder": {
+      "name": "Alder",
+      "quote1": "I've really been looking forward to deciding who's the strongest Pokémon Trainer in the Unova region! Kiai!"
+    },
+    "diantha": {
+      "name": "Diantha",
+      "quote1": "I can't wait to see what you and your Pokémon are capable of now that I know exactly what it is you've done already!"
+    },
+    "kukui-hau": {
+      "name": "Professor Kukui/Hau",
+      "quote1": "I don't really wanna be the Champion of the Pokémon League I made myself, but there's nothing wrong with wanting to take on the biggest and baddest Trainer there is, right?",
+      "quote2": "I really wanna have a serious battle against you! I really want to be able to win against you!"
+    },
+    "leon": {
+      "name": "Leon",
+      "quote1": "The time has come for you to battle it out until only the greatest challenger remains!",
+      "quote2": "So, on behalf of the chairman, allow me to say... let the Finals matches begin!"
     }
   }
 }

@@ -231,10 +231,12 @@
           "which": "Qual Pokémon da caverna?"
         },
         "champion": {
-          "champion": "Campeão",
+          "champion": "Campeão -",
           "go": "Vamos lá!",
           "use": "Usou ",
-          "victory": "Vitória?"
+          "victory": "Vitória?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "egg": {
           "title": "Qual Pokémon?"
@@ -1817,6 +1819,47 @@
     "bede": {
       "name": "Bede",
       "quote1": "É hora de provar que um nível acima do resto da competição na região de Galar."
+    }
+  },
+  "champion": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Meus times podem derrotar qualquer tipo de Pokémon.",
+      "quote2": "E agora… Eu sou o Campeão da Liga Pokémon!",
+      "quote3": "Deixa eu te contar. Eu sou o Treinador mais poderoso do mundo!!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "Como o Treinador mais poderoso e Campeão da Liga Pokémon…",
+      "quote2": "Eu, Lance o mestre do dragão, aceito seu desafio!"
+    },
+    "steven": {
+      "name": "Steven",
+      "quote1": "Viajando por esta rica terra de Hoenn… Você sentiu algo despertar dentro de si?",
+      "quote2": "Quero que você venha contra mim com tudo o que aprendeu."
+    },
+    "cynthia": {
+      "name": "Cynthia",
+      "quote1": "Estou muito contente que você seja a pessoa que está me desafiando hoje!",
+      "quote2": "Vou aceitar seu desafio com tudo o que tenho!"
+    },
+    "alder": {
+      "name": "Alder",
+      "quote1": "Eu estava esperando ansiosamente para decidir quem é o Treinador Pokémon mais forte na região de Unova! Kiai!"
+    },
+    "diantha": {
+      "name": "Diantha",
+      "quote1": "Eu mal consigo esperar para ver do que você e seu Pokémon são capazes agora que eu sei exatamente o que vocês fizeram!"
+    },
+    "kukui-hau": {
+      "name": "Professor Kukui/Hau",
+      "quote1": " Na verdade eu nem quero ser o Campeão da Liga Pokémon que eu mesmo criei, mas não há nada de errado em querer enfrentar o Treinador mais forte e perigoso da região, certo?",
+      "quote2": "Eu quero muito ter uma batalha séria contra você! Eu realmente quero conseguir vencer você!"
+    },
+    "leon": {
+      "name": "Leon",
+      "quote1": "É chegada a hora de batalhar até que apenas o maior desafiante permaneça!",
+      "quote2": "Então, em nome do presidente, permita-me dizer... que as lutas finais comeceme!"
     }
   }
 }

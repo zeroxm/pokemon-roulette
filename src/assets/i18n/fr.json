@@ -234,7 +234,9 @@
           "champion": "Champion",
           "go": "C'est parti !",
           "use": "A utilisé un(e)",
-          "victory": "Victoire ?"
+          "victory": "Victoire ?",
+          "yes": "Oui",
+          "no": "Non"
         },
         "egg": {
           "title": "Quel Pokémon ?"
@@ -1817,6 +1819,47 @@
     "bede": {
       "name": "Bede",
       "quote1": "Il est temps de prouver à tout le monde dans la région de Galar que je suis un cran au-dessus de la compétition."
+    }
+  },
+  "champion": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Mes équipes peuvent battre n'importe quel type de Pokémon.",
+      "quote2": "Et maintenant… je suis le Champion de la Ligue Pokémon !",
+      "quote3": "Je te le dis. Je suis le Dresseur le plus puissant du monde !!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "En tant que Dresseur le plus puissant et en tant que Champion de la Ligue Pokémon…",
+      "quote2": "Moi, Lance le maître des dragons, j'accepte ton défi !"
+    },
+    "steven": {
+      "name": "Steven",
+      "quote1": "En voyageant dans cette riche terre de Hoenn… Cela a-t-il éveillé quelque chose en toi ?",
+      "quote2": "Je veux que tu m'affrontes avec tout ce que tu as appris."
+    },
+    "cynthia": {
+      "name": "Cynthia",
+      "quote1": "Je suis tellement contente que ce soit toi qui me défies aujourd'hui !",
+      "quote2": "J'accepterai ton défi avec tout ce que j'ai !"
+    },
+    "alder": {
+      "name": "Alder",
+      "quote1": "J'ai vraiment hâte de décider qui est le Dresseur Pokémon le plus fort dans la région d'Unova ! Kiai !"
+    },
+    "diantha": {
+      "name": "Diantha",
+      "quote1": "Je peux à peine attendre de voir ce dont toi et tes Pokémon êtes capables maintenant que je sais exactement ce que vous avez déjà fait !"
+    },
+    "kukui-hau": {
+      "name": "Professor Kukui/Hau",
+      "quote1": "Je ne veux pas vraiment être le Champion de la Ligue Pokémon que j'ai moi-même créé, mais il n'y a rien de mal à vouloir affronter le plus grand et le plus dangereux des Dresseurs, non ?",
+      "quote2": "Je veux vraiment avoir un combat sérieux contre toi ! Je veux vraiment pouvoir te vaincre !"
+    },
+    "leon": {
+      "name": "Leon",
+      "quote1": "Le moment est venu pour toi de te battre jusqu'à ce qu'il ne reste que le plus grand challenger !",
+      "quote2": "Alors, au nom du président, permets-moi de dire... que les matches de la Finale commencent !"
     }
   }
 }

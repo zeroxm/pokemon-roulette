@@ -3,83 +3,83 @@ import { GymLeader } from "../../../../interfaces/gym-leader";
 export const championByGeneration: Record<number, GymLeader[]> = {
     1: [
         {
-            name: 'Blue',
+            name: 'champion.blue.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/FireRed_LeafGreen_Blue.png",
             quotes: [
-                "My teams can beat any Pokémon type.",
-                "And now… I am the Pokémon League Champion!",
-                "I'll tell you. I am the most powerful Trainer in the world!"
+                "champion.blue.quote1",
+                "champion.blue.quote2",
+                "champion.blue.quote3"
             ]
         }
     ],
     2: [
         {
-            name: 'Lance',
+            name: 'champion.lance.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Masters_Lance_Dragonite_artwork.png",
             quotes: [
-                "As the most powerful Trainer and as the Pokémon League Champion…",
-                "I, Lance the dragon master, accept your challenge!"
+                "champion.lance.quote1",
+                "champion.lance.quote2"
             ]
         }
     ],
     3: [
         {
-            name: 'Steven',
+            name: 'champion.steven.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Omega_Ruby_Alpha_Sapphire_Steven.png",
             quotes: [
-                "Traveling this rich land of Hoenn… Has it awoken something inside you?",
-                "I want you to come at me with all that you've learned."
+                "champion.steven.quote1",
+                "champion.steven.quote2"
             ]
         }
     ],
     4: [
         {
-            name: 'Cynthia',
+            name: 'champion.cynthia.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Diamond_Pearl_Cynthia.png",
             quotes: [
-                "I'm so glad that you're the one who's challenging me today!",
-                "I will accept your challenge with everything I've got!"
+                "champion.cynthia.quote1",
+                "champion.cynthia.quote2"
             ]
         }
     ],
     5: [
         {
-            name: 'Alder',
+            name: 'champion.iris.name',
             sprite:'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Black_White_Alder.png',
             quotes: [
-                "I've really been looking forward to deciding who's the strongest Pokémon Trainer in the Unova region! Kiai!"
+                "champion.alder.quote1"
             ]
         }
     ],
     6: [
         {
-            name: 'Diantha',
+            name: 'champion.diantha.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/XY_Diantha.png",
             quotes: [
-                "I can't wait to see what you and your Pokémon are capable of now that I know exactly what it is you've done already!"
+                "champion.diantha.quote1"
             ]
         }
     ],
     7: [
         {
-            name: 'Professor Kukui/Hau',
+            name: 'champion.kukui-hau.name',
             sprite: [
                 "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Sun_Moon_Professor_Kukui.png",
                 "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/USUM_Hau.png"
             ],
             quotes: [
-                "I don't really wanna be the Champion of the Pokémon League I made myself, but there's nothing wrong with wanting to take on the biggest and baddest Trainer there is, right?",
-                "I really wanna have a serious battle against you! I really want to be able to win against you!"
+                "champion.kukui-hau.quote1",
+                "champion.kukui-hau.quote2"
             ]
         }
     ],
     8: [
         {
-            name: 'Leon',
+            name: 'champion.leon.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Sword_Shield_Leon.png",
             quotes: [
-                "The time has come for you to battle it out until only the greatest challenger remains!",
-                "So, on behalf of the chairman, allow me to say... let the Finals matches begin!"
+                "champion.leon.quote1",
+                "champion.leon.quote2"
             ]
         }
     ]

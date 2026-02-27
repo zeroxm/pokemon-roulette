@@ -234,7 +234,9 @@
           "champion": "Campeón",
           "go": "¡Vamos!",
           "use": "Usó un(a)",
-          "victory": "¿Victoria?"
+          "victory": "¿Victoria?",
+          "yes": "Sí",
+          "no": "No"
         },
         "egg": {
           "title": "¿Qué Pokémon?"
@@ -1817,6 +1819,47 @@
     "bede": {
       "name": "Bede",
       "quote1": "Es hora de demostrar que estoy un nivel por encima del resto de la competencia en la región de Galar."
+    }
+  },
+  "champion": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Mis equipos pueden vencer cualquier tipo de Pokémon.",
+      "quote2": "¡Y ahora… soy el Campeón de la Liga Pokémon!",
+      "quote3": "Te digo. ¡Soy el Entrenador más poderoso del mundo!!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "Como el Entrenador más poderoso y como Campeón de la Liga Pokémon…",
+      "quote2": "¡Yo, Lance el maestro dragón, acepto tu desafío!"
+    },
+    "steven": {
+      "name": "Steven",
+      "quote1": "Viajando por esta rica tierra de Hoenn… ¿Ha despertado algo dentro de ti?",
+      "quote2": "Quiero que vengas a mí con todo lo que has aprendido."
+    },
+    "cynthia": {
+      "name": "Cynthia",
+      "quote1": "¡Estoy tan contenta de que seas tú quien me desafía hoy!",
+      "quote2": "¡Aceptaré tu desafío con todo lo que tengo!"
+    },
+    "alder": {
+      "name": "Alder",
+      "quote1": "¡He estado esperando con ansias decidir quién es el Entrenador Pokémon más fuerte de la región de Unova! ¡Kiai!"
+    },
+    "diantha": {
+      "name": "Diantha",
+      "quote1": "¡No puedo esperar a ver de qué son capaces tú y tus Pokémon ahora que sé exactamente lo que ya has hecho!"
+    },
+    "kukui-hau": {
+      "name": "Professor Kukui/Hau",
+      "quote1": "Realmente no quiero ser el Campeón de la Liga Pokémon que yo mismo creé, pero no hay nada de malo en querer enfrentarse al Entrenador más grande y temible que existe, ¿verdad?",
+      "quote2": "¡Realmente quiero tener una batalla seria contra ti! ¡Realmente quiero poder vencerte!"
+    },
+    "leon": {
+      "name": "Leon",
+      "quote1": "¡Ha llegado el momento de que luches hasta que solo quede el mayor desafiante!",
+      "quote2": "Así que, en nombre del presidente, permíteme decir... ¡que comiencen los partidos finales!"
     }
   }
 }
