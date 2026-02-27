@@ -248,7 +248,9 @@
             "go": "¡Vamos!",
             "ready": "Ahora prepárate para el Alto Mando.",
             "title": "¿Qué haces antes del Alto Mando?",
-            "victoryRoad": "¡Entra en la Calle Victoria!"
+            "victoryRoad": "¡Entra en la Calle Victoria!",
+            "yes": "Sí",
+            "no": "No"
           },
           "title": "¿Victoria?",
           "use": "Usó un(a)"
@@ -1289,163 +1291,163 @@
   "elite4": {
     "lorelei": {
       "name": "Lorelei",
-      "quote1": "No one can best me when it comes to icy Pokémon.",
-      "quote2": "Freezing moves are powerful. Are you ready?"
+      "quote1": "Nadie puede superarme cuando se trata de Pokémon de hielo.",
+      "quote2": "Los movimientos de congelación son poderosos. ¿Estás preparado?"
     },
     "bruno-gen1": {
       "name": "Bruno",
-      "quote1": "Through rigorous training, people and Pokémon can become stronger without limit.",
-      "quote2": "We will grind you down with our superior power! Hoo hah!"
+      "quote1": "Con entrenamiento riguroso, las personas y sus Pokémon pueden hacerse más fuertes sin límite.",
+      "quote2": "¡Te aplastaremos con nuestro poder superior! ¡Hoo hah!"
     },
     "agatha": {
       "name": "Agatha",
-      "quote1": "You're the child that Oak's taken under his wing, aren't you?",
-      "quote2": "I'll show you how a real Trainer battles!"
+      "quote1": "¿Eres el chico a quien Oak ha tomado bajo su ala, verdad?",
+      "quote2": "¡Te mostraré cómo lucha un verdadero Entrenador!"
     },
     "lance": {
       "name": "Lance",
-      "quote1": "You can call me Lance the dragon Trainer.",
-      "quote2": "Your League challenge ends with me!"
+      "quote1": "Puedes llamarme Lance, el Entrenador Dragón.",
+      "quote2": "¡Tu reto de la Liga termina conmigo!"
     },
     "will": {
       "name": "Will",
-      "quote1": "I am Will. I have trained all around the world, making my Psychic-type Pokémon powerful.",
-      "quote2": "I can only keep getting better! Losing is not an option!"
+      "quote1": "Soy Will. He entrenado por todo el mundo, haciendo poderosos a mis Pokémon psíquicos.",
+      "quote2": "¡Solo puedo mejorar! ¡Perder no es una opción!"
     },
     "koga": {
       "name": "Koga",
-      "quote1": "A mere child like you dares to challenge me?",
-      "quote2": "I shall show you true terror as a ninja master!"
+      "quote1": "¿Un simple niño como tú se atreve a desafiarme?",
+      "quote2": "¡Te mostraré el verdadero terror como maestro ninja!"
     },
     "bruno-gen2": {
       "name": "Bruno",
-      "quote1": "You look determined. Perfect for battle!",
-      "quote2": "You will bow down to our overwhelming power! Hoo hah!"
+      "quote1": "Te ves decidido. ¡Perfecto para la batalla!",
+      "quote2": "¡Te inclinarás ante nuestro abrumador poder! ¡Hoo hah!"
     },
     "karen": {
       "name": "Karen",
-      "quote1": "How amusing. I love Dark-type Pokémon.",
-      "quote2": "I'm known for my overpowering tactics.",
-      "quote3": "Just try to entertain me. Let's go."
+      "quote1": "Qué divertido. Me encantan los Pokémon de tipo Siniestro.",
+      "quote2": "Soy conocida por mis tácticas dominadoras.",
+      "quote3": "Intenta entretenerme. Vamos."
     },
     "sidney": {
       "name": "Sidney",
-      "quote1": "I like that look you're giving me.",
-      "quote2": "I guess you'll give me a good match. That's good!"
+      "quote1": "Me gusta esa mirada que me estás echando.",
+      "quote2": "Supongo que tendrás un buen combate. ¡Eso está bien!"
     },
     "phoebe": {
       "name": "Phoebe",
-      "quote1": "Ahahaha! I'm Phoebe of the Elite Four.",
-      "quote2": "See if you can even inflict damage on my Pokémon!"
+      "quote1": "¡Ajajaja! Soy Phoebe del Alto Mando.",
+      "quote2": "¡Ve si siquiera puedes hacerle daño a mis Pokémon!"
     },
     "glacia": {
       "name": "Glacia",
-      "quote1": "All I have seen are challenges by weak Trainers",
-      "quote2": "I wonder what you will show me."
+      "quote1": "Todo lo que he visto son retos de Entrenadores débiles.",
+      "quote2": "Me pregunto qué me mostrarás."
     },
     "drake": {
       "name": "Drake",
-      "quote1": "do you know what it takes to battle alongside Pokémon as partners?",
-      "quote2": "If you don't, you will never prevail over me"
+      "quote1": "¿Sabes lo que se necesita para luchar junto a los Pokémon como compañeros?",
+      "quote2": "Si no lo sabes, nunca prevalecerás contra mí"
     },
     "aaron": {
       "name": "Aaron",
-      "quote1": "Would you like to know why I take on challengers?",
-      "quote2": "It's because I want to become perfect, just like my bug Pokémon!",
-      "quote3": "Ok! Let me take you on!"
+      "quote1": "¿Te gustaría saber por qué enfrento a los retadores?",
+      "quote2": "¡Es porque quiero volverme perfecto, como mis Pokémon bicho!",
+      "quote3": "¡Ok! ¡Déjame enfrentarte!"
     },
     "bertha": {
       "name": "Bertha",
-      "quote1": "Well, well. You're quite the adorable Trainer!",
-      "quote2": "Would you show this old lady how much you've learned?"
+      "quote1": "Vaya, vaya. ¡Eres todo un adorado Entrenador!",
+      "quote2": "¿Me mostrarás cuánto has aprendido?"
     },
     "flint": {
       "name": "Flint",
-      "quote1": "You're facing a Fire-type Pokémon user with me.",
-      "quote2": "Let Flint see how hot your spirit burns!"
+      "quote1": "Estás enfrentando a un usuario de tipo Fuego conmigo.",
+      "quote2": "¡Que Flint vea cuánto arde tu espíritu!"
     },
     "lucian": {
       "name": "Lucian",
-      "quote1": "I must say, you've already proven yourself to be outstanding by coming this far.",
-      "quote2": "I'm afraid I will have to go all out against you."
+      "quote1": "Debo decir que ya has demostrado ser excelente por haber llegado tan lejos.",
+      "quote2": "Me temo que tendré que darlo todo contra ti."
     },
     "shauntal": {
       "name": "Shauntal",
-      "quote1": "Excuse me. You're a challenger, right?",
-      "quotes2": "I'm the Elite Four's Ghost-type Pokémon user, Shauntal, and I shall be your opponent."
+      "quote1": "Perdona. Eres un retador, ¿verdad?",
+      "quotes2": "Soy la usuaria de Pokémon de tipo Fantasma del Alto Mando, Shauntal, y seré tu oponente."
     },
     "marshal": {
       "name": "Marshal",
-      "quote1": "I'm training under my mentor, Alder.",
-      "quote2": "My mentor sees your potential as a Trainer and is taking an interest in you."
+      "quote1": "Entreno bajo la tutela de mi mentor, Alder.",
+      "quote2": "Mi mentor ve tu potencial como Entrenador y está interesado en ti."
     },
     "grimsley": {
       "name": "Grimsley",
-      "quote1": "Life is a serious battle, and you have to use the tools you're given.",
-      "quote2": "Let us begin. And may the best Trainer win!"
+      "quote1": "La vida es una batalla seria, y debes usar las herramientas que te dieron.",
+      "quote2": "Comencemos. ¡Que gane el mejor Entrenador!"
     },
     "caitlin": {
       "name": "Caitlin",
-      "quote1": "You appear to possess a combination of strength and kindness.",
-      "quote2": "Make your best effort not to bore me with a yawn-inducing battle. Clear?"
+      "quote1": "Parece que posees una combinación de fuerza y bondad.",
+      "quote2": "Esfuérzate por no aburrirme con una batalla soporífera. ¿Claro?"
     },
     "malva": {
       "name": "Malva",
-      "quote1": "Welcome, challenger, to my Blazing Chamber!",
-      "quote2": "I am Malva, and I shall be your opponent today."
+      "quote1": "Bienvenido, retador, a mi Cámara Llameante!",
+      "quote2": "Soy Malva, y seré tu oponente hoy."
     },
     "siebold": {
       "name": "Siebold",
-      "quote1": "I have a question I must pose to you.",
-      "quote2": "Do you think Pokémon battling can ever be worthy of being called an art?"
+      "quote1": "Debo plantearte una pregunta.",
+      "quote2": "¿Crees que el combate Pokémon puede llegar a ser considerado un arte?"
     },
     "wikstrom": {
       "name": "Wikstrom",
-      "quote1": "Let us both give our word that our contest shall be fair and honorable.",
-      "quote2": "Ready? En garde!"
+      "quote1": "Comprometámonos a que nuestro duelo sea justo y honorable.",
+      "quote2": "¿Listo? ¡En garde!"
     },
     "drasna": {
       "name": "Drasna",
-      "quote1": "You must be a strong Trainer... That's just wonderful news!",
-      "quote2": "Facing opponents like you and your team will make my Pokémon grow like weeds!"
+      "quote1": "Debes ser un Entrenador fuerte... ¡Eso es una noticia maravillosa!",
+      "quote2": "¡Enfrentar a oponentes como tú hará que mis Pokémon crezcan como maleza!"
     },
     "molayne": {
       "name": "Molayne",
-      "quote1": "Kukui asked me to, so I decided to be in the Elite Four.",
-      "quote2": "I'm looking forward to battling against you and Sophocles in the Pokémon League."
+      "quote1": "Kukui me lo pidió, así que decidí formar parte del Alto Mando.",
+      "quote2": "Espero con ansias luchar contra ti y Sophocles en la Liga Pokémon."
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "No introduction needed here. Time to battle me, Olivia!"
+      "quote1": "No hace falta presentación. ¡Es hora de que luches contra mí, Olivia!"
     },
     "acerola": {
       "name": "Acerola",
-      "quote1": "Nanu said he was not felling up to be an Elite 4",
-      "quote2": "So I guess I'll just have to battle hard enough to make up for his not being here!"
+      "quote1": "Nanu dijo que no se sentía con ánimos para ser del Alto Mando",
+      "quote2": "Así que supongo que tendré que luchar lo suficiente para compensar que él no esté aquí!"
     },
     "kahili": {
       "name": "Kahili",
-      "quote1": "I heard that they'd made a Pokémon League in my own home region, so I came flying back to serve Alola."
+      "quote1": "Escuché que hicieron una Liga Pokémon en mi región natal, así que volé de regreso para servir en Alola."
     },
     "marnie": {
       "name": "Marnie/Hop/Bede",
-      "quote1": "The truth is... I really just wanna become Champion for myself! So don't take it personal when I kick your butt!",
-      "quote2": "It's time I finish what I started that day... Got it? The one who'll become Champion is me!",
-      "quote3": "It's time to prove I'm a notch above the competition to everyone in the Galar region."
+      "quote1": "La verdad es... ¡realmente solo quiero ser Campeona por mí misma! Así que no lo tomes personal cuando te derrote!",
+      "quote2": "Es hora de terminar lo que empecé ese día... ¿Entiendes? ¡La que será Campeona seré yo!",
+      "quote3": "Es hora de demostrar que soy superior a la competencia en toda Galar."
     },
     "nessa": {
       "name": "Nessa",
-      "quote1": "I'm sure you remember, but I'm Nessa. And I'm not here to chat. I'm here to win!"
+      "quote1": "Seguro me recuerdas, soy Nessa. Y no estoy aquí para charlar. ¡Estoy aquí para ganar!"
     },
     "bea": {
       "name": "Bea/Allister",
-      "quote1": "Focusing too much on winning can cause one to make mistakes. I will face you with a clear head!",
-      "quote2": "...Let's start the match."
+      "quote1": "Centrarse demasiado en ganar puede llevar a errores. ¡Te enfrentaré con la mente clara!",
+      "quote2": "...Empecemos el combate."
     },
     "raihan": {
       "name": "Raihan",
-      "quote1": "You're really something else, kid. You've made it all the way here!",
-      "quote2": "You might be thinking that you beat me once already... But I'm not the same Raihan you faced before"
+      "quote1": "Eres realmente algo, niño. ¡Has llegado hasta aquí!",
+      "quote2": "Puede que pienses que ya me venciste antes... pero no soy el mismo Raihan que enfrentaste antes"
     }
   },
   "gymLeaders": {

@@ -3,7 +3,7 @@ import { eliteFourByGeneration } from './elite-four-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -31,7 +31,8 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
-    private trainerService: TrainerService
+    private trainerService: TrainerService,
+    private translate: TranslateService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -45,6 +46,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   trainerItems!: ItemItem[];
   @Input() currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
+  @Output() fromEliteChange = new EventEmitter<number>();
 
   victoryOdds: WheelItem[] = [
     { text: 'Yes', fillStyle: 'green', weight: 1 },
@@ -148,16 +150,20 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
     if ((this.generation.id === 8 && (this.currentRound%4 === 0 || this.currentRound%4 === 2))) {
 
-      const leaderNames = currentElite.name.split('/');
-      const leaderSprites = currentElite.sprite;
-      const leaderQuotes = currentElite.quotes;
-      const randomIndex = Math.floor(Math.random() * leaderNames.length);
+      this.translate.get(currentElite.name).subscribe(translated => {
+        const eliteNames = translated.split('/');
+        const eliteSprites = Array.isArray(currentElite.sprite) ? currentElite.sprite : [currentElite.sprite];
+        const eliteQuotes = Array.isArray(currentElite.quotes) ? currentElite.quotes : currentElite.quotes;
+        const randomIndex = Math.floor(Math.random() * eliteNames.length);
 
-      currentElite = {
-        name: leaderNames[randomIndex],
-        sprite: leaderSprites[randomIndex],
-        quotes: [leaderQuotes[randomIndex]]
-      }
+        this.fromEliteChange.emit(randomIndex);
+
+        this.currentElite = {
+          name: eliteNames[randomIndex],
+          sprite: eliteSprites[randomIndex],
+          quotes: [Array.isArray(eliteQuotes) ? eliteQuotes[randomIndex] : eliteQuotes]
+        } as GymLeader;
+      });
     }
 
     return currentElite;

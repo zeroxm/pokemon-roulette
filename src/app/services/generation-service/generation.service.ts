@@ -21,7 +21,7 @@ export class GenerationService {
     { text: 'Gen 8', region: 'Galar', fillStyle: 'black', id: 8, weight: 1 },
   ];
 
-  private generation = new BehaviorSubject<GenerationItem>(this.generations[0]);
+  private generation = new BehaviorSubject<GenerationItem>(this.generations[7]);
 
   getGenerationList(): GenerationItem[] {
     return this.generations;

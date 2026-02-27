@@ -3,11 +3,11 @@ import { GymLeader } from "../../../../interfaces/gym-leader";
 export const eliteFourByGeneration: Record<number, GymLeader[]> = {
     1: [
         {
-            name: 'elite4.loreilei.name',
+            name: 'elite4.lorelei.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Masters_EX_Lorelei_artwork.png",
             quotes: [
-              'elite4.loreilei.quote1',
-              'elite4.loreilei.quote2',
+              'elite4.lorelei.quote1',
+              'elite4.lorelei.quote2',
             ]
         },
         {

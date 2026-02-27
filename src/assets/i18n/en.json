@@ -248,7 +248,9 @@
             "go": "Let's Go!",
             "ready": "Now get ready for the Elite 4.",
             "title": "What do you do before the Elite 4?",
-            "victoryRoad": "Enter the Victory Road!"
+            "victoryRoad": "Enter the Victory Road!",
+            "yes": "Yes",
+            "no": "No"
           },
           "title": "Victory?",
           "use": "Used a"
