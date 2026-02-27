@@ -304,7 +304,12 @@
           "no": "No"
         },
         "snorlax": {
-          "outcome": "Outcome"
+          "outcome": "Outcome",
+          "actions": {
+            "runAway": "Snorlax runs away",
+            "catch": "Catch Snorlax",
+            "defeat": "Defeat Snorlax"
+          }
         },
         "teamrocket": {
           "double": "And make it double!",
@@ -515,7 +520,7 @@
     "seaking": "Seaking",
     "staryu": "Staryu",
     "starmie": "Starmie",
-    "mr. mime": "Mr. Mime",
+    "mr.mime": "Mr. Mime",
     "scyther": "Scyther",
     "jynx": "Jynx",
     "electabuzz": "Electabuzz",
@@ -832,7 +837,7 @@
     "bronzor": "Bronzor",
     "bronzong": "Bronzong",
     "bonsly": "Bonsly",
-    "mime jr": "Mime Jr",
+    "mime.jr": "Mime Jr",
     "happiny": "Happiny",
     "chatot": "Chatot",
     "spiritomb": "Spiritomb",
@@ -1165,7 +1170,7 @@
     "sandygast": "Sandygast",
     "palossand": "Palossand",
     "pyukumuku": "Pyukumuku",
-    "type: null": "Type: Null",
+    "type:null": "Type: Null",
     "silvally": "Silvally",
     "minior": "Minior",
     "komala": "Komala",
@@ -1178,10 +1183,10 @@
     "jangmo-o": "Jangmo-o",
     "hakamo-o": "Hakamo-o",
     "kommo-o": "Kommo-o",
-    "tapu koko": "Tapu Koko",
-    "tapu lele": "Tapu Lele",
-    "tapu bulu": "Tapu Bulu",
-    "tapu fini": "Tapu Fini",
+    "tapu-koko": "Tapu Koko",
+    "tapu-lele": "Tapu Lele",
+    "tapu-bulu": "Tapu Bulu",
+    "tapu-fini": "Tapu Fini",
     "cosmog": "Cosmog",
     "cosmoem": "Cosmoem",
     "solgaleo": "Solgaleo",
@@ -1259,7 +1264,7 @@
     "perrserker": "Perrserker",
     "cursola": "Cursola",
     "sirfetchd": "Sirfetchd",
-    "mr. rime": "Mr. Rime",
+    "mr.rime": "Mr. Rime",
     "runerigus": "Runerigus",
     "milcery": "Milcery",
     "alcremie": "Alcremie",

@@ -21,9 +21,9 @@ export class SnorlaxRouletteComponent {
 
   ngOnInit(): void {
     this.outcomes = [
-      { text: 'Snorlax runs away', fillStyle: 'crimson', weight: 8 - this.currentRound },
-      { text: 'Catch Snorlax', fillStyle: 'blue', weight: 2 + this.currentRound },
-      { text: 'Defeat Snorlax', fillStyle: 'green', weight: 2 + this.currentRound }
+      { text: 'game.main.roulette.snorlax.actions.runAway', fillStyle: 'crimson', weight: 8 - this.currentRound },
+      { text: 'game.main.roulette.snorlax.actions.catch', fillStyle: 'blue', weight: 2 + this.currentRound },
+      { text: 'game.main.roulette.snorlax.actions.defeat', fillStyle: 'green', weight: 2 + this.currentRound }
     ];
   }
 

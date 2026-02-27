@@ -156,7 +156,7 @@
         },
         "snorlax": {
           "item": "Vous avez trouvé un objet !",
-          "itemDesc": "Ce Snorlax tenait un objet !"
+          "itemDesc": "Ce Ronflex tenait un objet !"
         }
       },
       "roulette": {
@@ -217,7 +217,7 @@
               "tradePokemon": "Échanger un Pokémon",
               "findItem": "Trouver un objet",
               "exploreCave": "Explorer une grotte",
-              "snorlaxEncounter": "Rencontre avec Snorlax",
+              "snorlaxEncounter": "Rencontre avec Ronflex",
               "multitask": "Multitâche (Tourner 2x)",
               "goFishing": "Pêcher",
               "findFossil": "Trouver un fossile",
@@ -304,7 +304,12 @@
           "no": "Non"
         },
         "snorlax": {
-          "outcome": "Résultat"
+          "outcome": "Résultat",
+          "actions": {
+            "runAway": "Ronflex s'enfuit",
+            "catch": "Attraper Ronflex",
+            "defeat": "Vaincre Ronflex"
+          }
         },
         "teamrocket": {
           "double": "Pour vous jouer un mauvais tour.",
@@ -515,7 +520,7 @@
     "seaking": "Poissoroy",
     "staryu": "Stari",
     "starmie": "Staross",
-    "mr. mime": "M. Mime",
+    "mr.mime": "M. Mime",
     "scyther": "Insécateur",
     "jynx": "Lippoutou",
     "electabuzz": "Élektek",
@@ -832,7 +837,7 @@
     "bronzor": "Archéomire",
     "bronzong": "Archéodong",
     "bonsly": "Manzaï",
-    "mime jr": "Mime Jr.",
+    "mime.jr": "Mime Jr.",
     "happiny": "Ptiravi",
     "chatot": "Pijako",
     "spiritomb": "Spiritomb",
@@ -1165,7 +1170,7 @@
     "sandygast": "Bacabouh",
     "palossand": "Trépassable",
     "pyukumuku": "Concombaffe",
-    "type: null": "Type:0",
+    "type:null": "Type:0",
     "silvally": "Silvallié",
     "minior": "Météno",
     "komala": "Dodoala",
@@ -1178,10 +1183,10 @@
     "jangmo-o": "Bébécaille",
     "hakamo-o": "Écaïd",
     "kommo-o": "Ékaïser",
-    "tapu koko": "Tokorico",
-    "tapu lele": "Tokopiyon",
-    "tapu bulu": "Tokotoro",
-    "tapu fini": "Tokopisco",
+    "tapu-koko": "Tokorico",
+    "tapu-lele": "Tokopiyon",
+    "tapu-bulu": "Tokotoro",
+    "tapu-fini": "Tokopisco",
     "cosmog": "Cosmog",
     "cosmoem": "Cosmovum",
     "solgaleo": "Solgaleo",
@@ -1259,7 +1264,7 @@
     "perrserker": "Berserkatt",
     "cursola": "Corayôme",
     "sirfetchd": "Palarticho",
-    "mr. rime": "M. Glaquette",
+    "mr.rime": "M. Glaquette",
     "runerigus": "Tutétékri",
     "milcery": "Crèmy",
     "alcremie": "Charmilly",
