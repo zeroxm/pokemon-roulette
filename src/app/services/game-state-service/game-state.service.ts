@@ -56,22 +56,22 @@ export class GameStateService {
   }
 
   finishCurrentState(): GameState {
-
-    if(['gym-battle', 'elite-four-battle', 'champion-battle'].includes(this.state.value)) {
-      this.currentRound.next(this.currentRound.value + 1);
-    }
-
     if (this.stateStack.length > 0) {
       const poppedState = this.stateStack.pop();
-      if(poppedState) {
-        if(poppedState === 'game-over') {
-          this.currentRound.next(this.currentRound.value - 1);
-        }
+      if (poppedState) {
         this.state.next(poppedState);
         return poppedState;
       }
     }
     return 'game-over';
+  }
+
+  advanceRound(): void {
+    this.currentRound.next(this.currentRound.value + 1);
+  }
+
+  retreatRound(): void {
+    this.currentRound.next(this.currentRound.value - 1);
   }
 
   repeatCurrentState(): void {

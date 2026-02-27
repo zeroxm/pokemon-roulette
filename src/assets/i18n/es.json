@@ -183,7 +183,7 @@
           "title": "¿Qué hacer primero?",
           "actions": {
             "catchPokemon": "Capturar un Pokémon",
-            "battleTrainer": "Combate un Entrenador",
+            "battleTrainer": "Batalla de Entrenador",
             "buyPotions": "Comprar Pociones",
             "goStraight": "Avanzar recto"
           }
@@ -206,11 +206,11 @@
           "title": "¿Qué haces entre los gimnasios?",
           "actions": {
             "catchPokemon": "Capturar un Pokémon",
-            "battleTrainer": "Combate contra un Entrenador",
+            "battleTrainer": "Batalla de Entrenador",
             "buyPotions": "Comprar Pociones",
             "goStraight": "Avanzar recto",
             "catchTwoPokemon": "Capturar dos Pokémon",
-            "visitDaycare": "Visitar la Guardería Pokémon",
+            "visitDaycare": "Visitar la Guardería",
             "teamRocket": "Equipo Rocket",
             "mysteriousEgg": "Huevo Misterioso",
             "legendaryEncounter": "Encuentro Legendario",
@@ -226,7 +226,16 @@
         },
         "cave": {
           "explore": {
-            "title": "En la cueva"
+            "title": "En la cueva",
+            "actions": {
+              "catchPokemon": "Capturar un Pokémon",
+              "battleTrainer": "Batalla de Entrenador",
+              "findItem": "Encontrar un objeto",
+              "getLost": "Se perdió",
+              "catchZubat": "Capturar un Zubat",
+              "findFossil": "Encontrar un Fósil",
+              "teamRocket": "Equipo Rocket"
+            }
           },
           "which": "¿Qué Pokémon de la cueva?"
         },
@@ -259,7 +268,7 @@
               "huntLegendary": "Cazar un legendario",
               "findItem": "Encontrar un objeto",
               "goStraight": "Ir derecho",
-              "teamRocket": "Encuentro con el Team Rocket"
+              "teamRocket": "Encuentro con Equipo Rocket"
             }
           },
           "title": "¿Victoria?",

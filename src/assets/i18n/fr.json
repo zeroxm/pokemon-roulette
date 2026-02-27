@@ -226,7 +226,16 @@
         },
         "cave": {
           "explore": {
-            "title": "Dans la cave"
+            "title": "Dans la cave",
+            "actions": {
+              "catchPokemon": "Capturer un Pokémon",
+              "battleTrainer": "Combat un Entraîneur",
+              "findItem": "Trouver un objet",
+              "getLost": "Vous avez perdu",
+              "catchZubat": "Capturer un Zubat",
+              "findFossil": "Trouver un fossile",
+              "teamRocket": "Team Rocket"
+            }
           },
           "which": "Quel Pokémon de la cave ?"
         },

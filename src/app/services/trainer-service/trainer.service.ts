@@ -84,14 +84,6 @@ export class TrainerService {
   private lastAddedPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
-/*     {
-      text: 'items.x-attack.name',
-      name: 'x-attack',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-attack.png',
-      fillStyle: 'crimson',
-      weight: 1,
-      description: 'items.x-attack.description'
-    }, */
     {
       text: 'items.potion.name',
       name: 'potion',
@@ -301,12 +293,12 @@ export class TrainerService {
   resetItems() {
     this.trainerItems = [
       {
-        text: 'Potion',
+        text: 'items.potion.name',
         name: 'potion',
         sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
         fillStyle: 'purple',
         weight: 1,
-        description: 'Potion let you spin again whenever you would lose a Gym battle!'
+        description: 'items.potion.description'
       },
     ];
     this.trainerItemsObservable.next(this.trainerItems);

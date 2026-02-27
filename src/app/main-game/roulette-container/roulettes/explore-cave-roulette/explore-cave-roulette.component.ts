@@ -21,13 +21,13 @@ export class ExploreCaveRouletteComponent {
   @Output() teamRocketEncounterEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
-    { text: 'Catch cave Pokémon', fillStyle: 'crimson', weight: 1 },
-    { text: 'Battle Trainer', fillStyle: 'darkorange', weight: 1 },
-    { text: 'Find an Item', fillStyle: 'darkgoldenrod', weight: 1 },
-    { text: 'Get Lost', fillStyle: 'green', weight: 1 },
-    { text: 'Catch a Zubat', fillStyle: 'darkcyan', weight: 1 },
-    { text: 'Find a Fossil', fillStyle: 'blue', weight: 1 },
-    { text: 'Team Rocket', fillStyle: 'purple', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.catchPokemon', fillStyle: 'crimson', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.battleTrainer', fillStyle: 'darkorange', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.findItem', fillStyle: 'darkgoldenrod', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.getLost', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.catchZubat', fillStyle: 'darkcyan', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.findFossil', fillStyle: 'blue', weight: 1 },
+    { text: 'game.main.roulette.cave.explore.actions.teamRocket', fillStyle: 'purple', weight: 1 },
   ];
 
   onItemSelected(index: number): void {

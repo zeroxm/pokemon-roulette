@@ -226,7 +226,16 @@
         },
         "cave": {
           "explore": {
-            "title": "Na caverna"
+            "title": "Na caverna",
+            "actions": {
+              "catchPokemon": "Pegar um Pokémon",
+              "battleTrainer": "Batalha de Treinador",
+              "findItem": "Encontrar um Item",
+              "getLost": "Se perdeu",
+              "catchZubat": "Pegar um Zubat",
+              "findFossil": "Encontrar um Fóssil",
+              "teamRocket": "Equipe Rocket"
+            }
           },
           "which": "Qual Pokémon da caverna?"
         },

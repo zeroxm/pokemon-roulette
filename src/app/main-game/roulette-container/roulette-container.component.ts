@@ -387,6 +387,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (result) {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
+      this.gameStateService.advanceRound();
       this.gameStateService.setNextState('check-evolution');
 
     } else {
@@ -472,7 +473,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   stealPokemon(): void {
     const trainerTeam = this.trainerService.getTeam();
 
-    if (trainerTeam.length === 1) {
+    if (trainerTeam.length < 2) {
       const modalRef = this.modalService.open(this.teamRocketFailsModal, {
         centered: true,
         size: 'md'
@@ -585,6 +586,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.respinReason = '';
 
     if (result) {
+      this.gameStateService.advanceRound();
       this.gameStateService.setNextState('check-evolution');
     } else {
       this.gameStateService.setNextState('game-over');
@@ -596,7 +598,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.runningShoesUsed = false;
     this.respinReason = '';
 
-    if (!result) {
+    if (result) {
+      this.gameStateService.advanceRound();
+    } else {
       this.gameStateService.setNextState('game-over');
     }
 
