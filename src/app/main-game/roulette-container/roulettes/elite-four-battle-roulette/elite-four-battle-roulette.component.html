@@ -27,11 +27,11 @@
 
 <ng-template #itemUsedModal let-modal>
     <div class="modal-body">
-        <h1>{{ 'game.main.roulette.elite.use' | translate }} {{ currentItem.text }}!</h1>
+        <h1>{{ 'game.main.roulette.elite.use' | translate }} {{ currentItem.text | translate }}!</h1>
         <div class="item-panel">
             <img [src]="currentItem.sprite" height="128">
             <div class="quotes">
-                <p>{{ currentItem.description }}</p>
+                <p>{{ currentItem.description | translate }}</p>
             </div>
         </div>
     </div>

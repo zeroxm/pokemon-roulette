@@ -49,8 +49,8 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   @Output() fromEliteChange = new EventEmitter<number>();
 
   victoryOdds: WheelItem[] = [
-    { text: 'Yes', fillStyle: 'green', weight: 1 },
-    { text: 'No', fillStyle: 'crimson', weight: 1 }
+    { text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 },
+    { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 }
   ];
 
   currentElite!: GymLeader;
@@ -95,7 +95,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
   onItemSelected(index: number): void {
     this.retries--;
-    if (this.victoryOdds[index].text === 'Yes') {
+    if (this.victoryOdds[index].text === 'game.main.roulette.elite.yes') {
       this.battleResultEvent.emit(true);
     } else {
       if (this.retries <= 0) {
@@ -112,25 +112,25 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   private calcVictoryOdds(): void {
     this.victoryOdds = [];
 
-    this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+        this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
 
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "Yes", fillStyle: "green", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+      this.victoryOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
     }
 
-    this.victoryOdds.push({ text: "No", fillStyle: "crimson", weight: 1 });
+    this.victoryOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
   }
 
   private plusModifiers(): number {

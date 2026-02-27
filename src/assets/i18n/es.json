@@ -205,7 +205,7 @@
         "adventure": {
           "title": "¿Qué haces entre los gimnasios?",
           "actions": {
-        "catchPokemon": "Capturar un Pokémon",
+            "catchPokemon": "Capturar un Pokémon",
             "battleTrainer": "Combate contra un Entrenador",
             "buyPotions": "Comprar Pociones",
             "goStraight": "Avanzar recto",
@@ -249,11 +249,21 @@
             "ready": "Ahora prepárate para el Alto Mando.",
             "title": "¿Qué haces antes del Alto Mando?",
             "victoryRoad": "¡Entra en la Calle Victoria!",
-            "yes": "Sí",
-            "no": "No"
+            "actions": {
+              "catchPokemon": "Capturar un Pokémon",
+              "trainingArc": "Arco de entrenamiento",
+              "buyPotions": "Comprar pociones",
+              "catchTwoPokemon": "Capturar dos Pokémon",
+              "huntLegendary": "Cazar un legendario",
+              "findItem": "Encontrar un objeto",
+              "goStraight": "Ir derecho",
+              "teamRocket": "Encuentro con el Team Rocket"
+            }
           },
           "title": "¿Victoria?",
-          "use": "Usó un(a)"
+          "use": "Usó un(a)",
+          "yes": "Sí",
+          "no": "No"
         },
         "checkEvolution": {
           "title": "¿Tu Pokémon evoluciona?",

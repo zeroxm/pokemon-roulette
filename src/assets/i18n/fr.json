@@ -249,11 +249,21 @@
             "ready": "Prépare-toi maintenant pour le Conseil 4.",
             "title": "Que fais-tu avant le Conseil 4 ?",
             "victoryRoad": "Entre dans la Route Victoire !",
-            "yes": "Oui",
-            "no": "Non"
+            "actions": {
+              "catchPokemon": "Attraper un Pokémon",
+              "trainingArc": "Arc d'entraînement",
+              "buyPotions": "Acheter des potions",
+              "catchTwoPokemon": "Attraper deux Pokémon",
+              "huntLegendary": "Chasser un Légendaire",
+              "findItem": "Trouver un objet",
+              "goStraight": "Aller tout droit",
+              "teamRocket": "Rencontre Team Rocket"
+            }
           },
           "title": "Victoire ?",
-          "use": "A utilisé un(e)"
+          "use": "A utilisé un(e)",
+          "yes": "Oui",
+          "no": "Non"
         },
         "checkEvolution": {
           "title": "Ton Pokémon évolue-t-il?",

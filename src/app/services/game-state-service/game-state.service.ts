@@ -8,10 +8,10 @@ import { BehaviorSubject } from 'rxjs';
 export class GameStateService {
 
   private stateStack: GameState[] = [];
-  private state = new BehaviorSubject<GameState>('elite-four-battle');
+  private state = new BehaviorSubject<GameState>('elite-four-preparation');
   currentState = this.state.asObservable();
 
-  private currentRound = new BehaviorSubject<number>(11);
+  private currentRound = new BehaviorSubject<number>(0);
   currentRoundObserver = this.currentRound.asObservable();
 
   private wheelSpinning = new BehaviorSubject<boolean>(false);
@@ -28,7 +28,7 @@ export class GameStateService {
       'elite-four-battle',
       'elite-four-battle',
       'elite-four-battle',
-/*      'elite-four-battle',
+      'elite-four-battle',
       'elite-four-preparation',
       'gym-battle',
       'adventure-continues',
@@ -47,7 +47,7 @@ export class GameStateService {
       'gym-battle',
       'start-adventure',
       'starter-pokemon',
-      'character-select' */
+      'character-select'
     ];
   }
 

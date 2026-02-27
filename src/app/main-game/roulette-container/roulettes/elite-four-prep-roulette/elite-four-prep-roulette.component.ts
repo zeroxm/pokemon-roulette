@@ -35,14 +35,14 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   @Output() teamRocketEncounterEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
-    { text: 'Catch a Pokémon', fillStyle: 'crimson', weight: 2 },
-    { text: 'Training Arc', fillStyle: 'darkorange', weight: 2 },
-    { text: 'Buy Potions', fillStyle: 'darkgoldenrod', weight: 2 },
-    { text: 'Catch two Pokémon', fillStyle: 'green', weight: 2 },
-    { text: 'Hunt a Legendary', fillStyle: 'darkcyan', weight: 2 },
-    { text: 'Find an Item', fillStyle: 'blue', weight: 2 },
-    { text: 'Go Straight', fillStyle: 'purple', weight: 1 },
-    { text: 'Team Rocket Encounter', fillStyle: 'black', weight: 1 }
+    { text: 'game.main.roulette.elite.prep.actions.catchPokemon', fillStyle: 'crimson', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.trainingArc', fillStyle: 'darkorange', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.buyPotions', fillStyle: 'darkgoldenrod', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.catchTwoPokemon', fillStyle: 'green', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.huntLegendary', fillStyle: 'darkcyan', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.findItem', fillStyle: 'blue', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.goStraight', fillStyle: 'purple', weight: 1 },
+    { text: 'game.main.roulette.elite.prep.actions.teamRocket', fillStyle: 'black', weight: 1 }
   ];
 
   onItemSelected(index: number): void {

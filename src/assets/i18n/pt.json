@@ -249,11 +249,21 @@
             "ready": "Agora prepare-se para a Elite dos 4.",
             "title": "O que fazer antes da Elite dos 4?",
             "victoryRoad": "Entre na Rota da Vitória!",
-            "yes": "Sim",
-            "no": "Não"
+            "actions": {
+              "catchPokemon": "Pegar um Pokémon",
+              "trainingArc": "Arco do Treinamento",
+              "buyPotions": "Comprar Poções",
+              "catchTwoPokemon": "Capturar Dois Pokémon",
+              "huntLegendary": "Caçar um Lendário",
+              "findItem": "Encontrar um Item",
+              "goStraight": "Avançar direto",
+              "teamRocket": "Equipe Rocket"
+            }
           },
           "title": "Vitória?",
-          "use": "Usou "
+          "use": "Usou ",
+          "yes": "Sim",
+          "no": "Não"
         },
         "checkEvolution": {
           "title": "Seu Pokémon evoluiu?",
