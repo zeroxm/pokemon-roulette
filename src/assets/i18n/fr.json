@@ -328,7 +328,12 @@
             "which": "Quel Pokémon ?"
           },
           "title": "Résultat",
-          "trouble": "Nous sommes de retour."
+          "trouble": "Nous sommes de retour.",
+          "outcomes": {
+            "steal": "Vous volez un Pokémon",
+            "runAway": "Vous fuyez",
+            "defeat": "Battez le Team Rocket"
+          }
         },
         "trade": {
           "title": "Échanger contre ?",
