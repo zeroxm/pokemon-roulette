@@ -1,0 +1,1881 @@
+{
+  "settings": {
+      "label": "Configurações",
+      "darkmode": "Modo escuro",
+      "explanations": "Menos Explicações",
+      "muteAudio": "Silenciar Áudio",
+      "skipShinyRolls": "Ommitir roletas de Shiny"
+  },
+  "coffee": {
+    "title": "Curtiu a roletinha? 😁",
+    "how_to_help": "Se quiser ajudar você pode fazer uma doação.",
+    "donations": "Doações de qualquer valor dão aquela força para implementarmos novidades.",
+    "support": "Formas de apoiar",
+    "thanks": "E obrigado por jogar!",
+    "hope": "Seja doando, seja compartilhando o jogo com os outros, desejo que voce se divirta!"
+  },
+  "badges": {
+    "boulder": "Insígnia de Rocha",
+    "cascade": "Insígnia de Cascata",
+    "thunder": "Insígnia de Trovão",
+    "rainbow": "Insígnia Arco-Íris",
+    "soul": "Insígnia da Alma",
+    "marsh": "Insígnia do Pântano",
+    "volcano": "Insígnia do Vulcão",
+    "earth": "Insígnia da Terra",
+    "zephyr": "Insígnia do Vento",
+    "hive": "Insígnia da Colmeia",
+    "plain": "Insígnia da Planície",
+    "fog": "Insígnia da Névoa",
+    "storm": "Insígnia da Tempestade",
+    "mineral": "Insígnia Mineral",
+    "glacier": "Insígnia da Geleira",
+    "rising": "Insígnia da Ascensão",
+    "stone": "Insígnia da Pedra",
+    "knuckle": "Insígnia do Punho",
+    "dynamo": "Insígnia Dínamo",
+    "heat": "Insígnia do Calor",
+    "balance": "Insígnia do Equilíbrio",
+    "feather": "Insígnia da Pena",
+    "mind": "Insígnia da Mente",
+    "rain": "Insígnia da Chuva",
+    "coal": "Insígnia do Carvão",
+    "forest": "Insígnia da Floresta",
+    "cobble": "Insígnia da Luta",
+    "fen": "Insígnia do Pântano",
+    "relic": "Insígnia da Relíquia",
+    "mine": "Insígnia da Mina",
+    "icicle": "Insígnia do Gelo",
+    "beacon": "Insígnia do Farol",
+    "trio": "Insígnia Trio",
+    "basic": "Insígnia Básica",
+    "insect": "Insígnia do Inseto",
+    "bolt": "Insígnia do Raio",
+    "quake": "Insígnia do Abalo",
+    "jet": "Insígnia Jato",
+    "freeze": "Insígnia do Gelo",
+    "legend": "Insígnia Lendária",
+    "bug": "Insígnia do Inseto",
+    "cliff": "Insígnia do Penhasco",
+    "rumble": "Insígnia da Pancada",
+    "plant": "Insígnia da Planta",
+    "voltage": "Insígnia da Voltagem",
+    "fairy": "Insígnia da Fada",
+    "psychic": "Insígnia Psíquica",
+    "iceberg": "Insígnia do Iceberg",
+    "normalium_z": "Normalium Z",
+    "fightinium_z": "Fightinium Z",
+    "waterium_z": "Waterium Z",
+    "firium_z": "Firium Z",
+    "grassium_z": "Grassium Z",
+    "rockium_z": "Rockium Z",
+    "electrium_z": "Electrium Z",
+    "ghostium_z": "Ghostium Z",
+    "darkinium_z": "Darkinium Z",
+    "fairium_z": "Fairium Z",
+    "groundium_z": "Groundium Z",
+    "grass": "Insígnia de Planta",
+    "water": "Insígnia de Água",
+    "fire": "Insígnia de Fogo",
+    "fighting": "Insígnia de Luta",
+    "ghost": "Insígnia de Fantasma",
+    "fairy_galar": "Insígnia de Fada",
+    "rock": "Insígnia de Pedra",
+    "ice": "Insígnia de Gelo",
+    "dark": "Insígnia Noturna",
+    "dragon": "Insígnia de Dragão"
+  },
+  "credits": {
+    "title": "Créditos e Agradecimentos",
+    "createdBy": "Criado por",
+    "feedback": "Se quiser enviar um feedback, entre em contato em ",
+    "inspiration1": "Este jogo foi fortemente inspirado no Victory Road Run de ",
+    "inspiration2": "Confira o conteúdo deles :)",
+    "specialThanks": "Agradecimentos Especiais",
+    "thanks1": "Pela ajuda com os dados de algumas roletas",
+    "thanks2": "Testes e identificação de bugs",
+    "thanks3": "Testes e identificação de bugs",
+    "pokeapi": "Como fonte de dados e sprites para este jogo",
+    "bulbapedia": "Pelos sprites dos treinadores usados neste projeto",
+    "images": "Todos os conteúdos de imagem de Pokémon e itens relacionados são propriedade da The Pokémon Company.",
+    "endThanks": "Obrigado por jogar!",
+    "endWords": "Espero que você se divirta com seus amigos e família jogando este jogo :)"
+  },
+  "game": {
+    "coffeeButton": {
+      "label": "Compra um café?"
+    },
+    "creditsButton": {
+      "label": "Créditos"
+    },
+    "end": {
+      "champion": "Campeão de",
+      "congrats": "Parabéns!",
+      "share": "Compartilhar",
+      "shareTitle": "Campeão Pokémon de {{region}}",
+      "shareText": "Veja o que eu consegui!"
+    },
+    "main": {
+      "item": {
+        "activates": "ativada!"
+      },
+      "game": {
+        "button": {
+          "title": "Voltar"
+        }
+      },
+      "rocket": {
+        "entei": {
+          "emerges": "Entei aparece",
+          "fine": "Está tudo bem agora.",
+          "prevents": "Entei impediu a Equipe Rocket de roubar seu Pokémon.",
+          "thanks": "Obrigado, Entei!"
+        },
+        "fails": "A Equipe Rocket falhou"
+      },
+      "altPrizes": {
+        "gymBattle": {
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Como nenhuma evolução era possível, pegue a melhor Poção que seu dinheiro pode comprar!"
+        },
+        "visitDaycare": {
+          "egg": "Você recebeu um Ovo Misterioso!",
+          "eggDesc": "As pessoas do Day-care lhe deram um Ovo Misterioso!"
+        },
+        "battleRival": {
+          "item": "Você recebeu um Item!",
+          "itemDesc": "Seu Rival disse que você só ganhou por sorte e lhe deu um item!"
+        },
+        "battleTrainer": {
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Após a batalha, o Treinador lhe deu uma Poção!"
+        },
+        "teamRocket": {
+          "item": "Você recebeu um Item!",
+          "itemDesc": "Parece que o Team Rocket está decolando de novo! Oh, eles deixaram um Item!"
+        },
+        "snorlax": {
+          "item": "Encontrou um Item!",
+          "itemDesc": "Aquele Snorlax estava segurando um Item!"
+        }
+      },
+      "roulette": {
+        "generation": {
+          "title": "Geração?",
+          "chooseInstead": "Prefiro escolher",
+          "backToWheel": "Prefiro sortear"
+        },
+        "character": {
+          "boy": "Garoto",
+          "gender": "Você é um garoto ou uma garota?",
+          "girl": "Garota",
+          "welcome": "Bem-vindo(a) à"
+        },
+        "starter": {
+          "title": "Pokémon Inicial?"
+        },
+        "shiny": {
+          "title": "Shiny?",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "start": {
+          "title": "O que fazer primeiro?",
+          "actions": {
+            "catchPokemon": "Pegar um Pokémon",
+            "battleTrainer": "Batalha de Treinador",
+            "buyPotions": "Comprar Poções",
+            "goStraight": "Avançar direto"
+          }
+        },
+        "catch": {
+          "which": "Qual",
+          "pkmn": "Pokémon?"
+        },
+        "evolve": {
+          "who": "Quem vai evoluir?",
+          "whoExpShare": "Quem vai evoluir (Comp. Exp)?",
+          "modal": {
+            "title": "Evolução!",
+            "to": "evoluiu para",
+            "your": "Seu"
+          },
+          "which": "Qual Evolução?"
+        },
+        "adventure": {
+          "title": "O que você faz entre os Ginásios?",
+          "actions": {
+            "catchPokemon": "Capturar um Pokémon",
+            "battleTrainer": "Batalha de Treinador",
+            "buyPotions": "Comprar Poções",
+            "goStraight": "Avançar direto",
+            "catchTwoPokemon": "Capturar Dois Pokémon",
+            "visitDaycare": "Visitar o Daycare",
+            "teamRocket": "Equipe Rocket",
+            "mysteriousEgg": "Ovo Misterioso",
+            "legendaryEncounter": "Encontro Lendário",
+            "tradePokemon": "Trocar Pokémon",
+            "findItem": "Encontrar um Item",
+            "exploreCave": "Explorar uma Caverna",
+            "snorlaxEncounter": "Snorlax no caminho",
+            "multitask": "Multitask (Girar2x)",
+            "goFishing": "Pescar",
+            "findFossil": "Encontrar um Fóssil",
+            "battleRival": "Batalha contra o Rival"
+          }
+        },
+        "cave": {
+          "explore": {
+            "title": "Na caverna",
+            "actions": {
+              "catchPokemon": "Pegar um Pokémon",
+              "battleTrainer": "Batalha de Treinador",
+              "findItem": "Encontrar um Item",
+              "getLost": "Se perdeu",
+              "catchZubat": "Pegar um Zubat",
+              "findFossil": "Encontrar um Fóssil",
+              "teamRocket": "Equipe Rocket"
+            }
+          },
+          "which": "Qual Pokémon da caverna?"
+        },
+        "champion": {
+          "champion": "Campeão -",
+          "go": "Vamos lá!",
+          "use": "Usou ",
+          "victory": "Vitória?",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "egg": {
+          "title": "Qual Pokémon?"
+        },
+        "elite": {
+          "elite4": "Elite dos 4 -",
+          "go": "Vamos lá!",
+          "prep": {
+            "congrats": "Parabéns!",
+            "defeated": "Você derrotou os 8 Líderes.",
+            "go": "Vamos lá!",
+            "ready": "Agora prepare-se para a Elite dos 4.",
+            "title": "O que fazer antes da Elite dos 4?",
+            "victoryRoad": "Entre na Rota da Vitória!",
+            "actions": {
+              "catchPokemon": "Pegar um Pokémon",
+              "trainingArc": "Arco do Treinamento",
+              "buyPotions": "Comprar Poções",
+              "catchTwoPokemon": "Capturar Dois Pokémon",
+              "huntLegendary": "Caçar um Lendário",
+              "findItem": "Encontrar um Item",
+              "goStraight": "Avançar direto",
+              "teamRocket": "Equipe Rocket"
+            }
+          },
+          "title": "Vitória?",
+          "use": "Usou ",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "checkEvolution": {
+          "title": "Seu Pokémon evoluiu?",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "fishing": {
+          "title": "O que você pescou?"
+        },
+        "fossil": {
+          "which": "Qual Fóssil?"
+        },
+        "gym": {
+          "against": "Batalha contra",
+          "defeated": "derrotado?",
+          "go": "Vamos lá!",
+          "used": "Usou ",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "item": {
+          "found": "Encontrou um(a)",
+          "title": "Qual item?"
+        },
+        "legendary": {
+          "catch": "Captura o lendário?",
+          "which": "Qual Lendário?",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "rival": {
+          "against": "Batalha contra",
+          "go": "Vamos lá!",
+          "victory": "Vitória?",
+          "yes": "Sim",
+          "no": "Não"
+        },
+        "snorlax": {
+          "outcome": "Resultado",
+          "actions": {
+            "runAway": "Snorlax foge",
+            "catch": "Capturar Snorlax",
+            "defeat": "Derrotar Snorlax"
+          }
+        },
+        "teamrocket": {
+          "double": "Encrenca em dobro!",
+          "meowth": "Meowth, é isso mesmo!",
+          "steal": {
+            "which": "Qual Pokémon?"
+          },
+          "teamrocket": "Equipe Rocket!",
+          "title": "Resultado",
+          "trouble": "Prepare-se para encrenca!"
+        },
+        "trade": {
+          "title": "Trocar por?",
+          "which": "Qual Pokémon será trocado?"
+        }
+      },
+      "trade": {
+        "received": "e recebeu ",
+        "sent": "Você enviou"
+      }
+    },
+    "map": {
+      "vermilion": "Você está em Cidade de Vermilion"
+    },
+    "over": {
+      "share": "Compartilhar",
+      "shareTitle": "Meu progresso",
+      "shareText": "Veja até onde cheguei!",
+      "stoppedBy": "Jogo interrompido por ",
+      "gymLeader": "Líder de Ginásio",
+      "eliteFour": "Elite 4",
+      "champion": "Campeão",
+      "title": "Fim da Jornada"
+    },
+    "restart": {
+      "action": "Reiniciar",
+      "cancel": "Não, voltar!",
+      "confirm": "Sim, vamos lá!",
+      "title": "Reiniciar o Jogo?",
+      "warning": "Você vai recomeçar do zero."
+    }
+  },
+  "items": {
+    "title": "Itens",
+    "potion": {
+      "name": "Poção",
+      "description": "A Poção permite girar novamente sempre que você perder uma batalha de Ginásio!"
+    },
+    "rare-candy": {
+      "name": "Doce Raro",
+      "description": "Use um Doce Raro para evoluir seu Pokémon a qualquer momento!"
+    },
+    "running-shoes": {
+      "name": "Tênis de Corrida",
+      "description": "Os Tênis de Corrida permitem girar a roleta duas vezes entre os Ginásios!"
+    },
+    "super-potion": {
+      "name": "Super Poção",
+      "description": "A Super Poção permite girar novamente até duas vezes sempre que você perder uma batalha de Ginásio!"
+    },
+    "x-attack": {
+      "name": "Ataque X",
+      "description": "O Ataque X deixa sua equipe mais forte!"
+    },
+    "exp-share": {
+      "name": "Compartilhar Exp.",
+      "description": "Sempre que um Pokémon evolui, o Compartilhar Exp. faz outro Pokémon evoluir também!"
+    },
+    "hyper-potion": {
+      "name": "Hiper Poção",
+      "description": "A Hiper Poção permite girar novamente até três vezes sempre que você perder uma batalha de Ginásio!"
+    },
+    "escape-rope": {
+      "name": "Corda de Escape",
+      "description": "A Corda de Escape te salva de situações ruins!"
+    }
+  },
+  "trainer": {
+    "storage": {
+      "access": "Acessar o PC",
+      "logout": "Sair",
+      "stored": "Armazenado",
+      "team": "Na Equipe",
+      "unavailable": "O PC não está disponível",
+      "unavailableMessage": "A Equipe Rocket está interferindo a comunicação com o PC"
+    }
+  },
+  "wheel": {
+    "spin": "Clique para girar!"
+  },
+  "pokemon": {
+    "bulbasaur": "Bulbasauro",
+    "ivysaur": "Ivysauro",
+    "venusaur": "Venusauro",
+    "charmander": "Charmander",
+    "charmeleon": "Charmeleon",
+    "charizard": "Charizard",
+    "squirtle": "Squirtle",
+    "wartortle": "Wartortle",
+    "blastoise": "Blastoise",
+    "caterpie": "Caterpie",
+    "metapod": "Metapod",
+    "butterfree": "Butterfree",
+    "weedle": "Weedle",
+    "kakuna": "Kakuna",
+    "beedrill": "Beedrill",
+    "pidgey": "Pidgey",
+    "pidgeotto": "Pidgeotto",
+    "pidgeot": "Pidgeot",
+    "rattata": "Rattata",
+    "raticate": "Raticate",
+    "spearow": "Spearow",
+    "fearow": "Fearow",
+    "ekans": "Ekans",
+    "arbok": "Arbok",
+    "pikachu": "Pikachu",
+    "raichu": "Raichu",
+    "sandshrew": "Sandshrew",
+    "sandslash": "Sandslash",
+    "nidoran-f": "Nidoran-f",
+    "nidorina": "Nidorina",
+    "nidoqueen": "Nidoqueen",
+    "nidoran-m": "Nidoran-m",
+    "nidorino": "Nidorino",
+    "nidoking": "Nidoking",
+    "clefairy": "Clefairy",
+    "clefable": "Clefable",
+    "vulpix": "Vulpix",
+    "ninetales": "Ninetales",
+    "jigglypuff": "Jigglypuff",
+    "wigglytuff": "Wigglytuff",
+    "zubat": "Zubat",
+    "golbat": "Golbat",
+    "oddish": "Oddish",
+    "gloom": "Gloom",
+    "vileplume": "Vileplume",
+    "paras": "Paras",
+    "parasect": "Parasect",
+    "venonat": "Venonat",
+    "venomoth": "Venomoth",
+    "diglett": "Diglett",
+    "dugtrio": "Dugtrio",
+    "meowth": "Meowth",
+    "persian": "Persian",
+    "psyduck": "Psyduck",
+    "golduck": "Golduck",
+    "mankey": "Mankey",
+    "primeape": "Primeape",
+    "growlithe": "Growlithe",
+    "arcanine": "Arcanine",
+    "poliwag": "Poliwag",
+    "poliwhirl": "Poliwhirl",
+    "poliwrath": "Poliwrath",
+    "abra": "Abra",
+    "kadabra": "Kadabra",
+    "alakazam": "Alakazam",
+    "machop": "Machop",
+    "machoke": "Machoke",
+    "machamp": "Machamp",
+    "bellsprout": "Bellsprout",
+    "weepinbell": "Weepinbell",
+    "victreebel": "Victreebel",
+    "tentacool": "Tentacool",
+    "tentacruel": "Tentacruel",
+    "geodude": "Geodude",
+    "graveler": "Graveler",
+    "golem": "Golem",
+    "ponyta": "Ponyta",
+    "rapidash": "Rapidash",
+    "slowpoke": "Slowpoke",
+    "slowbro": "Slowbro",
+    "magnemite": "Magnemite",
+    "magneton": "Magneton",
+    "farfetchd": "Farfetchd",
+    "doduo": "Doduo",
+    "dodrio": "Dodrio",
+    "seel": "Seel",
+    "dewgong": "Dewgong",
+    "grimer": "Grimer",
+    "muk": "Muk",
+    "shellder": "Shellder",
+    "cloyster": "Cloyster",
+    "gastly": "Gastly",
+    "haunter": "Haunter",
+    "gengar": "Gengar",
+    "onix": "Onix",
+    "drowzee": "Drowzee",
+    "hypno": "Hypno",
+    "krabby": "Krabby",
+    "kingler": "Kingler",
+    "voltorb": "Voltorb",
+    "electrode": "Electrode",
+    "exeggcute": "Exeggcute",
+    "exeggutor": "Exeggutor",
+    "cubone": "Cubone",
+    "marowak": "Marowak",
+    "hitmonlee": "Hitmonlee",
+    "hitmonchan": "Hitmonchan",
+    "lickitung": "Lickitung",
+    "koffing": "Koffing",
+    "weezing": "Weezing",
+    "rhyhorn": "Rhyhorn",
+    "rhydon": "Rhydon",
+    "chansey": "Chansey",
+    "tangela": "Tangela",
+    "kangaskhan": "Kangaskhan",
+    "horsea": "Horsea",
+    "seadra": "Seadra",
+    "goldeen": "Goldeen",
+    "seaking": "Seaking",
+    "staryu": "Staryu",
+    "starmie": "Starmie",
+    "mr.mime": "Mr. Mime",
+    "scyther": "Scyther",
+    "jynx": "Jynx",
+    "electabuzz": "Electabuzz",
+    "magmar": "Magmar",
+    "pinsir": "Pinsir",
+    "tauros": "Tauros",
+    "magikarp": "Magikarp",
+    "gyarados": "Gyarados",
+    "lapras": "Lapras",
+    "ditto": "Ditto",
+    "eevee": "Eevee",
+    "vaporeon": "Vaporeon",
+    "jolteon": "Jolteon",
+    "flareon": "Flareon",
+    "porygon": "Porygon",
+    "omanyte": "Omanyte",
+    "omastar": "Omastar",
+    "kabuto": "Kabuto",
+    "kabutops": "Kabutops",
+    "aerodactyl": "Aerodactyl",
+    "snorlax": "Snorlax",
+    "articuno": "Articuno",
+    "zapdos": "Zapdos",
+    "moltres": "Moltres",
+    "dratini": "Dratini",
+    "dragonair": "Dragonair",
+    "dragonite": "Dragonite",
+    "mewtwo": "Mewtwo",
+    "mew": "Mew",
+    "chikorita": "Chikorita",
+    "bayleef": "Bayleef",
+    "meganium": "Meganium",
+    "cyndaquil": "Cyndaquil",
+    "quilava": "Quilava",
+    "typhlosion": "Typhlosion",
+    "totodile": "Totodile",
+    "croconaw": "Croconaw",
+    "feraligatr": "Feraligatr",
+    "sentret": "Sentret",
+    "furret": "Furret",
+    "hoothoot": "Hoothoot",
+    "noctowl": "Noctowl",
+    "ledyba": "Ledyba",
+    "ledian": "Ledian",
+    "spinarak": "Spinarak",
+    "ariados": "Ariados",
+    "crobat": "Crobat",
+    "chinchou": "Chinchou",
+    "lanturn": "Lanturn",
+    "pichu": "Pichu",
+    "cleffa": "Cleffa",
+    "igglybuff": "Igglybuff",
+    "togepi": "Togepi",
+    "togetic": "Togetic",
+    "natu": "Natu",
+    "xatu": "Xatu",
+    "mareep": "Mareep",
+    "flaaffy": "Flaaffy",
+    "ampharos": "Ampharos",
+    "bellossom": "Bellossom",
+    "marill": "Marill",
+    "azumarill": "Azumarill",
+    "sudowoodo": "Sudowoodo",
+    "politoed": "Politoed",
+    "hoppip": "Hoppip",
+    "skiploom": "Skiploom",
+    "jumpluff": "Jumpluff",
+    "aipom": "Aipom",
+    "sunkern": "Sunkern",
+    "sunflora": "Sunflora",
+    "yanma": "Yanma",
+    "wooper": "Wooper",
+    "quagsire": "Quagsire",
+    "espeon": "Espeon",
+    "umbreon": "Umbreon",
+    "murkrow": "Murkrow",
+    "slowking": "Slowking",
+    "misdreavus": "Misdreavus",
+    "unown": "Unown",
+    "wobbuffet": "Wobbuffet",
+    "girafarig": "Girafarig",
+    "pineco": "Pineco",
+    "forretress": "Forretress",
+    "dunsparce": "Dunsparce",
+    "gligar": "Gligar",
+    "steelix": "Steelix",
+    "snubbull": "Snubbull",
+    "granbull": "Granbull",
+    "qwilfish": "Qwilfish",
+    "scizor": "Scizor",
+    "shuckle": "Shuckle",
+    "heracross": "Heracross",
+    "sneasel": "Sneasel",
+    "teddiursa": "Teddiursa",
+    "ursaring": "Ursaring",
+    "slugma": "Slugma",
+    "magcargo": "Magcargo",
+    "swinub": "Swinub",
+    "piloswine": "Piloswine",
+    "corsola": "Corsola",
+    "remoraid": "Remoraid",
+    "octillery": "Octillery",
+    "delibird": "Delibird",
+    "mantine": "Mantine",
+    "skarmory": "Skarmory",
+    "houndour": "Houndour",
+    "houndoom": "Houndoom",
+    "kingdra": "Kingdra",
+    "phanpy": "Phanpy",
+    "donphan": "Donphan",
+    "porygon2": "Porygon2",
+    "stantler": "Stantler",
+    "smeargle": "Smeargle",
+    "tyrogue": "Tyrogue",
+    "hitmontop": "Hitmontop",
+    "smoochum": "Smoochum",
+    "elekid": "Elekid",
+    "magby": "Magby",
+    "miltank": "Miltank",
+    "blissey": "Blissey",
+    "raikou": "Raikou",
+    "entei": "Entei",
+    "suicune": "Suicune",
+    "larvitar": "Larvitar",
+    "pupitar": "Pupitar",
+    "tyranitar": "Tyranitar",
+    "lugia": "Lugia",
+    "ho-oh": "Ho-oh",
+    "celebi": "Celebi",
+    "treecko": "Treecko",
+    "grovyle": "Grovyle",
+    "sceptile": "Sceptile",
+    "torchic": "Torchic",
+    "combusken": "Combusken",
+    "blaziken": "Blaziken",
+    "mudkip": "Mudkip",
+    "marshtomp": "Marshtomp",
+    "swampert": "Swampert",
+    "poochyena": "Poochyena",
+    "mightyena": "Mightyena",
+    "zigzagoon": "Zigzagoon",
+    "linoone": "Linoone",
+    "wurmple": "Wurmple",
+    "silcoon": "Silcoon",
+    "beautifly": "Beautifly",
+    "cascoon": "Cascoon",
+    "dustox": "Dustox",
+    "lotad": "Lotad",
+    "lombre": "Lombre",
+    "ludicolo": "Ludicolo",
+    "seedot": "Seedot",
+    "nuzleaf": "Nuzleaf",
+    "shiftry": "Shiftry",
+    "taillow": "Taillow",
+    "swellow": "Swellow",
+    "wingull": "Wingull",
+    "pelipper": "Pelipper",
+    "ralts": "Ralts",
+    "kirlia": "Kirlia",
+    "gardevoir": "Gardevoir",
+    "surskit": "Surskit",
+    "masquerain": "Masquerain",
+    "shroomish": "Shroomish",
+    "breloom": "Breloom",
+    "slakoth": "Slakoth",
+    "vigoroth": "Vigoroth",
+    "slaking": "Slaking",
+    "nincada": "Nincada",
+    "ninjask": "Ninjask",
+    "shedinja": "Shedinja",
+    "whismur": "Whismur",
+    "loudred": "Loudred",
+    "exploud": "Exploud",
+    "makuhita": "Makuhita",
+    "hariyama": "Hariyama",
+    "azurill": "Azurill",
+    "nosepass": "Nosepass",
+    "skitty": "Skitty",
+    "delcatty": "Delcatty",
+    "sableye": "Sableye",
+    "mawile": "Mawile",
+    "aron": "Aron",
+    "lairon": "Lairon",
+    "aggron": "Aggron",
+    "meditite": "Meditite",
+    "medicham": "Medicham",
+    "electrike": "Electrike",
+    "manectric": "Manectric",
+    "plusle": "Plusle",
+    "minun": "Minun",
+    "volbeat": "Volbeat",
+    "illumise": "Illumise",
+    "roselia": "Roselia",
+    "gulpin": "Gulpin",
+    "swalot": "Swalot",
+    "carvanha": "Carvanha",
+    "sharpedo": "Sharpedo",
+    "wailmer": "Wailmer",
+    "wailord": "Wailord",
+    "numel": "Numel",
+    "camerupt": "Camerupt",
+    "torkoal": "Torkoal",
+    "spoink": "Spoink",
+    "grumpig": "Grumpig",
+    "spinda": "Spinda",
+    "trapinch": "Trapinch",
+    "vibrava": "Vibrava",
+    "flygon": "Flygon",
+    "cacnea": "Cacnea",
+    "cacturne": "Cacturne",
+    "swablu": "Swablu",
+    "altaria": "Altaria",
+    "zangoose": "Zangoose",
+    "seviper": "Seviper",
+    "lunatone": "Lunatone",
+    "solrock": "Solrock",
+    "barboach": "Barboach",
+    "whiscash": "Whiscash",
+    "corphish": "Corphish",
+    "crawdaunt": "Crawdaunt",
+    "baltoy": "Baltoy",
+    "claydol": "Claydol",
+    "lileep": "Lileep",
+    "cradily": "Cradily",
+    "anorith": "Anorith",
+    "armaldo": "Armaldo",
+    "feebas": "Feebas",
+    "milotic": "Milotic",
+    "castform": "Castform",
+    "kecleon": "Kecleon",
+    "shuppet": "Shuppet",
+    "banette": "Banette",
+    "duskull": "Duskull",
+    "dusclops": "Dusclops",
+    "tropius": "Tropius",
+    "chimecho": "Chimecho",
+    "absol": "Absol",
+    "wynaut": "Wynaut",
+    "snorunt": "Snorunt",
+    "glalie": "Glalie",
+    "spheal": "Spheal",
+    "sealeo": "Sealeo",
+    "walrein": "Walrein",
+    "clamperl": "Clamperl",
+    "huntail": "Huntail",
+    "gorebyss": "Gorebyss",
+    "relicanth": "Relicanth",
+    "luvdisc": "Luvdisc",
+    "bagon": "Bagon",
+    "shelgon": "Shelgon",
+    "salamence": "Salamence",
+    "beldum": "Beldum",
+    "metang": "Metang",
+    "metagross": "Metagross",
+    "regirock": "Regirock",
+    "regice": "Regice",
+    "registeel": "Registeel",
+    "latias": "Latias",
+    "latios": "Latios",
+    "kyogre": "Kyogre",
+    "groudon": "Groudon",
+    "rayquaza": "Rayquaza",
+    "jirachi": "Jirachi",
+    "deoxys": "Deoxys",
+    "turtwig": "Turtwig",
+    "grotle": "Grotle",
+    "torterra": "Torterra",
+    "chimchar": "Chimchar",
+    "monferno": "Monferno",
+    "infernape": "Infernape",
+    "piplup": "Piplup",
+    "prinplup": "Prinplup",
+    "empoleon": "Empoleon",
+    "starly": "Starly",
+    "staravia": "Staravia",
+    "staraptor": "Staraptor",
+    "bidoof": "Bidoof",
+    "bibarel": "Bibarel",
+    "kricketot": "Kricketot",
+    "kricketune": "Kricketune",
+    "shinx": "Shinx",
+    "luxio": "Luxio",
+    "luxray": "Luxray",
+    "budew": "Budew",
+    "roserade": "Roserade",
+    "cranidos": "Cranidos",
+    "rampardos": "Rampardos",
+    "shieldon": "Shieldon",
+    "bastiodon": "Bastiodon",
+    "burmy": "Burmy",
+    "wormadam": "Wormadam",
+    "mothim": "Mothim",
+    "combee": "Combee",
+    "vespiquen": "Vespiquen",
+    "pachirisu": "Pachirisu",
+    "buizel": "Buizel",
+    "floatzel": "Floatzel",
+    "cherubi": "Cherubi",
+    "cherrim": "Cherrim",
+    "shellos": "Shellos",
+    "gastrodon": "Gastrodon",
+    "ambipom": "Ambipom",
+    "drifloon": "Drifloon",
+    "drifblim": "Drifblim",
+    "buneary": "Buneary",
+    "lopunny": "Lopunny",
+    "mismagius": "Mismagius",
+    "honchkrow": "Honchkrow",
+    "glameow": "Glameow",
+    "purugly": "Purugly",
+    "chingling": "Chingling",
+    "stunky": "Stunky",
+    "skuntank": "Skuntank",
+    "bronzor": "Bronzor",
+    "bronzong": "Bronzong",
+    "bonsly": "Bonsly",
+    "mime.jr": "Mime Jr",
+    "happiny": "Happiny",
+    "chatot": "Chatot",
+    "spiritomb": "Spiritomb",
+    "gible": "Gible",
+    "gabite": "Gabite",
+    "garchomp": "Garchomp",
+    "munchlax": "Munchlax",
+    "riolu": "Riolu",
+    "lucario": "Lucario",
+    "hippopotas": "Hippopotas",
+    "hippowdon": "Hippowdon",
+    "skorupi": "Skorupi",
+    "drapion": "Drapion",
+    "croagunk": "Croagunk",
+    "toxicroak": "Toxicroak",
+    "carnivine": "Carnivine",
+    "finneon": "Finneon",
+    "lumineon": "Lumineon",
+    "mantyke": "Mantyke",
+    "snover": "Snover",
+    "abomasnow": "Abomasnow",
+    "weavile": "Weavile",
+    "magnezone": "Magnezone",
+    "lickilicky": "Lickilicky",
+    "rhyperior": "Rhyperior",
+    "tangrowth": "Tangrowth",
+    "electivire": "Electivire",
+    "magmortar": "Magmortar",
+    "togekiss": "Togekiss",
+    "yanmega": "Yanmega",
+    "leafeon": "Leafeon",
+    "glaceon": "Glaceon",
+    "gliscor": "Gliscor",
+    "mamoswine": "Mamoswine",
+    "porygon-z": "Porygon-z",
+    "gallade": "Gallade",
+    "probopass": "Probopass",
+    "dusknoir": "Dusknoir",
+    "froslass": "Froslass",
+    "rotom": "Rotom",
+    "uxie": "Uxie",
+    "mesprit": "Mesprit",
+    "azelf": "Azelf",
+    "dialga": "Dialga",
+    "palkia": "Palkia",
+    "heatran": "Heatran",
+    "regigigas": "Regigigas",
+    "giratina": "Giratina",
+    "cresselia": "Cresselia",
+    "phione": "Phione",
+    "manaphy": "Manaphy",
+    "darkrai": "Darkrai",
+    "shaymin": "Shaymin",
+    "arceus": "Arceus",
+    "victini": "Victini",
+    "snivy": "Snivy",
+    "servine": "Servine",
+    "serperior": "Serperior",
+    "tepig": "Tepig",
+    "pignite": "Pignite",
+    "emboar": "Emboar",
+    "oshawott": "Oshawott",
+    "dewott": "Dewott",
+    "samurott": "Samurott",
+    "patrat": "Patrat",
+    "watchog": "Watchog",
+    "lillipup": "Lillipup",
+    "herdier": "Herdier",
+    "stoutland": "Stoutland",
+    "purrloin": "Purrloin",
+    "liepard": "Liepard",
+    "pansage": "Pansage",
+    "simisage": "Simisage",
+    "pansear": "Pansear",
+    "simisear": "Simisear",
+    "panpour": "Panpour",
+    "simipour": "Simipour",
+    "munna": "Munna",
+    "musharna": "Musharna",
+    "pidove": "Pidove",
+    "tranquill": "Tranquill",
+    "unfezant": "Unfezant",
+    "blitzle": "Blitzle",
+    "zebstrika": "Zebstrika",
+    "roggenrola": "Roggenrola",
+    "boldore": "Boldore",
+    "gigalith": "Gigalith",
+    "woobat": "Woobat",
+    "swoobat": "Swoobat",
+    "drilbur": "Drilbur",
+    "excadrill": "Excadrill",
+    "audino": "Audino",
+    "timburr": "Timburr",
+    "gurdurr": "Gurdurr",
+    "conkeldurr": "Conkeldurr",
+    "tympole": "Tympole",
+    "palpitoad": "Palpitoad",
+    "seismitoad": "Seismitoad",
+    "throh": "Throh",
+    "sawk": "Sawk",
+    "sewaddle": "Sewaddle",
+    "swadloon": "Swadloon",
+    "leavanny": "Leavanny",
+    "venipede": "Venipede",
+    "whirlipede": "Whirlipede",
+    "scolipede": "Scolipede",
+    "cottonee": "Cottonee",
+    "whimsicott": "Whimsicott",
+    "petilil": "Petilil",
+    "lilligant": "Lilligant",
+    "basculin": "Basculin",
+    "sandile": "Sandile",
+    "krokorok": "Krokorok",
+    "krookodile": "Krookodile",
+    "darumaka": "Darumaka",
+    "darmanitan": "Darmanitan",
+    "maractus": "Maractus",
+    "dwebble": "Dwebble",
+    "crustle": "Crustle",
+    "scraggy": "Scraggy",
+    "scrafty": "Scrafty",
+    "sigilyph": "Sigilyph",
+    "yamask": "Yamask",
+    "cofagrigus": "Cofagrigus",
+    "tirtouga": "Tirtouga",
+    "carracosta": "Carracosta",
+    "archen": "Archen",
+    "archeops": "Archeops",
+    "trubbish": "Trubbish",
+    "garbodor": "Garbodor",
+    "zorua": "Zorua",
+    "zoroark": "Zoroark",
+    "minccino": "Minccino",
+    "cinccino": "Cinccino",
+    "gothita": "Gothita",
+    "gothorita": "Gothorita",
+    "gothitelle": "Gothitelle",
+    "solosis": "Solosis",
+    "duosion": "Duosion",
+    "reuniclus": "Reuniclus",
+    "ducklett": "Ducklett",
+    "swanna": "Swanna",
+    "vanillite": "Vanillite",
+    "vanillish": "Vanillish",
+    "vanilluxe": "Vanilluxe",
+    "deerling": "Deerling",
+    "sawsbuck": "Sawsbuck",
+    "emolga": "Emolga",
+    "karrablast": "Karrablast",
+    "escavalier": "Escavalier",
+    "foongus": "Foongus",
+    "amoonguss": "Amoonguss",
+    "frillish": "Frillish",
+    "jellicent": "Jellicent",
+    "alomomola": "Alomomola",
+    "joltik": "Joltik",
+    "galvantula": "Galvantula",
+    "ferroseed": "Ferroseed",
+    "ferrothorn": "Ferrothorn",
+    "klink": "Klink",
+    "klang": "Klang",
+    "klinklang": "Klinklang",
+    "tynamo": "Tynamo",
+    "eelektrik": "Eelektrik",
+    "eelektross": "Eelektross",
+    "elgyem": "Elgyem",
+    "beheeyem": "Beheeyem",
+    "litwick": "Litwick",
+    "lampent": "Lampent",
+    "chandelure": "Chandelure",
+    "axew": "Axew",
+    "fraxure": "Fraxure",
+    "haxorus": "Haxorus",
+    "cubchoo": "Cubchoo",
+    "beartic": "Beartic",
+    "cryogonal": "Cryogonal",
+    "shelmet": "Shelmet",
+    "accelgor": "Accelgor",
+    "stunfisk": "Stunfisk",
+    "mienfoo": "Mienfoo",
+    "mienshao": "Mienshao",
+    "druddigon": "Druddigon",
+    "golett": "Golett",
+    "golurk": "Golurk",
+    "pawniard": "Pawniard",
+    "bisharp": "Bisharp",
+    "bouffalant": "Bouffalant",
+    "rufflet": "Rufflet",
+    "braviary": "Braviary",
+    "vullaby": "Vullaby",
+    "mandibuzz": "Mandibuzz",
+    "heatmor": "Heatmor",
+    "durant": "Durant",
+    "deino": "Deino",
+    "zweilous": "Zweilous",
+    "hydreigon": "Hydreigon",
+    "larvesta": "Larvesta",
+    "volcarona": "Volcarona",
+    "cobalion": "Cobalion",
+    "terrakion": "Terrakion",
+    "virizion": "Virizion",
+    "tornadus": "Tornadus",
+    "thundurus": "Thundurus",
+    "reshiram": "Reshiram",
+    "zekrom": "Zekrom",
+    "landorus": "Landorus",
+    "kyurem": "Kyurem",
+    "keldeo": "Keldeo",
+    "meloetta": "Meloetta",
+    "genesect": "Genesect",
+    "chespin": "Chespin",
+    "quilladin": "Quilladin",
+    "chesnaught": "Chesnaught",
+    "fennekin": "Fennekin",
+    "braixen": "Braixen",
+    "delphox": "Delphox",
+    "froakie": "Froakie",
+    "frogadier": "Frogadier",
+    "greninja": "Greninja",
+    "bunnelby": "Bunnelby",
+    "diggersby": "Diggersby",
+    "fletchling": "Fletchling",
+    "fletchinder": "Fletchinder",
+    "talonflame": "Talonflame",
+    "scatterbug": "Scatterbug",
+    "spewpa": "Spewpa",
+    "vivillon": "Vivillon",
+    "litleo": "Litleo",
+    "pyroar": "Pyroar",
+    "flabebe": "Flabebe",
+    "floette": "Floette",
+    "florges": "Florges",
+    "skiddo": "Skiddo",
+    "gogoat": "Gogoat",
+    "pancham": "Pancham",
+    "pangoro": "Pangoro",
+    "furfrou": "Furfrou",
+    "espurr": "Espurr",
+    "meowstic": "Meowstic",
+    "honedge": "Honedge",
+    "doublade": "Doublade",
+    "aegislash": "Aegislash",
+    "spritzee": "Spritzee",
+    "aromatisse": "Aromatisse",
+    "swirlix": "Swirlix",
+    "slurpuff": "Slurpuff",
+    "inkay": "Inkay",
+    "malamar": "Malamar",
+    "binacle": "Binacle",
+    "barbaracle": "Barbaracle",
+    "skrelp": "Skrelp",
+    "dragalge": "Dragalge",
+    "clauncher": "Clauncher",
+    "clawitzer": "Clawitzer",
+    "helioptile": "Helioptile",
+    "heliolisk": "Heliolisk",
+    "tyrunt": "Tyrunt",
+    "tyrantrum": "Tyrantrum",
+    "amaura": "Amaura",
+    "aurorus": "Aurorus",
+    "sylveon": "Sylveon",
+    "hawlucha": "Hawlucha",
+    "dedenne": "Dedenne",
+    "carbink": "Carbink",
+    "goomy": "Goomy",
+    "sliggoo": "Sliggoo",
+    "goodra": "Goodra",
+    "klefki": "Klefki",
+    "phantump": "Phantump",
+    "trevenant": "Trevenant",
+    "pumpkaboo": "Pumpkaboo",
+    "gourgeist": "Gourgeist",
+    "bergmite": "Bergmite",
+    "avalugg": "Avalugg",
+    "noibat": "Noibat",
+    "noivern": "Noivern",
+    "xerneas": "Xerneas",
+    "yveltal": "Yveltal",
+    "zygarde": "Zygarde",
+    "diancie": "Diancie",
+    "hoopa": "Hoopa",
+    "volcanion": "Volcanion",
+    "rowlet": "Rowlet",
+    "dartrix": "Dartrix",
+    "decidueye": "Decidueye",
+    "litten": "Litten",
+    "torracat": "Torracat",
+    "incineroar": "Incineroar",
+    "popplio": "Popplio",
+    "brionne": "Brionne",
+    "primarina": "Primarina",
+    "pikipek": "Pikipek",
+    "trumbeak": "Trumbeak",
+    "toucannon": "Toucannon",
+    "yungoos": "Yungoos",
+    "gumshoos": "Gumshoos",
+    "grubbin": "Grubbin",
+    "charjabug": "Charjabug",
+    "vikavolt": "Vikavolt",
+    "crabrawler": "Crabrawler",
+    "crabominable": "Crabominable",
+    "oricorio": "Oricorio",
+    "cutiefly": "Cutiefly",
+    "ribombee": "Ribombee",
+    "rockruff": "Rockruff",
+    "lycanroc": "Lycanroc",
+    "wishiwashi": "Wishiwashi",
+    "mareanie": "Mareanie",
+    "toxapex": "Toxapex",
+    "mudbray": "Mudbray",
+    "mudsdale": "Mudsdale",
+    "dewpider": "Dewpider",
+    "araquanid": "Araquanid",
+    "fomantis": "Fomantis",
+    "lurantis": "Lurantis",
+    "morelull": "Morelull",
+    "shiinotic": "Shiinotic",
+    "salandit": "Salandit",
+    "salazzle": "Salazzle",
+    "stufful": "Stufful",
+    "bewear": "Bewear",
+    "bounsweet": "Bounsweet",
+    "steenee": "Steenee",
+    "tsareena": "Tsareena",
+    "comfey": "Comfey",
+    "oranguru": "Oranguru",
+    "passimian": "Passimian",
+    "wimpod": "Wimpod",
+    "golisopod": "Golisopod",
+    "sandygast": "Sandygast",
+    "palossand": "Palossand",
+    "pyukumuku": "Pyukumuku",
+    "type:null": "Type: Null",
+    "silvally": "Silvally",
+    "minior": "Minior",
+    "komala": "Komala",
+    "turtonator": "Turtonator",
+    "togedemaru": "Togedemaru",
+    "mimikyu": "Mimikyu",
+    "bruxish": "Bruxish",
+    "drampa": "Drampa",
+    "dhelmise": "Dhelmise",
+    "jangmo-o": "Jangmo-o",
+    "hakamo-o": "Hakamo-o",
+    "kommo-o": "Kommo-o",
+    "tapu-koko": "Tapu Koko",
+    "tapu-lele": "Tapu Lele",
+    "tapu-bulu": "Tapu Bulu",
+    "tapu-fini": "Tapu Fini",
+    "cosmog": "Cosmog",
+    "cosmoem": "Cosmoem",
+    "solgaleo": "Solgaleo",
+    "lunala": "Lunala",
+    "nihilego": "Nihilego",
+    "buzzwole": "Buzzwole",
+    "pheromosa": "Pheromosa",
+    "xurkitree": "Xurkitree",
+    "celesteela": "Celesteela",
+    "kartana": "Kartana",
+    "guzzlord": "Guzzlord",
+    "necrozma": "Necrozma",
+    "magearna": "Magearna",
+    "marshadow": "Marshadow",
+    "poipole": "Poipole",
+    "naganadel": "Naganadel",
+    "stakataka": "Stakataka",
+    "blacephalon": "Blacephalon",
+    "zeraora": "Zeraora",
+    "meltan": "Meltan",
+    "melmetal": "Melmetal",
+    "grookey": "Grookey",
+    "thwackey": "Thwackey",
+    "rillaboom": "Rillaboom",
+    "scorbunny": "Scorbunny",
+    "raboot": "Raboot",
+    "cinderace": "Cinderace",
+    "sobble": "Sobble",
+    "drizzile": "Drizzile",
+    "inteleon": "Inteleon",
+    "skwovet": "Skwovet",
+    "greedent": "Greedent",
+    "rookidee": "Rookidee",
+    "corvisquire": "Corvisquire",
+    "corviknight": "Corviknight",
+    "blipbug": "Blipbug",
+    "dottler": "Dottler",
+    "orbeetle": "Orbeetle",
+    "nickit": "Nickit",
+    "thievul": "Thievul",
+    "gossifleur": "Gossifleur",
+    "eldegoss": "Eldegoss",
+    "wooloo": "Wooloo",
+    "dubwool": "Dubwool",
+    "chewtle": "Chewtle",
+    "drednaw": "Drednaw",
+    "yamper": "Yamper",
+    "boltund": "Boltund",
+    "rolycoly": "Rolycoly",
+    "carkol": "Carkol",
+    "coalossal": "Coalossal",
+    "applin": "Applin",
+    "flapple": "Flapple",
+    "appletun": "Appletun",
+    "silicobra": "Silicobra",
+    "sandaconda": "Sandaconda",
+    "cramorant": "Cramorant",
+    "arrokuda": "Arrokuda",
+    "barraskewda": "Barraskewda",
+    "toxel": "Toxel",
+    "toxtricity": "Toxtricity",
+    "sizzlipede": "Sizzlipede",
+    "centiskorch": "Centiskorch",
+    "clobbopus": "Clobbopus",
+    "grapploct": "Grapploct",
+    "sinistea": "Sinistea",
+    "polteageist": "Polteageist",
+    "hatenna": "Hatenna",
+    "hattrem": "Hattrem",
+    "hatterene": "Hatterene",
+    "impidimp": "Impidimp",
+    "morgrem": "Morgrem",
+    "grimmsnarl": "Grimmsnarl",
+    "obstagoon": "Obstagoon",
+    "perrserker": "Perrserker",
+    "cursola": "Cursola",
+    "sirfetchd": "Sirfetchd",
+    "mr.rime": "Mr. Rime",
+    "runerigus": "Runerigus",
+    "milcery": "Milcery",
+    "alcremie": "Alcremie",
+    "falinks": "Falinks",
+    "pincurchin": "Pincurchin",
+    "snom": "Snom",
+    "frosmoth": "Frosmoth",
+    "stonjourner": "Stonjourner",
+    "eiscue": "Eiscue",
+    "indeedee": "Indeedee",
+    "morpeko": "Morpeko",
+    "cufant": "Cufant",
+    "copperajah": "Copperajah",
+    "dracozolt": "Dracozolt",
+    "arctozolt": "Arctozolt",
+    "dracovish": "Dracovish",
+    "arctovish": "Arctovish",
+    "duraludon": "Duraludon",
+    "dreepy": "Dreepy",
+    "drakloak": "Drakloak",
+    "dragapult": "Dragapult",
+    "zacian": "Zacian",
+    "zamazenta": "Zamazenta",
+    "eternatus": "Eternatus",
+    "kubfu": "Kubfu",
+    "urshifu": "Urshifu",
+    "zarude": "Zarude",
+    "regieleki": "Regieleki",
+    "regidrago": "Regidrago",
+    "glastrier": "Glastrier",
+    "spectrier": "Spectrier",
+    "calyrex": "Calyrex",
+    "wyrdeer": "Wyrdeer",
+    "kleavor": "Kleavor",
+    "ursaluna": "Ursaluna",
+    "basculegion": "Basculegion",
+    "sneasler": "Sneasler",
+    "overqwil": "Overqwil",
+    "enamorus": "Enamorus"
+  },
+  "elite4": {
+    "lorelei": {
+      "name": "Lorelei",
+      "quote1": "Ninguém pode me derrotar quando se trata de Pokémon gelídos.",
+      "quote2": "Goles congelantes são poderosos. Você está pronto?"
+    },
+    "bruno-gen1": {
+      "name": "Bruno",
+      "quote1": "Através do treinamento rigoroso, pessoas e Pokémon podem se tornar mais fortes sem limites.",
+      "quote2": "Vamos esmagar você com nosso poder superior! Hoo hah!"
+    },
+    "agatha": {
+      "name": "Agatha",
+      "quote1": "Você é a criança sob a tutela do Carvalho, não é?",
+      "quote2": "Vou mostrar como um Treinador de verdade batalha!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "Pode me chamar de Lance, o Treinador de Dragões.",
+      "quote2": "Seu desafio na Liga termina comigo!"
+    },
+    "will": {
+      "name": "Will",
+      "quote1": "Eu sou Will. Treinei pelo mundo todo, tornando meus Pokémon do tipo Psíquico poderosos.",
+      "quote2": "Só posso continuar melhorando! Perder não é uma opção!"
+    },
+    "koga": {
+      "name": "Koga",
+      "quote1": "Uma mera criança como você ousa me desafiar?",
+      "quote2": "Vou mostrar a você o verdadeiro terror de um mestre ninja!"
+    },
+    "bruno-gen2": {
+      "name": "Bruno",
+      "quote1": "Você parece determinado. Perfeito para a batalha!",
+      "quote2": "Você vai se curvar diante do nosso poder avassalador! Hoo hah!"
+    },
+    "karen": {
+      "name": "Karen",
+      "quote1": "Que interessante. Eu amo Pokémon do tipo Sombrio.",
+      "quote2": "Sou conhecida por minhas táticas dominadoras.",
+      "quote3": "Tente me entretener. Vamos lá."
+    },
+    "sidney": {
+      "name": "Sidney",
+      "quote1": "Eu gosto do seu olhar.",
+      "quote2": "Acho que você vai me dar uma boa partida. Isso é ótimo!"
+    },
+    "phoebe": {
+      "name": "Phoebe",
+      "quote1": "Ahahaha! Sou Phoebe da Elite dos Quatro.",
+      "quote2": "Vamos ver se você sequer consegue causar dano em meus Pokémon!"
+    },
+    "glacia": {
+      "name": "Glacia",
+      "quote1": "Só tenho visto desafios de treinadores fracos.",
+      "quote2": "Quero ver o que você vai me mostrar."
+    },
+    "drake": {
+      "name": "Drake",
+      "quote1": "Você sabe o que é necessário para batalhar ao lado de Pokémon como parceiros?",
+      "quote2": "Se você não sabe, nunca vai prevalecer contra mim."
+    },
+    "aaron": {
+      "name": "Aaron",
+      "quote1": "Você quer saber porque eu aceito desafios?",
+      "quote2": "É porque quero me tornar perfeito, assim como meus Pokémon do tipo Inseto!",
+      "quote3": "Ok! Eu aceito o desafio!"
+    },
+    "bertha": {
+      "name": "Bertha",
+      "quote1": "Ora, ora. Vocẽ é um trainador bem adorável!",
+      "quote2": "Você me mostraria à essa velha senhora o quanto aprendeu?"
+    },
+    "flint": {
+      "name": "Flint",
+      "quote1": "Você estará encarando um usuário de Pokémon do tipo Fogo comigo.",
+      "quote2": "Deixe que Flint veja o quão quente seu espírito queima!"
+    },
+    "lucian": {
+      "name": "Lucian",
+      "quote1": "Tenho que dizer, você já provou ser destacado ao chegar tão longe assim.",
+      "quote2": "Sinto que terei de ir com tudo pra cima de você."
+    },
+    "shauntal": {
+      "name": "Shauntal",
+      "quote1": "Com licença. Você é um desafiante, certo?",
+      "quote2": "Eu sou a usuária de Pokémon do tipo Fantasma da Elite Quatro, Shauntal, e serei sua oponente."
+    },
+    "marshal": {
+      "name": "Marshal",
+      "quote1": "Estou treinando sob meu mentor, Alder.",
+      "quote2": "Meu mentor vê seu potencial como Treinador e está se interessando por você."
+    },
+    "grimsley": {
+      "name": "Grimsley",
+      "quote1": "A vida é uma batalha séria, e você tem que usar as ferramentas que te são dadas.",
+      "quote2": "Vamos começar. E que vença o melhor Treinador!"
+    },
+    "caitlin": {
+      "name": "Caitlin",
+      "quote1": "Você parece que possui uma combinação de força e gentileza.",
+      "quote2": "Dê o seu melhor para que essa batalha não me entedie a ponto de eu bocejar. Estamos claros?"
+    },
+    "malva": {
+      "name": "Malva",
+      "quote1": "Bem-vindo, desafiante, à minha Câmara Flamejante!",
+      "quote2": "Eu sou Malva, e serei sua oponente hoje."
+    },
+    "siebold": {
+      "name": "Siebold",
+      "quote1": "Tenho uma pergunta que devo fazer a você.",
+      "quote2": "Você acha que batalhas de Pokémon podem ser dignas de ser consideradas uma arte?"
+    },
+    "wikstrom": {
+      "name": "Wikstrom",
+      "quote1": "Vamos dar a nossa palavra que nossa disputa será justa e honrosa.",
+      "quote2": "Pronto? En garde!"
+    },
+    "drasna": {
+      "name": "Drasna",
+      "quote1": "Você deve ser um Treinador forte... Isso é uma notícia maravilhosa!",
+      "quote2": "Enfrentar oponentes como você e sua equipe fará com que meus Pokémon cresçam como ervas daninhas!"
+    },
+    "molayne": {
+      "name": "Molayne",
+      "quote1": "Kukui pediu para eu me juntar à Elite Quatro, então decidi aceitar.",
+      "quote2": "Estou ansioso para batalhar com você e Sophocles na Liga Pokémon."
+    },
+    "olivia": {
+      "name": "Olivia",
+      "quote1": "Apresentações são desnecessárias aqui. Hora de batalhar comigo, Olivia!"
+    },
+    "acerola": {
+      "name": "Acerola",
+      "quote1": "Nanu disse que não estava à fim de ser um dos Elite 4",
+      "quote2": "Então acho que vou ter que batalhar com força para compensar a ausência dele!"
+    },
+    "kahili": {
+      "name": "Kahili",
+      "quote1": "Ouvi dizer que tinham feito uma Liga Pokémon na minha região natal, então eu vim voando servir Alola."
+    },
+    "marnie": {
+      "name": "Marnie/Hop/Bede",
+      "quote1": "A verdade é que... eu quero muito me tornar uma Campeã por mim mesma! Então não leve pro lado pessoal quando eu chutar a sua bunda!",
+      "quote2": "É hora de eu terminar o que comecei aquele dia... Entendeu? Aquele que vai se tornar Campeão serei eu!",
+      "quote3": "É hora de provar que eu estou um nível acima da competição de todos os Treinadores da região de Galar."
+    },
+    "nessa": {
+      "name": "Nessa",
+      "quote1": "Eu tenho certeza que você se lembra, mas eu sou Nessa. E eu não estou aqui para conversar. Estou aqui para vencer!"
+    },
+    "bea": {
+      "name": "Bea/Allister",
+      "quote1": "Focar demais na vitória pode fazer você cometer erros. Eu vou enfrentá-lo com a mente limpa!",
+      "quote2": "...Vamos começar a partida."
+    },
+    "raihan": {
+      "name": "Raihan",
+      "quote1": "Vocẽ é diferenciado, menó. Você provou que é de milicota!",
+      "quote2": "Você pode estar desmerecendo minha caminhada... mas agora a trocação é sem caô!"
+    }
+  },
+  "gymLeaders": {
+    "brock": {
+      "name": "Brock",
+      "quote1": "Beleza então! Me mostre o seu melhor!"
+    },
+    "misty": {
+      "name": "Misty",
+      "quote1": "Meu estilo é atacar com tudo com Pokémon do tipo Água!"
+    },
+    "surge": {
+      "name": "Lt. Surge",
+      "quote1": "Deixa eu te contar, jovem, Pokémon elétricos me salvaram durante a guerra!",
+      "quote2": "Eles paralisaram meus inimigos!",
+      "quote3": "O mesmo que farei com você!"
+    },
+    "erika": {
+      "name": "Erika",
+      "quote1": "...Oh, me desculpe, eu não fazia idéia que você desejava me desafiar.",
+      "quote2": "Muito bem, mas eu não vou perder."
+    },
+    "koga": {
+      "name": "Koga",
+      "quote1": "Muito bem, vou lhe mostrar o verdadeiro terror de um mestre ninja!",
+      "quote2": "Desespere-se com o horror latente dos Pokémon do tipo Veneno!"
+    },
+    "sabrina": {
+      "name": "Sabrina",
+      "quote1": "Tive a visão da sua chegada!",
+      "quote2": "Eu não gosto de batalhar, mas se você desejar, vou te mostrar os meus poderes!"
+    },
+    "blaine": {
+      "name": "Blaine",
+      "quote1": "Hah! Eu sou Blaine, o acalorado lider do Ginásio Cinnabar!",
+      "quote2": "Meus Pokémon de flamejantes estão todos prontos para um calor intenso! "
+    },
+    "giovanni": {
+      "name": "Giovanni",
+      "quote1": "Que assim seja então. Desta vez, eu não vou me segurar!",
+      "quote2": "Você vai encarar Giovanni, o maior de todos os Treinadores!"
+    },
+    "falkner": {
+      "name": "Falkner",
+      "quote1": "Vou te mostrar o verdadeiro poder dos magníficos Pokémon Ave!"
+    },
+    "bugsy": {
+      "name": "Bugsy",
+      "quote1": "Minha pesquisa vai me tornar uma autoridade sobre Pokémon do tipo Inseto!",
+      "quote2": "Deixe-me demonstrar o que aprendi com meus estudos."
+    },
+    "whitney": {
+      "name": "Whitney",
+      "quote1": "Pokémon são super fofos!",
+      "quote2": "Você quer batalhar?",
+      "quote3": "Eu estou te avisando--eu sou boa eim!"
+    },
+    "morty": {
+      "name": "Morty",
+      "quote1": "Dizem que um Pokémon arco-íris surgirá diante de um Treinador realmente poderoso.",
+      "quote2": "Acredito que essa pessoa sou eu!",
+      "quote3": "E você vai me ajudar a alcançar esse nível!"
+    },
+    "chuck": {
+      "name": "Chuck",
+      "quote1": "Tenho que avisar você que sou um Treinador forte que treina todos os dias debaixo desta cascata!",
+      "quote2": "Vamos lá. Nós devemos batalhar!"
+    },
+    "jasmine": {
+      "name": "Jasmine",
+      "quote1": "Sou Jasmine, uma Líder de Ginásio. Eu uso o...clang! Tipo Aço!",
+      "quote2": "Eles são muito duros, frios, afiados e muito fortes! Um... Eu não estou mentindo."
+    },
+    "pryce": {
+      "name": "Pryce",
+      "quote1": "Estive treinando Pokémon desde antes de voce ser nascido. Eu não perco facilmente.",
+      "quote2": "Eu, Pryce - o Treinador do Inverno - demonstrarei o meu poder!"
+    },
+    "clair": {
+      "name": "Clair",
+      "quote1": "Eu sou Clair. A melhor mestra  do tipo Dragão do mundo!",
+      "quote2": "Como uma Líder de Ginásio, vou usar todo o meu poder contra qualquer oponente!"
+    },
+    "roxanne": {
+      "name": "Roxanne",
+      "quote1": "Agora, você faria o favor de me demonstrar como você batalha com seus Pokémon?"
+    },
+    "brawly": {
+      "name": "Brawly",
+      "quote1": "Sou Brawly! Líder de Ginásio de Dewford!",
+      "quote2": "Então você quer me desafiar? Vamos ver do que você é capaz!"
+    },
+    "wattson": {
+      "name": "Wattson",
+      "quote1": "Wahahahah! Ora, que coisa divertida!",
+      "quote2": "Eu, Wattson, a Líder do Ginásio de Mauville, vou te eletrificar!"
+    },
+    "flannery": {
+      "name": "Flannery",
+      "quote1": "Bem-vindo!",
+      "quote2": "Não, digo… Eu sou Flannery, e eu sou a líder aqui!",
+      "quote3": "Vou, uh, demonstrar os movimentos quentes que aprimoramos nessa terra!"
+    },
+    "norman": {
+      "name": "Norman",
+      "quote1": "Farei tudo ao meu alcance como Líder de Ginásio para vencer!",
+      "quote2": "É melhor você dar o seu melhor também!"
+    },
+    "winona": {
+      "name": "Winona",
+      "quote1": "Me chamo Winona. Eu sou a Líder do Ginásio Pokémon de Fortree.",
+      "quote2": "Testemunhe à elegante coreografia dos meus Pokémon Ave e eu!"
+    },
+    "liza-tate": {
+      "name": "Liza & Tate",
+      "quote1": "Você está surpreso? Que há dois Líderes de Ginásio?",
+      "quote2": "Nós somos gêmeas!",
+      "quote3": "Esta nossa combinação ... Será que consegue derrotá-la?"
+    },
+    "wallace": {
+      "name": "Wallace",
+      "quote1": "Permita-me me apresentar formalmente. Eu sou Wallace, o Líder do Ginásio de Sootopolis.",
+      "quote2": "Agora, me mostre. Me mostre o poder que você tem com seus Pokémon."
+    },
+    "roark": {
+      "name": "Roark",
+      "quote1": "Este é o Ginásio de Oreburgh! Eu sou Roark, o Líder do Ginásio!",
+      "quote2": "Como Líder de Ginário, preciso ver o seu potêncial como Treinador."
+    },
+    "gardenia": {
+      "name": "Gardenia",
+      "quote1": "Você tem um aura vencedora em você.",
+      "quote2": "Então, de qualquer forma, isso vai ser divertido. Vamos ter a nossa batalha!"
+    },
+    "maylene": {
+      "name": "Maylene",
+      "quote1": "Vou fazer o melhor que eu puder como Líder de Ginásio.",
+      "quote2": "Eu levo batalhas muito a sério. Quando você estiver pronto, vamos lá!"
+    },
+    "crasherWake": {
+      "name": "Crasher Wake",
+      "quote1": "Meus Pokémon se fortaleceram com as águas brancas tempestuosas!",
+      "quote2": "A vitória será nossa ! Vamos, hora de acabar com isso!"
+    },
+    "fantina": {
+      "name": "Fantina",
+      "quote1": "Ohohoho!! Finalmente, você está aqui!",
+      "quote2": "Mas eu serei a vencedora! Isso é o que uma Líder de Ginásio faz, non?"
+    },
+    "byron": {
+      "name": "Byron",
+      "quote1": "Você derrotou meu filho, Roark.",
+      "quote2": "Mas isso não é surpresa. Ele ainda tem muito a aprender.",
+      "quote3": "Eu, Byron, vou aceitar o seu desafio!"
+    },
+    "candice": {
+      "name": "Candice",
+      "quote1": "Tá beleza! Eu tava mesmo esperando alguém forte!",
+      "quote2": "O importante é o foco! Vou te mostrar o que eu tô dizendo. Prepare-se para perder!"
+    },
+    "volkner": {
+      "name": "Volkner",
+      "quote1": "Ugh... Eu sou Volkner, o Líder de Ginásio.",
+      "quote2": "Espero que você seja o Treinador que me fará lembrar o quanto é divertido batalhar!"
+    },
+    "cilan-chili-cress": {
+      "name": "Cilan/Chili/Cress",
+      "quote1": "É, um, se por você estiver tudo bem, eu vou, um, por tudo que eu tenho no meu ser, er, sabe, seu oponente.",
+      "quote2": "Yeeeeooow! Hora de brincar com FOGO!! Eu sou o mais forte dos três irmãos!",
+      "quote3": "Que sorte incrível a sua--ter a chance de batalhar contra o melhor entre nós três."
+    },
+    "lenora": {
+      "name": "Lenora",
+      "quote1": "A diretora do Museu de Nacrene e a Líder do Ginásio de Nacrene sou eu! Lenora!",
+      "quote2": "Muito bem, desafiante, eu vou fazer uma pesquisa em como você batalha com os Pokémon que você criou con tanto amor!"
+    },
+    "burgh": {
+      "name": "Burgh",
+      "quote1": "Meus Pokémon inseto estão animados com a ideia de batalhar com você.",
+      "quote2": "Vamos direto ao ponto!"
+    },
+    "elesa": {
+      "name": "Elesa",
+      "quote1": "Bem-vindo ao palco principal!",
+      "quote2": "Meus queridos Pokémon e os seus Pokémon vão competir!",
+      "quote3": "Iremos ver de quem será a estrela que brilha mais!"
+    },
+    "clay": {
+      "name": "Clay",
+      "quote1": "Acho que é hora deu vê com meus próprios olhos que habilidades qui cê tem pra fazê uma Líder de Ginásio como Elesa se interessar por você."
+    },
+    "skyla": {
+      "name": "Skyla",
+      "quote1": "Hee-hee! Eu estava esperando por você.",
+      "quote2": "Você se divertiu voando com a ajuda dos canhões do Ginásio Mistralton?"
+    },
+    "brycen": {
+      "name": "Brycen",
+      "quote1": "Eu sou Brycen... Prazer em conhecê-lo...",
+      "quote2": "Você parece pronto para enfrentar um Líder de Ginásio. Então... Manda ver!"
+    },
+    "drayden-iris": {
+      "name": "Drayden/Iris",
+      "quote1": "Bem-vindo. Obrigado por vir. Eu sou o Líder do Ginásio de Opelucid, Drayden. Estou buscando agora um jovem Treinador que possa me mostrar um futuro brilhante. Talvez você possa me mostrar esse futuro, assim como Iris fez?",
+      "quote2": "Olá! Eu sou Iris, a incrívelmente forte Líder de Ginásio! Me diga... Quais Pokémon você está usando? Como irá lutar? Ooh, Estou super curiosa, então vamos começar logo!"
+    },
+    "viola": {
+      "name": "Viola",
+      "quote1": "Fantástico! Simplesmente fantastico! Um ótimo material para minhas camera!",
+      "quote2": "Minhas lentes sempre focam na vitória--E eu não vou deixar ninguém arruinar essa foto!"
+    },
+    "grant": {
+      "name": "Grant",
+      "quote1": "Eu estava esperando com grandes expectativas! O aparecimento de um desafiante digno!",
+      "quote2": "Espero que você me mostre que sua habilidade como Treinador supera até a minha."
+    },
+    "korrina": {
+      "name": "Korrina",
+      "quote1": "Não tenho exatamente certeza, mas acho que Lucario está dizendo que quer batalhar com você."
+    },
+    "ramos": {
+      "name": "Ramos",
+      "quote1": "E aí, o que cê achou, pirralho?",
+      "quote2": "Minhas plantas firmes são um sinal da minha força como jardineiro e Líder de Ginásio! Cê tá pronto para enfrentar tudo isso?"
+    },
+    "clemont": {
+      "name": "Clemont",
+      "quote1": "Vamos ambos dar o nosso melhor em batalha."
+    },
+    "valerie": {
+      "name": "Valerie",
+      "quote1": "Oh, se não é um jovem treinador... ",
+      "quote2": "O elusivo tipo Fada, podem parecer frágeis como uma brisa e delicados como um botão, mas são fortes."
+    },
+    "olympia": {
+      "name": "Olympia",
+      "quote1": "Um ritual para decidir seu destino e futuro.",
+      "quote2": "A batalha começa!"
+    },
+    "wulfric": {
+      "name": "Wulfric",
+      "quote1": "O gelo é extremamente duro e terrivelmente frágil ao mesmo tempo.",
+      "quote2": "Vamos começar esse show!"
+    },
+    "ilima": {
+      "name": "Ilima",
+      "quote1": "Saudações! Captain Ilima aqui.",
+      "quote2": "Meu desafio acontece na Verdant Cavern. O desafio do Capitão Ilima."
+    },
+    "hala": {
+      "name": "Hala",
+      "quote1": "Ho!",
+      "quote2": "Eu sou Hala, o kahuna da Ilha Melemele.",
+      "quote3": "Que o grande desafio comece!"
+    },
+    "lana-kiawe-mallow": {
+      "name": "Lana/Kiawe/Mallow",
+      "quote1": "Olá. Sou Lana. Eu sirvo como capitã da Brooklet Hill.",
+      "quote2": "Eu sou Kiawe. Meu Marowak e eu somos estudantes das danças antigas.",
+      "quote3": "Eu sou Mallow, uma das capitãs aqui! Seus Pokémon parecem prontos para cozinhar com gás!"
+    },
+    "olivia": {
+      "name": "Olivia",
+      "quote1": "E Agora você vai encarar o grande desafio kahuna — eu!",
+      "quote2": "Prepare-se para a batalha Pokémon mais difícil que você já enfrentou em Akala!"
+    },
+    "sophocles-acerola": {
+      "name": "Sophocles/Acerola",
+      "quote1": "Mm-hmm. Tenho que mostrar ao Big Mo quão forte eu posso ser!",
+      "quote2": "Meu desafio acontece no local abandonado onde o supermercado costumava ficar."
+    },
+    "nanu": {
+      "name": "Nanu",
+      "quote1": "Você aí!",
+      "quote2": "Eu sou um kahuna da ilha, sabe? Batalhe contra mim."
+    },
+    "mina": {
+      "name": "Mina",
+      "quote1": "Tenha uma batalha contra a Capitã Mina!",
+      "quote2": "Eu e minha equipe estamos totalmente potencializados ao máximo!"
+    },
+    "hapu": {
+      "name": "Hapu",
+      "quote1": "Este é o primeiro grande desafio da Kahuna Hapu! Eu vou batalhar com tudo o que tenho!"
+    },
+    "milo": {
+      "name": "Milo",
+      "quote1": "Parece mesmo que você entende Pokémon muito bem.",
+      "quote2": "Esta vai ser uma batalha extraordinária!"
+    },
+    "nessa": {
+      "name": "Nessa",
+      "quote1": "Bem-vindo, desafiante de ginásio honrado!",
+      "quote2": "Não importa qual tipo de plano sua mente refinada possa estar elaborando, meu parceiro e eu vamos garantir que ele afunde."
+    },
+    "kabu": {
+      "name": "Kabu",
+      "quote1": "Bem-vindo! Eu sou Kabu, o líder de ginásio do tipo Fogo.",
+      "quote2": "A partida é decidida por qual lado consegue liberar seu potencial verdadeiro."
+    },
+    "bea-allister": {
+      "name": "Bea/Allister",
+      "quote1": "Bem-vindo, desafiante de ginásio. Eu sou Bea. Você teria um espírito inabalável que não titubeia, não importa como você seja atacado? Acho que vou testar isso, podemos?",
+      "quote2": "S' Allister. A-aqui...vou eu..."
+    },
+    "opal": {
+      "name": "Opal",
+      "quote1": "Sou Opal, a Líder de ginásio.",
+      "quote2": "Vamos dar uma olhada em como você e seu Pokémon parceiro se comportam!"
+    },
+    "gordie-melony": {
+      "name": "Gordie/Melony",
+      "quote1": "E ae. O nome é Gordie. Vamos acabar logo com isso, Desafiante!",
+      "quote2": "Sou Melony. Como você claramente pode ver, eu montei uma equipe só de Pokémon do tipo Gelo. Tudo bem, suponho que devemos começar."
+    },
+    "piers": {
+      "name": "Piers",
+      "quote1": "*Ugh*... Então você finalmente chegou, hein?",
+      "quote2": "Prepare-se para um bate cabeça comigo e minha equipe! Spikemuth, é hora de rock!"
+    },
+    "raihan": {
+      "name": "Raihan",
+      "quote1": "Você está mirando em derrotar o Leon... Você faz alguma ideia de quão alto é esse obstáculo?",
+      "quote2": "Como o maior rival dele, acho que eu — Raihan — vou ter que mostrar a você!"
+    }
+  },
+  "rival": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Vamos ver como estão nossos Pokémon! Pode vir, eu aceito o desafio!"
+    },
+    "silver": {
+      "name": "Silver",
+      "quote1": "Eu também tenho bons Pokémon. Vou mostrar o que quero dizer!"
+    },
+    "wally": {
+      "name": "Wally",
+      "quote1": "Por favor, veja o quanto o meu treinamento me fez avançar!"
+    },
+    "barry": {
+      "name": "Barry",
+      "quote1": "Você não é o único que está ficando mais forte! Vou provar isso para você! Vamos lá!"
+    },
+    "n": {
+      "name": "N",
+      "quote1": "Deixe-me ouvir a voz dos seus Pokémon!"
+    },
+    "calem-serena": {
+      "name": "Calem/Serena",
+      "quote1": "Eu sou um Treinador Pokémon, quero ver coisas que tornam os Pokémon especiais.",
+      "quote2": "Meus Pokémon e eu vamos mostrar o que nos torna especiais!"
+    },
+    "gladion": {
+      "name": "Gladion",
+      "quote1": "Batalha comigo. Eu não vou aceitar um não como resposta."
+    },
+    "bede": {
+      "name": "Bede",
+      "quote1": "É hora de provar que um nível acima do resto da competição na região de Galar."
+    }
+  },
+  "champion": {
+    "blue": {
+      "name": "Blue",
+      "quote1": "Meus times podem derrotar qualquer tipo de Pokémon.",
+      "quote2": "E agora… Eu sou o Campeão da Liga Pokémon!",
+      "quote3": "Deixa eu te contar. Eu sou o Treinador mais poderoso do mundo!!"
+    },
+    "lance": {
+      "name": "Lance",
+      "quote1": "Como o Treinador mais poderoso e Campeão da Liga Pokémon…",
+      "quote2": "Eu, Lance o mestre do dragão, aceito seu desafio!"
+    },
+    "steven": {
+      "name": "Steven",
+      "quote1": "Viajando por esta rica terra de Hoenn… Você sentiu algo despertar dentro de si?",
+      "quote2": "Quero que você venha contra mim com tudo o que aprendeu."
+    },
+    "cynthia": {
+      "name": "Cynthia",
+      "quote1": "Estou muito contente que você seja a pessoa que está me desafiando hoje!",
+      "quote2": "Vou aceitar seu desafio com tudo o que tenho!"
+    },
+    "alder": {
+      "name": "Alder",
+      "quote1": "Eu estava esperando ansiosamente para decidir quem é o Treinador Pokémon mais forte na região de Unova! Kiai!"
+    },
+    "diantha": {
+      "name": "Diantha",
+      "quote1": "Eu mal consigo esperar para ver do que você e seu Pokémon são capazes agora que eu sei exatamente o que vocês fizeram!"
+    },
+    "kukui-hau": {
+      "name": "Professor Kukui/Hau",
+      "quote1": " Na verdade eu nem quero ser o Campeão da Liga Pokémon que eu mesmo criei, mas não há nada de errado em querer enfrentar o Treinador mais forte e perigoso da região, certo?",
+      "quote2": "Eu quero muito ter uma batalha séria contra você! Eu realmente quero conseguir vencer você!"
+    },
+    "leon": {
+      "name": "Leon",
+      "quote1": "É chegada a hora de batalhar até que apenas o maior desafiante permaneça!",
+      "quote2": "Então, em nome do presidente, permita-me dizer... que as lutas finais comeceme!"
+    }
+  }
+}
