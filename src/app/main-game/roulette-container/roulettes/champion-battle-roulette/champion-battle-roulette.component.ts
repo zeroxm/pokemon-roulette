@@ -53,7 +53,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     { text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 }
   ];
 
-  currentChampion!: GymLeader;
+  currentChampion: GymLeader = { name: '', sprite: '', quotes: [''] };
   currentItem!: ItemItem;
   retries = 0;
   private teamSubscription!: Subscription;
@@ -170,7 +170,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private getCurrentChampion(): void {
-    this.currentChampion = this.championByGeneration[this.generation.id][this.currentRound];
+    this.currentChampion = this.championByGeneration[this.generation.id][0];
 
     if (this.generation.id === 7) {
 

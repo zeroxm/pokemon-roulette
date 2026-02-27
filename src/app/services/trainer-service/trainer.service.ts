@@ -247,7 +247,7 @@ export class TrainerService {
         fillStyle: 'purple',
         weight: 1,
         description: 'items.potion.description'
-      },
+      }
     ];
     this.trainerItemsObservable.next(this.trainerItems);
   }

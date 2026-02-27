@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class GameStateService {
 
   private stateStack: GameState[] = [];
-  private state = new BehaviorSubject<GameState>('team-rocket-encounter');
+  private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
 
   private currentRound = new BehaviorSubject<number>(0);
