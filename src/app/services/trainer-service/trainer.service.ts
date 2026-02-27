@@ -28,58 +28,10 @@ export class TrainerService {
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [
-/*     { text: "pokemon.eevee",
-      pokemonId: 133,
-      fillStyle: "brown",
-      sprite: { 
-      "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
-      "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/133.png"
-      },
-      shiny: false,
-      power: 2,
-      weight: 1
-    },
-    { text: "Venusaur", pokemonId: 3, fillStyle: "green",
-      sprite: { 
-        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
-        "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/4.png"
-      },
-      shiny: false, power: 3, weight: 1 },
-     { text: "Charizard", pokemonId: 6, fillStyle: "darkred",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
-        },
-       shiny: false, power: 3, weight: 1 } */
-  ];
+  trainerTeam: PokemonItem[] = [];
 
-  storedPokemon: PokemonItem[] = [
-/*      { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/9.png"
-        },
-       shiny: false, power: 3, weight: 1 },
-     { text: "Butterfree", pokemonId: 12, fillStyle: "gray",
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/12.png"
-        },
-       shiny: false, power: 2, weight: 1 },
-     { text: "Pikachu", pokemonId: 25, fillStyle: "goldenrod", 
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/25.png"
-        },
-       shiny: false, power: 2, weight: 1 },
-     { text: "Snorlax", pokemonId: 143, fillStyle: "black", 
-       sprite: { 
-         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
-         "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
-        },
-       shiny: false, power: 3, weight: 1 } */
-  ];
+  storedPokemon: PokemonItem[] = [];
+
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
 
@@ -95,12 +47,8 @@ export class TrainerService {
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
-  trainerBadges: Badge[] = [
- /*    {
-      "name": "Boulder Badge",
-      "sprite": "https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/1.png"
-    } */
-  ];
+  trainerBadges: Badge[] = [];
+
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
 
   getTrainer(): Observable<{ sprite: string }> {

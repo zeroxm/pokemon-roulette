@@ -68,8 +68,8 @@ export class StoragePcComponent implements OnInit {
       }
 
       if(this.currentGameState === 'team-rocket-encounter') {
-        this.infoModalTitle = 'PC is unavailable';
-        this.infoModalMessage = 'Team Rocket is jamming comunications with the PC';
+        this.infoModalTitle = 'trainer.storage.unavailable';
+        this.infoModalMessage = 'trainer.storage.unavailableMessage';
         const modalRef = this.modalService.open(this.infoModal, {
           centered: true,
           size: 'md'
