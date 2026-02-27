@@ -254,7 +254,7 @@
           "use": "Usou "
         },
         "checkEvolution": {
-          "title": "Seu Pokémon vai evoluir?",
+          "title": "Seu Pokémon evoluiu?",
           "yes": "Sim",
           "no": "Não"
         },
@@ -278,7 +278,9 @@
         },
         "legendary": {
           "catch": "Captura o lendário?",
-          "which": "Qual Lendário?"
+          "which": "Qual Lendário?",
+          "yes": "Sim",
+          "no": "Não"
         },
         "rival": {
           "against": "Batalha contra",
@@ -1666,7 +1668,7 @@
     },
     "ramos": {
       "name": "Ramos",
-      "quote1": "Que que cê achou eim, pirralho?",
+      "quote1": "E aí, o que cê achou, pirralho?",
       "quote2": "Minhas plantas firmes são um sinal da minha força como jardineiro e Líder de Ginásio! Cê tá pronto para enfrentar tudo isso?"
     },
     "clemont": {

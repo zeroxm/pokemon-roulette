@@ -14,7 +14,9 @@
                  alt="{{currentElite.name}}"
                  height="128">
             <div class="quotes">
-                <p *ngFor="let quote of currentElite.quotes">{{quote}}</p>
+                @for (quote of currentElite.quotes; track $index) {
+                    <p>{{quote}}</p>
+                }
             </div>
         </div>
     </div>

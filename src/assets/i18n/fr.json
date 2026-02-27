@@ -278,7 +278,9 @@
         },
         "legendary": {
           "catch": "Attraper le Légendaire ?",
-          "which": "Quel Légendaire ?"
+          "which": "Quel Légendaire ?",
+          "yes": "Oui",
+          "no": "Non"
         },
         "rival": {
           "against": "Combat contre",

@@ -18,14 +18,15 @@
 @if (showChoiceButtons) {
 <div class="generation-choice-container">
   <div class="generation-buttons">
+    @for (generation of generations; track $index) {
     <button 
-      *ngFor="let generation of generations; let i = index"
       class="btn generation-button"
       [style.background-color]="generation.fillStyle"
-      (click)="onGenerationChosen(i)">
+      (click)="onGenerationChosen($index)">
       <div class="generation-text">{{ generation.text }}</div>
       <div class="generation-region">{{ generation.region }}</div>
     </button>
+    }
   </div>
   <div class="back-button-container">
     <button

@@ -278,7 +278,9 @@
         },
         "legendary": {
           "catch": "Catch Legendary?",
-          "which": "Which Legendary?"
+          "which": "Which Legendary?",
+          "yes": "Yes",
+          "no": "No"
         },
         "rival":  {
           "against": "Battle against",

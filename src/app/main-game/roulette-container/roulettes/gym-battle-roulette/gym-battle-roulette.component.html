@@ -11,7 +11,9 @@
         <div class="leader-panel">
             <img [src]="currentLeader.sprite" alt="{{currentLeader.name}}" height="128">
             <div class="quotes">
-                <p *ngFor="let quote of currentLeader.quotes">{{quote | translate}}</p>
+                @for (quote of currentLeader.quotes; track $index) {
+                    <p>{{quote | translate}}</p>
+                }
             </div>
         </div>
     </div>

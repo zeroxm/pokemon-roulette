@@ -278,7 +278,9 @@
         },
         "legendary": {
           "catch": "¿Captura Legendario?",
-          "which": "¿Qué Legendario?"
+          "which": "¿Qué Legendario?",
+          "yes": "Sí",
+          "no": "No"
         },
         "rival": {
           "against": "Combate contra",
