@@ -328,7 +328,12 @@
           },
           "teamrocket": "Team Rocket!",
           "title": "Outcome",
-          "trouble": "Prepare for trouble!"
+          "trouble": "Prepare for trouble!",
+          "outcomes": {
+            "steal": "They steal a Pokémon",
+            "runAway": "You run away",
+            "defeat": "You defeat them"
+          }
         },
         "trade": {
           "title": "Trade for?",

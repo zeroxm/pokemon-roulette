@@ -328,7 +328,12 @@
           },
           "teamrocket": "¡Equipo Rocket!",
           "title": "Resultado",
-          "trouble": "No te asustes, niñito..."
+          "trouble": "No te asustes, niñito...",
+          "outcomes": {
+            "steal": "Te roban un Pokémon",
+            "runAway": "Te escapas",
+            "defeat": "Derrotas al Equipo Rocket"
+          }
         },
         "trade": {
           "title": "¿Intercambiar por?",

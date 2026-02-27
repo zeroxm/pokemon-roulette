@@ -328,7 +328,12 @@
           },
           "teamrocket": "Equipe Rocket!",
           "title": "Resultado",
-          "trouble": "Prepare-se para encrenca!"
+          "trouble": "Prepare-se para encrenca!",
+          "outcomes": {
+            "steal": "Roubam um Pokémon",
+            "runAway": "Você foge",
+            "defeat": "Você derrotados eles"
+          }
         },
         "trade": {
           "title": "Trocar por?",
