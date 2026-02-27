@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChampionBattleRouletteComponent } from './champion-battle-roulette.component';
 import { HttpClient } from '@angular/common/http';
+import { WheelItem } from '../../../../interfaces/wheel-item';
 
 describe('ChampionBattleRouletteComponent', () => {
   let component: ChampionBattleRouletteComponent;

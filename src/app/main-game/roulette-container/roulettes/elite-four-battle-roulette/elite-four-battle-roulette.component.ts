@@ -72,7 +72,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'elite-four-battle') {
-        this.currentElite = this.getCurrentElite();
+        this.getCurrentElite();
         this.calcVictoryOdds();
 
         this.modalService.open(this.eliteFourPresentationModal, {
@@ -110,27 +110,36 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private calcVictoryOdds(): void {
-    this.victoryOdds = [];
+    const yesOdds: WheelItem[] = [];
+    const noOdds: WheelItem[] = [];
 
-    this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+    yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+        yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
-
+  
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
     }
+    // elite four battles should be harder, so it starts with 2 noOdds
+    noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
+    noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
 
-    this.victoryOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
+    const total = yesOdds.length + noOdds.length;
+    // chunk size tiers: 1 for 0-8 elements, 2 for 9-29, 3 for 30+
+    let chunk = 1;
+    if (total > 8) chunk = 2;
+    if (total > 29) chunk = 3;
+    this.victoryOdds = this.interleaveOdds(yesOdds, noOdds, chunk);
   }
 
   private plusModifiers(): number {
@@ -144,16 +153,29 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     return power;
   }
 
-  private getCurrentElite(): GymLeader {
+  private interleaveOdds(yes: WheelItem[], no: WheelItem[], chunk = 2): WheelItem[] {
+    const result: WheelItem[] = [];
+    while (yes.length || no.length) {
+      for (let i = 0; i < chunk && yes.length; i++) {
+        result.push(yes.shift()!);
+      }
+      for (let i = 0; i < chunk && no.length; i++) {
+        result.push(no.shift()!);
+      }
+    }
+    return result;
+  }
 
-    let currentElite = this.eliteFourByGeneration[this.generation.id][this.currentRound%4];
+  private getCurrentElite(): void {
+
+    this.currentElite = this.eliteFourByGeneration[this.generation.id][this.currentRound%4];
 
     if ((this.generation.id === 8 && (this.currentRound%4 === 0 || this.currentRound%4 === 2))) {
 
-      this.translate.get(currentElite.name).subscribe(translated => {
+      this.translate.get(this.currentElite.name).subscribe(translated => {
         const eliteNames = translated.split('/');
-        const eliteSprites = Array.isArray(currentElite.sprite) ? currentElite.sprite : [currentElite.sprite];
-        const eliteQuotes = Array.isArray(currentElite.quotes) ? currentElite.quotes : currentElite.quotes;
+        const eliteSprites = Array.isArray(this.currentElite.sprite) ? this.currentElite.sprite : [this.currentElite.sprite];
+        const eliteQuotes = Array.isArray(this.currentElite.quotes) ? this.currentElite.quotes : this.currentElite.quotes;
         const randomIndex = Math.floor(Math.random() * eliteNames.length);
 
         this.fromEliteChange.emit(randomIndex);
@@ -165,8 +187,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         } as GymLeader;
       });
     }
-
-    return currentElite;
   }
 
   private hasPotions(): ItemItem | undefined {

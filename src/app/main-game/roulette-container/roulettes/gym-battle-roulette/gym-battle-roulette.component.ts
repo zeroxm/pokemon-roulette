@@ -73,7 +73,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'gym-battle') {
-        this.currentLeader = this.getCurrentLeader();
+        this.getCurrentLeader();
         this.calcVictoryOdds();
 
         this.modalService.open(this.gymLeaderPresentationModal, {
@@ -111,27 +111,34 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private calcVictoryOdds(): void {
-    this.victoryOdds = [];
+    const yesOdds: WheelItem[] = [];
+    const noOdds: WheelItem[] = [];
 
-    this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+    yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+        yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
-
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
     }
+    // Gym battles should starts with 1 noOdds
+    noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
 
-    this.victoryOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
+    const total = yesOdds.length + noOdds.length;
+    // chunk size tiers: 1 for 0-8 elements, 2 for 9-29, 3 for 30+
+    let chunk = 1;
+    if (total > 8) chunk = 2;
+    if (total > 29) chunk = 3;
+    this.victoryOdds = this.interleaveOdds(yesOdds, noOdds, chunk);
   }
 
   private plusModifiers(): number {
@@ -145,18 +152,31 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     return power;
   }
 
-  private getCurrentLeader(): GymLeader {
+  private interleaveOdds(yes: WheelItem[], no: WheelItem[], chunk = 2): WheelItem[] {
+    const result: WheelItem[] = [];
+    while (yes.length || no.length) {
+      for (let i = 0; i < chunk && yes.length; i++) {
+        result.push(yes.shift()!);
+      }
+      for (let i = 0; i < chunk && no.length; i++) {
+        result.push(no.shift()!);
+      }
+    }
+    return result;
+  }
 
-    let currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
+  private getCurrentLeader(): void {
+
+    this.currentLeader = this.gymLeadersByGeneration[this.generation.id][this.currentRound];
 
     if ((this.generation.id === 5 && (this.currentRound === 0 || this.currentRound === 7))
       || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
       || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
 
-      this.translate.get(currentLeader.name).subscribe(translated => {
+      this.translate.get(this.currentLeader.name).subscribe(translated => {
         const leaderNames = translated.split('/');
-        const leaderSprites = Array.isArray(currentLeader.sprite) ? currentLeader.sprite : [currentLeader.sprite];
-        const leaderQuotes = Array.isArray(currentLeader.quotes) ? currentLeader.quotes : currentLeader.quotes;
+        const leaderSprites = Array.isArray(this.currentLeader.sprite) ? this.currentLeader.sprite : [this.currentLeader.sprite];
+        const leaderQuotes = Array.isArray(this.currentLeader.quotes) ? this.currentLeader.quotes : this.currentLeader.quotes;
         const randomIndex = Math.floor(Math.random() * leaderNames.length);
 
         this.fromLeaderChange.emit(randomIndex);
@@ -168,8 +188,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         } as GymLeader;
       });
     }
-
-    return currentLeader;
   }
 
   private hasPotions(): ItemItem | undefined {

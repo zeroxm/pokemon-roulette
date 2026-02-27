@@ -29,7 +29,7 @@ export class TrainerService {
   gender: string = 'male';
 
   trainerTeam: PokemonItem[] = [
-    { text: "pokemon.eevee",
+/*     { text: "pokemon.eevee",
       pokemonId: 133,
       fillStyle: "brown",
       sprite: { 
@@ -51,11 +51,11 @@ export class TrainerService {
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
         },
-       shiny: false, power: 3, weight: 1 }
+       shiny: false, power: 3, weight: 1 } */
   ];
 
   storedPokemon: PokemonItem[] = [
-     { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
+/*      { text: "Blastoise", pokemonId: 9, fillStyle: "darkblue",
        sprite: { 
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/9.png"
@@ -78,20 +78,20 @@ export class TrainerService {
          "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
          "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/143.png"
         },
-       shiny: false, power: 3, weight: 1 }
+       shiny: false, power: 3, weight: 1 } */
   ];
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
-    {
+/*     {
       text: 'items.x-attack.name',
       name: 'x-attack',
       sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/x-attack.png',
       fillStyle: 'crimson',
       weight: 1,
       description: 'items.x-attack.description'
-    },
+    }, */
     {
       text: 'items.potion.name',
       name: 'potion',

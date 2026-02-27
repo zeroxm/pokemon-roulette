@@ -3,7 +3,7 @@ import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -31,7 +31,8 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   constructor(private modalService: NgbModal,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
-    private trainerService: TrainerService
+    private trainerService: TrainerService,
+    private translate: TranslateService
   ) {
 
   }
@@ -47,6 +48,8 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   trainerItems!: ItemItem[];
   @Input() currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
+  @Output() fromRivalChange = new EventEmitter<number>();
+
 
   victoryOdds: WheelItem[] = [
     { text: 'game.main.roulette.rival.yes', fillStyle: 'green', weight: 1 },
@@ -72,7 +75,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       if (state === 'battle-rival') {
-        this.currentRival = this.getCurrentRival();
+        this.getCurrentRival();
         this.calcVictoryOdds();
 
         this.modalService.open(this.rivalPresentationModal, {
@@ -102,25 +105,33 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private calcVictoryOdds(): void {
-    this.victoryOdds = [];
+    const yesOdds: WheelItem[] = [];
+    const noOdds: WheelItem[] = [];
 
-    this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+    yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+        yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
       }
     });
     const powerModifier = this.plusModifiers();
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
     }
+    // Rival battles mirrors the current gym-leader, but you don't lose the game on then, so it starts with 1 noOdds
+    noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
 
-    this.victoryOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+    const total = yesOdds.length + noOdds.length;
+    // chunk size tiers: 1 for 0-8 elements, 2 for 9-29, 3 for 30+
+    let chunk = 1;
+    if (total > 8) chunk = 2;
+    if (total > 29) chunk = 3;
+    this.victoryOdds = this.interleaveOdds(yesOdds, noOdds, chunk);
   }
 
   private plusModifiers(): number {
@@ -134,21 +145,37 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     return power;
   }
 
-  private getCurrentRival(): GymLeader {
-    let currentRival = this.rivalByGeneration[this.generation.id];
-    if ((this.generation.id === 6)) {
-      const rivalNames = currentRival.name.split('/');
-      const rivalSprites = currentRival.sprite;
-      const rivalQuotes = currentRival.quotes;
-      const randomIndex = Math.floor(Math.random() * rivalNames.length);
-
-      currentRival = {
-        name: rivalNames[randomIndex],
-        sprite: rivalSprites[randomIndex],
-        quotes: [rivalQuotes[randomIndex]]
+  private interleaveOdds(yes: WheelItem[], no: WheelItem[], chunk = 2): WheelItem[] {
+    const result: WheelItem[] = [];
+    while (yes.length || no.length) {
+      for (let i = 0; i < chunk && yes.length; i++) {
+        result.push(yes.shift()!);
+      }
+      for (let i = 0; i < chunk && no.length; i++) {
+        result.push(no.shift()!);
       }
     }
+    return result;
+  }
 
-    return currentRival;
+  private getCurrentRival(): void {
+    this.currentRival = this.rivalByGeneration[this.generation.id];
+    if ((this.generation.id === 6)) {
+
+      this.translate.get(this.currentRival.name).subscribe(translated => {
+        const rivalNames = translated.split('/');
+        const rivalSprites = Array.isArray(this.currentRival.sprite) ? this.currentRival.sprite : [this.currentRival.sprite];
+        const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : this.currentRival.quotes;
+        const randomIndex = Math.floor(Math.random() * rivalNames.length);
+
+        this.fromRivalChange.emit(randomIndex);
+
+        this.currentRival = {
+          name: rivalNames[randomIndex],
+          sprite: rivalSprites[randomIndex],
+          quotes: [Array.isArray(rivalQuotes) ? rivalQuotes[randomIndex] : rivalQuotes]
+        } as GymLeader;
+      });
+    }
   }
 }

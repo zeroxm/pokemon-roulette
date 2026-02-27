@@ -73,7 +73,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
 
       if (state === 'champion-battle') {
-        this.currentChampion = this.getChampion();
+        this.getCurrentChampion();
         this.calcVictoryOdds();
 
         this.modalService.open(this.championPresentationModal, {
@@ -112,27 +112,37 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   private calcVictoryOdds(): void {
-    this.victoryOdds = [];
+    const yesOdds: WheelItem[] = [];
+    const noOdds: WheelItem[] = [];
 
-    this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
+    yesOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
+        yesOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
-
+  
     for (let i = 0; i < powerModifier; i++) {
-      this.victoryOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.champion.yes", fillStyle: "green", weight: 1 });
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      this.victoryOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
     }
+    // Champion battles should be the toughtest, so it starts with 3 noOdds
+    noOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
+    noOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
+    noOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
 
-    this.victoryOdds.push({ text: "game.main.roulette.champion.no", fillStyle: "crimson", weight: 1 });
+    const total = yesOdds.length + noOdds.length;
+    // chunk size tiers: 1 for 0-8 elements, 2 for 9-29, 3 for 30+
+    let chunk = 1;
+    if (total > 8) chunk = 2;
+    if (total > 29) chunk = 3;
+    this.victoryOdds = this.interleaveOdds(yesOdds, noOdds, chunk);
   }
 
   private plusModifiers(): number {
@@ -146,16 +156,28 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
     return power;
   }
 
-  private getChampion(): GymLeader {
-    let currentChampion = this.championByGeneration[this.generation.id][0];
+  private interleaveOdds(yes: WheelItem[], no: WheelItem[], chunk = 2): WheelItem[] {
+    const result: WheelItem[] = [];
+    while (yes.length || no.length) {
+      for (let i = 0; i < chunk && yes.length; i++) {
+        result.push(yes.shift()!);
+      }
+      for (let i = 0; i < chunk && no.length; i++) {
+        result.push(no.shift()!);
+      }
+    }
+    return result;
+  }
 
-    console.log('Selected champion:', currentChampion);
+  private getCurrentChampion(): void {
+    this.currentChampion = this.championByGeneration[this.generation.id][this.currentRound];
+
     if (this.generation.id === 7) {
 
-      this.translate.get(currentChampion.name).subscribe(translated => {
+      this.translate.get(this.currentChampion.name).subscribe(translated => {
         const championNames = translated.split('/');
-        const championSprites = Array.isArray(currentChampion.sprite) ? currentChampion.sprite : [currentChampion.sprite];
-        const championQuotes = Array.isArray(currentChampion.quotes) ? currentChampion.quotes : currentChampion.quotes;
+        const championSprites = Array.isArray(this.currentChampion.sprite) ? this.currentChampion.sprite : [this.currentChampion.sprite];
+        const championQuotes = Array.isArray(this.currentChampion.quotes) ? this.currentChampion.quotes : this.currentChampion.quotes;
         const randomIndex = Math.floor(Math.random() * championNames.length);
 
         this.fromChampionChange.emit(randomIndex);
@@ -167,8 +189,6 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
         } as GymLeader;
       });
      }
-
-     return currentChampion;
   }
 
   private hasPotions(): ItemItem | undefined {

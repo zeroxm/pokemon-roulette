@@ -1,5 +1,5 @@
 <h1 class="title">{{ 'game.main.roulette.elite.prep.title' | translate }}</h1>
-<p class="respin-reason">{{ respinReason }}</p>
+<p class="respin-reason">{{ respinReason | translate}}</p>
 <app-wheel  #wheel
             [items]="actions"
             (selectedItemEvent)="onItemSelected($event)">

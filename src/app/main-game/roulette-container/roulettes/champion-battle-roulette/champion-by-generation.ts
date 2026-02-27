@@ -44,7 +44,7 @@ export const championByGeneration: Record<number, GymLeader[]> = {
     ],
     5: [
         {
-            name: 'champion.iris.name',
+            name: 'champion.alder.name',
             sprite:'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Black_White_Alder.png',
             quotes: [
                 "champion.alder.quote1"
