@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AudioService } from '../services/audio-service/audio.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-wheel',
@@ -41,14 +42,15 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   winningNumber!: number;
   currentSegment: string = '-';
   clickAudio!: HTMLAudioElement;
-  
+
   private translatedItems: WheelItem[] = [];
 
   constructor(
     private darkModeService: DarkModeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
-    private audioService: AudioService
+    private audioService: AudioService,
+    private modalService: NgbModal
   ) {
     this.clickAudio = this.audioService.createAudio('./click.mp3');
     this.darkMode = this.darkModeService.darkMode$;
@@ -65,10 +67,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
     if (this.items.length >= 32) {
       this.fontSize = Math.min(this.fontSize, 10);
-    } else if(this.items.length >= 16) {
+    } else if (this.items.length >= 16) {
       this.fontSize = Math.min(this.fontSize, 14);
     }
-    
+
     // Wait for translations to be ready
     this.translateService.get('wheel.spin').subscribe(() => {
       this.preprocessTranslations();
@@ -240,5 +242,18 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       }
     }
     return this.translatedItems.length - 1;
+  }
+
+  @HostListener('window:keydown.space', ['$event'])
+  handleSpacebar(event: Event): void {
+    const activeElement = document.activeElement;
+    const isInputOrButtonFocused = activeElement instanceof HTMLInputElement ||
+      activeElement instanceof HTMLButtonElement ||
+      activeElement?.getAttribute('role') === 'button';
+
+    if (!this.spinning && !this.modalService.hasOpenModals() && !isInputOrButtonFocused) {
+      event.preventDefault();
+      this.spinWheel();
+    }
   }
 }
