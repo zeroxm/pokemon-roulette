@@ -197,7 +197,7 @@
           "whoExpShare": "Who will evolve (Exp. Share)?",
           "modal": {
             "title": "Evolution!",
-            "evolved": "evolved into",
+            "to": "evolved into",
             "your": "Your"
           },
           "which": "Which Evolution?"
