@@ -197,7 +197,7 @@
           "whoExpShare": "Qui va évoluer (Multi Exp)?",
           "modal": {
             "title": "Évolution!",
-            "evolved": "a évolué en",
+            "to": "a évolué en",
             "your": "Votre"
           },
           "which": "Quelle évolution ?"

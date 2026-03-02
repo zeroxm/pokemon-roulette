@@ -109,7 +109,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             this.multitaskCounter--;
           }
           if (this.runningShoesUsed) {
-            this.respinReason = '(Running Shoes)';
+            this.respinReason = 'items.running-shoes.name';
           }
         }
       });

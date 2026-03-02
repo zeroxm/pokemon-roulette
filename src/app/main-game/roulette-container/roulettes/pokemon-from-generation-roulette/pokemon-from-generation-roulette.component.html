@@ -1,7 +1,7 @@
 <h1 class="title">
     {{ 'game.main.roulette.catch.which' | translate }} 
     {{ 'game.main.roulette.catch.pkmn' | translate }} 
-    ({{ generation.text }})
+    <br/>({{ generation.text }})
 </h1>
 <app-wheel  #wheel
             [items]="getFromGeneration()"
