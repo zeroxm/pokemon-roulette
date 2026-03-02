@@ -13,6 +13,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
+import { interleaveOdds } from '../../../../utils/odd-utils';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -133,12 +134,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     // Gym battles should starts with 1 noOdds
     noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
 
-    const total = yesOdds.length + noOdds.length;
-    // chunk size tiers: 1 for 0-8 elements, 2 for 9-29, 3 for 30+
-    let chunk = 1;
-    if (total > 8) chunk = 2;
-    if (total > 29) chunk = 3;
-    this.victoryOdds = this.interleaveOdds(yesOdds, noOdds, chunk);
+    this.victoryOdds = interleaveOdds(yesOdds, noOdds);
   }
 
   private plusModifiers(): number {
@@ -150,19 +146,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     });
 
     return power;
-  }
-
-  private interleaveOdds(yes: WheelItem[], no: WheelItem[], chunk = 2): WheelItem[] {
-    const result: WheelItem[] = [];
-    while (yes.length || no.length) {
-      for (let i = 0; i < chunk && yes.length; i++) {
-        result.push(yes.shift()!);
-      }
-      for (let i = 0; i < chunk && no.length; i++) {
-        result.push(no.shift()!);
-      }
-    }
-    return result;
   }
 
   private getCurrentLeader(): void {

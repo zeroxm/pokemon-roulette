@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GymBattleRouletteComponent } from './gym-battle-roulette.component';
 import { HttpClient } from '@angular/common/http';
-import { GymLeader } from '../../../interfaces/gym-leader';
+import { GymLeader } from '../../../../interfaces/gym-leader';
 
 describe('GymBattleRouletteComponent', () => {
   let component: GymBattleRouletteComponent;
