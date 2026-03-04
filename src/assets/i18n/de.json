@@ -169,7 +169,7 @@
           "boy": "Junge",
           "gender": "Bist du ein Junge oder ein Mädchen?",
           "girl": "Mädchen",
-          "welcome": "Willkommen bei"
+          "welcome": "Willkommen in"
         },
         "starter": {
           "title": "Starter-Pokémon?"
@@ -197,13 +197,13 @@
           "whoExpShare": "Wer wird sich entwickeln (EP Teiler)?",
           "modal": {
             "title": "Entwicklung!",
-            "to": "entwickelte sich",
+            "to": "entwickelte sich zu",
             "your": "Dein"
           },
           "which": "Welche Entwicklung?"
         },
         "adventure": {
-          "title": "Was machst du zwischen den Arena-Kämpfen?",
+          "title": "Was tun zwischen den Arena-Kämpfen?",
           "actions": {
             "catchPokemon": "Fange ein Pokémon",
             "battleTrainer": "Trainer-Kampf",
@@ -289,7 +289,7 @@
         },
         "gym": {
           "against": "Kampf gegen",
-          "defeated": "Besiegt?",
+          "defeated": "besiegt?",
           "go": "Los geht's!",
           "used": "Benutzt",
           "yes": "Ja",
