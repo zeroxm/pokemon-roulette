@@ -11,11 +11,11 @@
           cdkDropList
           cdkDropListOrientation="mixed"
           [cdkDropListData]="trainerTeam"
-          class="example-list"
+          class="pokemon-storage-grid"
           (cdkDropListDropped)="drop($event)"
           [cdkDropListEnterPredicate]="teamIsFullPredicate">
           @for (pokemon of trainerTeam; track pokemon) {
-            <div  class="example-box shadow"
+            <div  class="pokemon-storage-card shadow"
                   cdkDrag>
               <img class="img-fluid" [src]="getSprite(pokemon)">
             </div>
@@ -26,11 +26,11 @@
           cdkDropList
           cdkDropListOrientation="mixed"
           [cdkDropListData]="storedPokemon"
-          class="example-list"
+          class="pokemon-storage-grid"
           (cdkDropListDropped)="drop($event)"
           [cdkDropListEnterPredicate]="lastPokemonPredicate">
       @for (pokemon of storedPokemon; track pokemon) {
-        <div  class="example-box shadow"
+        <div  class="pokemon-storage-card shadow"
               [cdkDragData]="pokemon"
               cdkDrag>
           <img [src]="getSprite(pokemon)" class="img-fluid">
