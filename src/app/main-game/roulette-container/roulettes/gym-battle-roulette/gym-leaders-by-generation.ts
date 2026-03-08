@@ -4,21 +4,21 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     1: [
         {
             name: 'gymLeaders.brock.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brock.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brock.png?v=2",
             quotes: [
                 'gymLeaders.brock.quote1'
             ]
         },
         {
             name: 'gymLeaders.misty.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Misty.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Misty.png?v=2",
             quotes: [
                 'gymLeaders.misty.quote1'
             ]
         },
         {
             name: 'gymLeaders.surge.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lt_Surge.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lt_Surge.png?v=2",
             quotes: [
                 "gymLeaders.surge.quote1",
                 "gymLeaders.surge.quote2",
@@ -27,7 +27,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'gymLeaders.erika.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Erika.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Erika.png?v=2",
             quotes: [
                 "gymLeaders.erika.quote1",
                 "gymLeaders.erika.quote2",
@@ -35,7 +35,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'gymLeaders.koga.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_HGSS_Koga.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_HGSS_Koga.png?v=2",
             quotes: [
                 "gymLeaders.koga.quote1",
                 "gymLeaders.koga.quote2",
@@ -43,7 +43,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'gymLeaders.sabrina.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Sabrina.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Sabrina.png?v=2",
             quotes: [
                 "gymLeaders.sabrina.quote1",
                 "gymLeaders.sabrina.quote2",
@@ -51,7 +51,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'gymLeaders.blaine.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Blaine.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Blaine.png?v=2",
             quotes: [
                 "gymLeaders.blaine.quote1",
                 "gymLeaders.blaine.quote2",
@@ -59,7 +59,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         },
         {
             name: 'gymLeaders.giovanni.name',
-            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Giovanni.png",
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Giovanni.png?v=2",
             quotes: [
                 "gymLeaders.giovanni.quote1",
                 "gymLeaders.giovanni.quote2",
@@ -69,14 +69,14 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     2: [
       {
         name: 'gymLeaders.falkner.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Falkner.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Falkner.png?v=2",
         quotes: [
           "gymLeaders.falkner.quote1"
         ]
       },
       {
         name: 'gymLeaders.bugsy.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Bugsy.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Bugsy.png?v=2",
         quotes: [
           "gymLeaders.bugsy.quote1",
           "gymLeaders.bugsy.quote2"
@@ -84,7 +84,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.whitney.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Whitney.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Whitney.png?v=2",
         quotes: [
           "gymLeaders.whitney.quote1",
           "gymLeaders.whitney.quote2",
@@ -93,7 +93,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.morty.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Morty.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Morty.png?v=2",
         quotes: [
           "gymLeaders.morty.quote1",
           "gymLeaders.morty.quote2",
@@ -102,7 +102,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.chuck.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chuck.png?v=2",
         quotes: [
           "gymLeaders.chuck.quote1",
           "gymLeaders.chuck.quote2"
@@ -110,7 +110,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.jasmine.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Jasmine.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Jasmine.png?v=2",
         quotes: [
           "gymLeaders.jasmine.quote1",
           "gymLeaders.jasmine.quote2"
@@ -118,7 +118,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.pryce.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Pryce.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Pryce.png?v=2",
         quotes: [
           "gymLeaders.pryce.quote1",
           "gymLeaders.pryce.quote2"
@@ -126,7 +126,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.clair.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clair.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clair.png?v=2",
         quotes: [
           "gymLeaders.clair.quote1",
           "gymLeaders.clair.quote2"
@@ -136,14 +136,14 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     3: [
       {
         name: 'gymLeaders.roxanne.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roxanne.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roxanne.png?v=2",
         quotes: [
           "gymLeaders.roxanne.quote1"
         ]
       },
       {
         name: 'gymLeaders.brawly.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brawly.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brawly.png?v=2",
         quotes: [
           "gymLeaders.brawly.quote1",
           "gymLeaders.brawly.quote2"
@@ -151,7 +151,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.wattson.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wattson.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wattson.png?v=2",
         quotes: [
           "gymLeaders.wattson.quote1",
           "gymLeaders.wattson.quote2"
@@ -159,7 +159,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.flannery.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Flannery.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Flannery.png?v=2",
         quotes: [
           "gymLeaders.flannery.quote1",
           "gymLeaders.flannery.quote2",
@@ -168,7 +168,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.norman.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Norman.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Norman.png?v=2",
         quotes: [
           "gymLeaders.norman.quote1",
           "gymLeaders.norman.quote2"
@@ -176,7 +176,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.winona.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Winona.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Winona.png?v=2",
         quotes: [
           "gymLeaders.winona.quote1",
           "gymLeaders.winona.quote2"
@@ -184,7 +184,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.liza-tate.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_RS_Tate_and_Liza.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_RS_Tate_and_Liza.png?v=2",
         quotes: [
           "gymLeaders.liza-tate.quote1",
           "gymLeaders.liza-tate.quote2",
@@ -193,7 +193,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.wallace.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wallace.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Wallace.png?v=2",
         quotes: [
           "gymLeaders.wallace.quote1",
           "gymLeaders.wallace.quote2"
@@ -203,7 +203,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     4: [
       {
         name: 'gymLeaders.roark.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roark.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roark.png?v=2",
         quotes: [
           "gymLeaders.roark.quote1",
           "gymLeaders.roark.quote2"
@@ -211,7 +211,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.gardenia.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Gardenia.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Gardenia.png?v=2",
         quotes: [
           "gymLeaders.gardenia.quote1",
           "gymLeaders.gardenia.quote2"
@@ -219,7 +219,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.maylene.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Maylene.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Maylene.png?v=2",
         quotes: [
           "gymLeaders.maylene.quote1",
           "gymLeaders.maylene.quote2"
@@ -227,7 +227,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.crasherWake.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Crasher_Wake.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Crasher_Wake.png?v=2",
         quotes: [
           "gymLeaders.crasherWake.quote1",
           "gymLeaders.crasherWake.quote2"
@@ -235,7 +235,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.fantina.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Fantina.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Fantina.png?v=2",
         quotes: [
           "gymLeaders.fantina.quote1",
           "gymLeaders.fantina.quote2"
@@ -243,7 +243,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.byron.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Byron.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Byron.png?v=2",
         quotes: [
           "gymLeaders.byron.quote1",
           "gymLeaders.byron.quote2",
@@ -252,7 +252,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.candice.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Candice.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Candice.png?v=2",
         quotes: [
           "gymLeaders.candice.quote1",
           "gymLeaders.candice.quote2"
@@ -260,7 +260,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.volkner.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Volkner.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Volkner.png?v=2",
         quotes: [
           "gymLeaders.volkner.quote1",
           "gymLeaders.volkner.quote2"
@@ -271,9 +271,9 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.cilan-chili-cress.name',
         sprite: [
-          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cilan.png',
-          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chili.png',
-          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cress.png'
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cilan.png?v=2',
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Chili.png?v=2',
+          'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Cress.png?v=2'
         ],
         quotes: [
           "gymLeaders.cilan-chili-cress.quote1",
@@ -283,7 +283,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.lenora.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lenora.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Lenora.png?v=2",
         quotes: [
           "gymLeaders.lenora.quote1",
           "gymLeaders.lenora.quote2"
@@ -291,7 +291,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.burgh.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Burgh.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Burgh.png?v=2",
         quotes: [
           "gymLeaders.burgh.quote1",
           "gymLeaders.burgh.quote2"
@@ -299,7 +299,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.elesa.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Elesa.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Elesa.png?v=2",
         quotes: [
           "gymLeaders.elesa.quote1",
           "gymLeaders.elesa.quote2",
@@ -308,14 +308,14 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.clay.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clay.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clay.png?v=2",
         quotes: [
           "gymLeaders.clay.quote1"
         ]
       },
       {
         name: 'gymLeaders.skyla.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Skyla.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Skyla.png?v=2",
         quotes: [
           "gymLeaders.skyla.quote1",
           "gymLeaders.skyla.quote2"
@@ -323,7 +323,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.brycen.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brycen.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brycen.png?v=2",
         quotes: [
           "gymLeaders.brycen.quote1",
           "gymLeaders.brycen.quote2"
@@ -332,8 +332,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.drayden-iris.name',
         sprite: [
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Drayden.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Iris.png"
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Drayden.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Iris.png?v=2"
         ],
         quotes: [
           "gymLeaders.drayden-iris.quote1",
@@ -345,7 +345,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     6: [
       {
         name: 'gymLeaders.viola.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSViola.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSViola.png?v=2",
         quotes: [
           "gymLeaders.viola.quote1",
           "gymLeaders.viola.quote2"
@@ -353,7 +353,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.grant.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGrant.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGrant.png?v=2",
         quotes: [
           "gymLeaders.grant.quote1",
           "gymLeaders.grant.quote2"
@@ -361,14 +361,14 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.korrina.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKorrina.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKorrina.png?v=2",
         quotes: [
           "gymLeaders.korrina.quote1"
         ]
       },
       {
         name: 'gymLeaders.ramos.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRamos.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRamos.png?v=2",
         quotes: [
           "gymLeaders.ramos.quote1",
           "gymLeaders.ramos.quote2"
@@ -376,14 +376,14 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.clemont.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSClemont.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSClemont.png?v=2",
         quotes: [
           "gymLeaders.clemont.quote1"
         ]
       },
       {
         name: 'gymLeaders.valerie.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSValerie.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSValerie.png?v=2",
         quotes: [
           "gymLeaders.valerie.quote1",
           "gymLeaders.valerie.quote2"
@@ -391,7 +391,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.olympia.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlympia.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlympia.png?v=2",
         quotes: [
           "gymLeaders.olympia.quote1",
           "gymLeaders.olympia.quote2"
@@ -399,7 +399,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.wulfric.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSWulfric.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSWulfric.png?v=2",
         quotes: [
           "gymLeaders.wulfric.quote1",
           "gymLeaders.wulfric.quote2"
@@ -410,7 +410,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     7: [
       {
         name: 'gymLeaders.ilima.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSIlima_USUM.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSIlima_USUM.png?v=2",
         quotes: [
           "gymLeaders.ilima.quote1",
           "gymLeaders.ilima.quote2"
@@ -418,7 +418,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.hala.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHala_2_USUM.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHala_2_USUM.png?v=2",
         quotes: [
           "gymLeaders.hala.quote1",
           "gymLeaders.hala.quote2",
@@ -428,9 +428,9 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.lana-kiawe-mallow.name',
         sprite: [
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSLana_USUM.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKiawe.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMallow.png"
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSLana_USUM.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKiawe.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMallow.png?v=2"
         ],
         quotes: [
           "gymLeaders.lana-kiawe-mallow.quote1",
@@ -440,7 +440,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.olivia.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlivia_2_USUM.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOlivia_2_USUM.png?v=2",
         quotes: [
           "gymLeaders.olivia.quote1",
           "gymLeaders.olivia.quote2"
@@ -449,8 +449,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.sophocles-acerola.name',
         sprite: [
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSSophocles.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAcerola.png"
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSSophocles.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAcerola.png?v=2"
         ],
         quotes: [
           "gymLeaders.sophocles-acerola.quote1",
@@ -459,7 +459,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.nanu.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNanu_2.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNanu_2.png?v=2",
         quotes: [
           "gymLeaders.nanu.quote1",
           "gymLeaders.nanu.quote2"
@@ -467,7 +467,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.mina.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMina_2_USUM.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMina_2_USUM.png?v=2",
         quotes: [
           "gymLeaders.mina.quote1",
           "gymLeaders.mina.quote2"
@@ -475,7 +475,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.hapu.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHapu.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHapu.png?v=2",
         quotes: [
           "gymLeaders.hapu.quote1"
         ]
@@ -485,7 +485,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
     8: [
       {
         name: 'gymLeaders.milo.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMilo.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMilo.png?v=2",
         quotes: [
           "gymLeaders.milo.quote1",
           "gymLeaders.milo.quote2"
@@ -493,7 +493,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.nessa.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNessa.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNessa.png?v=2",
         quotes: [
           "gymLeaders.nessa.quote1",
           "gymLeaders.nessa.quote2"
@@ -501,7 +501,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.kabu.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKabu.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKabu.png?v=2",
         quotes: [
           "gymLeaders.kabu.quote1",
           "gymLeaders.kabu.quote2"
@@ -510,8 +510,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.bea-allister.name',
         sprite: [
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSBea.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAllister.png"
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSBea.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSAllister.png?v=2"
         ],
         quotes: [
           "gymLeaders.bea-allister.quote1",
@@ -520,7 +520,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.opal.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOpal.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSOpal.png?v=2",
         quotes: [
           "gymLeaders.opal.quote1",
           "gymLeaders.opal.quote2"
@@ -529,8 +529,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       {
         name: 'gymLeaders.gordie-melony.name',
         sprite: [
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGordie.png",
-          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMelony.png"
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGordie.png?v=2",
+          "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSMelony.png?v=2"
         ],
         quotes: [
           "gymLeaders.gordie-melony.quote1",
@@ -539,7 +539,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.piers.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPiers.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPiers.png?v=2",
         quotes: [
           "gymLeaders.piers.quote1",
           "gymLeaders.piers.quote2"
@@ -547,7 +547,7 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
       },
       {
         name: 'gymLeaders.raihan.name',
-        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRaihan.png",
+        sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRaihan.png?v=2",
         quotes: [
           "gymLeaders.raihan.quote1",
           "gymLeaders.raihan.quote2"

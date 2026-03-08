@@ -43,6 +43,7 @@ import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-
 import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-roulette/champion-battle-roulette.component";
 import { EndGameComponent } from "../end-game/end-game.component";
 import { GameOverComponent } from "../game-over/game-over.component";
+import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
 
 @Component({
   selector: 'app-roulette-container',
@@ -94,6 +95,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private pokemonService: PokemonService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
+      private modalQueueService: ModalQueueService,
       private audioService: AudioService,
       private settingsService: SettingsService,
       private rareCandyService: RareCandyService) {
@@ -228,7 +230,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           this.altPrizeText = 'game.main.altPrizes.gymBattle.potion';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
           this.altPrizeDescription = 'game.main.altPrizes.gymBattle.potionDesc';
-          this.modalService.open(this.altPrizeModal, {
+          this.modalQueueService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
@@ -238,7 +240,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             this.altPrizeText = 'game.main.altPrizes.visitDaycare.egg';
             this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png';
             this.altPrizeDescription = 'game.main.altPrizes.visitDaycare.eggDesc';
-            this.modalService.open(this.altPrizeModal, {
+            this.modalQueueService.open(this.altPrizeModal, {
               centered: true,
               size: 'md'
             });
@@ -248,7 +250,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           this.altPrizeText = 'game.main.altPrizes.battleRival.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
           this.altPrizeDescription = 'game.main.altPrizes.battleRival.itemDesc';
-          this.modalService.open(this.altPrizeModal, {
+          this.modalQueueService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
@@ -258,7 +260,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           this.altPrizeText = 'game.main.altPrizes.battleTrainer.potion';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
           this.altPrizeDescription = 'game.main.altPrizes.battleTrainer.potionDesc';
-          this.modalService.open(this.altPrizeModal, {
+          this.modalQueueService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
@@ -268,7 +270,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           this.altPrizeText = 'game.main.altPrizes.teamRocket.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
           this.altPrizeDescription = 'game.main.altPrizes.teamRocket.itemDesc';
-          this.modalService.open(this.altPrizeModal, {
+          this.modalQueueService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
@@ -278,7 +280,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           this.altPrizeText = 'game.main.altPrizes.snorlax.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
           this.altPrizeDescription = 'game.main.altPrizes.snorlax.itemDesc';
-          this.modalService.open(this.altPrizeModal, {
+          this.modalQueueService.open(this.altPrizeModal, {
             centered: true,
             size: 'md'
           });
@@ -474,15 +476,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     const trainerTeam = this.trainerService.getTeam();
 
     if (trainerTeam.length < 2) {
-      const modalRef = this.modalService.open(this.teamRocketFailsModal, {
+      this.modalQueueService.open(this.teamRocketFailsModal, {
         centered: true,
         size: 'md'
-      });
-
-      modalRef.result.then(() => {
-        return this.doNothing();
-      }, () => {
-        return this.doNothing();
+      }).then(modalRef => {
+        modalRef.result.then(() => {
+          return this.doNothing();
+        }, () => {
+          return this.doNothing();
+        });
       });
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
@@ -501,7 +503,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.infoModalTitle = 'Saved ' + this.stolenPokemon.text + '!';
       this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
       this.stolenPokemon = null;
-      this.modalService.open(this.infoModal, {
+      this.modalQueueService.open(this.infoModal, {
         centered: true,
         size: 'md'
       });
@@ -530,15 +532,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.auxPokemonList = [];
     this.playItemFoundAudio();
     if (!this.settingsService.currentSettings.lessExplanations) {
-      const modalRef = this.modalService.open(this.pkmnTradeModal, {
+      this.modalQueueService.open(this.pkmnTradeModal, {
         centered: true,
         size: 'md'
-      });
-
-      modalRef.result.then(() => {
-        this.finishCurrentState();
-      }, () => {
-        this.finishCurrentState();
+      }).then(modalRef => {
+        modalRef.result.then(() => {
+          this.finishCurrentState();
+        }, () => {
+          this.finishCurrentState();
+        });
       });
     } else {
       this.finishCurrentState();
@@ -678,15 +680,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private showpkmnEvoModal(): void {
     this.playItemFoundAudio();
     if (!this.settingsService.currentSettings.lessExplanations) {
-      const modalRef = this.modalService.open(this.pkmnEvoModal, {
+      this.modalQueueService.open(this.pkmnEvoModal, {
         centered: true,
         size: 'md'
-      });
-
-      modalRef.result.then(() => {
-        this.finishCurrentState();
-      }, () => {
-        this.finishCurrentState();
+      }).then(modalRef => {
+        modalRef.result.then(() => {
+          this.finishCurrentState();
+        }, () => {
+          this.finishCurrentState();
+        });
       });
     } else {
       this.finishCurrentState();
@@ -701,15 +703,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.gameStateService.setNextState('adventure-continues');
 
       if (!this.settingsService.currentSettings.lessExplanations) {
-        const modalRef = this.modalService.open(this.itemActivateModal, {
+        this.modalQueueService.open(this.itemActivateModal, {
           centered: true,
           size: 'md'
-        });
-
-        modalRef.result.then(() => {
-          this.finishCurrentState();
-        }, () => {
-          this.finishCurrentState();
+        }).then(modalRef => {
+          modalRef.result.then(() => {
+            this.finishCurrentState();
+          }, () => {
+            this.finishCurrentState();
+          });
         });
       } else {
         this.finishCurrentState();

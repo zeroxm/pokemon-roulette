@@ -19,11 +19,12 @@ export class LanguageSelectorComponent {
 
   languages: Language[] = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
     { code: 'pt', name: 'Português', flag: '🇧🇷' },
-    { code: 'de', name: 'German', flag: '🇩🇪' },
-  ]
+  ];
 
   currentLanguage: Language = this.languages[0];
 

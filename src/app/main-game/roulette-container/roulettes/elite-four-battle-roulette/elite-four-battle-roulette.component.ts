@@ -14,6 +14,7 @@ import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
@@ -30,6 +31,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   eliteFourByGeneration = eliteFourByGeneration;
 
   constructor(private modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
@@ -76,7 +78,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         this.getCurrentElite();
         this.calcVictoryOdds();
 
-        this.modalService.open(this.eliteFourPresentationModal, {
+        this.modalQueueService.open(this.eliteFourPresentationModal, {
           centered: true,
           size: 'lg'
         });
@@ -199,7 +201,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         break;
     }
 
-    this.modalService.open(this.itemUsedModal, {
+    this.modalQueueService.open(this.itemUsedModal, {
       centered: true,
       size: 'md'
     });
