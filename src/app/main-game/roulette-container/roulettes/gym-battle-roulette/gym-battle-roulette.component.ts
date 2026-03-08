@@ -14,6 +14,7 @@ import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -30,6 +31,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   gymLeadersByGeneration = gymLeadersByGeneration;
 
   constructor(private modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
@@ -77,7 +79,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         this.getCurrentLeader();
         this.calcVictoryOdds();
 
-        this.modalService.open(this.gymLeaderPresentationModal, {
+        this.modalQueueService.open(this.gymLeaderPresentationModal, {
           centered: true,
           size: 'lg'
         });
@@ -200,7 +202,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         break;
     }
 
-    this.modalService.open(this.itemUsedModal, {
+    this.modalQueueService.open(this.itemUsedModal, {
       centered: true,
       size: 'md'
     });
