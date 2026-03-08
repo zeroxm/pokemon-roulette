@@ -1,10 +1,10 @@
 {
   "settings": {
-      "label": "Settings",
-      "darkmode": "Dark Mode",
-      "explanations": "Less Explanations",
-      "muteAudio": "Mute Audio",
-      "skipShinyRolls": "Hide Shiny Rolls"
+    "label": "Settings",
+    "darkmode": "Dark Mode",
+    "explanations": "Less Explanations",
+    "muteAudio": "Mute Audio",
+    "skipShinyRolls": "Hide Shiny Rolls"
   },
   "coffee": {
     "title": "Having fun spinning? 😁",
@@ -228,7 +228,7 @@
           }
         },
         "cave": {
-          "explore" : {
+          "explore": {
             "title": "In the cave",
             "actions": {
               "catchPokemon": "Catch cave Pokémon",
@@ -308,7 +308,7 @@
           "yes": "Yes",
           "no": "No"
         },
-        "rival":  {
+        "rival": {
           "against": "Battle against",
           "go": "Let's Go!",
           "victory": "Victory?",
@@ -411,7 +411,7 @@
       "stored": "Stored",
       "team": "On Team",
       "unavailable": "PC is unavailable",
-      "unavailableMessage": "Team Rocket is jamming comunications with the PC"
+      "unavailableMessage": "Team Rocket is jamming communications with the PC"
     }
   },
   "wheel": {

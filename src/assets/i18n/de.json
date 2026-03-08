@@ -228,7 +228,7 @@
           }
         },
         "cave": {
-          "explore" : {
+          "explore": {
             "title": "In der Höhle",
             "actions": {
               "catchPokemon": "Fange ein Höhlen-Pokémon",
@@ -308,7 +308,7 @@
           "yes": "Ja",
           "no": "Nein"
         },
-        "rival":  {
+        "rival": {
           "against": "Kampf gegen",
           "go": "Los geht's!",
           "victory": "Erfolg?",
@@ -1336,7 +1336,7 @@
       "quote2": "Wir werden dich mit unserer überlegenen Kraft zermalmen! Hoo hah!"
     },
     "agatha": {
-      "name": "Agatha",
+      "name": "Agathe",
       "quote1": "Du bist das Kind, das Eich unter seine Fittiche genommen hat, nicht wahr?",
       "quote2": "Ich zeige dir, wie ein wahrer Trainer kämpft!"
     },
@@ -1346,7 +1346,7 @@
       "quote2": "Deine Herausforderung der Liga endet hier mit mir!"
     },
     "will": {
-      "name": "Will",
+      "name": "Willi",
       "quote1": "Ich bin Will. Ich habe auf der ganzen Welt trainiert und meine Psycho-Pokémon mächtig gemacht.",
       "quote2": "Ich kann nur immer besser werden! Verlieren ist keine Option!"
     },
@@ -1382,12 +1382,12 @@
       "quote2": "Ich frage mich, was du mir zeigen wirst."
     },
     "drake": {
-      "name": "Draschel",
+      "name": "Dragan",
       "quote1": "Weißt du, was es braucht, um an der Seite von Pokémon als Partner zu kämpfen?",
       "quote2": "Wenn nicht, wirst du niemals über mich triumphieren."
     },
     "aaron": {
-      "name": "Herwig",
+      "name": "Herbaro",
       "quote1": "Möchtest du wissen, warum ich es mit Herausforderern aufnehme?",
       "quote2": "Es ist, weil ich perfekt werden will, genau wie meine Käfer-Pokémon!",
       "quote3": "Okay! Nehmen wir es mit dir auf!"
@@ -1408,17 +1408,17 @@
       "quote2": "Ich fürchte, ich werde alles gegen dich aufbieten müssen."
     },
     "shauntal": {
-      "name": "Anis",
+      "name": "Anissa",
       "quote1": "Entschuldigung. Du bist ein Herausforderer, richtig?",
       "quote2": "Ich bin die Geist-Pokémon-Nutzerin der Top Vier, Anis, und ich werde deine Gegnerin sein."
     },
     "marshal": {
-      "name": "Oyo",
+      "name": "Eugen",
       "quote1": "Ich trainiere unter meinem Mentor Lauro.",
       "quote2": "Mein Mentor sieht dein Potenzial als Trainer und interessiert sich für dich."
     },
     "grimsley": {
-      "name": "Gérald",
+      "name": "Astor",
       "quote1": "Das Leben ist ein ernster Kampf, und man muss die Werkzeuge benutzen, die man bekommt.",
       "quote2": "Lass uns beginnen. Und möge der beste Trainer gewinnen!"
     },
@@ -1433,22 +1433,22 @@
       "quote2": "Ich bin Pachira und ich werde heute deine Gegnerin sein."
     },
     "siebold": {
-      "name": "Thalassa",
+      "name": "Narcisse",
       "quote1": "Ich habe eine Frage, die ich dir stellen muss.",
       "quote2": "Glaubst du, dass Pokémon-Kämpfe jemals würdig sein können, als Kunst bezeichnet zu werden?"
     },
     "wikstrom": {
-      "name": "Narcisse",
+      "name": "Thymelot",
       "quote1": "Lass uns beide unser Wort geben, dass unser Wettbewerb fair und ehrenhaft sein wird.",
       "quote2": "Bereit? En garde!"
     },
     "drasna": {
-      "name": "Dragan",
+      "name": "Dracena",
       "quote1": "Du musst ein starker Trainer sein... Das sind wundervolle Neuigkeiten!",
       "quote2": "Gegen Gegner wie dich und dein Team zu kämpfen, lässt meine Pokémon wie Unkraut wachsen!"
     },
     "molayne": {
-      "name": "Chrys",
+      "name": "Marlon",
       "quote1": "Kukui hat mich gefragt, also habe ich beschlossen, bei den Top Vier zu sein.",
       "quote2": "Ich freue mich darauf, in der Pokémon-Liga gegen dich und Chrys zu kämpfen."
     },
@@ -1472,7 +1472,7 @@
       "quote3": "Es ist Zeit zu beweisen, dass ich allen in der Galar-Region eine Nasenlänge voraus bin."
     },
     "nessa": {
-      "name": "Skye",
+      "name": "Kate",
       "quote1": "Ich bin sicher, du erinnerst dich, aber ich bin Skye. Und ich bin nicht hier, um zu plaudern. Ich bin hier, um zu gewinnen!"
     },
     "bea": {
@@ -1624,7 +1624,7 @@
       "quote2": "Ich nehme Kämpfe sehr ernst. Wann immer du bereit bist!"
     },
     "crasherWake": {
-      "name": "Marinus",
+      "name": "Wellenbrecher Marinus",
       "quote1": "Meine Pokémon wurden durch stürmisches Wildwasser abgehärtet!",
       "quote2": "Der Sieg wird unser sein! Komm schon, bringen wir es hinter uns!"
     },
@@ -1681,8 +1681,8 @@
       "quote2": "Hast du den Flug mit Hilfe der Kanonen der Panaero-Arena genossen?"
     },
     "brycen": {
-      "name": "Vander",
-      "quote1": "Ich bin Vander... Freut mich, dich kennenzulernen...",
+      "name": "Sandro",
+      "quote1": "Ich bin Sandro... Freut mich, dich kennenzulernen...",
       "quote2": "Du scheinst bereit zu sein, einem Arenaleiter gegenüberzutreten. Dann... komm schon!"
     },
     "drayden-iris": {
@@ -1714,7 +1714,7 @@
       "quote1": "Lass uns beide unser Bestes im Kampf geben."
     },
     "valerie": {
-      "name": "Morina",
+      "name": "Valerie",
       "quote1": "Oh, wenn das nicht ein junger Trainer ist...",
       "quote2": "Die schwer fassbaren Fee-Pokémon mögen so schwach wie eine Brise und so zart wie eine Blüte erscheinen, aber sie sind stark."
     },
@@ -1761,8 +1761,8 @@
       "quote2": "Ich bin ein Insel-Kahuna, weißt du. Kämpfe gegen mich."
     },
     "mina": {
-      "name": "Mina",
-      "quote1": "Kämpfe gegen Captain Mina!",
+      "name": "Matsurika",
+      "quote1": "Kämpfe gegen Captain Matsurika!",
       "quote2": "Ich und mein Team sind alle voll aufgedreht bis zum Maximum!"
     },
     "hapu": {
@@ -1770,12 +1770,12 @@
       "quote1": "Dies ist die erste große Prüfung von Kahuna Hapu’u! Ich werde mit allem kämpfen, was ich habe!"
     },
     "milo": {
-      "name": "Yarrow",
+      "name": "Yarro",
       "quote1": "Es scheint wirklich so, als ob du Pokémon verdammt gut verstehst.",
       "quote2": "Das wird ein Wahnsinns-Kampf!"
     },
     "nessa": {
-      "name": "Skye",
+      "name": "Kate",
       "quote1": "Willkommen, geehrter Arena-Herausforderer!",
       "quote2": "Egal was für einen Plan dein raffinierter Verstand auch aushecken mag, mein Partner und ich werden ihn mit Sicherheit versenken."
     },
@@ -1790,8 +1790,8 @@
       "quote2": "...Ich bin Nio. H-hier... geht's los..."
     },
     "opal": {
-      "name": "Sannah",
-      "quote1": "Ich bin Sannah, die Arenaleiterin.",
+      "name": "Papella",
+      "quote1": "Ich bin Papella, die Arenaleiterin.",
       "quote2": "Lass mich mal sehen, wie du und dein Partner-Pokémon euch verhaltet!"
     },
     "gordie-melony": {
@@ -1807,7 +1807,7 @@
     "raihan": {
       "name": "Roy",
       "quote1": "Dein Ziel ist es, Delion zu besiegen... Hast du irgendeine Vorstellung davon, wie hoch diese Hürde ist?",
-      "quote2": "Als sein größter Rivale schätze ich, dass ich – Roy – es dir zeigen muss!"
+      "quote2": "Als sein größter Rivale schätze ich, dass ich - Roy - es dir zeigen muss!"
     }
   },
   "rival": {
