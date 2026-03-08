@@ -44,6 +44,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   clickAudio!: HTMLAudioElement;
 
   private translatedItems: WheelItem[] = [];
+  private readonly mobileBreakpoint = 768;
 
   constructor(
     private darkModeService: DarkModeService,
@@ -54,10 +55,11 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   ) {
     this.clickAudio = this.audioService.createAudio('./click.mp3');
     this.darkMode = this.darkModeService.darkMode$;
-    this.canvasHeight = Math.min(window.innerHeight, window.innerWidth) * 0.50;
-    this.wheelWidth = this.canvasHeight;
+    this.canvasHeight = 0;
+    this.wheelWidth = 0;
     this.cursorWidth = 40;
-    this.fontSize = this.wheelWidth / 24;
+    this.fontSize = 0;
+    this.updateWheelDimensions();
   }
 
   ngAfterViewInit(): void {
@@ -65,11 +67,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.wheelCtx = this.wheelCanvas.getContext('2d')!;
     this.pointerCanvas = <HTMLCanvasElement>document.getElementById('pointer');
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
-    if (this.items.length >= 32) {
-      this.fontSize = Math.min(this.fontSize, 10);
-    } else if (this.items.length >= 16) {
-      this.fontSize = Math.min(this.fontSize, 14);
-    }
 
     // Wait for translations to be ready
     this.translateService.get('wheel.spin').subscribe(() => {
@@ -77,6 +74,16 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.drawWheel();
       this.drawPointer();
     });
+  }
+
+  @HostListener('window:resize')
+  handleResize(): void {
+    this.updateWheelDimensions();
+
+    if (this.wheelCtx && this.pointerCtx) {
+      this.drawWheel(this.currentRotation);
+      this.drawPointer();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -94,6 +101,21 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       ...item,
       text: this.translateService.instant(item.text)
     }));
+  }
+
+  private updateWheelDimensions(): void {
+    const viewportMin = Math.min(window.innerHeight, window.innerWidth);
+    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.64 : 0.50;
+
+    this.canvasHeight = viewportMin * wheelScale;
+    this.wheelWidth = this.canvasHeight;
+    this.fontSize = this.wheelWidth / 24;
+
+    if (this.items.length >= 32) {
+      this.fontSize = Math.min(this.fontSize, 10);
+    } else if (this.items.length >= 16) {
+      this.fontSize = Math.min(this.fontSize, 14);
+    }
   }
 
   private drawWheel(rotation = 0): void {
