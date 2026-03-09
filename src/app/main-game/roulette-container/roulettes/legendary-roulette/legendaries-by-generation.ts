@@ -93,7 +93,7 @@ export const legendaryByGeneration: Record<number, PokemonItem[]> = {
     { text: "pokemon.enamorus", pokemonId: 905, fillStyle: "pink", sprite: null, shiny: false, power: 5, weight: 1 }],
   9: [
     { text: "pokemon.wo-chien", pokemonId: 1001, fillStyle: "brown", sprite: null, shiny: false, power: 4, weight: 1},
-    { text: "pokemon.chien-pao", pokemonId: 1002, fillStyle: "white", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.chien-pao", pokemonId: 1002, fillStyle: "gray", sprite: null, shiny: false, power: 5, weight: 1},
     { text: "pokemon.ting-lu", pokemonId: 1003, fillStyle: "brown", sprite: null, shiny: false, power: 4, weight: 1},
     { text: "pokemon.chi-yu", pokemonId: 1004, fillStyle: "red", sprite: null, shiny: false, power: 5, weight: 1},
     { text: "pokemon.koraidon", pokemonId: 1007, fillStyle: "red", sprite: null, shiny: false, power: 5, weight: 1},

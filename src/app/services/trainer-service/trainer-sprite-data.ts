@@ -30,5 +30,9 @@ export const trainerSpriteData: { [generation: number]: { [gender: string]: stri
         8: {
             male: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_Masters_Victor.png',
             female: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_Masters_Gloria.png'
+        },
+        9: {
+            male: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_Masters_Florian.png',
+            female: 'https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_Masters_Juliana.png'
         }
     }
