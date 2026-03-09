@@ -90,5 +90,19 @@ export const legendaryByGeneration: Record<number, PokemonItem[]> = {
     { text: "pokemon.glastrier", pokemonId: 896, fillStyle: "gray", sprite: null, shiny: false, power: 5, weight: 1 },
     { text: "pokemon.spectrier", pokemonId: 897, fillStyle: "black", sprite: null, shiny: false, power: 5, weight: 1 },
     { text: "pokemon.calyrex", pokemonId: 898, fillStyle: "green", sprite: null, shiny: false, power: 5, weight: 1 },
-    { text: "pokemon.enamorus", pokemonId: 905, fillStyle: "pink", sprite: null, shiny: false, power: 5, weight: 1 }]
+    { text: "pokemon.enamorus", pokemonId: 905, fillStyle: "pink", sprite: null, shiny: false, power: 5, weight: 1 }],
+  9: [
+    { text: "pokemon.wo-chien", pokemonId: 1001, fillStyle: "brown", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.chien-pao", pokemonId: 1002, fillStyle: "white", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.ting-lu", pokemonId: 1003, fillStyle: "brown", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.chi-yu", pokemonId: 1004, fillStyle: "red", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.koraidon", pokemonId: 1007, fillStyle: "red", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.miraidon", pokemonId: 1008, fillStyle: "blue", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.okidogi", pokemonId: 1014, fillStyle: "black", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.munkidori", pokemonId: 1015, fillStyle: "black", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.fezandipiti", pokemonId: 1016, fillStyle: "black", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.ogerpon", pokemonId: 1017, fillStyle: "green", sprite: null, shiny: false, power: 4, weight: 1},
+    { text: "pokemon.terapagos", pokemonId: 1024, fillStyle: "blue", sprite: null, shiny: false, power: 5, weight: 1},
+    { text: "pokemon.pecharunt", pokemonId: 1025, fillStyle: "purple", sprite: null, shiny: false, power: 5, weight: 1}
+  ]
 }
