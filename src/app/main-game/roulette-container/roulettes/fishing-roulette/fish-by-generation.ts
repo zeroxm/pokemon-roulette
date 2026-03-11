@@ -223,8 +223,8 @@ export const fishByGeneration: Record<number, PokemonItem[]> = {
     { text: "pokemon.dhelmise", pokemonId: 781, fillStyle: "green", sprite: null, shiny: false, power: 3, weight: 1 }
   ],
   8: [
-    { text: "pokemon.chewtle", pokemonId: 846, fillStyle: "green", sprite: null, shiny: false, power: 1, weight: 1 },
-    { text: "pokemon.drednaw", pokemonId: 847, fillStyle: "brown", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "pokemon.chewtle", pokemonId: 833, fillStyle: "green", sprite: null, shiny: false, power: 1, weight: 1 },
+    { text: "pokemon.drednaw", pokemonId: 834, fillStyle: "brown", sprite: null, shiny: false, power: 3, weight: 1 },
     { text: "pokemon.arrokuda", pokemonId: 846, fillStyle: "brown", sprite: null, shiny: false, power: 1, weight: 1 },
     { text: "pokemon.barraskewda", pokemonId: 847, fillStyle: "brown", sprite: null, shiny: false, power: 3, weight: 1 }
   ]
