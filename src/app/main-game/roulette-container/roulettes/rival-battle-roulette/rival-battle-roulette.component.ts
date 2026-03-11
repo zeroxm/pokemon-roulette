@@ -148,15 +148,16 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
       this.translate.get(this.currentRival.name).subscribe(translated => {
         const rivalNames = translated.split('/');
         const rivalSprites = Array.isArray(this.currentRival.sprite) ? this.currentRival.sprite : [this.currentRival.sprite];
-        const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : this.currentRival.quotes;
-        const randomIndex = Math.floor(Math.random() * rivalNames.length);
+        const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : [this.currentRival.quotes];
+        // If the player is male, rival is Serena; if female, rival is Calem.
+        const selectedIndex = this.trainerService.gender === 'male' ? 1 : 0;
 
-        this.fromRivalChange.emit(randomIndex);
+        this.fromRivalChange.emit(selectedIndex);
 
         this.currentRival = {
-          name: rivalNames[randomIndex],
-          sprite: rivalSprites[randomIndex],
-          quotes: [Array.isArray(rivalQuotes) ? rivalQuotes[randomIndex] : rivalQuotes]
+          name: rivalNames[selectedIndex],
+          sprite: rivalSprites[selectedIndex],
+          quotes: [rivalQuotes[selectedIndex]]
         } as GymLeader;
       });
     }
