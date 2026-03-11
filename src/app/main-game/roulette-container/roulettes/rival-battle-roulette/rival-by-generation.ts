@@ -65,9 +65,7 @@ export const rivalByGeneration: Record<number, GymLeader> = {
   },
   9: {
     name: 'rival.nemona.name',
-    sprite: [
-      "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNemona_2_S.png",
-    ],
+    sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSNemona_2_S.png",
     quotes: [
       "rival.nemona.quote1",
       "rival.nemona.quote2"
