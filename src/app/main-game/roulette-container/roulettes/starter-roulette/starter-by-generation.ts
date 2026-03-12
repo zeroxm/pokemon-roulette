@@ -33,5 +33,10 @@ export const starterByGeneration: Record<number, PokemonItem[]> = {
     8: [
         { text: 'pokemon.grookey', pokemonId: 810, fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 },
         { text: 'pokemon.scorbunny', pokemonId: 813, fillStyle: 'crimson', sprite: null, shiny: false, power: 1, weight: 1 },
-        { text: 'pokemon.sobble', pokemonId: 816, fillStyle: 'darkblue', sprite: null, shiny: false, power: 1, weight: 1 }]
+        { text: 'pokemon.sobble', pokemonId: 816, fillStyle: 'darkblue', sprite: null, shiny: false, power: 1, weight: 1 }],
+    9: [
+        { text: "pokemon.sprigatito", pokemonId: 906, fillStyle: "green", sprite: null, shiny: false, power: 1, weight: 1},
+        { text: "pokemon.fuecoco", pokemonId: 909, fillStyle: "red", sprite: null, shiny: false, power: 1, weight: 1},
+        { text: "pokemon.quaxly", pokemonId: 912, fillStyle: "gray", sprite: null, shiny: false, power: 1, weight: 1}
+    ]
 }
