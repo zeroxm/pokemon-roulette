@@ -4,6 +4,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { EventSource } from '../../../EventSource';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
@@ -13,12 +14,15 @@ import { EventSource } from '../../../EventSource';
 })
 export class EliteFourPrepRouletteComponent implements OnInit {
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private modalQueueService: ModalQueueService
+  ) { }
 
   @ViewChild('victoryRoadModal', { static: true }) victoryRoadModal!: TemplateRef<any>;
 
   ngOnInit(): void {
-    this.modalService.open(this.victoryRoadModal, {
+    this.modalQueueService.open(this.victoryRoadModal, {
       centered: true,
       size: 'lg'
     });
