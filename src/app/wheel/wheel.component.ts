@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { AudioService } from '../services/audio-service/audio.service';
+import { SoundFxHandle, SoundFxService } from '../services/sound-fx-service/sound-fx.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -41,7 +41,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerFillColor = 'yellow';
   winningNumber!: number;
   currentSegment: string = '-';
-  clickAudio!: HTMLAudioElement;
+  clickAudio!: SoundFxHandle;
 
   private translatedItems: WheelItem[] = [];
   private readonly mobileBreakpoint = 768;
@@ -50,10 +50,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     private darkModeService: DarkModeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
-    private audioService: AudioService,
+    private soundFxService: SoundFxService,
     private modalService: NgbModal
   ) {
-    this.clickAudio = this.audioService.createAudio('./click.mp3');
+    this.clickAudio = this.soundFxService.createClickSoundFx();
     this.darkMode = this.darkModeService.darkMode$;
     this.canvasHeight = 0;
     this.wheelWidth = 0;
@@ -227,7 +227,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     if (segment !== this.currentSegment) {
       this.currentSegment = segment;
-      this.audioService.playAudio(this.clickAudio, 1.0);
+      void this.soundFxService.playSoundFx(this.clickAudio, 1.0, { preventOverlap: true });
     }
   }
 

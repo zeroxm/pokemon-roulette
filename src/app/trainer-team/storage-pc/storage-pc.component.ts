@@ -10,7 +10,8 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
-import { AudioService } from '../../services/audio-service/audio.service';
+import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-storage-pc',
@@ -23,43 +24,52 @@ import { AudioService } from '../../services/audio-service/audio.service';
   templateUrl: './storage-pc.component.html',
   styleUrl: './storage-pc.component.css'
 })
-export class StoragePcComponent implements OnInit {
+export class StoragePcComponent implements OnInit, OnDestroy {
 
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
-                private audioService: AudioService) {
-      this.pcTurningOn = this.audioService.createAudio('./PCTurningOn.mp3');
-      this.pcLoginAudio = this.audioService.createAudio('./PCLogin.mp3');
-      this.pcLogoutAudio = this.audioService.createAudio('./PCLogout.mp3');
+                private soundFxService: SoundFxService) {
+      this.pcTurningOn = this.soundFxService.createPcTurningOnSoundFx();
+      this.pcLoginAudio = this.soundFxService.createPcLoginSoundFx();
+      this.pcLogoutAudio = this.soundFxService.createPcLogoutSoundFx();
     }
 
     @ViewChild('pcStorageModal', { static: true }) pcStorageModal!: TemplateRef<any>;
     @ViewChild('pcInfoModal', { static: true }) infoModal!: TemplateRef<any>;
 
     darkMode!: Observable<boolean>;
-    pcTurningOn!: HTMLAudioElement;
-    pcLoginAudio!: HTMLAudioElement;
-    pcLogoutAudio!: HTMLAudioElement;
+    pcTurningOn!: SoundFxHandle;
+    pcLoginAudio!: SoundFxHandle;
+    pcLogoutAudio!: SoundFxHandle;
     trainerTeam!: PokemonItem[];
     storedPokemon!: PokemonItem[];
     wheelSpinning: boolean = false;
     currentGameState!: GameState;
     infoModalTitle = '';
     infoModalMessage = '';
+    private readonly subscriptions = new Subscription();
+    private removePcTurningOnEndedListener: (() => void) | null = null;
 
     ngOnInit(): void {
       this.darkMode = this.darkModeService.darkMode$;
-      this.pcTurningOn.addEventListener('ended', () => {
-        this.audioService.playAudio(this.pcLoginAudio, 0.30);
+      this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded(this.pcTurningOn, () => {
+        void this.soundFxService.playSoundFx(this.pcLoginAudio, 0.30);
       });
-      this.gameStateService.wheelSpinningObserver.subscribe(state => {
+
+      this.subscriptions.add(this.gameStateService.wheelSpinningObserver.subscribe(state => {
         this.wheelSpinning = state;
-      });
-      this.gameStateService.currentState.subscribe(state => {
+      }));
+
+      this.subscriptions.add(this.gameStateService.currentState.subscribe(state => {
         this.currentGameState = state;
-      });
+      }));
+    }
+
+    ngOnDestroy(): void {
+      this.removePcTurningOnEndedListener?.();
+      this.subscriptions.unsubscribe();
     }
 
     showPCModal() {
@@ -77,7 +87,7 @@ export class StoragePcComponent implements OnInit {
       } else {
         this.trainerTeam = this.trainerService.getTeam();
         this.storedPokemon = this.trainerService.getStored();
-        this.audioService.playAudio(this.pcTurningOn, 0.30);
+        void this.soundFxService.playSoundFx(this.pcTurningOn, 0.30);
 
         this.modalService.open(this.pcStorageModal, {
           centered: true,
@@ -89,7 +99,7 @@ export class StoragePcComponent implements OnInit {
     }
 
     logOut(): void {
-      this.audioService.playAudio(this.pcLogoutAudio, 0.30);
+      void this.soundFxService.playSoundFx(this.pcLogoutAudio, 0.30);
       this.modalService.dismissAll();
     }
 
