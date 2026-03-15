@@ -11,15 +11,15 @@ export class GenerationService {
   }
 
   private generations: GenerationItem[] = [
-    { text: 'Gen 1', region: 'Kanto', fillStyle: '#b71c1c', id: 1, weight: 1 },
-    { text: 'Gen 2', region: 'Johto', fillStyle: '#c65100', id: 2, weight: 1 },
-    { text: 'Gen 3', region: 'Hoenn', fillStyle: '#8d6e00', id: 3, weight: 1 },
-    { text: 'Gen 4', region: 'Sinnoh', fillStyle: '#2e7d32', id: 4, weight: 1 },
-    { text: 'Gen 5', region: 'Unova', fillStyle: '#006064', id: 5, weight: 1 },
-    { text: 'Gen 6', region: 'Kalos', fillStyle: '#0d47a1', id: 6, weight: 1 },
-    { text: 'Gen 7', region: 'Alola', fillStyle: '#283593', id: 7, weight: 1 },
-    { text: 'Gen 8', region: 'Galar', fillStyle: '#6a1b9a', id: 8, weight: 1 },
-    { text: 'Gen 9', region: 'Paldea', fillStyle: '#880e4f', id: 9, weight: 1 },
+    { text: 'Gen 1', region: 'Kanto', fillStyle: 'darkred', id: 1, weight: 1 },
+    { text: 'Gen 2', region: 'Johto', fillStyle: 'darkorange', id: 2, weight: 1 },
+    { text: 'Gen 3', region: 'Hoenn', fillStyle: 'goldenrod', id: 3, weight: 1 },
+    { text: 'Gen 4', region: 'Sinnoh', fillStyle: 'darkgreen', id: 4, weight: 1 },
+    { text: 'Gen 5', region: 'Unova', fillStyle: 'darkcyan', id: 5, weight: 1 },
+    { text: 'Gen 6', region: 'Kalos', fillStyle: 'darkblue', id: 6, weight: 1 },
+    { text: 'Gen 7', region: 'Alola', fillStyle: 'indigo', id: 7, weight: 1 },
+    { text: 'Gen 8', region: 'Galar', fillStyle: 'purple', id: 8, weight: 1 },
+    { text: 'Gen 9', region: 'Paldea', fillStyle: 'darkviolet', id: 9, weight: 1 },
   ];
 
   private generation = new BehaviorSubject<GenerationItem>(this.generations[0]);
