@@ -1609,6 +1609,26 @@
       "name": "Raihan",
       "quote1": "Eres realmente algo, niño. ¡Has llegado hasta aquí!",
       "quote2": "Puede que pienses que ya me venciste antes... pero no soy el mismo Raihan que enfrentaste antes"
+    },
+    "rika": {
+      "name": "Rika",
+      "quote1": "¡Deja que la buena de Rika sea la primera del Alto Mando en enfrentarte!",
+      "quote2": "Diría que voy a ser suave contigo, pero... ¡estaría mintiendo! ¡Piensa rápido!"
+    },
+    "poppy": {
+      "name": "Poppy",
+      "quote1": "¡Es genial que hayas llegado tan lejos! ¡Pero aquí es donde te despides!",
+      "quote2": "No veo la hora de que conozcas a mis amigos, así que... ¡allá van!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "También sirvo como miembro del Alto Mando, sí... Por desgracia para mí.",
+      "quote2": "En fin, es hora de ponerse a trabajar."
+    },
+    "hassel": {
+      "name": "Hassel",
+      "quote1": "Soy Hassel, el dragón que custodia la fortaleza final de la prueba del Alto Mando.",
+      "quote2": "¡Prepárate para aprender en carne propia cómo se siente el aliento ardiente de un combate feroz!"
     }
   },
   "gymLeaders": {
@@ -1933,6 +1953,46 @@
       "name": "Raihan",
       "quote1": "¿Tú apuntas a derrotar a Leon... tienes alguna idea de lo alto que es ese obstáculo?",
       "quote2": "Como su mayor rival, supongo que yo — Raihan — tendré que mostrártelo!"
+    },
+    "katy": {
+      "name": "Katy",
+      "quote1": "Los Pokémon de tipo Bicho que se ocultan en el follaje... Ambos son pequeños y, aun así, muy poderosos.",
+      "quote2": "No bajes la guardia si no quieres acabar derribado."
+    },
+    "brassius": {
+      "name": "Brassius",
+      "quote1": "¡Debemos empezar a crear nuestra obra de arte colaborativa!",
+      "quote2": "Confío en que estás listo. ¡Ha llegado el momento de que nuestra obra maestra tome forma!"
+    },
+    "iono": {
+      "name": "Iono",
+      "quote1": "¡Muy bien, pues! ¿Quién está listo para verme repartir caña?",
+      "quote2": "¡Que empiece el show! ¿Qué tan fuerte es nuestro retador? ¡Ni idea! ¡Vamos a descubrirlo juntos!"
+    },
+    "kofu": {
+      "name": "Kofu",
+      "quote1": "En la subasta luchamos comprando y vendiendo. ¡En mi Gimnasio luchamos de una forma más tradicional!",
+      "quote2": "¡Te voy a servir un menú completo de Pokémon de tipo Agua!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Mi jefe me descontará el sueldo si me paso mucho tiempo charlando.",
+      "quote2": "Gracias por hacer negocios con nosotros hoy. Yo, Larry, estaré a tu servicio."
+    },
+    "ryme": {
+      "name": "Ryme",
+      "quote1": "Que no se te olvide: mi nombre es Ryme, ¡y me conocen como la MC de RIP!",
+      "quote2": "Muerto o vivo, ¡vamos a hacer que esto tenga ritmo!"
+    },
+    "tulip": {
+      "name": "Tulip",
+      "quote1": "El maquillaje es como la magia. Cualquiera puede usarlo para cambiar su apariencia.",
+      "quote2": "Permíteme poner mis habilidades a trabajar para hacer que tus lindos Pokémon sean aún más hermosos."
+    },
+    "grusha": {
+      "name": "Grusha",
+      "quote1": "Bueno, este es mi trabajo ahora... así que no te tomes como algo personal lo que estoy a punto de hacer.",
+      "quote2": "Prepárate para sentir el helado mordisco de la realidad."
     }
   },
   "rival": {
@@ -1968,6 +2028,11 @@
     "bede": {
       "name": "Bede",
       "quote1": "Es hora de demostrar que estoy un nivel por encima del resto de la competencia en la región de Galar."
+    },
+    "nemona": {
+      "name": "Nemona",
+      "quote1": "¡Eh! ¡Soy yooo!",
+      "quote2": "¡Tengamos un combate bien provechoso!"
     }
   },
   "champion": {
@@ -2009,6 +2074,11 @@
       "name": "Leon",
       "quote1": "¡Ha llegado el momento de que luches hasta que solo quede el mayor desafiante!",
       "quote2": "Así que, en nombre del presidente, permíteme decir... ¡que comiencen los partidos finales!"
+    },
+    "geeta": {
+      "name": "Geeta",
+      "quote1": "La prueba final es una batalla contra mí, la Campeona Suprema.",
+      "quote2": "¿Estás listo para tu prueba final? ¡Quiero ver la verdadera medida de tu talento!"
     }
   }
 }

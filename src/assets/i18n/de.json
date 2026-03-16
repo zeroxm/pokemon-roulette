@@ -1609,6 +1609,26 @@
       "name": "Roy",
       "quote1": "Du bist wirklich etwas Besonderes, Kleiner. Du hast es bis hierher geschafft!",
       "quote2": "Du denkst vielleicht, dass du mich schon einmal besiegt hast... Aber ich bin nicht derselbe Roy wie zuvor."
+    },
+    "rika": {
+      "name": "Rika",
+      "quote1": "Lass die gute alte Rika die erste der Top Vier sein, die es mit dir aufnimmt!",
+      "quote2": "Ich würde sagen, ich gehe schonend mit dir um, aber... das wäre gelogen! Denk schnell!"
+    },
+    "poppy": {
+      "name": "Poppy",
+      "quote1": "Es ist so cool, dass du es bis hierher geschafft hast! Aber hier heißt es für dich tschüss!",
+      "quote2": "Ich kann es kaum erwarten, dass du meine Freunde triffst, also... hier kommen sie!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Ich diene auch als Mitglied der Top Vier, ja... Leider für mich.",
+      "quote2": "Wie auch immer, Zeit, an die Arbeit zu gehen."
+    },
+    "hassel": {
+      "name": "Hassel",
+      "quote1": "Ich bin Hassel, der Drache, der die letzte Festung der Top-Vier-Prüfung bewacht.",
+      "quote2": "Bereite dich darauf vor, am eigenen Leib zu erfahren, wie sich der feurige Atem eines erbitterten Kampfes anfühlt!"
     }
   },
   "gymLeaders": {
@@ -1933,6 +1953,46 @@
       "name": "Roy",
       "quote1": "Dein Ziel ist es, Delion zu besiegen... Hast du irgendeine Vorstellung davon, wie hoch diese Hürde ist?",
       "quote2": "Als sein größter Rivale schätze ich, dass ich - Roy - es dir zeigen muss!"
+    },
+    "katy": {
+      "name": "Katy",
+      "quote1": "Käfer-Pokémon, die sich im Laub verstecken... Beide sind klein und doch sehr mächtig.",
+      "quote2": "Lass deine Deckung nicht fallen, wenn du nicht von den Beinen geholt werden willst!"
+    },
+    "brassius": {
+      "name": "Brassius",
+      "quote1": "Wir müssen jetzt unser gemeinsames Kunstwerk erschaffen!",
+      "quote2": "Ich vertraue darauf, dass du bereit bist. Es ist Zeit, dass unser Meisterwerk Gestalt annimmt!"
+    },
+    "iono": {
+      "name": "Iono",
+      "quote1": "Alles klar, dann! Wer ist bereit, mich ordentlich austeilen zu sehen?",
+      "quote2": "Bringen wir diese Show auf die Straße! Wie stark ist unser Herausforderer? Keine Ahnung! Finden wir's zusammen heraus!"
+    },
+    "kofu": {
+      "name": "Kofu",
+      "quote1": "Bei der Auktion kämpfen wir mit Kaufen und Verkaufen. In meiner Arena kämpfen wir auf traditionellere Weise!",
+      "quote2": "Ich serviere dir ein komplettes Menü aus Wasser-Pokémon!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Mein Chef kürzt mir den Lohn, wenn ich zu viel Zeit mit Reden verbringe.",
+      "quote2": "Danke, dass Sie heute mit uns Geschäfte machen. Ich, Larry, stehe zu Ihren Diensten."
+    },
+    "ryme": {
+      "name": "Ryme",
+      "quote1": "Falls du es vergessen hast: Der Name ist Ryme, und man kennt mich als MC von RIP!",
+      "quote2": "Tot oder lebendig, lass uns daraus einen Vibe machen!"
+    },
+    "tulip": {
+      "name": "Tulip",
+      "quote1": "Make-up ist wie Magie. Jeder kann es benutzen, um sein Aussehen zu verändern.",
+      "quote2": "Erlaube mir, meine Fähigkeiten einzusetzen, damit deine süßen kleinen Pokémon noch schöner werden."
+    },
+    "grusha": {
+      "name": "Grusha",
+      "quote1": "Nun, das ist jetzt mein Job... also nimm nicht persönlich, was ich gleich mit dir mache.",
+      "quote2": "Mach dich bereit, den eisigen Biss der Realität zu spüren."
     }
   },
   "rival": {
@@ -1968,6 +2028,11 @@
     "bede": {
       "name": "Betys",
       "quote1": "Es ist Zeit zu beweisen, dass ich allen in der Galar-Region eine Nasenlänge voraus bin."
+    },
+    "nemona": {
+      "name": "Nemona",
+      "quote1": "Hey! Ich bin's!",
+      "quote2": "Lass uns einen richtig guten Kampf haben!"
     }
   },
   "champion": {
@@ -2009,6 +2074,11 @@
       "name": "Delion",
       "quote1": "Die Zeit ist gekommen, dass ihr es auskämpft, bis nur noch der größte Herausforderer übrig ist!",
       "quote2": "Also, im Namen des Präsidenten, erlaubt mir zu sagen... lasst die Finalmatches beginnen!"
+    },
+    "geeta": {
+      "name": "Geeta",
+      "quote1": "Die letzte Prüfung ist ein Kampf gegen mich, die Top-Championesse.",
+      "quote2": "Bist du bereit für deine letzte Prüfung? Ich will das wahre Maß deines Talents sehen!"
     }
   }
 }

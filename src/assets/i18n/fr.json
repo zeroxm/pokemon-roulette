@@ -1609,6 +1609,26 @@
       "name": "Roy",
       "quote1": "Tu es vraiment quelque chose, gamin. Tu es arrivé jusqu'ici!",
       "quote2": "Tu pourrais penser que tu m'as déjà battu une fois... Mais je ne suis pas le même Roy que tu as affronté avant"
+    },
+    "rika": {
+      "name": "Rika",
+      "quote1": "Laisse la bonne vieille Rika être la première du Conseil 4 à t'affronter!",
+      "quote2": "Je pourrais dire que je vais être indulgente, mais... ce serait mentir! Réagis vite!"
+    },
+    "poppy": {
+      "name": "Poppy",
+      "quote1": "C'est trop cool que tu sois arrivé jusque-là! Mais c'est ici que tu dis au revoir!",
+      "quote2": "J'ai trop hâte que tu rencontres mes amis, alors... les voilà!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Je fais aussi partie du Conseil 4, oui... Malheureusement pour moi.",
+      "quote2": "Bref, il est temps de se mettre au travail."
+    },
+    "hassel": {
+      "name": "Hassel",
+      "quote1": "Je suis Hassel, le dragon qui garde la dernière forteresse de l'Épreuve du Conseil 4.",
+      "quote2": "Prépare-toi à découvrir par toi-même la brûlante haleine d'un combat féroce!"
     }
   },
   "gymLeaders": {
@@ -1933,6 +1953,46 @@
       "name": "Roy",
       "quote1": "Tu vises à vaincre Tarak... As-tu une idée de la hauteur de cet obstacle?",
       "quote2": "Comme son plus grand rival, je pense que moi — Roy — vais devoir te le montrer!"
+    },
+    "katy": {
+      "name": "Katy",
+      "quote1": "Les Pokémon Insecte cachés dans le feuillage... Tous deux sont petits, et pourtant très puissants.",
+      "quote2": "Ne baisse pas ta garde si tu ne veux pas te retrouver à terre!"
+    },
+    "brassius": {
+      "name": "Brassius",
+      "quote1": "Nous devons commencer à créer notre œuvre d'art commune!",
+      "quote2": "J'ai confiance: tu es prêt. Il est temps que notre chef-d'œuvre prenne forme!"
+    },
+    "iono": {
+      "name": "Iono",
+      "quote1": "Très bien, alors! Qui est prêt à me voir botter des fesses?",
+      "quote2": "Que le spectacle commence! À quel point notre challenger est-il fort? Aucune idée! Découvrons-le ensemble!"
+    },
+    "kofu": {
+      "name": "Kofu",
+      "quote1": "À l'enchère, on se bat en achetant et en vendant. Dans mon Arène, on se bat d'une manière plus traditionnelle!",
+      "quote2": "Je vais te servir un menu complet de Pokémon de type Eau!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Mon patron réduira mon salaire si je passe trop de temps à bavarder.",
+      "quote2": "Merci d'avoir fait affaire avec nous aujourd'hui. Moi, Larry, serai à votre service."
+    },
+    "ryme": {
+      "name": "Ryme",
+      "quote1": "N'oublie pas: le nom, c'est Ryme, et on me connaît comme la MC de RIP!",
+      "quote2": "Mort ou vif, faisons de ça une vraie vibe!"
+    },
+    "tulip": {
+      "name": "Tulip",
+      "quote1": "Le maquillage, c'est comme la magie. Tout le monde peut s'en servir pour changer d'apparence.",
+      "quote2": "Permets-moi d'user de mon talent pour rendre tes adorables petits Pokémon encore plus beaux."
+    },
+    "grusha": {
+      "name": "Grusha",
+      "quote1": "Bon, c'est mon travail maintenant... alors ne prends pas personnellement ce que je vais te faire.",
+      "quote2": "Prépare-toi à sentir la morsure glaciale de la réalité."
     }
   },
   "rival": {
@@ -1968,6 +2028,11 @@
     "bede": {
       "name": "Travis",
       "quote1": "Il est temps de prouver à tout le monde dans la région de Galar que je suis un cran au-dessus de la compétition."
+    },
+    "nemona": {
+      "name": "Nemona",
+      "quote1": "Hé! C'est moiii!",
+      "quote2": "Faisons un combat bien intense!"
     }
   },
   "champion": {
@@ -2009,6 +2074,11 @@
       "name": "Tarak",
       "quote1": "Le moment est venu pour toi de te battre jusqu'à ce qu'il ne reste que le plus grand challenger!",
       "quote2": "Alors, au nom du président, permets-moi de dire... que les matches de la Finale commencent!"
+    },
+    "geeta": {
+      "name": "Geeta",
+      "quote1": "L'épreuve finale est un combat contre moi, la Maîtresse Suprême.",
+      "quote2": "Es-tu prêt pour ton épreuve finale? Je veux voir la véritable mesure de ton talent!"
     }
   }
 }

@@ -1609,6 +1609,26 @@
       "name": "Raihan",
       "quote1": "Vocẽ é diferenciado, menó. Você provou que é de milicota!",
       "quote2": "Você pode estar desmerecendo minha caminhada... mas agora a trocação é sem caô!"
+    },
+    "rika": {
+      "name": "Rika",
+      "quote1": "Deixe a boa e velha Rika ser a primeira da Elite dos Quatro a enfrentar você!",
+      "quote2": "Poderia dizer que vou pegar leve com você, mas... eu estaria mentindo! Pensa rápido!"
+    },
+    "poppy": {
+      "name": "Poppy",
+      "quote1": "É muito maneiro que você tenha chegado tão longe! Mas é hora de dar tchau !",
+      "quote2": "Mal posso esperar para que você conheça meus amigos, então... aqui vem eles!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Eu também sirvo como membro da Elite dos Quatro, sim... infelizmente para mim.",
+      "quote2": "Enfim, é hora de trabalhar."
+    },
+    "hassel": {
+      "name": "Hassel",
+      "quote1": "Eu sou Hassel, o dragão que guarda a fortaleza final do teste da Elite.",
+      "quote2": "Prepare-se para aprender em primeira mão como é o sopro ardente de uma batalha feroz!"
     }
   },
   "gymLeaders": {
@@ -1933,6 +1953,46 @@
       "name": "Raihan",
       "quote1": "Você está mirando em derrotar o Leon... Você faz alguma ideia de quão alto é esse obstáculo?",
       "quote2": "Como o maior rival dele, acho que eu — Raihan — vou ter que mostrar a você!"
+    },
+    "katy": {
+      "name": "Katy",
+      "quote1": "Pokémon do tipo Inseto escondidos na folhagem... Ambos são pequenos e, ainda assim, muito poderosos.",
+      "quote2": "Não baixe a guarda se não quiser acabar sendo derrubado!"
+    },
+    "brassius": {
+      "name": "Brassius",
+      "quote1": "Precisamos começar a criar nossa obra de arte colaborativa!",
+      "quote2": "Confio que você está pronto. É hora de a nossa obra-prima tomar forma!"
+    },
+    "iono": {
+      "name": "Iono",
+      "quote1": "Tudo certo, então! Quem está pronto para me ver chutar umas bundas?",
+      "quote2": "Vamos botar esse show na estrada! Enfrentei um desafiante sem saber quão forte ele é e olha o que aconteceu!"
+    },
+    "kofu": {
+      "name": "Kofu",
+      "quote1": "No leilão, batalhamos comprando e vendendo. No meu Ginásio, batalhamos de um jeito mais tradicional!",
+      "quote2": "Vou te servir um menu completo de Pokémon do tipo Água!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "Meu chefe vai descontar do meu salário se eu passar muito tempo batendo papo.",
+      "quote2": "Servimos bem para servirmos sempre. Eu, Larry, estarei ao seu dispor."
+    },
+    "ryme": {
+      "name": "Ryme",
+      "quote1": "Só lembrando, o nome é Ryme, e eu sou conhecida como MC Cemitério!",
+      "quote2": "Vivo ou morto, vem que hoje tudo é festa!"
+    },
+    "tulip": {
+      "name": "Tulip",
+      "quote1": "Maquiagem é como mágica. Qualquer um pode usá-la para mudar a própria aparência.",
+      "quote2": "Permita-me colocar minhas habilidades em prática para deixar seus Pokémon ainda mais bonitos."
+    },
+    "grusha": {
+      "name": "Grusha",
+      "quote1": "Bom, esse é o meu trabalho agora... então não leve para o lado pessoal o que estou prestes a fazer.",
+      "quote2": "Prepare-se para sentir a realidade dura e fria."
     }
   },
   "rival": {
@@ -1968,6 +2028,11 @@
     "bede": {
       "name": "Bede",
       "quote1": "É hora de provar que estou um nível acima do resto da competição na região de Galar."
+    },
+    "nemona": {
+      "name": "Nemona",
+      "quote1": "Ei! Sou eeeeeeu!",
+      "quote2": "Vamos ter uma batalha daquelas!"
     }
   },
   "champion": {
@@ -2009,6 +2074,11 @@
       "name": "Leon",
       "quote1": "É chegada a hora de batalhar até que apenas o maior desafiante permaneça!",
       "quote2": "Então, em nome do presidente, permita-me dizer... que as lutas finais comeceme!"
+    },
+    "geeta": {
+      "name": "Geeta",
+      "quote1": "O teste final é uma batalha contra mim, a Campeã Suprema.",
+      "quote2": "Você está pronto para seu teste final? Quero ver a verdadeira medida do seu talento!"
     }
   }
 }
