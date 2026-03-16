@@ -224,8 +224,12 @@
             "multitask": "Multitask (Spin2x)",
             "goFishing": "Go Fishing",
             "findFossil": "Find a Fossil",
-            "battleRival": "Battle Rival"
+            "battleRival": "Battle Rival",
+            "areaZero": "Explore Area Zero"
           }
+        },
+        "areaZero": {
+          "title": "Paradox Pokémon"
         },
         "cave": {
           "explore": {

@@ -19,6 +19,7 @@ export type GameState =
   | 'catch-legendary'
   | 'trade-pokemon'
   | 'find-item'
+  | 'area-zero'
   | 'explore-cave'
   | 'catch-cave-pokemon'
   | 'snorlax-encounter'

@@ -224,8 +224,12 @@
             "multitask": "Multitasking (Drehe 2x)",
             "goFishing": "Gehe angeln",
             "findFossil": "Finde ein Fossil",
-            "battleRival": "Rivalen-Kampf"
+            "battleRival": "Rivalen-Kampf",
+            "areaZero": "Erkunde Zone Null"
           }
+        },
+        "areaZero": {
+          "title": "Paradox-Pokémon"
         },
         "cave": {
           "explore": {

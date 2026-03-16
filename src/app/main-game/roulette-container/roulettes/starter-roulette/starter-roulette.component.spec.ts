@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StarterRouletteComponent } from './starter-roulette.component';
-import { GenerationItem } from '../../../interfaces/generation-item';
+import { GenerationItem } from '../../../../interfaces/generation-item';
 
 describe('StarterRouletteComponent', () => {
   let component: StarterRouletteComponent;

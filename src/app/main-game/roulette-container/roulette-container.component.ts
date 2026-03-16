@@ -35,6 +35,7 @@ import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-i
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
 import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
+import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
@@ -69,6 +70,7 @@ import { ModalQueueService } from '../../services/modal-queue-service/modal-queu
     ExploreCaveRouletteComponent,
     CavePokemonRouletteComponent,
     FossilRouletteComponent,
+    AreaZeroRoulette,
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
     RivalBattleRouletteComponent,
@@ -457,6 +459,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   findFossil(): void {
     this.gameStateService.setNextState('find-fossil');
+    this.finishCurrentState();
+  }
+
+  areaZero(): void {
+    this.gameStateService.setNextState('area-zero');
     this.finishCurrentState();
   }
 

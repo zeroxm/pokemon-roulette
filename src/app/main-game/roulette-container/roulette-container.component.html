@@ -73,7 +73,8 @@
         (multitaskEvent)="multitask()"
         (goFishingEvent)="goFishing()"
         (findFossilEvent)="findFossil()"
-        (battleRivalEvent)="battleRival()">
+        (battleRivalEvent)="battleRival()"
+        (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
   @case ('team-rocket-encounter') {
@@ -110,6 +111,11 @@
     <app-find-item-roulette
         (itemSelectedEvent)="receiveItem($event)">
     </app-find-item-roulette>
+  }
+  @case ('area-zero') {
+    <app-area-zero-roulette
+        (selectedPokemonEvent)="storePokemon($event)">
+    </app-area-zero-roulette>
   }
   @case ('explore-cave') {
     <app-explore-cave-roulette

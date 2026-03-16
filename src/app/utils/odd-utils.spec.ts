@@ -1,5 +1,5 @@
 import { interleaveOdds } from './odd-utils';
-import { WheelItem } from '../../../interfaces/wheel-item';
+import { WheelItem } from '../interfaces/wheel-item';
 
 describe('interleaveOdds utility', () => {
   const makeItems = (text: string, count: number): WheelItem[] =>

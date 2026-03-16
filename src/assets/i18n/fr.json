@@ -224,8 +224,12 @@
             "multitask": "Multitâche (Tourner 2x)",
             "goFishing": "Pêcher",
             "findFossil": "Trouver un fossile",
-            "battleRival": "Combattre le rival"
+            "battleRival": "Combattre le rival",
+            "areaZero": "Explorer la Zone Zéro"
           }
+        },
+        "areaZero": {
+          "title": "Pokémon Paradoxe"
         },
         "cave": {
           "explore": {
