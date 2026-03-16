@@ -67,5 +67,16 @@ export const fossilByGeneration: Record<number, PokemonItem[]> = {
     { text: "pokemon.arctozolt", pokemonId: 881, fillStyle: "darkblue", sprite: null, shiny: false, power: 3, weight: 1 },
     { text: "pokemon.dracovish", pokemonId: 882, fillStyle: "green", sprite: null, shiny: false, power: 3, weight: 1 },
     { text: "pokemon.arctovish", pokemonId: 883, fillStyle: "darkblue", sprite: null, shiny: false, power: 3, weight: 1 }
+  ],
+  9: [
+    { text: "pokemon.aerodactyl", pokemonId: 142, fillStyle: "purple", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "pokemon.cranidos", pokemonId: 408, fillStyle: "darkblue", sprite: null, shiny: false, power: 1, weight: 1 },
+    { text: "pokemon.rampardos", pokemonId: 409, fillStyle: "darkblue", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "pokemon.shieldon", pokemonId: 410, fillStyle: "gray", sprite: null, shiny: false, power: 1, weight: 1 },
+    { text: "pokemon.bastiodon", pokemonId: 411, fillStyle: "gray", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "pokemon.tyrunt", pokemonId: 696, fillStyle: "brown", sprite: null, shiny: false, power: 1, weight: 1 },
+    { text: "pokemon.tyrantrum", pokemonId: 697, fillStyle: "darkred", sprite: null, shiny: false, power: 3, weight: 1 },
+    { text: "pokemon.amaura", pokemonId: 698, fillStyle: "darkblue", sprite: null, shiny: false, power: 1, weight: 1 },
+    { text: "pokemon.aurorus", pokemonId: 699, fillStyle: "darkblue", sprite: null, shiny: false, power: 3, weight: 1 }
   ]
 }
