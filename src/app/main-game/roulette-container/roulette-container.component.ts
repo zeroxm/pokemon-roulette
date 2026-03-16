@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
@@ -93,6 +93,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private gameStateService: GameStateService,
       private itemService: ItemsService,
       private pokemonService: PokemonService,
+      private translateService: TranslateService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
       private modalQueueService: ModalQueueService,
@@ -499,9 +500,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   teamRocketDefeated(): void {
     if (this.stolenPokemon) {
+      const pokemonName = this.translateService.instant(this.stolenPokemon.text);
+
       this.trainerService.addToTeam(this.stolenPokemon);
-      this.infoModalTitle = 'Saved ' + this.stolenPokemon.text + '!';
-      this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
+      this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title ') + pokemonName + '!';
+      this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
       this.stolenPokemon = null;
       this.modalQueueService.open(this.infoModal, {
         centered: true,

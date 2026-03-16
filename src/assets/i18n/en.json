@@ -329,6 +329,11 @@
           "steal": {
             "which": "Which Pokemon?"
           },
+          "saved": {
+            "title ": "Saved ",
+            "recovered": "You recovered your ",
+            "from": "from Team Rocket."
+          },
           "teamrocket": "Team Rocket!",
           "title": "Outcome",
           "trouble": "Prepare for trouble!",
@@ -1604,6 +1609,26 @@
       "name": "Raihan",
       "quote1": "You're really something else, kid. You've made it all the way here!",
       "quote2": "You might be thinking that you beat me once already... But I'm not the same Raihan you faced before"
+    },
+    "rika": {
+      "name": "Rika",
+      "quote1": "Let good ol' Rika be the first of the Elite Four to take you on!",
+      "quote2": "I'd say I'll go easy on you, but...I'd be lying! Think fast!"
+    },
+    "poppy": {
+      "name": "Poppy",
+      "quote1": "It's so cool you made it this far! But this is where you say bye-bye!",
+      "quote2": "I can't wait for you to meet my friends, so...here they come!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "I serve as a member of the Elite Four too, yes...Unfortunately for me.",
+      "quote2": "Anyway, time to get to work."
+    },
+    "hassel": {
+      "name": "Hassel",
+      "quote1": "I am Hassel, the dragon guarding the final fortress of the Elite Test.",
+      "quote2": "Prepare to learn firsthand how the fiery breath of ferocious battle feels!"
     }
   },
   "gymLeaders": {
@@ -1928,6 +1953,46 @@
       "name": "Raihan",
       "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
       "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
+    },
+    "katy": {
+      "name": "Katy",
+      "quote1": "Bug-type Pokémon hiding in foliage... Both are small and yet very powerful.",
+      "quote2": "Don't let your guard down unless you would like to find yourself knocked off your feet!"
+    },
+    "brassius": {
+      "name": "Brassius",
+      "quote1": "We must begin creating our collaborative work of art!",
+      "quote2": "I trust that you are ready? It is time for our masterpiece to take shape!"
+    },
+    "iono": {
+      "name": "Iono",
+      "quote1": "All righty, then! Who's ready to see me kick some butt?",
+      "quote2": "Let's get this show on the road! How strong is our challenger? I 'unno! Let's find out together!"
+    },
+    "kofu": {
+      "name": "Kofu",
+      "quote1": "At the auction, we battle with buyin' and sellin'. At my Gym, we battle in a more traditional sense!",
+      "quote2": "I'mma serve you a full course o' Water-type Pokémon!"
+    },
+    "larry": {
+      "name": "Larry",
+      "quote1": "My boss will dock my pay if I spend too much time chitchatting.",
+      "quote2": "Thank you for doing business with us today. I, Larry, will be at your service."
+    },
+    "ryme": {
+      "name": "Ryme",
+      "quote1": "Lest you forget it, the name is Ryme, and I'm known as the MC of RIP!",
+      "quote2": "Dead or alive, let's make this a vibe!"
+    },
+    "tulip": {
+      "name": "Tulip",
+      "quote1": "Makeup is like magic. Anyone can use it to change their appearance.",
+      "quote2": "Allow me to put my skills to use to make your cute little Pokémon even more beautiful!"
+    },
+    "grusha": {
+      "name": "Grusha",
+      "quote1": "Well, this is my job now...so don't take what I'm about to do personally.",
+      "quote2": "Get ready to feel the icy bite of reality."
     }
   },
   "rival": {
@@ -1963,6 +2028,11 @@
     "bede": {
       "name": "Bede",
       "quote1": "It's time to prove I'm a notch above the competition to everyone in the Galar region"
+    },
+    "nemona": {
+      "name": "Nemona",
+      "quote1": "Hey! It's meee!",
+      "quote2": "Let's have us a fruitful battle!"
     }
   },
   "champion": {
@@ -2004,6 +2074,11 @@
       "name": "Leon",
       "quote1": "The time has come for you to battle it out until only the greatest challenger remains!",
       "quote2": "So, on behalf of the chairman, allow me to say... let the Finals matches begin!"
+    },
+    "geeta": {
+      "name": "Geeta",
+      "quote1": "The final test is a battle against me, the Top Champion.",
+      "quote2": "Are you ready for your final test? I want to see the true measure of your talent!"
     }
   }
 }

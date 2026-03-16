@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { RouletteContainerComponent } from './roulette-container.component';
 
@@ -8,7 +9,7 @@ describe('RouletteContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouletteContainerComponent]
+      imports: [RouletteContainerComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

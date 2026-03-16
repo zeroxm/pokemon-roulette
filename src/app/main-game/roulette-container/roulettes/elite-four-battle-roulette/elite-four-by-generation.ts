@@ -294,6 +294,7 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPoppy.png",
             quotes: [
                 'elite4.poppy.quote1',
+                'elite4.poppy.quote2'
             ]
         },
         {

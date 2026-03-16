@@ -329,6 +329,11 @@
           "steal": {
             "which": "¿Qué Pokémon?"
           },
+          "saved": {
+            "title ": "Rescatado ",
+            "recovered": "Has recuperado tu ",
+            "from": "del Equipo Rocket."
+          },
           "teamrocket": "¡Equipo Rocket!",
           "title": "Resultado",
           "trouble": "No te asustes, niñito...",
