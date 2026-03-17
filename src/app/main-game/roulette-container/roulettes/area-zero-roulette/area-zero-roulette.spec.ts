@@ -27,7 +27,8 @@ describe('AreaZeroRoulette', () => {
         {
           provide: PokemonService,
           useValue: {
-            getPokemonById
+            getPokemonById,
+            getPokemonByIdArray: (pokemonIds: number[]) => pokemonIds.map(getPokemonById)
           }
         }
       ]

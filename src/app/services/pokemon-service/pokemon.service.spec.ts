@@ -22,5 +22,18 @@ describe('PokemonService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return pokemon list for valid id array', () => {
+    const result = service.getPokemonByIdArray([1, 4, 7]);
+
+    expect(result.length).toBe(3);
+    expect(result.map(pokemon => pokemon.pokemonId)).toEqual([1, 4, 7]);
+  });
+
+  it('should ignore ids that are not in national dex', () => {
+    const result = service.getPokemonByIdArray([1, 999999, 7]);
+
+    expect(result.map(pokemon => pokemon.pokemonId)).toEqual([1, 7]);
+  });
 });
 

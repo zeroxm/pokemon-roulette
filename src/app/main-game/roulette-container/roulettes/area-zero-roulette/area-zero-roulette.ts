@@ -14,9 +14,7 @@ import { areaZeroParadoxPokemonIds } from './area-zero-pokemon';
 export class AreaZeroRoulette {
 
   constructor(private pokemonService: PokemonService) {
-    this.paradoxPokemon = areaZeroParadoxPokemonIds
-      .map(pokemonId => this.pokemonService.getPokemonById(pokemonId))
-      .filter((pokemon): pokemon is PokemonItem => pokemon !== undefined);
+    this.paradoxPokemon = this.pokemonService.getPokemonByIdArray(areaZeroParadoxPokemonIds);
   }
 
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
