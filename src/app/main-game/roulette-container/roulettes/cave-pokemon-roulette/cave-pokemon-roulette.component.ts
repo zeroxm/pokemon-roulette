@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { cavePokemonByGeneration } from './cave-pokemon-by-generation';
 import { Subscription } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
+import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 
@@ -16,18 +17,21 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 export class CavePokemonRouletteComponent implements OnInit, OnDestroy {
 
 
-  constructor(private generationService: GenerationService) {
+  constructor(private generationService: GenerationService, private pokemonService: PokemonService) {
   }
 
   cavePokemonByGeneration = cavePokemonByGeneration;
 
-  @Input() generation!: GenerationItem;
+  generation!: GenerationItem;
+  cavePokemon: PokemonItem[] = [];
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
   private generationSubscription: Subscription | null = null;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
       this.generation = gen;
+      const cavePokemonIds = this.cavePokemonByGeneration[this.generation.id] ?? [];
+      this.cavePokemon = this.pokemonService.getPokemonByIdArray(cavePokemonIds);
     });
   }
 
@@ -36,12 +40,7 @@ export class CavePokemonRouletteComponent implements OnInit, OnDestroy {
   }
 
   onItemSelected(index: number): void {
-    const pokemon = this.getFromGeneration();
-    const selectedPokemon = pokemon[index];
+    const selectedPokemon = this.cavePokemon[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
-  }
-
-  getFromGeneration(): PokemonItem[] {
-    return this.cavePokemonByGeneration[this.generation.id];
   }
 }
