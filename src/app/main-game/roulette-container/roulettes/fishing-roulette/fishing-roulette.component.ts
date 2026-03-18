@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { fishByGeneration } from './fish-by-generation';
 import { Subscription } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
+import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 
@@ -15,18 +16,24 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 })
 export class FishingRouletteComponent {
 
-  constructor(private generationService: GenerationService) {
+  constructor(
+    private generationService: GenerationService,
+    private pokemonService: PokemonService
+  ) {
   }
 
   fishByGeneration = fishByGeneration;
 
-  @Input() generation!: GenerationItem;
+  generation!: GenerationItem;
+  fish: PokemonItem[] = [];
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
   private generationSubscription: Subscription | null = null;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
       this.generation = gen;
+      const fishIds = this.fishByGeneration[this.generation.id] ?? [];
+      this.fish = this.pokemonService.getPokemonByIdArray(fishIds);
     });
   }
 
@@ -35,12 +42,7 @@ export class FishingRouletteComponent {
   }
 
   onItemSelected(index: number): void {
-    const pokemon = this.getFromGeneration();
-    const selectedPokemon = pokemon[index];
+    const selectedPokemon = this.fish[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
-  }
-
-  getFromGeneration(): PokemonItem[] {
-    return this.fishByGeneration[this.generation.id];
   }
 }
