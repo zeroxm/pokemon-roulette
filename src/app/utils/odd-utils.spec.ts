@@ -1,5 +1,5 @@
 import { interleaveOdds } from './odd-utils';
-import { WheelItem } from '../../../interfaces/wheel-item';
+import { WheelItem } from '../interfaces/wheel-item';
 
 describe('interleaveOdds utility', () => {
   const makeItems = (text: string, count: number): WheelItem[] =>
@@ -37,5 +37,54 @@ describe('interleaveOdds utility', () => {
     const yes = makeItems('y', 4);
     const no: WheelItem[] = [];
     expect(interleaveOdds(yes, no)).toEqual(yes);
+  });
+  it('Distribute the rest of the integer division evenly (5,12)', () => {
+    const yes = makeItems('y', 5);
+    const no = makeItems('n', 12);
+    const result = interleaveOdds(yes, no);
+    const expected = [
+      'n',
+      'n',
+      'y',
+      'n',
+      'n',
+      'y',
+      'n',
+      'n',
+      'n',
+      'y',
+      'n',
+      'n',
+      'y',
+      'n',
+      'n',
+      'n',
+      'y',
+    ];
+
+    for (let i = 0; i < expected.length; i++) {
+      expect(result[i].text).toBe(expected[i], 'index ' + i);
+    }
+  });
+  it('Distribute the rest of the integer division evenly (13,5)', () => {
+    const yes = makeItems('y', 13);
+    const no = makeItems('n', 5);
+    const result = interleaveOdds(yes, no);
+    const expected = [
+      ...['y', 'y'],
+      'n',
+      ...['y', 'y', 'y'],
+      'n',
+      ...['y', 'y'],
+      'n',
+      ...['y', 'y', 'y'],
+      'n',
+      ...['y', 'y'],
+      'n',
+      'y',
+    ];
+    for (let i = 0; i < expected.length; i++) {
+      expect(result[i].text).toBe(expected[i], 'index ' + i);
+    }
   });
 });

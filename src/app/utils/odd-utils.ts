@@ -2,49 +2,54 @@ import { WheelItem } from "../interfaces/wheel-item";
 
 /**
  * Distributes two lists of wheel items (`yes` and `no`) in proportion to each other.
- * 
+ *
  * @param yes   Array of items considered a positive outcome.
  * @param no    Array of items considered a negative outcome.
  * @returns     Newly ordered array mixing both inputs.
  */
 export function interleaveOdds(yes: WheelItem[], no: WheelItem[]): WheelItem[] {
+  if (yes.length >= no.length) {
+    return interleaveSortedOdds(yes, no);
+  }
+  return interleaveSortedOdds(no, yes);
+}
+
+/**
+ * Distributes two lists of wheel items in proportion to each other.
+ *
+ * @param big   Bigger array of items.
+ * @param small Smaller array of items.
+ * @returns     Newly ordered array mixing both inputs.
+ */
+function interleaveSortedOdds(
+  big: WheelItem[],
+  small: WheelItem[],
+): WheelItem[] {
   const result: WheelItem[] = [];
 
-  let yesIndex = 0;
-  let noIndex = 0;
-  const yesCount = yes.length;
-  const noCount = no.length;
+  let bigIndex = 0;
+  let smallIndex = 0;
+  const bigCount = big.length;
+  const smallCount = small.length;
 
   // simple edge cases first
-  if (yesCount === 0) {
-    return [...no];
+  if (bigCount === 0) {
+    return [...small];
   }
-  if (noCount === 0) {
-    return [...yes];
-  }
-
-  if (yesCount >= noCount) {
-    // round to nearest whole number, but never drop below 1
-    const interval = Math.max(1, Math.round(yesCount / noCount));
-    while (yesIndex < yesCount || noIndex < noCount) {
-      for (let i = 0; i < interval && yesIndex < yesCount; i++) {
-        result.push(yes[yesIndex++]);
-      }
-      if (noIndex < noCount) {
-        result.push(no[noIndex++]);
-      }
-    }
-  } else {
-    const interval = Math.max(1, Math.round(noCount / yesCount));
-    while (yesIndex < yesCount || noIndex < noCount) {
-      for (let i = 0; i < interval && noIndex < noCount; i++) {
-        result.push(no[noIndex++]);
-      }
-      if (yesIndex < yesCount) {
-        result.push(yes[yesIndex++]);
-      }
-    }
+  if (smallCount === 0) {
+    return [...big];
   }
 
-  return result;
+  const interval = Math.max(1, Math.floor(bigCount / smallCount));
+  const rest = bigCount % smallCount;
+  const exactBigCount = bigCount - rest;
+  while (bigIndex < exactBigCount || smallIndex < smallCount) {
+    for (let i = 0; i < interval && bigIndex < exactBigCount; i++) {
+      result.push(big[bigIndex++]);
+    }
+    if (smallIndex < smallCount) {
+      result.push(small[smallIndex++]);
+    }
+  }
+  return interleaveSortedOdds(result, rest === 0 ? [] : big.slice(-rest));
 }
