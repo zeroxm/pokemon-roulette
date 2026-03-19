@@ -15,41 +15,42 @@ export function interleaveOdds(yes: WheelItem[], no: WheelItem[]): WheelItem[] {
 }
 
 /**
- * Distributes two lists of wheel items in proportion to each other.
+ * Distributes two lists of wheel items in proportion to each other using a
+ * Bresenham-style accumulator: O(n) single pass, no recursion.
  *
- * @param big   Bigger array of items.
- * @param small Smaller array of items.
+ * For each output slot the accumulator grows by `smallCount`; when it exceeds
+ * `bigCount` a small item is emitted and the accumulator is reduced by `total`,
+ * guaranteeing consecutive gaps between small items differ by at most 1.
+ *
+ * @param big   Larger (or equal) array of items.
+ * @param small Smaller (or equal) array of items.
  * @returns     Newly ordered array mixing both inputs.
  */
 function interleaveSortedOdds(
   big: WheelItem[],
   small: WheelItem[],
 ): WheelItem[] {
-  const result: WheelItem[] = [];
-
-  let bigIndex = 0;
-  let smallIndex = 0;
   const bigCount = big.length;
   const smallCount = small.length;
 
-  // simple edge cases first
-  if (bigCount === 0) {
-    return [...small];
-  }
-  if (smallCount === 0) {
-    return [...big];
-  }
+  if (bigCount === 0) return [...small];
+  if (smallCount === 0) return [...big];
 
-  const interval = Math.max(1, Math.floor(bigCount / smallCount));
-  const rest = bigCount % smallCount;
-  const exactBigCount = bigCount - rest;
-  while (bigIndex < exactBigCount || smallIndex < smallCount) {
-    for (let i = 0; i < interval && bigIndex < exactBigCount; i++) {
+  const total = bigCount + smallCount;
+  const result: WheelItem[] = [];
+  let bigIndex = 0;
+  let smallIndex = 0;
+  let accumulator = 0;
+
+  for (let i = 0; i < total; i++) {
+    accumulator += smallCount;
+    if (accumulator > bigCount) {
+      result.push(small[smallIndex++]);
+      accumulator -= total;
+    } else {
       result.push(big[bigIndex++]);
     }
-    if (smallIndex < smallCount) {
-      result.push(small[smallIndex++]);
-    }
   }
-  return interleaveSortedOdds(result, rest === 0 ? [] : big.slice(-rest));
+
+  return result;
 }
