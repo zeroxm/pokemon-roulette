@@ -229,7 +229,8 @@
           }
         },
         "areaZero": {
-          "title": "Pokémon Paradoxo"
+          "title": "Pokémon Paradoxo",
+          "catch": "Capturar Pokémon Paradoxo?"
         },
         "cave": {
           "explore": {

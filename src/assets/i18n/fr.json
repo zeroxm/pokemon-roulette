@@ -229,7 +229,8 @@
           }
         },
         "areaZero": {
-          "title": "Pokémon Paradoxe"
+          "title": "Pokémon Paradoxe",
+          "catch": "Attraper Pokémon Paradoxe?"
         },
         "cave": {
           "explore": {

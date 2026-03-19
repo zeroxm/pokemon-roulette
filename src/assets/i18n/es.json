@@ -229,7 +229,8 @@
           }
         },
         "areaZero": {
-          "title": "Pokémon paradoja"
+          "title": "Pokémon paradoja",
+          "catch": "¿Capturar Pokémon paradoja?"
         },
         "cave": {
           "explore": {

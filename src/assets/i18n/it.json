@@ -229,7 +229,8 @@
           }
         },
         "areaZero": {
-          "title": "Pokémon Paradosso"
+          "title": "Pokémon Paradosso",
+          "catch": "Catturare Pokémon Paradosso?"
         },
         "cave": {
           "explore": {

@@ -1,5 +1,5 @@
 export const starterByGeneration: Record<number, number[]> = {
-    1: [1, 4, 7, 25],
+    1: [1, 4, 7, 25, 133],
     2: [152, 155, 158],
     3: [252, 255, 258],
     4: [387, 390, 393],

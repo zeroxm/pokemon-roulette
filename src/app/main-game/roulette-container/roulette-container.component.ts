@@ -36,6 +36,7 @@ import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/
 import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
+import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
@@ -71,6 +72,7 @@ import { ModalQueueService } from '../../services/modal-queue-service/modal-queu
     CavePokemonRouletteComponent,
     FossilRouletteComponent,
     AreaZeroRoulette,
+    CatchParadoxRouletteComponent,
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
     RivalBattleRouletteComponent,
@@ -464,6 +466,18 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   areaZero(): void {
     this.gameStateService.setNextState('area-zero');
+    this.finishCurrentState();
+  }
+
+  paradoxCaptureChance(pokemon: PokemonItem): void {
+    this.currentContextPokemon = pokemon;
+    this.gameStateService.setNextState('catch-paradox');
+    this.finishCurrentState();
+  }
+
+  paradoxCaptureSuccess(): void {
+    this.gameStateService.setNextState('check-shininess');
+    this.trainerService.addToTeam(this.currentContextPokemon);
     this.finishCurrentState();
   }
 

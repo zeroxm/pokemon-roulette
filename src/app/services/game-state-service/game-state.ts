@@ -20,6 +20,7 @@ export type GameState =
   | 'trade-pokemon'
   | 'find-item'
   | 'area-zero'
+  | 'catch-paradox'
   | 'explore-cave'
   | 'catch-cave-pokemon'
   | 'snorlax-encounter'

@@ -229,7 +229,8 @@
           }
         },
         "areaZero": {
-          "title": "Paradox Pokémon"
+          "title": "Paradox Pokémon",
+          "catch": "Catch Paradox Pokémon?"
         },
         "cave": {
           "explore": {

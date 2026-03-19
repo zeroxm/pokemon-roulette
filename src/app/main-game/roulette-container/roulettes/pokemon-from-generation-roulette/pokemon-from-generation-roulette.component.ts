@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
+import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 
@@ -15,12 +16,13 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 })
 export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy {
 
-  constructor(private generationService: GenerationService) {
+  constructor(private generationService: GenerationService, private pokemonService: PokemonService) {
   }
 
   pokemonByGeneration = pokemonByGeneration;
 
   generation!: GenerationItem;
+  pokemon: PokemonItem[] = [];
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
 
   private generationSubscription: Subscription | null = null;
@@ -28,6 +30,8 @@ export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
       this.generation = gen;
+      const pokemonIds = this.pokemonByGeneration[this.generation.id] ?? [];
+      this.pokemon = this.pokemonService.getPokemonByIdArray(pokemonIds);
     });
   }
 
@@ -36,12 +40,7 @@ export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy
   }
 
   onItemSelected(index: number): void {
-    const pokemon = this.getFromGeneration();
-    const selectedPokemon = pokemon[index];
+    const selectedPokemon = this.pokemon[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
-  }
-
-  getFromGeneration(): PokemonItem[] {
-    return this.pokemonByGeneration[this.generation.id];
   }
 }

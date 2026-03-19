@@ -114,8 +114,15 @@
   }
   @case ('area-zero') {
     <app-area-zero-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="paradoxCaptureChance($event)">
     </app-area-zero-roulette>
+  }
+  @case ('catch-paradox') {
+    <app-catch-paradox-roulette
+        [currentRound]="leadersDefeatedAmount"
+        (catchParadoxEvent)="paradoxCaptureSuccess()"
+        (nothingHappensEvent)="doNothing()">
+    </app-catch-paradox-roulette>
   }
   @case ('explore-cave') {
     <app-explore-cave-roulette
