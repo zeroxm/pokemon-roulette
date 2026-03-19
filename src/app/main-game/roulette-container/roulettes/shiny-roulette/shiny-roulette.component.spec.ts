@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShinyRouletteComponent } from './shiny-roulette.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ShinyRouletteComponent', () => {
   let component: ShinyRouletteComponent;
@@ -8,7 +9,7 @@ describe('ShinyRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShinyRouletteComponent]
+      imports: [ShinyRouletteComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainGameButtonComponent } from './main-game-button.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapController } from '@ng-icons/bootstrap-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('MainGameButtonComponent', () => {
   let component: MainGameButtonComponent;
@@ -12,7 +13,8 @@ describe('MainGameButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         MainGameButtonComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapController }),

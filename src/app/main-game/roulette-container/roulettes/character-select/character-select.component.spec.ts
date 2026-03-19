@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CharacterSelectComponent } from './character-select.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 
 describe('CharacterSelectComponent', () => {
@@ -11,7 +12,7 @@ describe('CharacterSelectComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [CharacterSelectComponent],
+      imports: [CharacterSelectComponent, TranslateModule.forRoot()],
       providers: [
         {provide: HttpClient, useValue: httpSpyObj }
       ]

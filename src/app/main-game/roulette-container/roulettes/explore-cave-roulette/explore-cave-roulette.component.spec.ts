@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ExploreCaveRouletteComponent } from './explore-cave-roulette.component';
 
@@ -8,7 +9,7 @@ describe('ExploreCaveRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExploreCaveRouletteComponent]
+      imports: [ExploreCaveRouletteComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

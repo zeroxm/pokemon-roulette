@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WheelComponent } from './wheel.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('WheelComponent', () => {
   let component: WheelComponent;
@@ -8,7 +9,7 @@ describe('WheelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WheelComponent]
+      imports: [WheelComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 
@@ -36,7 +37,7 @@ describe('WheelComponent', () => {
       { text: '7', weight: 1, fillStyle: 'purple' },
       { text: '8', weight: 1, fillStyle: 'pink' }
     ];
-    fixture.detectChanges();
+    (component as any).translatedItems = component.items;
 
     const results: number[] = new Array(component.items.length).fill(0);
 
@@ -64,7 +65,7 @@ describe('WheelComponent', () => {
       const color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
       component.items.push({ text: `${i}`, weight: 1, fillStyle: color });
     }
-    fixture.detectChanges();
+    (component as any).translatedItems = component.items;
 
     const results: number[] = new Array(component.items.length).fill(0);
     const occurrences: number[] = new Array(component.items.length).fill(0);
@@ -102,7 +103,7 @@ describe('WheelComponent', () => {
       { text: '7', weight: 1, fillStyle: 'purple' },
       { text: '8', weight: 1, fillStyle: 'pink' }
     ];
-    fixture.detectChanges();
+    (component as any).translatedItems = component.items;
 
     const results: number[] = new Array(component.items.length).fill(0);
 

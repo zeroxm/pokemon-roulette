@@ -4,6 +4,7 @@ import { MainGameComponent } from './main-game.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
 import { bootstrapArrowRepeat, bootstrapClock, bootstrapShare } from '@ng-icons/bootstrap-icons';
+import { TranslateModule } from '@ngx-translate/core';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 
 describe('MainGameComponent', () => {
@@ -19,7 +20,8 @@ describe('MainGameComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         MainGameComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapShare, bootstrapClock, bootstrapArrowRepeat }),

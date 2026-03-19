@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CatchLegendaryRouletteComponent } from './catch-legendary-roulette.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CatchLegendaryRouletteComponent', () => {
   let component: CatchLegendaryRouletteComponent;
@@ -8,7 +9,7 @@ describe('CatchLegendaryRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CatchLegendaryRouletteComponent]
+      imports: [CatchLegendaryRouletteComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

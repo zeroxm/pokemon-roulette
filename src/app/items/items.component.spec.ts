@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemsComponent } from './items.component';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ItemsComponent', () => {
   let component: ItemsComponent;
@@ -12,7 +13,7 @@ describe('ItemsComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [ItemsComponent],
+      imports: [ItemsComponent, TranslateModule.forRoot()],
       providers: [
         {provide: HttpClient, useValue: httpSpyObj }
       ]

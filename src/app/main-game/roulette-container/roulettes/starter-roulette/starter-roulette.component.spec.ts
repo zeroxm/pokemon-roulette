@@ -61,6 +61,6 @@ describe('StarterRouletteComponent', () => {
   });
 
   it('should load starters by id for current generation', () => {
-    expect(component.starters.map(starter => starter.pokemonId)).toEqual([1, 4, 7, 25]);
+    expect(component.starters.map(starter => starter.pokemonId)).toEqual([1, 4, 7, 25, 133]);
   });
 });
