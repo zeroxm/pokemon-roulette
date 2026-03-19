@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokemonFromGenerationRouletteComponent } from './pokemon-from-generation-roulette.component';
-import { GenerationItem } from '../../../interfaces/generation-item';
+import { GenerationItem } from '../../../../interfaces/generation-item';
 
 describe('PokemonFromGenerationRouletteComponent', () => {
   let component: PokemonFromGenerationRouletteComponent;
