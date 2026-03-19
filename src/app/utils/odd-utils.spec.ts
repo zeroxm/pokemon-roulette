@@ -63,7 +63,7 @@ describe('interleaveOdds utility', () => {
     ];
 
     for (let i = 0; i < expected.length; i++) {
-      expect(result[i].text).toBe(expected[i], 'indice ' + i);
+      expect(result[i].text).toBe(expected[i], 'index ' + i);
     }
   });
   it('Distribute the rest of the integer division evenly (13,5)', () => {
@@ -84,7 +84,7 @@ describe('interleaveOdds utility', () => {
       'y',
     ];
     for (let i = 0; i < expected.length; i++) {
-      expect(result[i].text).toBe(expected[i], 'indice ' + i);
+      expect(result[i].text).toBe(expected[i], 'index ' + i);
     }
   });
 });

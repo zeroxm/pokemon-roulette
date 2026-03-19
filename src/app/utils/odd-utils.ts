@@ -51,5 +51,5 @@ function interleaveSortedOdds(
       result.push(small[smallIndex++]);
     }
   }
-  return interleaveSortedOdds(result, rest === 0 ? [] : big.slice(-1 * rest));
+  return interleaveSortedOdds(result, rest === 0 ? [] : big.slice(-rest));
 }
