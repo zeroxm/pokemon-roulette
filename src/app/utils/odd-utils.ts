@@ -1,4 +1,4 @@
-import { WheelItem } from '../interfaces/wheel-item';
+import { WheelItem } from "../interfaces/wheel-item";
 
 /**
  * Distributes two lists of wheel items (`yes` and `no`) in proportion to each other.

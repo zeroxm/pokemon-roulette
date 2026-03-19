@@ -10,7 +10,7 @@ describe('interleaveOdds utility', () => {
     const no = makeItems('n', 2);
     const result = interleaveOdds(yes, no);
 
-    expect(result.filter((i) => i.text === 'n').length).toBe(2);
+    expect(result.filter(i => i.text === 'n').length).toBe(2);
     // after roughly each 5 yes there should be a no
     expect(result[5].text).toBe('n');
     expect(result[11].text).toBe('n');
@@ -21,10 +21,10 @@ describe('interleaveOdds utility', () => {
     const no = makeItems('n', 7);
     const result = interleaveOdds(yes, no);
 
-    expect(result.filter((i) => i.text === 'y').length).toBe(3);
-    expect(result.filter((i) => i.text === 'n').length).toBe(7);
+    expect(result.filter(i => i.text === 'y').length).toBe(3);
+    expect(result.filter(i => i.text === 'n').length).toBe(7);
     // with rounding (7/3 ≈ 2), expect about two no at start
-    expect(result.slice(0, 2).every((i) => i.text === 'n')).toBeTrue();
+    expect(result.slice(0, 2).every(i => i.text === 'n')).toBeTrue();
   });
 
   it('returns all no when yes array is empty', () => {
