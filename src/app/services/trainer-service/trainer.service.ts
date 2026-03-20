@@ -13,6 +13,7 @@ import { GenerationService } from '../generation-service/generation.service';
 import { GameState } from '../game-state-service/game-state';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { palafinForms } from './palafin-forms';
+import { stickyBattleForms } from './sticky-battle-forms';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class TrainerService {
     private pokemonService: PokemonService,
     private gameStateService: GameStateService) {
     this.gameStateSubscription = this.gameStateService.currentState.subscribe((gameState) => {
-      this.syncTemporaryBattleForms(gameState);
+      this.syncBattleForms(gameState);
     });
   }
 
@@ -37,39 +38,7 @@ export class TrainerService {
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [
-    { text: "pokemon.rattata", pokemonId: 19, fillStyle: "purple",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png',
-        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png'
-      }, shiny: false, power: 1, weight: 1 
-    },
-
-    { text: "pokemon.rattata", pokemonId: 10091, fillStyle: "purple",
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10091.png',
-        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10091.png'
-      }, shiny: false, power: 1, weight: 1 
-    },
-    { text: "pokemon.pikachu", pokemonId: 25, fillStyle: "goldenrod", 
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'
-      },
-      shiny: false, power: 2, weight: 1 
-    },
-    { text: "pokemon.mr.mime", pokemonId: 10168, fillStyle: "pink", 
-      sprite: {
-        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10168.png',
-        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10168.png'
-      },
-      shiny: false, power: 2, weight: 1 
-    },
-
-
-    
-
-  ];
+  trainerTeam: PokemonItem[] = [];
 
   storedPokemon: PokemonItem[] = [];
 
@@ -77,6 +46,7 @@ export class TrainerService {
   private lastAddedPokemon: PokemonItem | null = null;
   private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
   private readonly temporaryBattleForms = palafinForms;
+  private readonly stickyBattleFormGroups = stickyBattleForms;
 
   trainerItems: ItemItem[] = [
     {
@@ -86,15 +56,7 @@ export class TrainerService {
       fillStyle: 'purple',
       weight: 1,
       description: 'items.potion.description'
-    },
-    {
-      text: 'items.exp-share.name',
-      name: 'exp-share',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png',
-      fillStyle: 'black',
-      weight: 1,
-      description: 'items.exp-share.description'
-    },
+    }
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
@@ -188,13 +150,13 @@ export class TrainerService {
     return auxPokemonList;
   }
 
-  private syncTemporaryBattleForms(gameState: GameState): void {
+  private syncBattleForms(gameState: GameState): void {
     if (this.battleStates.has(gameState)) {
-      this.applyTemporaryBattleForms();
+      this.applyBattleForms();
       return;
     }
 
-    this.revertTemporaryBattleForms();
+    this.revertBattleForms();
   }
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
@@ -308,22 +270,61 @@ export class TrainerService {
     this.trainerBadgesObservable.next(this.trainerBadges);
   }
 
-  private applyTemporaryBattleForms(): void {
-    const transformedTeam = this.replaceTemporaryForms(this.trainerTeam, true);
-    const transformedStored = this.replaceTemporaryForms(this.storedPokemon, true);
+  // Applies all battle-entry transforms in one pass with a single emit.
+  // Temporary forms apply to team+stored; sticky forms apply to team only.
+  private applyBattleForms(): void {
+    let changed = false;
+    changed = this.replaceTemporaryForms(this.trainerTeam, true) || changed;
+    changed = this.replaceTemporaryForms(this.storedPokemon, true) || changed;
+    changed = this.applyStickyFormsToCollection(this.trainerTeam) || changed;
 
-    if (transformedTeam || transformedStored) {
+    if (changed) {
       this.trainerTeamObservable.next(this.getTeam());
     }
   }
 
-  private revertTemporaryBattleForms(): void {
-    const revertedTeam = this.replaceTemporaryForms(this.trainerTeam, false);
-    const revertedStored = this.replaceTemporaryForms(this.storedPokemon, false);
+  // Reverts temporary forms only. Sticky forms intentionally persist after battle.
+  private revertBattleForms(): void {
+    let changed = false;
+    changed = this.replaceTemporaryForms(this.trainerTeam, false) || changed;
+    changed = this.replaceTemporaryForms(this.storedPokemon, false) || changed;
 
-    if (revertedTeam || revertedStored) {
+    if (changed) {
       this.trainerTeamObservable.next(this.getTeam());
     }
+  }
+
+  private applyStickyFormsToCollection(collection: PokemonItem[]): boolean {
+    let replaced = false;
+
+    this.stickyBattleFormGroups.forEach(group => {
+      const formIds = new Set(group.forms.map(f => f.pokemonId));
+
+      collection.forEach((pokemon, index) => {
+        if (!formIds.has(pokemon.pokemonId)) {
+          return;
+        }
+
+        const currentFormIndex = group.forms.findIndex(f => f.pokemonId === pokemon.pokemonId);
+        let targetForm: PokemonItem;
+
+        if (group.mode === 'toggle') {
+          targetForm = group.forms[(currentFormIndex + 1) % group.forms.length];
+        } else {
+          const otherForms = group.forms.filter(f => f.pokemonId !== pokemon.pokemonId);
+          targetForm = otherForms[Math.floor(Math.random() * otherForms.length)];
+        }
+
+        const replacement = structuredClone(targetForm);
+        replacement.shiny = pokemon.shiny;
+        replacement.sprite = null;
+        this.loadPokemonSpriteIfMissing(replacement);
+        collection[index] = replacement;
+        replaced = true;
+      });
+    });
+
+    return replaced;
   }
 
   private loadPokemonSpriteIfMissing(pokemon: PokemonItem): void {

@@ -141,4 +141,120 @@ describe('TrainerService', () => {
     expect(service.storedPokemon.filter(pokemon => pokemon.pokemonId === 964).length).toBe(1);
     expect(service.storedPokemon.filter(pokemon => pokemon.pokemonId === 10256).length).toBe(0);
   });
+
+  describe('sticky battle form transforms', () => {
+    const aegislashShield: PokemonItem = {
+      text: 'pokemon.aegislash-shield',
+      pokemonId: 681,
+      fillStyle: 'brown',
+      sprite: null,
+      shiny: false,
+      power: 3,
+      weight: 1,
+    };
+
+    const darmanitanStandard: PokemonItem = {
+      text: 'pokemon.darmanitan-standard',
+      pokemonId: 555,
+      fillStyle: 'darkred',
+      sprite: null,
+      shiny: false,
+      power: 3,
+      weight: 1,
+    };
+
+    const darmanitanGalarStandard: PokemonItem = {
+      text: 'pokemon.darmanitan-galar-standard',
+      pokemonId: 10177,
+      fillStyle: 'darkred',
+      sprite: null,
+      shiny: false,
+      power: 3,
+      weight: 1,
+    };
+
+    const ogerponTeal: PokemonItem = {
+      text: 'pokemon.ogerpon',
+      pokemonId: 1017,
+      fillStyle: 'green',
+      sprite: null,
+      shiny: false,
+      power: 3,
+      weight: 1,
+    };
+
+    const ogerponFormIds = new Set([1017, 10273, 10274, 10275]);
+
+    it('should toggle aegislash shield→blade on battle entry and remain blade after battle', () => {
+      service.trainerTeam = [structuredClone(aegislashShield)];
+
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10026);
+
+      emitGameState('adventure-continues');
+      expect(service.trainerTeam[0].pokemonId).toBe(10026);
+    });
+
+    it('should toggle aegislash blade→shield on the next battle', () => {
+      service.trainerTeam = [structuredClone(aegislashShield)];
+
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10026);
+
+      emitGameState('adventure-continues');
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(681);
+    });
+
+    it('should toggle darmanitan standard→zen on battle entry and keep zen after battle', () => {
+      service.trainerTeam = [structuredClone(darmanitanStandard)];
+
+      emitGameState('elite-four-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10017);
+
+      emitGameState('start-adventure');
+      expect(service.trainerTeam[0].pokemonId).toBe(10017);
+    });
+
+    it('should toggle darmanitan and darmanitan-galar forms independently', () => {
+      service.trainerTeam = [structuredClone(darmanitanStandard), structuredClone(darmanitanGalarStandard)];
+
+      emitGameState('champion-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10017);
+      expect(service.trainerTeam[1].pokemonId).toBe(10178);
+    });
+
+    it('should transform ogerpon to a different form on battle entry and keep it after battle', () => {
+      service.trainerTeam = [structuredClone(ogerponTeal)];
+
+      emitGameState('gym-battle');
+      expect(ogerponFormIds.has(service.trainerTeam[0].pokemonId)).toBeTrue();
+      expect(service.trainerTeam[0].pokemonId).not.toBe(1017);
+
+      const formAfterFirstBattle = service.trainerTeam[0].pokemonId;
+      emitGameState('adventure-continues');
+      expect(service.trainerTeam[0].pokemonId).toBe(formAfterFirstBattle);
+    });
+
+    it('should preserve shiny flag on sticky form transform', () => {
+      const shinyAegislash = structuredClone(aegislashShield);
+      shinyAegislash.shiny = true;
+      service.trainerTeam = [shinyAegislash];
+
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10026);
+      expect(service.trainerTeam[0].shiny).toBeTrue();
+    });
+
+    it('should not apply sticky forms to storedPokemon', () => {
+      service.trainerTeam = [structuredClone(bulbasaur)];
+      service.storedPokemon = [structuredClone(aegislashShield), structuredClone(ogerponTeal)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(1);
+      expect(service.storedPokemon[0].pokemonId).toBe(681);
+      expect(service.storedPokemon[1].pokemonId).toBe(1017);
+    });
+  });
 });
