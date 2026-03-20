@@ -30,7 +30,7 @@ describe('EvolutionService', () => {
     expect(evolutions.map((pokemon) => pokemon.pokemonId)).toContain(10100);
 
     const alolaRaichu = evolutions.find((pokemon) => pokemon.pokemonId === 10100) as PokemonItem;
-    expect(alolaRaichu.text).toBe('Raichu (Alola)');
+    expect(alolaRaichu.text).toBe('pokemon.raichu-alola');
     expect(alolaRaichu.sprite).toBeNull();
   });
 
@@ -44,7 +44,7 @@ describe('EvolutionService', () => {
 
     expect(evolutions.length).toBe(1);
     expect(evolutions[0].pokemonId).toBe(10104);
-    expect(evolutions[0].text).toBe('Ninetales (Alola)');
+    expect(evolutions[0].text).toBe('pokemon.ninetales-alola');
     expect(evolutions[0].sprite).toBeNull();
   });
 });

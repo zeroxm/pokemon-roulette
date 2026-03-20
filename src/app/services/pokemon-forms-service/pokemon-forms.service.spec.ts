@@ -52,7 +52,7 @@ describe('PokemonFormsService', () => {
     const forms = service.getPokemonForms(deoxysBase);
 
     expect(forms.map(form => form.pokemonId)).toEqual([386, 10001, 10002, 10003]);
-    expect(forms[1].text).toBe('Deoxys (Attack Forme)');
+    expect(forms[1].text).toBe('pokemon.deoxys-attack');
     expect(forms[1].fillStyle).toBe('darkred');
     expect(forms[1].weight).toBe(1);
     expect(deoxysBase.pokemonId).toBe(386);
