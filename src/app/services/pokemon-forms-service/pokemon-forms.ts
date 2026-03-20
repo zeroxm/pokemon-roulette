@@ -10,6 +10,7 @@ export const pokemonForms: Record<number, PokemonForm[]> = {
         { pokemonId: 10092, text: 'pokemon.raticate-alola', fillStyle: 'brown', weight: 1}
     ],
     26: [
+        { pokemonId: 26, text: 'pokemon.raichu', fillStyle: 'goldenrod', weight: 1},
         { pokemonId: 10100, text: 'pokemon.raichu-alola', fillStyle: 'goldenrod', weight: 1}
     ],
     27: [
