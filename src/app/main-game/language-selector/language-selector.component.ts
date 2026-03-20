@@ -2,7 +2,8 @@ import {Component, inject} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '../../interfaces/language';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import {NgIcon} from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { bootstrapCheck } from '@ng-icons/bootstrap-icons';
 
 @Component({
   selector: 'app-language-selector',
@@ -11,6 +12,9 @@ import {NgIcon} from '@ng-icons/core';
   imports: [
     NgbDropdownModule,
     NgIcon
+  ],
+  providers: [
+    provideIcons({ bootstrapCheck })
   ],
   standalone: true
 })

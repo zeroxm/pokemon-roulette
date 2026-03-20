@@ -4,6 +4,8 @@ import { WheelComponent } from './wheel.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('WheelComponent', () => {
+  const sigmaTolerance = (p: number, runs: number, sigma = 4) => sigma * Math.sqrt((p * (1 - p)) / runs);
+
   let component: WheelComponent;
   let fixture: ComponentFixture<WheelComponent>;
 
@@ -24,8 +26,8 @@ describe('WheelComponent', () => {
 
   it('should have a fair distribuition of chances', () => {
     const numRuns = 10000;
-    const tolerance = 0.01;
     const expectedProbability = 1 / 8;
+    const tolerance = sigmaTolerance(expectedProbability, numRuns);
 
     component.items = [
       { text: '1', weight: 1, fillStyle: 'red' },
@@ -55,8 +57,8 @@ describe('WheelComponent', () => {
 
   it('should have a fair distribuition for large numbers of elements', () => {
     const numRuns = 100000;
-    const tolerance = 0.01;
     const expectedProbability = 1 / 150;
+    const tolerance = sigmaTolerance(expectedProbability, numRuns, 5);
 
     component.items = [];
     const possibleColors = ['red', 'green', 'blue', 'yellow', 'orange', 'black', 'purple', 'pink'];
@@ -79,7 +81,6 @@ describe('WheelComponent', () => {
     const probabilities = results.map(result => result / numRuns);
 
     const meanProbability = probabilities.reduce((sum, probability) => sum + probability, 0) / probabilities.length;
-    console.log(`Mean probability: ${(meanProbability * 100).toFixed(2)}%`);
     expect(Math.abs(meanProbability - expectedProbability)).toBeLessThan(tolerance);
 
     for (let i = 0; i < probabilities.length; i++) {
@@ -89,9 +90,10 @@ describe('WheelComponent', () => {
 
   it('the distribuition should respect the weight', () => {
     const numRuns = 10000;
-    const tolerance = 0.01;
     const expectedForLower = 1 / 14;
     const expectedForHigher = 1 / 2;
+    const lowerTolerance = sigmaTolerance(expectedForLower, numRuns, 4);
+    const higherTolerance = sigmaTolerance(expectedForHigher, numRuns, 4);
 
     component.items = [
       { text: '1', weight: 7, fillStyle: 'red' },
@@ -114,10 +116,10 @@ describe('WheelComponent', () => {
 
     const probabilities = results.map(result => result / numRuns);
 
-    expect(Math.abs(probabilities[0] - expectedForHigher)).toBeLessThan(tolerance);
+    expect(Math.abs(probabilities[0] - expectedForHigher)).toBeLessThan(higherTolerance);
 
     for (let i = 1; i < probabilities.length; i++) {
-      expect(Math.abs(probabilities[i] - expectedForLower)).toBeLessThan(tolerance);
+      expect(Math.abs(probabilities[i] - expectedForLower)).toBeLessThan(lowerTolerance);
     }
   });
 });

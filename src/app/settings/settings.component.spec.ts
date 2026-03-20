@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsComponent } from './settings.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { provideIcons } from '@ng-icons/core';
-import { bootstrapGear } from '@ng-icons/bootstrap-icons';
+import { bootstrapController, bootstrapGear } from '@ng-icons/bootstrap-icons';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -13,7 +13,7 @@ describe('SettingsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SettingsComponent, TranslateModule.forRoot()],
       providers: [
-        provideIcons({ bootstrapGear })
+        provideIcons({ bootstrapController, bootstrapGear })
       ]
     })
     .compileComponents();
