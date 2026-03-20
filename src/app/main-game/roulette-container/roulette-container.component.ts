@@ -10,7 +10,7 @@ import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
-import { AudioService } from '../../services/audio-service/audio.service';
+import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { SettingsService } from '../../services/settings-service/settings.service';
 import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
 import { Subscription } from 'rxjs';
@@ -105,11 +105,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private trainerService: TrainerService,
       private modalService: NgbModal,
       private modalQueueService: ModalQueueService,
-      private audioService: AudioService,
+      private soundFxService: SoundFxService,
       private settingsService: SettingsService,
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService) {
-      this.itemFoundAudio = this.audioService.createAudio('./ItemFound.mp3');
+      this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
     }
 
     ngOnInit(): void {
@@ -176,7 +176,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   fromLeader: number = 0;
   infoModalMessage = '';
   infoModalTitle = '';
-  itemFoundAudio!: HTMLAudioElement;
+  itemFoundAudio!: SoundFxHandle;
   leadersDefeatedAmount: number = 0;
   multitaskCounter: number = 0;
   pkmnEvoTitle = '';
@@ -726,7 +726,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private playItemFoundAudio(): void {
-    this.audioService.playAudio(this.itemFoundAudio, 0.25);
+    void this.soundFxService.playSoundFx(this.itemFoundAudio, 0.25);
   }
 
   private showpkmnEvoModal(): void {
