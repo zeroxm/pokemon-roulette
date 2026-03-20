@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { CheckEvolutionRouletteComponent } from './check-evolution-roulette.component';
 
@@ -8,7 +9,7 @@ describe('CheckEvolutionRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CheckEvolutionRouletteComponent]
+      imports: [CheckEvolutionRouletteComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

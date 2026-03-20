@@ -4,6 +4,7 @@ import { GameOverComponent } from './game-over.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapClock, bootstrapShare } from '@ng-icons/bootstrap-icons';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('GameOverComponent', () => {
   let component: GameOverComponent;
@@ -16,7 +17,8 @@ describe('GameOverComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         GameOverComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapShare, bootstrapClock }),

@@ -1,5 +1,5 @@
 <h1 class="title">{{ 'game.main.roulette.cave.which' | translate }}<br/>({{generation.text}})</h1>
 <app-wheel  #wheel
-            [items]="getFromGeneration()"
+            [items]="cavePokemon"
             (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>

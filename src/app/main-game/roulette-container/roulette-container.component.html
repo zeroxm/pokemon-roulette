@@ -11,7 +11,7 @@
   }
   @case ('starter-pokemon') {
     <app-starter-roulette
-        (selectedStarterEvent)="storePokemon($event)">
+        (selectedStarterEvent)="capturePokemon($event)">
     </app-starter-roulette>
   }
   @case ('check-shininess') {
@@ -29,7 +29,7 @@
   }
   @case ('catch-pokemon') {
     <app-pokemon-from-generation-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-pokemon-from-generation-roulette>
   }
   @case ('select-from-pokemon-list') {
@@ -39,6 +39,12 @@
         [trainerTeam]="auxPokemonList"
         (selectedMemberEvent)="continueWithPokemon($event)">
     </app-pokemon-from-aux-list-roulette>
+  }
+  @case ('select-form') {
+    <app-select-form-roulette
+        [forms]="pokemonForms"
+        (selectedFormEvent)="selectPokemonForm($event)">
+    </app-select-form-roulette>
   }
   @case ('gym-battle') {
     <app-gym-battle-roulette
@@ -73,7 +79,8 @@
         (multitaskEvent)="multitask()"
         (goFishingEvent)="goFishing()"
         (findFossilEvent)="findFossil()"
-        (battleRivalEvent)="battleRival()">
+        (battleRivalEvent)="battleRival()"
+        (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
   @case ('team-rocket-encounter') {
@@ -86,7 +93,7 @@
   }
   @case ('mysterious-egg') {
     <app-mysterious-egg-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-mysterious-egg-roulette>
   }
   @case ('legendary-encounter') {
@@ -111,6 +118,18 @@
         (itemSelectedEvent)="receiveItem($event)">
     </app-find-item-roulette>
   }
+  @case ('area-zero') {
+    <app-area-zero-roulette
+        (selectedPokemonEvent)="paradoxCaptureChance($event)">
+    </app-area-zero-roulette>
+  }
+  @case ('catch-paradox') {
+    <app-catch-paradox-roulette
+        [currentRound]="leadersDefeatedAmount"
+        (catchParadoxEvent)="paradoxCaptureSuccess()"
+        (nothingHappensEvent)="doNothing()">
+    </app-catch-paradox-roulette>
+  }
   @case ('explore-cave') {
     <app-explore-cave-roulette
         (catchCavePokemonEvent)="catchCavePokemon()"
@@ -124,12 +143,12 @@
   }
   @case ('catch-cave-pokemon') {
     <app-cave-pokemon-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-cave-pokemon-roulette>
   }
   @case ('find-fossil') {
     <app-fossil-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-fossil-roulette>
   }
   @case('snorlax-encounter') {
@@ -142,7 +161,7 @@
   }
   @case ('go-fishing') {
     <app-fishing-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-fishing-roulette>
   }
   @case ('battle-rival') {
@@ -251,10 +270,10 @@
 
 <ng-template #infoModal let-modal>
     <div class="modal-body">
-        <h1>{{ infoModalTitle }}</h1>
+        <h1>{{ infoModalTitle  }}</h1>
         <div class="explain-panel">
             <div class="message">
-                <p>{{ infoModalMessage | translate }}</p>
+                <p>{{ infoModalMessage }}</p>
             </div>
         </div>
     </div>

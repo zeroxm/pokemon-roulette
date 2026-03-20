@@ -1,0 +1,280 @@
+{
+    "3": [
+        { "pokemonId": 10033, "text": "Venusaur (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "6": [
+        { "pokemonId": 10034, "text": "Charizard (Mega X)", "fillStyle": "red", "weight": 1},
+        { "pokemonId": 10035, "text": "Charizard (Mega Y)", "fillStyle": "red", "weight": 1}
+    ],
+    "9": [
+        { "pokemonId": 10036, "text": "Blastoise (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "15": [
+        { "pokemonId": 10090, "text": "Beedrill (Mega)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "18": [
+        { "pokemonId": 10073, "text": "Pidgeot (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "26": [
+        { "pokemonId": 10304, "text": "Raichu (Mega X)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10305, "text": "Raichu (Mega Y)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "36": [
+        { "pokemonId": 10278, "text": "Clefable (Mega)", "fillStyle": "pink", "weight": 1}
+    ],
+    "65": [
+        { "pokemonId": 10037, "text": "Alakazam (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "71": [
+        { "pokemonId": 10279, "text": "Victreebel (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "80": [
+        { "pokemonId": 10071, "text": "Slowbro (Mega)", "fillStyle": "pink", "weight": 1}
+    ],
+    "94": [
+        { "pokemonId": 10038, "text": "Gengar (Mega)", "fillStyle": "purple", "weight": 1}
+    ],
+    "115": [
+        { "pokemonId": 10039, "text": "Kangaskhan (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "121": [
+        { "pokemonId": 10280, "text": "Starmie (Mega)", "fillStyle": "purple", "weight": 1}
+    ],
+    "127": [
+        { "pokemonId": 10040, "text": "Pinsir (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "130": [
+        { "pokemonId": 10041, "text": "Gyarados (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "142": [
+        { "pokemonId": 10042, "text": "Aerodactyl (Mega)", "fillStyle": "purple", "weight": 1}
+    ],
+    "149": [
+        { "pokemonId": 10281, "text": "Dragonite (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "150": [
+        { "pokemonId": 10043, "text": "Mewtwo (Mega X)", "fillStyle": "purple", "weight": 1},
+        { "pokemonId": 10044, "text": "Mewtwo (Mega Y)", "fillStyle": "purple", "weight": 1}
+    ],
+    "154": [
+        { "pokemonId": 10282, "text": "Meganium (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "160": [
+        { "pokemonId": 10283, "text": "Feraligatr (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "181": [
+        { "pokemonId": 10045, "text": "Ampharos (Mega)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "208": [
+        { "pokemonId": 10072, "text": "Steelix (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "212": [
+        { "pokemonId": 10046, "text": "Scizor (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "214": [
+        { "pokemonId": 10047, "text": "Heracross (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "227": [
+        { "pokemonId": 10284, "text": "Skarmory (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "229": [
+        { "pokemonId": 10048, "text": "Houndoom (Mega)", "fillStyle": "black", "weight": 1}
+    ],
+    "248": [
+        { "pokemonId": 10049, "text": "Tyranitar (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "254": [
+        { "pokemonId": 10065, "text": "Sceptile (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "257": [
+        { "pokemonId": 10050, "text": "Blaziken (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "260": [
+        { "pokemonId": 10064, "text": "Swampert (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "282": [
+        { "pokemonId": 10051, "text": "Gardevoir (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "302": [
+        { "pokemonId": 10066, "text": "Sableye (Mega)", "fillStyle": "purple", "weight": 1}
+    ],
+    "303": [
+        { "pokemonId": 10052, "text": "Mawile (Mega)", "fillStyle": "black", "weight": 1}
+    ],
+    "306": [
+        { "pokemonId": 10053, "text": "Aggron (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "308": [
+        { "pokemonId": 10054, "text": "Medicham (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "310": [
+        { "pokemonId": 10055, "text": "Manectric (Mega)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "319": [
+        { "pokemonId": 10070, "text": "Sharpedo (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "323": [
+        { "pokemonId": 10087, "text": "Camerupt (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "334": [
+        { "pokemonId": 10067, "text": "Altaria (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "354": [
+        { "pokemonId": 10056, "text": "Banette (Mega)", "fillStyle": "black", "weight": 1}
+    ],
+    "358": [
+        { "pokemonId": 10306, "text": "Chimecho (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "359": [
+        { "pokemonId": 10057, "text": "Absol (Mega)", "fillStyle": "white", "weight": 1},
+        { "pokemonId": 10307, "text": "Absol (Mega Z)", "fillStyle": "white", "weight": 1}
+    ],
+    "362": [
+        { "pokemonId": 10074, "text": "Glalie (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "373": [
+        { "pokemonId": 10089, "text": "Salamence (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "376": [
+        { "pokemonId": 10076, "text": "Metagross (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "380": [
+        { "pokemonId": 10062, "text": "Latias (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "381": [
+        { "pokemonId": 10063, "text": "Latios (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "382": [
+        { "pokemonId": 10077, "text": "Kyogre (Primal)", "fillStyle": "blue", "weight": 1}
+    ],
+    "383": [
+        { "pokemonId": 10078, "text": "Groudon (Primal)", "fillStyle": "red", "weight": 1}
+    ],
+    "384": [
+        { "pokemonId": 10079, "text": "Rayquaza (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "398": [
+        { "pokemonId": 10308, "text": "Staraptor (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "428": [
+        { "pokemonId": 10088, "text": "Lopunny (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "445": [
+        { "pokemonId": 10058, "text": "Garchomp (Mega)", "fillStyle": "blue", "weight": 1},
+        { "pokemonId": 10309, "text": "Garchomp (Mega Z)", "fillStyle": "blue", "weight": 1}
+    ],
+    "448": [
+        { "pokemonId": 10059, "text": "Lucario (Mega)", "fillStyle": "blue", "weight": 1},
+        { "pokemonId": 10310, "text": "Lucario (Mega Z)", "fillStyle": "blue", "weight": 1}
+    ],
+    "460": [
+        { "pokemonId": 10060, "text": "Abomasnow (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "475": [
+        { "pokemonId": 10068, "text": "Gallade (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "478": [
+        { "pokemonId": 10285, "text": "Froslass (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "485": [
+        { "pokemonId": 10311, "text": "Heatran (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "491": [
+        { "pokemonId": 10312, "text": "Darkrai (Mega)", "fillStyle": "black", "weight": 1}
+    ],
+    "500": [
+        { "pokemonId": 10286, "text": "Emboar (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "530": [
+        { "pokemonId": 10287, "text": "Excadrill (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "531": [
+        { "pokemonId": 10069, "text": "Audino (Mega)", "fillStyle": "pink", "weight": 1}
+    ],
+    "545": [
+        { "pokemonId": 10288, "text": "Scolipede (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "560": [
+        { "pokemonId": 10289, "text": "Scrafty (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "604": [
+        { "pokemonId": 10290, "text": "Eelektross (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "609": [
+        { "pokemonId": 10291, "text": "Chandelure (Mega)", "fillStyle": "black", "weight": 1}
+    ],
+    "623": [
+        { "pokemonId": 10313, "text": "Golurk (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "652": [
+        { "pokemonId": 10292, "text": "Chesnaught (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "655": [
+        { "pokemonId": 10293, "text": "Delphox (Mega)", "fillStyle": "red", "weight": 1}
+    ],
+    "658": [
+        { "pokemonId": 10116, "text": "Greninja (Battle Bond)", "fillStyle": "blue", "weight": 1},
+        { "pokemonId": 10294, "text": "Greninja (Mega)", "fillStyle": "blue", "weight": 1},
+        { "pokemonId": 10117, "text": "Greninja (Ash)", "fillStyle": "blue", "weight": 1}
+    ],
+    "668": [
+        { "pokemonId": 10295, "text": "Pyroar (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "670": [
+        { "pokemonId": 10296, "text": "Floette (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "678": [
+        { "pokemonId": 10314, "text": "Meowstic (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "687": [
+        { "pokemonId": 10297, "text": "Malamar (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "689": [
+        { "pokemonId": 10298, "text": "Barbaracle (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "691": [
+        { "pokemonId": 10299, "text": "Dragalge (Mega)", "fillStyle": "brown", "weight": 1}
+    ],
+    "701": [
+        { "pokemonId": 10300, "text": "Hawlucha (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "718": [
+        { "pokemonId": 10301, "text": "Zygarde (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "719": [
+        { "pokemonId": 10075, "text": "Diancie (Mega)", "fillStyle": "pink", "weight": 1}
+    ],
+    "740": [
+        { "pokemonId": 10315, "text": "Crabominable (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "768": [
+        { "pokemonId": 10316, "text": "Golisopod (Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "780": [
+        { "pokemonId": 10302, "text": "Drampa (Mega)", "fillStyle": "white", "weight": 1}
+    ],
+    "801": [
+        { "pokemonId": 10317, "text": "Magearna (Mega)", "fillStyle": "gray", "weight": 1},
+        { "pokemonId": 10318, "text": "Magearna (Original Mega)", "fillStyle": "gray", "weight": 1}
+    ],
+    "807": [
+        { "pokemonId": 10319, "text": "Zeraora (Mega)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "870": [
+        { "pokemonId": 10303, "text": "Falinks (Mega)", "fillStyle": "yellow", "weight": 1}
+    ],
+    "952": [
+        { "pokemonId": 10320, "text": "Scovillain (Mega)", "fillStyle": "green", "weight": 1}
+    ],
+    "970": [
+        { "pokemonId": 10321, "text": "Glimmora (Mega)", "fillStyle": "blue", "weight": 1}
+    ],
+    "978": [
+        { "pokemonId": 10322, "text": "Tatsugiri (Curly Mega)", "fillStyle": "pink", "weight": 1},
+        { "pokemonId": 10323, "text": "Tatsugiri (Droopy Mega)", "fillStyle": "pink", "weight": 1},
+        { "pokemonId": 10324, "text": "Tatsugiri (Stretchy Mega)", "fillStyle": "pink", "weight": 1}
+    ],
+    "998": [
+        { "pokemonId": 10325, "text": "Baxcalibur (Mega)", "fillStyle": "gray", "weight": 1}
+    ]
+}

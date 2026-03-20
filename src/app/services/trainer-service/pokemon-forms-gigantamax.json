@@ -1,0 +1,101 @@
+{
+    "3": [
+        { "pokemonId": 10195, "text": "Venusaur (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "6": [
+        { "pokemonId": 10196, "text": "Charizard (Gmax)", "fillStyle": "red", "weight": 1 }
+    ],
+    "9": [
+        { "pokemonId": 10197, "text": "Blastoise (Gmax)", "fillStyle": "blue", "weight": 1 }
+    ],
+    "12": [
+        { "pokemonId": 10198, "text": "Butterfree (Gmax)", "fillStyle": "white", "weight": 1 }
+    ],
+    "25": [
+        { "pokemonId": 10199, "text": "Pikachu (Gmax)", "fillStyle": "yellow", "weight": 1 }
+    ],
+    "52": [
+        { "pokemonId": 10200, "text": "Meowth (Gmax)", "fillStyle": "yellow", "weight": 1 }
+    ],
+    "68": [
+        { "pokemonId": 10201, "text": "Machamp (Gmax)", "fillStyle": "gray", "weight": 1 }
+    ],
+    "94": [
+        { "pokemonId": 10202, "text": "Gengar (Gmax)", "fillStyle": "purple", "weight": 1 }
+    ],
+    "99": [
+        { "pokemonId": 10203, "text": "Kingler (Gmax)", "fillStyle": "red", "weight": 1 }
+    ],
+    "131": [
+        { "pokemonId": 10204, "text": "Lapras (Gmax)", "fillStyle": "blue", "weight": 1 }
+    ],
+    "133": [
+        { "pokemonId": 10205, "text": "Eevee (Gmax)", "fillStyle": "brown", "weight": 1 }
+    ],
+    "143": [
+        { "pokemonId": 10206, "text": "Snorlax (Gmax)", "fillStyle": "black", "weight": 1 }
+    ],
+    "569": [
+        { "pokemonId": 10207, "text": "Garbodor (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "809": [
+        { "pokemonId": 10208, "text": "Melmetal (Gmax)", "fillStyle": "gray", "weight": 1 }
+    ],
+    "812": [
+        { "pokemonId": 10209, "text": "Rillaboom (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "815": [
+        { "pokemonId": 10210, "text": "Cinderace (Gmax)", "fillStyle": "white", "weight": 1 }
+    ],
+    "818": [
+        { "pokemonId": 10211, "text": "Inteleon (Gmax)", "fillStyle": "blue", "weight": 1 }
+    ],
+    "823": [
+        { "pokemonId": 10212, "text": "Corviknight (Gmax)", "fillStyle": "purple", "weight": 1 }
+    ],
+    "826": [
+        { "pokemonId": 10213, "text": "Orbeetle (Gmax)", "fillStyle": "red", "weight": 1 }
+    ],
+    "834": [
+        { "pokemonId": 10214, "text": "Drednaw (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "839": [
+        { "pokemonId": 10215, "text": "Coalossal (Gmax)", "fillStyle": "black", "weight": 1 }
+    ],
+    "841": [
+        { "pokemonId": 10216, "text": "Flapple (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "842": [
+        { "pokemonId": 10217, "text": "Appletun (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "844": [
+        { "pokemonId": 10218, "text": "Sandaconda (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "849": [
+        { "pokemonId": 10219, "text": "Toxtricity (Amped Gmax)", "fillStyle": "purple", "weight": 1 }, { "pokemonId": 10228, "text": "Toxtricity (Low Key Gmax)", "fillStyle": "purple", "weight": 1 }
+    ],
+    "851": [
+        { "pokemonId": 10220, "text": "Centiskorch (Gmax)", "fillStyle": "red", "weight": 1 }
+    ],
+    "858": [
+        { "pokemonId": 10221, "text": "Hatterene (Gmax)", "fillStyle": "pink", "weight": 1 }
+    ],
+    "861": [
+        { "pokemonId": 10222, "text": "Grimmsnarl (Gmax)", "fillStyle": "purple", "weight": 1 }
+    ],
+    "869": [
+        { "pokemonId": 10223, "text": "Alcremie (Gmax)", "fillStyle": "white", "weight": 1 }
+    ],
+    "879": [
+        { "pokemonId": 10224, "text": "Copperajah (Gmax)", "fillStyle": "green", "weight": 1 }
+    ],
+    "884": [
+        { "pokemonId": 10225, "text": "Duraludon (Gmax)", "fillStyle": "white", "weight": 1 }
+    ],
+    "890": [
+        { "pokemonId": 10190, "text": "Eternatus (Eternamax)", "fillStyle": "purple", "weight": 1}
+    ],
+    "892": [
+        { "pokemonId": 10226, "text": "Urshifu (Single Strike Gmax)", "fillStyle": "gray", "weight": 1 }, { "pokemonId": 10227, "text": "Urshifu (Rapid Strike Gmax)", "fillStyle": "gray", "weight": 1 }
+    ]
+}

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { GymBattleRouletteComponent } from './gym-battle-roulette.component';
 import { HttpClient } from '@angular/common/http';
@@ -13,7 +14,7 @@ describe('GymBattleRouletteComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [GymBattleRouletteComponent],
+      imports: [GymBattleRouletteComponent, TranslateModule.forRoot()],
       providers: [
         {provide: HttpClient, useValue: httpSpyObj }
       ]

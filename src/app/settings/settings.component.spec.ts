@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideIcons } from '@ng-icons/core';
+import { bootstrapController, bootstrapGear } from '@ng-icons/bootstrap-icons';
 
 describe('SettingsComponent', () => {
   let component: SettingsComponent;
@@ -8,7 +11,10 @@ describe('SettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SettingsComponent]
+      imports: [SettingsComponent, TranslateModule.forRoot()],
+      providers: [
+        provideIcons({ bootstrapController, bootstrapGear })
+      ]
     })
     .compileComponents();
 

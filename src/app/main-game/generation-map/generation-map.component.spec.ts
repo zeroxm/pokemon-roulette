@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GenerationMapComponent } from './generation-map.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('GenerationMapComponent', () => {
   let component: GenerationMapComponent;
@@ -8,7 +9,7 @@ describe('GenerationMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GenerationMapComponent]
+      imports: [GenerationMapComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

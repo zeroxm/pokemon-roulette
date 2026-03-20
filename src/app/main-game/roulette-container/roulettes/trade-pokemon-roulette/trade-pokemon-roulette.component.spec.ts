@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TradePokemonRouletteComponent } from './trade-pokemon-roulette.component';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TradePokemonRouletteComponent', () => {
   let component: TradePokemonRouletteComponent;
@@ -12,7 +13,7 @@ describe('TradePokemonRouletteComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [TradePokemonRouletteComponent],
+      imports: [TradePokemonRouletteComponent, TranslateModule.forRoot()],
       providers: [
         {provide: HttpClient, useValue: httpSpyObj }
       ]

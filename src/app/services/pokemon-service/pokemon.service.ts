@@ -41,6 +41,14 @@ export class PokemonService {
     return pokemon;
   }
 
+  getPokemonByIdArray(pokemonIds: number[]): PokemonItem[] {
+    const pokemonById = new Map(this.nationalDexPokemon.map(pokemon => [pokemon.pokemonId, pokemon]));
+
+    return pokemonIds
+      .map(pokemonId => pokemonById.get(pokemonId))
+      .filter((pokemon): pokemon is PokemonItem => pokemon !== undefined);
+  }
+
   getAllPokemon(): PokemonItem[] {
     return this.nationalDexPokemon;
   }

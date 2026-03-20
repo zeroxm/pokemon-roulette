@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { provideIcons } from '@ng-icons/core';
+import { bootstrapCheck } from '@ng-icons/bootstrap-icons';
 
 import { LanguageSelectorComponent } from './language-selector.component';
 
@@ -15,6 +17,9 @@ describe('LanguageSelectorComponent', () => {
         LanguageSelectorComponent,
         TranslateModule.forRoot(),
         NgbModule
+      ],
+      providers: [
+        provideIcons({ bootstrapCheck })
       ]
     }).compileComponents();
 

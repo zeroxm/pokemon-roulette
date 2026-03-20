@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DarkModeToggleComponent } from './dark-mode-toggle.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('DarkModeToggleComponent', () => {
   let component: DarkModeToggleComponent;
@@ -8,7 +9,7 @@ describe('DarkModeToggleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DarkModeToggleComponent]
+      imports: [DarkModeToggleComponent, TranslateModule.forRoot()]
     })
     .compileComponents();
 

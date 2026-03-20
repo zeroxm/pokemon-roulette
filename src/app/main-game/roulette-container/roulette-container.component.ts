@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
 import { StarterRouletteComponent } from "./roulettes/starter-roulette/starter-roulette.component";
 import { PokemonItem } from '../../interfaces/pokemon-item';
+import { PokemonForm } from '../../interfaces/pokemon-form';
 import { ItemItem } from '../../interfaces/item-item';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
@@ -30,11 +31,14 @@ import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/te
 import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
 import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
+import { SelectFormRouletteComponent } from './roulettes/select-form-roulette/select-form-roulette.component';
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
 import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
 import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
+import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
+import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
@@ -44,6 +48,7 @@ import { ChampionBattleRouletteComponent } from "./roulettes/champion-battle-rou
 import { EndGameComponent } from "../end-game/end-game.component";
 import { GameOverComponent } from "../game-over/game-over.component";
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
+import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 
 @Component({
   selector: 'app-roulette-container',
@@ -57,6 +62,7 @@ import { ModalQueueService } from '../../services/modal-queue-service/modal-queu
     StartAdventureRouletteComponent,
     PokemonFromGenerationRouletteComponent,
     PokemonFromAuxListRouletteComponent,
+    SelectFormRouletteComponent,
     GymBattleRouletteComponent,
     CheckEvolutionRouletteComponent,
     MainAdventureRouletteComponent,
@@ -69,6 +75,8 @@ import { ModalQueueService } from '../../services/modal-queue-service/modal-queu
     ExploreCaveRouletteComponent,
     CavePokemonRouletteComponent,
     FossilRouletteComponent,
+    AreaZeroRoulette,
+    CatchParadoxRouletteComponent,
     SnorlaxRouletteComponent,
     FishingRouletteComponent,
     RivalBattleRouletteComponent,
@@ -93,11 +101,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private gameStateService: GameStateService,
       private itemService: ItemsService,
       private pokemonService: PokemonService,
+      private translateService: TranslateService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
       private modalQueueService: ModalQueueService,
       private soundFxService: SoundFxService,
       private settingsService: SettingsService,
+      private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService) {
       this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
     }
@@ -155,6 +165,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   altPrizeSprite = '';
   altPrizeText = '';
   auxPokemonList: PokemonItem[] = [];
+  pokemonForms: PokemonForm[] = [];
   currentContextItem!: ItemItem;
   currentContextPokemon!: PokemonItem;
   currentGameState!: GameState;
@@ -201,10 +212,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
-  storePokemon(pokemon: PokemonItem): void {
-    this.trainerService.addToTeam(pokemon);
-    this.gameStateService.setNextState('check-shininess');
-    this.finishCurrentState();
+  capturePokemon(pokemon: PokemonItem): void {
+    this.preparePokemonCapture(pokemon);
   }
 
   setShininess(shiny: boolean): void {
@@ -357,6 +366,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
+  selectPokemonForm(pokemonForm: PokemonForm): void {
+    this.currentContextPokemon = this.pokemonFormsService.applyFormToPokemon(this.currentContextPokemon, pokemonForm);
+    this.completePokemonCapture(this.currentContextPokemon);
+  }
+
   secondEvolution(): void {
     this.auxPokemonList = [];
 
@@ -459,6 +473,21 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  areaZero(): void {
+    this.gameStateService.setNextState('area-zero');
+    this.finishCurrentState();
+  }
+
+  paradoxCaptureChance(pokemon: PokemonItem): void {
+    this.currentContextPokemon = structuredClone(pokemon);
+    this.gameStateService.setNextState('catch-paradox');
+    this.finishCurrentState();
+  }
+
+  paradoxCaptureSuccess(): void {
+    this.preparePokemonCapture(this.currentContextPokemon);
+  }
+
   battleRival(): void {
     this.gameStateService.setNextState('battle-rival');
     this.finishCurrentState();
@@ -499,9 +528,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   teamRocketDefeated(): void {
     if (this.stolenPokemon) {
+      const pokemonName = this.translateService.instant(this.stolenPokemon.text);
+
       this.trainerService.addToTeam(this.stolenPokemon);
-      this.infoModalTitle = 'Saved ' + this.stolenPokemon.text + '!';
-      this.infoModalMessage = 'You recovered your ' + this.stolenPokemon.text + ' from Team Rocket.';
+      this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title ') + pokemonName + '!';
+      this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
       this.stolenPokemon = null;
       this.modalQueueService.open(this.infoModal, {
         centered: true,
@@ -513,15 +544,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   legendaryCaptureChance(pokemon: PokemonItem): void {
-    this.currentContextPokemon = pokemon;
+    this.currentContextPokemon = structuredClone(pokemon);
     this.gameStateService.setNextState('catch-legendary');
     this.finishCurrentState();
   }
   
   legendaryCaptureSuccess(): void {
-    this.gameStateService.setNextState('check-shininess');
-    this.trainerService.addToTeam(this.currentContextPokemon);
-    this.finishCurrentState();
+    this.preparePokemonCapture(this.currentContextPokemon);
   }
 
   performTrade(pokemon: PokemonItem): void {
@@ -568,8 +597,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   catchZubat(): void {
     const zubat = this.pokemonService.getPokemonById(41);
     if (zubat) {
-      this.trainerService.addToTeam(zubat);
-      this.gameStateService.setNextState('check-shininess');
+      this.preparePokemonCapture(zubat);
+      return;
     }
     this.finishCurrentState();
   }
@@ -577,8 +606,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   catchSnorlax(): void {
     const snorlax = this.pokemonService.getPokemonById(143);
     if (snorlax) {
-      this.trainerService.addToTeam(snorlax);
-      this.gameStateService.setNextState('check-shininess');
+      this.preparePokemonCapture(snorlax);
+      return;
     }
     this.finishCurrentState();
   }
@@ -633,6 +662,29 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.gameStateService.setNextState('select-from-pokemon-list');
       this.finishCurrentState();
     }
+  }
+
+  private preparePokemonCapture(pokemon: PokemonItem): void {
+    if (this.pokemonFormsService.hasForms(pokemon)) {
+      const pokemonForms = this.pokemonFormsService.getPokemonForms(pokemon);
+      
+      if (pokemonForms.length > 1) {
+        this.currentContextPokemon = structuredClone(pokemon);
+        this.pokemonForms = pokemonForms;
+        this.gameStateService.setNextState('select-form');
+        this.finishCurrentState();
+        return;
+      }
+      
+    }
+    this.completePokemonCapture(pokemon);
+    return;
+  }
+
+  private completePokemonCapture(pokemon: PokemonItem): void {
+    this.trainerService.addToTeam(pokemon);
+    this.gameStateService.setNextState('check-shininess');
+    this.finishCurrentState();
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {

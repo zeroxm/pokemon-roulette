@@ -52,13 +52,13 @@ export const badgesByGeneration: Record<number, (Badge | Badge[])[]> = {
     { name: 'badges.legend', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/41.png' },
   ],
   6: [
-    { name: 'badges.bug', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/43.png' },
+    { name: 'badges.bug_kalos', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/43.png' },
     { name: 'badges.cliff', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/44.png' },
     { name: 'badges.rumble', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/45.png' },
     { name: 'badges.plant', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/46.png' },
     { name: 'badges.voltage', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/47.png' },
-    { name: 'badges.fairy', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/48.png' },
-    { name: 'badges.psychic', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/49.png' },
+    { name: 'badges.fairy_kalos', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/48.png' },
+    { name: 'badges.psychic_kalos', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/49.png' },
     { name: 'badges.iceberg', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/50.png' },
   ],
   7: [
@@ -79,19 +79,29 @@ export const badgesByGeneration: Record<number, (Badge | Badge[])[]> = {
     { name: 'badges.groundium_z', sprite: 'https://archives.bulbagarden.net/media/upload/7/7e/Dream_Groundium_Z_Sprite.png' },
   ],
   8: [
-    { name: 'badges.grass', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/51.png' },
-    { name: 'badges.water', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/52.png' },
+    { name: 'badges.grass_galar', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/51.png' },
+    { name: 'badges.water_galar', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/52.png' },
     { name: 'badges.fire', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/53.png' },
     [
       { name: 'badges.fighting', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/54.png' },
-      { name: 'badges.ghost', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/55.png' },
+      { name: 'badges.ghost_galar', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/55.png' },
     ],
     { name: 'badges.fairy_galar', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/56.png' },
     [
       { name: 'badges.rock', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/57.png' },
-      { name: 'badges.ice', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/58.png' },
+      { name: 'badges.ice_galar', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/58.png' },
     ],
     { name: 'badges.dark', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/59.png' },
     { name: 'badges.dragon', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/60.png' },
-  ]
+  ],
+  9: [
+    { name: 'badges.bug_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/70.png' },
+    { name: 'badges.grass_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/71.png' },
+    { name: 'badges.electric', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/72.png' },
+    { name: 'badges.water_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/73.png' },
+    { name: 'badges.normal', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/74.png' },
+    { name: 'badges.ghost_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/75.png' },
+    { name: 'badges.psychic_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/76.png' },
+    { name: 'badges.ice_paldea', sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/badges/77.png' },
+  ],
 }

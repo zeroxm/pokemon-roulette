@@ -4,6 +4,6 @@
     <br/>({{ generation.text }})
 </h1>
 <app-wheel  #wheel
-            [items]="getFromGeneration()"
+            [items]="pokemon"
             (selectedItemEvent)="onItemSelected($event)">
 </app-wheel>

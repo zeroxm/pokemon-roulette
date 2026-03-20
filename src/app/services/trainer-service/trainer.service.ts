@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trainerSpriteData } from './trainer-sprite-data';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonService } from '../pokemon-service/pokemon.service';
@@ -10,17 +10,27 @@ import { ItemName } from '../items-service/item-names';
 import { Badge } from '../../interfaces/badge';
 import { BadgesService } from '../badges-service/badges.service';
 import { GenerationService } from '../generation-service/generation.service';
+import { GameState } from '../game-state-service/game-state';
+import { GameStateService } from '../game-state-service/game-state.service';
+import { palafinForms } from './palafin-forms';
+import { stickyBattleForms } from './sticky-battle-forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrainerService {
 
+  private readonly gameStateSubscription: Subscription;
+
   constructor(private badgesService: BadgesService,
     private evolutionService: EvolutionService,
     private generationService: GenerationService,
     private itemSpriteService: ItemSpriteService,
-    private pokemonService: PokemonService) {
+    private pokemonService: PokemonService,
+    private gameStateService: GameStateService) {
+    this.gameStateSubscription = this.gameStateService.currentState.subscribe((gameState) => {
+      this.syncBattleForms(gameState);
+    });
   }
 
   trainerSpriteData = trainerSpriteData;
@@ -34,6 +44,9 @@ export class TrainerService {
 
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
+  private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
+  private readonly temporaryBattleForms = palafinForms;
+  private readonly stickyBattleFormGroups = stickyBattleForms;
 
   trainerItems: ItemItem[] = [
     {
@@ -43,13 +56,17 @@ export class TrainerService {
       fillStyle: 'purple',
       weight: 1,
       description: 'items.potion.description'
-    },
+    }
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [];
 
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
+
+  ngOnDestroy(): void {
+    this.gameStateSubscription.unsubscribe();
+  }
 
   getTrainer(): Observable<{ sprite: string }> {
     return this.trainer.asObservable();
@@ -67,12 +84,8 @@ export class TrainerService {
   addToTeam(pokemon: PokemonItem): void {
 
     pokemon = structuredClone(pokemon);
+    this.loadPokemonSpriteIfMissing(pokemon);
 
-    if (!pokemon.sprite) {
-      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        pokemon.sprite = response.sprite;
-      });
-    }
     if(this.trainerTeam.length < 6) {
       this.trainerTeam.push(pokemon);
     } else {
@@ -137,15 +150,19 @@ export class TrainerService {
     return auxPokemonList;
   }
 
+  private syncBattleForms(gameState: GameState): void {
+    if (this.battleStates.has(gameState)) {
+      this.applyBattleForms();
+      return;
+    }
+
+    this.revertBattleForms();
+  }
+
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
     pokemonIn = pokemonIn;
-
-    if (!pokemonIn.sprite) {
-      this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
-        pokemonIn.sprite = response.sprite;
-      });
-    }
+    this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
 
@@ -162,11 +179,7 @@ export class TrainerService {
   }
 
   performTrade(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
-    if (!pokemonIn.sprite) {
-      this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
-        pokemonIn.sprite = response.sprite;
-      });
-    }
+    this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
     if (index > -1) {
@@ -255,6 +268,101 @@ export class TrainerService {
   resetBadges() {
     this.trainerBadges = [];
     this.trainerBadgesObservable.next(this.trainerBadges);
+  }
+
+  // Applies all battle-entry transforms in one pass with a single emit.
+  // Temporary forms apply to team+stored; sticky forms apply to team only.
+  private applyBattleForms(): void {
+    let changed = false;
+    changed = this.replaceTemporaryForms(this.trainerTeam, true) || changed;
+    changed = this.replaceTemporaryForms(this.storedPokemon, true) || changed;
+    changed = this.applyStickyFormsToCollection(this.trainerTeam) || changed;
+
+    if (changed) {
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+  }
+
+  // Reverts temporary forms only. Sticky forms intentionally persist after battle.
+  private revertBattleForms(): void {
+    let changed = false;
+    changed = this.replaceTemporaryForms(this.trainerTeam, false) || changed;
+    changed = this.replaceTemporaryForms(this.storedPokemon, false) || changed;
+
+    if (changed) {
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+  }
+
+  private applyStickyFormsToCollection(collection: PokemonItem[]): boolean {
+    let replaced = false;
+
+    this.stickyBattleFormGroups.forEach(group => {
+      const formIds = new Set(group.forms.map(f => f.pokemonId));
+
+      collection.forEach((pokemon, index) => {
+        if (!formIds.has(pokemon.pokemonId)) {
+          return;
+        }
+
+        const currentFormIndex = group.forms.findIndex(f => f.pokemonId === pokemon.pokemonId);
+        let targetForm: PokemonItem;
+
+        if (group.mode === 'toggle') {
+          targetForm = group.forms[(currentFormIndex + 1) % group.forms.length];
+        } else {
+          const otherForms = group.forms.filter(f => f.pokemonId !== pokemon.pokemonId);
+          targetForm = otherForms[Math.floor(Math.random() * otherForms.length)];
+        }
+
+        const replacement = structuredClone(targetForm);
+        replacement.shiny = pokemon.shiny;
+        replacement.sprite = null;
+        this.loadPokemonSpriteIfMissing(replacement);
+        collection[index] = replacement;
+        replaced = true;
+      });
+    });
+
+    return replaced;
+  }
+
+  private loadPokemonSpriteIfMissing(pokemon: PokemonItem): void {
+    if (!pokemon.sprite) {
+      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
+        pokemon.sprite = response.sprite;
+      });
+    }
+  }
+
+  private replaceTemporaryForms(collection: PokemonItem[], transformToBattleForm: boolean): boolean {
+    let replaced = false;
+
+    Object.values(this.temporaryBattleForms).forEach(forms => {
+      if (forms.length < 2) {
+        return;
+      }
+
+      const baseForm = forms[0];
+      const battleForm = forms[1];
+      const sourceId = transformToBattleForm ? baseForm.pokemonId : battleForm.pokemonId;
+      const targetForm = transformToBattleForm ? battleForm : baseForm;
+
+      collection.forEach((pokemon, index) => {
+        if (pokemon.pokemonId !== sourceId) {
+          return;
+        }
+
+        const replacement = structuredClone(targetForm);
+        replacement.shiny = pokemon.shiny;
+        replacement.sprite = null;
+        this.loadPokemonSpriteIfMissing(replacement);
+        collection[index] = replacement;
+        replaced = true;
+      });
+    });
+
+    return replaced;
   }
 }
 

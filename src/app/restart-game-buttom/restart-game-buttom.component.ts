@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgIconsModule } from '@ng-icons/core';
+import { NgIconsModule, provideIcons } from '@ng-icons/core';
+import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -9,6 +10,9 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [
     NgIconsModule,
     TranslatePipe
+  ],
+  providers: [
+    provideIcons({ bootstrapArrowRepeat })
   ],
   templateUrl: './restart-game-buttom.component.html',
   styleUrl: './restart-game-buttom.component.css'

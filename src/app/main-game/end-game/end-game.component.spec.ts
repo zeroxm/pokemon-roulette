@@ -4,6 +4,7 @@ import { EndGameComponent } from './end-game.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapClock, bootstrapShare } from '@ng-icons/bootstrap-icons';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('EndGameComponent', () => {
   let component: EndGameComponent;
@@ -16,7 +17,8 @@ describe('EndGameComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         EndGameComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapShare, bootstrapClock }),

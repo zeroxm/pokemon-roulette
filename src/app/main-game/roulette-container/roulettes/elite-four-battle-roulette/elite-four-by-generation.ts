@@ -278,5 +278,40 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
                 'elite4.raihan.quote2',
             ]
         }
-    ]
+    ],
+    9: [
+        {
+            name: 'elite4.rika.name',
+            sprite: 
+                "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSRika.png",
+            quotes: [
+                'elite4.rika.quote1',
+                'elite4.rika.quote2'
+            ]
+        },
+        {
+            name: 'elite4.poppy.name',
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSPoppy.png",
+            quotes: [
+                'elite4.poppy.quote1',
+                'elite4.poppy.quote2'
+            ]
+        },
+        {
+            name: 'elite4.larry.name',
+            sprite:  "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSLarry_2.png",
+            quotes: [
+                'elite4.larry.quote1',
+                'elite4.larry.quote2',
+            ]
+        },
+        {
+            name: 'elite4.hassel.name',
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHassel.png",
+            quotes: [
+                'elite4.hassel.quote1',
+                'elite4.hassel.quote2',
+            ]
+        }
+    ],
 }

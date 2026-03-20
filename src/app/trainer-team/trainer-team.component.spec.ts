@@ -4,6 +4,7 @@ import { TrainerTeamComponent } from './trainer-team.component';
 import { HttpClient } from '@angular/common/http';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapPcDisplayHorizontal } from '@ng-icons/bootstrap-icons';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TrainerTeamComponent', () => {
   let component: TrainerTeamComponent;
@@ -16,7 +17,8 @@ describe('TrainerTeamComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TrainerTeamComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapPcDisplayHorizontal }),

@@ -4,6 +4,7 @@ import { StoragePcComponent } from './storage-pc.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapPcDisplayHorizontal } from '@ng-icons/bootstrap-icons';
 import { HttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('StoragePcComponent', () => {
   let component: StoragePcComponent;
@@ -16,7 +17,8 @@ describe('StoragePcComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         StoragePcComponent,
-        NgIconsModule
+        NgIconsModule,
+        TranslateModule.forRoot()
       ],
       providers: [
         provideIcons({ bootstrapPcDisplayHorizontal }),

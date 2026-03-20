@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChampionBattleRouletteComponent } from './champion-battle-roulette.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
-import { WheelItem } from '../../../../interfaces/wheel-item';
 
 describe('ChampionBattleRouletteComponent', () => {
   let component: ChampionBattleRouletteComponent;
@@ -13,7 +13,7 @@ describe('ChampionBattleRouletteComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [ChampionBattleRouletteComponent],
+      imports: [ChampionBattleRouletteComponent, TranslateModule.forRoot()],
       providers: [
         {provide: HttpClient, useValue: httpSpyObj }
       ]

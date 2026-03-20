@@ -82,5 +82,15 @@ export const championByGeneration: Record<number, GymLeader[]> = {
                 "champion.leon.quote2"
             ]
         }
+    ],
+    9: [
+        {
+            name: 'champion.geeta.name',
+            sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSGeeta.png",
+            quotes: [
+                "champion.geeta.quote1",
+                "champion.geeta.quote2"
+            ]
+        }
     ]
 }
