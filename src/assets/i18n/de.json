@@ -205,6 +205,9 @@
           },
           "which": "Welche Entwicklung?"
         },
+        "form": {
+          "which": "Welche Form?"
+        },
         "adventure": {
           "title": "Was tun zwischen den Arena-Kämpfen?",
           "actions": {
@@ -1392,6 +1395,7 @@
     "bombirdier": "Adebom",
     "finizen": "Normifin",
     "palafin": "Delfinator",
+    "palafin-hero": "Delfinator (Held)",
     "varoom": "Knattox",
     "revavroom": "Knattatox",
     "cyclizar": "Mopex",

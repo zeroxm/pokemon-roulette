@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trainerSpriteData } from './trainer-sprite-data';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonService } from '../pokemon-service/pokemon.service';
@@ -10,17 +10,26 @@ import { ItemName } from '../items-service/item-names';
 import { Badge } from '../../interfaces/badge';
 import { BadgesService } from '../badges-service/badges.service';
 import { GenerationService } from '../generation-service/generation.service';
+import { GameState } from '../game-state-service/game-state';
+import { GameStateService } from '../game-state-service/game-state.service';
+import { palafinForms } from './palafin-forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TrainerService {
 
+  private readonly gameStateSubscription: Subscription;
+
   constructor(private badgesService: BadgesService,
     private evolutionService: EvolutionService,
     private generationService: GenerationService,
     private itemSpriteService: ItemSpriteService,
-    private pokemonService: PokemonService) {
+    private pokemonService: PokemonService,
+    private gameStateService: GameStateService) {
+    this.gameStateSubscription = this.gameStateService.currentState.subscribe((gameState) => {
+      this.syncTemporaryBattleForms(gameState);
+    });
   }
 
   trainerSpriteData = trainerSpriteData;
@@ -28,12 +37,46 @@ export class TrainerService {
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [];
+  trainerTeam: PokemonItem[] = [
+    { text: "pokemon.rattata", pokemonId: 19, fillStyle: "purple",
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png',
+        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png'
+      }, shiny: false, power: 1, weight: 1 
+    },
+
+    { text: "pokemon.rattata", pokemonId: 10091, fillStyle: "purple",
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10091.png',
+        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10091.png'
+      }, shiny: false, power: 1, weight: 1 
+    },
+    { text: "pokemon.pikachu", pokemonId: 25, fillStyle: "goldenrod", 
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'
+      },
+      shiny: false, power: 2, weight: 1 
+    },
+    { text: "pokemon.mr.mime", pokemonId: 10168, fillStyle: "pink", 
+      sprite: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10168.png',
+        front_shiny: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10168.png'
+      },
+      shiny: false, power: 2, weight: 1 
+    },
+
+
+    
+
+  ];
 
   storedPokemon: PokemonItem[] = [];
 
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
+  private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
+  private readonly temporaryBattleForms = palafinForms;
 
   trainerItems: ItemItem[] = [
     {
@@ -44,12 +87,24 @@ export class TrainerService {
       weight: 1,
       description: 'items.potion.description'
     },
+    {
+      text: 'items.exp-share.name',
+      name: 'exp-share',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/exp-share.png',
+      fillStyle: 'black',
+      weight: 1,
+      description: 'items.exp-share.description'
+    },
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [];
 
   private trainerBadgesObservable = new BehaviorSubject<Badge[]>(this.trainerBadges);
+
+  ngOnDestroy(): void {
+    this.gameStateSubscription.unsubscribe();
+  }
 
   getTrainer(): Observable<{ sprite: string }> {
     return this.trainer.asObservable();
@@ -67,12 +122,8 @@ export class TrainerService {
   addToTeam(pokemon: PokemonItem): void {
 
     pokemon = structuredClone(pokemon);
+    this.loadPokemonSpriteIfMissing(pokemon);
 
-    if (!pokemon.sprite) {
-      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        pokemon.sprite = response.sprite;
-      });
-    }
     if(this.trainerTeam.length < 6) {
       this.trainerTeam.push(pokemon);
     } else {
@@ -137,15 +188,19 @@ export class TrainerService {
     return auxPokemonList;
   }
 
+  private syncTemporaryBattleForms(gameState: GameState): void {
+    if (this.battleStates.has(gameState)) {
+      this.applyTemporaryBattleForms();
+      return;
+    }
+
+    this.revertTemporaryBattleForms();
+  }
+
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
     pokemonIn = pokemonIn;
-
-    if (!pokemonIn.sprite) {
-      this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
-        pokemonIn.sprite = response.sprite;
-      });
-    }
+    this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
 
@@ -162,11 +217,7 @@ export class TrainerService {
   }
 
   performTrade(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
-    if (!pokemonIn.sprite) {
-      this.pokemonService.getPokemonSprites(pokemonIn.pokemonId).subscribe(response => {
-        pokemonIn.sprite = response.sprite;
-      });
-    }
+    this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
     if (index > -1) {
@@ -255,6 +306,62 @@ export class TrainerService {
   resetBadges() {
     this.trainerBadges = [];
     this.trainerBadgesObservable.next(this.trainerBadges);
+  }
+
+  private applyTemporaryBattleForms(): void {
+    const transformedTeam = this.replaceTemporaryForms(this.trainerTeam, true);
+    const transformedStored = this.replaceTemporaryForms(this.storedPokemon, true);
+
+    if (transformedTeam || transformedStored) {
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+  }
+
+  private revertTemporaryBattleForms(): void {
+    const revertedTeam = this.replaceTemporaryForms(this.trainerTeam, false);
+    const revertedStored = this.replaceTemporaryForms(this.storedPokemon, false);
+
+    if (revertedTeam || revertedStored) {
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+  }
+
+  private loadPokemonSpriteIfMissing(pokemon: PokemonItem): void {
+    if (!pokemon.sprite) {
+      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
+        pokemon.sprite = response.sprite;
+      });
+    }
+  }
+
+  private replaceTemporaryForms(collection: PokemonItem[], transformToBattleForm: boolean): boolean {
+    let replaced = false;
+
+    Object.values(this.temporaryBattleForms).forEach(forms => {
+      if (forms.length < 2) {
+        return;
+      }
+
+      const baseForm = forms[0];
+      const battleForm = forms[1];
+      const sourceId = transformToBattleForm ? baseForm.pokemonId : battleForm.pokemonId;
+      const targetForm = transformToBattleForm ? battleForm : baseForm;
+
+      collection.forEach((pokemon, index) => {
+        if (pokemon.pokemonId !== sourceId) {
+          return;
+        }
+
+        const replacement = structuredClone(targetForm);
+        replacement.shiny = pokemon.shiny;
+        replacement.sprite = null;
+        this.loadPokemonSpriteIfMissing(replacement);
+        collection[index] = replacement;
+        replaced = true;
+      });
+    });
+
+    return replaced;
   }
 }
 

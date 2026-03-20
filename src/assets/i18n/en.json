@@ -205,6 +205,9 @@
           },
           "which": "Which Evolution?"
         },
+        "form": {
+          "which": "Which Form?"
+        },
         "adventure": {
           "title": "What do you do between Gyms?",
           "actions": {
@@ -1392,6 +1395,7 @@
     "bombirdier": "Bombirdier",
     "finizen": "Finizen",
     "palafin": "Palafin",
+    "palafin-hero": "Palafin (Hero)",
     "varoom": "Varoom",
     "revavroom": "Revavroom",
     "cyclizar": "Cyclizar",

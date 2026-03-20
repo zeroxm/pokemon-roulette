@@ -205,6 +205,9 @@
           },
           "which": "Quelle évolution?"
         },
+        "form": {
+          "which": "Quelle forme?"
+        },
         "adventure": {
           "title": "Que fais-tu entre les arènes?",
           "actions": {
@@ -1392,6 +1395,7 @@
     "bombirdier": "Lestombaile",
     "finizen": "Dofin",
     "palafin": "Superdofin",
+    "palafin-hero": "Superdofin (Héroïque)",
     "varoom": "Vrombi",
     "revavroom": "Vrombotor",
     "cyclizar": "Motorizard",

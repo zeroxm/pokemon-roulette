@@ -1,0 +1,19 @@
+{
+        "25": [
+        { "pokemonId": 10080, "text": "Pikachu (Rock Star)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10081, "text": "Pikachu (Belle)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10082, "text": "Pikachu (Pop Star)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10083, "text": "Pikachu (Phd)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10084, "text": "Pikachu (Libre)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10085, "text": "Pikachu (Cosplay)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10094, "text": "Pikachu (Original Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10095, "text": "Pikachu (Hoenn Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10096, "text": "Pikachu (Sinnoh Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10097, "text": "Pikachu (Unova Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10098, "text": "Pikachu (Kalos Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10099, "text": "Pikachu (Alola Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10148, "text": "Pikachu (Partner Cap)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10158, "text": "Pikachu (Starter)", "fillStyle": "yellow", "weight": 1},
+        { "pokemonId": 10160, "text": "Pikachu (World Cap)", "fillStyle": "yellow", "weight": 1}
+    ]
+}

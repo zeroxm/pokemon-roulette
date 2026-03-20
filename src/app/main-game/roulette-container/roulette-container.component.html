@@ -11,7 +11,7 @@
   }
   @case ('starter-pokemon') {
     <app-starter-roulette
-        (selectedStarterEvent)="storePokemon($event)">
+        (selectedStarterEvent)="capturePokemon($event)">
     </app-starter-roulette>
   }
   @case ('check-shininess') {
@@ -29,7 +29,7 @@
   }
   @case ('catch-pokemon') {
     <app-pokemon-from-generation-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-pokemon-from-generation-roulette>
   }
   @case ('select-from-pokemon-list') {
@@ -39,6 +39,12 @@
         [trainerTeam]="auxPokemonList"
         (selectedMemberEvent)="continueWithPokemon($event)">
     </app-pokemon-from-aux-list-roulette>
+  }
+  @case ('select-form') {
+    <app-select-form-roulette
+        [forms]="pokemonForms"
+        (selectedFormEvent)="selectPokemonForm($event)">
+    </app-select-form-roulette>
   }
   @case ('gym-battle') {
     <app-gym-battle-roulette
@@ -87,7 +93,7 @@
   }
   @case ('mysterious-egg') {
     <app-mysterious-egg-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-mysterious-egg-roulette>
   }
   @case ('legendary-encounter') {
@@ -137,12 +143,12 @@
   }
   @case ('catch-cave-pokemon') {
     <app-cave-pokemon-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-cave-pokemon-roulette>
   }
   @case ('find-fossil') {
     <app-fossil-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-fossil-roulette>
   }
   @case('snorlax-encounter') {
@@ -155,7 +161,7 @@
   }
   @case ('go-fishing') {
     <app-fishing-roulette
-        (selectedPokemonEvent)="storePokemon($event)">
+        (selectedPokemonEvent)="capturePokemon($event)">
     </app-fishing-roulette>
   }
   @case ('battle-rival') {

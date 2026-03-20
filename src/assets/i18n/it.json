@@ -205,6 +205,9 @@
           },
           "which": "Quale evoluzione?"
         },
+        "form": {
+          "which": "Quale forma?"
+        },
         "adventure": {
           "title": "Cosa fai tra una Palestra e l'altra?",
           "actions": {
@@ -1392,6 +1395,7 @@
     "bombirdier": "Bombirdier",
     "finizen": "Finizen",
     "palafin": "Palafin",
+    "palafin-hero": "Palafin (Hero)",
     "varoom": "Varoom",
     "revavroom": "Revavroom",
     "cyclizar": "Cyclizar",

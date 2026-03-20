@@ -5,6 +5,7 @@ export type GameState =
   | 'check-shininess'
   | 'start-adventure'
   | 'catch-pokemon'
+  | 'select-form'
   | 'evolve-pokemon'
   | 'select-from-pokemon-list'
   | 'select-evolution'
