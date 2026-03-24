@@ -11,6 +11,8 @@ import { GameStateService } from '../../services/game-state-service/game-state.s
 import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
 import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { ItemsService } from '../../services/items-service/items.service';
+import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -27,11 +29,17 @@ import { Subscription } from 'rxjs';
 })
 export class StoragePcComponent implements OnInit, OnDestroy {
 
+    // Feature 10: Item Crafting
+    releaseMode = false;
+    selectedForRelease: PokemonItem[] = [];
+
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
                 private soundFxService: SoundFxService,
+                private itemsService: ItemsService,
+                private rareCandyService: RareCandyService,
                 private cdr: ChangeDetectorRef) {
       this.pcTurningOn = this.soundFxService.createPcTurningOnSoundFx();
       this.pcLoginAudio = this.soundFxService.createPcLoginSoundFx();
@@ -134,4 +142,40 @@ export class StoragePcComponent implements OnInit, OnDestroy {
 
     lastPokemonPredicate  = () => this.trainerTeam.length > 1
     teamIsFullPredicate = () => this.trainerTeam.length < 6;
+
+    // Feature 10: Item Crafting
+    toggleReleaseMode(): void {
+      this.releaseMode = !this.releaseMode;
+      if (!this.releaseMode) {
+        this.selectedForRelease = [];
+      }
+      this.cdr.markForCheck();
+    }
+
+    toggleSelectForRelease(pokemon: PokemonItem): void {
+      const index = this.selectedForRelease.indexOf(pokemon);
+      if (index > -1) {
+        this.selectedForRelease.splice(index, 1);
+      } else if (this.selectedForRelease.length < 3) {
+        this.selectedForRelease.push(pokemon);
+      }
+      this.cdr.markForCheck();
+    }
+
+    isSelectedForRelease(pokemon: PokemonItem): boolean {
+      return this.selectedForRelease.includes(pokemon);
+    }
+
+    confirmRelease(): void {
+      if (this.selectedForRelease.length === 3) {
+        this.trainerService.releasePokemon(this.selectedForRelease);
+        const rareCandyItem = this.itemsService.getItem('rare-candy');
+        this.trainerService.addToItems(rareCandyItem);
+        this.rareCandyService.triggerRareCandyEvolution(rareCandyItem);
+        this.selectedForRelease = [];
+        this.releaseMode = false;
+        this.storedPokemon = this.trainerService.getStored();
+        this.cdr.markForCheck();
+      }
+    }
 }

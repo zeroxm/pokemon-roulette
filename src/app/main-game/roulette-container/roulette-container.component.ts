@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
@@ -55,6 +56,7 @@ import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemo
   imports: [
     CommonModule,
     TranslatePipe,
+    FormsModule,
     GenerationRouletteComponent,
     CharacterSelectComponent,
     StarterRouletteComponent,
@@ -165,6 +167,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
   @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
   @ViewChild('teamRocketFailsModal', { static: true }) teamRocketFailsModal!: TemplateRef<any>;
+  @ViewChild('nicknameModal', { static: true }) nicknameModal!: TemplateRef<any>;
+  @ViewChild('faintedModal', { static: true }) faintedModal!: TemplateRef<any>;
+  @ViewChild('resumeGameModal', { static: true }) resumeGameModal!: TemplateRef<any>;
 
   altPrizeDescription = '';
   altPrizeSprite = '';
@@ -193,8 +198,36 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
 
+  // Feature 8: Streak tracker
+  catchStreak: number = 0;
+
+  // Feature 9: Nickname
+  pendingNicknamePokemon: PokemonItem | null = null;
+  nicknameInput: string = '';
+
+  // Feature 5: Nuzlocke
+  faintedPokemonName: string = '';
+
   getGameState(): string {
     return this.currentGameState;
+  }
+
+  // Feature 1: Resume game
+  hasSavedGame(): boolean {
+    return this.gameStateService.hasSave() && this.trainerService.hasSave();
+  }
+
+  continueGame(): void {
+    this.trainerService.loadFromSave();
+    this.gameStateService.loadFromSave();
+    this.cdr.markForCheck();
+  }
+
+  newGame(): void {
+    this.gameStateService.clearSave();
+    this.trainerService.clearSave();
+    this.gameStateService.resetGameState();
+    this.cdr.markForCheck();
   }
 
   private finishCurrentState(): void {
@@ -218,6 +251,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   capturePokemon(pokemon: PokemonItem): void {
+    // Feature 4: Play cry on reveal
+    void this.soundFxService.playPokemonCry(pokemon.pokemonId);
     this.preparePokemonCapture(pokemon);
   }
 
@@ -229,6 +264,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   catchPokemon(): void {
+    this.catchStreak++;
     this.gameStateService.setNextState('catch-pokemon');
     this.finishCurrentState();
   }
@@ -280,7 +316,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
           });
           return this.buyPotions();
           break;
-        case 'team-rocket-encounter': 
+        case 'team-rocket-encounter':
           this.altPrizeText = 'game.main.altPrizes.teamRocket.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
           this.altPrizeDescription = 'game.main.altPrizes.teamRocket.itemDesc';
@@ -321,6 +357,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   buyPotions(): void {
+    this.catchStreak = 0;
     let itemName: ItemName = 'potion';
 
     if (this.leadersDefeatedAmount > 6) {
@@ -335,6 +372,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   doNothing(): void {
+    this.catchStreak = 0;
     this.finishCurrentState();
   }
 
@@ -344,6 +382,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   findItem(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('find-item');
     this.finishCurrentState();
   }
@@ -404,27 +443,31 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   gymBattleResult(result: boolean): void {
     this.runningShoesUsed = false;
     this.respinReason = '';
+    this.catchStreak = 0;
 
     if (result) {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
+      this.gameStateService.incrementRivalLevel();
       this.gameStateService.setNextState('check-evolution');
-
     } else {
-      this.gameStateService.setNextState('game-over');
+      this.handleBattleLoss();
+      return;
     }
 
     this.finishCurrentState();
   }
 
   catchTwoPokemon(): void {
+    this.catchStreak += 2;
     this.gameStateService.setNextState('catch-pokemon');
     this.gameStateService.setNextState('catch-pokemon');
     this.finishCurrentState();
   }
 
   teamRocketEncounter(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('team-rocket-encounter');
     this.finishCurrentState();
   }
@@ -435,6 +478,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   tradePokemon(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('trade-pokemon');
 
     const trainerTeam = this.trainerService.getTeam();
@@ -451,11 +495,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   exploreCave(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('explore-cave');
     this.finishCurrentState();
   }
 
   snorlaxEncounter(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('snorlax-encounter');
     this.finishCurrentState();
   }
@@ -469,11 +515,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   goFishing(): void {
+    this.catchStreak++;
     this.gameStateService.setNextState('go-fishing');
     this.finishCurrentState();
   }
 
   findFossil(): void {
+    this.catchStreak++;
     this.gameStateService.setNextState('find-fossil');
     this.finishCurrentState();
   }
@@ -494,6 +542,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   battleRival(): void {
+    this.catchStreak = 0;
     this.gameStateService.setNextState('battle-rival');
     this.finishCurrentState();
   }
@@ -502,7 +551,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (result) {
       this.chooseWhoWillEvolve('battle-rival');
     } else {
-      this.doNothing();
+      this.handleBattleLoss();
     }
   }
 
@@ -553,7 +602,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.gameStateService.setNextState('catch-legendary');
     this.finishCurrentState();
   }
-  
+
   legendaryCaptureSuccess(): void {
     this.preparePokemonCapture(this.currentContextPokemon);
   }
@@ -582,11 +631,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   receiveItem(item: ItemItem): void {
+    this.catchStreak = 0;
     this.trainerService.addToItems(item);
     this.finishCurrentState();
   }
 
   catchCavePokemon(): void {
+    this.catchStreak++;
     this.gameStateService.setNextState('catch-cave-pokemon');
     this.finishCurrentState();
   }
@@ -625,7 +676,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.gameStateService.advanceRound();
       this.gameStateService.setNextState('check-evolution');
     } else {
-      this.gameStateService.setNextState('game-over');
+      this.handleBattleLoss();
+      return;
     }
     this.finishCurrentState();
   }
@@ -637,10 +689,57 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (result) {
       this.gameStateService.advanceRound();
     } else {
-      this.gameStateService.setNextState('game-over');
+      this.handleBattleLoss();
+      return;
     }
 
     this.finishCurrentState();
+  }
+
+  // Feature 5: Nuzlocke - centralized battle loss handler
+  private handleBattleLoss(): void {
+    if (this.settingsService.currentSettings.nuzlockeMode) {
+      const fainted = this.trainerService.faintWeakestPokemon();
+      if (fainted) {
+        this.faintedPokemonName = this.translateService.instant(fainted.text);
+        this.modalQueueService.open(this.faintedModal, {
+          centered: true,
+          size: 'md'
+        });
+      }
+      if (this.trainerService.isWhiteout()) {
+        this.gameStateService.setNextState('game-over');
+        this.finishCurrentState();
+      } else {
+        this.finishCurrentState();
+      }
+    } else {
+      this.gameStateService.setNextState('game-over');
+      this.finishCurrentState();
+    }
+  }
+
+  // Feature 9: Nickname
+  saveNickname(): void {
+    if (this.pendingNicknamePokemon && this.nicknameInput.trim()) {
+      this.pendingNicknamePokemon.nickname = this.nicknameInput.trim();
+    }
+    this.modalService.dismissAll();
+    this.completeNicknamedCapture();
+  }
+
+  skipNickname(): void {
+    this.modalService.dismissAll();
+    this.completeNicknamedCapture();
+  }
+
+  private completeNicknamedCapture(): void {
+    if (this.pendingNicknamePokemon) {
+      this.trainerService.addToTeam(this.pendingNicknamePokemon);
+      this.pendingNicknamePokemon = null;
+      this.gameStateService.setNextState('check-shininess');
+      this.finishCurrentState();
+    }
   }
 
   closeModal(): void {
@@ -649,6 +748,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   resetGameAction(): void {
     this.evolutionCredits = 0;
+    this.catchStreak = 0;
+    this.gameStateService.clearSave();
+    this.trainerService.clearSave();
     this.resetGameEvent.emit();
     this.modalService.dismissAll();
   }
@@ -672,7 +774,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private preparePokemonCapture(pokemon: PokemonItem): void {
     if (this.pokemonFormsService.hasForms(pokemon)) {
       const pokemonForms = this.pokemonFormsService.getPokemonForms(pokemon);
-      
+
       if (pokemonForms.length > 1) {
         this.currentContextPokemon = structuredClone(pokemon);
         this.pokemonForms = pokemonForms;
@@ -680,16 +782,20 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         this.finishCurrentState();
         return;
       }
-      
+
     }
     this.completePokemonCapture(pokemon);
     return;
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {
-    this.trainerService.addToTeam(pokemon);
-    this.gameStateService.setNextState('check-shininess');
-    this.finishCurrentState();
+    // Feature 9: Nickname modal
+    this.pendingNicknamePokemon = structuredClone(pokemon);
+    this.nicknameInput = '';
+    this.modalQueueService.open(this.nicknameModal, {
+      centered: true,
+      size: 'md'
+    });
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {

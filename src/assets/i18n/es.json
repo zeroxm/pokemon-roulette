@@ -4,7 +4,12 @@
     "darkmode": "Modo oscuro",
     "explanations": "Menos explicaciones",
     "muteAudio": "Silenciar Audio",
-    "skipShinyRolls": "Omitir Tiradas de Shiny"
+    "skipShinyRolls": "Omitir Tiradas de Shiny",
+    "difficulty": "Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyNormal": "Normal",
+    "difficultyHard": "Hard",
+    "nuzlocke": "Nuzlocke Mode"
   },
   "coffee": {
     "title": "¿Te estás divirtiendo girando? 😁",
@@ -116,9 +121,34 @@
       "congrats": "¡Felicidades!",
       "share": "Compartir",
       "shareTitle": "Campeón Pokémon de {{region}}",
-      "shareText": "¡Mira lo que conseguí!"
+      "shareText": "¡Mira lo que conseguí!",
+      "rematch": {
+        "button": "Rematch (Hard Mode)",
+        "description": "Challenge the league again with your current team!"
+      }
     },
     "main": {
+      "resume": {
+        "title": "Save Found!",
+        "description": "A saved game was found. Would you like to continue?",
+        "continue": "Continue",
+        "newGame": "New Game"
+      },
+      "modal": {
+        "nickname": {
+          "title": "Give a Nickname?",
+          "placeholder": "Enter nickname...",
+          "save": "Save Nickname",
+          "skip": "Skip"
+        }
+      },
+      "nuzlocke": {
+        "fainted": "Pokemon Fainted!",
+        "hasFainted": "has fainted and can no longer battle!"
+      },
+      "streak": {
+        "hotStreak": "Hot Streak! Rare events boosted!"
+      },
       "item": {
         "activates": "se activa!"
       },
@@ -332,6 +362,12 @@
           }
         },
         "teamrocket": {
+          "phase1": {
+            "title": "Team Rocket Approaches!",
+            "fightBack": "Fight Back",
+            "flee": "Flee",
+            "negotiate": "Negotiate"
+          },
           "double": " Permítenos que nos presentemos.",
           "meowth": " ¡Meowth, bien dicho!",
           "steal": {
@@ -424,7 +460,10 @@
       "stored": "Almacenado",
       "team": "En el equipo",
       "unavailable": "La PC no está disponible",
-      "unavailableMessage": "El equipo Rocket está bloqueando las comunicaciones con el PC"
+      "unavailableMessage": "El equipo Rocket está bloqueando las comunicaciones con el PC",
+      "releaseMode": "Release for Rare Candy",
+      "cancelRelease": "Cancel",
+      "confirmRelease": "Release 3 for Rare Candy!"
     }
   },
   "wheel": {

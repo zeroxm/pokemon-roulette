@@ -15,60 +15,18 @@
     <div class="container">
           <div class="row gap-2">
                <div class="row col-12 gap-2 p-0">
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[0]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[0])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[0].text | translate }}">
-                         }
-                    </div>
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[1]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[1])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[1].text | translate }}">
-                         }
-                    </div>
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[2]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[2])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[2].text | translate }}">
-                         }
-                    </div>
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[3]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[3])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[3].text | translate }}">
-                         }
-                    </div>
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[4]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[4])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[4].text | translate }}">
-                         }
-                    </div>
-                    <div class="pokemon-container rounded-3 col-3"
-                         [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-                         @if (trainerTeam[5]?.sprite) {
-                              <img [src]="getSprite(trainerTeam[5])"
-                                   class="img-fluid"
-                                   placement="bottom"
-                                   ngbTooltip="{{trainerTeam[5].text | translate }}">
-                         }
-                    </div>
+                    @for (i of [0,1,2,3,4,5]; track i) {
+                         <div class="pokemon-container rounded-3 col-3"
+                              [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                              @if (trainerTeam[i]?.sprite) {
+                                   <img [src]="getSprite(trainerTeam[i])"
+                                        class="img-fluid"
+                                        [style.filter]="trainerTeam[i].fainted ? 'grayscale(1) opacity(0.5)' : ''"
+                                        placement="bottom"
+                                        ngbTooltip="{{ trainerTeam[i].nickname || (trainerTeam[i].text | translate) }}">
+                              }
+                         </div>
+                    }
                </div>
                <div class="col-12 p-0">
                     <app-storage-pc></app-storage-pc>

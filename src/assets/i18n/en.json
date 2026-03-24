@@ -4,7 +4,12 @@
     "darkmode": "Dark Mode",
     "explanations": "Less Explanations",
     "muteAudio": "Mute Audio",
-    "skipShinyRolls": "Hide Shiny Rolls"
+    "skipShinyRolls": "Hide Shiny Rolls",
+    "difficulty": "Difficulty",
+    "difficultyEasy": "Easy",
+    "difficultyNormal": "Normal",
+    "difficultyHard": "Hard",
+    "nuzlocke": "Nuzlocke Mode"
   },
   "coffee": {
     "title": "Having fun spinning? 😁",
@@ -116,9 +121,34 @@
       "congrats": "Congratulations!",
       "share": "Share",
       "shareTitle": "Pokemon Champion of {{region}}",
-      "shareText": "Look what I got!"
+      "shareText": "Look what I got!",
+      "rematch": {
+        "button": "Rematch (Hard Mode)",
+        "description": "Challenge the league again with your current team!"
+      }
     },
     "main": {
+      "resume": {
+        "title": "Save Found!",
+        "description": "A saved game was found. Would you like to continue?",
+        "continue": "Continue",
+        "newGame": "New Game"
+      },
+      "modal": {
+        "nickname": {
+          "title": "Give a Nickname?",
+          "placeholder": "Enter nickname...",
+          "save": "Save Nickname",
+          "skip": "Skip"
+        }
+      },
+      "nuzlocke": {
+        "fainted": "Pokemon Fainted!",
+        "hasFainted": "has fainted and can no longer battle!"
+      },
+      "streak": {
+        "hotStreak": "Hot Streak! Rare events boosted!"
+      },
       "item": {
         "activates": "activates!"
       },
@@ -332,6 +362,12 @@
           }
         },
         "teamrocket": {
+          "phase1": {
+            "title": "Team Rocket Approaches!",
+            "fightBack": "Fight Back",
+            "flee": "Flee",
+            "negotiate": "Negotiate"
+          },
           "double": "And make it double!",
           "meowth": "Meowth, that's right!",
           "steal": {
@@ -424,7 +460,10 @@
       "stored": "Stored",
       "team": "On Team",
       "unavailable": "PC is unavailable",
-      "unavailableMessage": "Team Rocket is jamming communications with the PC"
+      "unavailableMessage": "Team Rocket is jamming communications with the PC",
+      "releaseMode": "Release for Rare Candy",
+      "cancelRelease": "Cancel",
+      "confirmRelease": "Release 3 for Rare Candy!"
     }
   },
   "wheel": {

@@ -58,6 +58,15 @@ export class SoundFxService {
   }
 
   /**
+   * Plays a Pokémon's cry sound effect.
+   */
+  async playPokemonCry(pokemonId: number): Promise<boolean> {
+    const src = `https://play.pokemonshowdown.com/audio/cries/${pokemonId}.mp3`;
+    const handle = this.createSoundFx(src);
+    return this.playSoundFx(handle, 0.7);
+  }
+
+  /**
    * Internal generic creator so only this service owns asset paths.
    */
   private createSoundFx(src: string): SoundFxHandle {

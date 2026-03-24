@@ -120,8 +120,10 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+      if (!pokemon.fainted) {
+        for (let i = 0; i < pokemon.power; i++) {
+          yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+        }
       }
     });
 

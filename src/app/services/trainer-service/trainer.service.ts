@@ -15,11 +15,21 @@ import { GameStateService } from '../game-state-service/game-state.service';
 import { palafinForms } from './palafin-forms';
 import { stickyBattleForms } from './sticky-battle-forms';
 
+interface TrainerSave {
+  trainerTeam: PokemonItem[];
+  storedPokemon: PokemonItem[];
+  trainerItems: ItemItem[];
+  trainerBadges: Badge[];
+  gender: string;
+  trainerSprite: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TrainerService {
 
+  private readonly SAVE_KEY = 'pokemon-roulette-trainer';
   private readonly gameStateSubscription: Subscription;
 
   constructor(private badgesService: BadgesService,
@@ -68,6 +78,55 @@ export class TrainerService {
     this.gameStateSubscription.unsubscribe();
   }
 
+  // --- Save / Load ---
+
+  hasSave(): boolean {
+    return localStorage.getItem(this.SAVE_KEY) !== null;
+  }
+
+  loadFromSave(): boolean {
+    const raw = localStorage.getItem(this.SAVE_KEY);
+    if (!raw) return false;
+    try {
+      const save: TrainerSave = JSON.parse(raw);
+      this.trainerTeam = save.trainerTeam;
+      this.storedPokemon = save.storedPokemon;
+      this.trainerItems = save.trainerItems;
+      this.trainerBadges = save.trainerBadges;
+      this.gender = save.gender;
+      this.trainer.next({ sprite: save.trainerSprite });
+
+      // Reload sprites for all pokemon
+      [...this.trainerTeam, ...this.storedPokemon].forEach(p => this.loadPokemonSpriteIfMissing(p));
+
+      this.trainerTeamObservable.next(this.trainerTeam);
+      this.trainerItemsObservable.next(this.trainerItems);
+      this.trainerBadgesObservable.next(this.trainerBadges);
+      return true;
+    } catch {
+      this.clearSave();
+      return false;
+    }
+  }
+
+  clearSave(): void {
+    localStorage.removeItem(this.SAVE_KEY);
+  }
+
+  private saveToStorage(): void {
+    const save: TrainerSave = {
+      trainerTeam: this.trainerTeam,
+      storedPokemon: this.storedPokemon,
+      trainerItems: this.trainerItems,
+      trainerBadges: this.trainerBadges,
+      gender: this.gender,
+      trainerSprite: this.trainer.value.sprite
+    };
+    localStorage.setItem(this.SAVE_KEY, JSON.stringify(save));
+  }
+
+  // --- Trainer ---
+
   getTrainer(): Observable<{ sprite: string }> {
     return this.trainer.asObservable();
   }
@@ -79,7 +138,10 @@ export class TrainerService {
   setTrainer(generation: number, gender: string) {
     this.gender = gender;
     this.trainer.next({ sprite: this.getTrainerSprite(generation, gender) });
+    this.saveToStorage();
   }
+
+  // --- Team ---
 
   addToTeam(pokemon: PokemonItem): void {
 
@@ -94,6 +156,7 @@ export class TrainerService {
 
     this.lastAddedPokemon = pokemon;
     this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
   }
 
   removeFromTeam(pokemon: PokemonItem): void {
@@ -109,6 +172,7 @@ export class TrainerService {
     }
 
     this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
   }
 
   getTeam(): PokemonItem[] {
@@ -117,6 +181,7 @@ export class TrainerService {
 
   updateTeam(): void {
     this.trainerTeamObservable.next(this.trainerTeam);
+    this.saveToStorage();
   }
 
   getStored(): PokemonItem[] {
@@ -138,17 +203,45 @@ export class TrainerService {
       }
     }
     this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
   }
 
   getPokemonThatCanEvolve(): PokemonItem[] {
     const auxPokemonList: PokemonItem[] = [];
     this.trainerTeam.forEach(pokemon => {
-      if (this.evolutionService.canEvolve(pokemon)) {
+      if (this.evolutionService.canEvolve(pokemon) && !pokemon.fainted) {
         auxPokemonList.push(pokemon);
       }
     });
     return auxPokemonList;
   }
+
+  // --- Nuzlocke ---
+
+  faintWeakestPokemon(): PokemonItem | null {
+    const alive = this.trainerTeam.filter(p => !p.fainted);
+    if (alive.length === 0) return null;
+    const weakest = alive.reduce((a, b) => a.power < b.power ? a : b);
+    weakest.fainted = true;
+    this.trainerTeamObservable.next([...this.trainerTeam]);
+    this.saveToStorage();
+    return weakest;
+  }
+
+  isWhiteout(): boolean {
+    return this.trainerTeam.every(p => p.fainted);
+  }
+
+  // --- Item Crafting ---
+
+  releasePokemon(pokemon: PokemonItem[]): void {
+    const idsToRelease = new Set(pokemon);
+    this.storedPokemon = this.storedPokemon.filter(p => !idsToRelease.has(p));
+    this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
+  }
+
+  // --- Battle Forms ---
 
   private syncBattleForms(gameState: GameState): void {
     if (this.battleStates.has(gameState)) {
@@ -161,6 +254,7 @@ export class TrainerService {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
+    pokemonIn.nickname = pokemonOut.nickname;
     pokemonIn = pokemonIn;
     this.loadPokemonSpriteIfMissing(pokemonIn);
 
@@ -176,6 +270,7 @@ export class TrainerService {
     }
 
     this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
   }
 
   performTrade(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
@@ -191,7 +286,10 @@ export class TrainerService {
       }
     }
     this.trainerTeamObservable.next(this.getTeam());
+    this.saveToStorage();
   }
+
+  // --- Items ---
 
   getItems(): ItemItem[] {
     return this.trainerItems;
@@ -220,6 +318,7 @@ export class TrainerService {
     }
     this.trainerItems.push(item);
     this.trainerItemsObservable.next(this.trainerItems);
+    this.saveToStorage();
   }
 
   removeItem(item: ItemItem): void {
@@ -228,7 +327,10 @@ export class TrainerService {
       this.trainerItems.splice(index, 1);
     }
     this.trainerItemsObservable.next(this.trainerItems);
+    this.saveToStorage();
   }
+
+  // --- Badges ---
 
   getBadgesObservable(): Observable<Badge[]> {
     return this.trainerBadgesObservable.asObservable();
@@ -238,8 +340,11 @@ export class TrainerService {
     this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound, fromLeader).subscribe(badge => {
       this.trainerBadges.push(badge);
       this.trainerBadgesObservable.next(this.trainerBadges);
+      this.saveToStorage();
     })
   }
+
+  // --- Resets ---
 
   resetTrainer() {
     this.trainer.next({ sprite: './place-holder-pixel.png' });
@@ -365,4 +470,3 @@ export class TrainerService {
     return replaced;
   }
 }
-

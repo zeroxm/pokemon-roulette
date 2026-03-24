@@ -112,8 +112,10 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+      if (!pokemon.fainted) {
+        for (let i = 0; i < pokemon.power; i++) {
+          yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+        }
       }
     });
     const powerModifier = this.plusModifiers();
@@ -124,6 +126,13 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.currentRound; index++) {
       noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
     }
+
+    // Feature 7: Rival escalation
+    const rivalLevel = this.gameStateService.getRivalLevel();
+    for (let i = 0; i < rivalLevel; i++) {
+      noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+    }
+
     // Rival battles mirrors the current gym-leader, but you don't lose the game on then, so it starts with 1 noOdds
     noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
 

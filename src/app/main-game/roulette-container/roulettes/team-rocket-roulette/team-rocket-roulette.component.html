@@ -1,8 +1,16 @@
-<h1 class="title">{{ 'game.main.roulette.teamrocket.title' | translate }}</h1>
-<app-wheel  #wheel
-            [items]="outcomes"
-            (selectedItemEvent)="onItemSelected($event)">
-</app-wheel>
+@if (phase === 1) {
+  <h1 class="title">{{ 'game.main.roulette.teamrocket.phase1.title' | translate }}</h1>
+  <app-wheel  #wheel
+              [items]="phase1Items"
+              (selectedItemEvent)="onPhase1Selected($event)">
+  </app-wheel>
+} @else {
+  <h1 class="title">{{ 'game.main.roulette.teamrocket.title' | translate }}</h1>
+  <app-wheel  #wheel
+              [items]="outcomes"
+              (selectedItemEvent)="onItemSelected($event)">
+  </app-wheel>
+}
 
 <ng-template #teamRockerModal let-modal>
 	<div class="modal-body">

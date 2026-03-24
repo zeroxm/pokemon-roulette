@@ -17,7 +17,8 @@
           @for (pokemon of trainerTeam; track pokemon) {
             <div  class="pokemon-storage-card shadow"
                   cdkDrag>
-              <img class="img-fluid" [src]="getSprite(pokemon)">
+              <img class="img-fluid" [src]="getSprite(pokemon)"
+                   [style.filter]="pokemon.fainted ? 'grayscale(1) opacity(0.5)' : ''">
             </div>
           }
     </div>
@@ -32,13 +33,35 @@
       @for (pokemon of storedPokemon; track pokemon) {
         <div  class="pokemon-storage-card shadow"
               [cdkDragData]="pokemon"
+              [cdkDragDisabled]="releaseMode"
+              [style.border]="releaseMode && isSelectedForRelease(pokemon) ? '3px solid red' : ''"
+              (click)="releaseMode ? toggleSelectForRelease(pokemon) : null"
               cdkDrag>
           <img [src]="getSprite(pokemon)" class="img-fluid">
         </div>
       }
     </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer d-flex justify-content-between">
+    <div>
+      @if (storedPokemon && storedPokemon.length >= 3) {
+        <button type="button" class="btn btn-sm"
+                [class.btn-outline-danger]="!releaseMode"
+                [class.btn-danger]="releaseMode"
+                (click)="toggleReleaseMode()">
+          {{ releaseMode ? ('trainer.storage.cancelRelease' | translate) : ('trainer.storage.releaseMode' | translate) }}
+        </button>
+      }
+      @if (releaseMode && selectedForRelease.length === 3) {
+        <button type="button" class="btn btn-sm btn-warning ms-2"
+                (click)="confirmRelease()">
+          {{ 'trainer.storage.confirmRelease' | translate }}
+        </button>
+      }
+      @if (releaseMode) {
+        <span class="ms-2 small text-muted">{{ selectedForRelease.length }}/3</span>
+      }
+    </div>
     <button type="button" class="btn btn-outline-dark" (click)="logOut()">{{ 'trainer.storage.logout' | translate }}</button>
   </div>
 </ng-template>
