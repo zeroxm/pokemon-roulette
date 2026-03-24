@@ -775,8 +775,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   private completePokemonCapture(pokemon: PokemonItem): void {
     this.trainerService.addToTeam(pokemon);
-    this.gameStateService.setNextState('check-shininess');
-    this.finishCurrentState();
+    // Defer state transition to next tick so Angular can properly destroy the
+    // current wheel canvas before the shiny-roulette wheel initializes its own.
+    setTimeout(() => {
+      this.gameStateService.setNextState('check-shininess');
+      this.finishCurrentState();
+      this.cdr.markForCheck();
+    });
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
