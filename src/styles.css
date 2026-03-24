@@ -2,19 +2,168 @@
 
 body {
   font-family: "Pokemon GB", Monospace, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.dark-mode {
-  background-color: #2d3436;
-  color: #dfe6e9;
+  background-color: #1a1a2e;
+  color: #e0e0e0;
 }
 
 body.light-mode {
-  background-color: #dfe6e9;
+  background-color: #f5f5f5;
   color: #2d3436;
+}
+
+body.snowflake-mode {
+  background-color: #e8f4fd;
+  color: #1a3a5c;
+}
+
+body.snowflake-mode .modal-content {
+  background-color: #d6eaf8;
+  color: #1a3a5c;
+  border: 1px solid rgba(116, 185, 255, 0.3);
+}
+
+body.snowflake-mode .modal-footer {
+  border-top-color: rgba(116, 185, 255, 0.25);
+}
+
+body.snowflake-mode .form-check-input:checked {
+  background-color: #74b9ff;
+  border-color: #74b9ff;
+}
+
+body.snowflake-mode ::selection {
+  background-color: #74b9ff;
+  color: white;
+}
+
+body.snowflake-mode .btn-outline-secondary {
+  border-color: rgba(116, 185, 255, 0.4);
+  color: #2e86c1;
+}
+
+body.snowflake-mode .btn-outline-secondary:hover {
+  background-color: rgba(116, 185, 255, 0.15);
+  border-color: #74b9ff;
+  color: #1a5276;
+}
+
+body.snowflake-mode ::-webkit-scrollbar-thumb {
+  background: rgba(116, 185, 255, 0.4);
+}
+
+body.snowflake-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(116, 185, 255, 0.6);
 }
 
 .row {
   margin-left: 0px;
   margin-right: 0px;
+}
+
+/* Professional button styling */
+.btn {
+  border-radius: 8px;
+  font-family: "Pokemon GB", Monospace, sans-serif;
+  font-size: 0.75rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Card-like containers */
+.rounded-3 {
+  border-radius: 12px !important;
+}
+
+/* Modal polish */
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1rem 2rem;
+}
+
+body.dark-mode .modal-content {
+  background-color: #16213e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-body {
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-footer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.6);
+}
+
+/* Form controls polish */
+.form-check-input {
+  cursor: pointer;
+  width: 3em;
+  height: 1.5em;
+  border-radius: 1em;
+  transition: background-color 0.2s ease;
+}
+
+.form-check-input:checked {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.form-control {
+  border-radius: 8px;
+  font-family: "Pokemon GB", Monospace, sans-serif;
+  font-size: 0.75rem;
+}
+
+/* Selection highlight */
+::selection {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Image rendering for pixel art sprites */
+img {
+  image-rendering: pixelated;
 }

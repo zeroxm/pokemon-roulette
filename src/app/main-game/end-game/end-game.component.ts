@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import Fireworks from 'fireworks-js';
 // @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { GameStateService } from '../../services/game-state-service/game-state.service';
 
 @Component({
   selector: 'app-end-game',
@@ -24,11 +25,14 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 })
 export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  @Output() rematchEvent = new EventEmitter<void>();
+
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
     private darkModeService: DarkModeService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private gameStateService: GameStateService
   ) { }
 
   darkMode!: boolean;
@@ -134,5 +138,10 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     }).catch((error: Error) => {
       console.error('Error capturing image:', error);
     });
+  }
+
+  startRematch(): void {
+    this.gameStateService.initializeRematchStates();
+    this.rematchEvent.emit();
   }
 }

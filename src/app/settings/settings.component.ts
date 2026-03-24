@@ -6,7 +6,7 @@ import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.com
 import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { SettingsService, GameSettings } from '../services/settings-service/settings.service';
+import { SettingsService, GameSettings, Difficulty } from '../services/settings-service/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -24,7 +24,7 @@ import { SettingsService, GameSettings } from '../services/settings-service/sett
 export class SettingsComponent implements OnInit {
 
   settings$!: Observable<GameSettings>;
-    
+
   constructor(private settingsService: SettingsService) {}
 
   ngOnInit(): void {
@@ -43,4 +43,15 @@ export class SettingsComponent implements OnInit {
     this.settingsService.toggleSkipShinyRolls();
   }
 
+  onSetDifficulty(difficulty: Difficulty): void {
+    this.settingsService.setDifficulty(difficulty);
+  }
+
+  onToggleNuzlockeMode(): void {
+    this.settingsService.toggleNuzlockeMode();
+  }
+
+  onToggleAutoSpin(): void {
+    this.settingsService.toggleAutoSpin();
+  }
 }

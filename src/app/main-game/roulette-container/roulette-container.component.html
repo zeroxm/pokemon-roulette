@@ -1,8 +1,19 @@
 @switch (getGameState()) {
   @case ('game-start') {
-    <app-generation-roulette
-        (generationSelectedEvent)="handleGenerationSelected()">
-    </app-generation-roulette>
+    @if (hasSavedGame()) {
+      <div class="d-flex flex-column align-items-center gap-3 mt-5">
+        <h2>{{ 'game.main.resume.title' | translate }}</h2>
+        <p>{{ 'game.main.resume.description' | translate }}</p>
+        <div class="d-flex gap-3">
+          <button class="btn btn-success btn-lg" (click)="continueGame()">{{ 'game.main.resume.continue' | translate }}</button>
+          <button class="btn btn-outline-danger" (click)="newGame()">{{ 'game.main.resume.newGame' | translate }}</button>
+        </div>
+      </div>
+    } @else {
+      <app-generation-roulette
+          (generationSelectedEvent)="handleGenerationSelected()">
+      </app-generation-roulette>
+    }
   }
   @case ('character-select') {
     <app-character-select
@@ -63,6 +74,7 @@
   @case ('adventure-continues') {
     <app-main-adventure-roulette
         [respinReason]="respinReason"
+        [catchStreak]="catchStreak"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
@@ -196,7 +208,7 @@
     </app-champion-battle-roulette>
   }
   @case ('game-finish') {
-    <app-end-game></app-end-game>
+    <app-end-game (rematchEvent)="doNothing()"></app-end-game>
   }
   @case ('game-over') {
     <app-game-over
@@ -276,6 +288,16 @@
                 <p>{{ infoModalMessage }}</p>
             </div>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
+    </div>
+</ng-template>
+
+<ng-template #faintedModal let-modal>
+    <div class="modal-body text-center">
+        <h2>{{ 'game.main.nuzlocke.fainted' | translate }}</h2>
+        <p>{{ faintedPokemonName }} {{ 'game.main.nuzlocke.hasFainted' | translate }}</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>

@@ -15,6 +15,7 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { SettingsService } from '../../../../services/settings-service/settings.service';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -35,7 +36,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private settingsService: SettingsService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -120,8 +122,10 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+      if (!pokemon.fainted) {
+        for (let i = 0; i < pokemon.power; i++) {
+          yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+        }
       }
     });
 
@@ -135,6 +139,16 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     }
     // Gym battles should starts with 1 noOdds
     noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
+
+    // Difficulty modifier
+    const difficulty = this.settingsService.currentSettings.difficulty;
+    if (difficulty === 'easy') {
+      yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
+    } else if (difficulty === 'hard') {
+      noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
+    }
 
     this.victoryOdds = interleaveOdds(yesOdds, noOdds);
   }

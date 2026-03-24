@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -12,12 +12,13 @@ import { Subscription } from 'rxjs';
   templateUrl: './main-adventure-roulette.component.html',
   styleUrl: './main-adventure-roulette.component.css'
 })
-export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
+export class MainAdventureRouletteComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private generationService: GenerationService) {
   }
 
   @Input() respinReason!: string;
+  @Input() catchStreak: number = 0;
   @Output() catchPokemonEvent = new EventEmitter<void>();
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
@@ -64,18 +65,43 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   };
 
   actions: WheelItem[] = [...this.baseActions];
+  isHotStreak = false;
   private generationSubscription: Subscription | null = null;
+  private currentGenerationId: number = 0;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(generation => {
-      this.actions = generation.id === 9
-        ? [...this.baseActions, this.areaZeroAction]
-        : [...this.baseActions];
+      this.currentGenerationId = generation.id;
+      this.rebuildActions();
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['catchStreak']) {
+      this.rebuildActions();
+    }
   }
 
   ngOnDestroy(): void {
     this.generationSubscription?.unsubscribe();
+  }
+
+  private rebuildActions(): void {
+    let actions = this.baseActions.map(a => ({ ...a }));
+
+    // Feature 8: Streak boost
+    this.isHotStreak = this.catchStreak >= 3;
+    if (this.isHotStreak) {
+      // Legendary encounter is index 8, battle rival is index 16
+      actions[8] = { ...actions[8], weight: 3 }; // legendary: 1 -> 3
+      actions[16] = { ...actions[16], weight: 2 }; // battle rival: 1 -> 2
+    }
+
+    if (this.currentGenerationId === 9) {
+      actions.push({ ...this.areaZeroAction });
+    }
+
+    this.actions = actions;
   }
 
   onItemSelected(index: number): void {
@@ -137,4 +163,3 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
     }
   }
 }
-

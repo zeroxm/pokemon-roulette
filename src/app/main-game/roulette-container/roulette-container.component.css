@@ -3,7 +3,6 @@
 }
 
 .modal-body {
-	color: black;
 	text-align: center;
 }
 
@@ -11,11 +10,17 @@
 	font-size: medium;
 }
 
+.modal-body h1,
+.modal-body h2 {
+	margin-bottom: 1rem;
+}
+
 .explain-panel {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	gap: 1rem;
 }
 
 .pokemon-switch-panel {
@@ -23,6 +28,13 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	gap: 1rem;
+}
+
+.pokemon-switch-panel img,
+.explain-panel img,
+.item-panel img {
+	filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
 .message {
@@ -30,16 +42,14 @@
 	cursor: default;
 	font-size: 8.6px;
 	font-family: "Pokemon GB", Monospace, sans-serif;
-	border-radius: 2px;
-	padding: 8px;
+	border-radius: 8px;
+	padding: 12px;
 	position: relative;
 	line-height: 16px;
 	background: white;
-	border: 1px solid white;
-	box-shadow: 0 1px 0 1px black,
-		inset 0 1px 0 1px black,
-		0 0 0 1px black,
-		inset 0 0 0 1px black;
+	color: #333;
+	border: 2px solid #333;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 	user-select: none;
 	max-width: 50%;
 }
@@ -49,4 +59,5 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	gap: 1rem;
 }

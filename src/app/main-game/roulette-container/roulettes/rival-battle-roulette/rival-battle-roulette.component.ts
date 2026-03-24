@@ -14,6 +14,7 @@ import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
+import { SettingsService } from '../../../../services/settings-service/settings.service';
 
 @Component({
   selector: 'app-rival-battle-roulette',
@@ -33,7 +34,8 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private settingsService: SettingsService
   ) {
 
   }
@@ -112,8 +114,10 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+      if (!pokemon.fainted) {
+        for (let i = 0; i < pokemon.power; i++) {
+          yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+        }
       }
     });
     const powerModifier = this.plusModifiers();
@@ -124,8 +128,25 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     for (let index = 0; index < this.currentRound; index++) {
       noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
     }
+
+    // Feature 7: Rival escalation
+    const rivalLevel = this.gameStateService.getRivalLevel();
+    for (let i = 0; i < rivalLevel; i++) {
+      noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+    }
+
     // Rival battles mirrors the current gym-leader, but you don't lose the game on then, so it starts with 1 noOdds
     noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+
+    // Difficulty modifier
+    const difficulty = this.settingsService.currentSettings.difficulty;
+    if (difficulty === 'easy') {
+      yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: "game.main.roulette.rival.yes", fillStyle: "green", weight: 1 });
+    } else if (difficulty === 'hard') {
+      noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: "game.main.roulette.rival.no", fillStyle: "crimson", weight: 1 });
+    }
 
     this.victoryOdds = interleaveOdds(yesOdds, noOdds);
   }

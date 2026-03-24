@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
 
+export type Difficulty = 'easy' | 'normal' | 'hard';
+
 export interface GameSettings {
   muteAudio: boolean;
   skipShinyRolls: boolean;
   lessExplanations: boolean;
+  difficulty: Difficulty;
+  nuzlockeMode: boolean;
+  autoSpin: boolean;
 }
 
 @Injectable({
@@ -16,7 +21,10 @@ export class SettingsService {
   private readonly defaultSettings: GameSettings = {
     muteAudio: false,
     skipShinyRolls: false,
-    lessExplanations: false
+    lessExplanations: false,
+    difficulty: 'normal',
+    nuzlockeMode: false,
+    autoSpin: false
   };
 
   private settingsSubject$: BehaviorSubject<GameSettings>;
@@ -48,6 +56,23 @@ export class SettingsService {
   toggleLessExplanations(): void {
     const currentSettings = this.currentSettings;
     const newSettings = { ...currentSettings, lessExplanations: !currentSettings.lessExplanations };
+    this.updateSettings(newSettings);
+  }
+
+  setDifficulty(difficulty: Difficulty): void {
+    const newSettings = { ...this.currentSettings, difficulty };
+    this.updateSettings(newSettings);
+  }
+
+  toggleNuzlockeMode(): void {
+    const currentSettings = this.currentSettings;
+    const newSettings = { ...currentSettings, nuzlockeMode: !currentSettings.nuzlockeMode };
+    this.updateSettings(newSettings);
+  }
+
+  toggleAutoSpin(): void {
+    const currentSettings = this.currentSettings;
+    const newSettings = { ...currentSettings, autoSpin: !currentSettings.autoSpin };
     this.updateSettings(newSettings);
   }
 

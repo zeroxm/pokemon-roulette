@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NgbCollapseModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
@@ -32,7 +32,8 @@ import { RareCandyService } from '../services/rare-candy-service/rare-candy.serv
     LanguageSelectorComponent
   ],
   templateUrl: './main-game.component.html',
-  styleUrl: './main-game.component.css'
+  styleUrl: './main-game.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainGameComponent implements OnInit {
 
@@ -42,7 +43,8 @@ export class MainGameComponent implements OnInit {
     private trainerService: TrainerService,
     private modalService: NgbModal,
     private analyticsService: AnalyticsService,
-    private rareCandyService: RareCandyService) {
+    private rareCandyService: RareCandyService,
+    private cdr: ChangeDetectorRef) {
       this.darkMode = this.darkModeService.darkMode$;
   }
 
@@ -53,6 +55,7 @@ export class MainGameComponent implements OnInit {
 
     this.gameStateService.wheelSpinningObserver.subscribe(state => {
       this.wheelSpinning = state;
+      this.cdr.markForCheck();
     });
   }
   

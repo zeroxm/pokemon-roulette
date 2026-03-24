@@ -1,11 +1,17 @@
 .game-container {
-	width: 100%;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .map-container {
-	flex-shrink: 0;
-	/* Prevents it from shrinking */
-	background: #222;
-	/* Optional: Background for better visibility */
-	padding: 16px;
+  flex-shrink: 0;
+  background: #222;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.extra-options .btn {
+  width: 100%;
 }

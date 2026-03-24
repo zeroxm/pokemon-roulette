@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, NgZone, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SoundFxHandle, SoundFxService } from '../services/sound-fx-service/sound-fx.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsService } from '../services/settings-service/settings.service';
 
 @Component({
   selector: 'app-wheel',
@@ -15,9 +16,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     TranslatePipe
   ],
   templateUrl: './wheel.component.html',
-  styleUrl: './wheel.component.css'
+  styleUrl: './wheel.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WheelComponent implements AfterViewInit, OnChanges {
+export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   wheelCanvas!: HTMLCanvasElement;
   wheelCtx!: CanvasRenderingContext2D;
@@ -45,13 +47,20 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   private translatedItems: WheelItem[] = [];
   private readonly mobileBreakpoint = 768;
+  private cachedTotalWeight = 0;
+  private readonly boundAnimate = this.animate.bind(this);
+  private resizeTimeout: ReturnType<typeof setTimeout> | null = null;
+
+  private autoSpinTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private darkModeService: DarkModeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
     private soundFxService: SoundFxService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private settingsService: SettingsService,
+    private ngZone: NgZone
   ) {
     this.clickAudio = this.soundFxService.createClickSoundFx();
     this.darkMode = this.darkModeService.darkMode$;
@@ -73,17 +82,22 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.preprocessTranslations();
       this.drawWheel();
       this.drawPointer();
+      this.tryAutoSpin();
     });
   }
 
   @HostListener('window:resize')
   handleResize(): void {
-    this.updateWheelDimensions();
-
-    if (this.wheelCtx && this.pointerCtx) {
-      this.drawWheel(this.currentRotation);
-      this.drawPointer();
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
     }
+    this.resizeTimeout = setTimeout(() => {
+      this.updateWheelDimensions();
+      if (this.wheelCtx && this.pointerCtx) {
+        this.drawWheel(this.currentRotation);
+        this.drawPointer();
+      }
+    }, 100);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -92,6 +106,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.preprocessTranslations();
         this.drawWheel();
         this.drawPointer();
+        this.tryAutoSpin();
       });
     }
   }
@@ -101,6 +116,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       ...item,
       text: this.translateService.instant(item.text)
     }));
+    this.cachedTotalWeight = this.translatedItems.reduce((sum, item) => sum + item.weight, 0);
   }
 
   private updateWheelDimensions(): void {
@@ -123,7 +139,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const centerY = this.wheelCanvas.height / 2;
     const radius = (this.wheelCanvas.width / 2);
 
-    const totalWeight = this.getTotalWeights();
+    const totalWeight = this.cachedTotalWeight;
     const arcSize = (2 * Math.PI) / (totalWeight);
     this.wheelCtx.clearRect(0, 0, this.wheelCanvas.width, this.wheelCanvas.height);
 
@@ -178,10 +194,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     this.spinning = true;
     this.gameStateService.setWheelSpinning(this.spinning);
-
+    this.duration = Math.floor(Math.random() * (5000 - 3000)) + 3000;
 
     this.startTime = performance.now();
-    const totalWeight = this.getTotalWeights();
+    const totalWeight = this.cachedTotalWeight;
     const arcSize = (2 * Math.PI) / (totalWeight);
 
     this.winningNumber = this.getRandomWeightedIndex();
@@ -202,7 +218,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const offset = Math.random() * winningSegmentSize;
     this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
 
-    requestAnimationFrame(this.animate.bind(this));
+    // Run animation outside Angular zone to avoid triggering change detection on every frame
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(this.boundAnimate);
+    });
   }
 
   private animate(currentTime: number): void {
@@ -211,16 +230,17 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const easedProgress = 1 - Math.pow(1 - progress, 3);
     this.currentRotation = easedProgress * this.finalRotation;
 
-    const totalWeight = this.getTotalWeights();
-
     this.drawWheel(this.currentRotation);
 
     if (progress < 1) {
-      requestAnimationFrame(this.animate.bind(this));
+      requestAnimationFrame(this.boundAnimate);
     } else {
-      this.spinning = false;
-      this.selectedItemEvent.emit(this.winningNumber);
-      this.gameStateService.setWheelSpinning(false);
+      // Re-enter Angular zone for state changes that affect the UI
+      this.ngZone.run(() => {
+        this.spinning = false;
+        this.selectedItemEvent.emit(this.winningNumber);
+        this.gameStateService.setWheelSpinning(false);
+      });
     }
 
     const segment = this.getCurrentSegment();
@@ -232,7 +252,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   }
 
   private getCurrentSegment(): string {
-    const totalWeight = this.getTotalWeights();
+    const totalWeight = this.cachedTotalWeight;
 
     const currentAngle = (2 * Math.PI - (this.currentRotation % (2 * Math.PI))) % (2 * Math.PI);
     let accumulatedWeight = 0;
@@ -248,12 +268,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     return '-';
   }
 
-  private getTotalWeights(): number {
-    return this.translatedItems.reduce((sum, item) => sum + item.weight, 0);
-  }
-
   getRandomWeightedIndex(): number {
-    const totalWeight = this.getTotalWeights();
+    const totalWeight = this.cachedTotalWeight;
     let random = Math.random() * totalWeight;
     let accumulatedWeight = 0;
 
@@ -264,6 +280,25 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       }
     }
     return this.translatedItems.length - 1;
+  }
+
+  ngOnDestroy(): void {
+    if (this.autoSpinTimeout) {
+      clearTimeout(this.autoSpinTimeout);
+    }
+  }
+
+  private tryAutoSpin(): void {
+    if (this.autoSpinTimeout) {
+      clearTimeout(this.autoSpinTimeout);
+    }
+    if (this.settingsService.currentSettings.autoSpin && !this.spinning && !this.modalService.hasOpenModals()) {
+      this.autoSpinTimeout = setTimeout(() => {
+        if (!this.spinning && !this.modalService.hasOpenModals()) {
+          this.spinWheel();
+        }
+      }, 500);
+    }
   }
 
   @HostListener('window:keydown.space', ['$event'])

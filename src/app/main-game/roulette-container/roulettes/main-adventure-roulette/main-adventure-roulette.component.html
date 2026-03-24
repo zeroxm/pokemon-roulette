@@ -1,5 +1,8 @@
 <h1 class="title">{{ 'game.main.roulette.adventure.title' | translate }}</h1>
 <p class="respin-reason">{{ respinReason | translate}}</p>
+@if (isHotStreak) {
+  <p class="text-warning fw-bold">{{ 'game.main.streak.hotStreak' | translate }}</p>
+}
 <app-wheel  #wheel
             [items]="actions"
             (selectedItemEvent)="onItemSelected($event)">
