@@ -9,7 +9,8 @@
     "difficultyEasy": "Easy",
     "difficultyNormal": "Normal",
     "difficultyHard": "Hard",
-    "nuzlocke": "Nuzlocke Mode"
+    "nuzlocke": "Nuzlocke Mode",
+    "autoSpin": "Giro Automático"
   },
   "coffee": {
     "title": "¿Te estás divirtiendo girando? 😁",

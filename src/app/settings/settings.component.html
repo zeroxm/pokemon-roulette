@@ -98,6 +98,19 @@
                         </div>
                     </div>
                     <div class="col-12">
+                        <div class="form-switch d-flex justify-content-between">
+                            <label class="form-check-label" for="autoSpinSwitch">
+                                {{ 'settings.autoSpin' | translate }}
+                            </label>
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                [checked]="(settings$ | async)?.autoSpin"
+                                (change)="onToggleAutoSpin()"
+                                id="autoSpinSwitch">
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <app-language-selector></app-language-selector>
                     </div>
                 </div>

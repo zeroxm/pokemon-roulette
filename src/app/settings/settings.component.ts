@@ -50,4 +50,8 @@ export class SettingsComponent implements OnInit {
   onToggleNuzlockeMode(): void {
     this.settingsService.toggleNuzlockeMode();
   }
+
+  onToggleAutoSpin(): void {
+    this.settingsService.toggleAutoSpin();
+  }
 }

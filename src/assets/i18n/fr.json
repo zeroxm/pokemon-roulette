@@ -9,7 +9,8 @@
     "difficultyEasy": "Easy",
     "difficultyNormal": "Normal",
     "difficultyHard": "Hard",
-    "nuzlocke": "Nuzlocke Mode"
+    "nuzlocke": "Nuzlocke Mode",
+    "autoSpin": "Rotation Auto"
   },
   "coffee": {
     "title": "Vous amusez-vous à faire tourner la roue? 😁",

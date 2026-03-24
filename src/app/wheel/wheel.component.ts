@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, NgZone, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, NgZone, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SoundFxHandle, SoundFxService } from '../services/sound-fx-service/sound-fx.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsService } from '../services/settings-service/settings.service';
 
 @Component({
   selector: 'app-wheel',
@@ -18,7 +19,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './wheel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WheelComponent implements AfterViewInit, OnChanges {
+export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   wheelCanvas!: HTMLCanvasElement;
   wheelCtx!: CanvasRenderingContext2D;
@@ -50,12 +51,15 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   private readonly boundAnimate = this.animate.bind(this);
   private resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
+  private autoSpinTimeout: ReturnType<typeof setTimeout> | null = null;
+
   constructor(
     private darkModeService: DarkModeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
     private soundFxService: SoundFxService,
     private modalService: NgbModal,
+    private settingsService: SettingsService,
     private ngZone: NgZone
   ) {
     this.clickAudio = this.soundFxService.createClickSoundFx();
@@ -78,6 +82,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       this.preprocessTranslations();
       this.drawWheel();
       this.drawPointer();
+      this.tryAutoSpin();
     });
   }
 
@@ -101,6 +106,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.preprocessTranslations();
         this.drawWheel();
         this.drawPointer();
+        this.tryAutoSpin();
       });
     }
   }
@@ -274,6 +280,25 @@ export class WheelComponent implements AfterViewInit, OnChanges {
       }
     }
     return this.translatedItems.length - 1;
+  }
+
+  ngOnDestroy(): void {
+    if (this.autoSpinTimeout) {
+      clearTimeout(this.autoSpinTimeout);
+    }
+  }
+
+  private tryAutoSpin(): void {
+    if (this.autoSpinTimeout) {
+      clearTimeout(this.autoSpinTimeout);
+    }
+    if (this.settingsService.currentSettings.autoSpin && !this.spinning && !this.modalService.hasOpenModals()) {
+      this.autoSpinTimeout = setTimeout(() => {
+        if (!this.spinning && !this.modalService.hasOpenModals()) {
+          this.spinWheel();
+        }
+      }, 500);
+    }
   }
 
   @HostListener('window:keydown.space', ['$event'])

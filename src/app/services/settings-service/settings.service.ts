@@ -9,6 +9,7 @@ export interface GameSettings {
   lessExplanations: boolean;
   difficulty: Difficulty;
   nuzlockeMode: boolean;
+  autoSpin: boolean;
 }
 
 @Injectable({
@@ -22,7 +23,8 @@ export class SettingsService {
     skipShinyRolls: false,
     lessExplanations: false,
     difficulty: 'normal',
-    nuzlockeMode: false
+    nuzlockeMode: false,
+    autoSpin: false
   };
 
   private settingsSubject$: BehaviorSubject<GameSettings>;
@@ -65,6 +67,12 @@ export class SettingsService {
   toggleNuzlockeMode(): void {
     const currentSettings = this.currentSettings;
     const newSettings = { ...currentSettings, nuzlockeMode: !currentSettings.nuzlockeMode };
+    this.updateSettings(newSettings);
+  }
+
+  toggleAutoSpin(): void {
+    const currentSettings = this.currentSettings;
+    const newSettings = { ...currentSettings, autoSpin: !currentSettings.autoSpin };
     this.updateSettings(newSettings);
   }
 
