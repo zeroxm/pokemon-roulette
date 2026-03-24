@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { Observable, Subscription } from 'rxjs';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
@@ -17,12 +17,14 @@ import {TranslatePipe} from '@ngx-translate/core';
     BadgesComponent,
     StoragePcComponent, TranslatePipe],
   templateUrl: './trainer-team.component.html',
-  styleUrls: ['./trainer-team.component.css']
+  styleUrls: ['./trainer-team.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrainerTeamComponent implements OnInit, OnDestroy {
 
   constructor(private trainerService: TrainerService,
-              private darkModeService: DarkModeService) { }
+              private darkModeService: DarkModeService,
+              private cdr: ChangeDetectorRef) { }
 
   trainer!: { sprite: string; };
   trainerTeam!: PokemonItem[];
@@ -37,12 +39,15 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.trainerSubscription = this.trainerService.getTrainer().subscribe(trainer => {
       this.trainer = trainer;
+      this.cdr.markForCheck();
     });
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
+      this.cdr.markForCheck();
     });
     this.badgesSubscription = this.trainerService.getBadgesObservable().subscribe(badges => {
       this.trainerBadges = badges;
+      this.cdr.markForCheck();
     });
     this.darkMode = this.darkModeService.darkMode$;
   }

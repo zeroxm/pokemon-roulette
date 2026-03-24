@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
@@ -22,7 +22,8 @@ import { Subscription } from 'rxjs';
     TranslatePipe
   ],
   templateUrl: './storage-pc.component.html',
-  styleUrl: './storage-pc.component.css'
+  styleUrl: './storage-pc.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StoragePcComponent implements OnInit, OnDestroy {
 
@@ -30,7 +31,8 @@ export class StoragePcComponent implements OnInit, OnDestroy {
                 private darkModeService: DarkModeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
-                private soundFxService: SoundFxService) {
+                private soundFxService: SoundFxService,
+                private cdr: ChangeDetectorRef) {
       this.pcTurningOn = this.soundFxService.createPcTurningOnSoundFx();
       this.pcLoginAudio = this.soundFxService.createPcLoginSoundFx();
       this.pcLogoutAudio = this.soundFxService.createPcLogoutSoundFx();
@@ -60,10 +62,12 @@ export class StoragePcComponent implements OnInit, OnDestroy {
 
       this.subscriptions.add(this.gameStateService.wheelSpinningObserver.subscribe(state => {
         this.wheelSpinning = state;
+        this.cdr.markForCheck();
       }));
 
       this.subscriptions.add(this.gameStateService.currentState.subscribe(state => {
         this.currentGameState = state;
+        this.cdr.markForCheck();
       }));
     }
 

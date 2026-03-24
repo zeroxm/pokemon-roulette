@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
@@ -87,7 +87,8 @@ import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemo
     GameOverComponent
 ],
   templateUrl: './roulette-container.component.html',
-  styleUrl: './roulette-container.component.css'
+  styleUrl: './roulette-container.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RouletteContainerComponent implements OnInit, OnDestroy {
 
@@ -108,7 +109,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private soundFxService: SoundFxService,
       private settingsService: SettingsService,
       private pokemonFormsService: PokemonFormsService,
-      private rareCandyService: RareCandyService) {
+      private rareCandyService: RareCandyService,
+      private cdr: ChangeDetectorRef) {
       this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
     }
 
@@ -124,14 +126,17 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             this.respinReason = 'items.running-shoes.name';
           }
         }
+        this.cdr.markForCheck();
       });
 
     this.gameStateService.currentRoundObserver.subscribe(round => {
       this.leadersDefeatedAmount = round;
+      this.cdr.markForCheck();
     });
 
     this.gameStateService.wheelSpinningObserver.subscribe(state => {
       this.wheelSpinning = state;
+      this.cdr.markForCheck();
     });
 
     // Subscribe to rare candy evolution trigger
