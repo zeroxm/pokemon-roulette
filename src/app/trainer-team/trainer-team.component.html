@@ -23,7 +23,7 @@
                                         class="img-fluid"
                                         [style.filter]="trainerTeam[i].fainted ? 'grayscale(1) opacity(0.5)' : ''"
                                         placement="bottom"
-                                        ngbTooltip="{{ trainerTeam[i].nickname || (trainerTeam[i].text | translate) }}">
+                                        ngbTooltip="{{ trainerTeam[i].text | translate }}">
                               }
                          </div>
                     }

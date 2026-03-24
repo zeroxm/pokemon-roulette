@@ -134,14 +134,7 @@
         "continue": "Continue",
         "newGame": "New Game"
       },
-      "modal": {
-        "nickname": {
-          "title": "Give a Nickname?",
-          "placeholder": "Enter nickname...",
-          "save": "Save Nickname",
-          "skip": "Skip"
-        }
-      },
+      "modal": {},
       "nuzlocke": {
         "fainted": "Pokemon Fainted!",
         "hasFainted": "has fainted and can no longer battle!"

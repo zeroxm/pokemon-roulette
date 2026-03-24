@@ -294,24 +294,6 @@
     </div>
 </ng-template>
 
-<ng-template #nicknameModal let-modal>
-    <div class="modal-body text-center">
-        <h2>{{ 'game.main.modal.nickname.title' | translate }}</h2>
-        @if (pendingNicknamePokemon?.sprite) {
-          <img [src]="pendingNicknamePokemon!.sprite?.front_default" height="128">
-        }
-        <div class="mt-3">
-            <input type="text" class="form-control" [(ngModel)]="nicknameInput"
-                   [placeholder]="'game.main.modal.nickname.placeholder' | translate"
-                   maxlength="20">
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="skipNickname()">{{ 'game.main.modal.nickname.skip' | translate }}</button>
-        <button type="button" class="btn btn-primary" (click)="saveNickname()">{{ 'game.main.modal.nickname.save' | translate }}</button>
-    </div>
-</ng-template>
-
 <ng-template #faintedModal let-modal>
     <div class="modal-body text-center">
         <h2>{{ 'game.main.nuzlocke.fainted' | translate }}</h2>

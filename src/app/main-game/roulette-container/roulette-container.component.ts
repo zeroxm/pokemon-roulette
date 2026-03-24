@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
@@ -56,7 +55,6 @@ import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemo
   imports: [
     CommonModule,
     TranslatePipe,
-    FormsModule,
     GenerationRouletteComponent,
     CharacterSelectComponent,
     StarterRouletteComponent,
@@ -167,7 +165,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
   @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
   @ViewChild('teamRocketFailsModal', { static: true }) teamRocketFailsModal!: TemplateRef<any>;
-  @ViewChild('nicknameModal', { static: true }) nicknameModal!: TemplateRef<any>;
   @ViewChild('faintedModal', { static: true }) faintedModal!: TemplateRef<any>;
   @ViewChild('resumeGameModal', { static: true }) resumeGameModal!: TemplateRef<any>;
 
@@ -200,10 +197,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   // Feature 8: Streak tracker
   catchStreak: number = 0;
-
-  // Feature 9: Nickname
-  pendingNicknamePokemon: PokemonItem | null = null;
-  nicknameInput: string = '';
 
   // Feature 5: Nuzlocke
   faintedPokemonName: string = '';
@@ -699,6 +692,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   // Feature 5: Nuzlocke - centralized battle loss handler
   private handleBattleLoss(): void {
     if (this.settingsService.currentSettings.nuzlockeMode) {
+      // In Nuzlocke, use a potion first if available to get another chance
+      const potion = this.findPotion();
+      if (potion) {
+        this.trainerService.removeItem(potion);
+        this.finishCurrentState();
+        return;
+      }
+      // No potions left - faint the weakest pokemon
       const fainted = this.trainerService.faintWeakestPokemon();
       if (fainted) {
         this.faintedPokemonName = this.translateService.instant(fainted.text);
@@ -719,27 +720,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Feature 9: Nickname
-  saveNickname(): void {
-    if (this.pendingNicknamePokemon && this.nicknameInput.trim()) {
-      this.pendingNicknamePokemon.nickname = this.nicknameInput.trim();
-    }
-    this.modalService.dismissAll();
-    this.completeNicknamedCapture();
-  }
-
-  skipNickname(): void {
-    this.modalService.dismissAll();
-    this.completeNicknamedCapture();
-  }
-
-  private completeNicknamedCapture(): void {
-    if (this.pendingNicknamePokemon) {
-      this.trainerService.addToTeam(this.pendingNicknamePokemon);
-      this.pendingNicknamePokemon = null;
-      this.gameStateService.setNextState('check-shininess');
-      this.finishCurrentState();
-    }
+  private findPotion(): ItemItem | undefined {
+    const items = this.trainerService.getItems();
+    return items.find(item =>
+      item.name === 'potion' || item.name === 'super-potion' || item.name === 'hyper-potion'
+    );
   }
 
   closeModal(): void {
@@ -789,13 +774,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {
-    // Feature 9: Nickname modal
-    this.pendingNicknamePokemon = structuredClone(pokemon);
-    this.nicknameInput = '';
-    this.modalQueueService.open(this.nicknameModal, {
-      centered: true,
-      size: 'md'
-    });
+    this.trainerService.addToTeam(pokemon);
+    this.gameStateService.setNextState('check-shininess');
+    this.finishCurrentState();
   }
 
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {

@@ -254,7 +254,6 @@ export class TrainerService {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
-    pokemonIn.nickname = pokemonOut.nickname;
     pokemonIn = pokemonIn;
     this.loadPokemonSpriteIfMissing(pokemonIn);
 
