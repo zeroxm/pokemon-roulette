@@ -18,6 +18,50 @@ body.light-mode {
   color: #2d3436;
 }
 
+body.snowflake-mode {
+  background-color: #e8f4fd;
+  color: #1a3a5c;
+}
+
+body.snowflake-mode .modal-content {
+  background-color: #d6eaf8;
+  color: #1a3a5c;
+  border: 1px solid rgba(116, 185, 255, 0.3);
+}
+
+body.snowflake-mode .modal-footer {
+  border-top-color: rgba(116, 185, 255, 0.25);
+}
+
+body.snowflake-mode .form-check-input:checked {
+  background-color: #74b9ff;
+  border-color: #74b9ff;
+}
+
+body.snowflake-mode ::selection {
+  background-color: #74b9ff;
+  color: white;
+}
+
+body.snowflake-mode .btn-outline-secondary {
+  border-color: rgba(116, 185, 255, 0.4);
+  color: #2e86c1;
+}
+
+body.snowflake-mode .btn-outline-secondary:hover {
+  background-color: rgba(116, 185, 255, 0.15);
+  border-color: #74b9ff;
+  color: #1a5276;
+}
+
+body.snowflake-mode ::-webkit-scrollbar-thumb {
+  background: rgba(116, 185, 255, 0.4);
+}
+
+body.snowflake-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(116, 185, 255, 0.6);
+}
+
 .row {
   margin-left: 0px;
   margin-right: 0px;

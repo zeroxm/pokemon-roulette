@@ -2,6 +2,10 @@
   "settings": {
     "label": "Impostazioni",
     "darkmode": "Modalità scura",
+    "theme": "Tema",
+    "themeLight": "Chiaro",
+    "themeDark": "Scuro",
+    "themeSnowflake": "Neve",
     "explanations": "Meno spiegazioni",
     "muteAudio": "Disattiva audio",
     "skipShinyRolls": "Nascondi i tiri Shiny",

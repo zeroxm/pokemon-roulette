@@ -8,6 +8,11 @@
   background: linear-gradient(135deg, rgba(30, 39, 73, 0.6), rgba(22, 33, 62, 0.4));
 }
 
+:host-context(body.snowflake-mode) .trainer-team-box {
+  background: linear-gradient(135deg, rgba(116, 185, 255, 0.2), rgba(162, 155, 254, 0.15));
+  border: 1px solid rgba(116, 185, 255, 0.25);
+}
+
 .white-shadow {
   box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0.15);
 }

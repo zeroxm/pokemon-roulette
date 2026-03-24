@@ -1,0 +1,5 @@
+.snowflake-btn.active {
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  border-color: #74b9ff;
+  color: #fff;
+}

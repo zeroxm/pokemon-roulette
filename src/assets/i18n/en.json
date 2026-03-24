@@ -2,6 +2,10 @@
   "settings": {
     "label": "Settings",
     "darkmode": "Dark Mode",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSnowflake": "Snow",
     "explanations": "Less Explanations",
     "muteAudio": "Mute Audio",
     "skipShinyRolls": "Hide Shiny Rolls",

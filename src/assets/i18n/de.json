@@ -2,6 +2,10 @@
   "settings": {
     "label": "Einstellungen",
     "darkmode": "Dunkler Modus",
+    "theme": "Design",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel",
+    "themeSnowflake": "Schnee",
     "explanations": "Weniger Hinweise",
     "muteAudio": "Stummschalten",
     "skipShinyRolls": "Shiny Roulette verstecken",

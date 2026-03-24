@@ -1,10 +1,12 @@
 import { Inject, Injectable, Optional, Renderer2, RendererFactory2 } from '@angular/core';
 import { DarkModeOptions } from './types';
-import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, Observable, map } from 'rxjs';
 import { MediaQueryService } from './media-query.service';
 import { DARK_MODE_OPTIONS } from './dark-mode-options';
 import { defaultOptions } from './default-options';
 import { isNil } from './isNil';
+
+export type ThemeMode = 'light' | 'dark' | 'snowflake';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,13 @@ export class DarkModeService {
   private readonly options: DarkModeOptions;
   private readonly renderer: Renderer2;
   private readonly darkModeSubject$: BehaviorSubject<boolean>;
+  private readonly themeSubject$: BehaviorSubject<ThemeMode>;
+
+  private readonly themeClasses: Record<ThemeMode, string> = {
+    light: 'light-mode',
+    dark: 'dark-mode',
+    snowflake: 'snowflake-mode',
+  };
 
   constructor(
     private rendererFactory: RendererFactory2,
@@ -21,51 +30,81 @@ export class DarkModeService {
     @Optional() @Inject(DARK_MODE_OPTIONS) private providedOptions: DarkModeOptions | null) {
     this.options = { ...defaultOptions, ...(this.providedOptions || {}) };
     this.renderer = this.rendererFactory.createRenderer(null, null);
-    this.darkModeSubject$ = new BehaviorSubject(this.getInitialDarkModeValue());
-    this.darkModeSubject$.getValue() ? this.enable() : this.disable();
+
+    const initialTheme = this.getInitialTheme();
+    this.themeSubject$ = new BehaviorSubject<ThemeMode>(initialTheme);
+    this.darkModeSubject$ = new BehaviorSubject(initialTheme === 'dark');
+
+    this.applyTheme(initialTheme);
     this.removePreloadingClass();
   }
 
-  /**
-   * An Observable representing current dark mode.
-   * Only fires the initial and distinct values.
-   */
   get darkMode$(): Observable<boolean> {
     return this.darkModeSubject$.asObservable().pipe(distinctUntilChanged());
   }
 
+  get theme$(): Observable<ThemeMode> {
+    return this.themeSubject$.asObservable().pipe(distinctUntilChanged());
+  }
+
   toggle(): void {
-    this.darkModeSubject$.getValue() ? this.disable() : this.enable();
+    this.darkModeSubject$.getValue() ? this.setTheme('light') : this.setTheme('dark');
+  }
+
+  setTheme(theme: ThemeMode): void {
+    this.applyTheme(theme);
+    this.saveThemeToStorage(theme);
+    this.themeSubject$.next(theme);
+    this.darkModeSubject$.next(theme === 'dark');
   }
 
   enable(): void {
-    const { element, darkModeClass, lightModeClass } = this.options;
-    this.renderer.removeClass(element, lightModeClass);
-    this.renderer.addClass(element, darkModeClass);
-    this.saveDarkModeToStorage(true);
-    this.darkModeSubject$.next(true);
+    this.setTheme('dark');
   }
 
   disable(): void {
-    const { element, darkModeClass, lightModeClass } = this.options;
-    this.renderer.removeClass(element, darkModeClass);
-    this.renderer.addClass(element, lightModeClass);
-    this.saveDarkModeToStorage(false);
-    this.darkModeSubject$.next(false);
+    this.setTheme('light');
   }
 
-  private getInitialDarkModeValue(): boolean {
-    const darkModeFromStorage = this.getDarkModeFromStorage();
+  private applyTheme(theme: ThemeMode): void {
+    const { element } = this.options;
+    for (const cls of Object.values(this.themeClasses)) {
+      this.renderer.removeClass(element, cls);
+    }
+    this.renderer.addClass(element, this.themeClasses[theme]);
+  }
 
-    if (isNil(darkModeFromStorage)) {
-      return this.mediaQueryService.prefersDarkMode();
+  private getInitialTheme(): ThemeMode {
+    const themeFromStorage = this.getThemeFromStorage();
+    if (themeFromStorage) {
+      return themeFromStorage;
     }
 
-    return darkModeFromStorage;
+    const darkModeFromStorage = this.getDarkModeFromStorage();
+    if (!isNil(darkModeFromStorage)) {
+      return darkModeFromStorage ? 'dark' : 'light';
+    }
+
+    return this.mediaQueryService.prefersDarkMode() ? 'dark' : 'light';
   }
 
-  private saveDarkModeToStorage(darkMode: boolean): void {
-    localStorage.setItem(this.options.storageKey, JSON.stringify({ darkMode }));
+  private saveThemeToStorage(theme: ThemeMode): void {
+    localStorage.setItem(this.options.storageKey, JSON.stringify({ darkMode: theme === 'dark', theme }));
+  }
+
+  private getThemeFromStorage(): ThemeMode | null {
+    const storageItem = localStorage.getItem(this.options.storageKey);
+    if (storageItem) {
+      try {
+        const parsed = JSON.parse(storageItem);
+        if (parsed?.theme && ['light', 'dark', 'snowflake'].includes(parsed.theme)) {
+          return parsed.theme as ThemeMode;
+        }
+      } catch (error) {
+        // Fall through to return null
+      }
+    }
+    return null;
   }
 
   private getDarkModeFromStorage(): boolean | null {
