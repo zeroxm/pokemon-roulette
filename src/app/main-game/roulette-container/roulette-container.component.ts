@@ -6,6 +6,7 @@ import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
+import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
@@ -101,6 +102,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private gameStateService: GameStateService,
       private itemService: ItemsService,
       private pokemonService: PokemonService,
+      private pokedexService: PokedexService,
       private translateService: TranslateService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
@@ -531,6 +533,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       const pokemonName = this.translateService.instant(this.stolenPokemon.text);
 
       this.trainerService.addToTeam(this.stolenPokemon);
+      this.pokedexService.markSeen(this.stolenPokemon.pokemonId);
       this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title ') + pokemonName + '!';
       this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
       this.stolenPokemon = null;
@@ -630,6 +633,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.respinReason = '';
 
     if (result) {
+      const wonIds = [
+        ...this.trainerService.getTeam().map(p => p.pokemonId),
+        ...this.trainerService.getStored().map(p => p.pokemonId)
+      ];
+      this.pokedexService.markWon(wonIds);
       this.gameStateService.advanceRound();
     } else {
       this.gameStateService.setNextState('game-over');
@@ -683,6 +691,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   private completePokemonCapture(pokemon: PokemonItem): void {
     this.trainerService.addToTeam(pokemon);
+    this.pokedexService.markSeen(pokemon.pokemonId);
     this.gameStateService.setNextState('check-shininess');
     this.finishCurrentState();
   }
@@ -711,6 +720,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else if (pokemon.pokemonId === this.NINCADA_ID) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.trainerService.addToTeam(pokemonEvolutions[1]);
+      this.pokedexService.markSeen(pokemonEvolutions[1].pokemonId);
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
