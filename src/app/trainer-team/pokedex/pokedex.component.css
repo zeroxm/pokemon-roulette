@@ -1,0 +1,16 @@
+.modal-body {
+  color: black;
+  /* Desktop: constrain height so grid scrolls inside modal */
+  /* Mobile (modal-fullscreen-sm-down): full-screen overrides this */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.pokedex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  /* Natural wrapping: PokedexEntryComponent cells are fixed 40px wide */
+  /* ~17 cols on lg modal desktop, ~8 cols on mobile full-screen — no max-width needed */
+}
