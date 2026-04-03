@@ -33,7 +33,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
   @ViewChild('pokedexModal', { static: true }) pokedexModal!: TemplateRef<any>;
 
   darkMode!: Observable<boolean>;
-  pokedexData!: PokedexData;
+  pokedexData: PokedexData | undefined;
   currentGenerationId: number = 1;
   activeTab: 'local' | 'national' = 'local';
 
@@ -88,10 +88,11 @@ export class PokedexComponent implements OnInit, OnDestroy {
   }
 
   get caughtCount(): number {
-    if (!this.pokedexData) return 0;
+    const data = this.pokedexData;
+    if (!data) return 0;
     // ⚠️ NAV-03: String(id) is MANDATORY — caught Record uses string keys (service stores as String(pokemonId))
     // pokedexData.caught[id] with numeric id NEVER matches — always returns undefined
-    return this.activeIds.filter(id => !!this.pokedexData.caught[String(id)]).length;
+    return this.activeIds.filter(id => !!data.caught[String(id)]).length;
   }
 
   get totalCount(): number {

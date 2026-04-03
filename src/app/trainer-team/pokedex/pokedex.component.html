@@ -38,7 +38,7 @@
       @for (id of activeIds; track id) {
         <app-pokedex-entry
           [pokemonId]="id"
-          [entry]="pokedexData?.caught[id.toString()]">
+          [entry]="pokedexData?.caught?.[id.toString()]">
         </app-pokedex-entry>
       }
     </div>
