@@ -13,7 +13,8 @@ import {
   bootstrapMap,
   bootstrapPcDisplayHorizontal,
   bootstrapPeopleFill,
-  bootstrapShare
+  bootstrapShare,
+  bootstrapBook
 } from '@ng-icons/bootstrap-icons';
 import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -33,7 +34,8 @@ export const appConfig: ApplicationConfig = {
         bootstrapPcDisplayHorizontal,
         bootstrapPeopleFill,
         bootstrapShare,
-        bootstrapMap
+        bootstrapMap,
+        bootstrapBook
        }),
     provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),

@@ -2271,5 +2271,14 @@
       "quote1": "The final test is a battle against me, the Top Champion.",
       "quote2": "Are you ready for your final test? I want to see the true measure of your talent!"
     }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "Local Dex",
+      "national": "National Dex"
+    },
+    "caught": "Caught:"
   }
 }

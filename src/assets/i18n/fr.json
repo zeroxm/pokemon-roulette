@@ -2271,5 +2271,14 @@
       "quote1": "L'épreuve finale est un combat contre moi, la Maîtresse Suprême.",
       "quote2": "Es-tu prêt pour ton épreuve finale? Je veux voir la véritable mesure de ton talent!"
     }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "Pokédex Local",
+      "national": "Pokédex National"
+    },
+    "caught": "Capturés :"
   }
 }

@@ -2271,5 +2271,14 @@
       "quote1": "Die letzte Prüfung ist ein Kampf gegen mich, die Top-Championesse.",
       "quote2": "Bist du bereit für deine letzte Prüfung? Ich will das wahre Maß deines Talents sehen!"
     }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "Regionaler Pokédex",
+      "national": "Nationaler Pokédex"
+    },
+    "caught": "Gefangen:"
   }
 }

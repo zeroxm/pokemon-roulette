@@ -2271,5 +2271,14 @@
       "quote1": "La prueba final es una batalla contra mí, la Campeona Suprema.",
       "quote2": "¿Estás listo para tu prueba final? ¡Quiero ver la verdadera medida de tu talento!"
     }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "Pokédex Local",
+      "national": "Pokédex Nacional"
+    },
+    "caught": "Capturados:"
   }
 }
