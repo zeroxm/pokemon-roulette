@@ -24,4 +24,17 @@
 - Complete national dex data (pokedex-by-generation.ts) covering all 1,025 Pokémon across 9 gens
 - Local Dex tab dynamically named "{Region} Dex" in all 6 locale files via ngx-translate interpolation
 
+## v1.2 Pokédex Visual Enhancement (Shipped: 2026-04-08)
+
+**Phases completed:** 2 phases, 4 plans, 32 files, +2555 / -26 LOC
+
+**Key accomplishments:**
+
+- Shiny flag persistence: `PokedexEntry.shiny?: boolean` — cumulative, never reverts; `markWon` spread fix prevents silent data loss
+- Mobile fullscreen fix: global `@media` override in `src/styles.css` — resolves ng-bootstrap portal rendering limitation
+- Glow-pulse animation: `@keyframes glow-pulse` replaces static box-shadow on won cells — draws attention to champion Pokémon
+- New `PokedexDetailModalComponent` (standalone) with official-artwork circle, zero-padded Pokédex number, localized name
+- Alternate forms in detail modal: `PokemonFormsService.getFormIds()` approach avoids full PokemonItem dependency
+- Shiny toggle in detail modal: only appears when `entry.shiny === true`; switches between regular and shiny official-artwork
+
 ---
