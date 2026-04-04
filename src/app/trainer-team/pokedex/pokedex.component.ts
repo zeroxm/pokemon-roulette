@@ -30,7 +30,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
     private pokemonService: PokemonService
   ) {}
 
-  // ⚠️ CRITICAL: static: true is MANDATORY — template ref must be available in ngOnInit
   // Omitting static: true causes openPokedex() to fail with undefined ref on first click
   @ViewChild('pokedexModal', { static: true }) pokedexModal!: TemplateRef<any>;
 
@@ -40,7 +39,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
   currentRegion: string = 'Kanto';
   activeTab: 'local' | 'national' = 'local';
 
-  // ⚠️ Follow StoragePcComponent subscription pattern exactly (per D-09)
   private readonly subscriptions = new Subscription();
 
   ngOnInit(): void {
@@ -59,7 +57,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // ⚠️ MANDATORY: prevents memory leaks — mirrors StoragePcComponent exactly
     this.subscriptions.unsubscribe();
   }
 
@@ -85,7 +82,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
   }
 
   get localIds(): number[] {
-    // ⚠️ Use nullish coalescing — currentGenerationId may be 0/undefined during init
     return pokedexByGeneration[this.currentGenerationId] ?? [];
   }
 
