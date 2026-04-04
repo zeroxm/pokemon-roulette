@@ -67,16 +67,16 @@ describe('PokedexComponent', () => {
     expect(component.activeTab).toBe('national');
   });
 
-  it('NAV-03: totalCount is greater than 0 for local tab', () => {
+  it('totalCount is greater than 0 for local tab', () => {
     expect(component.totalCount).toBeGreaterThan(0);
   });
 
-  it('NAV-03: caughtCount is 0 or more and not greater than totalCount', () => {
+  it('caughtCount is 0 or more and not greater than totalCount', () => {
     expect(component.caughtCount).toBeGreaterThanOrEqual(0);
     expect(component.caughtCount).toBeLessThanOrEqual(component.totalCount);
   });
 
-  it('NAV-04: openPokedex calls NgbModal.open with size lg', () => {
+  it('openPokedex calls NgbModal.open with size lg', () => {
     component.openPokedex();
     expect(modalServiceSpy.open).toHaveBeenCalledWith(
       jasmine.anything(),
@@ -84,7 +84,7 @@ describe('PokedexComponent', () => {
     );
   });
 
-  it('NAV-05: darkMode field is assigned after ngOnInit', () => {
+  it('darkMode field is assigned after ngOnInit', () => {
     expect(component.darkMode).toBeTruthy();
   });
 
