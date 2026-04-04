@@ -221,6 +221,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   setShininess(shiny: boolean): void {
     if (shiny) {
       this.trainerService.makeShiny();
+      this.registerInPokedex({ ...this.currentContextPokemon, shiny: true });
     }
     this.finishCurrentState();
   }
@@ -634,10 +635,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.respinReason = '';
 
     if (result) {
-      const wonIds = [
+      const rawIds = [
         ...this.trainerService.getTeam().map(p => p.pokemonId),
         ...this.trainerService.getStored().map(p => p.pokemonId)
       ];
+      const wonIds = [...new Set(rawIds.flatMap(id => {
+        const baseId = this.pokemonFormsService.getBasePokemonId(id);
+        return baseId !== null && baseId !== id ? [id, baseId] : [id];
+      }))];
       this.pokedexService.markWon(wonIds);
       this.gameStateService.advanceRound();
     } else {
@@ -691,6 +696,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {
+    this.currentContextPokemon = pokemon; // ensures setShininess can reference captured pokemon
     this.trainerService.addToTeam(pokemon);
     this.registerInPokedex(pokemon);
     this.gameStateService.setNextState('check-shininess');

@@ -118,4 +118,39 @@ describe('RouletteContainerComponent', () => {
     // Base entry should have shiny: true
     expect(pokedexService.currentPokedex.caught['26']?.shiny).toBeTrue();
   });
+
+  // SHINY-03: shiny flag must be persisted to Pokédex after shiny roulette
+  it('should update Pokédex entry with shiny: true after setShininess(true) — SHINY-03', () => {
+    const bulbasaur = pokemonService.getPokemonById(1);
+    expect(bulbasaur).toBeDefined();
+
+    // Capture Bulbasaur (no forms → goes straight to check-shininess)
+    component.capturePokemon(bulbasaur!);
+
+    // Simulate shiny roulette resolving to shiny
+    component.setShininess(true);
+
+    expect(pokedexService.currentPokedex.caught['1']?.shiny).toBeTrue();
+  });
+
+  // ALTW-01: champion win with alt-form must mark the base national dex entry as won
+  it('should mark base national dex ID as won after Champion win with alt-form on team — ALTW-01', () => {
+    // Raichu (26) has Alolan form (pokemonId 10100)
+    const raichu = pokemonService.getPokemonById(26);
+    expect(raichu).toBeDefined();
+
+    // Capture Raichu → triggers form selection
+    component.capturePokemon(raichu!);
+
+    // Select Alolan Raichu form (pokemonId 10100) — adds alt-form to team
+    const alolanRaichu = component.pokemonForms.find(f => f.pokemonId === 10100);
+    expect(alolanRaichu).toBeDefined();
+    component.selectPokemonForm(alolanRaichu!);
+
+    // Beat the Champion
+    component.championBattleResult(true);
+
+    // Base national dex entry (26 = Raichu) must be marked won
+    expect(pokedexService.currentPokedex.caught['26']?.won).toBeTrue();
+  });
 });

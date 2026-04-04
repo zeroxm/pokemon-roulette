@@ -41,6 +41,30 @@ Full archive: `.planning/milestones/v1.2-ROADMAP.md`
 
 ---
 
+## v1.3 Pokédex Data Integrity
+
+- [ ] **Phase 8: Data Integrity Fixes** — Fix shiny persistence and alt-form champion win tracking
+
+---
+
+## Phase Details
+
+### Phase 8: Data Integrity Fixes
+**Goal**: Pokédex entries accurately reflect shiny status and champion wins for all Pokémon, including alt-forms
+**Depends on**: Phase 7 (v1.2 complete)
+**Requirements**: SHINY-03, ALTW-01
+**Success Criteria** (what must be TRUE):
+  1. After a shiny roulette resolves, the Pokédex entry for that Pokémon shows `shiny: true`
+  2. After beating the Champion with an alt-form Pokémon, the detail modal shows a gold border for both the alt-form and the base national dex entry
+  3. Beating the Champion with a non-alt-form Pokémon continues to mark only that single entry as won (no regression)
+  4. Shiny flag set via the detail modal toggle is unaffected by the roulette capture flow (no regression)
+**Plans**: 1 plan
+
+Plans:
+- [ ] 08-01-PLAN.md — Fix shiny persistence (SHINY-03) and alt-form champion win tracking (ALTW-01)
+
+---
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -52,4 +76,5 @@ Full archive: `.planning/milestones/v1.2-ROADMAP.md`
 | 5. Complete Dex Data & Region Naming | v1.1 | 2/2 | ✅ Complete | 2026-04-03 |
 | 6. Foundation & Visual Polish | v1.2 | 2/2 | ✅ Complete | 2026-04-08 |
 | 7. Detail Modal | v1.2 | 2/2 | ✅ Complete | 2026-04-08 |
+| 8. Data Integrity Fixes | v1.3 | 0/? | Not started | - |
 
