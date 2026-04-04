@@ -11,14 +11,14 @@
   flex-wrap: wrap;
   gap: 4px;
   padding: 4px;
-  /* Desktop: 9 cols × 40px cells + 8 gaps × 4px = 392px */
-  max-width: 392px;
+  /* Desktop: 16px + 9 cols × 40px cells + 8 gaps × 4px = 408px */
+  max-width: 408px;
   margin: 0 auto;
 }
 
 @media (max-width: 576px) {
   .pokedex-grid {
-    /* Mobile: 6 cols × 40px cells + 5 gaps × 4px = 260px */
-    max-width: 260px;
+    /* Mobile: 16px + 6 cols × 40px cells + 5 gaps × 4px = 276px */
+    max-width: 276px;
   }
 }
