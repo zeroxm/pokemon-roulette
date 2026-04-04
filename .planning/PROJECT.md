@@ -18,18 +18,19 @@ Players can see which Pokémon they've encountered and won with over time, givin
 - ✓ Multi-language support (EN, ES, FR, DE, IT, PT) via ngx-translate — existing
 - ✓ PokeAPI sprite loading for Pokémon artwork — existing
 - ✓ 9 generations supported (Kanto through Paldea) — existing
+- ✓ Pokédex button alongside the existing PC button — v1.0
+- ✓ Pokédex modal with Local Dex / National Dex tabs — v1.0
+- ✓ Local Dex view: shows all Pokémon in current generation — v1.0
+- ✓ National Dex view: shows all 1,025 Pokémon — v1.0
+- ✓ Two states per Pokémon: seen (assigned to team) and won (on team at Champion defeat) — v1.0
+- ✓ Visual distinction: gold border for won Pokémon, 3D flip card reveal for seen — v1.0
+- ✓ Per-view progress counter (e.g. "45 / 151") — v1.0
+- ✓ Pokédex persists across browser sessions via localStorage — v1.0
+- ✓ Real-time updates: seen on team assignment, won on Champion defeat — v1.0
 
 ### Active
 
-- [ ] Pokédex button alongside the existing `trainer.storage.access` PC button
-- [ ] Pokédex modal with a Pokémon game-inspired UI, usable on desktop and mobile
-- [ ] Local (generation) Dex view: shows all Pokémon in the current generation — unknown silhouette until assigned to team
-- [ ] National Dex view: shows all 1,025 Pokémon — unknown silhouette until assigned to team in any run
-- [ ] Two Pokédex states per Pokémon: **seen** (assigned to team, any outcome) and **won** (on team when Champion was defeated)
-- [ ] Visual distinction between seen and won states (e.g. golden border/star for won)
-- [ ] Per-view progress counter (e.g. "45 / 151 caught" for local, "67 / 1025" for national)
-- [ ] Pokédex data persists across browser sessions via localStorage (same pattern as dark mode / settings)
-- [ ] Pokédex updated in real time: Pokémon marked as seen when assigned by roulette, marked as won on Champion defeat
+_(empty — all v1.0 requirements delivered)_
 
 ### Out of Scope
 
@@ -41,16 +42,12 @@ Players can see which Pokémon they've encountered and won with over time, givin
 
 ## Context
 
+- **Shipped:** v1.0 Pokédex Feature (2026-04-04) — 3 phases, 3 plans, 141 passing tests
 - **Architecture**: Angular 21 standalone components, RxJS BehaviorSubject services, no backend
-- **Persistence**: localStorage pattern established by `DarkModeService` and `SettingsService` — Pokédex service should follow the same pattern
-- **Pokémon assignment hook**: `completePokemonCapture(pokemon)` in `roulette-container.component.ts` calls `trainerService.addToTeam(pokemon)` — this is where seen-marking should happen
-- **Win hook**: `championBattleResult(true)` in `roulette-container.component.ts` — this is where won-marking should happen using the current team from `TrainerService`
-- **Pokémon data**: `pokemonByGeneration` (in `pokemon-by-generation.ts`) maps generation IDs to arrays of Pokémon IDs; `nationalDexPokemon` holds all 1,025 Pokémon; both are already available
-- **Unknown sprite**: `https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png`
-- **Sprite loading**: `pokemonService.getPokemonSprites(pokemonId)` returns Observable with `{ sprite: { front_default, front_shiny } }`
-- **Button placement**: The PC button lives in `storage-pc.component.html` — the Pokédex button should sit next to it (or in the same parent `trainer-team` area)
-- **Modal pattern**: `NgbModal` with `@ViewChild` template refs — established by `StoragePcComponent`
-- **Current generation**: `generationService.getCurrentGeneration()` returns the active `GenerationItem` with `.id` (1–9)
+- **New files added:** `PokedexService`, `PokedexEntryComponent`, `PokedexComponent` (4 files each)
+- **localStorage key:** `'pokemon-roulette-pokedex'` — schema `{ caught: Record<string, { won: boolean, sprite: string|null }> }`
+- **Sprite source:** `front_default` from PokeAPI (not `official-artwork`) — URLs are deterministic and cached
+- **Known caveats:** `ng test --include` filter is broken in this project's Karma/webpack setup — always use full suite
 
 ## Constraints
 
@@ -63,11 +60,16 @@ Players can see which Pokémon they've encountered and won with over time, givin
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Two Pokédex states: seen (assigned) vs. won (champion defeated) | Matches user expectation; mirrors real games' "seen/caught" distinction | — Pending |
-| Local view scoped to currently selected generation | Simpler than per-run tracking; always accessible regardless of game state | — Pending |
-| localStorage for persistence | Established pattern in the codebase; no backend required | — Pending |
-| Lazy sprite loading in Pokédex grid | 1,025 API calls on modal open would be unacceptable; only load visible/interacted sprites | — Pending |
-| Button placed alongside existing PC button in trainer-team area | User explicitly requested placement next to `trainer.storage.access` | — Pending |
+| Two Pokédex states: seen (assigned) vs. won (champion defeated) | Matches user expectation; mirrors real games' "seen/caught" distinction | ✓ Good — intuitive for players |
+| Local view scoped to currently selected generation | Simpler than per-run tracking; always accessible regardless of game state | ✓ Good — no edge cases |
+| localStorage for persistence | Established pattern in the codebase; no backend required | ✓ Good — consistent with dark mode / settings |
+| Lazy sprite loading in Pokédex grid | 1,025 API calls on modal open would be unacceptable; only load visible sprites | ✓ Good — `loading="lazy"` on img elements |
+| Button placed alongside existing PC button in trainer-team area | User explicitly requested placement next to `trainer.storage.access` | ✓ Good — `d-flex gap-2` layout |
+| `front_default` sprites (not `official-artwork`) | Smaller files, faster load for 1,025-entry grid | ✓ Good — deterministic GitHub CDN URLs |
+| Deterministic sprite URLs (no HTTP on write) | Computed from pokemonId — no PokeAPI call at markSeen time | ✓ Good — zero latency on capture |
+| String keys in `caught` Record | JSON serialization trivial; O(1) lookup | ✓ Good — consistent across service and UI |
+| PokedexService decoupled from TrainerService | Callers pass pokemonId directly — no coupling between data and team management | ✓ Good — testable in isolation |
+| No `clearPokedex()` method | Pokédex must survive game resets by design | ✓ Good — prevents accidental data loss |
 
 ## Evolution
 
@@ -87,4 +89,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-03 after initialization*
+*Last updated: 2026-04-04 after v1.0 milestone*
