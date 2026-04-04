@@ -6,7 +6,6 @@
 </button>
 
 <ng-template #pokedexModal let-modal>
-  <!-- ⚠️ NAV-05: Dark mode applied to BOTH header AND body — missing one breaks visual consistency -->
   <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
     <h4 class="modal-title">{{ 'pokedex.title' | translate }}</h4>
     <button type="button" class="btn-close"
@@ -14,7 +13,6 @@
       (click)="closeModal()" aria-label="Close"></button>
   </div>
   <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
-    <!-- NAV-02: Raw Bootstrap nav-tabs — NgbNavModule not used in this project -->
     <ul class="nav nav-tabs mb-2">
       <li class="nav-item">
         <button class="nav-link" [class.active]="activeTab === 'local'"
@@ -29,11 +27,9 @@
         </button>
       </li>
     </ul>
-    <!-- NAV-03: Progress counter — sits between tabs and grid -->
     <p class="mb-2">
       {{ 'pokedex.caught' | translate }} {{ caughtCount }} / {{ totalCount }}
     </p>
-    <!-- Grid: track id (not $index) to avoid stale state on tab switch -->
     <div class="pokedex-grid">
       @for (id of activeIds; track id) {
         <app-pokedex-entry

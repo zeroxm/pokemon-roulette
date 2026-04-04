@@ -58,11 +58,11 @@ describe('PokedexComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('NAV-02: activeTab defaults to local', () => {
+  it('activeTab defaults to local', () => {
     expect(component.activeTab).toBe('local');
   });
 
-  it('NAV-02: activeTab can be set to national', () => {
+  it('activeTab can be set to national', () => {
     component.activeTab = 'national';
     expect(component.activeTab).toBe('national');
   });

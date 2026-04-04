@@ -100,7 +100,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
   get caughtCount(): number {
     const data = this.pokedexData;
     if (!data) return 0;
-    // ⚠️ NAV-03: String(id) is MANDATORY — caught Record uses string keys (service stores as String(pokemonId))
     // pokedexData.caught[id] with numeric id NEVER matches — always returns undefined
     return this.activeIds.filter(id => !!data.caught[String(id)]).length;
   }
