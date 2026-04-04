@@ -4,7 +4,13 @@
     "darkmode": "Mode sombre",
     "explanations": "Moins d'explications",
     "muteAudio": "Couper l'Audio",
-    "skipShinyRolls": "Omettre les Roulettes Shiny"
+    "skipShinyRolls": "Omettre les Roulettes Shiny",
+    "defaultGender": {
+      "title": "Genre du personnage",
+      "male": "Toujours Garçon",
+      "female": "Toujours Fille",
+      "always-choose": "Toujours Choisir"
+    }
   },
   "coffee": {
     "title": "Vous amusez-vous à faire tourner la roue? 😁",

@@ -4,7 +4,13 @@
     "darkmode": "Modo escuro",
     "explanations": "Menos Explicações",
     "muteAudio": "Silenciar Áudio",
-    "skipShinyRolls": "Ommitir roletas de Shiny"
+    "skipShinyRolls": "Ommitir roletas de Shiny",
+    "defaultGender": {
+      "title": "Gênero do Personagem",
+      "male": "Sempre Garoto",
+      "female": "Sempre Garota",
+      "always-choose": "Sempre Escolher"
+    }
   },
   "coffee": {
     "title": "Curtiu a roletinha? 😁",
