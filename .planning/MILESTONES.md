@@ -37,4 +37,14 @@
 - Alternate forms in detail modal: `PokemonFormsService.getFormIds()` approach avoids full PokemonItem dependency
 - Shiny toggle in detail modal: only appears when `entry.shiny === true`; switches between regular and shiny official-artwork
 
+## v1.3 Pokédex Data Integrity (Shipped: 2026-04-09)
+
+**Phases completed:** 1 phase, 1 plan, 3 files, +67 / -1 LOC
+
+**Key accomplishments:**
+
+- Shiny flag now correctly persisted to Pokédex after shiny roulette resolves — `completePokemonCapture` assigns `currentContextPokemon` so `setShininess(true)` can update the entry
+- Alt-form champion wins now register the base national dex entry — `championBattleResult` expands `wonIds` via `getBasePokemonId` flatMap to include base IDs (e.g. Alolan Raichu win also marks Raichu #26 as won)
+- Bug fixes from previous session also shipped: fullscreen modal dark-theme fix, detail modal layout swap (number in header, name below art), `registerInPokedex` helper for all 5 capture call sites
+
 ---

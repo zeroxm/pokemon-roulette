@@ -39,11 +39,17 @@ Full archive: `.planning/milestones/v1.2-ROADMAP.md`
 
 </details>
 
+
+<details>
+<summary>✅ v1.3 Pokédex Data Integrity (Phase 8) — SHIPPED 2026-04-09</summary>
+
+- [x] Phase 8: Data Integrity Fixes (1/1 plans) — completed 2026-04-09
+
+Full archive: `.planning/milestones/v1.3-ROADMAP.md`
+
+</details>
+
 ---
-
-## v1.3 Pokédex Data Integrity
-
-- [ ] **Phase 8: Data Integrity Fixes** — Fix shiny persistence and alt-form champion win tracking
 
 ---
 
@@ -61,7 +67,7 @@ Full archive: `.planning/milestones/v1.2-ROADMAP.md`
 **Plans**: 1 plan
 
 Plans:
-- [ ] 08-01-PLAN.md — Fix shiny persistence (SHINY-03) and alt-form champion win tracking (ALTW-01)
+- [x] 08-01-PLAN.md — Fix shiny persistence (SHINY-03) and alt-form champion win tracking (ALTW-01)
 
 ---
 
@@ -76,5 +82,5 @@ Plans:
 | 5. Complete Dex Data & Region Naming | v1.1 | 2/2 | ✅ Complete | 2026-04-03 |
 | 6. Foundation & Visual Polish | v1.2 | 2/2 | ✅ Complete | 2026-04-08 |
 | 7. Detail Modal | v1.2 | 2/2 | ✅ Complete | 2026-04-08 |
-| 8. Data Integrity Fixes | v1.3 | 0/? | Not started | - |
+| 8. Data Integrity Fixes | v1.3 | 1/1 | ✅ Complete | 2026-04-09 |
 
