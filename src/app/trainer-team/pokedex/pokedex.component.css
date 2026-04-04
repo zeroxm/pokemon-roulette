@@ -1,0 +1,24 @@
+.modal-body {
+  color: black;
+  /* Desktop: constrain height so grid scrolls inside modal */
+  /* Mobile (modal-fullscreen-sm-down): full-screen overrides this */
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.pokedex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  /* Desktop: 16px + 9 cols × 40px cells + 8 gaps × 4px = 408px */
+  max-width: 408px;
+  margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+  .pokedex-grid {
+    /* Mobile: 16px + 6 cols × 40px cells + 5 gaps × 4px = 276px */
+    max-width: 276px;
+  }
+}

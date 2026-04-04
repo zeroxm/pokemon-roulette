@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { pokemonByGeneration } from './pokemon-by-generation';
 import { Subscription } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -23,6 +23,7 @@ export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy
 
   generation!: GenerationItem;
   pokemon: PokemonItem[] = [];
+  @Input() currentRound: number = 0;
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
 
   private generationSubscription: Subscription | null = null;
@@ -31,7 +32,8 @@ export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
       this.generation = gen;
       const pokemonIds = this.pokemonByGeneration[this.generation.id] ?? [];
-      this.pokemon = this.pokemonService.getPokemonByIdArray(pokemonIds);
+      const allPokemon = this.pokemonService.getPokemonByIdArray(pokemonIds);
+      this.pokemon = this.filterByPower(allPokemon);
     });
   }
 
@@ -42,5 +44,14 @@ export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy
   onItemSelected(index: number): void {
     const selectedPokemon = this.pokemon[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
+  }
+
+  private filterByPower(pokemon: PokemonItem[]): PokemonItem[] {
+    if (this.currentRound < 2) {
+      return pokemon.filter(p => p.power === 1);
+    } else if (this.currentRound < 4) {
+      return pokemon.filter(p => p.power <= 2);
+    }
+    return pokemon;
   }
 }

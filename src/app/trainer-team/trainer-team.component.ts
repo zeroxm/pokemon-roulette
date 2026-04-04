@@ -8,6 +8,7 @@ import { BadgesComponent } from "./badges/badges.component";
 import { Badge } from '../interfaces/badge';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
+import { PokedexComponent } from "./pokedex/pokedex.component";
 import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
@@ -15,7 +16,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   imports: [CommonModule,
     NgbTooltipModule,
     BadgesComponent,
-    StoragePcComponent, TranslatePipe],
+    StoragePcComponent, TranslatePipe, PokedexComponent],
   templateUrl: './trainer-team.component.html',
   styleUrls: ['./trainer-team.component.css']
 })

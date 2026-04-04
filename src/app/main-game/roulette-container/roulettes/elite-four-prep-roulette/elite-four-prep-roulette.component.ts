@@ -33,6 +33,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();
+  @Output() catchThreePokemonEvent = new EventEmitter<void>();
   @Output() legendaryEncounterEvent = new EventEmitter<void>();
   @Output() findItemEvent = new EventEmitter<void>();
   @Output() doNothingEvent = new EventEmitter<void>();
@@ -43,6 +44,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
     { text: 'game.main.roulette.elite.prep.actions.trainingArc', fillStyle: 'darkorange', weight: 2 },
     { text: 'game.main.roulette.elite.prep.actions.buyPotions', fillStyle: 'darkgoldenrod', weight: 2 },
     { text: 'game.main.roulette.elite.prep.actions.catchTwoPokemon', fillStyle: 'green', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.catchThreePokemon', fillStyle: 'darkgreen', weight: 2 },
     { text: 'game.main.roulette.elite.prep.actions.huntLegendary', fillStyle: 'darkcyan', weight: 2 },
     { text: 'game.main.roulette.elite.prep.actions.findItem', fillStyle: 'blue', weight: 2 },
     { text: 'game.main.roulette.elite.prep.actions.goStraight', fillStyle: 'purple', weight: 1 },
@@ -64,15 +66,18 @@ export class EliteFourPrepRouletteComponent implements OnInit {
         this.catchTwoPokemonEvent.emit();
         break;
       case 4:
-        this.legendaryEncounterEvent.emit();
+        this.catchThreePokemonEvent.emit();
         break;
       case 5:
-        this.findItemEvent.emit();
+        this.legendaryEncounterEvent.emit();
         break;
       case 6:
-        this.doNothingEvent.emit();
+        this.findItemEvent.emit();
         break;
       case 7:
+        this.doNothingEvent.emit();
+        break;
+      case 8:
         this.teamRocketEncounterEvent.emit();
         break;
       default:

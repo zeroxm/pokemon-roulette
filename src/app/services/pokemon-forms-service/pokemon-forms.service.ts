@@ -46,7 +46,7 @@ export class PokemonFormsService {
     return this.pokemonForms[basePokemonId]?.map(form => form.pokemonId) ?? [];
   }
 
-  private getBasePokemonId(pokemonId: number): number | null {
+  getBasePokemonId(pokemonId: number): number | null {
     if (this.pokemonForms[pokemonId]) {
       return pokemonId;
     }

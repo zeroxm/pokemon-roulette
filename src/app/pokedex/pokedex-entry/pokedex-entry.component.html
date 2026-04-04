@@ -1,0 +1,30 @@
+<div class="pokedex-cell"
+     [class.seen]="isSeen"
+     [class.won]="isWon"
+     [class.clickable]="isSeen"
+     [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'"
+     [ngbTooltip]="isSeen ? (pokemonText | translate) : '???'"
+     placement="bottom"
+     (click)="onCellClick()">
+
+  <span class="number-badge">{{ formatPokemonNumber(pokemonId) }}</span>
+
+  <div class="pokedex-cell-inner">
+
+    <!-- Front face: shown when unseen -->
+    <div class="pokedex-cell-front">
+      <img [src]="unknownPngUrl" class="cell-img" alt="unseen Pokémon">
+    </div>
+
+    <!-- Back face: shown when seen -->
+    <div class="pokedex-cell-back">
+      @if (spriteUrl) {
+        <img [src]="spriteUrl"
+             loading="lazy"
+             class="cell-img"
+             alt="Pokémon sprite">
+      }
+    </div>
+
+  </div>
+</div>

@@ -279,7 +279,8 @@
               "huntLegendary": "Caccia un Pokémon leggendario",
               "findItem": "Trova uno strumento",
               "goStraight": "Vai dritto",
-              "teamRocket": "Incontro con il Team Rocket"
+              "teamRocket": "Incontro con il Team Rocket",
+              "catchThreePokemon": "Cattura tre Pokémon"
             }
           },
           "title": "Vittoria?",
@@ -2270,6 +2271,21 @@
       "name": "Geeta",
       "quote1": "La prova finale è una battaglia contro di me, la Campionessa Suprema.",
       "quote2": "Sei pronto per la tua prova finale? Voglio vedere la vera misura del tuo talento!"
+    }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "Pokédex {{region}}",
+      "national": "Pokédex Nazionale"
+    },
+    "caught": "Catturati:"
+  },
+  "detail": {
+    "shiny": {
+      "on": "✨ Shiny",
+      "off": "Normale"
     }
   }
 }

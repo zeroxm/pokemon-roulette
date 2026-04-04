@@ -1,0 +1,82 @@
+.pokedex-cell {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  perspective: 200px;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.pokedex-cell.clickable {
+  cursor: pointer;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 4px 1px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.95);
+  }
+}
+
+.pokedex-cell.won {
+  border-color: gold !important;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.number-badge {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  font-size: 8px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.45);
+  padding: 0 2px;
+  border-radius: 2px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.pokedex-cell-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+}
+
+.pokedex-cell.seen .pokedex-cell-inner {
+  transform: rotateY(180deg);
+}
+
+.pokedex-cell-front,
+.pokedex-cell-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.pokedex-cell-back {
+  transform: rotateY(180deg);
+}
+
+.cell-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  image-rendering: pixelated;
+}

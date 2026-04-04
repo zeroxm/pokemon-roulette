@@ -6,6 +6,7 @@ import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
+import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
@@ -101,6 +102,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private gameStateService: GameStateService,
       private itemService: ItemsService,
       private pokemonService: PokemonService,
+      private pokedexService: PokedexService,
       private translateService: TranslateService,
       private trainerService: TrainerService,
       private modalService: NgbModal,
@@ -219,6 +221,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   setShininess(shiny: boolean): void {
     if (shiny) {
       this.trainerService.makeShiny();
+      this.registerInPokedex({ ...this.currentContextPokemon, shiny: true });
     }
     this.finishCurrentState();
   }
@@ -419,6 +422,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  catchThreePokemon(): void {
+    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextState('catch-pokemon');
+    this.finishCurrentState();
+  }
+
   teamRocketEncounter(): void {
     this.gameStateService.setNextState('team-rocket-encounter');
     this.finishCurrentState();
@@ -531,6 +541,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       const pokemonName = this.translateService.instant(this.stolenPokemon.text);
 
       this.trainerService.addToTeam(this.stolenPokemon);
+      this.registerInPokedex(this.stolenPokemon);
       this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title ') + pokemonName + '!';
       this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
       this.stolenPokemon = null;
@@ -558,6 +569,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.pkmnOut = this.currentContextPokemon;
     this.pkmnTradeTitle = "Trade!";
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
+    this.registerInPokedex(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
     if (!this.settingsService.currentSettings.lessExplanations) {
@@ -630,6 +642,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.respinReason = '';
 
     if (result) {
+      const rawIds = [
+        ...this.trainerService.getTeam().map(p => p.pokemonId),
+        ...this.trainerService.getStored().map(p => p.pokemonId)
+      ];
+      const wonIds = [...new Set(rawIds.flatMap(id => {
+        const baseId = this.pokemonFormsService.getBasePokemonId(id);
+        return baseId !== null && baseId !== id ? [id, baseId] : [id];
+      }))];
+      this.pokedexService.markWon(wonIds);
       this.gameStateService.advanceRound();
     } else {
       this.gameStateService.setNextState('game-over');
@@ -682,14 +703,28 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {
+    this.currentContextPokemon = pokemon; // ensures setShininess can reference captured pokemon
     this.trainerService.addToTeam(pokemon);
+    this.registerInPokedex(pokemon);
     this.gameStateService.setNextState('check-shininess');
     this.finishCurrentState();
   }
 
+  /**
+   * Registers a pokemon in the Pokédex. For alt-form pokemon (pokemonId > 1025),
+   * also registers the base national dex entry so it appears in the Pokédex grid.
+   */
+  private registerInPokedex(pokemon: PokemonItem): void {
+    this.pokedexService.markSeen(pokemon.pokemonId, pokemon.shiny);
+    const baseId = this.pokemonFormsService.getBasePokemonId(pokemon.pokemonId);
+    if (baseId !== null && baseId !== pokemon.pokemonId) {
+      this.pokedexService.markSeen(baseId, pokemon.shiny);
+    }
+  }
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     this.pkmnOut = pokemonOut;
     this.pkmnIn = structuredClone(pokemonIn);
+    this.registerInPokedex(pokemonIn);
     this.pkmnEvoTitle = "game.main.roulette.evolve.modal.title"
     this.trainerService.replaceForEvolution(this.pkmnOut, this.pkmnIn);
 
@@ -711,6 +746,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else if (pokemon.pokemonId === this.NINCADA_ID) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.trainerService.addToTeam(pokemonEvolutions[1]);
+      this.registerInPokedex(pokemonEvolutions[1]);
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;

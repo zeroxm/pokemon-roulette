@@ -1,0 +1,43 @@
+<button type="button" class="btn"
+  [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+  (click)="openPokedex()">
+  <ng-icon name="bootstrapBook"></ng-icon>
+  {{ 'pokedex.button' | translate }}
+</button>
+
+<ng-template #pokedexModal let-modal>
+  <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    <h4 class="modal-title">{{ 'pokedex.title' | translate }}</h4>
+    <button type="button" class="btn-close"
+      [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
+      (click)="closeModal()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    <ul class="nav nav-tabs mb-2">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab === 'local'"
+                (click)="activeTab = 'local'">
+          {{ 'pokedex.tab.local' | translate: { region: currentRegion } }}
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="activeTab === 'national'"
+                (click)="activeTab = 'national'">
+          {{ 'pokedex.tab.national' | translate }}
+        </button>
+      </li>
+    </ul>
+    <p class="mb-2">
+      {{ 'pokedex.caught' | translate }} {{ caughtCount }} / {{ totalCount }}
+    </p>
+    <div class="pokedex-grid">
+      @for (id of activeIds; track id) {
+        <app-pokedex-entry
+          [pokemonId]="id"
+          [entry]="pokedexData?.caught?.[id.toString()]"
+          (entryClicked)="onEntryClicked($event)">
+        </app-pokedex-entry>
+      }
+    </div>
+  </div>
+</ng-template>
