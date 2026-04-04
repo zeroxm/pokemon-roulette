@@ -8,9 +8,18 @@
   flex-shrink: 0;
 }
 
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 4px 1px rgba(255, 215, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.95);
+  }
+}
+
 .pokedex-cell.won {
   border-color: gold !important;
-  box-shadow: 0 0 6px rgba(255, 215, 0, 0.7) !important;
+  animation: glow-pulse 2s ease-in-out infinite;
 }
 
 .number-badge {
