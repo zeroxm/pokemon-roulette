@@ -1,13 +1,27 @@
 # Milestones
 
-## v1.0 Pokédex Feature (Shipped: 2026-04-04)
+## v1.0 Pokédex Feature (Shipped: 2026-04-03)
 
-**Phases completed:** 3 phases, 3 plans, 3 tasks
+**Phases completed:** 3 phases, 3 plans
 
 **Key accomplishments:**
 
-- One-liner:
-- [Rule 3 - Blocking Issue] `--include` flag incompatible with external template/style files
-- Tabbed Pokédex modal (Local Dex / National Dex) with live caught counter, dark-mode support, and mobile full-screen — wired into trainer-team area alongside the PC button.
+- Persistent Pokédex service with localStorage — survives browser restarts across all game sessions
+- Tabbed Pokédex modal (Local Dex / National Dex) with live caught counter, dark-mode support, and mobile full-screen
+- Lazy-loading sprite reveal: unknown.png until Pokémon is seen, front_default sprite on flip animation
+- Wired to roulette, trade, steal, and evolution events via markSeen hooks
+
+## v1.1 Pokédex Corrections (Shipped: 2026-04-03)
+
+**Phases completed:** 2 phases, 4 plans, 15 files, +524 LOC
+
+**Key accomplishments:**
+
+- Fixed button row layout: PC and Pokédex buttons now at opposite ends (justify-content-between)
+- Pokédex grid constrained to 9 cols desktop (392px) / 6 cols mobile (260px) via CSS max-width
+- Evolution hooks: markSeen added to replaceForEvolution() — covers all evolution paths in one insertion
+- Trade hook: markSeen added to performTrade() — received Pokémon registered instantly
+- Complete national dex data (pokedex-by-generation.ts) covering all 1,025 Pokémon across 9 gens
+- Local Dex tab dynamically named "{Region} Dex" in all 6 locale files via ngx-translate interpolation
 
 ---
