@@ -279,7 +279,8 @@
               "huntLegendary": "Jage ein legendäres Pokémon",
               "findItem": "Finde ein Item",
               "goStraight": "Weitergehen",
-              "teamRocket": "Team Rocket Angriff"
+              "teamRocket": "Team Rocket Angriff",
+              "catchThreePokemon": "Fange drei Pokémon"
             }
           },
           "title": "Erfolg?",
@@ -2270,6 +2271,21 @@
       "name": "Geeta",
       "quote1": "Die letzte Prüfung ist ein Kampf gegen mich, die Top-Championesse.",
       "quote2": "Bist du bereit für deine letzte Prüfung? Ich will das wahre Maß deines Talents sehen!"
+    }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "{{region}}-Pokédex",
+      "national": "Nationaler Pokédex"
+    },
+    "caught": "Gefangen:"
+  },
+  "detail": {
+    "shiny": {
+      "on": "✨ Shiny",
+      "off": "Normal"
     }
   }
 }

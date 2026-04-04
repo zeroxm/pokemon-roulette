@@ -279,7 +279,8 @@
               "huntLegendary": "Hunt a Legendary",
               "findItem": "Find an Item",
               "goStraight": "Go Straight",
-              "teamRocket": "Team Rocket Encounter"
+              "teamRocket": "Team Rocket Encounter",
+              "catchThreePokemon": "Catch Three Pokemon"
             }
           },
           "title": "Victory?",
@@ -2270,6 +2271,21 @@
       "name": "Geeta",
       "quote1": "The final test is a battle against me, the Top Champion.",
       "quote2": "Are you ready for your final test? I want to see the true measure of your talent!"
+    }
+  },
+  "pokedex": {
+    "title": "Pokédex",
+    "button": "Pokédex",
+    "tab": {
+      "local": "{{region}} Dex",
+      "national": "National Dex"
+    },
+    "caught": "Caught:"
+  },
+  "detail": {
+    "shiny": {
+      "on": "✨ Shiny",
+      "off": "Normal"
     }
   }
 }
