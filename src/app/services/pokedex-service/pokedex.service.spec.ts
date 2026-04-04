@@ -101,6 +101,30 @@ describe('PokedexService', () => {
     expect((service as any)['spriteCache'].size).toBe(1);
   });
 
+  // SHINY-01: shiny flag persistence
+  it('should set shiny:true on entry when markSeen called with shiny=true — SHINY-01', () => {
+    service.markSeen(25, true);
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+  });
+
+  it('should upgrade existing non-shiny entry to shiny when markSeen called with shiny=true — SHINY-01', () => {
+    service.markSeen(25);
+    service.markSeen(25, true);
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+  });
+
+  it('should not revert shiny flag once set — shiny=true is permanent — SHINY-01', () => {
+    service.markSeen(25, true);
+    service.markSeen(25, false);
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+  });
+
+  it('should preserve shiny flag after markWon is called — SHINY-01', () => {
+    service.markSeen(25, true);
+    service.markWon([25]);
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+  });
+
   // Observable: emits on subscribe (BehaviorSubject semantics)
   it('should emit current value immediately on pokedex$ subscribe', (done) => {
     service.pokedex$.subscribe(data => {

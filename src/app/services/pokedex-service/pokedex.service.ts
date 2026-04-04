@@ -4,6 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
 export interface PokedexEntry {
   won: boolean;
   sprite: string | null;
+  shiny?: boolean;
 }
 
 export interface PokedexData {
@@ -30,15 +31,23 @@ export class PokedexService {
     return this.pokedexSubject$.getValue();
   }
 
-  markSeen(pokemonId: number): void {
+  markSeen(pokemonId: number, shiny: boolean = false): void {
     const current = this.currentPokedex;
     const key = String(pokemonId);
-    if (current.caught[key]) {
-      return;
+    const existing = current.caught[key];
+    if (existing && (!shiny || existing.shiny)) {
+      return;  // already caught AND (not shiny OR already has shiny flag)
     }
     const sprite = this.getSpriteUrl(pokemonId);
     const updated: PokedexData = {
-      caught: { ...current.caught, [key]: { won: false, sprite } }
+      caught: {
+        ...current.caught,
+        [key]: {
+          won: existing?.won ?? false,
+          sprite: existing?.sprite ?? sprite,
+          ...(shiny ? { shiny: true } : {}),
+        },
+      },
     };
     this.updatePokedex(updated);
   }
@@ -49,7 +58,7 @@ export class PokedexService {
     for (const pokemonId of pokemonIds) {
       const key = String(pokemonId);
       const sprite = this.getSpriteUrl(pokemonId);
-      updatedCaught[key] = { won: true, sprite: updatedCaught[key]?.sprite ?? sprite };
+      updatedCaught[key] = { ...updatedCaught[key], won: true, sprite: updatedCaught[key]?.sprite ?? sprite };
     }
     this.updatePokedex({ caught: updatedCaught });
   }
