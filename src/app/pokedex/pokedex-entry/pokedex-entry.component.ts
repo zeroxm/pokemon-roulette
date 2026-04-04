@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
@@ -6,6 +6,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
+
+export interface PokedexEntryClickEvent {
+  pokemonId: number;
+  entry: PokedexEntry;
+}
 
 @Component({
   selector: 'app-pokedex-entry',
@@ -17,6 +22,7 @@ import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 export class PokedexEntryComponent implements OnInit {
   @Input() pokemonId!: number;
   @Input() entry: PokedexEntry | undefined;
+  @Output() entryClicked = new EventEmitter<PokedexEntryClickEvent>();
 
   darkMode!: Observable<boolean>;
 
@@ -45,6 +51,11 @@ export class PokedexEntryComponent implements OnInit {
 
   get spriteUrl(): string | null {
     return this.entry?.sprite ?? null;
+  }
+
+  onCellClick(): void {
+    if (!this.isSeen) return;
+    this.entryClicked.emit({ pokemonId: this.pokemonId, entry: this.entry! });
   }
 
   formatPokemonNumber(id: number): string {

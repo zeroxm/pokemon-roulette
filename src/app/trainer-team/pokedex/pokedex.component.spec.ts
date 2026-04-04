@@ -10,6 +10,7 @@ import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PokedexDetailModalComponent } from '../../pokedex/pokedex-detail-modal/pokedex-detail-modal.component';
 
 describe('PokedexComponent', () => {
   let component: PokedexComponent;
@@ -85,5 +86,17 @@ describe('PokedexComponent', () => {
 
   it('NAV-05: darkMode field is assigned after ngOnInit', () => {
     expect(component.darkMode).toBeTruthy();
+  });
+
+  it('DETAIL-01: onEntryClicked opens PokedexDetailModalComponent via modalService', () => {
+    const mockModalRef = { componentInstance: {} as any };
+    modalServiceSpy.open.and.returnValue(mockModalRef as any);
+    const entry = { won: true, sprite: null };
+    component.onEntryClicked({ pokemonId: 25, entry });
+    expect(modalServiceSpy.open).toHaveBeenCalledWith(
+      PokedexDetailModalComponent,
+      jasmine.objectContaining({ windowClass: 'modal-fullscreen-sm-down' })
+    );
+    expect(mockModalRef.componentInstance.pokemonId).toBe(25);
   });
 });

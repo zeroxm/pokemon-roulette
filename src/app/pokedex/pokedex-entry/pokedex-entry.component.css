@@ -8,6 +8,10 @@
   flex-shrink: 0;
 }
 
+.pokedex-cell.clickable {
+  cursor: pointer;
+}
+
 @keyframes glow-pulse {
   0%, 100% {
     box-shadow: 0 0 4px 1px rgba(255, 215, 0, 0.5);

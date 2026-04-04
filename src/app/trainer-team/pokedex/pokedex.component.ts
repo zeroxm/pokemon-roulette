@@ -10,6 +10,8 @@ import { PokedexService, PokedexData } from '../../services/pokedex-service/poke
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntryComponent } from '../../pokedex/pokedex-entry/pokedex-entry.component';
+import { PokedexDetailModalComponent } from '../../pokedex/pokedex-detail-modal/pokedex-detail-modal.component';
+import { PokedexEntryClickEvent } from '../../pokedex/pokedex-entry/pokedex-entry.component';
 import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
 
 @Component({
@@ -74,6 +76,16 @@ export class PokedexComponent implements OnInit, OnDestroy {
 
   closeModal(): void {
     this.modalService.dismissAll();
+  }
+
+  onEntryClicked(event: PokedexEntryClickEvent): void {
+    const modalRef = this.modalService.open(PokedexDetailModalComponent, {
+      centered: true,
+      size: 'md',
+      windowClass: 'modal-fullscreen-sm-down'
+    });
+    modalRef.componentInstance.pokemonId = event.pokemonId;
+    modalRef.componentInstance.entry = event.entry;
   }
 
   get localIds(): number[] {

@@ -130,4 +130,37 @@ describe('PokedexEntryComponent', () => {
   it('formatPokemonNumber formats IDs 1000+ without padding', () => {
     expect(component.formatPokemonNumber(1011)).toBe('#1011');
   });
+
+  // DETAIL-01: click handler
+  it('DETAIL-01: clicking seen cell emits entryClicked with pokemonId and entry', () => {
+    component.entry = seenEntry;
+    fixture.detectChanges();
+    spyOn(component.entryClicked, 'emit');
+    const cell = fixture.nativeElement.querySelector('.pokedex-cell') as HTMLElement;
+    cell.click();
+    expect(component.entryClicked.emit).toHaveBeenCalledOnceWith({ pokemonId: 25, entry: seenEntry });
+  });
+
+  it('DETAIL-01: clicking unseen cell does NOT emit entryClicked', () => {
+    component.entry = undefined;
+    fixture.detectChanges();
+    spyOn(component.entryClicked, 'emit');
+    const cell = fixture.nativeElement.querySelector('.pokedex-cell') as HTMLElement;
+    cell.click();
+    expect(component.entryClicked.emit).not.toHaveBeenCalled();
+  });
+
+  it('DETAIL-01: seen cell has .clickable CSS class', () => {
+    component.entry = seenEntry;
+    fixture.detectChanges();
+    const cell = fixture.nativeElement.querySelector('.pokedex-cell') as HTMLElement;
+    expect(cell.classList).toContain('clickable');
+  });
+
+  it('DETAIL-01: unseen cell does NOT have .clickable CSS class', () => {
+    component.entry = undefined;
+    fixture.detectChanges();
+    const cell = fixture.nativeElement.querySelector('.pokedex-cell') as HTMLElement;
+    expect(cell.classList).not.toContain('clickable');
+  });
 });
