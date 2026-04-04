@@ -76,11 +76,11 @@ describe('PokedexComponent', () => {
     expect(component.caughtCount).toBeLessThanOrEqual(component.totalCount);
   });
 
-  it('NAV-04: openPokedex calls NgbModal.open with windowClass modal-fullscreen-sm-down', () => {
+  it('NAV-04: openPokedex calls NgbModal.open with size lg', () => {
     component.openPokedex();
     expect(modalServiceSpy.open).toHaveBeenCalledWith(
       jasmine.anything(),
-      jasmine.objectContaining({ windowClass: 'modal-fullscreen-sm-down' })
+      jasmine.objectContaining({ size: 'lg' })
     );
   });
 
@@ -95,7 +95,7 @@ describe('PokedexComponent', () => {
     component.onEntryClicked({ pokemonId: 25, entry });
     expect(modalServiceSpy.open).toHaveBeenCalledWith(
       PokedexDetailModalComponent,
-      jasmine.objectContaining({ windowClass: 'modal-fullscreen-sm-down' })
+      jasmine.objectContaining({ size: 'md' })
     );
     expect(mockModalRef.componentInstance.pokemonId).toBe(25);
   });

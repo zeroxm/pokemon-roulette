@@ -16,6 +16,7 @@ import { provideIcons } from '@ng-icons/core';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
+import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 
 import { RouletteContainerComponent } from './roulette-container.component';
 
@@ -25,6 +26,7 @@ describe('RouletteContainerComponent', () => {
   let pokemonService: PokemonService;
   let trainerService: TrainerService;
   let gameStateService: GameStateService;
+  let pokedexService: PokedexService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -51,8 +53,10 @@ describe('RouletteContainerComponent', () => {
     pokemonService = TestBed.inject(PokemonService);
     trainerService = TestBed.inject(TrainerService);
     gameStateService = TestBed.inject(GameStateService);
+    pokedexService = TestBed.inject(PokedexService);
     gameStateService.resetGameState();
     trainerService.resetTeam();
+    localStorage.clear();
     fixture.detectChanges();
   });
 
@@ -80,5 +84,38 @@ describe('RouletteContainerComponent', () => {
     expect(component.getGameState()).toBe('check-shininess');
     expect(trainerService.getTeam().length).toBe(1);
     expect(trainerService.getTeam()[0].pokemonId).toBe(1);
+  });
+
+  // ALT-FORM-01: alt form registration also registers base national dex ID
+  it('should register base national dex ID in Pokédex when alt form is selected — ALT-FORM-01', () => {
+    // Raichu (26) has Alolan form (10100)
+    const raichu = pokemonService.getPokemonById(26);
+    expect(raichu).toBeDefined();
+    component.capturePokemon(raichu!);
+
+    // Select Alolan Raichu form (pokemonId 10100)
+    const forms = component.pokemonForms;
+    const alolanRaichu = forms.find(f => f.pokemonId === 10100);
+    expect(alolanRaichu).toBeDefined();
+    component.selectPokemonForm(alolanRaichu!);
+
+    // Base national dex entry (26) should be registered
+    expect(pokedexService.currentPokedex.caught['26']).toBeTruthy();
+  });
+
+  // ALT-FORM-02: shiny alt form propagates shiny flag to base national dex entry
+  it('should propagate shiny flag to base national dex entry when shiny alt form captured — ALT-FORM-02', () => {
+    const raichu = pokemonService.getPokemonById(26);
+    expect(raichu).toBeDefined();
+    const shinyRaichu = { ...raichu!, shiny: true };
+    component.capturePokemon(shinyRaichu);
+
+    const forms = component.pokemonForms;
+    const alolanRaichu = forms.find(f => f.pokemonId === 10100);
+    expect(alolanRaichu).toBeDefined();
+    component.selectPokemonForm(alolanRaichu!);
+
+    // Base entry should have shiny: true
+    expect(pokedexService.currentPokedex.caught['26']?.shiny).toBeTrue();
   });
 });

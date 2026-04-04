@@ -1,5 +1,5 @@
 <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
-  <h5 class="modal-title">{{ pokemonNameKey | translate }}</h5>
+  <h5 class="modal-title">{{ formatPokemonNumber(pokemonId) }}</h5>
   <button type="button" class="btn-close"
     [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
     (click)="activeModal.dismiss()" aria-label="Close"></button>
@@ -16,8 +16,8 @@
          (error)="onArtworkError()">
   </div>
 
-  <!-- Pokédex number -->
-  <p class="fw-bold mb-1">{{ formatPokemonNumber(pokemonId) }}</p>
+  <!-- Pokémon name -->
+  <p class="fw-bold mb-1">{{ pokemonNameKey | translate }}</p>
 
   <!-- Shiny toggle (SHINY-02: only render when entry.shiny === true) -->
   @if (hasShinyToggle) {

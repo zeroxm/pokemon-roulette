@@ -67,10 +67,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     this.activeTab = 'local';  // per D-03: Local Dex active by default on open
     this.modalService.open(this.pokedexModal, {
       centered: true,
-      size: 'lg',
-      // ⚠️ NAV-04: use windowClass NOT size — size expects Bootstrap keywords (sm/md/lg/xl)
-      // windowClass passes Bootstrap class directly to modal DOM element
-      windowClass: 'modal-fullscreen-sm-down'
+      size: 'lg'
     });
   }
 
@@ -81,8 +78,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
   onEntryClicked(event: PokedexEntryClickEvent): void {
     const modalRef = this.modalService.open(PokedexDetailModalComponent, {
       centered: true,
-      size: 'md',
-      windowClass: 'modal-fullscreen-sm-down'
+      size: 'md'
     });
     modalRef.componentInstance.pokemonId = event.pokemonId;
     modalRef.componentInstance.entry = event.entry;
