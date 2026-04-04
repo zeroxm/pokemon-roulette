@@ -29,7 +29,6 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   }
 
   @Input() respinReason!: string;
-  @Output() catchPokemonEvent = new EventEmitter<void>();
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();
@@ -40,44 +39,40 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   @Output() teamRocketEncounterEvent = new EventEmitter<void>();
 
   actions: WheelItem[] = [
-    { text: 'game.main.roulette.elite.prep.actions.catchPokemon', fillStyle: 'crimson', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.trainingArc', fillStyle: 'darkorange', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.buyPotions', fillStyle: 'darkgoldenrod', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.catchTwoPokemon', fillStyle: 'green', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.catchThreePokemon', fillStyle: 'darkgreen', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.huntLegendary', fillStyle: 'darkcyan', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.findItem', fillStyle: 'blue', weight: 2 },
-    { text: 'game.main.roulette.elite.prep.actions.goStraight', fillStyle: 'purple', weight: 1 },
-    { text: 'game.main.roulette.elite.prep.actions.teamRocket', fillStyle: 'black', weight: 1 }
+    { text: 'game.main.roulette.elite.prep.actions.trainingArc', fillStyle: 'crimson', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.buyPotions', fillStyle: 'darkorange', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.catchTwoPokemon', fillStyle: 'darkgoldenrod', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.catchThreePokemon', fillStyle: 'green', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.huntLegendary', fillStyle: 'darkgreen', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.findItem', fillStyle: 'darkcyan', weight: 2 },
+    { text: 'game.main.roulette.elite.prep.actions.goStraight', fillStyle: 'blue', weight: 1 },
+    { text: 'game.main.roulette.elite.prep.actions.teamRocket', fillStyle: 'purple', weight: 1 }
   ];
 
   onItemSelected(index: number): void {
     switch (index) {
       case 0:
-        this.catchPokemonEvent.emit();
-        break;
-      case 1:
         this.battleTrainerEvent.emit('battle-trainer');
         break;
-      case 2:
+      case 1:
         this.buyPotionsEvent.emit();
         break;
-      case 3:
+      case 2:
         this.catchTwoPokemonEvent.emit();
         break;
-      case 4:
+      case 3:
         this.catchThreePokemonEvent.emit();
         break;
-      case 5:
+      case 4:
         this.legendaryEncounterEvent.emit();
         break;
-      case 6:
+      case 5:
         this.findItemEvent.emit();
         break;
-      case 7:
+      case 6:
         this.doNothingEvent.emit();
         break;
-      case 8:
+      case 7:
         this.teamRocketEncounterEvent.emit();
         break;
       default:

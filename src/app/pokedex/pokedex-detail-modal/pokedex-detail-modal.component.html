@@ -6,15 +6,12 @@
 </div>
 <div class="modal-body text-center" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
 
-  <!-- Official artwork circle -->
-  <div class="pokemon-artwork-circle rounded-circle mx-auto mb-3"
-       [ngClass]="(darkMode | async) ? 'black-border shadow' : 'border'">
-    <img [src]="displayUrl"
-         loading="lazy"
-         class="img-fluid rounded-circle"
-         [alt]="pokemonNameKey | translate"
-         (error)="onArtworkError()">
-  </div>
+  <!-- Official artwork -->
+  <img [src]="displayUrl"
+       loading="lazy"
+       class="img-fluid mx-auto mb-3 d-block"
+       [alt]="pokemonNameKey | translate"
+       (error)="onArtworkError()">
 
   <!-- Pokémon name -->
   <p class="fw-bold mb-1">{{ pokemonNameKey | translate }}</p>

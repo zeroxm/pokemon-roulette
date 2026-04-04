@@ -4,7 +4,13 @@
     "darkmode": "Dark Mode",
     "explanations": "Less Explanations",
     "muteAudio": "Mute Audio",
-    "skipShinyRolls": "Hide Shiny Rolls"
+    "skipShinyRolls": "Hide Shiny Rolls",
+    "defaultGender": {
+      "title": "Character Gender",
+      "male": "Always Boy",
+      "female": "Always Girl",
+      "always-choose": "Always Choose"
+    }
   },
   "coffee": {
     "title": "Having fun spinning? 😁",

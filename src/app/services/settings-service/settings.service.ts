@@ -5,6 +5,7 @@ export interface GameSettings {
   muteAudio: boolean;
   skipShinyRolls: boolean;
   lessExplanations: boolean;
+  defaultGender: 'male' | 'female' | 'always-choose';
 }
 
 @Injectable({
@@ -16,7 +17,8 @@ export class SettingsService {
   private readonly defaultSettings: GameSettings = {
     muteAudio: false,
     skipShinyRolls: false,
-    lessExplanations: false
+    lessExplanations: false,
+    defaultGender: 'always-choose'
   };
 
   private settingsSubject$: BehaviorSubject<GameSettings>;
@@ -48,6 +50,12 @@ export class SettingsService {
   toggleLessExplanations(): void {
     const currentSettings = this.currentSettings;
     const newSettings = { ...currentSettings, lessExplanations: !currentSettings.lessExplanations };
+    this.updateSettings(newSettings);
+  }
+
+  setDefaultGender(gender: 'male' | 'female' | 'always-choose'): void {
+    const currentSettings = this.currentSettings;
+    const newSettings = { ...currentSettings, defaultGender: gender };
     this.updateSettings(newSettings);
   }
 

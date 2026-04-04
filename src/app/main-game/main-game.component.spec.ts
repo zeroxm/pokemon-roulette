@@ -5,6 +5,7 @@ import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { HttpClient } from '@angular/common/http';
 import {
   bootstrapArrowRepeat,
+  bootstrapBook,
   bootstrapCheck,
   bootstrapClock,
   bootstrapCupHotFill,
@@ -36,6 +37,7 @@ describe('MainGameComponent', () => {
           bootstrapShare,
           bootstrapClock,
           bootstrapArrowRepeat,
+          bootstrapBook,
           bootstrapGear,
           bootstrapCupHotFill,
           bootstrapCheck,

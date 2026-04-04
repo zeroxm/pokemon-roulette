@@ -4,7 +4,13 @@
     "darkmode": "Dunkler Modus",
     "explanations": "Weniger Hinweise",
     "muteAudio": "Stummschalten",
-    "skipShinyRolls": "Shiny Roulette verstecken"
+    "skipShinyRolls": "Shiny Roulette verstecken",
+    "defaultGender": {
+      "title": "Geschlecht des Charakters",
+      "male": "Immer Junge",
+      "female": "Immer Mädchen",
+      "always-choose": "Immer wählen"
+    }
   },
   "coffee": {
     "title": "Hast du Spaß beim Drehen? 😀",
