@@ -60,11 +60,17 @@ describe('PokedexService', () => {
 
   // DATA-03: Fallback to empty state on invalid JSON
   it('should fall back to empty caught when localStorage has invalid JSON', () => {
+    const consoleErrorSpy = spyOn(console, 'error');
     localStorage.setItem('pokemon-roulette-pokedex', 'not-valid-json');
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({});
     const newService = TestBed.inject(PokedexService);
     expect(Object.keys(newService.currentPokedex.caught).length).toBe(0);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      'Invalid pokedex localStorage item:',
+      'not-valid-json',
+      'falling back to empty pokedex'
+    );
   });
 
   // DATA-04: No reset method exists that could be wired to game loop

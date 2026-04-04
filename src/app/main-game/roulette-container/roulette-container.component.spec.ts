@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   bootstrapArrowRepeat,
+  bootstrapBook,
   bootstrapCheck,
   bootstrapClock,
   bootstrapController,
@@ -34,6 +35,7 @@ describe('RouletteContainerComponent', () => {
       providers: [
         provideIcons({
           bootstrapArrowRepeat,
+          bootstrapBook,
           bootstrapCheck,
           bootstrapClock,
           bootstrapController,
