@@ -58,5 +58,7 @@ Full archive: `.planning/milestones/v1.0-ROADMAP.md`
   2. The "{Region} Dex" label renders correctly in all 6 locale files (EN, ES, FR, DE, IT, PT)
   3. The Local Dex grid displays every Pokémon in the generation — including legendaries, mythicals, Ultra Beasts, and Paradox Pokémon — with no omissions
   4. The progress counter in the Local Dex reflects the complete generation pool (e.g. "0 / 151" for Kanto, not the smaller roulette subset)
-**Plans**: TBD
+**Plans**: 2 plans
+- [ ] 05-01-PLAN.md — Create pokedex-by-generation.ts with complete national dex ranges (DATA-07)
+- [ ] 05-02-PLAN.md — Wire complete data + region-branded tab label in TS, HTML, and 6 i18n files (DATA-08, UX-01)
 **UI hint**: yes
