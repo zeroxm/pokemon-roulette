@@ -2280,5 +2280,11 @@
       "national": "Pokédex National"
     },
     "caught": "Capturés :"
+  },
+  "detail": {
+    "shiny": {
+      "on": "✨ Chromatique",
+      "off": "Normal"
+    }
   }
 }

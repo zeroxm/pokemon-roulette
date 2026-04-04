@@ -2280,5 +2280,11 @@
       "national": "National Dex"
     },
     "caught": "Caught:"
+  },
+  "detail": {
+    "shiny": {
+      "on": "✨ Shiny",
+      "off": "Normal"
+    }
   }
 }

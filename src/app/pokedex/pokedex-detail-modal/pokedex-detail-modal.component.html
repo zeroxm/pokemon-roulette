@@ -1,0 +1,44 @@
+<div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+  <h5 class="modal-title">{{ pokemonNameKey | translate }}</h5>
+  <button type="button" class="btn-close"
+    [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
+    (click)="activeModal.dismiss()" aria-label="Close"></button>
+</div>
+<div class="modal-body text-center" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+
+  <!-- Official artwork circle -->
+  <div class="pokemon-artwork-circle rounded-circle mx-auto mb-3"
+       [ngClass]="(darkMode | async) ? 'black-border shadow' : 'border'">
+    <img [src]="displayUrl"
+         loading="lazy"
+         class="img-fluid rounded-circle"
+         [alt]="pokemonNameKey | translate"
+         (error)="onArtworkError()">
+  </div>
+
+  <!-- Pokédex number -->
+  <p class="fw-bold mb-1">{{ formatPokemonNumber(pokemonId) }}</p>
+
+  <!-- Shiny toggle (SHINY-02: only render when entry.shiny === true) -->
+  @if (hasShinyToggle) {
+    <button class="btn btn-sm mb-2"
+            [ngClass]="showShiny ? 'btn-warning' : 'btn-outline-warning'"
+            (click)="showShiny = !showShiny">
+      {{ showShiny ? ('detail.shiny.on' | translate) : ('detail.shiny.off' | translate) }}
+    </button>
+  }
+
+  <!-- Alternate form tabs (DETAIL-02: only render when hasAlternateForms) -->
+  @if (hasAlternateForms) {
+    <div class="d-flex flex-wrap gap-2 justify-content-center mt-2">
+      @for (form of alternateForms; track form.pokemonId) {
+        <button class="btn btn-sm"
+                [ngClass]="selectedFormId === form.pokemonId ? 'btn-primary' : 'btn-outline-secondary'"
+                (click)="selectedFormId = form.pokemonId">
+          {{ form.text | translate }}
+        </button>
+      }
+    </div>
+  }
+
+</div>
