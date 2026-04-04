@@ -561,6 +561,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.pkmnOut = this.currentContextPokemon;
     this.pkmnTradeTitle = "Trade!";
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
+    this.pokedexService.markSeen(this.pkmnIn.pokemonId);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
     if (!this.settingsService.currentSettings.lessExplanations) {
@@ -699,6 +700,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     this.pkmnOut = pokemonOut;
     this.pkmnIn = structuredClone(pokemonIn);
+    this.pokedexService.markSeen(pokemonIn.pokemonId);
     this.pkmnEvoTitle = "game.main.roulette.evolve.modal.title"
     this.trainerService.replaceForEvolution(this.pkmnOut, this.pkmnIn);
 
