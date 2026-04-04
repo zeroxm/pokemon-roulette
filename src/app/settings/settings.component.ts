@@ -43,4 +43,8 @@ export class SettingsComponent implements OnInit {
     this.settingsService.toggleSkipShinyRolls();
   }
 
+  onSelectGender(gender: 'male' | 'female' | 'always-choose'): void {
+    this.settingsService.setDefaultGender(gender);
+  }
+
 }

@@ -4,7 +4,13 @@
     "darkmode": "Modalità scura",
     "explanations": "Meno spiegazioni",
     "muteAudio": "Disattiva audio",
-    "skipShinyRolls": "Nascondi i tiri Shiny"
+    "skipShinyRolls": "Nascondi i tiri Shiny",
+    "defaultGender": {
+      "title": "Genere del personaggio",
+      "male": "Sempre Ragazzo",
+      "female": "Sempre Ragazza",
+      "always-choose": "Scegli sempre"
+    }
   },
   "coffee": {
     "title": "Ti stai divertendo a girare? 😁",

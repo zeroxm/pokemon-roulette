@@ -5,6 +5,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../../../services/dark-mode-service/dark-mode.service';
+import { SettingsService } from '../../../../services/settings-service/settings.service';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 
 @Component({
@@ -20,7 +21,8 @@ export class CharacterSelectComponent implements OnInit, OnDestroy {
 
   constructor(private generationService: GenerationService,
               private trainerService: TrainerService,
-              private darkModeService: DarkModeService
+              private darkModeService: DarkModeService,
+              private settingsService: SettingsService
   ) { }
 
   private generationSubscription!: Subscription;
@@ -28,6 +30,7 @@ export class CharacterSelectComponent implements OnInit, OnDestroy {
   girlSprite: string = "";
   darkMode!: Observable<boolean>;
   generation!: GenerationItem;
+  genderAutoSelected: boolean = false;
   @Output() trainerSelectedEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
@@ -35,6 +38,14 @@ export class CharacterSelectComponent implements OnInit, OnDestroy {
       this.generation = gen;
       this.boySprite = this.trainerService.getTrainerSprite(this.generation.id, 'male');
       this.girlSprite = this.trainerService.getTrainerSprite(this.generation.id, 'female');
+      
+      // Auto-select gender if pre-configured
+      const defaultGender = this.settingsService.currentSettings.defaultGender;
+      if (defaultGender !== 'always-choose') {
+        this.genderAutoSelected = true;
+        // Defer event emission to next microtask to ensure parent is ready to listen
+        queueMicrotask(() => this.selectTrainerGender(defaultGender));
+      }
     });
     this.darkMode = this.darkModeService.darkMode$;
   }

@@ -19,6 +19,52 @@
                         <app-dark-mode-toggle></app-dark-mode-toggle>
                     </div>
                     <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <label class="form-check-label pt-1 d-block text-start" style="padding-left: 2.5em;">{{ 'settings.defaultGender.title' | translate }}</label>
+                            <div class="d-flex flex-column gap-2 text-start">
+                                <div class="form-check">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="radio" 
+                                        name="genderOptions"
+                                        [value]="'male'"
+                                        [checked]="(settings$ | async)?.defaultGender === 'male'"
+                                        (change)="onSelectGender('male')"
+                                        id="maleOption">
+                                    <label class="form-check-label" for="maleOption">
+                                        {{ 'settings.defaultGender.male' | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="radio" 
+                                        name="genderOptions"
+                                        [value]="'female'"
+                                        [checked]="(settings$ | async)?.defaultGender === 'female'"
+                                        (change)="onSelectGender('female')"
+                                        id="femaleOption">
+                                    <label class="form-check-label" for="femaleOption">
+                                        {{ 'settings.defaultGender.female' | translate }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="radio" 
+                                        name="genderOptions"
+                                        [value]="'always-choose'"
+                                        [checked]="(settings$ | async)?.defaultGender === 'always-choose'"
+                                        (change)="onSelectGender('always-choose')"
+                                        id="alwaysChooseOption">
+                                    <label class="form-check-label" for="alwaysChooseOption">
+                                        {{ 'settings.defaultGender.always-choose' | translate }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
                         <div class="form-switch d-flex justify-content-between">
                             <label class="form-check-label" for="explanationsSwitch">
                                 {{ 'settings.explanations' | translate }}
