@@ -2276,7 +2276,7 @@
     "title": "Pokédex",
     "button": "Pokédex",
     "tab": {
-      "local": "Local Dex",
+      "local": "{{region}} Dex",
       "national": "National Dex"
     },
     "caught": "Caught:"

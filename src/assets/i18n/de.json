@@ -2276,7 +2276,7 @@
     "title": "Pokédex",
     "button": "Pokédex",
     "tab": {
-      "local": "Regionaler Pokédex",
+      "local": "{{region}}-Pokédex",
       "national": "Nationaler Pokédex"
     },
     "caught": "Gefangen:"

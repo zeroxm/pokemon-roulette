@@ -10,7 +10,7 @@ import { PokedexService, PokedexData } from '../../services/pokedex-service/poke
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntryComponent } from '../../pokedex/pokedex-entry/pokedex-entry.component';
-import { pokemonByGeneration } from '../../main-game/roulette-container/roulettes/pokemon-from-generation-roulette/pokemon-by-generation';
+import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
 
 @Component({
   selector: 'app-pokedex',
@@ -35,6 +35,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
   darkMode!: Observable<boolean>;
   pokedexData: PokedexData | undefined;
   currentGenerationId: number = 1;
+  currentRegion: string = 'Kanto';
   activeTab: 'local' | 'national' = 'local';
 
   // ⚠️ Follow StoragePcComponent subscription pattern exactly (per D-09)
@@ -50,6 +51,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.generationService.getGeneration().subscribe(gen => {
         this.currentGenerationId = gen.id;
+        this.currentRegion = gen.region;
       })
     );
   }
@@ -76,7 +78,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
 
   get localIds(): number[] {
     // ⚠️ Use nullish coalescing — currentGenerationId may be 0/undefined during init
-    return pokemonByGeneration[this.currentGenerationId] ?? [];
+    return pokedexByGeneration[this.currentGenerationId] ?? [];
   }
 
   get nationalIds(): number[] {
