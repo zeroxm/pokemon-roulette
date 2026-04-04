@@ -279,7 +279,8 @@
               "huntLegendary": "Jage ein legendäres Pokémon",
               "findItem": "Finde ein Item",
               "goStraight": "Weitergehen",
-              "teamRocket": "Team Rocket Angriff"
+              "teamRocket": "Team Rocket Angriff",
+              "catchThreePokemon": "Fange drei Pokémon"
             }
           },
           "title": "Erfolg?",

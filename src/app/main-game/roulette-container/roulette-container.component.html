@@ -29,6 +29,7 @@
   }
   @case ('catch-pokemon') {
     <app-pokemon-from-generation-roulette
+        [currentRound]="leadersDefeatedAmount"
         (selectedPokemonEvent)="capturePokemon($event)">
     </app-pokemon-from-generation-roulette>
   }
@@ -177,6 +178,7 @@
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
         (catchTwoPokemonEvent)="catchTwoPokemon()"
+        (catchThreePokemonEvent)="catchThreePokemon()"
         (legendaryEncounterEvent)="legendaryEncounter()"
         (findItemEvent)="findItem()"
         (doNothingEvent)="doNothing()"

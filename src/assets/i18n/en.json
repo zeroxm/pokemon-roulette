@@ -279,7 +279,8 @@
               "huntLegendary": "Hunt a Legendary",
               "findItem": "Find an Item",
               "goStraight": "Go Straight",
-              "teamRocket": "Team Rocket Encounter"
+              "teamRocket": "Team Rocket Encounter",
+              "catchThreePokemon": "Catch Three Pokemon"
             }
           },
           "title": "Victory?",

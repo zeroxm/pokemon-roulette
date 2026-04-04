@@ -422,6 +422,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  catchThreePokemon(): void {
+    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextState('catch-pokemon');
+    this.finishCurrentState();
+  }
+
   teamRocketEncounter(): void {
     this.gameStateService.setNextState('team-rocket-encounter');
     this.finishCurrentState();

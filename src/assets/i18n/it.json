@@ -279,7 +279,8 @@
               "huntLegendary": "Caccia un Pokémon leggendario",
               "findItem": "Trova uno strumento",
               "goStraight": "Vai dritto",
-              "teamRocket": "Incontro con il Team Rocket"
+              "teamRocket": "Incontro con il Team Rocket",
+              "catchThreePokemon": "Cattura tre Pokémon"
             }
           },
           "title": "Vittoria?",

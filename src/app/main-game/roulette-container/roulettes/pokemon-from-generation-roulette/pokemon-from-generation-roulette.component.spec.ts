@@ -47,6 +47,7 @@ describe('PokemonFromGenerationRouletteComponent', () => {
 
     fixture = TestBed.createComponent(PokemonFromGenerationRouletteComponent);
     component = fixture.componentInstance;
+    component.currentRound = 5; // no power filter — test all pokemon
     fixture.detectChanges();
   });
 
@@ -58,5 +59,32 @@ describe('PokemonFromGenerationRouletteComponent', () => {
     expect(pokemonService.getPokemonByIdArray).toHaveBeenCalled();
     expect(component.pokemon.length).toBe(3);
     expect(component.pokemon.map(p => p.pokemonId)).toEqual([1, 2, 3]);
+  });
+
+  describe('power filtering', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(PokemonFromGenerationRouletteComponent);
+      component = fixture.componentInstance;
+    });
+
+    it('should filter to power=1 when currentRound < 2', () => {
+      component.currentRound = 1;
+      fixture.detectChanges();
+      expect(component.pokemon.length).toBe(1);
+      expect(component.pokemon[0].pokemonId).toBe(1);
+    });
+
+    it('should filter to power<=2 when currentRound is 2 or 3', () => {
+      component.currentRound = 3;
+      fixture.detectChanges();
+      expect(component.pokemon.length).toBe(2);
+      expect(component.pokemon.map(p => p.pokemonId)).toEqual([1, 2]);
+    });
+
+    it('should show all pokemon when currentRound >= 4', () => {
+      component.currentRound = 4;
+      fixture.detectChanges();
+      expect(component.pokemon.length).toBe(3);
+    });
   });
 });
