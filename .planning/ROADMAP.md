@@ -6,9 +6,85 @@ Type matchup integration: wheel odds + modal for gym and Elite Four battles. See
 
 ---
 
-## Next Milestone
+## v1.1 — Inline Type Matchup Display
 
-_Not yet planned. Run `/gsd-new-milestone` to start._
+### Goal
+
+Replace the type advantage modal with a persistent inline strip that shows the leader's type icon, advantage label, and relevant team type icons directly in the battle view — fixing the double-modal bug and eliminating dead modal code in the process.
+
+### Phases
+
+- [ ] **Phase 7: Foundation** — Remove typeAdvantageModal from both battle components, extend TypeMatchupService with `getMatchupTypes()`, clean orphaned i18n keys
+- [ ] **Phase 8: Inline Strip UI** — Build and wire the inline matchup strip in both gym and Elite Four battle roulettes
+
+### Phase Details
+
+---
+
+### Phase 7: Foundation
+
+**Goal:** The modal is gone from both battle components, `TypeMatchupService.getMatchupTypes()` is implemented and tested, and orphaned i18n keys are removed — leaving the codebase clean and ready for the strip UI.
+
+**Depends on:** Phase 6
+
+**Requirements:** REF-01, REF-02, SVC-04, I18N-01
+
+**Success Criteria** (what must be TRUE):
+  1. No `#typeAdvantageModal` template, `@ViewChild('typeAdvantageModal')` declaration, or `queueTypeAdvantageModal()` method exists in either battle component — the app compiles and runs cleanly.
+  2. The leader presentation modal still appears correctly in both gym and Elite Four battles (only the type advantage modal is removed, not the leader intro).
+  3. `TypeMatchupService.getMatchupTypes(team, opponentTypes)` returns correct `{ advantageTypes, disadvantageTypes }` arrays — e.g. a Water-type team vs a Fire opponent yields `advantageTypes: ['water']`, `disadvantageTypes: []`.
+  4. The `game.main.roulette.gym.typeAdvantage.strong` and `.weak` keys are absent from all 6 locale files; the remaining keys (`overwhelming`, `advantage`, `disadvantage`) are intact and cause no i18n errors.
+
+**Plans:** TBD
+
+---
+
+### Phase 8: Inline Strip UI
+
+**Goal:** Players see a persistent inline matchup strip between the battle header and wheel in both gym and Elite Four battles — showing the leader's type icon, the advantage label when applicable, and the relevant team type icons — updating live when they swap their PC team.
+
+**Depends on:** Phase 7
+
+**Requirements:** STRIP-01, STRIP-02, STRIP-03, STRIP-04, STRIP-05, STRIP-06
+
+**Success Criteria** (what must be TRUE):
+  1. During an active gym or Elite Four battle, a strip is visible between the component title and the roulette wheel showing at minimum the leader's type icon.
+  2. When the team has an advantage or overwhelming advantage, the strip shows: leader type icon → label text ("Advantage" / "Overwhelming Advantage") → row of unique team type icons that are SE against the leader.
+  3. When the team has a disadvantage, the strip shows: leader type icon → "Disadvantage" label → row of unique team type icons the leader is SE against.
+  4. When the team has no matchup (neutral), only the leader type icon is shown — no label, no team type icon row.
+  5. Swapping a Pokémon via the PC mid-battle updates the strip immediately with no page reload — the player sees the label and/or type icons change if their new composition changes the matchup outcome.
+
+**Plans:** TBD
+
+**UI hint**: yes
+
+---
+
+## Progress (v1.1)
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 7. Foundation | 0/2 | Not started | - |
+| 8. Inline Strip UI | 0/2 | Not started | - |
+
+---
+
+## Coverage (v1.1)
+
+| Requirement | Phase |
+|-------------|-------|
+| REF-01   | 7 |
+| REF-02   | 7 |
+| SVC-04   | 7 |
+| I18N-01  | 7 |
+| STRIP-01 | 8 |
+| STRIP-02 | 8 |
+| STRIP-03 | 8 |
+| STRIP-04 | 8 |
+| STRIP-05 | 8 |
+| STRIP-06 | 8 |
+
+**Total: 10/10 requirements mapped. No orphans.**
 
 ---
 

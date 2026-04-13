@@ -3,14 +3,14 @@
 **Last updated:** 2026-04-13  
 **Current milestone:** v1.1 — Inline Type Matchup Display  
 **Branch:** `28-pokémon-types-on-battles`  
-**Status:** Defining requirements
+**Status:** Roadmap created — ready for phase planning
 
 ## Current Position
 
-Phase: Not started (defining requirements)  
+Phase: Phase 7 — Foundation (not started)  
 Plan: —  
-Status: Defining requirements  
-Last activity: 2026-04-13 — Milestone v1.1 started
+Status: Ready to plan  
+Last activity: 2026-04-13 — v1.1 roadmap created (Phase 7 & 8)
 
 ## Accumulated Context
 

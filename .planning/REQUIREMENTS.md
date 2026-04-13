@@ -108,13 +108,13 @@ reused by the inline strip.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REF-01   | TBD | Pending |
-| REF-02   | TBD | Pending |
-| SVC-04   | TBD | Pending |
-| STRIP-01 | TBD | Pending |
-| STRIP-02 | TBD | Pending |
-| STRIP-03 | TBD | Pending |
-| STRIP-04 | TBD | Pending |
-| STRIP-05 | TBD | Pending |
-| STRIP-06 | TBD | Pending |
-| I18N-01  | TBD | Pending |
+| REF-01   | Phase 7 | Pending |
+| REF-02   | Phase 7 | Pending |
+| SVC-04   | Phase 7 | Pending |
+| I18N-01  | Phase 7 | Pending |
+| STRIP-01 | Phase 8 | Pending |
+| STRIP-02 | Phase 8 | Pending |
+| STRIP-03 | Phase 8 | Pending |
+| STRIP-04 | Phase 8 | Pending |
+| STRIP-05 | Phase 8 | Pending |
+| STRIP-06 | Phase 8 | Pending |
