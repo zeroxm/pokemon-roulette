@@ -46,7 +46,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
   @ViewChild('eliteFourPresentationModal', { static: true }) eliteFourPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
-  @ViewChild('typeAdvantageModal', { static: true }) typeAdvantageModal!: TemplateRef<any>;
 
   generation!: GenerationItem;
   trainerTeam!: PokemonItem[];
@@ -81,9 +80,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
       this.calcVictoryOdds();
-      if (this.currentGameState === 'elite-four-battle' && this.currentElite && this.advantageLabel) {
-        this.queueTypeAdvantageModal();
-      }
     });
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
@@ -96,7 +92,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
           centered: true,
           size: 'lg'
         });
-        this.queueTypeAdvantageModal();
       }
     });
   }
@@ -216,7 +211,6 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         } as GymLeader;
 
         this.calcVictoryOdds();
-        this.queueTypeAdvantageModal();
       });
     }
   }
@@ -256,11 +250,5 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
   getTypeIconUrl(type: PokemonType): string {
     return `${this.typeIconBaseUrl}/${pokemonTypeDataByKey[type].id}.png`;
-  }
-
-  private queueTypeAdvantageModal(): void {
-    if (this.advantageLabel) {
-      this.modalQueueService.open(this.typeAdvantageModal, { centered: true, size: 'md' });
-    }
   }
 }
