@@ -35,7 +35,11 @@ Replace the type advantage modal with a persistent inline strip that shows the l
   3. `TypeMatchupService.getMatchupTypes(team, opponentTypes)` returns correct `{ advantageTypes, disadvantageTypes }` arrays — e.g. a Water-type team vs a Fire opponent yields `advantageTypes: ['water']`, `disadvantageTypes: []`.
   4. The `game.main.roulette.gym.typeAdvantage.strong` and `.weak` keys are absent from all 6 locale files; the remaining keys (`overwhelming`, `advantage`, `disadvantage`) are intact and cause no i18n errors.
 
-**Plans:** TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Remove typeAdvantageModal from both battle components + i18n cleanup
+- [ ] 07-02-PLAN.md — Add `getMatchupTypes()` to TypeMatchupService + build verification
 
 ---
 
