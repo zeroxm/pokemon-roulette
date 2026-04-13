@@ -58,7 +58,11 @@ Plans:
   4. When the team has no matchup (neutral), only the leader type icon is shown — no label, no team type icon row.
   5. Swapping a Pokémon via the PC mid-battle updates the strip immediately with no page reload — the player sees the label and/or type icons change if their new composition changes the matchup outcome.
 
-**Plans:** TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — TS wiring: add matchupAdvantageTypes/matchupDisadvantageTypes fields to both components, driven by calcVictoryOdds()
+- [ ] 08-02-PLAN.md — HTML strip + CSS in both components + npm run build verification
 
 **UI hint**: yes
 
