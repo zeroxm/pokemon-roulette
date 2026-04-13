@@ -64,4 +64,50 @@ export class TypeMatchupService {
     if (weakCount >= 1)   return 'disadvantage';
     return null;
   }
+
+  /**
+   * Returns the unique PokemonType values from the team that are strong or weak
+   * against the given opponent types. Used by the inline matchup strip to render
+   * type icon rows.
+   *
+   * advantageTypes: unique types from team members where the type is SE against
+   *   ANY opponent type. Order: type1 before type2, team order preserved, deduplicated.
+   *
+   * disadvantageTypes: unique types from team members where ANY opponent type is
+   *   SE against that member type. Same ordering and dedup rules.
+   *
+   * A type may appear in both arrays (same rule as calcTeamMatchup).
+   * Returns empty arrays when team or opponentTypes is empty.
+   */
+  getMatchupTypes(
+    team: PokemonItem[],
+    opponentTypes: PokemonType[]
+  ): { advantageTypes: PokemonType[]; disadvantageTypes: PokemonType[] } {
+    if (!team.length || !opponentTypes.length) {
+      return { advantageTypes: [], disadvantageTypes: [] };
+    }
+
+    const advantageTypes: PokemonType[] = [];
+    const disadvantageTypes: PokemonType[] = [];
+    const seenAdvantage = new Set<PokemonType>();
+    const seenDisadvantage = new Set<PokemonType>();
+
+    for (const member of team) {
+      const memberTypes = ([member.type1, member.type2] as Array<PokemonType | null | undefined>)
+        .filter((t): t is PokemonType => !!t);
+
+      for (const mt of memberTypes) {
+        if (!seenAdvantage.has(mt) && opponentTypes.some(ot => this.isStrongAgainst(mt, ot))) {
+          advantageTypes.push(mt);
+          seenAdvantage.add(mt);
+        }
+        if (!seenDisadvantage.has(mt) && opponentTypes.some(ot => this.isWeakAgainst(mt, ot))) {
+          disadvantageTypes.push(mt);
+          seenDisadvantage.add(mt);
+        }
+      }
+    }
+
+    return { advantageTypes, disadvantageTypes };
+  }
 }
