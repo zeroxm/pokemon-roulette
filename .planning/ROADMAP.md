@@ -1,14 +1,19 @@
-# Roadmap — Pokémon Roulette Type Matchup Milestone
+# Roadmap
 
-## Goal
+## v1.0 — Type Matchup Milestone ✅ SHIPPED 2026-04-13
 
-Make team type composition mechanically affect gym and elite four battle
-outcomes. Type advantage shifts wheel odds and shows the player a modal
-explaining why — turning team building into genuine strategy.
+Type matchup integration: wheel odds + modal for gym and Elite Four battles. See [`.planning/milestones/v1.0-ROADMAP.md`](milestones/v1.0-ROADMAP.md) for full details.
 
 ---
 
-## Phases
+## Next Milestone
+
+_Not yet planned. Run `/gsd-new-milestone` to start._
+
+---
+
+<!-- archived v1.0 phases below — kept for reference -->
+## v1.0 Phases (archived)
 
 - [x] **Phase 1: Type Data Foundation** — `type-matchups.json` + `GymLeader` interface extension
 - [x] **Phase 2: Gym Leader Types** — Assign types to all gym leaders across all 9 generations

@@ -1,6 +1,19 @@
-# Pokémon Roulette — Type Matchup Milestone
+# Pokémon Roulette
 
-## What This Is
+## Current State — v1.0 SHIPPED (2026-04-13)
+
+Type matchup integration is live. Team type composition mechanically affects gym and Elite Four battle outcomes — wheel odds shift based on type advantage, and a modal explains the matchup at battle start. TypeMatchupService, type data for all 9 generations, and PC-swap recalculation are all shipped.
+
+**Known deferred (v1.1):** Double type-advantage modal on multi-slot leader encounters (BATTLE-02, E4BATTLE-02).
+
+**Next:** `/gsd-new-milestone` to plan v1.1.
+
+---
+
+<details>
+<summary>v1.0 Milestone Context (archived)</summary>
+
+## What This Is (v1.0)
 
 Pokémon Roulette is a browser-based Angular game where players build a team through a series of roulette spins simulating a full Pokémon adventure. Types have been added cosmetically; this milestone makes them mechanically meaningful by calculating type advantages against Gym Leaders and Elite Four opponents and adjusting battle roulette wheel weights accordingly.
 
@@ -64,3 +77,5 @@ The player's team composition should visibly influence battle outcomes — type 
 
 ---
 *Last updated: 2026-04-13 — initial PROJECT.md from user interview*
+
+</details>
