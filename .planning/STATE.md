@@ -1,18 +1,23 @@
 # Project State
 
 **Last updated:** 2026-04-13  
-**Current milestone:** v1.0 SHIPPED  
+**Current milestone:** v1.1 — Inline Type Matchup Display  
 **Branch:** `28-pokémon-types-on-battles`  
-**Status:** Milestone complete — awaiting push and next milestone planning
+**Status:** Defining requirements
 
-## What's Shipped
+## Current Position
 
-v1.0 — Type Matchup Milestone: gym and Elite Four battle wheel odds affected by team type composition. TypeMatchupService + type data for all 9 gens + battle integration with modal.
+Phase: Not started (defining requirements)  
+Plan: —  
+Status: Defining requirements  
+Last activity: 2026-04-13 — Milestone v1.1 started
 
-## Known Deferred (v1.1)
+## Accumulated Context
 
-- Double type-advantage modal on multi-slot leader encounters (BATTLE-02, E4BATTLE-02)
-
-## Next Action
-
-Push branch, open PR, then `/gsd-new-milestone` for v1.1 planning.
+- Angular 21 standalone, no NgModule
+- No `setTimeout` anywhere — use lifecycle hooks, RxJS, `afterNextRender`
+- `TypeMatchupService` at `src/app/services/type-matchup-service/type-matchup.service.ts`
+- Type icon URL: `https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl/{id}.png`
+- `pokemonTypeDataByKey[type].id` gives the numeric ID for the URL
+- `ModalQueueService` is the established pattern (but typeAdvantageModal is being removed)
+- `.planning/` is gitignored — force-add with `git add -f`

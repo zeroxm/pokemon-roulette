@@ -1,12 +1,23 @@
 # Pokémon Roulette
 
-## Current State — v1.0 SHIPPED (2026-04-13)
+## Current Milestone: v1.1 — Inline Type Matchup Display
 
-Type matchup integration is live. Team type composition mechanically affects gym and Elite Four battle outcomes — wheel odds shift based on type advantage, and a modal explains the matchup at battle start. TypeMatchupService, type data for all 9 generations, and PC-swap recalculation are all shipped.
+**Goal:** Replace the type advantage modal with a persistent inline strip between the battle title and wheel, fixing the double-modal bug in the process.
 
-**Known deferred (v1.1):** Double type-advantage modal on multi-slot leader encounters (BATTLE-02, E4BATTLE-02).
+**Target features:**
+- Remove `typeAdvantageModal` entirely from both battle roulette components
+- Add inline matchup strip: `[leader type icon] → [advantage label] → [team type icons]`
+- Null result (no advantage): show leader type icon only
+- Advantage: leader icon + label + team Pokémon types that are SE against the leader
+- Disadvantage: leader icon + label + team Pokémon types the leader is SE against
+- Live update on PC team swap
+- Both gym and Elite Four battle roulettes
 
-**Next:** `/gsd-new-milestone` to plan v1.1.
+---
+
+## Previous State — v1.0 SHIPPED (2026-04-13)
+
+Type matchup integration: wheel odds shift based on type advantage, type advantage modal shown at battle start, PC-swap recalculation. TypeMatchupService + type data for all 9 gens shipped.
 
 ---
 
