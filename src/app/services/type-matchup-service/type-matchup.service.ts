@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonType } from '../../interfaces/pokemon-type';
-import { TypeMatchupMap } from '../../interfaces/type-matchup';
-import * as rawImport from '../../../../type-matchups.json';
-
-const typeMatchups = rawImport as unknown as TypeMatchupMap;
+import { typeMatchups } from './type-matchups-data';
 
 @Injectable({ providedIn: 'root' })
 export class TypeMatchupService {

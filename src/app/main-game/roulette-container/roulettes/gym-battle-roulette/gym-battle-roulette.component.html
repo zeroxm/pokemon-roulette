@@ -2,7 +2,7 @@
 <p class="respin-reason">
     {{ (retries > 0) ? (currentItem.text | translate) + " x" + retries : ""}}
 </p>
-@if (currentLeader.types?.length) {
+@if (currentLeader && currentLeader.types?.length) {
     <div class="matchup-strip">
         <div class="matchup-icons-row">
             @for (type of currentLeader.types; track $index) {
