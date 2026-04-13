@@ -131,6 +131,49 @@ describe('PokedexService', () => {
     expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
   });
 
+  it('should propagate shiny to full family and forms when markSeen is called with shiny=true — SHINY-02', () => {
+    service.markSeen(25, true);
+
+    expect(service.currentPokedex.caught['172'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['26'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['10100'].shiny).toBeTrue();
+  });
+
+  it('should propagate shiny from a form id to base and the whole family — SHINY-02', () => {
+    service.markSeen(10100, true);
+
+    expect(service.currentPokedex.caught['172'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['26'].shiny).toBeTrue();
+    expect(service.currentPokedex.caught['10100'].shiny).toBeTrue();
+  });
+
+  it('should normalize shiny on load for existing related entries only and persist the migration — SHINY-03', () => {
+    const saved: PokedexData = {
+      caught: {
+        '25': { won: false, sprite: 'https://example.com/25.png', shiny: true },
+        '26': { won: false, sprite: 'https://example.com/26.png' },
+        '172': { won: false, sprite: 'https://example.com/172.png' },
+      },
+    };
+
+    localStorage.setItem('pokemon-roulette-pokedex', JSON.stringify(saved));
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    const newService = TestBed.inject(PokedexService);
+
+    expect(newService.currentPokedex.caught['25'].shiny).toBeTrue();
+    expect(newService.currentPokedex.caught['26'].shiny).toBeTrue();
+    expect(newService.currentPokedex.caught['172'].shiny).toBeTrue();
+    expect(newService.currentPokedex.caught['10100']).toBeUndefined();
+
+    const persisted = JSON.parse(localStorage.getItem('pokemon-roulette-pokedex')!);
+    expect(persisted.caught['26'].shiny).toBeTrue();
+    expect(persisted.caught['172'].shiny).toBeTrue();
+    expect(persisted.caught['10100']).toBeUndefined();
+  });
+
   // Observable: emits on subscribe (BehaviorSubject semantics)
   it('should emit current value immediately on pokedex$ subscribe', (done) => {
     service.pokedex$.subscribe(data => {

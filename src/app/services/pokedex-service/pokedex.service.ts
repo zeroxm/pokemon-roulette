@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { evolutionChain } from '../evolution-service/evolution-chain';
+import { pokemonForms } from '../pokemon-forms-service/pokemon-forms';
 
 export interface PokedexEntry {
   won: boolean;
@@ -16,6 +18,7 @@ export class PokedexService {
   private readonly STORAGE_KEY = 'pokemon-roulette-pokedex';
   private readonly defaultPokedex: PokedexData = { caught: {} };
   private readonly spriteCache = new Map<number, string>();
+  private readonly reverseEvolutionChain = this.buildReverseEvolutionChain();
 
   private pokedexSubject$: BehaviorSubject<PokedexData>;
 
@@ -33,23 +36,23 @@ export class PokedexService {
 
   markSeen(pokemonId: number, shiny: boolean = false): void {
     const current = this.currentPokedex;
-    const key = String(pokemonId);
-    const existing = current.caught[key];
-    if (existing && (!shiny || existing.shiny)) {
-      return;  // already caught AND (not shiny OR already has shiny flag)
+    const updatedCaught: Record<string, PokedexEntry> = { ...current.caught };
+
+    let changed = this.upsertSeenEntry(updatedCaught, pokemonId, shiny);
+
+    // TODO(next-task cleanup): remove this temporary shiny propagation bridge once the
+    // dedicated shiny consistency pipeline lands in the next task.
+    if (shiny) {
+      for (const relatedId of this.getRelatedPokemonIds(pokemonId)) {
+        changed = this.upsertSeenEntry(updatedCaught, relatedId, true) || changed;
+      }
     }
-    const sprite = this.getSpriteUrl(pokemonId);
-    const updated: PokedexData = {
-      caught: {
-        ...current.caught,
-        [key]: {
-          won: existing?.won ?? false,
-          sprite: existing?.sprite ?? sprite,
-          ...(shiny ? { shiny: true } : {}),
-        },
-      },
-    };
-    this.updatePokedex(updated);
+
+    if (!changed) {
+      return;
+    }
+
+    this.updatePokedex({ caught: updatedCaught });
   }
 
   markWon(pokemonIds: number[]): void {
@@ -79,7 +82,147 @@ export class PokedexService {
 
   private getInitialPokedex(): PokedexData {
     const fromStorage = this.getPokedexFromStorage();
-    return fromStorage ?? this.defaultPokedex;
+    if (!fromStorage) {
+      return this.defaultPokedex;
+    }
+
+    const { data, changed } = this.normalizeShinyOnLoad(fromStorage);
+    if (changed) {
+      this.savePokedexToStorage(data);
+    }
+
+    return data;
+  }
+
+  private upsertSeenEntry(caught: Record<string, PokedexEntry>, pokemonId: number, shiny: boolean): boolean {
+    const key = String(pokemonId);
+    const existing = caught[key];
+    const nextShiny = Boolean(existing?.shiny) || shiny;
+    const nextEntry: PokedexEntry = {
+      won: existing?.won ?? false,
+      sprite: existing?.sprite ?? this.getSpriteUrl(pokemonId),
+      ...(nextShiny ? { shiny: true } : {}),
+    };
+
+    const changed =
+      !existing ||
+      existing.won !== nextEntry.won ||
+      existing.sprite !== nextEntry.sprite ||
+      Boolean(existing.shiny) !== Boolean(nextEntry.shiny);
+
+    caught[key] = nextEntry;
+    return changed;
+  }
+
+  private normalizeShinyOnLoad(data: PokedexData): { data: PokedexData; changed: boolean } {
+    const normalizedCaught: Record<string, PokedexEntry> = { ...data.caught };
+    let changed = false;
+
+    // TODO(next-task cleanup): remove this temporary migration once legacy shiny records
+    // are no longer in circulation and propagation is guaranteed upstream.
+    for (const [pokemonId, entry] of Object.entries(data.caught)) {
+      if (!entry?.shiny) {
+        continue;
+      }
+
+      for (const relatedId of this.getRelatedPokemonIds(Number(pokemonId))) {
+        const relatedKey = String(relatedId);
+
+        // Load-time migration scope: update only entries that already exist in storage.
+        if (!normalizedCaught[relatedKey]) {
+          continue;
+        }
+
+        changed = this.upsertSeenEntry(normalizedCaught, relatedId, true) || changed;
+      }
+    }
+
+    return {
+      data: { caught: normalizedCaught },
+      changed,
+    };
+  }
+
+  private getRelatedPokemonIds(pokemonId: number): Set<number> {
+    const related = new Set<number>();
+    const queue: number[] = [pokemonId];
+
+    while (queue.length > 0) {
+      const currentId = queue.shift()!;
+      if (related.has(currentId)) {
+        continue;
+      }
+
+      related.add(currentId);
+
+      for (const neighborId of this.getNeighborIds(currentId)) {
+        if (!related.has(neighborId)) {
+          queue.push(neighborId);
+        }
+      }
+    }
+
+    return related;
+  }
+
+  private getNeighborIds(pokemonId: number): Set<number> {
+    const neighbors = new Set<number>();
+
+    for (const evolutionId of evolutionChain[pokemonId] ?? []) {
+      neighbors.add(evolutionId);
+    }
+
+    for (const preEvolutionId of this.reverseEvolutionChain[pokemonId] ?? []) {
+      neighbors.add(preEvolutionId);
+    }
+
+    const formIds = this.getFormIdsForPokemon(pokemonId);
+    for (const formId of formIds) {
+      neighbors.add(formId);
+    }
+
+    return neighbors;
+  }
+
+  private getFormIdsForPokemon(pokemonId: number): number[] {
+    const basePokemonId = this.getBasePokemonIdForForms(pokemonId);
+    if (basePokemonId === null) {
+      return [];
+    }
+
+    return pokemonForms[basePokemonId]?.map(form => form.pokemonId) ?? [];
+  }
+
+  private getBasePokemonIdForForms(pokemonId: number): number | null {
+    if (pokemonForms[pokemonId]) {
+      return pokemonId;
+    }
+
+    for (const [basePokemonId, forms] of Object.entries(pokemonForms)) {
+      if (forms.some(form => form.pokemonId === pokemonId)) {
+        return Number(basePokemonId);
+      }
+    }
+
+    return null;
+  }
+
+  private buildReverseEvolutionChain(): Record<number, number[]> {
+    const reverseChain: Record<number, number[]> = {};
+
+    for (const [basePokemonId, evolutions] of Object.entries(evolutionChain)) {
+      const baseId = Number(basePokemonId);
+
+      for (const evolutionId of evolutions) {
+        if (!reverseChain[evolutionId]) {
+          reverseChain[evolutionId] = [];
+        }
+
+        reverseChain[evolutionId].push(baseId);
+      }
+    }
+
+    return reverseChain;
   }
 
   private savePokedexToStorage(data: PokedexData): void {

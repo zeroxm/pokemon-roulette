@@ -131,7 +131,6 @@ describe('PokedexEntryComponent', () => {
     expect(component.formatPokemonNumber(1011)).toBe('#1011');
   });
 
-  // DETAIL-01: click handler
   it('DETAIL-01: clicking seen cell emits entryClicked with pokemonId and entry', () => {
     component.entry = seenEntry;
     fixture.detectChanges();

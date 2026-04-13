@@ -88,9 +88,7 @@ describe('RouletteContainerComponent', () => {
     expect(trainerService.getTeam()[0].pokemonId).toBe(1);
   });
 
-  // ALT-FORM-01: alt form registration also registers base national dex ID
   it('should register base national dex ID in Pokédex when alt form is selected — ALT-FORM-01', () => {
-    // Raichu (26) has Alolan form (10100)
     const raichu = pokemonService.getPokemonById(26);
     expect(raichu).toBeDefined();
     component.capturePokemon(raichu!);
@@ -135,9 +133,7 @@ describe('RouletteContainerComponent', () => {
     expect(pokedexService.currentPokedex.caught['1']?.shiny).toBeTrue();
   });
 
-  // ALTW-01: champion win with alt-form must mark the base national dex entry as won
   it('should mark base national dex ID as won after Champion win with alt-form on team — ALTW-01', () => {
-    // Raichu (26) has Alolan form (pokemonId 10100)
     const raichu = pokemonService.getPokemonById(26);
     expect(raichu).toBeDefined();
 

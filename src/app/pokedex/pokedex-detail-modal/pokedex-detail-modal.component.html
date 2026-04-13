@@ -39,7 +39,6 @@
     </tbody>
   </table>
 
-  <!-- Shiny toggle (SHINY-02: only render when entry.shiny === true) -->
   @if (hasShinyToggle) {
     <button class="btn btn-sm mb-2"
             [ngClass]="showShiny ? 'btn-warning' : 'btn-outline-warning'"
@@ -48,7 +47,6 @@
     </button>
   }
 
-  <!-- Alternate form tabs (DETAIL-02: only render when hasAlternateForms) -->
   @if (hasAlternateForms) {
     <div class="d-flex flex-wrap gap-2 justify-content-center mt-2">
       @for (form of alternateForms; track form.pokemonId) {
