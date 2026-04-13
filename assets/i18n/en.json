@@ -2289,6 +2289,9 @@
     "caught": "Caught:"
   },
   "detail": {
+    "name": "Name",
+    "types": "Types",
+    "power": "Power",
     "shiny": {
       "on": "✨ Shiny",
       "off": "Normal"

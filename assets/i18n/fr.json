@@ -2289,6 +2289,9 @@
     "caught": "Capturés :"
   },
   "detail": {
+    "name": "Nom",
+    "types": "Types",
+    "power": "Puissance",
     "shiny": {
       "on": "✨ Chromatique",
       "off": "Normal"
