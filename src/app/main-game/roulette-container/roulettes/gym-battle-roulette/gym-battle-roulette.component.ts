@@ -15,6 +15,8 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
+import { pokemonTypeDataByKey, PokemonType } from '../../../../interfaces/pokemon-type';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -35,7 +37,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private typeMatchupService: TypeMatchupService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -43,6 +46,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   @ViewChild('gymLeaderPresentationModal', { static: true }) gymLeaderPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
+  @ViewChild('typeAdvantageModal', { static: true }) typeAdvantageModal!: TemplateRef<any>;
 
   generation!: GenerationItem;
   trainerTeam!: PokemonItem[];
@@ -61,6 +65,19 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
   currentItem!: ItemItem;
   retries = 0;
   private teamSubscription!: Subscription;
+  private currentGameState: string | null = null;
+
+  strongCount = 0;
+  weakCount = 0;
+  advantageLabel: 'overwhelming' | 'advantage' | 'disadvantage' | null = null;
+  advantageLabelKey = '';
+
+  private readonly typeIconBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
+
+  getTypeIconUrl(type: PokemonType): string {
+    const typeData = pokemonTypeDataByKey[type];
+    return `${this.typeIconBaseUrl}/${typeData.id}.png`;
+  }
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
@@ -72,9 +89,14 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
       this.calcVictoryOdds();
+      // BATTLE-04: re-show modal on PC swap
+      if (this.currentGameState === 'gym-battle' && this.currentLeader && this.advantageLabel) {
+        this.queueTypeAdvantageModal();
+      }
     });
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
+      this.currentGameState = state;
       if (state === 'gym-battle') {
         this.getCurrentLeader();
         this.calcVictoryOdds();
@@ -83,6 +105,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
           centered: true,
           size: 'lg'
         });
+        this.queueTypeAdvantageModal();
       }
     });
   }
@@ -130,6 +153,35 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
       yesOdds.push({ text: "game.main.roulette.gym.yes", fillStyle: "green", weight: 1 });
     }
 
+    // Type matchup bonus
+    if (this.currentLeader?.types?.length) {
+      const { strongCount, weakCount } = this.typeMatchupService.calcTeamMatchup(
+        this.trainerTeam,
+        this.currentLeader.types
+      );
+      this.strongCount = strongCount;
+      this.weakCount = weakCount;
+      this.advantageLabel = this.typeMatchupService.getAdvantageLabel(strongCount, weakCount);
+
+      if (this.advantageLabel === 'overwhelming') {
+        for (let i = 0; i < 3; i++) yesOdds.push({ text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 });
+      } else if (this.advantageLabel === 'advantage') {
+        for (let i = 0; i < 2; i++) yesOdds.push({ text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 });
+      } else if (this.advantageLabel === 'disadvantage') {
+        const extraNo = weakCount > 3 ? 2 : 1;
+        for (let i = 0; i < extraNo; i++) noOdds.push({ text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 });
+      }
+
+      this.advantageLabelKey = this.advantageLabel
+        ? `game.main.roulette.gym.typeAdvantage.${this.advantageLabel}`
+        : '';
+    } else {
+      this.advantageLabel = null;
+      this.advantageLabelKey = '';
+      this.strongCount = 0;
+      this.weakCount = 0;
+    }
+
     for (let index = 0; index < this.currentRound; index++) {
       noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
     }
@@ -137,6 +189,12 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     noOdds.push({ text: "game.main.roulette.gym.no", fillStyle: "crimson", weight: 1 });
 
     this.victoryOdds = interleaveOdds(yesOdds, noOdds);
+  }
+
+  private queueTypeAdvantageModal(): void {
+    if (this.advantageLabel) {
+      this.modalQueueService.open(this.typeAdvantageModal, { centered: true, size: 'md' });
+    }
   }
 
   private plusModifiers(): number {
@@ -158,6 +216,8 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
       || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
       || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
 
+      const leaderTypes = Array.isArray(this.currentLeader.types) ? this.currentLeader.types : undefined;
+
       this.translate.get(this.currentLeader.name).pipe(take(1)).subscribe(translated => {
         const leaderNames = translated.split('/');
         const leaderSprites = Array.isArray(this.currentLeader.sprite) ? this.currentLeader.sprite : [this.currentLeader.sprite];
@@ -169,8 +229,12 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         this.currentLeader = {
           name: leaderNames[randomIndex],
           sprite: leaderSprites[randomIndex],
-          quotes: [Array.isArray(leaderQuotes) ? leaderQuotes[randomIndex] : leaderQuotes]
+          quotes: [Array.isArray(leaderQuotes) ? leaderQuotes[randomIndex] : leaderQuotes],
+          types: leaderTypes ? [leaderTypes[randomIndex]] : undefined
         } as GymLeader;
+
+        this.calcVictoryOdds();
+        this.queueTypeAdvantageModal();
       });
     }
   }
