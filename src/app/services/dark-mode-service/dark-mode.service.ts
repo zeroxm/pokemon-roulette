@@ -1,4 +1,4 @@
-import { Inject, Injectable, Optional, Renderer2, RendererFactory2 } from '@angular/core';
+import { afterNextRender, Inject, Injectable, Optional, Renderer2, RendererFactory2 } from '@angular/core';
 import { DarkModeOptions } from './types';
 import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
 import { MediaQueryService } from './media-query.service';
@@ -87,7 +87,7 @@ export class DarkModeService {
   }
 
   private removePreloadingClass(): void {
-    setTimeout(() => {
+    afterNextRender(() => {
       this.renderer.removeClass(
         this.options.element,
         this.options.preloadingClass

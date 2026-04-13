@@ -708,6 +708,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.currentContextPokemon = pokemon; // ensures setShininess can reference captured pokemon
     this.trainerService.addToTeam(pokemon);
     this.registerInPokedex(pokemon);
+
+    if (this.settingsService.currentSettings.skipShinyRolls) {
+      const isShiny = Math.random() < (1 / 64);
+      this.setShininess(isShiny);
+      return;
+    }
+
     this.gameStateService.setNextState('check-shininess');
     this.finishCurrentState();
   }
