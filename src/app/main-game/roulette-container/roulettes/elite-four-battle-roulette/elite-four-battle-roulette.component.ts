@@ -66,6 +66,8 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   private currentGameState = '';
   advantageLabel: 'overwhelming' | 'advantage' | 'disadvantage' | null = null;
   advantageLabelKey = '';
+  matchupAdvantageTypes: PokemonType[] = [];
+  matchupDisadvantageTypes: PokemonType[] = [];
   strongCount = 0;
   weakCount = 0;
   private readonly typeIconBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
@@ -159,11 +161,19 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
       this.advantageLabelKey = this.advantageLabel
         ? `game.main.roulette.gym.typeAdvantage.${this.advantageLabel}`
         : '';
+      const { advantageTypes, disadvantageTypes } = this.typeMatchupService.getMatchupTypes(
+        this.trainerTeam,
+        this.currentElite.types
+      );
+      this.matchupAdvantageTypes = advantageTypes;
+      this.matchupDisadvantageTypes = disadvantageTypes;
     } else {
       this.advantageLabel = null;
       this.advantageLabelKey = '';
       this.strongCount = 0;
       this.weakCount = 0;
+      this.matchupAdvantageTypes = [];
+      this.matchupDisadvantageTypes = [];
     }
 
     for (let index = 0; index < this.currentRound; index++) {
