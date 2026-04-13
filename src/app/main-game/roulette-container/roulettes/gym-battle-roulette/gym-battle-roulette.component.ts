@@ -46,7 +46,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
 
   @ViewChild('gymLeaderPresentationModal', { static: true }) gymLeaderPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
-  @ViewChild('typeAdvantageModal', { static: true }) typeAdvantageModal!: TemplateRef<any>;
 
   generation!: GenerationItem;
   trainerTeam!: PokemonItem[];
@@ -89,10 +88,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
       this.calcVictoryOdds();
-      // BATTLE-04: re-show modal on PC swap
-      if (this.currentGameState === 'gym-battle' && this.currentLeader && this.advantageLabel) {
-        this.queueTypeAdvantageModal();
-      }
     });
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
@@ -105,7 +100,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
           centered: true,
           size: 'lg'
         });
-        this.queueTypeAdvantageModal();
       }
     });
   }
@@ -191,12 +185,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
     this.victoryOdds = interleaveOdds(yesOdds, noOdds);
   }
 
-  private queueTypeAdvantageModal(): void {
-    if (this.advantageLabel) {
-      this.modalQueueService.open(this.typeAdvantageModal, { centered: true, size: 'md' });
-    }
-  }
-
   private plusModifiers(): number {
     let power = 0;
     const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
@@ -234,7 +222,6 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
         } as GymLeader;
 
         this.calcVictoryOdds();
-        this.queueTypeAdvantageModal();
       });
     }
   }

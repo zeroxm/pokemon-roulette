@@ -37,20 +37,3 @@
     </div>
 </ng-template>
 
-<ng-template #typeAdvantageModal let-modal>
-    <div class="modal-body">
-        <h2>{{ advantageLabelKey | translate }}</h2>
-        <div class="type-icons">
-            @for (type of currentLeader.types; track $index) {
-                <img [src]="getTypeIconUrl(type)" [alt]="type" height="32">
-            }
-        </div>
-        <p>{{ 'game.main.roulette.gym.typeAdvantage.strong' | translate }}: {{ strongCount }}</p>
-        <p>{{ 'game.main.roulette.gym.typeAdvantage.weak' | translate }}: {{ weakCount }}</p>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">
-            {{ 'game.main.roulette.gym.go' | translate }}
-        </button>
-    </div>
-</ng-template>
