@@ -8,7 +8,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.lorelei.quote1',
               'elite4.lorelei.quote2',
-            ]
+            ],
+            types: ['ice']
         },
         {
             name: 'elite4.bruno-gen1.name',
@@ -16,7 +17,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.bruno-gen1.quote1',
               'elite4.bruno-gen1.quote2',
-            ]
+            ],
+            types: ['fighting']
         },
         {
             name: 'elite4.agatha.name',
@@ -24,7 +26,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.agatha.quote1',
               'elite4.agatha.quote2',
-            ]
+            ],
+            types: ['ghost']
         },
         {
             name: 'elite4.lance.name',
@@ -32,7 +35,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.lance.quote1',
               'elite4.lance.quote2',
-            ]
+            ],
+            types: ['dragon']
         }
     ],
     2: [
@@ -41,21 +45,24 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.will.quote1',
               'elite4.will.quote2',
-            ]
+            ],
+            types: ['psychic']
         },
         {   name: 'elite4.koga.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/HeartGold_SoulSilver_Koga.png",
             quotes: [
               'elite4.koga.quote1',
               'elite4.koga.quote2',
-            ]
+            ],
+            types: ['poison']
         },
         {   name: 'elite4.bruno-gen2.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/HeartGold_SoulSilver_Bruno.png",
             quotes: [
               'elite4.bruno-gen2.quote1',
               'elite4.bruno-gen2.quote2',
-            ]
+            ],
+            types: ['fighting']
         },
         {
             name: 'elite4.karen.name',
@@ -64,7 +71,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
                 'elite4.karen.quote1',
                 'elite4.karen.quote2',
                 'elite4.karen.quote3',
-            ]
+            ],
+            types: ['dark']
         }
     ],
     3: [
@@ -74,7 +82,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.sidney.quote1',
                 'elite4.sidney.quote2',
-            ]
+            ],
+            types: ['dark']
         },
         {
             name: 'elite4.phoebe.name',
@@ -82,7 +91,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.phoebe.quote1',
                 'elite4.phoebe.quote2',
-            ]
+            ],
+            types: ['ghost']
         },
         {
             name: 'elite4.glacia.name',
@@ -90,7 +100,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.glacia.quote1',
                 'elite4.glacia.quote2',
-            ]
+            ],
+            types: ['ice']
         },
         {
             name: 'elite4.drake.name',
@@ -98,7 +109,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.drake.quote1',
                 'elite4.drake.quote2',
-            ]
+            ],
+            types: ['dragon']
         }
     ],
     4: [
@@ -109,7 +121,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
                 'elite4.aaron.quote1',
                 'elite4.aaron.quote2',
                 'elite4.aaron.quote3',
-            ]
+            ],
+            types: ['bug']
         },
         {
             name: 'elite4.bertha.name',
@@ -117,7 +130,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.bertha.quote1',
                 'elite4.bertha.quote2',
-            ]
+            ],
+            types: ['ground']
         },
         {
             name: 'elite4.flint.name',
@@ -125,7 +139,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.flint.quote1',
                 'elite4.flint.quote2',
-            ]
+            ],
+            types: ['fire']
         },
         {
             name: 'elite4.lucian.name',
@@ -133,7 +148,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
               'elite4.lucian.quote1',
               'elite4.lucian.quote2',
-            ]
+            ],
+            types: ['psychic']
         }
     ],
     5: [
@@ -145,7 +161,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.shauntal.quote1',
                 'elite4.shauntal.quote2',
-            ]
+            ],
+            types: ['ghost']
         },
         {
             name: 'elite4.marshal.name',
@@ -153,7 +170,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.marshal.quote1',
                 'elite4.marshal.quote2',
-            ]
+            ],
+            types: ['fighting']
         },
         {
             name: 'elite4.grimsley.name',
@@ -161,7 +179,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.grimsley.quote1',
                 'elite4.grimsley.quote2',
-            ]
+            ],
+            types: ['dark']
         },
         {
             name: 'elite4.caitlin.name',
@@ -169,7 +188,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.caitlin.quote1',
                 'elite4.caitlin.quote2',
-            ]
+            ],
+            types: ['psychic']
         }
     ],
     6: [
@@ -179,7 +199,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.malva.quote1',
                 'elite4.malva.quote2',
-            ]
+            ],
+            types: ['fire']
         },
         {
             name: 'elite4.siebold.name',
@@ -187,7 +208,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.siebold.quote1',
                 'elite4.siebold.quote2',
-            ]
+            ],
+            types: ['water']
         },
         {
             name: 'elite4.wikstrom.name',
@@ -195,7 +217,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.wikstrom.quote1',
                 'elite4.wikstrom.quote2',
-            ]
+            ],
+            types: ['steel']
         },
         {
             name: 'elite4.drasna.name',
@@ -203,7 +226,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.drasna.quote1',
                 'elite4.drasna.quote2',
-            ]
+            ],
+            types: ['dragon']
         }
     ],
     7: [
@@ -213,14 +237,16 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.molayne.quote1',
                 'elite4.molayne.quote2',
-            ]
+            ],
+            types: ['steel']
         },
         {
             name: 'elite4.olivia.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Sun_Moon_Olivia.png",
             quotes: [
                 'elite4.olivia.quote1',
-            ]
+            ],
+            types: ['rock']
         },
         {
             name: 'elite4.acerola.name',
@@ -228,14 +254,16 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.acerola.quote1',
                 'elite4.acerola.quote2',
-            ]
+            ],
+            types: ['ghost']
         },
         {
             name: 'elite4.kahili.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Sun_Moon_Kahili.png",
             quotes: [
                 'elite4.kahili.quote1',
-            ]
+            ],
+            types: ['flying']
         }
     ],
     8: [
@@ -250,14 +278,16 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
                 'elite4.marnie.quote1',
                 'elite4.marnie.quote2',
                 'elite4.marnie.quote3',
-            ]
+            ],
+            types: ['dark', 'normal', 'fairy']
         },
         {
             name: 'elite4.nessa.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Sword_Shield_Nessa.png",
             quotes: [
                 'elite4.nessa.quote1',
-            ]
+            ],
+            types: ['water']
         },
         {
             name: 'elite4.bea.name',
@@ -268,7 +298,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.bea.quote1',
                 'elite4.bea.quote2',
-            ]
+            ],
+            types: ['fighting', 'ghost']
         },
         {
             name: 'elite4.raihan.name',
@@ -276,7 +307,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.raihan.quote1',
                 'elite4.raihan.quote2',
-            ]
+            ],
+            types: ['dragon']
         }
     ],
     9: [
@@ -287,7 +319,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.rika.quote1',
                 'elite4.rika.quote2'
-            ]
+            ],
+            types: ['ground']
         },
         {
             name: 'elite4.poppy.name',
@@ -295,7 +328,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.poppy.quote1',
                 'elite4.poppy.quote2'
-            ]
+            ],
+            types: ['steel']
         },
         {
             name: 'elite4.larry.name',
@@ -303,7 +337,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.larry.quote1',
                 'elite4.larry.quote2',
-            ]
+            ],
+            types: ['flying']
         },
         {
             name: 'elite4.hassel.name',
@@ -311,7 +346,8 @@ export const eliteFourByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 'elite4.hassel.quote1',
                 'elite4.hassel.quote2',
-            ]
+            ],
+            types: ['dragon']
         }
     ],
 }
