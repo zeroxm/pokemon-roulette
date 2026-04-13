@@ -9,6 +9,8 @@ describe('PokemonFormsService', () => {
     text: 'pokemon.deoxys',
     pokemonId: 386,
     fillStyle: 'darkred',
+    type1: 'psychic',
+    type2: null,
     sprite: null,
     shiny: false,
     power: 5,
@@ -19,6 +21,8 @@ describe('PokemonFormsService', () => {
     text: 'pokemon.bulbasaur',
     pokemonId: 1,
     fillStyle: 'green',
+    type1: 'grass',
+    type2: 'poison',
     sprite: null,
     shiny: false,
     power: 1,
@@ -58,11 +62,14 @@ describe('PokemonFormsService', () => {
     expect(deoxysBase.pokemonId).toBe(386);
   });
 
-  it('should apply selected form id to a cloned pokemon', () => {
+  it('should apply selected form data to a cloned pokemon', () => {
     const selectedForm = service.getPokemonForms(deoxysBase)[1];
     const selectedPokemon = service.applyFormToPokemon(deoxysBase, selectedForm);
 
     expect(selectedPokemon.pokemonId).toBe(10001);
+    expect(selectedPokemon.type1).toBe('psychic');
+    expect(selectedPokemon.type2).toBeNull();
+    expect(selectedPokemon.text).toBe('pokemon.deoxys-attack');
     expect(selectedPokemon.sprite).toBeNull();
     expect(selectedPokemon).not.toBe(deoxysBase);
     expect(deoxysBase.pokemonId).toBe(386);

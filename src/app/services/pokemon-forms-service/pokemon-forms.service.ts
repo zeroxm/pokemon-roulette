@@ -31,6 +31,10 @@ export class PokemonFormsService {
     const selectedPokemon = structuredClone(basePokemon);
 
     selectedPokemon.pokemonId = pokemonForm.pokemonId;
+    selectedPokemon.text = pokemonForm.text;
+    selectedPokemon.fillStyle = pokemonForm.fillStyle;
+    selectedPokemon.type1 = pokemonForm.type1;
+    selectedPokemon.type2 = pokemonForm.type2;
     selectedPokemon.sprite = null;
 
     return selectedPokemon;

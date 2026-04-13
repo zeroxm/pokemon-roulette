@@ -9,6 +9,8 @@ import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 import { PokemonForm } from '../../interfaces/pokemon-form';
+import { PokemonItem } from '../../interfaces/pokemon-item';
+import { PokemonType, pokemonTypeDataByKey } from '../../interfaces/pokemon-type';
 
 @Component({
   selector: 'app-pokedex-detail-modal',
@@ -27,6 +29,7 @@ export class PokedexDetailModalComponent implements OnInit {
   hasError = false;
 
   readonly fallbackUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
+  private readonly typeIconBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -59,6 +62,33 @@ export class PokedexDetailModalComponent implements OnInit {
     return form?.text ?? 'pokemon.unknown';
   }
 
+  get selectedPokemon(): PokemonItem | undefined {
+    return this.pokemonService.getPokemonById(this.selectedFormId);
+  }
+
+  get selectedForm(): PokemonForm | undefined {
+    return this.alternateForms.find(form => form.pokemonId === this.selectedFormId);
+  }
+
+  get detailsNameKey(): string {
+    return this.selectedPokemon?.text ?? this.selectedForm?.text ?? this.pokemonNameKey;
+  }
+
+  get detailsPower(): number {
+    return this.selectedPokemon?.power ?? this.pokemonService.getPokemonById(this.pokemonId)?.power ?? 1;
+  }
+
+  get detailsTypes(): PokemonType[] {
+    const type1 = this.selectedPokemon?.type1 ?? this.selectedForm?.type1;
+    const type2 = this.selectedPokemon?.type2 ?? this.selectedForm?.type2;
+    return [type1, type2].filter((type): type is PokemonType => !!type);
+  }
+
+  getTypeIconUrl(type: PokemonType): string {
+    const typeData = pokemonTypeDataByKey[type];
+    return `${this.typeIconBaseUrl}/${typeData.id}.png`;
+  }
+
   get hasShinyToggle(): boolean {
     return this.entry?.shiny === true;
   }
@@ -80,5 +110,10 @@ export class PokedexDetailModalComponent implements OnInit {
 
   onArtworkError(): void {
     this.hasError = true;
+  }
+
+  selectForm(formId: number): void {
+    this.selectedFormId = formId;
+    this.hasError = false;
   }
 }

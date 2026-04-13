@@ -2,7 +2,8 @@
      [class.seen]="isSeen"
      [class.won]="isWon"
      [class.clickable]="isSeen"
-     [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'"
+  [ngClass]="(darkMode | async) ? 'border' : ''"
+     [class.light-cell]="(darkMode | async) !== true"
      [ngbTooltip]="isSeen ? (pokemonText | translate) : '???'"
      placement="bottom"
      (click)="onCellClick()">

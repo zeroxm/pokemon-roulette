@@ -13,8 +13,31 @@
        [alt]="pokemonNameKey | translate"
        (error)="onArtworkError()">
 
-  <!-- Pokémon name -->
-  <p class="fw-bold mb-1">{{ pokemonNameKey | translate }}</p>
+  <table class="table table-sm align-middle mb-2" [ngClass]="(darkMode | async) ? 'table-dark' : ''">
+    <tbody>
+      <tr>
+        <th scope="row" class="text-start detail-label">{{ 'detail.name' | translate }}</th>
+        <td class="fw-semibold">{{ detailsNameKey | translate }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start detail-label">{{ 'detail.types' | translate }}</th>
+        <td>
+          <div class="type-icons-wrap">
+            @for (type of detailsTypes; track type) {
+              <img class="pokemon-type-icon"
+                   [src]="getTypeIconUrl(type)"
+                   [alt]="type"
+                   loading="lazy">
+            }
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th scope="row" class="text-start detail-label">{{ 'detail.power' | translate }}</th>
+        <td>{{ detailsPower }}</td>
+      </tr>
+    </tbody>
+  </table>
 
   <!-- Shiny toggle (SHINY-02: only render when entry.shiny === true) -->
   @if (hasShinyToggle) {
@@ -31,7 +54,7 @@
       @for (form of alternateForms; track form.pokemonId) {
         <button class="btn btn-sm"
                 [ngClass]="selectedFormId === form.pokemonId ? 'btn-primary' : 'btn-outline-secondary'"
-                (click)="selectedFormId = form.pokemonId">
+                (click)="selectForm(form.pokemonId)">
           {{ form.text | translate }}
         </button>
       }

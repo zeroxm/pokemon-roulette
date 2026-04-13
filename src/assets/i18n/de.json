@@ -2289,6 +2289,9 @@
     "caught": "Gefangen:"
   },
   "detail": {
+    "name": "Name",
+    "types": "Typen",
+    "power": "Stärke",
     "shiny": {
       "on": "✨ Shiny",
       "off": "Normal"
