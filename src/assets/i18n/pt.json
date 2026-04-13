@@ -315,9 +315,7 @@
                     "typeAdvantage": {
                         "overwhelming": "Vantagem Esmagadora",
                         "advantage": "Vantagem",
-                        "disadvantage": "Desvantagem",
-                        "strong": "Matchups favoráveis",
-                        "weak": "Matchups desfavoráveis"
+                        "disadvantage": "Desvantagem"
                     }
                 },
                 "item": {
