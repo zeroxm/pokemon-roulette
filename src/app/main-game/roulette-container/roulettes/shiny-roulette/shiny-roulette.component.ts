@@ -24,9 +24,8 @@ export class ShinyRouletteComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.settingsService.currentSettings.skipShinyRolls) {
-      // Automatically determine if Pokemon is shiny (1/64 chance)
       const isShiny = Math.random() < (1/64);
-      this.isShinyEvent.emit(isShiny);
+      setTimeout(() => this.isShinyEvent.emit(isShiny));
     }
   }
 
