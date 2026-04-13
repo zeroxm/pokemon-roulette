@@ -50,3 +50,17 @@
 .modal-footer {
 	justify-content: center;
 }
+
+.matchup-strip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px 0;
+}
+
+.matchup-label {
+    margin: 0 8px;
+    font-size: small;
+}
