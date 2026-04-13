@@ -1,5 +1,22 @@
 <h1 class="title">{{ 'game.main.roulette.elite.title' | translate }}</h1>
 <p class="respin-reason">{{ (retries > 0) ? (currentItem.text | translate)+" x"+retries : ""}}</p>
+@if (currentElite && currentElite.types?.length) {
+    <div class="matchup-strip">
+        <div class="matchup-icons-row">
+            @for (type of currentElite.types; track $index) {
+                <img [src]="getTypeIconUrl(type)" [alt]="type" height="20">
+            }
+        </div>
+        @if (advantageLabel) {
+            <span class="matchup-label">{{ advantageLabelKey | translate }}</span>
+            <div class="matchup-icons-row">
+                @for (type of (advantageLabel === 'disadvantage' ? matchupDisadvantageTypes : matchupAdvantageTypes); track $index) {
+                    <img [src]="getTypeIconUrl(type)" [alt]="type" height="20">
+                }
+            </div>
+        }
+    </div>
+}
 <app-wheel
     #wheel
     [items]="victoryOdds"
@@ -39,3 +56,4 @@
         <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
     </div>
 </ng-template>
+

@@ -10,6 +10,7 @@ export class AnalyticsService {
   constructor() { }
 
   trackEvent(eventName: string, eventDetails: string, eventCategory: string) {
+    if (typeof gtag === 'undefined') return;
     gtag('event', eventName, {
     // event Type - example: 'SCROLL_TO_TOP_CLICKED'
     'event_category': eventCategory,

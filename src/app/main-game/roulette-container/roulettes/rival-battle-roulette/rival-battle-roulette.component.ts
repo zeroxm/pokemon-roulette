@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -145,7 +145,7 @@ export class RivalBattleRouletteComponent implements OnInit, OnDestroy {
     this.currentRival = this.rivalByGeneration[this.generation.id];
     if ((this.generation.id === 6)) {
 
-      this.translate.get(this.currentRival.name).subscribe(translated => {
+      this.translate.get(this.currentRival.name).pipe(take(1)).subscribe(translated => {
         const rivalNames = translated.split('/');
         const rivalSprites = Array.isArray(this.currentRival.sprite) ? this.currentRival.sprite : [this.currentRival.sprite];
         const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : [this.currentRival.quotes];

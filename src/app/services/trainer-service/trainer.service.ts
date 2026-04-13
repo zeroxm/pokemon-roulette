@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { trainerSpriteData } from './trainer-sprite-data';
 import { PokemonItem } from '../../interfaces/pokemon-item';
@@ -18,7 +18,7 @@ import { stickyBattleForms } from './sticky-battle-forms';
 @Injectable({
   providedIn: 'root'
 })
-export class TrainerService {
+export class TrainerService implements OnDestroy {
 
   private readonly gameStateSubscription: Subscription;
 

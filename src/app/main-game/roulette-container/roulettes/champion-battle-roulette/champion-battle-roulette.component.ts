@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef,
 import { championByGeneration } from './champion-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
@@ -157,7 +157,7 @@ export class ChampionBattleRouletteComponent implements OnInit, OnDestroy {
 
     if (this.generation.id === 7) {
 
-      this.translate.get(this.currentChampion.name).subscribe(translated => {
+      this.translate.get(this.currentChampion.name).pipe(take(1)).subscribe(translated => {
         const championNames = translated.split('/');
         const championSprites = Array.isArray(this.currentChampion.sprite) ? this.currentChampion.sprite : [this.currentChampion.sprite];
         const championQuotes = Array.isArray(this.currentChampion.quotes) ? this.currentChampion.quotes : this.currentChampion.quotes;

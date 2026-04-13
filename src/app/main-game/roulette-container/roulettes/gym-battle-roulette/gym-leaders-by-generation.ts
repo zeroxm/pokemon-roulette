@@ -7,14 +7,16 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Brock.png?v=3",
             quotes: [
                 'gymLeaders.brock.quote1'
-            ]
+            ],
+            types: ['rock']
         },
         {
             name: 'gymLeaders.misty.name',
             sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Misty.png?v=3",
             quotes: [
                 'gymLeaders.misty.quote1'
-            ]
+            ],
+            types: ['water']
         },
         {
             name: 'gymLeaders.surge.name',
@@ -23,7 +25,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
                 "gymLeaders.surge.quote1",
                 "gymLeaders.surge.quote2",
                 "gymLeaders.surge.quote3",
-            ]
+            ],
+            types: ['electric']
         },
         {
             name: 'gymLeaders.erika.name',
@@ -31,7 +34,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "gymLeaders.erika.quote1",
                 "gymLeaders.erika.quote2",
-            ]
+            ],
+            types: ['grass']
         },
         {
             name: 'gymLeaders.koga.name',
@@ -39,7 +43,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "gymLeaders.koga.quote1",
                 "gymLeaders.koga.quote2",
-            ]
+            ],
+            types: ['poison']
         },
         {
             name: 'gymLeaders.sabrina.name',
@@ -47,7 +52,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "gymLeaders.sabrina.quote1",
                 "gymLeaders.sabrina.quote2",
-            ]
+            ],
+            types: ['psychic']
         },
         {
             name: 'gymLeaders.blaine.name',
@@ -55,7 +61,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "gymLeaders.blaine.quote1",
                 "gymLeaders.blaine.quote2",
-            ]
+            ],
+            types: ['fire']
         },
         {
             name: 'gymLeaders.giovanni.name',
@@ -63,7 +70,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
             quotes: [
                 "gymLeaders.giovanni.quote1",
                 "gymLeaders.giovanni.quote2",
-            ]
+            ],
+            types: ['ground']
         },
     ],
     2: [
@@ -72,7 +80,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Falkner.png?v=3",
         quotes: [
           "gymLeaders.falkner.quote1"
-        ]
+        ],
+        types: ['flying']
       },
       {
         name: 'gymLeaders.bugsy.name',
@@ -80,7 +89,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.bugsy.quote1",
           "gymLeaders.bugsy.quote2"
-        ]
+        ],
+        types: ['bug']
       },
       {
         name: 'gymLeaders.whitney.name',
@@ -89,7 +99,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.whitney.quote1",
           "gymLeaders.whitney.quote2",
           "gymLeaders.whitney.quote3"
-        ]
+        ],
+        types: ['normal']
       },
       {
         name: 'gymLeaders.morty.name',
@@ -98,7 +109,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.morty.quote1",
           "gymLeaders.morty.quote2",
           "gymLeaders.morty.quote3"
-        ]
+        ],
+        types: ['ghost']
       },
       {
         name: 'gymLeaders.chuck.name',
@@ -106,7 +118,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.chuck.quote1",
           "gymLeaders.chuck.quote2"
-        ]
+        ],
+        types: ['fighting']
       },
       {
         name: 'gymLeaders.jasmine.name',
@@ -114,7 +127,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.jasmine.quote1",
           "gymLeaders.jasmine.quote2"
-        ]
+        ],
+        types: ['steel']
       },
       {
         name: 'gymLeaders.pryce.name',
@@ -122,7 +136,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.pryce.quote1",
           "gymLeaders.pryce.quote2"
-        ]
+        ],
+        types: ['ice']
       },
       {
         name: 'gymLeaders.clair.name',
@@ -130,7 +145,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.clair.quote1",
           "gymLeaders.clair.quote2"
-        ]
+        ],
+        types: ['dragon']
       }
     ],
     3: [
@@ -139,7 +155,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Roxanne.png?v=3",
         quotes: [
           "gymLeaders.roxanne.quote1"
-        ]
+        ],
+        types: ['rock']
       },
       {
         name: 'gymLeaders.brawly.name',
@@ -147,7 +164,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.brawly.quote1",
           "gymLeaders.brawly.quote2"
-        ]
+        ],
+        types: ['fighting']
       },
       {
         name: 'gymLeaders.wattson.name',
@@ -155,7 +173,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.wattson.quote1",
           "gymLeaders.wattson.quote2"
-        ]
+        ],
+        types: ['electric']
       },
       {
         name: 'gymLeaders.flannery.name',
@@ -164,7 +183,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.flannery.quote1",
           "gymLeaders.flannery.quote2",
           "gymLeaders.flannery.quote3"
-        ]
+        ],
+        types: ['fire']
       },
       {
         name: 'gymLeaders.norman.name',
@@ -172,7 +192,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.norman.quote1",
           "gymLeaders.norman.quote2"
-        ]
+        ],
+        types: ['normal']
       },
       {
         name: 'gymLeaders.winona.name',
@@ -180,7 +201,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.winona.quote1",
           "gymLeaders.winona.quote2"
-        ]
+        ],
+        types: ['flying']
       },
       {
         name: 'gymLeaders.liza-tate.name',
@@ -189,7 +211,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.liza-tate.quote1",
           "gymLeaders.liza-tate.quote2",
           "gymLeaders.liza-tate.quote3"
-        ]
+        ],
+        types: ['psychic']
       },
       {
         name: 'gymLeaders.wallace.name',
@@ -197,7 +220,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.wallace.quote1",
           "gymLeaders.wallace.quote2"
-        ]
+        ],
+        types: ['water']
       },
     ],
     4: [
@@ -207,7 +231,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.roark.quote1",
           "gymLeaders.roark.quote2"
-        ]
+        ],
+        types: ['rock']
       },
       {
         name: 'gymLeaders.gardenia.name',
@@ -215,7 +240,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.gardenia.quote1",
           "gymLeaders.gardenia.quote2"
-        ]
+        ],
+        types: ['grass']
       },
       {
         name: 'gymLeaders.maylene.name',
@@ -223,7 +249,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.maylene.quote1",
           "gymLeaders.maylene.quote2"
-        ]
+        ],
+        types: ['fighting']
       },
       {
         name: 'gymLeaders.crasherWake.name',
@@ -231,7 +258,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.crasherWake.quote1",
           "gymLeaders.crasherWake.quote2"
-        ]
+        ],
+        types: ['water']
       },
       {
         name: 'gymLeaders.fantina.name',
@@ -239,7 +267,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.fantina.quote1",
           "gymLeaders.fantina.quote2"
-        ]
+        ],
+        types: ['ghost']
       },
       {
         name: 'gymLeaders.byron.name',
@@ -248,7 +277,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.byron.quote1",
           "gymLeaders.byron.quote2",
           "gymLeaders.byron.quote3"
-        ]
+        ],
+        types: ['steel']
       },
       {
         name: 'gymLeaders.candice.name',
@@ -256,7 +286,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.candice.quote1",
           "gymLeaders.candice.quote2"
-        ]
+        ],
+        types: ['ice']
       },
       {
         name: 'gymLeaders.volkner.name',
@@ -264,7 +295,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.volkner.quote1",
           "gymLeaders.volkner.quote2"
-        ]
+        ],
+        types: ['electric']
       },
     ],
     5: [
@@ -279,7 +311,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.cilan-chili-cress.quote1",
           "gymLeaders.cilan-chili-cress.quote2",
           "gymLeaders.cilan-chili-cress.quote3"
-        ]
+        ],
+        types: ['grass', 'fire', 'water']
       },
       {
         name: 'gymLeaders.lenora.name',
@@ -287,7 +320,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.lenora.quote1",
           "gymLeaders.lenora.quote2"
-        ]
+        ],
+        types: ['normal']
       },
       {
         name: 'gymLeaders.burgh.name',
@@ -295,7 +329,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.burgh.quote1",
           "gymLeaders.burgh.quote2"
-        ]
+        ],
+        types: ['bug']
       },
       {
         name: 'gymLeaders.elesa.name',
@@ -304,14 +339,16 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.elesa.quote1",
           "gymLeaders.elesa.quote2",
           "gymLeaders.elesa.quote3"
-        ]
+        ],
+        types: ['electric']
       },
       {
         name: 'gymLeaders.clay.name',
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/Spr_B2W2_Clay.png?v=3",
         quotes: [
           "gymLeaders.clay.quote1"
-        ]
+        ],
+        types: ['ground']
       },
       {
         name: 'gymLeaders.skyla.name',
@@ -319,7 +356,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.skyla.quote1",
           "gymLeaders.skyla.quote2"
-        ]
+        ],
+        types: ['flying']
       },
       {
         name: 'gymLeaders.brycen.name',
@@ -327,7 +365,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.brycen.quote1",
           "gymLeaders.brycen.quote2"
-        ]
+        ],
+        types: ['ice']
       },
       {
         name: 'gymLeaders.drayden-iris.name',
@@ -338,7 +377,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.drayden-iris.quote1",
           "gymLeaders.drayden-iris.quote2"
-        ]
+        ],
+        types: ['dragon', 'dragon']
       }
 
     ],
@@ -349,7 +389,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.viola.quote1",
           "gymLeaders.viola.quote2"
-        ]
+        ],
+        types: ['bug']
       },
       {
         name: 'gymLeaders.grant.name',
@@ -357,14 +398,16 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.grant.quote1",
           "gymLeaders.grant.quote2"
-        ]
+        ],
+        types: ['rock']
       },
       {
         name: 'gymLeaders.korrina.name',
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSKorrina.png?v=3",
         quotes: [
           "gymLeaders.korrina.quote1"
-        ]
+        ],
+        types: ['fighting']
       },
       {
         name: 'gymLeaders.ramos.name',
@@ -372,14 +415,16 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.ramos.quote1",
           "gymLeaders.ramos.quote2"
-        ]
+        ],
+        types: ['grass']
       },
       {
         name: 'gymLeaders.clemont.name',
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSClemont.png?v=3",
         quotes: [
           "gymLeaders.clemont.quote1"
-        ]
+        ],
+        types: ['electric']
       },
       {
         name: 'gymLeaders.valerie.name',
@@ -387,7 +432,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.valerie.quote1",
           "gymLeaders.valerie.quote2"
-        ]
+        ],
+        types: ['fairy']
       },
       {
         name: 'gymLeaders.olympia.name',
@@ -395,7 +441,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.olympia.quote1",
           "gymLeaders.olympia.quote2"
-        ]
+        ],
+        types: ['psychic']
       },
       {
         name: 'gymLeaders.wulfric.name',
@@ -403,7 +450,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.wulfric.quote1",
           "gymLeaders.wulfric.quote2"
-        ]
+        ],
+        types: ['ice']
       },
 
     ],
@@ -414,7 +462,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.ilima.quote1",
           "gymLeaders.ilima.quote2"
-        ]
+        ],
+        types: ['normal']
       },
       {
         name: 'gymLeaders.hala.name',
@@ -423,7 +472,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.hala.quote1",
           "gymLeaders.hala.quote2",
           "gymLeaders.hala.quote3"
-        ]
+        ],
+        types: ['fighting']
       },
       {
         name: 'gymLeaders.lana-kiawe-mallow.name',
@@ -436,7 +486,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
           "gymLeaders.lana-kiawe-mallow.quote1",
           "gymLeaders.lana-kiawe-mallow.quote2",
           "gymLeaders.lana-kiawe-mallow.quote3"
-        ]
+        ],
+        types: ['water', 'fire', 'grass']
       },
       {
         name: 'gymLeaders.olivia.name',
@@ -444,7 +495,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.olivia.quote1",
           "gymLeaders.olivia.quote2"
-        ]
+        ],
+        types: ['rock']
       },
       {
         name: 'gymLeaders.sophocles-acerola.name',
@@ -455,7 +507,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.sophocles-acerola.quote1",
           "gymLeaders.sophocles-acerola.quote2"
-        ]
+        ],
+        types: ['electric', 'ghost']
       },
       {
         name: 'gymLeaders.nanu.name',
@@ -463,7 +516,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.nanu.quote1",
           "gymLeaders.nanu.quote2"
-        ]
+        ],
+        types: ['dark']
       },
       {
         name: 'gymLeaders.mina.name',
@@ -471,14 +525,16 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.mina.quote1",
           "gymLeaders.mina.quote2"
-        ]
+        ],
+        types: ['fairy']
       },
       {
         name: 'gymLeaders.hapu.name',
         sprite: "https://raw.githubusercontent.com/zeroxm/pokemon-roulette-trainer-sprites/refs/heads/main/sprites/VSHapu.png?v=3",
         quotes: [
           "gymLeaders.hapu.quote1"
-        ]
+        ],
+        types: ['ground']
       },
 
     ],
@@ -489,7 +545,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.milo.quote1",
           "gymLeaders.milo.quote2"
-        ]
+        ],
+        types: ['grass']
       },
       {
         name: 'gymLeaders.nessa.name',
@@ -497,7 +554,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.nessa.quote1",
           "gymLeaders.nessa.quote2"
-        ]
+        ],
+        types: ['water']
       },
       {
         name: 'gymLeaders.kabu.name',
@@ -505,7 +563,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.kabu.quote1",
           "gymLeaders.kabu.quote2"
-        ]
+        ],
+        types: ['fire']
       },
       {
         name: 'gymLeaders.bea-allister.name',
@@ -516,7 +575,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.bea-allister.quote1",
           "gymLeaders.bea-allister.quote2"
-        ]
+        ],
+        types: ['fighting', 'ghost']
       },
       {
         name: 'gymLeaders.opal.name',
@@ -524,7 +584,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.opal.quote1",
           "gymLeaders.opal.quote2"
-        ]
+        ],
+        types: ['fairy']
       },
       {
         name: 'gymLeaders.gordie-melony.name',
@@ -535,7 +596,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.gordie-melony.quote1",
           "gymLeaders.gordie-melony.quote2"
-        ]
+        ],
+        types: ['rock', 'ice']
       },
       {
         name: 'gymLeaders.piers.name',
@@ -543,7 +605,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.piers.quote1",
           "gymLeaders.piers.quote2"
-        ]
+        ],
+        types: ['dark']
       },
       {
         name: 'gymLeaders.raihan.name',
@@ -551,7 +614,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.raihan.quote1",
           "gymLeaders.raihan.quote2"
-        ]
+        ],
+        types: ['dragon']
       }
     ],
     9: [
@@ -561,7 +625,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.katy.quote1",
           "gymLeaders.katy.quote2"
-        ]
+        ],
+        types: ['bug']
       },
       {
         name: 'gymLeaders.brassius.name',
@@ -569,7 +634,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.brassius.quote1",
           "gymLeaders.brassius.quote2"
-        ]
+        ],
+        types: ['grass']
       },
       {
         name: 'gymLeaders.iono.name',
@@ -577,7 +643,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.iono.quote1",
           "gymLeaders.iono.quote2"
-        ]
+        ],
+        types: ['electric']
       },
       {
         name: 'gymLeaders.kofu.name',
@@ -585,7 +652,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.kofu.quote1",
           "gymLeaders.kofu.quote2"
-        ]
+        ],
+        types: ['water']
       },
       {
         name: 'gymLeaders.larry.name',
@@ -593,7 +661,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.larry.quote1",
           "gymLeaders.larry.quote2"
-        ]
+        ],
+        types: ['normal']
       },
       {
         name: 'gymLeaders.ryme.name',
@@ -601,7 +670,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.ryme.quote1",
           "gymLeaders.ryme.quote2"
-        ]
+        ],
+        types: ['ghost']
       },
       {
         name: 'gymLeaders.tulip.name',
@@ -609,7 +679,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.tulip.quote1",
           "gymLeaders.tulip.quote2"
-        ]
+        ],
+        types: ['psychic']
       },
       {
         name: 'gymLeaders.grusha.name',
@@ -617,7 +688,8 @@ export const gymLeadersByGeneration: Record<number, GymLeader[]> = {
         quotes: [
           "gymLeaders.grusha.quote1",
           "gymLeaders.grusha.quote2"
-        ]
+        ],
+        types: ['ice']
       }
     ]
 }

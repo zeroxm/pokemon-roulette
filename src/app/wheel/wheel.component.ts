@@ -35,7 +35,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   currentRotation = 0;
   startTime = 0;
   totalRotations!: number;
-  duration = Math.floor(Math.random() * (5000 - 3000)) + 3000;
+  duration = Math.floor(Math.random() * (2000)) + 3000;
   finalRotation = 0;
   pointerStrokeColor = 'blue';
   pointerFillColor = 'yellow';

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { eliteFourByGeneration } from './elite-four-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -15,6 +15,8 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
+import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemon-type';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
@@ -35,7 +37,8 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     private gameStateService: GameStateService,
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private typeMatchupService: TypeMatchupService
   ) { }
 
   private gameSubscription: Subscription | null = null;
@@ -60,6 +63,14 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
   currentItem!: ItemItem;
   retries = 0;
   private teamSubscription!: Subscription;
+  private currentGameState = '';
+  advantageLabel: 'overwhelming' | 'advantage' | 'disadvantage' | null = null;
+  advantageLabelKey = '';
+  matchupAdvantageTypes: PokemonType[] = [];
+  matchupDisadvantageTypes: PokemonType[] = [];
+  strongCount = 0;
+  weakCount = 0;
+  private readonly typeIconBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
@@ -74,6 +85,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     });
 
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
+      this.currentGameState = state;
       if (state === 'elite-four-battle') {
         this.getCurrentElite();
         this.calcVictoryOdds();
@@ -130,6 +142,40 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
       yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
     }
 
+    if (this.currentElite?.types?.length) {
+      const { strongCount, weakCount } = this.typeMatchupService.calcTeamMatchup(
+        this.trainerTeam,
+        this.currentElite.types
+      );
+      this.strongCount = strongCount;
+      this.weakCount = weakCount;
+      this.advantageLabel = this.typeMatchupService.getAdvantageLabel(strongCount, weakCount);
+      if (this.advantageLabel === 'overwhelming') {
+        for (let i = 0; i < 3; i++) yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
+      } else if (this.advantageLabel === 'advantage') {
+        for (let i = 0; i < 2; i++) yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
+      } else if (this.advantageLabel === 'disadvantage') {
+        const extraNo = weakCount > 3 ? 2 : 1;
+        for (let i = 0; i < extraNo; i++) noOdds.push({ text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 });
+      }
+      this.advantageLabelKey = this.advantageLabel
+        ? `game.main.roulette.gym.typeAdvantage.${this.advantageLabel}`
+        : '';
+      const { advantageTypes, disadvantageTypes } = this.typeMatchupService.getMatchupTypes(
+        this.trainerTeam,
+        this.currentElite.types
+      );
+      this.matchupAdvantageTypes = advantageTypes;
+      this.matchupDisadvantageTypes = disadvantageTypes;
+    } else {
+      this.advantageLabel = null;
+      this.advantageLabelKey = '';
+      this.strongCount = 0;
+      this.weakCount = 0;
+      this.matchupAdvantageTypes = [];
+      this.matchupDisadvantageTypes = [];
+    }
+
     for (let index = 0; index < this.currentRound; index++) {
       noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
     }
@@ -157,7 +203,9 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
     if ((this.generation.id === 8 && (this.currentRound%4 === 0 || this.currentRound%4 === 2))) {
 
-      this.translate.get(this.currentElite.name).subscribe(translated => {
+      const eliteTypes = Array.isArray(this.currentElite.types) ? this.currentElite.types : undefined;
+
+      this.translate.get(this.currentElite.name).pipe(take(1)).subscribe(translated => {
         const eliteNames = translated.split('/');
         const eliteSprites = Array.isArray(this.currentElite.sprite) ? this.currentElite.sprite : [this.currentElite.sprite];
         const eliteQuotes = Array.isArray(this.currentElite.quotes) ? this.currentElite.quotes : this.currentElite.quotes;
@@ -168,8 +216,11 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         this.currentElite = {
           name: eliteNames[randomIndex],
           sprite: eliteSprites[randomIndex],
-          quotes: [Array.isArray(eliteQuotes) ? eliteQuotes[randomIndex] : eliteQuotes]
+          quotes: [Array.isArray(eliteQuotes) ? eliteQuotes[randomIndex] : eliteQuotes],
+          types: eliteTypes ? [eliteTypes[randomIndex]] : undefined
         } as GymLeader;
+
+        this.calcVictoryOdds();
       });
     }
   }
@@ -205,5 +256,9 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
       centered: true,
       size: 'md'
     });
+  }
+
+  getTypeIconUrl(type: PokemonType): string {
+    return `${this.typeIconBaseUrl}/${pokemonTypeDataByKey[type].id}.png`;
   }
 }
