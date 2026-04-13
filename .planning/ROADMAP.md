@@ -6,18 +6,12 @@ Type matchup integration: wheel odds + modal for gym and Elite Four battles. See
 
 ---
 
-## v1.1 — Inline Type Matchup Display
+## v1.1 — Inline Type Matchup Display ✅ SHIPPED 2026-04-13
 
-### Goal
+Replaced type advantage modal with persistent inline strip (column layout: leader type icon(s) → label → team type icons) in gym and E4 battles. See [`.planning/milestones/v1.1-ROADMAP.md`](milestones/v1.1-ROADMAP.md) for full details.
 
-Replace the type advantage modal with a persistent inline strip that shows the leader's type icon, advantage label, and relevant team type icons directly in the battle view — fixing the double-modal bug and eliminating dead modal code in the process.
-
-### Phases
-
-- [ ] **Phase 7: Foundation** — Remove typeAdvantageModal from both battle components, extend TypeMatchupService with `getMatchupTypes()`, clean orphaned i18n keys
-- [ ] **Phase 8: Inline Strip UI** — Build and wire the inline matchup strip in both gym and Elite Four battle roulettes
-
-### Phase Details
+<!-- archived v1.1 phases below -->
+### Phase Details (archived)
 
 ---
 

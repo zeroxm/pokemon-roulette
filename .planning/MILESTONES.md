@@ -15,6 +15,20 @@ Made Pokémon types mechanically meaningful in gym and Elite Four battles. Type 
 - PC-swap live recalculation and modal re-show
 - 5 i18n keys × 6 locales (en, de, es, fr, it, pt)
 
-**Known deferred:** Double type-advantage modal on multi-slot leader encounters (BATTLE-02, E4BATTLE-02 partial)
+## v1.1 — Inline Type Matchup Display ✅ SHIPPED 2026-04-13
 
-**Archive:** `.planning/milestones/v1.0-ROADMAP.md` · `.planning/milestones/v1.0-REQUIREMENTS.md` · `v1.0-MILESTONE-AUDIT.md`
+**2 phases · 4 plans · 13 source files · 18 commits**  
+**Branch:** `28-pokémon-types-on-battles`
+
+Replaced the type advantage modal with a persistent inline matchup strip in both gym and Elite Four battles. Column layout: leader type icon(s) → advantage label → relevant team type icons. Live-updates on PC team swap. Double-modal bug on multi-slot leaders resolved as a side effect.
+
+**Shipped:**
+- `TypeMatchupService.getMatchupTypes()` — returns typed advantageTypes/disadvantageTypes arrays
+- Inline strip in both battle components — @if/@for Angular block syntax, no new components
+- Removed typeAdvantageModal + queueTypeAdvantageModal from both components
+- Stripped orphaned strong/weak i18n keys from all 6 locale files
+- Mobile-safe flex-wrap layout with proportional 20px type icons
+
+**Archive:** `.planning/milestones/v1.1-ROADMAP.md` · `.planning/milestones/v1.1-REQUIREMENTS.md`
+
+---
