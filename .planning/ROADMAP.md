@@ -10,12 +10,12 @@ explaining why — turning team building into genuine strategy.
 
 ## Phases
 
-- [ ] **Phase 1: Type Data Foundation** — `type-matchups.json` + `GymLeader` interface extension
-- [ ] **Phase 2: Gym Leader Types** — Assign types to all gym leaders across all 9 generations
-- [ ] **Phase 3: Elite Four Types** — Assign types to all Elite Four members across all 9 generations
-- [ ] **Phase 4: TypeMatchupService** — Calculation logic: strong/weak counts + advantage label
-- [ ] **Phase 5: Gym Battle Integration** — Wheel weight adjustments + type advantage modal in gym battles
-- [ ] **Phase 6: Elite Four Battle Integration** — Same integration mirrored to elite four battle component
+- [x] **Phase 1: Type Data Foundation** — `type-matchups.json` + `GymLeader` interface extension
+- [x] **Phase 2: Gym Leader Types** — Assign types to all gym leaders across all 9 generations
+- [x] **Phase 3: Elite Four Types** — Assign types to all Elite Four members across all 9 generations
+- [x] **Phase 4: TypeMatchupService** — Calculation logic: strong/weak counts + advantage label
+- [x] **Phase 5: Gym Battle Integration** — Wheel weight adjustments + type advantage modal in gym battles
+- [x] **Phase 6: Elite Four Battle Integration** — Same integration mirrored to elite four battle component
 
 ---
 
@@ -188,12 +188,12 @@ explaining why — turning team building into genuine strategy.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Type Data Foundation | 0/? | Not started | — |
-| 2. Gym Leader Types | 0/? | Not started | — |
-| 3. Elite Four Types | 0/? | Not started | — |
-| 4. TypeMatchupService | 0/? | Not started | — |
-| 5. Gym Battle Integration | 0/? | Not started | — |
-| 6. Elite Four Battle Integration | 0/? | Not started | — |
+| 1. Type Data Foundation | 2/2 | Complete | 2026-04-13 |
+| 2. Gym Leader Types | 1/1 | Complete | 2026-04-13 |
+| 3. Elite Four Types | 1/1 | Complete | 2026-04-13 |
+| 4. TypeMatchupService | 1/1 | Complete | 2026-04-13 |
+| 5. Gym Battle Integration | 1/1 | Complete | 2026-04-13 |
+| 6. Elite Four Battle Integration | 1/1 | Complete | 2026-04-13 |
 
 ---
 
