@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
@@ -158,7 +158,7 @@ export class GymBattleRouletteComponent implements OnInit, OnDestroy {
       || (this.generation.id === 7 && (this.currentRound === 2 || this.currentRound === 4))
       || (this.generation.id === 8 && (this.currentRound === 3 || this.currentRound === 5))) {
 
-      this.translate.get(this.currentLeader.name).subscribe(translated => {
+      this.translate.get(this.currentLeader.name).pipe(take(1)).subscribe(translated => {
         const leaderNames = translated.split('/');
         const leaderSprites = Array.isArray(this.currentLeader.sprite) ? this.currentLeader.sprite : [this.currentLeader.sprite];
         const leaderQuotes = Array.isArray(this.currentLeader.quotes) ? this.currentLeader.quotes : this.currentLeader.quotes;

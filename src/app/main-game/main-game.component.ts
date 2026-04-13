@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgbCollapseModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerTeamComponent } from "../trainer-team/trainer-team.component";
 import { ItemsComponent } from "../items/items.component";
@@ -46,12 +47,13 @@ export class MainGameComponent implements OnInit {
       this.darkMode = this.darkModeService.darkMode$;
   }
 
+  private destroyRef = inject(DestroyRef);
   wheelSpinning: boolean = false;
 
   ngOnInit(): void {
     this.analyticsService.trackEvent('main-game-loaded', 'Main Game Loaded', 'user acess');
 
-    this.gameStateService.wheelSpinningObserver.subscribe(state => {
+    this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       this.wheelSpinning = state;
     });
   }

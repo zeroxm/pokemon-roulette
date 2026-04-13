@@ -1,4 +1,5 @@
 import {Component, inject} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '../../interfaces/language';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +36,7 @@ export class LanguageSelectorComponent {
   constructor() {
     const currentLanguage = this.translateService.currentLang || this.translateService.getDefaultLang() || 'en';
     this.updateCurrentLanguage(currentLanguage)
-    this.translateService.onLangChange.subscribe(event => {
+    this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(event => {
       this.updateCurrentLanguage(event.lang);
     });
   }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { eliteFourByGeneration } from './elite-four-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -157,7 +157,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
 
     if ((this.generation.id === 8 && (this.currentRound%4 === 0 || this.currentRound%4 === 2))) {
 
-      this.translate.get(this.currentElite.name).subscribe(translated => {
+      this.translate.get(this.currentElite.name).pipe(take(1)).subscribe(translated => {
         const eliteNames = translated.split('/');
         const eliteSprites = Array.isArray(this.currentElite.sprite) ? this.currentElite.sprite : [this.currentElite.sprite];
         const eliteQuotes = Array.isArray(this.currentElite.quotes) ? this.currentElite.quotes : this.currentElite.quotes;

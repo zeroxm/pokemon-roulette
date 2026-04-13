@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
@@ -95,6 +96,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     NINCADA_ID = 290;
     @Output() resetGameEvent = new EventEmitter<void>();
 
+    private destroyRef = inject(DestroyRef);
     private rareCandySubscription?: Subscription;
 
     constructor(
@@ -115,7 +117,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-      this.gameStateService.currentState.subscribe(state => {
+      this.gameStateService.currentState.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
         this.currentGameState = state;
         if (this.currentGameState === 'adventure-continues') {
           if (this.multitaskCounter > 0) {
@@ -128,11 +130,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         }
       });
 
-    this.gameStateService.currentRoundObserver.subscribe(round => {
+    this.gameStateService.currentRoundObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(round => {
       this.leadersDefeatedAmount = round;
     });
 
-    this.gameStateService.wheelSpinningObserver.subscribe(state => {
+    this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
       this.wheelSpinning = state;
     });
 
@@ -542,7 +544,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
       this.trainerService.addToTeam(this.stolenPokemon);
       this.registerInPokedex(this.stolenPokemon);
-      this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title ') + pokemonName + '!';
+      this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title') + pokemonName + '!';
       this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
       this.stolenPokemon = null;
       this.modalQueueService.open(this.infoModal, {
