@@ -4,7 +4,7 @@
 
 - ✅ **v1.0 Low-Severity Debt** — Phases 1-6 (shipped 2026-04-17)
 - ✅ **v1.1 Code Quality & Test Coverage** — Phases 7-10 (shipped 2026-04-17)
-- 🔄 **v1.2 Theming System** — Phase 11 (active)
+- ✅ **v1.2 Theming System** — Phase 11 (shipped 2026-04-17)
 
 ## Phases
 
@@ -36,9 +36,16 @@ Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-R
 
 </details>
 
-### v1.2 Theming System
+<details>
+<summary>✅ v1.2 Theming System (Phase 11) — SHIPPED 2026-04-17</summary>
 
-- [ ] **Phase 11: Theming System** — Full theme infrastructure, selector UI, and i18n in one deliverable
+- [x] Phase 11: Theming System (2/2 plans) — THEME-01, THEME-02, THEME-03, THEME-04, THEME-05 — completed 2026-04-17
+
+Tests: 217 → 223 (+6) | Files: 18 changed | LOC: +125/-26
+
+Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-ROADMAP.md)
+
+</details>
 
 ---
 
@@ -115,7 +122,7 @@ Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-R
 | 8. Service Hardening | v1.1 | 4/4 | Complete | 2026-04-17 |
 | 9. Battle Architecture Refactor | v1.1 | 2/2 | Complete | 2026-04-17 |
 | 10. Test Coverage | v1.1 | 3/3 | Complete | 2026-04-17 |
-| 11. Theming System | v1.2 | 0/2 | Not started | — |
+| 11. Theming System | v1.2 | 2/2 | Complete | 2026-04-17 |
 
 ---
 

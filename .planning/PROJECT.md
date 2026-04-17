@@ -1,24 +1,25 @@
 # Pokemon Roulette
 
-## Current Milestone: v1.2 — Theming System
+## Current Milestone: v1.3 — TBD
 
-**Goal:** Replace the dark/light mode toggle with a named theme selector that ships three themes and migrates all users to the new "Starters" default.
+Run `/gsd-new-milestone` to define the next milestone goals and requirements.
 
-**Target features:**
-- Theme selector dropdown in the settings panel (matches existing UI style)
-- 3 themes: "Starters" (new default), "Plain Dark", "Plain Light"
-- "Starters" = dark-mode styles + `dark-background.png` repeating tile (430×430px)
-- All existing users migrated to "Starters" on first v1.2 load
+Candidates from the deferred backlog:
+- Language selector image-based flags (visual UX, needs image assets)
+- DarkModeToggleComponent source file cleanup (delete unused component)
+- DarkModeService injection cleanup in migrated components (cosmetic debt)
+- Additional themes (generation-specific backgrounds) — v1.3+ backlog
+- ThemeSelectorComponent label alignment (deferred from v1.2 UAT)
 
 ---
 
-## Current State: v1.1 Shipped ✅
+## Current State: v1.2 Shipped ✅
 
 **Shipped:** 2026-04-17
-**Tests:** 217 passing (Karma/Jasmine, ChromeHeadless)
+**Tests:** 223 passing (Karma/Jasmine, ChromeHeadless)
 **Branch:** 30-better-graphics
 
-Milestone v1.1 (Code Quality & Test Coverage) is complete. All 13 requirements delivered across 4 phases, 12 plans. The codebase now has meaningful automated test coverage of critical game logic and all medium-severity structural concerns have been addressed.
+Milestone v1.2 (Theming System) is complete. Users can now select between three themes (Starters, Plain Dark, Plain Light) from the Settings panel. Theme preference persists to localStorage. All 14 components that respond to dark/light mode were migrated to the new `ThemeService.isDark$` observable.
 
 ---
 
@@ -33,6 +34,25 @@ Candidates from the deferred backlog:
 - Shiny propagation TODO cleanup (future PR)
 
 ---
+
+<details>
+<summary>v1.2 Milestone Context (archived)</summary>
+
+## Previous Milestone: v1.2 Theming System
+
+**Goal:** Replace the dark/light mode toggle with a named theme selector shipping three themes.
+
+**Delivered:**
+- ThemeService with Renderer2-based body class management and localStorage persistence
+- Three CSS themes: Starters (dark + tile), Plain Dark, Plain Light
+- ThemeSelectorComponent replacing dark-mode toggle in Settings panel
+- Full i18n in all 6 locales (en, es, fr, de, it, pt)
+- 14 components migrated from DarkModeService.darkMode$ to ThemeService.isDark$
+- Legacy dark-mode localStorage key removed on every setTheme() call
+
+---
+
+</details>
 
 <details>
 <summary>v1.1 Milestone Context (archived)</summary>
@@ -142,21 +162,17 @@ should introduce a regression.
 - ✓ Replace `new Observable` patterns in `ItemSpriteService` and `BadgesService` with `of()` — v1.0 (RX-01, RX-02)
 - ✓ Build a persistent `Map<id, number>` reverse index in `PokemonFormsService` — v1.0 (PERF-01)
 - ✓ Separate Google Analytics ID between dev and prod environments — v1.0 (ANALYTICS-01)
+- ✓ ThemeService with three named themes (starters, plain-dark, plain-light), localStorage persistence, body class management — v1.2 (THEME-01)
+- ✓ Global CSS theme rules for all three themes — v1.2 (THEME-02)
+- ✓ ThemeSelectorComponent replacing dark-mode toggle in Settings panel — v1.2 (THEME-03)
+- ✓ Theme i18n keys in all 6 locales — v1.2 (THEME-04)
+- ✓ Default to starters theme on first load (silent migration from old dark-mode key) — v1.2 (THEME-05)
 
 ### Active
 
-- [ ] Fix leaked subscriptions in `restart-game-button.component.ts` and `settings-button.component.ts` — no teardown causes leaks on destroy/recreate (SUB-01, SUB-02)
-- [ ] Fix hardcoded `"Trade!"` string in `roulette-container.component.ts:572` — replace with i18n translation key (I18N-01)
-- [ ] Fix `WheelComponent` direct DOM access — replace `document.getElementById('wheel'/'pointer')` with `@ViewChild` refs (DOM-01)
-- [ ] Add bounds check in `BadgesService.getBadge()` — guard against out-of-range round index before array access (BADGE-01)
-- [ ] Remove `pokemonIn = pokemonIn` no-op self-assignment in `TrainerService` (CLEAN-01)
-- [ ] Extract shared `BaseBattleRouletteComponent` — 4 battle roulettes (gym, E4, champion, rival) have identical subscription and item-use boilerplate (BATTLE-01)
-- [ ] Build persistent `Map<number, PokemonItem>` in `PokemonService` constructor for O(1) `getPokemonById()` lookups (LOOKUP-01)
-- [ ] Fix `TrainerService` mutable array exposure — `getTeam()` and `getStorage()` should return copies, not live references (IMMUT-01)
-- [ ] Refactor hardcoded game state stack in `GameStateService.initializeStates()` — make generation gym count data-driven (STATE-01)
-- [ ] Add meaningful battle logic tests — gym, E4, champion, rival victory odds, type matchup integration (TEST-01)
-- [ ] Add `RouletteContainerComponent` core flow tests — evolution, capture, trading, item activation paths (TEST-02)
-- [ ] Add service-layer tests — `TrainerService` battle forms, `GameStateService` transitions, `PokedexService` shiny edge cases (TEST-03)
+- [ ] Language selector image-based flags — needs image assets (deferred from v1.1)
+- [ ] ThemeSelectorComponent label alignment fix — cosmetic, deferred from v1.2 UAT
+- [ ] DarkModeService cleanup — remove unused injections from migrated components (v1.3+)
 
 ### Out of Scope
 
@@ -216,4 +232,4 @@ Codebase map: `.planning/codebase/` (analyzed 2025-01-31).
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-17 after v1.1 milestone start*
+*Last updated: 2026-04-17 after v1.2 milestone completion*

@@ -1,5 +1,24 @@
 # Milestones
 
+## v1.2 Theming System (Shipped: 2026-04-17)
+
+**Phases completed:** 1 phase (Phase 11), 2 plans, 5 requirements delivered
+**Files changed:** 18 | LOC: +125/-26
+**Tests:** 217 → 223 (+6)
+
+**Key accomplishments:**
+
+1. Created `ThemeService` with Renderer2-based body class management and localStorage persistence (`pokemon-roulette-theme`)
+2. Added three global CSS themes: `theme-starters` (dark + 430×430px tile), `theme-plain-dark`, `theme-plain-light`
+3. Built `ThemeSelectorComponent` (Bootstrap select) replacing `DarkModeToggleComponent` in Settings panel
+4. Added theme i18n keys in all 6 locales (en, es, fr, de, it, pt) — label + 3 option labels
+5. Migrated 14 components from `DarkModeService.darkMode$` to `ThemeService.isDark$`
+6. Legacy `dark-mode` localStorage key removed on every `setTheme()` call
+
+**Archive:** `.planning/milestones/v1.2-ROADMAP.md`
+
+---
+
 ## v1.0 Low-Severity Debt (Shipped: 2026-04-17)
 
 **Phases completed:** 6 phases, 11 plans
