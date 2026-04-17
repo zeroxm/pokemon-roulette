@@ -8,7 +8,6 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
-// @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
@@ -114,7 +113,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
         width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
-    }).then((blob: Blob) => {
+    }).then((blob: Blob | null) => {
+      if (!blob) return;
       const file = new File([blob], this.generation.region+'-champion.png', { type: 'image/png' });
       element.style.backgroundColor = originalBg;
 

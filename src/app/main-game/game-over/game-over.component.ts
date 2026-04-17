@@ -6,7 +6,6 @@ import { DarkModeService } from '../../services/dark-mode-service/dark-mode.serv
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-// @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import { GenerationItem } from '../../interfaces/generation-item';
 import { GenerationService } from '../../services/generation-service/generation.service';
@@ -119,7 +118,8 @@ export class GameOverComponent implements OnInit, OnDestroy {
         width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
-    }).then((blob: Blob) => {
+    }).then((blob: Blob | null) => {
+      if (!blob) return;
       const file = new File([blob], 'run-is-over.png', { type: 'image/png' });
       element.style.backgroundColor = originalBg;
 
