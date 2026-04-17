@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -22,7 +23,7 @@ export class SettingsButtonComponent {
   constructor(private router: Router,
               private gameStateService: GameStateService,
               private darkModeService: DarkModeService) {
-      this.gameStateService.wheelSpinningObserver.subscribe(state => {
+      this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed()).subscribe(state => {
       this.wheelSpinning = state;
     });
 

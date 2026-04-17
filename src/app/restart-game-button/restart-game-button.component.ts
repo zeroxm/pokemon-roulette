@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
@@ -22,7 +23,7 @@ export class RestartGameButtonComponent {
   constructor(private modalService: NgbModal,
               private gameStateService: GameStateService
   ) {
-    this.gameStateService.wheelSpinningObserver.subscribe(state => {
+    this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed()).subscribe(state => {
       this.wheelSpinning = state;
     });
   }
