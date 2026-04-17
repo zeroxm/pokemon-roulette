@@ -6,7 +6,7 @@ import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { CommonModule } from '@angular/common';
 import { ItemItem } from '../interfaces/item-item';
-import { RestartGameButtonComponent } from "../restart-game-buttom/restart-game-buttom.component";
+import { RestartGameButtonComponent } from "../restart-game-button/restart-game-button.component";
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";

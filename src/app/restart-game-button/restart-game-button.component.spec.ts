@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RestartGameButtonComponent } from './restart-game-buttom.component';
+import { RestartGameButtonComponent } from './restart-game-button.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
 import { TranslateModule } from '@ngx-translate/core';

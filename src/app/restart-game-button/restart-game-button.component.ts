@@ -6,7 +6,7 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-restart-game-buttom',
+  selector: 'app-restart-game-button',
   imports: [
     NgIconsModule,
     TranslatePipe
@@ -14,8 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   providers: [
     provideIcons({ bootstrapArrowRepeat })
   ],
-  templateUrl: './restart-game-buttom.component.html',
-  styleUrl: './restart-game-buttom.component.css'
+  templateUrl: './restart-game-button.component.html',
+  styleUrl: './restart-game-button.component.css'
 })
 export class RestartGameButtonComponent {
 
