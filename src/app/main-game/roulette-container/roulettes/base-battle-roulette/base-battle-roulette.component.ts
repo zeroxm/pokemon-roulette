@@ -1,4 +1,4 @@
-import { OnInit, OnDestroy } from '@angular/core';
+import { Directive, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 
+@Directive()
 export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected generation!: GenerationItem;
   protected trainerTeam!: PokemonItem[];
