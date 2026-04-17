@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Badge } from '../../interfaces/badge';
 import { Observable } from 'rxjs';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -22,7 +23,7 @@ export class BadgesComponent {
 
     darkMode!: Observable<boolean>;
 
-    constructor(private darkModeService: DarkModeService) {
-      this.darkMode = this.darkModeService.darkMode$;
+    constructor(private darkModeService: DarkModeService, private themeService: ThemeService) {
+      this.darkMode = this.themeService.isDark$;
     }
 }

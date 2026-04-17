@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 
@@ -30,11 +31,12 @@ export class PokedexEntryComponent implements OnInit {
 
   constructor(
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private pokemonService: PokemonService
   ) {}
 
   ngOnInit(): void {
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkMode = this.themeService.isDark$;
   }
 
   get isSeen(): boolean {

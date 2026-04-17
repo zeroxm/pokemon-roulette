@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokedexService, PokedexData } from '../../services/pokedex-service/pokedex.service';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
@@ -24,6 +25,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
 
   constructor(
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private modalService: NgbModal,
     private pokedexService: PokedexService,
     private generationService: GenerationService,
@@ -42,7 +44,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscription();
 
   ngOnInit(): void {
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkMode = this.themeService.isDark$;
     this.subscriptions.add(
       this.pokedexService.pokedex$.subscribe(data => {
         this.pokedexData = data;

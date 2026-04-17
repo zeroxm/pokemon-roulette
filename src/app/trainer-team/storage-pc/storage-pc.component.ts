@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/c
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -28,6 +29,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
 
     constructor(private trainerService: TrainerService,
                 private darkModeService: DarkModeService,
+                private themeService: ThemeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
                 private soundFxService: SoundFxService) {
@@ -53,7 +55,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
     private removePcTurningOnEndedListener: (() => void) | null = null;
 
     ngOnInit(): void {
-      this.darkMode = this.darkModeService.darkMode$;
+      this.darkMode = this.themeService.isDark$;
       this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded(this.pcTurningOn, () => {
         void this.soundFxService.playSoundFx(this.pcLoginAudio, 0.30);
       });

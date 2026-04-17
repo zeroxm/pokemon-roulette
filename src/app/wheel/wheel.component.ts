@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
@@ -50,13 +51,14 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   constructor(
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
     private soundFxService: SoundFxService,
     private modalService: NgbModal
   ) {
     this.clickAudio = this.soundFxService.createClickSoundFx();
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkMode = this.themeService.isDark$;
     this.canvasHeight = 0;
     this.wheelWidth = 0;
     this.cursorWidth = 40;

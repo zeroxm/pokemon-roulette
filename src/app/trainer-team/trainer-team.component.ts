@@ -3,6 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { Observable, Subscription } from 'rxjs';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../services/theme-service/theme.service';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { BadgesComponent } from "./badges/badges.component";
 import { Badge } from '../interfaces/badge';
@@ -23,7 +24,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class TrainerTeamComponent implements OnInit, OnDestroy {
 
   constructor(private trainerService: TrainerService,
-              private darkModeService: DarkModeService) { }
+              private darkModeService: DarkModeService,
+              private themeService: ThemeService) { }
 
   trainer!: { sprite: string; };
   trainerTeam!: PokemonItem[];
@@ -45,7 +47,7 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
     this.badgesSubscription = this.trainerService.getBadgesObservable().subscribe(badges => {
       this.trainerBadges = badges;
     });
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkMode = this.themeService.isDark$;
   }
 
   ngOnDestroy(): void {

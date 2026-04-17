@@ -1,5 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 
 export type Theme = 'starters' | 'plain-dark' | 'plain-light';
 
@@ -25,6 +25,9 @@ export class ThemeService {
   /** Observable that emits the current theme. Only fires on distinct changes. */
   readonly theme$: Observable<Theme>;
 
+  /** Emits true when the current theme is dark (starters or plain-dark), false for plain-light. */
+  readonly isDark$: Observable<boolean>;
+
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
 
@@ -36,6 +39,7 @@ export class ThemeService {
 
     this._theme$ = new BehaviorSubject<Theme>(initial);
     this.theme$ = this._theme$.asObservable().pipe(distinctUntilChanged());
+    this.isDark$ = this.theme$.pipe(map(t => t !== 'plain-light'));
 
     // Apply immediately — also handles THEME-05 migration (writes default to storage)
     this.setTheme(initial);
@@ -61,6 +65,9 @@ export class ThemeService {
 
     // Apply the selected theme class
     this.renderer.addClass(body, `theme-${theme}`);
+
+    // Clean up legacy dark-mode localStorage key from DarkModeService
+    localStorage.removeItem('dark-mode');
 
     // Persist
     localStorage.setItem(STORAGE_KEY, theme);

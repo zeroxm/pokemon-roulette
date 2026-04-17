@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +33,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
     private generationService: GenerationService,
     private trainerService: TrainerService,
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private translate: TranslateService
   ) { }
 
@@ -65,7 +67,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
     });
-    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe(dark => {
+    this.darkModeSubscription = this.themeService.isDark$.subscribe(dark => {
       this.darkMode = dark;
     });
 
