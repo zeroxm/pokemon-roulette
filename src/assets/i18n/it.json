@@ -290,6 +290,11 @@
                         }
                     },
                     "title": "Vittoria?",
+                    "typeAdvantage": {
+                        "overwhelming": "Vantaggio Schiacciante",
+                        "advantage": "Vantaggio",
+                        "disadvantage": "Svantaggio"
+                    },
                     "use": "Ha usato",
                     "yes": "Sì",
                     "no": "No"

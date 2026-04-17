@@ -290,6 +290,11 @@
                         }
                     },
                     "title": "Erfolg?",
+                    "typeAdvantage": {
+                        "overwhelming": "Überwältigender Vorteil",
+                        "advantage": "Vorteil",
+                        "disadvantage": "Nachteil"
+                    },
                     "use": "Benutzt",
                     "yes": "Ja",
                     "no": "Nein"

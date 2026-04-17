@@ -290,6 +290,11 @@
                         }
                     },
                     "title": "Victoire?",
+                    "typeAdvantage": {
+                        "overwhelming": "Avantage Écrasant",
+                        "advantage": "Avantage",
+                        "disadvantage": "Désavantage"
+                    },
                     "use": "A utilisé un(e)",
                     "yes": "Oui",
                     "no": "Non"

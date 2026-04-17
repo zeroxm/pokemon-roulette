@@ -290,6 +290,11 @@
                         }
                     },
                     "title": "Victory?",
+                    "typeAdvantage": {
+                        "overwhelming": "Overwhelming Advantage",
+                        "advantage": "Advantage",
+                        "disadvantage": "Disadvantage"
+                    },
                     "use": "Used a",
                     "yes": "Yes",
                     "no": "No"

@@ -290,6 +290,11 @@
                         }
                     },
                     "title": "Vitória?",
+                    "typeAdvantage": {
+                        "overwhelming": "Vantagem Esmagadora",
+                        "advantage": "Vantagem",
+                        "disadvantage": "Desvantagem"
+                    },
                     "use": "Usou ",
                     "yes": "Sim",
                     "no": "Não"
