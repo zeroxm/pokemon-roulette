@@ -10,6 +10,12 @@
             "male": "Sempre Garoto",
             "female": "Sempre Garota",
             "always-choose": "Sempre Escolher"
+        },
+        "theme": {
+            "label": "Tema",
+            "starters": "Starters",
+            "plainDark": "Escuro Simples",
+            "plainLight": "Claro Simples"
         }
     },
     "coffee": {

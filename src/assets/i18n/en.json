@@ -10,6 +10,12 @@
             "male": "Always Boy",
             "female": "Always Girl",
             "always-choose": "Always Choose"
+        },
+        "theme": {
+            "label": "Theme",
+            "starters": "Starters",
+            "plainDark": "Plain Dark",
+            "plainLight": "Plain Light"
         }
     },
     "coffee": {

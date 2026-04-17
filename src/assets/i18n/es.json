@@ -10,6 +10,12 @@
             "male": "Siempre Chico",
             "female": "Siempre Chica",
             "always-choose": "Siempre Elegir"
+        },
+        "theme": {
+            "label": "Tema",
+            "starters": "Starters",
+            "plainDark": "Oscuro Simple",
+            "plainLight": "Claro Simple"
         }
     },
     "coffee": {

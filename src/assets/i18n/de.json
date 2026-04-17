@@ -10,6 +10,12 @@
             "male": "Immer Junge",
             "female": "Immer Mädchen",
             "always-choose": "Immer wählen"
+        },
+        "theme": {
+            "label": "Thema",
+            "starters": "Starters",
+            "plainDark": "Einfaches Dunkel",
+            "plainLight": "Einfaches Hell"
         }
     },
     "coffee": {
