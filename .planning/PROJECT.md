@@ -1,5 +1,23 @@
 # Pokemon Roulette
 
+## Current Milestone: v1.1 Code Quality & Test Coverage
+
+**Goal:** Address all real medium-severity concerns from the codebase audit and fill the test coverage gap so core game logic has meaningful assertions.
+
+**Target items:**
+- Fix leaked subscriptions in restart-game-button and settings-button (no teardown at all)
+- Fix hardcoded "Trade!" string — move to i18n translation key
+- Fix WheelComponent DOM access — replace `document.getElementById` with `@ViewChild`
+- Add bounds check to `BadgesService` round index access
+- Remove `TrainerService` self-assignment no-op (`pokemonIn = pokemonIn`)
+- Extract `BaseBattleRouletteComponent` to eliminate 4-way boilerplate duplication
+- Build persistent `Map` in `PokemonService` for O(1) `getPokemonById()` lookups
+- Fix `TrainerService` mutable arrays — return copies, protect `BehaviorSubject` chain
+- Refactor hardcoded game state stack in `GameStateService`
+- Add meaningful test coverage for core game logic (battle odds, roulette flow, service mutations)
+
+---
+
 ## What This Is
 
 A browser-based Pokemon roulette game built with Angular 21. Players spin randomized wheels to
@@ -37,26 +55,36 @@ should introduce a regression.
 
 ### Active
 
-- [ ] Standardize subscription cleanup to `takeUntilDestroyed()` across all components (MED-01)
-- [ ] Fix `WheelComponent` direct DOM access (`document.getElementById`) with `@ViewChild` (MED-02)
-- [ ] Fix hardcoded untranslated "Trade!" string via i18n key (MED-03)
-- [ ] Add Bulbagarden CDN fallback/retry logic for sprite loading (MED-04)
-- [ ] Add bounds check on `BadgesService` round index (MED-05)
+- [ ] Fix leaked subscriptions in `restart-game-button.component.ts` and `settings-button.component.ts` — no teardown causes leaks on destroy/recreate (SUB-01, SUB-02)
+- [ ] Fix hardcoded `"Trade!"` string in `roulette-container.component.ts:572` — replace with i18n translation key (I18N-01)
+- [ ] Fix `WheelComponent` direct DOM access — replace `document.getElementById('wheel'/'pointer')` with `@ViewChild` refs (DOM-01)
+- [ ] Add bounds check in `BadgesService.getBadge()` — guard against out-of-range round index before array access (BADGE-01)
+- [ ] Remove `pokemonIn = pokemonIn` no-op self-assignment in `TrainerService` (CLEAN-01)
+- [ ] Extract shared `BaseBattleRouletteComponent` — 4 battle roulettes (gym, E4, champion, rival) have identical subscription and item-use boilerplate (BATTLE-01)
+- [ ] Build persistent `Map<number, PokemonItem>` in `PokemonService` constructor for O(1) `getPokemonById()` lookups (LOOKUP-01)
+- [ ] Fix `TrainerService` mutable array exposure — `getTeam()` and `getStorage()` should return copies, not live references (IMMUT-01)
+- [ ] Refactor hardcoded game state stack in `GameStateService.initializeStates()` — make generation gym count data-driven (STATE-01)
+- [ ] Add meaningful battle logic tests — gym, E4, champion, rival victory odds, type matchup integration (TEST-01)
+- [ ] Add `RouletteContainerComponent` core flow tests — evolution, capture, trading, item activation paths (TEST-02)
+- [ ] Add service-layer tests — `TrainerService` battle forms, `GameStateService` transitions, `PokedexService` shiny edge cases (TEST-03)
 
 ### Out of Scope
 
-- Game-state persistence to localStorage — High severity, tracked for Milestone 2
-- `RouletteContainerComponent` god-component refactor — High severity, Milestone 2
-- `GameStateService` desync risk / guard — High severity, Milestone 2
-- Test coverage expansion — separate milestone
-- UI/graphics refactoring — later milestone on this branch
+- Game-state persistence to localStorage — by design (in-memory is acceptable for this game type)
+- `RouletteContainerComponent` god-component refactor — track, not this milestone (already significantly decomposed)
+- `GameStateService` desync guard — theoretical, very low probability in practice
+- Bulbagarden CDN fallback — by design (acceptable external dependency)
+- Static data lazy-loading — by design (bundle size acceptable)
+- Shiny propagation TODO cleanup — future PR handles it
+- Language selector flag rendering on Windows — UX note, image-based approach needed, tracked for future
+- UI/graphics refactoring — later milestone
 - New game features — out of scope for this branch milestone
 
 ## Context
 
 This is the "better-graphics" branch, scoped for major UI and code refactoring.
-Milestone 1 (v1.0) is complete: all 11 Low-severity concerns resolved across 6 phases, 21 files changed.
-Next milestone: Medium-severity debt (subscription leaks, DOM access, i18n gaps, CDN resilience).
+Milestone v1.0 complete: 11 low-severity concerns resolved (dead code, typo, constants, type safety, RxJS, perf, analytics).
+Milestone v1.1 active: medium-severity code quality concerns + test coverage gaps.
 
 Codebase: ~Angular 21, TypeScript strict mode, 175 unit tests (Karma/Jasmine).
 CI: GitHub Actions — `npm ci` → `ng build` → `ng test --watch=false --browsers=ChromeHeadless`.
@@ -98,4 +126,4 @@ Codebase map: `.planning/codebase/` (analyzed 2025-01-31).
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-17 after v1.0 milestone completion*
+*Last updated: 2026-04-17 after v1.1 milestone start*

@@ -1,53 +1,46 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: Low-Severity Debt
-status: complete
-last_updated: "2026-04-17T18:05:00.000Z"
+milestone: v1.1
+milestone_name: Code Quality & Test Coverage
+status: active
+last_updated: "2026-04-17T18:10:00.000Z"
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 11
-  completed_plans: 11
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-04-17 after v1.0 milestone)
+See: .planning/PROJECT.md (updated 2026-04-17)
 
 **Core value:** The game stays green (compilable, testable, and playable) after every change.
-**Current focus:** Milestone 1 complete — planning Milestone 2 (medium-severity debt)
+**Current focus:** Milestone v1.1 — Code Quality & Test Coverage
 
 ---
 
 ## Status
 
-**Milestone v1.0:** ✅ SHIPPED 2026-04-17
-**Active phase:** —
+**Active milestone:** v1.1 Code Quality & Test Coverage
+**Active phase:** Not started (defining requirements)
 **Branch:** better-graphics
 
 ---
 
 ## Phase Summary
 
-| # | Phase | Status | Requirements |
-|---|-------|--------|--------------|
-| 1 | Dead Code Cleanup | ✅ Complete | DEAD-01, DEAD-02 |
-| 2 | Naming Correction | ✅ Complete | NAME-01 |
-| 3 | Constants & Deduplication | ✅ Complete | CONST-01, CONST-02 |
-| 4 | Type Safety Improvements | ✅ Complete | TYPE-01, TYPE-02 |
-| 5 | RxJS Simplification | ✅ Complete | RX-01, RX-02 |
-| 6 | Performance & Analytics Config | ✅ Complete | PERF-01, ANALYTICS-01 |
+*(Phases will be added by roadmapper)*
 
 ---
 
 ## Progress
 
 ```
-[████████████████████] 100% — 6/6 phases complete, 11/11 plans complete
+Defining requirements for v1.1
 ```
 
 ---
@@ -56,20 +49,16 @@ See: .planning/PROJECT.md (updated 2026-04-17 after v1.0 milestone)
 
 ### Decisions
 
-- Low-severity concerns only in Milestone 1; Medium/High deferred to Milestone 2
+- Low-severity concerns only in Milestone 1; Medium/High deferred
 - Atomic commits per concern to enable bisect if any fix causes CI failure
 - CONCERNS.md is a living document — fixed concerns removed after verification
-- [Phase 01]: Removed 8 unreachable break; after return in chooseWhoWillEvolve() switch; preserved 5 reachable break; in continueWithPokemon()
-- [Phase 01]: Removed double semicolon (;;) from performTrade() line 562
-- [Phase 02]: Used git mv for all renames — history preserved as renames, not delete+add
-- [Phase 03]: NINCADA_ID in src/app/constants/; Nincada evolution logic in EvolutionService
-- [Phase 03]: DEFAULT_POTION as private static readonly in TrainerService; structuredClone for independent copies
-- [Phase 04]: GtagCommand typed as function alias; GtagEventParams uses index signature for forward compat
-- [Phase 04]: toBlob returns Promise<Blob | null> — null guard added in end-game and game-over components
-- [Phase 04]: types/**/*.d.ts added to both tsconfig.app.json and tsconfig.spec.json includes
-- [Phase 05]: of() replaces new Observable in ItemSpriteService and BadgesService
-- [Phase 06]: Pre-computed variantToBase Map in PokemonFormsService constructor; getBasePokemonId() is now O(1)
-- [Phase 06]: Cleared googleAnalyticsId in environment.ts; prod ID unchanged
+- Game state persistence: by design (in-memory acceptable for this game type)
+- RouletteContainerComponent refactor: track but not this milestone (already decomposed)
+- GameStateService desync guard: theoretical, low priority
+- Shiny propagation TODOs: future PR handles, do not touch
+- Bulbagarden CDN dependency: by design (acceptable)
+- Static data bundling: by design (acceptable)
+- Language selector flag rendering: UX note, tracked for future (image-based approach needed)
 
 ### Active Blockers
 
@@ -79,9 +68,9 @@ See: .planning/PROJECT.md (updated 2026-04-17 after v1.0 milestone)
 
 ## Session Continuity
 
-**Last action:** Completed milestone v1.0 — all 6 phases, 11 plans, 175/175 tests green. Milestone archived.
-**Next action:** Run `/gsd-new-milestone` to start Milestone 2 (medium-severity debt).
+**Last action:** Completed Milestone v1.0. Started Milestone v1.1 — gathering requirements.
+**Next action:** Define REQUIREMENTS.md, then `/gsd-plan-phase 7`.
 
 ---
 *State initialized: 2026-04-17*
-*Last updated: 2026-04-17 after v1.0 milestone completion*
+*Last updated: 2026-04-17 after v1.1 milestone start*
