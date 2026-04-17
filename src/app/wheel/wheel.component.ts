@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { WheelItem } from '../interfaces/wheel-item';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { Observable } from 'rxjs';
@@ -25,6 +25,8 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerCtx!: CanvasRenderingContext2D;
   @Input() items: WheelItem[] = [];
   @Output() selectedItemEvent = new EventEmitter<number>();
+  @ViewChild('wheel') wheelCanvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('pointer') pointerCanvasRef!: ElementRef<HTMLCanvasElement>;
   spinning = false;
   darkMode!: Observable<boolean>;
 
@@ -63,9 +65,9 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.wheelCanvas = <HTMLCanvasElement>document.getElementById('wheel');
+    this.wheelCanvas = this.wheelCanvasRef.nativeElement;
     this.wheelCtx = this.wheelCanvas.getContext('2d')!;
-    this.pointerCanvas = <HTMLCanvasElement>document.getElementById('pointer');
+    this.pointerCanvas = this.pointerCanvasRef.nativeElement;
     this.pointerCtx = this.pointerCanvas.getContext('2d')!;
 
     // Wait for translations to be ready
