@@ -20,6 +20,15 @@ import { stickyBattleForms } from './sticky-battle-forms';
 })
 export class TrainerService implements OnDestroy {
 
+  private static readonly DEFAULT_POTION: ItemItem = {
+    text: 'items.potion.name',
+    name: 'potion',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
+    fillStyle: 'purple',
+    weight: 1,
+    description: 'items.potion.description'
+  };
+
   private readonly gameStateSubscription: Subscription;
 
   constructor(private badgesService: BadgesService,
@@ -48,16 +57,7 @@ export class TrainerService implements OnDestroy {
   private readonly temporaryBattleForms = palafinForms;
   private readonly stickyBattleFormGroups = stickyBattleForms;
 
-  trainerItems: ItemItem[] = [
-    {
-      text: 'items.potion.name',
-      name: 'potion',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
-      fillStyle: 'purple',
-      weight: 1,
-      description: 'items.potion.description'
-    }
-  ];
+  trainerItems: ItemItem[] = [structuredClone(TrainerService.DEFAULT_POTION)];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [];
@@ -252,16 +252,7 @@ export class TrainerService implements OnDestroy {
   }
 
   resetItems() {
-    this.trainerItems = [
-      {
-        text: 'items.potion.name',
-        name: 'potion',
-        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
-        fillStyle: 'purple',
-        weight: 1,
-        description: 'items.potion.description'
-      }
-    ];
+    this.trainerItems = [structuredClone(TrainerService.DEFAULT_POTION)];
     this.trainerItemsObservable.next(this.trainerItems);
   }
 
