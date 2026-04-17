@@ -1,14 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThemeSelectorComponent } from './theme-selector.component';
 import { ThemeService, Theme } from '../../services/theme-service/theme.service';
-import { TranslatePipe } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-// Minimal mock for TranslatePipe — returns the key unchanged
-class MockTranslatePipe {
-  transform(key: string): string { return key; }
-}
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ThemeSelectorComponent', () => {
   let component: ThemeSelectorComponent;
@@ -23,19 +16,11 @@ describe('ThemeSelectorComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [ThemeSelectorComponent, CommonModule, FormsModule],
+      imports: [ThemeSelectorComponent, TranslateModule.forRoot()],
       providers: [
         { provide: ThemeService, useValue: mockThemeService },
       ],
-    })
-      .overrideComponent(ThemeSelectorComponent, {
-        set: {
-          imports: [CommonModule, FormsModule],
-          providers: [],
-        },
-      })
-      .overridePipe(TranslatePipe, { set: { transform: (key: string) => key } as never })
-      .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ThemeSelectorComponent);
     component = fixture.componentInstance;
