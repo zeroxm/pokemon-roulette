@@ -112,7 +112,7 @@ export class TrainerService implements OnDestroy {
   }
 
   getTeam(): PokemonItem[] {
-    return this.trainerTeam;
+    return [...this.trainerTeam];
   }
 
   updateTeam(): void {
@@ -120,7 +120,7 @@ export class TrainerService implements OnDestroy {
   }
 
   getStored(): PokemonItem[] {
-    return this.storedPokemon;
+    return [...this.storedPokemon];
   }
 
   getTeamObservable(): Observable<PokemonItem[]> {
@@ -161,7 +161,6 @@ export class TrainerService implements OnDestroy {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
-    pokemonIn = pokemonIn;
     this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
