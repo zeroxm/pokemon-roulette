@@ -1,7 +1,8 @@
-import { Component, inject, Renderer2 } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
+import { ThemeService } from './services/theme-service/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,13 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   title = 'pokemon-roulette';
 
-  constructor(private translate: TranslateService, private renderer: Renderer2) {
+  constructor(
+    private translate: TranslateService,
+    private renderer: Renderer2,
+    // Eagerly instantiate ThemeService so the stored theme is applied on startup,
+    // before any settings panel is opened.
+    _theme: ThemeService,
+  ) {
     const savedLanguage = localStorage.getItem('language') || 'en';
     this.translate.addLangs(['en', 'es', 'fr', 'de', 'it', 'pt']);
     this.translate.setDefaultLang('en');
