@@ -369,6 +369,7 @@
                 }
             },
             "trade": {
+                "title": "Scambio!",
                 "received": "e hai ricevuto un",
                 "sent": "Hai scambiato"
             }

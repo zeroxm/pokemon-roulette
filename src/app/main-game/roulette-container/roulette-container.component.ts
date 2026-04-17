@@ -560,7 +560,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   performTrade(pokemon: PokemonItem): void {
     this.pkmnIn = structuredClone(pokemon);
     this.pkmnOut = this.currentContextPokemon;
-    this.pkmnTradeTitle = "Trade!";
+    this.pkmnTradeTitle = "game.main.trade.title";
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
     this.registerInPokedex(this.pkmnIn);
     this.auxPokemonList = [];

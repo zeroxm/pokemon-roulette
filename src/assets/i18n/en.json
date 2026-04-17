@@ -369,6 +369,7 @@
                 }
             },
             "trade": {
+                "title": "Trade!",
                 "received": "and received a",
                 "sent": "You sent"
             }

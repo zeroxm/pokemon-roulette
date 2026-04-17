@@ -369,6 +369,7 @@
                 }
             },
             "trade": {
+                "title": "Échange\u00a0!",
                 "received": "et reçu un(e)",
                 "sent": "Vous avez envoyé"
             }

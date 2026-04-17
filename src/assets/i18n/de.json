@@ -369,6 +369,7 @@
                 }
             },
             "trade": {
+                "title": "Tausch!",
                 "received": "und erhältst",
                 "sent": "Du tauschst"
             }
