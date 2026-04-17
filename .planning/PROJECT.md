@@ -1,5 +1,17 @@
 # Pokemon Roulette
 
+## Current Milestone: v1.2 — Theming System
+
+**Goal:** Replace the dark/light mode toggle with a named theme selector that ships three themes and migrates all users to the new "Starters" default.
+
+**Target features:**
+- Theme selector dropdown in the settings panel (matches existing UI style)
+- 3 themes: "Starters" (new default), "Plain Dark", "Plain Light"
+- "Starters" = dark-mode styles + `dark-background.png` repeating tile (430×430px)
+- All existing users migrated to "Starters" on first v1.2 load
+
+---
+
 ## Current State: v1.1 Shipped ✅
 
 **Shipped:** 2026-04-17

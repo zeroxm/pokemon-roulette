@@ -1,62 +1,45 @@
-# Requirements: Pokemon Roulette — Milestone v1.1 (Code Quality & Test Coverage)
+# Requirements: Pokemon Roulette — Milestone v1.2 (Theming System)
 
 **Defined:** 2026-04-17
 **Core Value:** The game stays green (compilable, testable, and playable) after every change.
 
 ---
 
-## v1.1 Requirements
+## v1.2 Requirements
 
-### Subscription Cleanup
+### Theme Service
 
-- [x] **SUB-01**: Add `takeUntilDestroyed()` teardown to the subscription in `src/app/restart-game-button/restart-game-button.component.ts:25` — currently created in constructor with no cleanup, causing a memory leak if the component is destroyed and recreated
-- [x] **SUB-02**: Add `takeUntilDestroyed()` teardown to the subscription in `src/app/settings-button/settings-button.component.ts:25` — same pattern as SUB-01; no cleanup on destroy
+- [ ] **THEME-01**: Create a `ThemeService` that manages three named themes — `starters`, `plain-dark`, `plain-light` — and applies the active theme to `document.body` via CSS class. The service must expose `theme$: Observable<Theme>`, `currentTheme: Theme`, and `setTheme(theme: Theme): void`. Persist theme under localStorage key `pokemon-roulette-theme`. Remove old `dark-mode`/`light-mode` body classes when applying new theme classes.
 
-### Internationalization
+- [ ] **THEME-02**: Add CSS class rules for all three themes to the global stylesheet:
+  - `theme-starters`: same color variables as current `dark-mode` (white fonts, dark backgrounds) PLUS `background-image: url('/dark-background.png'); background-size: 430px 430px; background-repeat: repeat;` on body
+  - `theme-plain-dark`: identical to current `dark-mode` class behavior — no background image
+  - `theme-plain-light`: identical to current `light-mode` class behavior
 
-- [x] **I18N-01**: Replace the hardcoded English string `this.pkmnTradeTitle = "Trade!"` in `src/app/main-game/roulette-container/roulette-container.component.ts:572` with a `TranslateService.instant()` call using an appropriate i18n key (e.g. `roulette.tradeTitle`), and add the key to all 6 locale JSON files (`en`, `es`, `fr`, `de`, `it`, `pt`)
+### Theme Selector Component
 
-### DOM Access
+- [ ] **THEME-03**: Create a standalone `ThemeSelectorComponent` rendering a labeled `<select>` dropdown with 3 theme options. Reads current theme from `ThemeService`, calls `setTheme()` on change, uses i18n keys, matches settings panel layout style (`d-flex justify-content-between`). Replace `<app-dark-mode-toggle>` in `settings.component.html`.
 
-- [x] **DOM-01**: Replace `document.getElementById('wheel')` and `document.getElementById('pointer')` in `src/app/wheel/wheel.component.ts:66–68` with `@ViewChild` template references, making canvas access Angular-idiomatic and instance-safe
+### Internationalisation
 
-### Defensive Programming
+- [ ] **THEME-04**: Add theme i18n keys to all 6 locale files (en, es, fr, de, it, pt):
+  - `settings.theme.label`: "Theme" / "Tema" / "Theme" / "Thema" / "Tema" / "Tema"
+  - `settings.theme.starters`: "Starters" (all locales — proper noun)
+  - `settings.theme.plainDark`: "Plain Dark" / "Oscuro Simple" / "Sombre Classique" / "Einfaches Dunkel" / "Scuro Semplice" / "Escuro Simples"
+  - `settings.theme.plainLight`: "Plain Light" / "Claro Simple" / "Clair Classique" / "Einfaches Hell" / "Chiaro Semplice" / "Claro Simples"
 
-- [x] **BADGE-01**: Add a bounds check in `src/app/services/badges-service/badges.service.ts` before `this.badgesByGeneration[generation.id][fromRound]` — guard against undefined (out-of-range round index) and log a warning rather than silently returning undefined
-- [x] **CLEAN-01**: Remove the self-assignment no-op `pokemonIn = pokemonIn;` at `src/app/services/trainer-service/trainer.service.ts:164` — dead code from a refactor, misleading about method intent
+### Migration
 
-### Performance
-
-- [x] **LOOKUP-01**: Build a persistent `Map<number, PokemonItem>` at construction time in `src/app/services/pokemon-service/pokemon.service.ts` and use it in `getPokemonById()`, replacing the current `Array.find()` O(n) scan over 14k+ entries on every call
-
-### Component Architecture
-
-- [x] **BATTLE-01**: Extract a `BaseBattleRouletteComponent` that centralizes the common subscription setup (`generationSubscription`, `teamSubscription`, `gameSubscription`), `calcVictoryOdds()` logic, item-use boilerplate, and modal patterns shared verbatim across `GymBattleRouletteComponent`, `EliteFourBattleRouletteComponent`, `ChampionBattleRouletteComponent`, and `RivalBattleRouletteComponent`
-
-### Data Integrity
-
-- [x] **IMMUT-01**: Fix `TrainerService` mutable array exposure — `getTeam()` and related accessors should return a copy of `trainerTeam` and `storedPokemon` rather than live references, so external mutation cannot bypass the `BehaviorSubject` notification chain
-
-### Game State
-
-- [x] **STATE-01**: Refactor `GameStateService.initializeStates()` to build the state stack from generation-specific data (gym count, elite four size) rather than a hardcoded flat array — adding a new generation's gym count should not require manual position counting in a fixed array
-
-### Test Coverage
-
-- [x] **TEST-01**: Write meaningful unit tests for battle roulette logic — victory odds calculation (`calcVictoryOdds()`), type-matchup integration, item-use paths, and leader selection logic for at least `GymBattleRouletteComponent` and `EliteFourBattleRouletteComponent`
-- [x] **TEST-02**: Write unit tests for `RouletteContainerComponent` core flows — `chooseWhoWillEvolve()` all 9 branches, `stealPokemon()`, `tradePokemon()`, `handleRareCandyEvolution()`, and at least 2 item-activation paths
-- [x] **TEST-03**: Write service-layer unit tests covering: `TrainerService` battle form transformations (`applyBattleForms`, `revertBattleForms`), `GameStateService` state transition validation, and `PokedexService` shiny flag edge cases (`SHINY-01` through `SHINY-03` scenarios)
+- [ ] **THEME-05**: On `ThemeService` construction, if `localStorage` does not contain `pokemon-roulette-theme`, default to `starters` — silently migrating all existing users (who only have old `dark-mode` key) to the new default.
 
 ---
 
 ## Future Requirements (Deferred)
 
-- Language selector image-based flags (Windows emoji rendering issue) — visual UX improvement, image assets needed
-- `RouletteContainerComponent` full refactor — track but defer (already significantly decomposed)
-- `GameStateService` desync guard — theoretical risk, very low probability in practice
-- Game state persistence — by design (in-memory acceptable)
-- Bulbagarden CDN retry/fallback — by design (acceptable dependency)
-- Static data lazy-loading — by design (bundle size acceptable)
+- Language selector image-based flags — needs image assets
+- `RouletteContainerComponent` full refactor — tracked, not urgent
+- Shiny propagation TODO cleanup — future PR
+- Additional themes (generation-specific backgrounds) — after Starters ships
 
 ---
 
@@ -64,12 +47,10 @@
 
 | Feature | Reason |
 |---------|--------|
-| Game state persistence | By design — in-memory is acceptable for this game type |
-| RouletteContainerComponent refactor | Track but not this milestone — already significantly decomposed |
-| GameStateService desync guard | Theoretical, very low probability in practice |
-| Bulbagarden CDN fallback | By design — acceptable external dependency |
-| Static data lazy-loading | By design — bundle size acceptable |
-| Shiny propagation TODO cleanup | Future PR handles it — do not touch |
+| Theme preview in selector | Scope — dropdown is sufficient |
+| System-preference auto-detect for new theme | By design — Starters is always default |
+| `DarkModeService` removal | Deferred — service stays, only toggle component is replaced |
+| Additional themes beyond 3 | Deferred — v1.3+ backlog |
 
 ---
 
@@ -77,21 +58,13 @@
 
 | Requirement | Phase | Status | Phase Name |
 |-------------|-------|--------|------------|
-| SUB-01 | 7 | ✅ Complete | Component Hygiene |
-| SUB-02 | 7 | ✅ Complete | Component Hygiene |
-| I18N-01 | 7 | ✅ Complete | Component Hygiene |
-| DOM-01 | 7 | ✅ Complete | Component Hygiene |
-| BADGE-01 | 8 | ✅ Complete | Service Hardening |
-| CLEAN-01 | 8 | ✅ Complete | Service Hardening |
-| LOOKUP-01 | 8 | ✅ Complete | Service Hardening |
-| BATTLE-01 | 9 | ✅ Complete | Battle Architecture Refactor |
-| IMMUT-01 | 8 | ✅ Complete | Service Hardening |
-| STATE-01 | 8 | ✅ Complete | Service Hardening |
-| TEST-01 | 10 | ✅ Complete | Test Coverage |
-| TEST-02 | 10 | ✅ Complete | Test Coverage |
-| TEST-03 | 10 | ✅ Complete | Test Coverage |
+| THEME-01 | — | Pending | TBD |
+| THEME-02 | — | Pending | TBD |
+| THEME-03 | — | Pending | TBD |
+| THEME-04 | — | Pending | TBD |
+| THEME-05 | — | Pending | TBD |
 
-**v1.1 requirements defined: 13 total**
+**v1.2 requirements defined: 5 total**
 
 ---
 *Requirements defined: 2026-04-17*
