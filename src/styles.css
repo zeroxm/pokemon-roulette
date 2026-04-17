@@ -14,6 +14,26 @@ body.light-mode {
   color: #2d3436;
 }
 
+/* ── Theming System (Phase 11) ─────────────────────────────────────────────── */
+
+body.theme-starters {
+  background-color: #2d3436;
+  color: #dfe6e9;
+  background-image: url('/dark-background.png');
+  background-size: 430px 430px;
+  background-repeat: repeat;
+}
+
+body.theme-plain-dark {
+  background-color: #2d3436;
+  color: #dfe6e9;
+}
+
+body.theme-plain-light {
+  background-color: #dfe6e9;
+  color: #2d3436;
+}
+
 .row {
   margin-left: 0px;
   margin-right: 0px;
