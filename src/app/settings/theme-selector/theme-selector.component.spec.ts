@@ -32,24 +32,31 @@ describe('ThemeSelectorComponent', () => {
   });
 
   it('should inject ThemeService', () => {
-    expect(component.themeService).toBeTruthy();
+    expect(TestBed.inject(ThemeService)).toBeTruthy();
   });
 
   it('should return currentTheme from ThemeService', () => {
     expect(component.currentTheme).toBe('starters');
   });
 
-  it('should call setTheme when select changes', () => {
+  it('should call setTheme when select changes to plain-dark', () => {
     const selectEl = fixture.nativeElement.querySelector('select') as HTMLSelectElement;
     selectEl.value = 'plain-dark';
     selectEl.dispatchEvent(new Event('change'));
     expect(mockThemeService.setTheme).toHaveBeenCalledWith('plain-dark');
   });
 
-  it('should call setTheme with plain-light on change', () => {
+  it('should call setTheme when select changes to plain-light', () => {
     const selectEl = fixture.nativeElement.querySelector('select') as HTMLSelectElement;
     selectEl.value = 'plain-light';
     selectEl.dispatchEvent(new Event('change'));
     expect(mockThemeService.setTheme).toHaveBeenCalledWith('plain-light');
+  });
+
+  it('should call setTheme when select changes to starters', () => {
+    const selectEl = fixture.nativeElement.querySelector('select') as HTMLSelectElement;
+    selectEl.value = 'starters';
+    selectEl.dispatchEvent(new Event('change'));
+    expect(mockThemeService.setTheme).toHaveBeenCalledWith('starters');
   });
 });

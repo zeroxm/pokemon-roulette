@@ -4,22 +4,11 @@
   </label>
   <select
     class="form-select form-select-sm w-auto"
+    [ngModel]="currentTheme"
     (change)="onThemeChange($event)"
     [attr.aria-label]="'settings.theme.label' | translate">
-    <option
-      value="starters"
-      [selected]="currentTheme === 'starters'">
-      {{ 'settings.theme.starters' | translate }}
-    </option>
-    <option
-      value="plain-dark"
-      [selected]="currentTheme === 'plain-dark'">
-      {{ 'settings.theme.plainDark' | translate }}
-    </option>
-    <option
-      value="plain-light"
-      [selected]="currentTheme === 'plain-light'">
-      {{ 'settings.theme.plainLight' | translate }}
-    </option>
+    <option value="starters">{{ 'settings.theme.starters' | translate }}</option>
+    <option value="plain-dark">{{ 'settings.theme.plainDark' | translate }}</option>
+    <option value="plain-light">{{ 'settings.theme.plainLight' | translate }}</option>
   </select>
 </div>
