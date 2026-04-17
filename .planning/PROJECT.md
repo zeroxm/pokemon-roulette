@@ -1,6 +1,84 @@
 # Pokemon Roulette
 
-## Current Milestone: v1.1 Code Quality & Test Coverage
+## Current State: v1.1 Shipped ✅
+
+**Shipped:** 2026-04-17
+**Tests:** 217 passing (Karma/Jasmine, ChromeHeadless)
+**Branch:** 30-better-graphics
+
+Milestone v1.1 (Code Quality & Test Coverage) is complete. All 13 requirements delivered across 4 phases, 12 plans. The codebase now has meaningful automated test coverage of critical game logic and all medium-severity structural concerns have been addressed.
+
+---
+
+## Next Milestone Planning
+
+Run `/gsd-new-milestone` to define v1.2 goals and requirements.
+
+Candidates from the deferred backlog:
+- Language selector image-based flags (visual UX, needs image assets)
+- UI/graphics improvements (scoped for this branch)
+- `RouletteContainerComponent` further decomposition (tracked, not urgent)
+- Shiny propagation TODO cleanup (future PR)
+
+---
+
+<details>
+<summary>v1.1 Milestone Context (archived)</summary>
+
+## Previous Milestone: v1.1 Code Quality & Test Coverage
+
+**Goal:** Address all medium-severity code quality concerns from the codebase audit and fill the test coverage gap so core game logic has meaningful assertions.
+
+**Delivered:**
+- Fix leaked subscriptions in restart-game-button and settings-button (takeUntilDestroyed)
+- Fix hardcoded "Trade!" string — moved to i18n translation key (6 locales)
+- Fix WheelComponent DOM access — replaced document.getElementById with @ViewChild
+- Add bounds check to BadgesService round index access
+- Remove TrainerService self-assignment no-op
+- Extract BaseBattleRouletteComponent — eliminated 454 lines of duplication
+- Build persistent Map in PokemonService for O(1) getPokemonById() lookups
+- Fix TrainerService mutable arrays — return copies, protect BehaviorSubject chain
+- Refactor hardcoded game state stack in GameStateService to data-driven approach
+- +40 tests: battle odds, roulette flow branches, service state transitions, shiny edge cases
+
+---
+
+</details>
+
+<details>
+<summary>v1.0 Milestone Context (archived)</summary>
+
+## What This Is
+
+A browser-based Pokemon roulette game built with Angular 21. Players spin randomized wheels to
+determine their Pokemon team, battles, and adventure path through a generation of their choice.
+The codebase has been through a full low-severity debt cleanup pass (v1.0), leaving a clean base
+for the next phase of structural refactoring.
+
+## Core Value
+
+The game must stay green (compilable, testable, and playable) after every change — no concern fix
+should introduce a regression.
+
+## Context
+
+This is the "better-graphics" branch, scoped for major UI and code refactoring.
+Milestone v1.0 complete: 11 low-severity concerns resolved (dead code, typo, constants, type safety, RxJS, perf, analytics).
+
+Codebase: Angular 21, TypeScript strict mode, 217 unit tests (Karma/Jasmine).
+CI: GitHub Actions — `npm ci` → `ng build` → `ng test --watch=false --browsers=ChromeHeadless`.
+
+## Constraints
+
+- **Tech Stack**: Angular 21 + TypeScript strict mode — no framework changes
+- **Compatibility**: Must pass the existing GitHub Actions CI pipeline after each phase
+- **Safety**: Each concern fix committed atomically; system stays buildable and testable
+
+</details>
+
+---
+
+*Last updated: 2026-04-17 after v1.1 milestone completion*
 
 **Goal:** Address all real medium-severity concerns from the codebase audit and fill the test coverage gap so core game logic has meaningful assertions.
 

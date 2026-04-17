@@ -21,14 +21,19 @@ Full details: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-R
 
 </details>
 
----
+<details>
+<summary>✅ v1.1 Code Quality & Test Coverage (Phases 7-10) — SHIPPED 2026-04-17</summary>
 
-## v1.1 Code Quality & Test Coverage (Phases 7–10)
+- [x] Phase 7: Component Hygiene (3/3 plans) — SUB-01, SUB-02, DOM-01, I18N-01 — completed 2026-04-17
+- [x] Phase 8: Service Hardening (4/4 plans) — BADGE-01, CLEAN-01, LOOKUP-01, IMMUT-01, STATE-01 — completed 2026-04-17
+- [x] Phase 9: Battle Architecture Refactor (2/2 plans) — BATTLE-01 — completed 2026-04-17
+- [x] Phase 10: Test Coverage (3/3 plans) — TEST-01, TEST-02, TEST-03 — completed 2026-04-17
 
-- [x] **Phase 7: Component Hygiene** (3 plans) — SUB-01, SUB-02, DOM-01, I18N-01 — completed 2026-04-17
-- [x] **Phase 8: Service Hardening** (4 plans) — BADGE-01, CLEAN-01, LOOKUP-01, IMMUT-01, STATE-01 — completed 2026-04-17
-- [x] **Phase 9: Battle Architecture Refactor** (2 plans) — BATTLE-01 — completed 2026-04-17
-- [x] **Phase 10: Test Coverage** (3 plans) — TEST-01, TEST-02, TEST-03 — completed 2026-04-17
+Tests: 177 → 217 (+40) | Files: 64 changed | LOC: +5,631/-530
+
+Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-ROADMAP.md)
+
+</details>
 
 ---
 
@@ -91,7 +96,7 @@ Full details: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-R
 | 7. Component Hygiene | v1.1 | 3/3 | Complete | 2026-04-17 |
 | 8. Service Hardening | v1.1 | 4/4 | Complete | 2026-04-17 |
 | 9. Battle Architecture Refactor | v1.1 | 2/2 | Complete | 2026-04-17 |
-| 10. Test Coverage | v1.1 | 0/? | Pending | - |
+| 10. Test Coverage | v1.1 | 3/3 | Complete | 2026-04-17 |
 
 ---
 
