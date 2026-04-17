@@ -18,7 +18,7 @@ export class PokemonService {
   }
 
   private apiBaseUrl = 'https://pokeapi.co/api/v2';
-  nationalDexPokemon = nationalDexPokemon;
+  readonly nationalDexPokemon = nationalDexPokemon;
 
   /**
    * Fetches the sprites for a given Pokémon by ID.

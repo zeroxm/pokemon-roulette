@@ -116,7 +116,7 @@ export class TrainerService implements OnDestroy {
   }
 
   updateTeam(): void {
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   getStored(): PokemonItem[] {
@@ -235,6 +235,7 @@ export class TrainerService implements OnDestroy {
 
   addBadge(fromRound: number, fromLeader: number = 0): void {
     this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound, fromLeader).subscribe(badge => {
+      if (badge === undefined) return;
       this.trainerBadges.push(badge);
       this.trainerBadgesObservable.next(this.trainerBadges);
     })

@@ -26,6 +26,12 @@ export class BadgesService {
     let badge = this.badgesByGeneration[generation.id][fromRound];
 
     if (Array.isArray(badge)) {
+      if (fromLeader < 0 || fromLeader >= badge.length) {
+        console.warn(
+          `BadgesService.getBadge: fromLeader ${fromLeader} out of range for generation ${generation.id} round ${fromRound}`
+        );
+        return of(undefined as unknown as Badge);
+      }
       badge = badge[fromLeader];
     }
 
