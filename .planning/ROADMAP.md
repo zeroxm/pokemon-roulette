@@ -3,7 +3,8 @@
 ## Milestones
 
 - ✅ **v1.0 Low-Severity Debt** — Phases 1-6 (shipped 2026-04-17)
-- 🔄 **v1.1 Code Quality & Test Coverage** — Phases 7-10 (active)
+- ✅ **v1.1 Code Quality & Test Coverage** — Phases 7-10 (shipped 2026-04-17)
+- 🔄 **v1.2 Theming System** — Phase 11 (active)
 
 ## Phases
 
@@ -34,6 +35,10 @@ Tests: 177 → 217 (+40) | Files: 64 changed | LOC: +5,631/-530
 Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-ROADMAP.md)
 
 </details>
+
+### v1.2 Theming System
+
+- [ ] **Phase 11: Theming System** — Full theme infrastructure, selector UI, and i18n in one deliverable
 
 ---
 
@@ -81,6 +86,19 @@ Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-R
   3. `TrainerService` battle-form transitions, `GameStateService` state transitions, and `PokedexService` shiny edge cases each have passing unit tests; `ng test` exits green with no skipped specs
 **Plans**: TBD
 
+### Phase 11: Theming System
+**Goal**: Users can select a visual theme for the game — Starters (dark + Pokémon tile background), Plain Dark, or Plain Light — and their preference is remembered across sessions.
+**Depends on**: Phase 10
+**Requirements**: THEME-01, THEME-02, THEME-03, THEME-04, THEME-05
+**Success Criteria** (what must be TRUE):
+  1. Opening the app for the first time (no prior theme stored) shows the Starters theme — dark colors with the repeating `dark-background.png` tile — without any user action
+  2. A labeled Theme dropdown is visible in the Settings panel; selecting a different theme applies the new visual appearance immediately, without a page reload
+  3. Switching to Plain Dark renders the dark color scheme with no background image; switching to Plain Light renders the light color scheme — both matching the existing `dark-mode` / `light-mode` styles exactly
+  4. Reloading the page preserves the last-selected theme (persisted under `pokemon-roulette-theme` in localStorage); the old `dark-mode` key has no effect on theme selection
+  5. The Theme dropdown label and all three option labels are translated correctly in all 6 supported locales (en, es, fr, de, it, pt)
+**Plans**: TBD
+**UI hint**: yes
+
 ---
 
 ## Progress Table
@@ -97,7 +115,8 @@ Full details: [.planning/milestones/v1.1-ROADMAP.md](.planning/milestones/v1.1-R
 | 8. Service Hardening | v1.1 | 4/4 | Complete | 2026-04-17 |
 | 9. Battle Architecture Refactor | v1.1 | 2/2 | Complete | 2026-04-17 |
 | 10. Test Coverage | v1.1 | 3/3 | Complete | 2026-04-17 |
+| 11. Theming System | v1.2 | 0/2 | Not started | — |
 
 ---
 
-*Roadmap last updated: 2026-04-17 after v1.0 milestone completion | v1.1 phases added*
+*Roadmap last updated: 2026-04-17 — v1.2 Theming System phase added (Phase 11)*

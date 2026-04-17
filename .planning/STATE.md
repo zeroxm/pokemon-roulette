@@ -5,9 +5,9 @@ milestone_name: Theming System
 status: active
 last_updated: "2026-04-17T21:11:56.000Z"
 progress:
-  total_phases: 0
+  total_phases: 1
   completed_phases: 0
-  total_plans: 0
+  total_plans: 2
   completed_plans: 0
 ---
 
@@ -25,14 +25,16 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ## Status
 
 **Active milestone:** v1.2 Theming System
-**Active phase:** Not started (roadmap being defined)
+**Active phase:** Phase 11 — Theming System (Not started)
 **Branch:** 30-better-graphics
 
 ---
 
 ## Phase Summary
 
-*(Phases will be added by roadmapper)*
+| Phase | Plans | Status |
+|-------|-------|--------|
+| 11. Theming System | 0/2 | Not started |
 
 ---
 

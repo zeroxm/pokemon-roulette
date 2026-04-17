@@ -58,11 +58,11 @@
 
 | Requirement | Phase | Status | Phase Name |
 |-------------|-------|--------|------------|
-| THEME-01 | — | Pending | TBD |
-| THEME-02 | — | Pending | TBD |
-| THEME-03 | — | Pending | TBD |
-| THEME-04 | — | Pending | TBD |
-| THEME-05 | — | Pending | TBD |
+| THEME-01 | 11 | Pending | Theming System |
+| THEME-02 | 11 | Pending | Theming System |
+| THEME-03 | 11 | Pending | Theming System |
+| THEME-04 | 11 | Pending | Theming System |
+| THEME-05 | 11 | Pending | Theming System |
 
 **v1.2 requirements defined: 5 total**
 
