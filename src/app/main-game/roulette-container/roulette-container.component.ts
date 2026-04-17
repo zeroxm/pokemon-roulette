@@ -93,7 +93,6 @@ import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemo
 })
 export class RouletteContainerComponent implements OnInit, OnDestroy {
 
-    NINCADA_ID = 290;
     @Output() resetGameEvent = new EventEmitter<void>();
 
     private destroyRef = inject(DestroyRef);
@@ -744,7 +743,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
-    } else if (pokemon.pokemonId === this.NINCADA_ID) {
+    } else if (this.evolutionService.isNincadaSpecialEvolution(pokemon)) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.trainerService.addToTeam(pokemonEvolutions[1]);
       this.registerInPokedex(pokemonEvolutions[1]);
