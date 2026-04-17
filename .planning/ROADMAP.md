@@ -28,7 +28,7 @@ Full details: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-R
 - [x] **Phase 7: Component Hygiene** (3 plans) — SUB-01, SUB-02, DOM-01, I18N-01 — completed 2026-04-17
 - [x] **Phase 8: Service Hardening** (4 plans) — BADGE-01, CLEAN-01, LOOKUP-01, IMMUT-01, STATE-01 — completed 2026-04-17
 - [x] **Phase 9: Battle Architecture Refactor** (2 plans) — BATTLE-01 — completed 2026-04-17
-- [ ] **Phase 10: Test Coverage** (? plans) — TEST-01, TEST-02, TEST-03
+- [x] **Phase 10: Test Coverage** (3 plans) — TEST-01, TEST-02, TEST-03 — completed 2026-04-17
 
 ---
 
