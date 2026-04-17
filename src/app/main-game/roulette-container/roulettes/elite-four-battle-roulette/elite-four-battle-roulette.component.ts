@@ -1,22 +1,20 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { eliteFourByGeneration } from './elite-four-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subscription, take } from 'rxjs';
+import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { GenerationItem } from '../../../../interfaces/generation-item';
-import { PokemonItem } from '../../../../interfaces/pokemon-item';
-import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemon-type';
+import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
@@ -28,84 +26,41 @@ import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemo
   templateUrl: './elite-four-battle-roulette.component.html',
   styleUrl: './elite-four-battle-roulette.component.css'
 })
-export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
+export class EliteFourBattleRouletteComponent extends BaseBattleRouletteComponent {
 
   eliteFourByGeneration = eliteFourByGeneration;
-
-  constructor(private modalService: NgbModal,
-    private modalQueueService: ModalQueueService,
-    private gameStateService: GameStateService,
-    private generationService: GenerationService,
-    private trainerService: TrainerService,
-    private translate: TranslateService,
-    private typeMatchupService: TypeMatchupService
-  ) { }
-
-  private gameSubscription: Subscription | null = null;
-  private generationSubscription: Subscription | null = null;
 
   @ViewChild('eliteFourPresentationModal', { static: true }) eliteFourPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
 
-  generation!: GenerationItem;
-  trainerTeam!: PokemonItem[];
-  trainerItems!: ItemItem[];
   @Input() currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
   @Output() fromEliteChange = new EventEmitter<number>();
 
-  victoryOdds: WheelItem[] = [
-    { text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 },
-    { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 }
-  ];
-
   currentElite!: GymLeader;
-  currentItem!: ItemItem;
-  retries = 0;
-  private teamSubscription!: Subscription;
-  private currentGameState = '';
   advantageLabel: 'overwhelming' | 'advantage' | 'disadvantage' | null = null;
   advantageLabelKey = '';
   matchupAdvantageTypes: PokemonType[] = [];
   matchupDisadvantageTypes: PokemonType[] = [];
   strongCount = 0;
   weakCount = 0;
+
   private readonly typeIconBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
 
-  ngOnInit(): void {
-    this.generationSubscription = this.generationService.getGeneration().subscribe(gen => {
-      this.generation = gen;
-    });
-
-    this.trainerItems = this.trainerService.getItems();
-
-    this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
-      this.trainerTeam = team;
-      this.calcVictoryOdds();
-    });
-
-    this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
-      this.currentGameState = state;
-      if (state === 'elite-four-battle') {
-        this.getCurrentElite();
-        this.calcVictoryOdds();
-
-        this.modalQueueService.open(this.eliteFourPresentationModal, {
-          centered: true,
-          size: 'lg'
-        });
-      }
-    });
+  constructor(
+    modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
+    gameStateService: GameStateService,
+    generationService: GenerationService,
+    trainerService: TrainerService,
+    translate: TranslateService,
+    private typeMatchupService: TypeMatchupService
+  ) {
+    super(modalService, gameStateService, generationService, trainerService, translate);
   }
 
-  ngOnDestroy(): void {
-      this.gameSubscription?.unsubscribe();
-      this.generationSubscription?.unsubscribe();
-      this.teamSubscription?.unsubscribe();
-  }
-
-  closeModal(): void {
-    this.modalService.dismissAll();
+  getTypeIconUrl(type: PokemonType): string {
+    return `${this.typeIconBaseUrl}/${pokemonTypeDataByKey[type].id}.png`;
   }
 
   onItemSelected(index: number): void {
@@ -116,7 +71,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
       if (this.retries <= 0) {
         const potion = this.hasPotions();
         if (potion) {
-          this.usePotion(potion);
+          this.usePotion(potion, () => this.modalQueueService.open(this.itemUsedModal, { centered: true, size: 'md' }));
         } else {
           this.battleResultEvent.emit(false);
         }
@@ -124,22 +79,29 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     }
   }
 
-  private calcVictoryOdds(): void {
+  protected override onGameStateChange(state: string): void {
+    if (state === 'elite-four-battle') {
+      this.getCurrentElite();
+      this.calcVictoryOdds();
+      this.modalQueueService.open(this.eliteFourPresentationModal, { centered: true, size: 'lg' });
+    }
+  }
+
+  protected override calcVictoryOdds(): void {
     const yesOdds: WheelItem[] = [];
     const noOdds: WheelItem[] = [];
 
-    yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+    yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
 
     this.trainerTeam.forEach(pokemon => {
       for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+        yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
       }
     });
 
     const powerModifier = this.plusModifiers();
-  
     for (let i = 0; i < powerModifier; i++) {
-      yesOdds.push({ text: "game.main.roulette.elite.yes", fillStyle: "green", weight: 1 });
+      yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
     }
 
     if (this.currentElite?.types?.length) {
@@ -150,6 +112,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
       this.strongCount = strongCount;
       this.weakCount = weakCount;
       this.advantageLabel = this.typeMatchupService.getAdvantageLabel(strongCount, weakCount);
+
       if (this.advantageLabel === 'overwhelming') {
         for (let i = 0; i < 3; i++) yesOdds.push({ text: 'game.main.roulette.elite.yes', fillStyle: 'green', weight: 1 });
       } else if (this.advantageLabel === 'advantage') {
@@ -158,6 +121,7 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         const extraNo = weakCount > 3 ? 2 : 1;
         for (let i = 0; i < extraNo; i++) noOdds.push({ text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 });
       }
+
       this.advantageLabelKey = this.advantageLabel
         ? `game.main.roulette.gym.typeAdvantage.${this.advantageLabel}`
         : '';
@@ -177,32 +141,19 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
     }
 
     for (let index = 0; index < this.currentRound; index++) {
-      noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
+      noOdds.push({ text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 });
     }
-    // elite four battles should be harder, so it starts with 2 noOdds
-    noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
-    noOdds.push({ text: "game.main.roulette.elite.no", fillStyle: "crimson", weight: 1 });
+    // Elite four battles should be harder, so it starts with 2 noOdds
+    noOdds.push({ text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 });
+    noOdds.push({ text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 });
 
     this.victoryOdds = interleaveOdds(yesOdds, noOdds);
   }
 
-  private plusModifiers(): number {
-    let power = 0;
-    const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
-    xAttacks.forEach(() => {
-      const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
-      power += meanPower;
-    });
-
-    return power;
-  }
-
   private getCurrentElite(): void {
+    this.currentElite = this.eliteFourByGeneration[this.generation.id][this.currentRound % 4];
 
-    this.currentElite = this.eliteFourByGeneration[this.generation.id][this.currentRound%4];
-
-    if ((this.generation.id === 8 && (this.currentRound%4 === 0 || this.currentRound%4 === 2))) {
-
+    if (this.generation.id === 8 && (this.currentRound % 4 === 0 || this.currentRound % 4 === 2)) {
       const eliteTypes = Array.isArray(this.currentElite.types) ? this.currentElite.types : undefined;
 
       this.translate.get(this.currentElite.name).pipe(take(1)).subscribe(translated => {
@@ -223,42 +174,5 @@ export class EliteFourBattleRouletteComponent implements OnInit, OnDestroy {
         this.calcVictoryOdds();
       });
     }
-  }
-
-  private hasPotions(): ItemItem | undefined {
-    const potionItem = this.trainerItems.find(item =>
-      item.name === 'potion' || item.name === 'super-potion' || item.name === 'hyper-potion'
-    );
-    return potionItem;
-  }
-
-  private usePotion(potion: ItemItem): void {
-    const index = this.trainerItems.indexOf(potion);
-    this.currentItem = potion;
-    if (index !== -1) {
-      this.trainerItems.splice(index, 1);
-      this.trainerService.removeItem(potion);
-    }
-
-    switch (potion.name) {
-      case 'potion':
-        this.retries = 1;
-        break;
-      case 'super-potion':
-        this.retries = 2;
-        break;
-      case 'hyper-potion':
-        this.retries = 3;
-        break;
-    }
-
-    this.modalQueueService.open(this.itemUsedModal, {
-      centered: true,
-      size: 'md'
-    });
-  }
-
-  getTypeIconUrl(type: PokemonType): string {
-    return `${this.typeIconBaseUrl}/${pokemonTypeDataByKey[type].id}.png`;
   }
 }
