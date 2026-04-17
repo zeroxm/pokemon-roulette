@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ItemName } from '../items-service/item-names';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,6 @@ export class ItemSpriteService {
   };
 
   getItemSprite(itemName: ItemName): Observable<{ sprite: string }> {
-    return new Observable(observer => {
-      observer.next(this.itemSpriteData[itemName]);
-      observer.complete();
-    });
+    return of(this.itemSpriteData[itemName]);
   }
 }
