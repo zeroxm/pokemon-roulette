@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GenerationItem } from '../../interfaces/generation-item';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { badgesByGeneration } from './badges-data';
 import { Badge } from '../../interfaces/badge';
 
@@ -21,9 +21,6 @@ export class BadgesService {
       badge = badge[fromLeader];
     }
 
-    return new Observable(observer => {
-      observer.next(badge);
-      observer.complete();
-    });
+    return of(badge);
   }
 }
