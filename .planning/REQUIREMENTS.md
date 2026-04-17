@@ -44,7 +44,7 @@
 ### Test Coverage
 
 - [ ] **TEST-01**: Write meaningful unit tests for battle roulette logic — victory odds calculation (`calcVictoryOdds()`), type-matchup integration, item-use paths, and leader selection logic for at least `GymBattleRouletteComponent` and `EliteFourBattleRouletteComponent`
-- [ ] **TEST-02**: Write unit tests for `RouletteContainerComponent` core flows — `chooseWhoWillEvolve()` all 9 branches, `stealPokemon()`, `tradePokemon()`, `handleRareCandyEvolution()`, and at least 2 item-activation paths
+- [x] **TEST-02**: Write unit tests for `RouletteContainerComponent` core flows — `chooseWhoWillEvolve()` all 9 branches, `stealPokemon()`, `tradePokemon()`, `handleRareCandyEvolution()`, and at least 2 item-activation paths
 - [ ] **TEST-03**: Write service-layer unit tests covering: `TrainerService` battle form transformations (`applyBattleForms`, `revertBattleForms`), `GameStateService` state transition validation, and `PokedexService` shiny flag edge cases (`SHINY-01` through `SHINY-03` scenarios)
 
 ---
@@ -88,7 +88,7 @@
 | IMMUT-01 | — | Pending | TBD |
 | STATE-01 | — | Pending | TBD |
 | TEST-01 | — | Pending | TBD |
-| TEST-02 | — | Pending | TBD |
+| TEST-02 | — | Complete | TBD |
 | TEST-03 | — | Pending | TBD |
 
 **v1.1 requirements defined: 13 total**
