@@ -123,7 +123,7 @@ export class EliteFourBattleRouletteComponent extends BaseBattleRouletteComponen
       }
 
       this.advantageLabelKey = this.advantageLabel
-        ? `game.main.roulette.gym.typeAdvantage.${this.advantageLabel}`
+        ? `game.main.roulette.elite.typeAdvantage.${this.advantageLabel}`
         : '';
       const { advantageTypes, disadvantageTypes } = this.typeMatchupService.getMatchupTypes(
         this.trainerTeam,

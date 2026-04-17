@@ -20,7 +20,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
 
   private gameSubscription: Subscription | null = null;
   private generationSubscription: Subscription | null = null;
-  private teamSubscription!: Subscription;
+  private teamSubscription: Subscription | null = null;
 
   constructor(
     protected readonly modalService: NgbModal,
