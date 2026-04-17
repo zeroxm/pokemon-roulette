@@ -26,9 +26,12 @@ describe('PokedexComponent', () => {
     pokedexServiceSpy = jasmine.createSpyObj('PokedexService', [], {
       pokedex$: of({ caught: { '25': { won: true, sprite: 'url.png' } } })
     });
-    generationServiceSpy = jasmine.createSpyObj('GenerationService', ['getGeneration']);
+    generationServiceSpy = jasmine.createSpyObj('GenerationService', ['getGeneration', 'getCurrentGeneration']);
     generationServiceSpy.getGeneration.and.returnValue(
       of({ id: 1, text: 'Gen 1', region: 'Kanto', fillStyle: 'darkred', weight: 1 })
+    );
+    generationServiceSpy.getCurrentGeneration.and.returnValue(
+      { id: 1, text: 'Gen 1', region: 'Kanto', fillStyle: 'darkred', weight: 1 }
     );
     pokemonServiceSpy = jasmine.createSpyObj('PokemonService', [], {
       nationalDexPokemon: [{ pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 }]

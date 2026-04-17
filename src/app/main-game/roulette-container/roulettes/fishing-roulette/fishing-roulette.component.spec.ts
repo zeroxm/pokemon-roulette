@@ -38,7 +38,8 @@ describe('FishingRouletteComponent', () => {
         {
           provide: GenerationService,
           useValue: {
-            getGeneration: () => generationSubject.asObservable()
+            getGeneration: () => generationSubject.asObservable(),
+            getCurrentGeneration: () => generationSubject.getValue()
           }
         },
         {
