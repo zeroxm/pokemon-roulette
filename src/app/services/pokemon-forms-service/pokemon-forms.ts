@@ -353,6 +353,14 @@ export const pokemonForms: Record<number, PokemonForm[]> = {
     ],
     80: [
         {
+            pokemonId: 80,
+            text: "pokemon.slowbro",
+            fillStyle: "pink",
+            type1: "water",
+            type2: "psychic",
+            weight: 1
+        },
+        {
             pokemonId: 10165,
             text: "pokemon.slowbro-galar",
             fillStyle: "pink",
