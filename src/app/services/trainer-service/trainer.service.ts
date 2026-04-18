@@ -119,6 +119,12 @@ export class TrainerService implements OnDestroy {
     this.trainerTeamObservable.next(this.getTeam());
   }
 
+  commitTeamAndStorage(team: PokemonItem[], stored: PokemonItem[]): void {
+    this.trainerTeam = [...team];
+    this.storedPokemon = [...stored];
+    this.trainerTeamObservable.next(this.getTeam());
+  }
+
   getStored(): PokemonItem[] {
     return [...this.storedPokemon];
   }

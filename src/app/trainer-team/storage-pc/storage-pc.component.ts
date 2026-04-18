@@ -127,7 +127,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
           event.currentIndex,
         );
       }
-      this.trainerService.updateTeam();
+      this.trainerService.commitTeamAndStorage(this.trainerTeam, this.storedPokemon);
     }
 
     lastPokemonPredicate  = () => this.trainerTeam.length > 1
