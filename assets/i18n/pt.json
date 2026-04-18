@@ -10,6 +10,12 @@
             "male": "Sempre Garoto",
             "female": "Sempre Garota",
             "always-choose": "Sempre Escolher"
+        },
+        "theme": {
+            "label": "Tema",
+            "starters": "Starters",
+            "plainDark": "Escuro Simples",
+            "plainLight": "Claro Simples"
         }
     },
     "coffee": {
@@ -290,6 +296,11 @@
                         }
                     },
                     "title": "Vitória?",
+                    "typeAdvantage": {
+                        "overwhelming": "Vantagem Esmagadora",
+                        "advantage": "Vantagem",
+                        "disadvantage": "Desvantagem"
+                    },
                     "use": "Usou ",
                     "yes": "Sim",
                     "no": "Não"
@@ -369,6 +380,7 @@
                 }
             },
             "trade": {
+                "title": "Troca!",
                 "received": "e recebeu ",
                 "sent": "Você enviou"
             }

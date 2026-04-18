@@ -10,6 +10,12 @@
             "male": "Immer Junge",
             "female": "Immer Mädchen",
             "always-choose": "Immer wählen"
+        },
+        "theme": {
+            "label": "Thema",
+            "starters": "Starters",
+            "plainDark": "Einfaches Dunkel",
+            "plainLight": "Einfaches Hell"
         }
     },
     "coffee": {
@@ -290,6 +296,11 @@
                         }
                     },
                     "title": "Erfolg?",
+                    "typeAdvantage": {
+                        "overwhelming": "Überwältigender Vorteil",
+                        "advantage": "Vorteil",
+                        "disadvantage": "Nachteil"
+                    },
                     "use": "Benutzt",
                     "yes": "Ja",
                     "no": "Nein"
@@ -369,6 +380,7 @@
                 }
             },
             "trade": {
+                "title": "Tausch!",
                 "received": "und erhältst",
                 "sent": "Du tauschst"
             }
