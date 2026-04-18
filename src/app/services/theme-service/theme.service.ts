@@ -70,7 +70,7 @@ export class ThemeService {
    * 5. Sets or removes inline backgroundImage for the starters theme
    */
   setTheme(theme: Theme): void {
-    const body = document.body;
+    const body = this.doc.body;
 
     // Remove all known theme classes (including legacy ones from DarkModeService)
     ALL_THEME_CLASSES.forEach(cls => this.renderer.removeClass(body, cls));
