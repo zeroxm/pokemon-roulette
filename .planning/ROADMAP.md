@@ -5,7 +5,7 @@
 - ✅ **v1.0 Low-Severity Debt** — Phases 1-6 (shipped 2026-04-17)
 - ✅ **v1.1 Code Quality & Test Coverage** — Phases 7-10 (shipped 2026-04-17)
 - ✅ **v1.2 Theming System** — Phase 11 (shipped 2026-04-17)
-- 🔄 **v1.3 Storage PC Regression Fix** — Phase 12 (active)
+- 🔄 **v1.3 Storage PC Regression Fix** — Phase 12 (complete)
 
 ## Phases
 
@@ -50,7 +50,7 @@ Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-R
 
 ### v1.3 Storage PC Regression Fix
 
-- [ ] **Phase 12: Storage PC Regression Fix** — Restore team editing via PC storage with reactive win-odds updates
+- [x] **Phase 12: Storage PC Regression Fix** — Restore team editing via PC storage with reactive win-odds updates
 
 ---
 

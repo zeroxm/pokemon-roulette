@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ## Status
 
 **Active milestone:** v1.3 Storage PC Regression Fix
-**Active phase:** Phase 12 — Storage PC Regression Fix (Not started)
+**Active phase: Phase 12 — Storage PC Regression Fix (Complete)
 **Branch:** 30-better-graphics
 
 ---
@@ -62,4 +62,5 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 ---
 *State initialized: 2026-04-17*
 *Last updated: 2026-04-17 after v1.2 milestone start*
+
 
