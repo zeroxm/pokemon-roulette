@@ -60,6 +60,8 @@ export class EvolutionService {
     formPokemon.pokemonId = alias.form.pokemonId;
     formPokemon.text = alias.form.text;
     formPokemon.fillStyle = alias.form.fillStyle;
+    formPokemon.type1 = alias.form.type1;
+    formPokemon.type2 = alias.form.type2;
     formPokemon.weight = alias.form.weight;
     formPokemon.sprite = null;
 
