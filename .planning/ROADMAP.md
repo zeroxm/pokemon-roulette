@@ -5,7 +5,7 @@
 - ✅ **v1.0 Low-Severity Debt** — Phases 1-6 (shipped 2026-04-17)
 - ✅ **v1.1 Code Quality & Test Coverage** — Phases 7-10 (shipped 2026-04-17)
 - ✅ **v1.2 Theming System** — Phase 11 (shipped 2026-04-17)
-- 🔄 **v1.3 Storage PC Regression Fix** — Phase 12 (complete)
+- ✅ **v1.3 Storage PC Regression Fix** — Phase 12 (shipped 2026-04-18)
 
 ## Phases
 
@@ -48,9 +48,16 @@ Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-R
 
 </details>
 
-### v1.3 Storage PC Regression Fix
+<details>
+<summary>✅ v1.3 Storage PC Regression Fix (Phase 12) — SHIPPED 2026-04-18</summary>
 
-- [x] **Phase 12: Storage PC Regression Fix** — Restore team editing via PC storage with reactive win-odds updates
+- [x] Phase 12: Storage PC Regression Fix (1/1 plans) — PC-01, PC-02, PC-03, PC-04 — completed 2026-04-18
+
+Tests: 223 → 226 (+3) | Files: 3 changed | LOC: +56/-5
+
+Full details: [.planning/milestones/v1.3-ROADMAP.md](.planning/milestones/v1.3-ROADMAP.md)
+
+</details>
 
 ---
 
@@ -142,7 +149,7 @@ Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-R
 | 9. Battle Architecture Refactor | v1.1 | 2/2 | Complete | 2026-04-17 |
 | 10. Test Coverage | v1.1 | 3/3 | Complete | 2026-04-17 |
 | 11. Theming System | v1.2 | 2/2 | Complete | 2026-04-17 |
-| 12. Storage PC Regression Fix | v1.3 | 0/1 | Not started | — |
+| 12. Storage PC Regression Fix | v1.3 | 1/1 | Complete | 2026-04-18 |
 
 ---
 

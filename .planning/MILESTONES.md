@@ -1,5 +1,22 @@
 # Milestones
 
+## v1.3 Storage PC Regression Fix (Shipped: 2026-04-18)
+
+**Phases completed:** 1 phase (Phase 12), 1 plan, 4 requirements delivered
+**Files changed:** 3 | LOC: +56/-5
+**Tests:** 223 → 226 (+3)
+
+**Key accomplishments:**
+
+1. Added `TrainerService.commitTeamAndStorage(team, stored)` — writes drag-and-drop results back to service internals before broadcasting via `trainerTeamObservable`
+2. Fixed `StoragePcComponent.drop()` to call `commitTeamAndStorage()` instead of the broken `updateTeam()` — team edits now persist after modal close
+3. All four drag-and-drop flows confirmed working: team→storage, storage→team, reorder within team, reactive win-odds update
+4. Added 3 unit tests for the new write-back API
+
+**Archive:** `.planning/milestones/v1.3-ROADMAP.md`
+
+---
+
 ## v1.2 Theming System (Shipped: 2026-04-17)
 
 **Phases completed:** 1 phase (Phase 11), 2 plans, 5 requirements delivered

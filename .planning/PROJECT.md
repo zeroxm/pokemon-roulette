@@ -1,24 +1,18 @@
 # Pokemon Roulette
 
-## Current Milestone: v1.3 — Storage PC Regression Fix
+## Current Milestone: v1.4 — TBD
 
-**Goal:** Restore the ability to drag-and-drop Pokémon between team and PC storage, with all downstream reactive updates (team display + battle win odds) working correctly.
-
-**Target features:**
-- `TrainerService` write-back method so `StoragePcComponent` can commit drag-and-drop results to internal state
-- `StoragePcComponent.drop()` calls the new write-back instead of broken `updateTeam()`
-- `trainerTeamObservable` broadcasts correctly after every drag operation
-- Battle roulette win odds recalculate reactively (already subscribe — just need correct data)
+Run `/gsd-new-milestone` to define next milestone goals and requirements.
 
 ---
 
-## Current State: v1.2 Shipped ✅
+## Current State: v1.3 Shipped ✅
 
-**Shipped:** 2026-04-17
-**Tests:** 223 passing (Karma/Jasmine, ChromeHeadless)
+**Shipped:** 2026-04-18
+**Tests:** 226 passing (Karma/Jasmine, ChromeHeadless)
 **Branch:** 30-better-graphics
 
-Milestone v1.2 (Theming System) is complete. Users can now select between three themes (Starters, Plain Dark, Plain Light) from the Settings panel. Theme preference persists to localStorage. All 14 components that respond to dark/light mode were migrated to the new `ThemeService.isDark$` observable.
+Milestone v1.3 (Storage PC Regression Fix) is complete. The drag-and-drop team editing feature in the Storage PC modal is fully restored — all four interaction flows (team→storage, storage→team, reorder within team, reactive win-odds update) pass UAT. Root cause was a missing write-back path after the IMMUT-01 immutability fix in v1.1.
 
 ---
 
@@ -33,6 +27,20 @@ Candidates from the deferred backlog:
 - Shiny propagation TODO cleanup (future PR)
 
 ---
+
+<details>
+<summary>v1.3 Milestone Context (archived)</summary>
+
+## Previous Milestone: v1.3 Storage PC Regression Fix
+
+**Goal:** Restore drag-and-drop team editing via Storage PC modal with reactive downstream updates.
+
+**Delivered:**
+- `TrainerService.commitTeamAndStorage()` write-back API
+- `StoragePcComponent.drop()` fixed to call write-back instead of broken `updateTeam()`
+- 4/4 UAT pass: team→storage, storage→team, reorder, reactive win odds
+
+</details>
 
 <details>
 <summary>v1.2 Milestone Context (archived)</summary>
@@ -167,11 +175,14 @@ should introduce a regression.
 - ✓ Theme i18n keys in all 6 locales — v1.2 (THEME-04)
 - ✓ Default to starters theme on first load (silent migration from old dark-mode key) — v1.2 (THEME-05)
 
+- ✓ `TrainerService.commitTeamAndStorage(team, stored)` write-back API — v1.3 (PC-01)
+- ✓ `StoragePcComponent.drop()` calls write-back instead of `updateTeam()` — v1.3 (PC-02)
+- ✓ Trainer team display updates reactively after PC drag-and-drop — v1.3 (PC-03)
+- ✓ Battle win odds update reactively after PC team edit — v1.3 (PC-04)
+
 ### Active
 
-- [ ] `TrainerService` write-back API — add `commitTeamAndStorage(team, stored)` to write drag-and-drop results back to internal state and broadcast via `trainerTeamObservable`
-- [ ] Fix `StoragePcComponent.drop()` to call the write-back API so team edits actually persist
-- [ ] Verify battle win odds update reactively after a PC drag-and-drop operation
+*(none — define with /gsd-new-milestone)*
 
 ### Out of Scope
 
