@@ -1,7 +1,7 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.2
-milestone_name: Theming System
+milestone: v1.3
+milestone_name: Storage PC Regression Fix
 status: v1.2 milestone complete
 last_updated: "2026-04-17T23:41:54.326Z"
 progress:
@@ -24,8 +24,8 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Status
 
-**Active milestone:** v1.2 Theming System
-**Active phase:** Phase 11 — Theming System (COMPLETE — UAT passed)
+**Active milestone:** v1.3 Storage PC Regression Fix
+**Active phase:** Phase 12 — Storage PC Regression Fix (Not started)
 **Branch:** 30-better-graphics
 
 ---
@@ -56,9 +56,10 @@ See: .planning/PROJECT.md (updated 2026-04-17)
 
 ## Session Continuity
 
-**Last action:** Phase 11 UAT complete. All gaps resolved. Phase 11 marked complete.
-**Next action:** Run /gsd-next to advance to next phase.
+**Last action:** v1.3 milestone started — Storage PC regression fix scoped.
+**Next action:** Plan and execute Phase 12.
 
 ---
 *State initialized: 2026-04-17*
 *Last updated: 2026-04-17 after v1.2 milestone start*
+

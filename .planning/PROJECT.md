@@ -1,15 +1,14 @@
 # Pokemon Roulette
 
-## Current Milestone: v1.3 — TBD
+## Current Milestone: v1.3 — Storage PC Regression Fix
 
-Run `/gsd-new-milestone` to define the next milestone goals and requirements.
+**Goal:** Restore the ability to drag-and-drop Pokémon between team and PC storage, with all downstream reactive updates (team display + battle win odds) working correctly.
 
-Candidates from the deferred backlog:
-- Language selector image-based flags (visual UX, needs image assets)
-- DarkModeToggleComponent source file cleanup (delete unused component)
-- DarkModeService injection cleanup in migrated components (cosmetic debt)
-- Additional themes (generation-specific backgrounds) — v1.3+ backlog
-- ThemeSelectorComponent label alignment (deferred from v1.2 UAT)
+**Target features:**
+- `TrainerService` write-back method so `StoragePcComponent` can commit drag-and-drop results to internal state
+- `StoragePcComponent.drop()` calls the new write-back instead of broken `updateTeam()`
+- `trainerTeamObservable` broadcasts correctly after every drag operation
+- Battle roulette win odds recalculate reactively (already subscribe — just need correct data)
 
 ---
 
@@ -170,9 +169,9 @@ should introduce a regression.
 
 ### Active
 
-- [ ] Language selector image-based flags — needs image assets (deferred from v1.1)
-- [ ] ThemeSelectorComponent label alignment fix — cosmetic, deferred from v1.2 UAT
-- [ ] DarkModeService cleanup — remove unused injections from migrated components (v1.3+)
+- [ ] `TrainerService` write-back API — add `commitTeamAndStorage(team, stored)` to write drag-and-drop results back to internal state and broadcast via `trainerTeamObservable`
+- [ ] Fix `StoragePcComponent.drop()` to call the write-back API so team edits actually persist
+- [ ] Verify battle win odds update reactively after a PC drag-and-drop operation
 
 ### Out of Scope
 
@@ -232,4 +231,4 @@ Codebase map: `.planning/codebase/` (analyzed 2025-01-31).
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-17 after v1.2 milestone completion*
+*Last updated: 2026-04-17 after v1.3 milestone start*

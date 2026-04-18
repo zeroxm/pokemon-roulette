@@ -5,6 +5,7 @@
 - ✅ **v1.0 Low-Severity Debt** — Phases 1-6 (shipped 2026-04-17)
 - ✅ **v1.1 Code Quality & Test Coverage** — Phases 7-10 (shipped 2026-04-17)
 - ✅ **v1.2 Theming System** — Phase 11 (shipped 2026-04-17)
+- 🔄 **v1.3 Storage PC Regression Fix** — Phase 12 (active)
 
 ## Phases
 
@@ -47,7 +48,25 @@ Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-R
 
 </details>
 
+### v1.3 Storage PC Regression Fix
+
+- [ ] **Phase 12: Storage PC Regression Fix** — Restore team editing via PC storage with reactive win-odds updates
+
 ---
+
+## Phase Details
+
+### Phase 12: Storage PC Regression Fix
+
+**Goal**: Dragging Pokémon between the trainer team and PC storage in the storage modal correctly updates the service's internal state, the trainer team display, and battle win odds — restoring behavior broken by the IMMUT-01 immutability fix in v1.1 Phase 8.
+**Depends on**: Phase 11
+**Requirements**: PC-01, PC-02, PC-03, PC-04
+**Success Criteria** (what must be TRUE):
+  1. Opening the PC storage modal shows the current trainer team and stored Pokémon correctly
+  2. Dragging a Pokémon from PC storage to the team (or vice versa) and closing the modal results in the team display on the main game screen reflecting the change immediately
+  3. After a drag-and-drop team edit, any open battle roulette shows updated win odds based on the new team composition
+  4. The team size constraints still apply: cannot drag the last Pokémon off the team, cannot add a 7th Pokémon to a full team
+**Plans**: TBD
 
 ## Phase Details
 
@@ -123,6 +142,7 @@ Full details: [.planning/milestones/v1.2-ROADMAP.md](.planning/milestones/v1.2-R
 | 9. Battle Architecture Refactor | v1.1 | 2/2 | Complete | 2026-04-17 |
 | 10. Test Coverage | v1.1 | 3/3 | Complete | 2026-04-17 |
 | 11. Theming System | v1.2 | 2/2 | Complete | 2026-04-17 |
+| 12. Storage PC Regression Fix | v1.3 | 0/1 | Not started | — |
 
 ---
 
