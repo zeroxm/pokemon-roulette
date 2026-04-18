@@ -20,6 +20,15 @@ import { stickyBattleForms } from './sticky-battle-forms';
 })
 export class TrainerService implements OnDestroy {
 
+  private static readonly DEFAULT_POTION: ItemItem = {
+    text: 'items.potion.name',
+    name: 'potion',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
+    fillStyle: 'purple',
+    weight: 1,
+    description: 'items.potion.description'
+  };
+
   private readonly gameStateSubscription: Subscription;
 
   constructor(private badgesService: BadgesService,
@@ -48,16 +57,7 @@ export class TrainerService implements OnDestroy {
   private readonly temporaryBattleForms = palafinForms;
   private readonly stickyBattleFormGroups = stickyBattleForms;
 
-  trainerItems: ItemItem[] = [
-    {
-      text: 'items.potion.name',
-      name: 'potion',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
-      fillStyle: 'purple',
-      weight: 1,
-      description: 'items.potion.description'
-    }
-  ];
+  trainerItems: ItemItem[] = [structuredClone(TrainerService.DEFAULT_POTION)];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [];
@@ -112,15 +112,21 @@ export class TrainerService implements OnDestroy {
   }
 
   getTeam(): PokemonItem[] {
-    return this.trainerTeam;
+    return [...this.trainerTeam];
   }
 
   updateTeam(): void {
-    this.trainerTeamObservable.next(this.trainerTeam);
+    this.trainerTeamObservable.next(this.getTeam());
+  }
+
+  commitTeamAndStorage(team: PokemonItem[], stored: PokemonItem[]): void {
+    this.trainerTeam = [...team];
+    this.storedPokemon = [...stored];
+    this.trainerTeamObservable.next(this.getTeam());
   }
 
   getStored(): PokemonItem[] {
-    return this.storedPokemon;
+    return [...this.storedPokemon];
   }
 
   getTeamObservable(): Observable<PokemonItem[]> {
@@ -161,7 +167,6 @@ export class TrainerService implements OnDestroy {
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
     pokemonIn.shiny = pokemonOut.shiny;
-    pokemonIn = pokemonIn;
     this.loadPokemonSpriteIfMissing(pokemonIn);
 
     let index = this.trainerTeam.indexOf(pokemonOut);
@@ -236,6 +241,7 @@ export class TrainerService implements OnDestroy {
 
   addBadge(fromRound: number, fromLeader: number = 0): void {
     this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound, fromLeader).subscribe(badge => {
+      if (badge === undefined) return;
       this.trainerBadges.push(badge);
       this.trainerBadgesObservable.next(this.trainerBadges);
     })
@@ -252,16 +258,7 @@ export class TrainerService implements OnDestroy {
   }
 
   resetItems() {
-    this.trainerItems = [
-      {
-        text: 'items.potion.name',
-        name: 'potion',
-        sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png',
-        fillStyle: 'purple',
-        weight: 1,
-        description: 'items.potion.description'
-      }
-    ];
+    this.trainerItems = [structuredClone(TrainerService.DEFAULT_POTION)];
     this.trainerItemsObservable.next(this.trainerItems);
   }
 

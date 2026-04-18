@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageSelectorComponent } from "../main-game/language-selector/language-selector.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { MainGameButtonComponent } from "../main-game-button/main-game-button.component";
-import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.component';
+import { ThemeSelectorComponent } from './theme-selector/theme-selector.component';
 import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { SettingsService, GameSettings } from '../services/settings-service/sett
 @Component({
   selector: 'app-settings',
   imports: [
-    DarkModeToggleComponent,
+    ThemeSelectorComponent,
     LanguageSelectorComponent,
     TranslatePipe,
     MainGameButtonComponent,

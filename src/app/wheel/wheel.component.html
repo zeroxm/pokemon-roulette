@@ -2,11 +2,13 @@
     <p>{{ currentSegment | translate }}</p>
     <div class="canvas-container">
         <canvas id="wheel"
+                #wheel
                 [width]="wheelWidth"
                 [height]="canvasHeight"
                 (click)="spinWheel()">
         </canvas>
         <canvas id="pointer"
+                #pointer
                 [width]="cursorWidth"
                 [height]="canvasHeight">
         </canvas>

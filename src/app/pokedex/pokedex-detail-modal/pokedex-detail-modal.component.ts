@@ -5,6 +5,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
@@ -35,12 +36,13 @@ export class PokedexDetailModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private pokemonService: PokemonService,
     private pokemonFormsService: PokemonFormsService,
-    private darkModeService: DarkModeService
+    private darkModeService: DarkModeService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.selectedFormId = this.pokemonId;
-    this.darkMode = this.darkModeService.darkMode$;
+    this.darkMode = this.themeService.isDark$;
   }
 
   get artworkUrl(): string {

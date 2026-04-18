@@ -4,11 +4,11 @@ import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { Subscription } from 'rxjs';
 import { GenerationItem } from '../../interfaces/generation-item';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
-// @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
@@ -28,6 +28,7 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     private generationService: GenerationService,
     private trainerService: TrainerService,
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private translate: TranslateService
   ) { }
 
@@ -56,7 +57,7 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
     });
-    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe(dark => {
+    this.darkModeSubscription = this.themeService.isDark$.subscribe(dark => {
       this.darkMode = dark;
     });
   }
@@ -114,7 +115,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
         width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
-    }).then((blob: Blob) => {
+    }).then((blob: Blob | null) => {
+      if (!blob) return;
       const file = new File([blob], this.generation.region+'-champion.png', { type: 'image/png' });
       element.style.backgroundColor = originalBg;
 

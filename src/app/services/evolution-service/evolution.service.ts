@@ -3,6 +3,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { evolutionChain } from './evolution-chain';
 import { PokemonService } from '../pokemon-service/pokemon.service';
 import { formAliasById } from '../pokemon-forms-service/pokemon-forms';
+import { NINCADA_ID } from '../../constants/pokemon-ids.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class EvolutionService {
     });
 
     return evolutions;
+  }
+
+  isNincadaSpecialEvolution(pokemon: PokemonItem): boolean {
+    return pokemon.pokemonId === NINCADA_ID;
   }
 
   private resolveEvolutionPokemon(evolutionId: number): PokemonItem | undefined {

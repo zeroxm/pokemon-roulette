@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 
-declare var gtag : any;
+interface GtagEventParams {
+  event_category?: string;
+  event_label?: string;
+  value?: string;
+  [key: string]: unknown;
+}
+
+type GtagCommand = (command: 'event', eventName: string, params: GtagEventParams) => void;
+
+declare var gtag: GtagCommand;
 
 @Injectable({
   providedIn: 'root'

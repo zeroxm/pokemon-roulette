@@ -93,7 +93,6 @@ import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemo
 })
 export class RouletteContainerComponent implements OnInit, OnDestroy {
 
-    NINCADA_ID = 290;
     @Output() resetGameEvent = new EventEmitter<void>();
 
     private destroyRef = inject(DestroyRef);
@@ -249,7 +248,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.buyPotions();
-          break;
         case 'visit-daycare':
             this.altPrizeText = 'game.main.altPrizes.visitDaycare.egg';
             this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png';
@@ -259,7 +257,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
               size: 'md'
             });
             return this.mysteriousEgg();
-            break;
         case 'battle-rival':
           this.altPrizeText = 'game.main.altPrizes.battleRival.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
@@ -269,7 +266,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.findItem();
-          break;
         case 'battle-trainer':
           this.altPrizeText = 'game.main.altPrizes.battleTrainer.potion';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
@@ -279,8 +275,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.buyPotions();
-          break;
-        case 'team-rocket-encounter': 
+        case 'team-rocket-encounter':
           this.altPrizeText = 'game.main.altPrizes.teamRocket.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
           this.altPrizeDescription = 'game.main.altPrizes.teamRocket.itemDesc';
@@ -289,7 +284,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.findItem();
-          break;
         case 'snorlax-encounter':
           this.altPrizeText = 'game.main.altPrizes.snorlax.item';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
@@ -299,13 +293,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.findItem();
-          break;
         case 'rare-candy':
           return this.doNothing();
-          break;
         default:
           return this.doNothing();
-          break;
       }
     }
 
@@ -567,9 +558,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   performTrade(pokemon: PokemonItem): void {
-    this.pkmnIn = structuredClone(pokemon);;
+    this.pkmnIn = structuredClone(pokemon);
     this.pkmnOut = this.currentContextPokemon;
-    this.pkmnTradeTitle = "Trade!";
+    this.pkmnTradeTitle = "game.main.trade.title";
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
     this.registerInPokedex(this.pkmnIn);
     this.auxPokemonList = [];
@@ -752,7 +743,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
-    } else if (pokemon.pokemonId === this.NINCADA_ID) {
+    } else if (this.evolutionService.isNincadaSpecialEvolution(pokemon)) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.trainerService.addToTeam(pokemonEvolutions[1]);
       this.registerInPokedex(pokemonEvolutions[1]);

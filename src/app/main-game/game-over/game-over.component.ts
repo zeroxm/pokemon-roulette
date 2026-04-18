@@ -3,10 +3,10 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-// @ts-ignore
 import domtoimage from 'dom-to-image-more'
 import { GenerationItem } from '../../interfaces/generation-item';
 import { GenerationService } from '../../services/generation-service/generation.service';
@@ -14,7 +14,7 @@ import { GymLeader } from '../../interfaces/gym-leader';
 import { gymLeadersByGeneration } from '../roulette-container/roulettes/gym-battle-roulette/gym-leaders-by-generation'; 
 import { eliteFourByGeneration } from '../roulette-container/roulettes/elite-four-battle-roulette/elite-four-by-generation';
 import { championByGeneration } from '../roulette-container/roulettes/champion-battle-roulette/champion-by-generation';
-import { RestartGameButtonComponent } from "../../restart-game-buttom/restart-game-buttom.component";
+import { RestartGameButtonComponent } from "../../restart-game-button/restart-game-button.component";
 import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-game-over',
@@ -33,6 +33,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
     private generationService: GenerationService,
     private trainerService: TrainerService,
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private translate: TranslateService
   ) { }
 
@@ -66,7 +67,7 @@ export class GameOverComponent implements OnInit, OnDestroy {
     this.teamSubscription = this.trainerService.getTeamObservable().subscribe(team => {
       this.trainerTeam = team;
     });
-    this.darkModeSubscription = this.darkModeService.darkMode$.subscribe(dark => {
+    this.darkModeSubscription = this.themeService.isDark$.subscribe(dark => {
       this.darkMode = dark;
     });
 
@@ -119,7 +120,8 @@ export class GameOverComponent implements OnInit, OnDestroy {
         width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
         height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
       }
-    }).then((blob: Blob) => {
+    }).then((blob: Blob | null) => {
+      if (!blob) return;
       const file = new File([blob], 'run-is-over.png', { type: 'image/png' });
       element.style.backgroundColor = originalBg;
 

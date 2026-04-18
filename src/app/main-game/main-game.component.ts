@@ -6,12 +6,13 @@ import { ItemsComponent } from "../items/items.component";
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { CommonModule } from '@angular/common';
 import { ItemItem } from '../interfaces/item-item';
-import { RestartGameButtonComponent } from "../restart-game-buttom/restart-game-buttom.component";
+import { RestartGameButtonComponent } from "../restart-game-button/restart-game-button.component";
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
 import { NgIconsModule } from '@ng-icons/core';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { RouletteContainerComponent } from './roulette-container/roulette-container.component';
@@ -39,12 +40,13 @@ export class MainGameComponent implements OnInit {
 
   constructor(
     private darkModeService: DarkModeService,
+    private themeService: ThemeService,
     private gameStateService: GameStateService,
     private trainerService: TrainerService,
     private modalService: NgbModal,
     private analyticsService: AnalyticsService,
     private rareCandyService: RareCandyService) {
-      this.darkMode = this.darkModeService.darkMode$;
+      this.darkMode = this.themeService.isDark$;
   }
 
   private destroyRef = inject(DestroyRef);

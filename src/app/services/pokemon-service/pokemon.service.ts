@@ -9,10 +9,16 @@ import { nationalDexPokemon } from './national-dex-pokemon';
 })
 export class PokemonService {
 
-  constructor(private http: HttpClient) { }
+  private readonly pokemonById: Map<number, PokemonItem>;
+
+  constructor(private http: HttpClient) {
+    this.pokemonById = new Map(
+      this.nationalDexPokemon.map(pokemon => [pokemon.pokemonId, pokemon])
+    );
+  }
 
   private apiBaseUrl = 'https://pokeapi.co/api/v2';
-  nationalDexPokemon = nationalDexPokemon;
+  readonly nationalDexPokemon = nationalDexPokemon;
 
   /**
    * Fetches the sprites for a given Pokémon by ID.
@@ -37,15 +43,12 @@ export class PokemonService {
   }
 
   getPokemonById(pokemonId: number): PokemonItem | undefined {
-    const pokemon = this.nationalDexPokemon.find(pokemon => pokemon.pokemonId === pokemonId);
-    return pokemon;
+    return this.pokemonById.get(pokemonId);
   }
 
   getPokemonByIdArray(pokemonIds: number[]): PokemonItem[] {
-    const pokemonById = new Map(this.nationalDexPokemon.map(pokemon => [pokemon.pokemonId, pokemon]));
-
     return pokemonIds
-      .map(pokemonId => pokemonById.get(pokemonId))
+      .map(pokemonId => this.pokemonById.get(pokemonId))
       .filter((pokemon): pokemon is PokemonItem => pokemon !== undefined);
   }
 

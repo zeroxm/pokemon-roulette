@@ -257,4 +257,47 @@ describe('TrainerService', () => {
       expect(service.storedPokemon[1].pokemonId).toBe(1017);
     });
   });
+
+  describe('commitTeamAndStorage', () => {
+    it('should write back team and stored arrays into service state', () => {
+      service.trainerTeam = [structuredClone(bulbasaur)];
+      service.storedPokemon = [structuredClone(palafinZero)];
+
+      const newTeam = [structuredClone(palafinZero)];
+      const newStored = [structuredClone(bulbasaur)];
+
+      service.commitTeamAndStorage(newTeam, newStored);
+
+      expect(service.trainerTeam[0].pokemonId).toBe(964);
+      expect(service.storedPokemon[0].pokemonId).toBe(1);
+    });
+
+    it('should emit updated team via getTeamObservable after commitTeamAndStorage', (done) => {
+      service.trainerTeam = [structuredClone(bulbasaur)];
+      service.storedPokemon = [structuredClone(palafinZero)];
+
+      const newTeam = [structuredClone(palafinZero)];
+
+      service.getTeamObservable().subscribe(team => {
+        if (team[0]?.pokemonId === 964) {
+          expect(team[0].pokemonId).toBe(964);
+          done();
+        }
+      });
+
+      service.commitTeamAndStorage(newTeam, []);
+    });
+
+    it('should store immutable copies (array mutations to input do not affect service state)', () => {
+      const team = [structuredClone(bulbasaur)];
+      const stored: PokemonItem[] = [];
+
+      service.commitTeamAndStorage(team, stored);
+
+      // Pushing to input array after commit should not affect service state
+      team.push(structuredClone(palafinZero));
+
+      expect(service.trainerTeam.length).toBe(1);
+    });
+  });
 });

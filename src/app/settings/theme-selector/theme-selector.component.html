@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-between align-items-center">
+  <label class="form-check-label">
+    {{ 'settings.theme.label' | translate }}
+  </label>
+  <select
+    class="form-select form-select-sm w-auto"
+    [ngModel]="currentTheme"
+    (change)="onThemeChange($event)"
+    [attr.aria-label]="'settings.theme.label' | translate">
+    <option value="starters">{{ 'settings.theme.starters' | translate }}</option>
+    <option value="plain-dark">{{ 'settings.theme.plainDark' | translate }}</option>
+    <option value="plain-light">{{ 'settings.theme.plainLight' | translate }}</option>
+  </select>
+</div>

@@ -28,7 +28,8 @@ describe('MainAdventureRouletteComponent', () => {
         {
           provide: GenerationService,
           useValue: {
-            getGeneration: () => generationSubject.asObservable()
+            getGeneration: () => generationSubject.asObservable(),
+            getCurrentGeneration: () => createGeneration(1)
           }
         }
       ]

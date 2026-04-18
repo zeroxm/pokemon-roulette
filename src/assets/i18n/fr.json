@@ -10,6 +10,12 @@
             "male": "Toujours Garçon",
             "female": "Toujours Fille",
             "always-choose": "Toujours Choisir"
+        },
+        "theme": {
+            "label": "Thème",
+            "starters": "Starters",
+            "plainDark": "Sombre Classique",
+            "plainLight": "Clair Classique"
         }
     },
     "coffee": {
@@ -290,6 +296,11 @@
                         }
                     },
                     "title": "Victoire?",
+                    "typeAdvantage": {
+                        "overwhelming": "Avantage Écrasant",
+                        "advantage": "Avantage",
+                        "disadvantage": "Désavantage"
+                    },
                     "use": "A utilisé un(e)",
                     "yes": "Oui",
                     "no": "Non"
@@ -369,6 +380,7 @@
                 }
             },
             "trade": {
+                "title": "Échange\u00a0!",
                 "received": "et reçu un(e)",
                 "sent": "Vous avez envoyé"
             }

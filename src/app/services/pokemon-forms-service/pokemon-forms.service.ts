@@ -8,10 +8,19 @@ import { pokemonForms } from './pokemon-forms';
 })
 export class PokemonFormsService {
 
-  constructor() {
-  }
-
   private pokemonForms = pokemonForms;
+  private readonly variantToBase: Map<number, number>;
+
+  constructor() {
+    this.variantToBase = new Map<number, number>();
+    for (const [baseIdStr, forms] of Object.entries(this.pokemonForms)) {
+      const baseId = Number(baseIdStr);
+      this.variantToBase.set(baseId, baseId);
+      for (const form of forms) {
+        this.variantToBase.set(form.pokemonId, baseId);
+      }
+    }
+  }
 
   hasForms(pokemon: PokemonItem): boolean {
     return this.getFormIds(pokemon.pokemonId).length > 1;
@@ -51,16 +60,6 @@ export class PokemonFormsService {
   }
 
   getBasePokemonId(pokemonId: number): number | null {
-    if (this.pokemonForms[pokemonId]) {
-      return pokemonId;
-    }
-
-    for (const [basePokemonId, forms] of Object.entries(this.pokemonForms)) {
-      if (forms.some(form => form.pokemonId === pokemonId)) {
-        return Number(basePokemonId);
-      }
-    }
-
-    return null;
+    return this.variantToBase.get(pokemonId) ?? null;
   }
 }

@@ -194,4 +194,54 @@ describe('PokedexService', () => {
     });
     service.markSeen(10);
   });
+
+  // ── Additional shiny edge cases ────────────────────────────────────────
+
+  // Re-catch edge case: pokemon was already won; shiny upgrade must preserve won flag
+  it('should preserve won:true when upgrading existing won entry to shiny — SHINY-EDGE-01', () => {
+    service.markSeen(1);
+    service.markWon([1]);
+
+    // Simulate catching the same pokemon again via shiny roulette
+    service.markSeen(1, true);
+
+    const entry = service.currentPokedex.caught['1'];
+    expect(entry.shiny).toBeTrue();
+    expect(entry.won).toBeTrue();   // must be preserved — not reset by markSeen
+    expect(entry.sprite).toBeTruthy(); // sprite must not be cleared
+  });
+
+  // Explicit false param: markSeen(id, false) must not revert an already-shiny entry
+  it('should not revert shiny when markSeen is called with explicit shiny=false on shiny entry — SHINY-EDGE-02', () => {
+    service.markSeen(7, true);
+    expect(service.currentPokedex.caught['7'].shiny).toBeTrue();
+
+    // Explicit false (not just omitted param) must not revert
+    service.markSeen(7, false);
+
+    expect(service.currentPokedex.caught['7'].shiny).toBeTrue();
+  });
+
+  // No-op re-catch: identical data must not trigger a pokedex$ emission
+  it('should not emit a new pokedex$ value when markSeen is called with unchanged data — SHINY-EDGE-03', (done) => {
+    // First call creates the entry and emits
+    service.markSeen(50);
+
+    let emitCount = 0;
+    service.pokedex$.subscribe(() => {
+      emitCount++;
+    });
+
+    // Second call with same id and same shiny=false → 'changed' is false → no updatePokedex call
+    service.markSeen(50);
+    service.markSeen(50, false);
+
+    // Use setTimeout to let any pending async emissions drain before asserting
+    setTimeout(() => {
+      // emitCount === 1 because pokedex$ is a BehaviorSubject: emits current value on subscribe,
+      // but does NOT emit again for the no-op markSeen calls
+      expect(emitCount).toBe(1);
+      done();
+    }, 0);
+  });
 });

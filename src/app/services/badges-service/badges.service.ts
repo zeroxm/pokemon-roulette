@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GenerationItem } from '../../interfaces/generation-item';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { badgesByGeneration } from './badges-data';
 import { Badge } from '../../interfaces/badge';
 
@@ -15,15 +15,26 @@ export class BadgesService {
 
   getBadge(generation: GenerationItem, fromRound: number, fromLeader: number): Observable<Badge> {
 
+    if (!this.badgesByGeneration[generation.id] ||
+        this.badgesByGeneration[generation.id][fromRound] === undefined) {
+      console.warn(
+        `BadgesService.getBadge: no badge for generation ${generation.id} round ${fromRound}`
+      );
+      return of(undefined as unknown as Badge);
+    }
+
     let badge = this.badgesByGeneration[generation.id][fromRound];
 
     if (Array.isArray(badge)) {
+      if (fromLeader < 0 || fromLeader >= badge.length) {
+        console.warn(
+          `BadgesService.getBadge: fromLeader ${fromLeader} out of range for generation ${generation.id} round ${fromRound}`
+        );
+        return of(undefined as unknown as Badge);
+      }
       badge = badge[fromLeader];
     }
 
-    return new Observable(observer => {
-      observer.next(badge);
-      observer.complete();
-    });
+    return of(badge);
   }
 }

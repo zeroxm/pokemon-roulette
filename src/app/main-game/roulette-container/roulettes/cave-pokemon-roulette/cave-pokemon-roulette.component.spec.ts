@@ -23,8 +23,9 @@ describe('CavePokemonRouletteComponent', () => {
       weight: 1
     });
 
-    generationService = jasmine.createSpyObj('GenerationService', ['getGeneration']);
+    generationService = jasmine.createSpyObj('GenerationService', ['getGeneration', 'getCurrentGeneration']);
     generationService.getGeneration.and.returnValue(generationSubject.asObservable());
+    generationService.getCurrentGeneration.and.returnValue(generationSubject.getValue());
 
     pokemonService = jasmine.createSpyObj('PokemonService', ['getPokemonByIdArray']);
     pokemonService.getPokemonByIdArray.and.callFake((ids: number[]) => {
