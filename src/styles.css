@@ -19,7 +19,6 @@ body.light-mode {
 body.theme-starters {
   background-color: #2d3436;
   color: #dfe6e9;
-  background-image: url('/dark-background.png');
   background-size: 430px 430px;
   background-repeat: repeat;
 }
