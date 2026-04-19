@@ -109,7 +109,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   private updateWheelDimensions(): void {
     const viewportMin = Math.min(window.innerHeight, window.innerWidth);
-    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.64 : 0.50;
+    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.55;
 
     this.canvasHeight = viewportMin * wheelScale;
     this.wheelWidth = this.canvasHeight;
@@ -164,7 +164,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     }
 
     // Pokéball on top — last draw call (WHEEL-01)
-    this.drawPokeball(centerX, centerY, radius * 0.10);
+    this.drawPokeball(centerX, centerY, radius * 0.15);
   }
 
   private drawBorderRing(cx: number, cy: number, radius: number): void {
@@ -246,15 +246,16 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const bx = pw - cw;
     const by = ph / 2 - cw / 2;
 
+    // 6-point left-pointing ⚡ bolt:
+    // - pointed tip at far left (bx)
+    // - V-notch on the right creates the classic lightning bolt zigzag
     this.pointerCtx.beginPath();
-    this.pointerCtx.moveTo(bx,           by + cw*0.50);  // p1: tip (left)
-    this.pointerCtx.lineTo(bx + cw*0.50, by);             // p2: upper shoulder
-    this.pointerCtx.lineTo(bx + cw*0.40, by + cw*0.45);  // p3: upper notch
-    this.pointerCtx.lineTo(bx + cw*0.95, by + cw*0.10);  // p4: upper-right
-    this.pointerCtx.lineTo(bx + cw,      by + cw*0.50);  // p5: right base
-    this.pointerCtx.lineTo(bx + cw*0.50, by + cw);        // p6: lower shoulder
-    this.pointerCtx.lineTo(bx + cw*0.60, by + cw*0.55);  // p7: lower notch
-    this.pointerCtx.lineTo(bx + cw*0.05, by + cw*0.90);  // p8: lower-left
+    this.pointerCtx.moveTo(bx,            by + cw*0.50);  // p1: pointed tip (leftmost)
+    this.pointerCtx.lineTo(bx + cw*0.40,  by);             // p2: upper-left shoulder
+    this.pointerCtx.lineTo(bx + cw,       by);             // p3: upper-right corner
+    this.pointerCtx.lineTo(bx + cw*0.55,  by + cw*0.50);  // p4: center notch (the ⚡ ZIG)
+    this.pointerCtx.lineTo(bx + cw,       by + cw);        // p5: lower-right corner
+    this.pointerCtx.lineTo(bx + cw*0.60,  by + cw);        // p6: lower-left shoulder
     this.pointerCtx.closePath();
 
     this.pointerCtx.fillStyle   = '#FFD700';
