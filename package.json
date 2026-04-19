@@ -6,7 +6,8 @@
     "start": "ng serve --host 0.0.0.0 --port 4200",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng deploy --base-href=/pokemon-roulette/"
   },
   "private": true,
   "dependencies": {

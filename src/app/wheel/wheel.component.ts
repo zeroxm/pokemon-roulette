@@ -109,7 +109,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   private updateWheelDimensions(): void {
     const viewportMin = Math.min(window.innerHeight, window.innerWidth);
-    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.55;
+    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.50;
 
     this.canvasHeight = viewportMin * wheelScale;
     this.wheelWidth = this.canvasHeight;
@@ -126,7 +126,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const centerX = this.wheelCanvas.width / 2;
     const centerY = this.wheelCanvas.height / 2;
     const radius = (this.wheelCanvas.width / 2);
-    const segRadius = radius * 0.88;  // leave outer 12% for border ring (WHEEL-02)
+    const segRadius = radius * 0.90;  // leave outer 10% for border ring (WHEEL-02)
 
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
@@ -170,15 +170,15 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   private drawBorderRing(cx: number, cy: number, radius: number): void {
     const ctx = this.wheelCtx;
-    const segRadius = radius * 0.88;
+    const segRadius = radius * 0.90;
     const ringWidth = radius - segRadius;
     const ringMidR  = segRadius + ringWidth / 2;
 
     const gradient = ctx.createRadialGradient(cx, cy, segRadius, cx, cy, radius);
-    gradient.addColorStop(0.0,  '#FFD700');  // bright gold inner
-    gradient.addColorStop(0.4,  '#DAA520');  // goldenrod mid
-    gradient.addColorStop(0.75, '#8B6914');  // dark gold
-    gradient.addColorStop(1.0,  '#2C1A0A');  // dark wood outer
+    gradient.addColorStop(0.0,  '#2C1A0A');
+    gradient.addColorStop(0.4,  '#8B6914');
+    gradient.addColorStop(0.75, '#DAA520');
+    gradient.addColorStop(1.0,  '#FFD700');
 
     ctx.beginPath();
     ctx.arc(cx, cy, ringMidR, 0, Math.PI * 2);
@@ -247,19 +247,17 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const bx = pw - cw;
     const by = ph / 2 - cw / 2;
 
-    // Left-pointing ⚡ bolt — 7 points:
-    // The signature lightning look comes from the sharp Z-slash:
-    //   p3 (upper-right) → p4 (center-left) creates the steep diagonal cut
-    //   p5 (center-right) → p6 (lower-right) continues as the lower section
-    //   p7 → p1 (close) forms the left-facing pointed tail
     this.pointerCtx.beginPath();
-    this.pointerCtx.moveTo(bx,            by + cw*0.45);  // p1: pointed tip (slightly above center)
-    this.pointerCtx.lineTo(bx + cw*0.20,  by);             // p2: upper-left shoulder
-    this.pointerCtx.lineTo(bx + cw,       by);             // p3: upper-right corner
-    this.pointerCtx.lineTo(bx + cw*0.42,  by + cw*0.46);  // p4: slash center-left (⚡ ZIG — steep cut)
-    this.pointerCtx.lineTo(bx + cw*0.58,  by + cw*0.54);  // p5: slash center-right (⚡ ZAG — resumes)
-    this.pointerCtx.lineTo(bx + cw,       by + cw);        // p6: lower-right corner
-    this.pointerCtx.lineTo(bx + cw*0.80,  by + cw);        // p7: lower-left shoulder
+    this.pointerCtx.moveTo(bx,  by + cw*0.5);
+    this.pointerCtx.lineTo(bx + cw*0.5,  by + cw);
+    this.pointerCtx.lineTo(bx + cw*0.45,  by + cw*0.75);
+    this.pointerCtx.lineTo(bx + cw*0.65,  by + cw*0.85);
+    this.pointerCtx.lineTo(bx + cw*0.65,  by + cw*0.65);
+    this.pointerCtx.lineTo(bx + cw,  by + cw*0.75);
+    this.pointerCtx.lineTo(bx + cw,  by + cw*0.50);
+    this.pointerCtx.lineTo(bx + cw*0.40,  by + cw*0.50);
+    this.pointerCtx.lineTo(bx + cw*0.50,  by + cw*0.65);
+    this.pointerCtx.lineTo(bx,  by + cw*0.5);
     this.pointerCtx.closePath();
 
     this.pointerCtx.fillStyle   = '#FFD700';
