@@ -98,4 +98,14 @@ export class GameStateService {
     this.finishCurrentState();
     this.currentRound.next(0);
   }
+
+  getStateStack(): GameState[] {
+    return [...this.stateStack];
+  }
+
+  restoreState(stateStack: GameState[], currentState: GameState, round: number): void {
+    this.stateStack = [...stateStack];
+    this.state.next(currentState);
+    this.currentRound.next(round);
+  }
 }

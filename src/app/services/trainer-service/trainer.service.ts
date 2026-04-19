@@ -267,6 +267,16 @@ export class TrainerService implements OnDestroy {
     this.trainerBadgesObservable.next(this.trainerBadges);
   }
 
+  restoreItems(items: ItemItem[]): void {
+    this.trainerItems = [...items];
+    this.trainerItemsObservable.next(this.trainerItems);
+  }
+
+  restoreBadges(badges: Badge[]): void {
+    this.trainerBadges = [...badges];
+    this.trainerBadgesObservable.next(this.trainerBadges);
+  }
+
   // Applies all battle-entry transforms in one pass with a single emit.
   // Temporary forms apply to team+stored; sticky forms apply to team only.
   private applyBattleForms(): void {

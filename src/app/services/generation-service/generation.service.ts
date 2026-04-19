@@ -7,8 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class GenerationService {
 
-  constructor() {
-  }
+  private readonly STORAGE_KEY = 'pokemon-roulette-generation';
 
   private generations: GenerationItem[] = [
     { text: 'Gen 1', region: 'Kanto', fillStyle: 'darkred', id: 1, weight: 1 },
@@ -22,14 +21,34 @@ export class GenerationService {
     { text: 'Gen 9', region: 'Paldea', fillStyle: 'darkviolet', id: 9, weight: 1 },
   ];
 
-  private generation = new BehaviorSubject<GenerationItem>(this.generations[0]);
+  private generation: BehaviorSubject<GenerationItem>;
+
+  constructor() {
+    const savedId = this.getSavedGenerationId();
+    const index = savedId !== null ? this.generations.findIndex(g => g.id === savedId) : -1;
+    const initial = index !== -1 ? this.generations[index] : this.generations[0];
+    this.generation = new BehaviorSubject<GenerationItem>(initial);
+  }
 
   getGenerationList(): GenerationItem[] {
     return this.generations;
   }
 
   setGeneration(index: number): void {
-    this.generation.next(this.generations[index]);
+    const gen = this.generations[index];
+    this.generation.next(gen);
+    localStorage.setItem(this.STORAGE_KEY, String(gen.id));
+  }
+
+  clearSavedGeneration(): void {
+    localStorage.removeItem(this.STORAGE_KEY);
+  }
+
+  private getSavedGenerationId(): number | null {
+    const saved = localStorage.getItem(this.STORAGE_KEY);
+    if (saved === null) return null;
+    const id = parseInt(saved, 10);
+    return isNaN(id) ? null : id;
   }
 
   getGeneration(): Observable<GenerationItem> {

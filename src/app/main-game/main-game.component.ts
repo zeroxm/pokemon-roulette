@@ -18,6 +18,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
 import { RouletteContainerComponent } from './roulette-container/roulette-container.component';
 import { SettingsButtonComponent } from '../settings-button/settings-button.component';
 import { RareCandyService } from '../services/rare-candy-service/rare-candy.service';
+import { RunPersistenceService } from '../services/run-persistence-service/run-persistence.service';
 
 @Component({
   selector: 'app-main-game',
@@ -45,7 +46,8 @@ export class MainGameComponent implements OnInit {
     private trainerService: TrainerService,
     private modalService: NgbModal,
     private analyticsService: AnalyticsService,
-    private rareCandyService: RareCandyService) {
+    private rareCandyService: RareCandyService,
+    private runPersistenceService: RunPersistenceService) {
       this.darkMode = this.themeService.isDark$;
   }
 
@@ -77,6 +79,7 @@ export class MainGameComponent implements OnInit {
   }
 
   resetGame(): void {
+    this.runPersistenceService.clearSave();
     this.trainerService.resetTrainer();
     this.trainerService.resetTeam();
     this.trainerService.resetItems();
