@@ -1,4 +1,5 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { Injectable, Inject, Optional, Renderer2, RendererFactory2 } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, map, Observable } from 'rxjs';
 
 export type Theme = 'starters' | 'plain-dark' | 'plain-light';
@@ -20,6 +21,7 @@ const ALL_THEME_CLASSES: string[] = [
 })
 export class ThemeService {
   private readonly renderer: Renderer2;
+  private readonly baseHref: string;
   private readonly _theme$: BehaviorSubject<Theme>;
 
   /** Observable that emits the current theme. Only fires on distinct changes. */
@@ -28,8 +30,17 @@ export class ThemeService {
   /** Emits true when the current theme is dark (starters or plain-dark), false for plain-light. */
   readonly isDark$: Observable<boolean>;
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor(
+    rendererFactory: RendererFactory2,
+    @Optional() @Inject(APP_BASE_HREF) baseHref: string | null,
+    @Inject(DOCUMENT) private readonly doc: Document,
+  ) {
     this.renderer = rendererFactory.createRenderer(null, null);
+
+    const raw = baseHref
+      ?? (this.doc.querySelector('base') as HTMLBaseElement | null)?.getAttribute('href')
+      ?? '/';
+    this.baseHref = raw.endsWith('/') ? raw : `${raw}/`;
 
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
     const initial: Theme =
@@ -56,9 +67,10 @@ export class ThemeService {
    * 2. Adds `theme-${theme}` to body
    * 3. Persists selection to localStorage
    * 4. Emits new value on theme$
+   * 5. Sets or removes inline backgroundImage for the starters theme
    */
   setTheme(theme: Theme): void {
-    const body = document.body;
+    const body = this.doc.body;
 
     // Remove all known theme classes (including legacy ones from DarkModeService)
     ALL_THEME_CLASSES.forEach(cls => this.renderer.removeClass(body, cls));
@@ -74,5 +86,12 @@ export class ThemeService {
 
     // Emit (BehaviorSubject + distinctUntilChanged handles dedup)
     this._theme$.next(theme);
+
+    // Apply background image inline so the base href is respected on GitHub Pages
+    if (theme === 'starters') {
+      this.renderer.setStyle(body, 'backgroundImage', `url('${this.baseHref}dark-background.png')`);
+    } else {
+      this.renderer.removeStyle(body, 'backgroundImage');
+    }
   }
 }

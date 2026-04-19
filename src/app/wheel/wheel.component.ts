@@ -109,7 +109,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
   private updateWheelDimensions(): void {
     const viewportMin = Math.min(window.innerHeight, window.innerWidth);
-    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.64 : 0.50;
+    const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.50;
 
     this.canvasHeight = viewportMin * wheelScale;
     this.wheelWidth = this.canvasHeight;
@@ -126,10 +126,14 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const centerX = this.wheelCanvas.width / 2;
     const centerY = this.wheelCanvas.height / 2;
     const radius = (this.wheelCanvas.width / 2);
+    const segRadius = radius * 0.90;  // leave outer 10% for border ring (WHEEL-02)
 
     const totalWeight = this.getTotalWeights();
     const arcSize = (2 * Math.PI) / (totalWeight);
     this.wheelCtx.clearRect(0, 0, this.wheelCanvas.width, this.wheelCanvas.height);
+
+    // Border ring first — behind segments (WHEEL-02)
+    this.drawBorderRing(centerX, centerY, radius);
 
     let startAngle = rotation;
     for (let index = 0; index < this.translatedItems.length; index++) {
@@ -139,7 +143,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
       /** Draw the segment */
       this.wheelCtx.beginPath();
-      this.wheelCtx.arc(centerX, centerY, radius, startAngle, endAngle);
+      this.wheelCtx.arc(centerX, centerY, segRadius, startAngle, endAngle);
       this.wheelCtx.lineTo(centerX, centerY);
       this.wheelCtx.fillStyle = item.fillStyle;
       this.wheelCtx.fill();
@@ -152,26 +156,116 @@ export class WheelComponent implements AfterViewInit, OnChanges {
         this.wheelCtx.fillStyle = '#fff';
         this.wheelCtx.font = this.fontSize + 'px Arial';
         this.wheelCtx.textAlign = 'right';
-        this.wheelCtx.fillText(item.text, radius - 7, 5);
+        this.wheelCtx.fillText(item.text, segRadius - 7, 5);
         this.wheelCtx.restore();
       }
 
       startAngle = endAngle;
     }
+
+    // Pokéball on top — last draw call (WHEEL-01)
+    const pbRadius = window.innerWidth <= this.mobileBreakpoint ? radius * 0.15 : radius * 0.10;
+    this.drawPokeball(centerX, centerY, pbRadius);
+  }
+
+  private drawBorderRing(cx: number, cy: number, radius: number): void {
+    const ctx = this.wheelCtx;
+    const segRadius = radius * 0.90;
+    const ringWidth = radius - segRadius;
+    const ringMidR  = segRadius + ringWidth / 2;
+
+    const gradient = ctx.createRadialGradient(cx, cy, segRadius, cx, cy, radius);
+    gradient.addColorStop(0.0,  '#2C1A0A');
+    gradient.addColorStop(0.4,  '#8B6914');
+    gradient.addColorStop(0.75, '#DAA520');
+    gradient.addColorStop(1.0,  '#FFD700');
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, ringMidR, 0, Math.PI * 2);
+    ctx.lineWidth   = ringWidth;
+    ctx.strokeStyle = gradient;
+    ctx.stroke();
+
+    // thin black outer edge
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius - 0.5, 0, Math.PI * 2);
+    ctx.lineWidth   = 1;
+    ctx.strokeStyle = '#000000';
+    ctx.stroke();
+  }
+
+  private drawPokeball(cx: number, cy: number, pbRadius: number): void {
+    const ctx = this.wheelCtx;
+
+    // Red upper half
+    ctx.beginPath();
+    ctx.arc(cx, cy, pbRadius, 0, Math.PI, true);
+    ctx.closePath();
+    ctx.fillStyle = '#CC0000';
+    ctx.fill();
+
+    // White lower half
+    ctx.beginPath();
+    ctx.arc(cx, cy, pbRadius, 0, Math.PI, false);
+    ctx.closePath();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+
+    // Black outer ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, pbRadius, 0, Math.PI * 2);
+    ctx.strokeStyle = '#000000';
+    ctx.lineWidth = pbRadius * 0.12;
+    ctx.stroke();
+
+    // Black belt
+    const beltHW = pbRadius * 0.12;
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(cx - pbRadius, cy - beltHW, pbRadius * 2, beltHW * 2);
+
+    // Button: black outer circle
+    const btnRadius = pbRadius * 0.28;
+    ctx.beginPath();
+    ctx.arc(cx, cy, btnRadius, 0, Math.PI * 2);
+    ctx.fillStyle = '#000000';
+    ctx.fill();
+
+    // Button: grey inner fill
+    ctx.beginPath();
+    ctx.arc(cx, cy, btnRadius * 0.65, 0, Math.PI * 2);
+    ctx.fillStyle = '#DDDDDD';
+    ctx.fill();
   }
 
   drawPointer(): void {
+    this.pointerCtx.clearRect(0, 0, this.pointerCanvas.width, this.pointerCanvas.height);
     this.pointerCtx.save();
-    this.pointerCtx.lineWidth = 2;
-    this.pointerCtx.strokeStyle = this.pointerStrokeColor;
-    this.pointerCtx.fillStyle = this.pointerFillColor;
+
+    const pw = this.pointerCanvas.width;
+    const ph = this.pointerCanvas.height;
+    const cw = this.cursorWidth;        // 40
+    const bx = pw - cw;
+    const by = ph / 2 - cw / 2;
+
     this.pointerCtx.beginPath();
-    this.pointerCtx.moveTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) - 20);
-    this.pointerCtx.lineTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) + 20);
-    this.pointerCtx.lineTo(this.pointerCanvas.width - this.cursorWidth, this.pointerCanvas.height / 2);
-    this.pointerCtx.lineTo(this.pointerCanvas.width - 2, (this.pointerCanvas.height / 2) - 20);
-    this.pointerCtx.stroke();
+    this.pointerCtx.moveTo(bx,  by + cw*0.5);
+    this.pointerCtx.lineTo(bx + cw*0.5,  by + cw);
+    this.pointerCtx.lineTo(bx + cw*0.45,  by + cw*0.75);
+    this.pointerCtx.lineTo(bx + cw*0.65,  by + cw*0.85);
+    this.pointerCtx.lineTo(bx + cw*0.65,  by + cw*0.65);
+    this.pointerCtx.lineTo(bx + cw,  by + cw*0.75);
+    this.pointerCtx.lineTo(bx + cw,  by + cw*0.50);
+    this.pointerCtx.lineTo(bx + cw*0.40,  by + cw*0.50);
+    this.pointerCtx.lineTo(bx + cw*0.50,  by + cw*0.65);
+    this.pointerCtx.lineTo(bx,  by + cw*0.5);
+    this.pointerCtx.closePath();
+
+    this.pointerCtx.fillStyle   = '#FFD700';
     this.pointerCtx.fill();
+    this.pointerCtx.strokeStyle = '#1a1a00';
+    this.pointerCtx.lineWidth   = 1.5;
+    this.pointerCtx.stroke();
+
     this.pointerCtx.restore();
   }
 

@@ -47,4 +47,13 @@ describe('EvolutionService', () => {
     expect(evolutions[0].text).toBe('pokemon.ninetales-alola');
     expect(evolutions[0].sprite).toBeNull();
   });
+
+  it('should carry form-specific types when evolving into an alternative form', () => {
+    const pikachu = service.nationalDexPokemon.find(p => p.pokemonId === 25) as PokemonItem;
+    const evolutions = service.getEvolutions(pikachu);
+    const alolaRaichu = evolutions.find(p => p.pokemonId === 10100) as PokemonItem;
+
+    expect(alolaRaichu.type1).toBe('electric');
+    expect(alolaRaichu.type2).toBe('psychic');
+  });
 });
