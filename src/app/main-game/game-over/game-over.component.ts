@@ -103,44 +103,71 @@ export class GameOverComponent implements OnInit, OnDestroy {
     return pokemon.fillStyle;
   }
 
-  async shareResults() {
+ async shareResults() {
     if (!this.captureArea) return;
 
     const element = this.captureArea.nativeElement;
     const originalBg = element.style.backgroundColor;
     element.style.backgroundColor = this.darkMode ? 'rgb(223, 230, 233)' : 'rgb(45, 52, 54)';
-    const scale = 2;
+    
+    // FIX 1: Abbassato a 1 per evitare l'esaurimento della RAM e il freeze del browser
+    const scale = 1; 
 
-    domtoimage.toBlob(this.captureArea.nativeElement, {
-      width: this.captureArea.nativeElement.scrollWidth * scale,
-      height: this.captureArea.nativeElement.scrollHeight * scale,
-      style: {
-        transform: `scale(${scale})`,
-        transformOrigin: 'top left',
-        width: `${this.captureArea.nativeElement.scrollWidth * scale}px`,
-        height: `${this.captureArea.nativeElement.scrollHeight * scale}px`
-      }
-    }).then((blob: Blob | null) => {
-      if (!blob) return;
+    try {
+      // Usiamo await invece dei .then() concatenati
+      const blob = await domtoimage.toBlob(element, {
+        width: element.scrollWidth * scale,
+        height: element.scrollHeight * scale,
+        style: {
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+          width: `${element.scrollWidth * scale}px`,
+          height: `${element.scrollHeight * scale}px`
+        }
+      });
+
+      if (!blob) throw new Error("Impossibile generare l'immagine");
+
       const file = new File([blob], 'run-is-over.png', { type: 'image/png' });
-      element.style.backgroundColor = originalBg;
 
+      // Controlliamo se la Share API è supportata e valida
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({
-          files: [file],
-          title: this.translate.instant('game.over.shareTitle'),
-          text: this.translate.instant('game.over.shareText'),
-        });
+        try {
+          // FIX 2: Await su navigator.share per intercettare se l'utente annulla o se il browser blocca
+          await navigator.share({
+            files: [file],
+            title: this.translate.instant('game.over.shareTitle'),
+            text: this.translate.instant('game.over.shareText'),
+          });
+        } catch (shareError: any) {
+          // Se l'utente chiude la finestra di condivisione o c'è un timeout, non facciamo crashare l'app
+          console.warn('Condivisione annullata o fallita:', shareError);
+        }
       } else {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'run-is-over.png';
-        link.click();
-        URL.revokeObjectURL(link.href);
+        // Fallback al download classico
+        this.downloadFallback(blob);
       }
-    }).catch((error: Error) => {
-      console.error('Error capturing image:', error);
-    });
+
+    } catch (error) {
+      console.error('Errore durante la cattura dell\'immagine:', error);
+      // Se la generazione fallisce, forziamo il download come fallback o mostriamo un errore
+      alert("Impossibile condividere l'immagine. Riprova.");
+    } finally {
+      // FIX 3: Il blocco finally viene eseguito SEMPRE, sia in caso di successo che di errore/freeze temporaneo.
+      // Questo impedisce che l'interfaccia rimanga "bloccata" con il colore di cattura.
+      element.style.backgroundColor = originalBg;
+    }
+  }
+
+  // Funzione di supporto per il fallback
+  private downloadFallback(blob: Blob) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'run-is-over.png';
+    document.body.appendChild(link); // Necessario su alcuni browser prima del click
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
   }
 
   private getCurrentLeader(): GymLeader {
