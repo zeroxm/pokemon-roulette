@@ -23,6 +23,21 @@
                                         class="img-fluid"
                                         placement="bottom"
                                         ngbTooltip="{{ trainerTeam[i].text | translate }}">
+
+                                   @if (getMegaStoneSprite(trainerTeam[i]); as megaStoneSprite) {
+                                        <button
+                                             type="button"
+                                             class="mega-stone-overlay-button"
+                                             (click)="triggerMegaStoneInterrupt(trainerTeam[i])"
+                                             placement="bottom"
+                                             ngbTooltip="{{ getMegaStoneTextKey(trainerTeam[i]) | translate }}"
+                                             [attr.aria-label]="getMegaStoneTextKey(trainerTeam[i]) | translate">
+                                             <img
+                                                  [src]="megaStoneSprite"
+                                                  class="mega-stone-overlay"
+                                                  alt="Mega Stone">
+                                        </button>
+                                   }
                               }
                          </div>
                     }

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { isMegaStoneItemName } from '../services/items-service/item-names';
 
 @Component({
   selector: 'app-items',
@@ -28,6 +29,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
 
   trainerItems!: ItemItem[];
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
+  @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
 
   darkMode!: Observable<boolean>;
   private itemsSubscription!: Subscription;
@@ -46,6 +48,8 @@ export class ItemsComponent implements OnInit, OnDestroy {
     if(item) {
       if (item.name === 'rare-candy') {
         this.rareCandyInterrupt.emit(item);
+      } else if (isMegaStoneItemName(item.name)) {
+        this.megaStoneInterrupt.emit(item);
       }
     }
   }

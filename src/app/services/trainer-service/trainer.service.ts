@@ -6,7 +6,7 @@ import { PokemonService } from '../pokemon-service/pokemon.service';
 import { EvolutionService } from '../evolution-service/evolution.service';
 import { ItemItem } from '../../interfaces/item-item';
 import { ItemSpriteService } from '../item-sprite-service/item-sprite.service';
-import { ItemName } from '../items-service/item-names';
+import { ItemName, MegaStoneItemName } from '../items-service/item-names';
 import { Badge } from '../../interfaces/badge';
 import { BadgesService } from '../badges-service/badges.service';
 import { GenerationService } from '../generation-service/generation.service';
@@ -14,7 +14,7 @@ import { GameState } from '../game-state-service/game-state';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { palafinForms } from './palafin-forms';
 import { stickyBattleForms } from './sticky-battle-forms';
-import { pokemonMegaForms, megaStoneNameForBaseId } from './pokemon-mega-forms';
+import { megaStoneNamesForBaseId, pokemonMegaForms } from './pokemon-mega-forms';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,22 @@ export class TrainerService implements OnDestroy {
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [];
+  trainerTeam: PokemonItem[] = [
+    {
+        text: "pokemon.charizard",
+        pokemonId: 6,
+        fillStyle: "darkred",
+        type1: "fire",
+        type2: "flying",
+        sprite: {
+            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
+        },
+        shiny: false,
+        power: 3,
+        weight: 1
+    },
+  ];
 
   storedPokemon: PokemonItem[] = [];
 
@@ -58,6 +73,7 @@ export class TrainerService implements OnDestroy {
   private readonly temporaryBattleForms = palafinForms;
   private readonly stickyBattleFormGroups = stickyBattleForms;
   private megaBattleBaseId: number | null = null;
+  private megaBattleStoneName: MegaStoneItemName | null = null;
   private megaBattleOriginalPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [structuredClone(TrainerService.DEFAULT_POTION)];
@@ -241,16 +257,7 @@ export class TrainerService implements OnDestroy {
       const baseId = pokemon.pokemonId;
       if (!pokemonMegaForms[baseId]) continue;
       if (seen.has(baseId)) continue;
-      const stoneName = megaStoneNameForBaseId(baseId);
-      if (stoneName !== undefined) {
-        // 1:1 stone case — eligible if trainer does NOT hold the stone
-        if (!this.hasItem(stoneName)) {
-          seen.add(baseId);
-          eligible.push(pokemon);
-        }
-      } else {
-        // Multi-stone case (e.g. Charizard, Mewtwo, Raichu) — include as candidate;
-        // T02 award logic will pick the first unheld stone via getFirstAvailableMegaStoneNameForPokemon.
+      if (this.getAvailableMegaStoneNamesForPokemon(pokemon).length > 0) {
         seen.add(baseId);
         eligible.push(pokemon);
       }
@@ -259,20 +266,18 @@ export class TrainerService implements OnDestroy {
   }
 
   /**
-   * Returns the first mega stone ItemName that the trainer does not yet hold for
-   * the given Pokémon, or undefined if all applicable stones are already held.
-   * For 1:1 cases this delegates to megaStoneNameForBaseId. Multi-stone expansion
-   * (Charizard X/Y, Mewtwo X/Y, etc.) is left as a TODO — those Pokémon are
-   * included as eligible candidates and this method returns undefined for them,
-   * which the award step in T02 handles by skipping stone assignment.
-   * TODO: expand to enumerate per-form stone names for multi-stone Pokémon.
+   * Returns mega stone names for the given Pokémon that the trainer does not yet hold.
    */
-  getFirstAvailableMegaStoneNameForPokemon(pokemon: PokemonItem): ItemName | undefined {
-    const stoneName = megaStoneNameForBaseId(pokemon.pokemonId);
-    if (stoneName !== undefined && !this.hasItem(stoneName)) {
-      return stoneName;
-    }
-    return undefined;
+  getAvailableMegaStoneNamesForPokemon(pokemon: PokemonItem): MegaStoneItemName[] {
+    return megaStoneNamesForBaseId(pokemon.pokemonId).filter(stoneName => !this.hasItem(stoneName));
+  }
+
+  getHeldMegaStoneNamesForPokemon(pokemon: PokemonItem): MegaStoneItemName[] {
+    return megaStoneNamesForBaseId(pokemon.pokemonId).filter(stoneName => this.hasItem(stoneName));
+  }
+
+  getFirstAvailableMegaStoneNameForPokemon(pokemon: PokemonItem): MegaStoneItemName | undefined {
+    return this.getAvailableMegaStoneNamesForPokemon(pokemon)[0];
   }
 
   /**
@@ -286,36 +291,33 @@ export class TrainerService implements OnDestroy {
       const baseId = pokemon.pokemonId;
       if (seen.has(baseId)) continue;
       if (!pokemonMegaForms[baseId]) continue;
-      const stoneName = megaStoneNameForBaseId(baseId);
-      if (stoneName !== undefined) {
-        if (this.hasItem(stoneName)) {
-          seen.add(baseId);
-          candidates.push(pokemon);
-        }
-      } else {
-        // Multi-stone case: check each mega form's associated stone
-        const forms = pokemonMegaForms[baseId];
-        const hasAnyStone = forms.some(form => {
-          const formStoneName = megaStoneNameForBaseId(form.pokemonId);
-          return formStoneName !== undefined && this.hasItem(formStoneName);
-        });
-        if (hasAnyStone) {
-          seen.add(baseId);
-          candidates.push(pokemon);
-        }
+      if (this.getHeldMegaStoneNamesForPokemon(pokemon).length > 0) {
+        seen.add(baseId);
+        candidates.push(pokemon);
       }
     }
     return candidates;
   }
 
   /** Sets which base Pokémon ID will mega-evolve at battle entry. Pass null to clear. */
-  setMegaBattlePokemon(baseId: number | null): void {
+  setMegaBattlePokemon(baseId: number | null, stoneName: MegaStoneItemName | null = null): void {
     this.megaBattleBaseId = baseId;
+    this.megaBattleStoneName = baseId === null ? null : stoneName;
   }
 
   /** Returns the base Pokémon ID that will mega-evolve this battle, or null if none. */
   getMegaBattleBaseId(): number | null {
     return this.megaBattleBaseId;
+  }
+
+  /** Applies mega evolution immediately for the selected base Pokémon during a battle. */
+  forceMegaActivation(baseId: number, stoneName?: MegaStoneItemName): void {
+    this.megaBattleBaseId = baseId;
+    this.megaBattleStoneName = stoneName ?? this.resolveMegaStoneForBattle(baseId);
+    const changed = this.applyMegaForms();
+    if (changed) {
+      this.trainerTeamObservable.next(this.getTeam());
+    }
   }
 
   removeItem(item: ItemItem): void {
@@ -385,13 +387,6 @@ export class TrainerService implements OnDestroy {
   }
 
   private applyMegaForms(): boolean {
-    // Auto-select if exactly one candidate and none chosen yet
-    if (this.megaBattleBaseId === null) {
-      const candidates = this.getMegaBattleCandidates();
-      if (candidates.length === 1) {
-        this.megaBattleBaseId = candidates[0].pokemonId;
-      }
-    }
     if (this.megaBattleBaseId === null) return false;
 
     const baseId = this.megaBattleBaseId;
@@ -401,8 +396,11 @@ export class TrainerService implements OnDestroy {
     const forms = pokemonMegaForms[baseId];
     if (!forms) return false;
 
-    const stoneName = megaStoneNameForBaseId(baseId);
-    const megaForm = forms.find(() => stoneName !== undefined && this.hasItem(stoneName)) ?? forms[0];
+    const stoneName = this.resolveMegaStoneForBattle(baseId);
+    if (!stoneName) return false;
+
+    const megaForm = this.getMegaFormForStone(baseId, stoneName);
+    if (!megaForm) return false;
 
     this.megaBattleOriginalPokemon = structuredClone(this.trainerTeam[index]);
     const replacement = structuredClone(megaForm);
@@ -444,9 +442,34 @@ export class TrainerService implements OnDestroy {
 
     if (reverted) {
       this.megaBattleBaseId = null;
+      this.megaBattleStoneName = null;
       this.megaBattleOriginalPokemon = null;
     }
     return reverted;
+  }
+
+  private resolveMegaStoneForBattle(baseId: number): MegaStoneItemName | null {
+    if (this.megaBattleStoneName && this.hasItem(this.megaBattleStoneName)) {
+      return this.megaBattleStoneName;
+    }
+
+    const heldStoneNames = megaStoneNamesForBaseId(baseId).filter(stoneName => this.hasItem(stoneName));
+    return heldStoneNames[0] ?? null;
+  }
+
+  private getMegaFormForStone(baseId: number, stoneName: MegaStoneItemName): PokemonItem | null {
+    const forms = pokemonMegaForms[baseId];
+    if (!forms || forms.length === 0) {
+      return null;
+    }
+
+    const stoneNames = megaStoneNamesForBaseId(baseId);
+    const stoneIndex = stoneNames.indexOf(stoneName);
+    if (stoneIndex === -1) {
+      return forms[0] ?? null;
+    }
+
+    return forms[stoneIndex] ?? forms[0] ?? null;
   }
 
   private applyStickyFormsToCollection(collection: PokemonItem[]): boolean {

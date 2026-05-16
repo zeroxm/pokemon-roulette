@@ -32,10 +32,15 @@
 
         <div class="trainer-info col-12 col-sm-4">
             <div class="trainer-team">
-                <app-trainer-team></app-trainer-team>
+                <app-trainer-team
+                    (megaStoneInterrupt)="megaStoneInterrupt($event)">
+                </app-trainer-team>
             </div>
             <div class="items">
-                <app-items (rareCandyInterrupt)="rareCandyInterrupt($event)"></app-items>
+                <app-items
+                    (rareCandyInterrupt)="rareCandyInterrupt($event)"
+                    (megaStoneInterrupt)="megaStoneInterrupt($event)">
+                </app-items>
             </div>
         </div>
     </div>

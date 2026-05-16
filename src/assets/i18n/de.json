@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Du hast einen Mega-Stein erhalten!",
-          "stoneDesc": "Dein Pokémon kann jetzt Mega-Entwicklung nutzen!"
+          "stoneDesc": "Tippe im Team auf das Mega-Stein-Symbol, um die Mega-Entwicklung im Kampf zu aktivieren!"
         }
       },
       "roulette": {
@@ -384,6 +384,7 @@
         },
         "mega": {
           "who": "Wer erhält einen Mega-Stein?",
+          "whichStone": "Welcher Mega-Stein wird vergeben?",
           "whoMega": "Wer mega-entwickelt sich in diesem Kampf?"
         }
       },

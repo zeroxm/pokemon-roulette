@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Hai ottenuto una Mega Pietra!",
-          "stoneDesc": "Il tuo Pokémon ora può Mega Evolversi!"
+          "stoneDesc": "Tocca l'icona della Mega Pietra nel tuo team per attivare la Mega Evoluzione in battaglia!"
         }
       },
       "roulette": {
@@ -384,6 +384,7 @@
         },
         "mega": {
           "who": "Chi riceverà una Mega Pietra?",
+          "whichStone": "Quale Mega Pietra verrà assegnata?",
           "whoMega": "Chi mega-evolve in questa battaglia?"
         }
       },

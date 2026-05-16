@@ -24,10 +24,42 @@
 .pokemon-container {
   padding: 0px;
   aspect-ratio: 1;
+  position: relative;
 
   img {
     animation: pokemon-show 0.5s ease-in-out;
   }
+}
+
+.mega-stone-overlay {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  padding: 2px;
+  z-index: 2;
+}
+
+.mega-stone-overlay-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.mega-stone-overlay-button:focus-visible {
+  outline: 2px solid #4d90fe;
+  outline-offset: 1px;
+  border-radius: 999px;
 }
 
 @keyframes pokemon-show {

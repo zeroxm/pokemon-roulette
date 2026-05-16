@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { Observable, Subscription } from 'rxjs';
 import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
@@ -11,6 +11,7 @@ import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 import { PokedexComponent } from "./pokedex/pokedex.component";
 import {TranslatePipe} from '@ngx-translate/core';
+import { ItemItem } from '../interfaces/item-item';
 
 @Component({
   selector: 'app-trainer-team',
@@ -32,6 +33,7 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
   trainerBadges!: Badge[];
 
   darkMode!: Observable<boolean>;
+  @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
 
   private trainerSubscription!: Subscription;
   private teamSubscription!: Subscription;
@@ -61,5 +63,35 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
       return pokemon.sprite?.front_shiny || 'place-holder-pixel.png';
     }
     return pokemon.sprite?.front_default || 'place-holder-pixel.png';
+  }
+
+  getMegaStoneSprite(pokemon: PokemonItem | undefined): string | null {
+    return this.getHeldMegaStoneItem(pokemon)?.sprite || null;
+  }
+
+  getMegaStoneTextKey(pokemon: PokemonItem | undefined): string | null {
+    return this.getHeldMegaStoneItem(pokemon)?.text || null;
+  }
+
+  triggerMegaStoneInterrupt(pokemon: PokemonItem | undefined): void {
+    const megaStone = this.getHeldMegaStoneItem(pokemon);
+    if (!megaStone) {
+      return;
+    }
+
+    this.megaStoneInterrupt.emit(megaStone);
+  }
+
+  private getHeldMegaStoneItem(pokemon: PokemonItem | undefined) {
+    if (!pokemon) {
+      return null;
+    }
+
+    const heldStoneName = this.trainerService.getHeldMegaStoneNamesForPokemon(pokemon)[0];
+    if (!heldStoneName) {
+      return null;
+    }
+
+    return this.trainerService.getItem(heldStoneName) ?? null;
   }
 }

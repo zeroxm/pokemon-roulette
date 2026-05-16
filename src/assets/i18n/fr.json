@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Vous avez obtenu une Méga-Pierre!",
-          "stoneDesc": "Votre Pokémon peut maintenant Méga-Évoluer!"
+          "stoneDesc": "Touchez l'icône de Méga-Pierre dans votre équipe pour activer la Méga-Évolution en combat!"
         }
       },
       "roulette": {
@@ -384,6 +384,7 @@
         },
         "mega": {
           "who": "Qui recevra une Méga-Pierre?",
+          "whichStone": "Quelle Méga-Pierre sera attribuée ?",
           "whoMega": "Qui méga-évolue dans ce combat ?"
         }
       },

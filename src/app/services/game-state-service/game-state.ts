@@ -8,6 +8,7 @@ export type GameState =
   | 'select-form'
   | 'evolve-pokemon'
   | 'select-from-pokemon-list'
+  | 'select-from-item-list'
   | 'select-evolution'
   | 'gym-battle'
   | 'check-evolution'
@@ -31,6 +32,4 @@ export type GameState =
   | 'elite-four-preparation'
   | 'elite-four-battle'
   | 'champion-battle'
-  | 'award-mega-stone'
-  | 'select-mega-evolution'
   | 'game-finish';

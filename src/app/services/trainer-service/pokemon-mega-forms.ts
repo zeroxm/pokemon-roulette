@@ -1,5 +1,5 @@
 import { PokemonItem } from '../../interfaces/pokemon-item';
-import { ItemName } from '../items-service/item-names';
+import { MegaStoneItemName } from '../items-service/item-names';
 
 export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     3: [
@@ -241,7 +241,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     701: [
         { pokemonId: 10300, text: 'Hawlucha (Mega)', fillStyle: 'green', weight: 1, sprite: null, shiny: false, power: 5 }
     ],
-    718: [
+    10120: [
         { pokemonId: 10301, text: 'Zygarde (Mega)', fillStyle: 'green', weight: 1, sprite: null, shiny: false, power: 5 }
     ],
     719: [
@@ -282,11 +282,13 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     ]
 };
 
-/** Maps base Pokémon ID to its primary mega stone ItemName. */
-const _baseIdToStoneName: Record<number, ItemName> = {
-    3: 'venusaur-ite',
-    6: 'charizard-ite',
-    9: 'blastoise-ite',
+type MegaStoneMapping = MegaStoneItemName | MegaStoneItemName[];
+
+/** Maps base Pokémon ID to one or more mega stone item names. */
+const _baseIdToStoneName: Record<number, MegaStoneMapping> = {
+    3: 'venusaurite',
+    6: ['charizardite-x', 'charizardite-y'],
+    9: 'blastoisinite',
     15: 'beedrill-ite',
     18: 'pidgeot-ite',
     26: 'raichu-ite',
@@ -342,13 +344,22 @@ const _baseIdToStoneName: Record<number, ItemName> = {
     719: 'diancie-ite',
     689: 'barbaracle-ite',
     691: 'dragalge-ite',
+    10120: 'zygardite'
 };
 
+export function megaStoneNamesForBaseId(baseId: number): MegaStoneItemName[] {
+    const mapping = _baseIdToStoneName[baseId];
+    if (mapping === undefined) {
+        return [];
+    }
+
+    return Array.isArray(mapping) ? mapping : [mapping];
+}
+
 /**
- * Returns the kebab-case mega stone ItemName for a given base Pokémon ID,
+ * Returns the first mega stone item name for a given base Pokémon ID,
  * or undefined if no stone mapping exists.
- * Example: megaStoneNameForBaseId(3) → 'venusaur-ite'
  */
-export function megaStoneNameForBaseId(baseId: number): ItemName | undefined {
-    return _baseIdToStoneName[baseId];
+export function megaStoneNameForBaseId(baseId: number): MegaStoneItemName | undefined {
+    return megaStoneNamesForBaseId(baseId)[0];
 }

@@ -41,6 +41,13 @@
         (selectedMemberEvent)="continueWithPokemon($event)">
     </app-pokemon-from-aux-list-roulette>
   }
+  @case ('select-from-item-list') {
+    <app-select-from-item-list-roulette
+        [wheelTitle]="customWheelTitle"
+        [items]="auxItemList"
+        (selectedItemEvent)="continueWithItem($event)">
+    </app-select-from-item-list-roulette>
+  }
   @case ('select-form') {
     <app-select-form-roulette
         [forms]="pokemonForms"
@@ -204,8 +211,6 @@
         [currentRound]="leadersDefeatedAmount"
         (restartEvent)="resetGameAction()">
     </app-game-over>
-  }
-  @case ('award-mega-stone') {
   }
  }
 

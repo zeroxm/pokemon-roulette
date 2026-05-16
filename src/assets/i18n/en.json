@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Got a Mega Stone!",
-          "stoneDesc": "Your Pokémon is now able to Mega Evolve!"
+          "stoneDesc": "Tap a Mega Stone icon on your team to activate Mega Evolution during battle!"
         }
       },
       "roulette": {
@@ -384,6 +384,7 @@
         },
         "mega": {
           "who": "Who will receive a Mega Stone?",
+          "whichStone": "Which Mega Stone will be awarded?",
           "whoMega": "Who mega-evolves this battle?"
         }
       },

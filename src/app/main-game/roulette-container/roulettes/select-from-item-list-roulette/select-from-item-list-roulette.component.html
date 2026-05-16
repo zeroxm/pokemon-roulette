@@ -1,0 +1,5 @@
+<h1 class="title">{{ wheelTitle | translate }}</h1>
+<app-wheel
+  [items]="items"
+  (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>
