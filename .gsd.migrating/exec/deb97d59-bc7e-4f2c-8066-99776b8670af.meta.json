@@ -1,0 +1,18 @@
+{
+  "id": "deb97d59-bc7e-4f2c-8066-99776b8670af",
+  "runtime": "bash",
+  "purpose": "S04 verification checks simple",
+  "script_chars": 1198,
+  "started_at": "2026-05-16T14:14:29.160Z",
+  "finished_at": "2026-05-16T14:14:29.228Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 68,
+  "stdout_bytes": 327,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\deb97d59-bc7e-4f2c-8066-99776b8670af.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\deb97d59-bc7e-4f2c-8066-99776b8670af.stderr"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "13301e18-7edd-489a-af67-083ffefc2a86",
+  "runtime": "bash",
+  "purpose": "Check for key mega evolution files",
+  "script_chars": 152,
+  "started_at": "2026-05-16T14:15:50.627Z",
+  "finished_at": "2026-05-16T14:15:50.692Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 65,
+  "stdout_bytes": 190,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\13301e18-7edd-489a-af67-083ffefc2a86.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\13301e18-7edd-489a-af67-083ffefc2a86.stderr"
+}

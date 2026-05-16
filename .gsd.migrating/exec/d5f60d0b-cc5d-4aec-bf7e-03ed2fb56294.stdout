@@ -1,8 +1,0 @@
-=== item-names.ts mega stone count ===
-86
-=== items-data.ts unknown.png count ===
-86
-=== pokemon-mega-forms.ts exists ===
-YES
-=== pokemonMegaForms export ===
-export const pokemonMegaForms: Record<number, PokemonItem[]> = {

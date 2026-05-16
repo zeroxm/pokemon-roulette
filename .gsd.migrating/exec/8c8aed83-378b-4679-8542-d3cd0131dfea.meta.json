@@ -1,0 +1,18 @@
+{
+  "id": "8c8aed83-378b-4679-8542-d3cd0131dfea",
+  "runtime": "bash",
+  "purpose": "Check non-gsd file changes via git log",
+  "script_chars": 102,
+  "started_at": "2026-05-16T14:15:50.624Z",
+  "finished_at": "2026-05-16T14:15:51.057Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 433,
+  "stdout_bytes": 1697,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\8c8aed83-378b-4679-8542-d3cd0131dfea.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\8c8aed83-378b-4679-8542-d3cd0131dfea.stderr"
+}

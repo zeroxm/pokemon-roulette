@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T03",
+  "unitId": "M001/S04/T03",
+  "timestamp": 1778940845569,
+  "passed": false,
+  "discoverySource": "task-plan",
+  "checks": [
+    {
+      "command": "grep -q 'getMegaBattleBaseId' src/app/services/trainer-service/trainer.service.ts",
+      "exitCode": 1,
+      "durationMs": 10,
+      "verdict": "fail"
+    }
+  ],
+  "retryAttempt": 1,
+  "maxRetries": 2
+}

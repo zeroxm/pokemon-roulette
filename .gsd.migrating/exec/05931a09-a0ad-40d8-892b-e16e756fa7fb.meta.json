@@ -1,0 +1,18 @@
+{
+  "id": "05931a09-a0ad-40d8-892b-e16e756fa7fb",
+  "runtime": "bash",
+  "purpose": "Verify getMegaBattleBaseId exists in trainer.service.ts",
+  "script_chars": 193,
+  "started_at": "2026-05-16T14:14:13.492Z",
+  "finished_at": "2026-05-16T14:14:15.788Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 2296,
+  "stdout_bytes": 7,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\05931a09-a0ad-40d8-892b-e16e756fa7fb.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\05931a09-a0ad-40d8-892b-e16e756fa7fb.stderr"
+}

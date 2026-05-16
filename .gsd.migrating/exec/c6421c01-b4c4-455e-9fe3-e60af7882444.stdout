@@ -1,0 +1,13 @@
+=== pokemonMegaForms export ===
+1
+=== ItemName literals count ===
+86
+0
+=== awardMegaStone exists ===
+4
+=== applyMegaForms/revertMegaForms ===
+4
+=== select-mega-evolution GameState ===
+  | 'select-mega-evolution'
+=== MegaEvolutionAnimationModal ===
+import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
