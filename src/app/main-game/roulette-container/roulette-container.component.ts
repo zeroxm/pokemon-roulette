@@ -24,6 +24,7 @@ import { ItemItem } from '../../interfaces/item-item';
 import { ShinyRouletteComponent } from "./roulettes/shiny-roulette/shiny-roulette.component";
 import { StartAdventureRouletteComponent } from "./roulettes/start-adventure-roulette/start-adventure-roulette.component";
 import { ItemName } from '../../services/items-service/item-names';
+import { megaStoneNameForBaseId } from '../../services/trainer-service/pokemon-mega-forms';
 import { PokemonFromGenerationRouletteComponent } from "./roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component";
 import { PokemonFromAuxListRouletteComponent } from "./roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component";
 import { GymBattleRouletteComponent } from "./roulettes/gym-battle-roulette/gym-battle-roulette.component";
@@ -190,6 +191,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   runningShoesUsed: boolean = false;
   stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
+  private pendingBattleType: 'gym' | 'elite-four' | 'champion' = 'gym';
 
   getGameState(): string {
     return this.currentGameState;
@@ -357,6 +359,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       case 'trade-pokemon':
         this.currentContextPokemon = pokemon;
         break;
+      case 'award-mega-stone':
+        this.continueAfterMegaStoneAward(pokemon);
+        break;
+      case 'select-mega-evolution':
+        this.trainerService.setMegaBattlePokemon(pokemon.pokemonId);
+        break;
       default:
         break;
     }
@@ -400,13 +408,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
-      this.gameStateService.setNextState('check-evolution');
+      this.pendingBattleType = 'gym';
+      this.awardMegaStone();
 
     } else {
       this.gameStateService.setNextState('game-over');
+      this.finishCurrentState();
     }
-
-    this.finishCurrentState();
   }
 
   catchTwoPokemon(): void {
@@ -623,11 +631,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (result) {
       this.gameStateService.advanceRound();
-      this.gameStateService.setNextState('check-evolution');
+      this.pendingBattleType = 'elite-four';
+      this.awardMegaStone();
     } else {
       this.gameStateService.setNextState('game-over');
+      this.finishCurrentState();
     }
-    this.finishCurrentState();
   }
 
   championBattleResult(result: boolean): void {
@@ -645,11 +654,84 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       }))];
       this.pokedexService.markWon(wonIds);
       this.gameStateService.advanceRound();
+      this.pendingBattleType = 'champion';
+      this.awardMegaStone();
     } else {
       this.gameStateService.setNextState('game-over');
+      this.finishCurrentState();
+    }
+  }
+
+  private getMegaCandidates(): PokemonItem[] {
+    return this.trainerService.getMegaStoneEligiblePokemon();
+  }
+
+  maybePushMegaSelectionBeforeBattle(): void {
+    const candidates = this.trainerService.getMegaBattleCandidates();
+    if (candidates.length === 0) {
+      return;
+    }
+    if (candidates.length === 1) {
+      this.trainerService.setMegaBattlePokemon(candidates[0].pokemonId);
+      return;
+    }
+    // 2+ candidates: push wheel states so they are consumed before the battle state
+    this.auxPokemonList = candidates;
+    this.customWheelTitle = 'game.main.roulette.mega.whoMega';
+    this.gameStateService.setNextState('select-mega-evolution');
+    this.gameStateService.setNextState('select-from-pokemon-list');
+  }
+
+  awardMegaStone(): void {
+    this.gameStateService.setNextState('check-evolution');
+    this.maybePushMegaSelectionBeforeBattle();
+    const candidates = this.getMegaCandidates();
+
+    if (candidates.length === 0) {
+      // No eligible candidates — flow through to check-evolution (and alt prize for gym)
+      if (this.pendingBattleType === 'gym') {
+        this.finishCurrentState();
+        this.chooseWhoWillEvolve('gym-battle');
+      } else {
+        this.finishCurrentState();
+      }
+      return;
     }
 
+    if (candidates.length === 1) {
+      this.finishCurrentState();
+      this.grantMegaStone(candidates[0]);
+      return;
+    }
+
+    // 2+ candidates — spin wheel
+    this.auxPokemonList = candidates;
+    this.customWheelTitle = 'game.main.roulette.mega.who';
+    this.gameStateService.setNextState('award-mega-stone');
+    this.gameStateService.setNextState('select-from-pokemon-list');
     this.finishCurrentState();
+  }
+
+  private grantMegaStone(pokemon: PokemonItem): void {
+    const stoneName = this.trainerService.getFirstAvailableMegaStoneNameForPokemon(pokemon);
+    if (stoneName !== undefined && !this.trainerService.hasItem(stoneName)) {
+      this.trainerService.addToItems(this.itemService.getItem(stoneName));
+      console.log(`[MegaStone] Awarded ${stoneName} to ${pokemon.text}`);
+      this.playItemFoundAudio();
+      this.altPrizeText = 'game.main.altPrizes.megaStone.stone';
+      this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
+      this.altPrizeDescription = 'game.main.altPrizes.megaStone.stoneDesc';
+      this.modalQueueService.open(this.altPrizeModal, {
+        centered: true,
+        size: 'md'
+      });
+    } else {
+      console.log(`[MegaStone] No stone to award for ${pokemon.text} (already held or undefined)`);
+    }
+  }
+
+  continueAfterMegaStoneAward(pokemon: PokemonItem): void {
+    this.grantMegaStone(pokemon);
   }
 
   closeModal(): void {

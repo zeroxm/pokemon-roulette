@@ -1,0 +1,117 @@
+/* ── Container ────────────────────────────────────────────────── */
+.mega-anim-container {
+  position: relative;
+  min-height: 300px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ── Sprite ───────────────────────────────────────────────────── */
+.mega-sprite {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mega-sprite img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+/* Show sprite only in reveal / dissolve phases */
+.reveal .mega-sprite,
+.dissolve .mega-sprite {
+  animation: spriteReveal 0.7s ease-out forwards;
+}
+
+/* ── Sphere ───────────────────────────────────────────────────── */
+.mega-sphere {
+  position: absolute;
+  z-index: 2;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(200, 180, 255, 0.85) 25%,
+    rgba(100, 160, 255, 0.75) 50%,
+    rgba(180, 100, 255, 0.6) 75%,
+    rgba(80, 40, 160, 0.4) 100%
+  );
+  opacity: 0;
+  transform: scale(0);
+}
+
+.sphere .mega-sphere {
+  animation: sphereExpand 0.7s ease-out forwards;
+}
+
+.crack .mega-sphere {
+  /* Keep sphere visible at full scale */
+  opacity: 1;
+  transform: scale(1.5);
+  animation: crackAppear 0.7s ease-in-out forwards;
+}
+
+/* Sphere hidden in reveal / dissolve — sprite takes over */
+.reveal .mega-sphere,
+.dissolve .mega-sphere {
+  opacity: 0;
+}
+
+/* ── Mega icon ────────────────────────────────────────────────── */
+.mega-icon {
+  position: absolute;
+  z-index: 3;
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: scale(1);
+  text-shadow: none;
+  pointer-events: none;
+}
+
+.dissolve .mega-icon {
+  animation: iconPulse 0.9s ease-in-out forwards;
+}
+
+/* ── Keyframes ────────────────────────────────────────────────── */
+
+@keyframes sphereExpand {
+  0%   { opacity: 0;   transform: scale(0); }
+  40%  { opacity: 1;   transform: scale(0.9); }
+  100% { opacity: 1;   transform: scale(1.5); }
+}
+
+@keyframes crackAppear {
+  0%   { opacity: 1; transform: scale(1.5); filter: hue-rotate(0deg) brightness(1); }
+  30%  { opacity: 1; transform: scale(1.5); filter: hue-rotate(60deg) brightness(1.5); }
+  60%  { opacity: 1; transform: scale(1.6); filter: hue-rotate(120deg) brightness(2); }
+  85%  { opacity: 0.7; transform: scale(1.7); filter: hue-rotate(200deg) brightness(2.5); }
+  100% { opacity: 0; transform: scale(2.2); filter: hue-rotate(270deg) brightness(3); }
+}
+
+@keyframes spriteReveal {
+  0%   { opacity: 0; transform: scale(0.8); }
+  60%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes iconPulse {
+  0%   { opacity: 0; transform: scale(1); }
+  30%  { opacity: 1; transform: scale(1.2); }
+  70%  { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(0); }
+}

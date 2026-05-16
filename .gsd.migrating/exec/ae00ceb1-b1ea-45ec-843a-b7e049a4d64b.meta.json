@@ -1,0 +1,18 @@
+{
+  "id": "ae00ceb1-b1ea-45ec-843a-b7e049a4d64b",
+  "runtime": "bash",
+  "purpose": "Check getBasePokemonId and mega candidate logic",
+  "script_chars": 396,
+  "started_at": "2026-05-16T12:26:03.664Z",
+  "finished_at": "2026-05-16T12:26:03.843Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 179,
+  "stdout_bytes": 1016,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\ae00ceb1-b1ea-45ec-843a-b7e049a4d64b.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\ae00ceb1-b1ea-45ec-843a-b7e049a4d64b.stderr"
+}

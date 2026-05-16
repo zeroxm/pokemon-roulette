@@ -1,0 +1,18 @@
+{
+  "id": "2ec33f73-cb0d-4846-bb81-379322d7a2cd",
+  "runtime": "bash",
+  "purpose": "ng build verification windows",
+  "script_chars": 91,
+  "started_at": "2026-05-16T12:20:05.904Z",
+  "finished_at": "2026-05-16T12:20:05.968Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 64,
+  "stdout_bytes": 0,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\2ec33f73-cb0d-4846-bb81-379322d7a2cd.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\2ec33f73-cb0d-4846-bb81-379322d7a2cd.stderr"
+}

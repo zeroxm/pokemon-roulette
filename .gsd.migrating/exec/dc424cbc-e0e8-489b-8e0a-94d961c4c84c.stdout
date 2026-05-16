@@ -1,0 +1,5 @@
+PASS: getMegaBattleCandidates
+PASS: select-mega-evolution in game-state
+PASS: applyMegaForms
+PASS: revertMegaForms
+PASS: select-mega-evolution in roulette-container

@@ -1,0 +1,18 @@
+{
+  "id": "4e17cca5-1dfa-4431-8fa0-9c39a50de96c",
+  "runtime": "bash",
+  "purpose": "Verify S03 key symbols exist",
+  "script_chars": 427,
+  "started_at": "2026-05-16T13:35:55.665Z",
+  "finished_at": "2026-05-16T13:35:59.456Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 3791,
+  "stdout_bytes": 0,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\4e17cca5-1dfa-4431-8fa0-9c39a50de96c.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\4e17cca5-1dfa-4431-8fa0-9c39a50de96c.stderr"
+}

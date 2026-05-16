@@ -1,0 +1,18 @@
+{
+  "id": "a7a90aab-4e60-4eeb-979d-3fa89ed0c54e",
+  "runtime": "bash",
+  "purpose": "Find item-related files",
+  "script_chars": 237,
+  "started_at": "2026-05-16T05:22:54.842Z",
+  "finished_at": "2026-05-16T05:23:06.817Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 11975,
+  "stdout_bytes": 0,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\a7a90aab-4e60-4eeb-979d-3fa89ed0c54e.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\a7a90aab-4e60-4eeb-979d-3fa89ed0c54e.stderr"
+}

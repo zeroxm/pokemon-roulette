@@ -31,4 +31,6 @@ export type GameState =
   | 'elite-four-preparation'
   | 'elite-four-battle'
   | 'champion-battle'
+  | 'award-mega-stone'
+  | 'select-mega-evolution'
   | 'game-finish';

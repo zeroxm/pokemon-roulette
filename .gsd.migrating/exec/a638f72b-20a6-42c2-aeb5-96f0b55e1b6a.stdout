@@ -1,0 +1,91 @@
+=== TrainerService addToItems and getTeam ===
+96:    this.trainerTeamObservable.next(this.getTeam());
+111:    this.trainerTeamObservable.next(this.getTeam());
+114:  getTeam(): PokemonItem[] {
+119:    this.trainerTeamObservable.next(this.getTeam());
+125:    this.trainerTeamObservable.next(this.getTeam());
+128:  getStored(): PokemonItem[] {
+132:  getTeamObservable(): Observable<PokemonItem[]> {
+146:    this.trainerTeamObservable.next(this.getTeam());
+149:  getPokemonThatCanEvolve(): PokemonItem[] {
+183:    this.trainerTeamObservable.next(this.getTeam());
+198:    this.trainerTeamObservable.next(this.getTeam());
+217:  addToItems(item: ItemItem): void {
+279:      this.trainerTeamObservable.next(this.getTeam());
+290:      this.trainerTeamObservable.next(this.getTeam());
+329:      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
+
+=== pokemon-mega-forms.ts exports ===
+import { PokemonItem } from '../../interfaces/pokemon-item';
+import { ItemName } from '../items-service/item-names';
+
+export const pokemonMegaForms: Record<number, PokemonItem[]> = {
+    3: [
+        { pokemonId: 10033, text: 'Venusaur (Mega)', fillStyle: 'green', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    6: [
+        { pokemonId: 10034, text: 'Charizard (Mega X)', fillStyle: 'red', weight: 1, sprite: null, shiny: false, power: 5 },
+        { pokemonId: 10035, text: 'Charizard (Mega Y)', fillStyle: 'red', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    9: [
+        { pokemonId: 10036, text: 'Blastoise (Mega)', fillStyle: 'blue', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    15: [
+        { pokemonId: 10090, text: 'Beedrill (Mega)', fillStyle: 'yellow', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    18: [
+        { pokemonId: 10073, text: 'Pidgeot (Mega)', fillStyle: 'brown', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    26: [
+        { pokemonId: 10304, text: 'Raichu (Mega X)', fillStyle: 'yellow', weight: 1, sprite: null, shiny: false, power: 5 },
+        { pokemonId: 10305, text: 'Raichu (Mega Y)', fillStyle: 'yellow', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    36: [
+        { pokemonId: 10278, text: 'Clefable (Mega)', fillStyle: 'pink', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+    65: [
+        { pokemonId: 10037, text: 'Alakazam (Mega)', fillStyle: 'brown', weight: 1, sprite: null, shiny: false, power: 5 }
+    ],
+
+=== ItemsService.getItem ===
+2:import { itemsData } from './items-data';
+13:  itemsData = itemsData;
+15:  getItem(itemName: ItemName): ItemItem {
+16:    return this.itemsData[itemName];
+20:    return Object.values(this.itemsData);
+
+=== GameState type ===
+export type GameState =
+  | 'game-start'
+  | 'character-select'
+  | 'starter-pokemon'
+  | 'check-shininess'
+  | 'start-adventure'
+  | 'catch-pokemon'
+  | 'select-form'
+  | 'evolve-pokemon'
+  | 'select-from-pokemon-list'
+  | 'select-evolution'
+  | 'gym-battle'
+  | 'check-evolution'
+  | 'game-over'
+  | 'adventure-continues'
+  | 'team-rocket-encounter'
+  | 'steal-pokemon'
+  | 'mysterious-egg'
+  | 'legendary-encounter'
+  | 'catch-legendary'
+  | 'trade-pokemon'
+  | 'find-item'
+  | 'area-zero'
+  | 'catch-paradox'
+  | 'explore-cave'
+  | 'catch-cave-pokemon'
+  | 'snorlax-encounter'
+  | 'go-fishing'
+  | 'find-fossil'
+  | 'battle-rival'
+  | 'elite-four-preparation'
+  | 'elite-four-battle'
+  | 'champion-battle'
+  | 'game-finish';

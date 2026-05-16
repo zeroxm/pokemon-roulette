@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T01",
+  "unitId": "M001/S03/T01",
+  "timestamp": 1778937309169,
+  "passed": false,
+  "discoverySource": "task-plan",
+  "checks": [
+    {
+      "command": "npx tsc --noEmit --project D:/workspace/pokemon-roulette/tsconfig.json",
+      "exitCode": 0,
+      "durationMs": 6971,
+      "verdict": "pass"
+    }
+  ],
+  "retryAttempt": 1,
+  "maxRetries": 2,
+  "postExecutionChecks": [
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:5",
+      "passed": false,
+      "message": "Import '../pokemon-service/pokemon.service' in src/app/services/trainer-service/trainer.service.ts:5 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:6",
+      "passed": false,
+      "message": "Import '../evolution-service/evolution.service' in src/app/services/trainer-service/trainer.service.ts:6 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:8",
+      "passed": false,
+      "message": "Import '../item-sprite-service/item-sprite.service' in src/app/services/trainer-service/trainer.service.ts:8 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:11",
+      "passed": false,
+      "message": "Import '../badges-service/badges.service' in src/app/services/trainer-service/trainer.service.ts:11 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:12",
+      "passed": false,
+      "message": "Import '../generation-service/generation.service' in src/app/services/trainer-service/trainer.service.ts:12 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:14",
+      "passed": false,
+      "message": "Import '../game-state-service/game-state.service' in src/app/services/trainer-service/trainer.service.ts:14 does not resolve to an existing file",
+      "blocking": true
+    }
+  ]
+}

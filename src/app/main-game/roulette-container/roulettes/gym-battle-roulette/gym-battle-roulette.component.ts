@@ -15,6 +15,7 @@ import { TypeMatchupService } from '../../../../services/type-matchup-service/ty
 import { pokemonTypeDataByKey, PokemonType } from '../../../../interfaces/pokemon-type';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
+import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 
 @Component({
   selector: 'app-gym-battle-roulette',
@@ -80,10 +81,15 @@ export class GymBattleRouletteComponent extends BaseBattleRouletteComponent {
     }
   }
 
-  protected override onGameStateChange(state: string): void {
+  protected override async onGameStateChange(state: string): Promise<void> {
     if (state === 'gym-battle') {
       this.getCurrentLeader();
       this.calcVictoryOdds();
+      const megaBaseId = this.trainerService.getMegaBattleBaseId();
+      if (megaBaseId !== null) {
+        const animRef = await this.modalQueueService.open(MegaEvolutionAnimationModalComponent, { centered: true, size: 'lg', backdrop: 'static', keyboard: false });
+        animRef.componentInstance.pokemonId = megaBaseId;
+      }
       this.modalQueueService.open(this.gymLeaderPresentationModal, { centered: true, size: 'lg' });
     }
   }

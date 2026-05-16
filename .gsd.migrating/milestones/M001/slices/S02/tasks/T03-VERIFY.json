@@ -1,0 +1,342 @@
+{
+  "schemaVersion": 1,
+  "taskId": "T03",
+  "unitId": "M001/S02/T03",
+  "timestamp": 1778936800742,
+  "passed": false,
+  "discoverySource": "task-plan",
+  "checks": [
+    {
+      "command": "ng build --project pokemon-roulette",
+      "exitCode": 0,
+      "durationMs": 19056,
+      "verdict": "pass"
+    }
+  ],
+  "retryAttempt": 1,
+  "maxRetries": 2,
+  "postExecutionChecks": [
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:5",
+      "passed": false,
+      "message": "Import '../pokemon-service/pokemon.service' in src/app/services/trainer-service/trainer.service.ts:5 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:6",
+      "passed": false,
+      "message": "Import '../evolution-service/evolution.service' in src/app/services/trainer-service/trainer.service.ts:6 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:8",
+      "passed": false,
+      "message": "Import '../item-sprite-service/item-sprite.service' in src/app/services/trainer-service/trainer.service.ts:8 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:11",
+      "passed": false,
+      "message": "Import '../badges-service/badges.service' in src/app/services/trainer-service/trainer.service.ts:11 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:12",
+      "passed": false,
+      "message": "Import '../generation-service/generation.service' in src/app/services/trainer-service/trainer.service.ts:12 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/services/trainer-service/trainer.service.ts:14",
+      "passed": false,
+      "message": "Import '../game-state-service/game-state.service' in src/app/services/trainer-service/trainer.service.ts:14 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:4",
+      "passed": false,
+      "message": "Import './roulettes/generation-roulette/generation-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:4 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:5",
+      "passed": false,
+      "message": "Import '../../services/game-state-service/game-state.service' in src/app/main-game/roulette-container/roulette-container.component.ts:5 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:9",
+      "passed": false,
+      "message": "Import '../../services/trainer-service/trainer.service' in src/app/main-game/roulette-container/roulette-container.component.ts:9 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:10",
+      "passed": false,
+      "message": "Import '../../services/pokedex-service/pokedex.service' in src/app/main-game/roulette-container/roulette-container.component.ts:10 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:11",
+      "passed": false,
+      "message": "Import '../../services/pokemon-service/pokemon.service' in src/app/main-game/roulette-container/roulette-container.component.ts:11 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:12",
+      "passed": false,
+      "message": "Import '../../services/items-service/items.service' in src/app/main-game/roulette-container/roulette-container.component.ts:12 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:13",
+      "passed": false,
+      "message": "Import '../../services/evolution-service/evolution.service' in src/app/main-game/roulette-container/roulette-container.component.ts:13 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:15",
+      "passed": false,
+      "message": "Import '../../services/sound-fx-service/sound-fx.service' in src/app/main-game/roulette-container/roulette-container.component.ts:15 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:16",
+      "passed": false,
+      "message": "Import '../../services/settings-service/settings.service' in src/app/main-game/roulette-container/roulette-container.component.ts:16 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:17",
+      "passed": false,
+      "message": "Import '../../services/rare-candy-service/rare-candy.service' in src/app/main-game/roulette-container/roulette-container.component.ts:17 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:19",
+      "passed": false,
+      "message": "Import './roulettes/character-select/character-select.component' in src/app/main-game/roulette-container/roulette-container.component.ts:19 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:20",
+      "passed": false,
+      "message": "Import './roulettes/starter-roulette/starter-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:20 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:24",
+      "passed": false,
+      "message": "Import './roulettes/shiny-roulette/shiny-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:24 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:25",
+      "passed": false,
+      "message": "Import './roulettes/start-adventure-roulette/start-adventure-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:25 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:28",
+      "passed": false,
+      "message": "Import './roulettes/pokemon-from-generation-roulette/pokemon-from-generation-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:28 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:29",
+      "passed": false,
+      "message": "Import './roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:29 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:30",
+      "passed": false,
+      "message": "Import './roulettes/gym-battle-roulette/gym-battle-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:30 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:31",
+      "passed": false,
+      "message": "Import './roulettes/check-evolution-roulette/check-evolution-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:31 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:32",
+      "passed": false,
+      "message": "Import './roulettes/main-adventure-roulette/main-adventure-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:32 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:33",
+      "passed": false,
+      "message": "Import './roulettes/team-rocket-roulette/team-rocket-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:33 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:34",
+      "passed": false,
+      "message": "Import './roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:34 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:35",
+      "passed": false,
+      "message": "Import './roulettes/legendary-roulette/legendary-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:35 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:36",
+      "passed": false,
+      "message": "Import './roulettes/catch-legendary-roulette/catch-legendary-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:36 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:37",
+      "passed": false,
+      "message": "Import './roulettes/select-form-roulette/select-form-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:37 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:38",
+      "passed": false,
+      "message": "Import './roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:38 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:39",
+      "passed": false,
+      "message": "Import './roulettes/find-item-roulette/find-item-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:39 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:40",
+      "passed": false,
+      "message": "Import './roulettes/explore-cave-roulette/explore-cave-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:40 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:41",
+      "passed": false,
+      "message": "Import './roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:41 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:42",
+      "passed": false,
+      "message": "Import './roulettes/fossil-roulette/fossil-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:42 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:44",
+      "passed": false,
+      "message": "Import './roulettes/catch-paradox-roulette/catch-paradox-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:44 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:45",
+      "passed": false,
+      "message": "Import './roulettes/snorlax-roulette/snorlax-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:45 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:46",
+      "passed": false,
+      "message": "Import './roulettes/fishing-roulette/fishing-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:46 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:47",
+      "passed": false,
+      "message": "Import './roulettes/rival-battle-roulette/rival-battle-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:47 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:48",
+      "passed": false,
+      "message": "Import './roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:48 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:49",
+      "passed": false,
+      "message": "Import './roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:49 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:50",
+      "passed": false,
+      "message": "Import './roulettes/champion-battle-roulette/champion-battle-roulette.component' in src/app/main-game/roulette-container/roulette-container.component.ts:50 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:51",
+      "passed": false,
+      "message": "Import '../end-game/end-game.component' in src/app/main-game/roulette-container/roulette-container.component.ts:51 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:52",
+      "passed": false,
+      "message": "Import '../game-over/game-over.component' in src/app/main-game/roulette-container/roulette-container.component.ts:52 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:53",
+      "passed": false,
+      "message": "Import '../../services/modal-queue-service/modal-queue.service' in src/app/main-game/roulette-container/roulette-container.component.ts:53 does not resolve to an existing file",
+      "blocking": true
+    },
+    {
+      "category": "import",
+      "target": "src/app/main-game/roulette-container/roulette-container.component.ts:54",
+      "passed": false,
+      "message": "Import '../../services/pokemon-forms-service/pokemon-forms.service' in src/app/main-game/roulette-container/roulette-container.component.ts:54 does not resolve to an existing file",
+      "blocking": true
+    }
+  ]
+}

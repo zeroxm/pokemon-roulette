@@ -1,0 +1,18 @@
+{
+  "id": "29426617-8981-42a4-bac5-b459fa8e8998",
+  "runtime": "bash",
+  "purpose": "Scout S04 integration points",
+  "script_chars": 904,
+  "started_at": "2026-05-16T13:37:43.720Z",
+  "finished_at": "2026-05-16T13:37:48.479Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 4759,
+  "stdout_bytes": 2425,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\29426617-8981-42a4-bac5-b459fa8e8998.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\29426617-8981-42a4-bac5-b459fa8e8998.stderr"
+}

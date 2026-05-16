@@ -1,0 +1,18 @@
+{
+  "id": "f2aa8266-f726-4120-8fec-6505a22c7d40",
+  "runtime": "node",
+  "purpose": "Check i18n keys with correct path",
+  "script_chars": 280,
+  "started_at": "2026-05-16T13:08:16.103Z",
+  "finished_at": "2026-05-16T13:08:16.140Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 37,
+  "stdout_bytes": 86,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\f2aa8266-f726-4120-8fec-6505a22c7d40.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\f2aa8266-f726-4120-8fec-6505a22c7d40.stderr"
+}

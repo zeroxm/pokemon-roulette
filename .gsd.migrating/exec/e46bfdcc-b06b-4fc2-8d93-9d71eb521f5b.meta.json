@@ -1,0 +1,18 @@
+{
+  "id": "e46bfdcc-b06b-4fc2-8d93-9d71eb521f5b",
+  "runtime": "bash",
+  "purpose": "tsc check after mega stone implementation",
+  "script_chars": 96,
+  "started_at": "2026-05-16T12:37:43.375Z",
+  "finished_at": "2026-05-16T12:37:48.028Z",
+  "exit_code": 1,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 4653,
+  "stdout_bytes": 0,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\e46bfdcc-b06b-4fc2-8d93-9d71eb521f5b.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\e46bfdcc-b06b-4fc2-8d93-9d71eb521f5b.stderr"
+}

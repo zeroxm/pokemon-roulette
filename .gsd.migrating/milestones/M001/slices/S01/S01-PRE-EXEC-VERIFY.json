@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "milestoneId": "M001",
+  "sliceId": "S01",
+  "timestamp": 1778909065392,
+  "status": "fail",
+  "durationMs": 1,
+  "checks": [
+    {
+      "category": "tool",
+      "target": "T03 Verify",
+      "passed": false,
+      "message": "Unsafe or non-runnable Verify command: npx ng build --project pokemon-roulette 2>&1 | grep -c \"Error\" (contains shell control syntax such as pipes, redirects, semicolons, backticks, or command substitution)",
+      "blocking": true
+    }
+  ]
+}

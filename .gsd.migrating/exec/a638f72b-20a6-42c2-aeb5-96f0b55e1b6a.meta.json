@@ -1,0 +1,18 @@
+{
+  "id": "a638f72b-20a6-42c2-aeb5-96f0b55e1b6a",
+  "runtime": "bash",
+  "purpose": "Check addToItems, getTeam, and mega forms helper",
+  "script_chars": 555,
+  "started_at": "2026-05-16T12:25:10.427Z",
+  "finished_at": "2026-05-16T12:25:10.492Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 65,
+  "stdout_bytes": 3493,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\a638f72b-20a6-42c2-aeb5-96f0b55e1b6a.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\a638f72b-20a6-42c2-aeb5-96f0b55e1b6a.stderr"
+}

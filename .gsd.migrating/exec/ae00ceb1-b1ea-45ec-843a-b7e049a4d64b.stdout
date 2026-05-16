@@ -1,0 +1,18 @@
+=== getBasePokemonId in PokemonFormsService ===
+30:    const basePokemonId = this.getBasePokemonId(pokemon.pokemonId);
+53:    const basePokemonId = this.getBasePokemonId(pokemonId);
+62:  getBasePokemonId(pokemonId: number): number | null {
+
+=== How team Pokemon IDs look ===
+16:    for (const [baseIdStr, forms] of Object.entries(this.pokemonForms)) {
+17:      const baseId = Number(baseIdStr);
+18:      this.variantToBase.set(baseId, baseId);
+20:        this.variantToBase.set(form.pokemonId, baseId);
+26:    return this.getFormIds(pokemon.pokemonId).length > 1;
+30:    const basePokemonId = this.getBasePokemonId(pokemon.pokemonId);
+42:    selectedPokemon.pokemonId = pokemonForm.pokemonId;
+52:  getFormIds(pokemonId: number): number[] {
+53:    const basePokemonId = this.getBasePokemonId(pokemonId);
+59:    return this.pokemonForms[basePokemonId]?.map(form => form.pokemonId) ?? [];
+62:  getBasePokemonId(pokemonId: number): number | null {
+63:    return this.variantToBase.get(pokemonId) ?? null;

@@ -1,0 +1,18 @@
+{
+  "id": "d5f60d0b-cc5d-4aec-bf7e-03ed2fb56294",
+  "runtime": "bash",
+  "purpose": "Check key files exist and spot-check content",
+  "script_chars": 546,
+  "started_at": "2026-05-16T12:23:33.920Z",
+  "finished_at": "2026-05-16T12:23:33.990Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 70,
+  "stdout_bytes": 223,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\d5f60d0b-cc5d-4aec-bf7e-03ed2fb56294.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\d5f60d0b-cc5d-4aec-bf7e-03ed2fb56294.stderr"
+}

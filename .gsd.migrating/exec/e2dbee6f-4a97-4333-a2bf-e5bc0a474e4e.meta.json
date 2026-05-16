@@ -1,0 +1,18 @@
+{
+  "id": "e2dbee6f-4a97-4333-a2bf-e5bc0a474e4e",
+  "runtime": "bash",
+  "purpose": "Scout ModalQueueService API and gym/leader modal wiring",
+  "script_chars": 469,
+  "started_at": "2026-05-16T13:38:00.096Z",
+  "finished_at": "2026-05-16T13:38:00.158Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 62,
+  "stdout_bytes": 13279,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\e2dbee6f-4a97-4333-a2bf-e5bc0a474e4e.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\e2dbee6f-4a97-4333-a2bf-e5bc0a474e4e.stderr"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "132971dc-8fee-49d2-abb4-cc140cca6b8e",
+  "runtime": "bash",
+  "purpose": "Verify ng build clean",
+  "script_chars": 114,
+  "started_at": "2026-05-16T12:23:26.216Z",
+  "finished_at": "2026-05-16T12:23:26.350Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 134,
+  "stdout_bytes": 7,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\132971dc-8fee-49d2-abb4-cc140cca6b8e.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\132971dc-8fee-49d2-abb4-cc140cca6b8e.stderr"
+}

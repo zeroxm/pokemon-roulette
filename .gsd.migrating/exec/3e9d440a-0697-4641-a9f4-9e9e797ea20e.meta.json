@@ -1,0 +1,18 @@
+{
+  "id": "3e9d440a-0697-4641-a9f4-9e9e797ea20e",
+  "runtime": "bash",
+  "purpose": "Check i18n files and pokemon-from-aux-list template",
+  "script_chars": 623,
+  "started_at": "2026-05-16T12:25:51.214Z",
+  "finished_at": "2026-05-16T12:25:51.309Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 95,
+  "stdout_bytes": 707,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\3e9d440a-0697-4641-a9f4-9e9e797ea20e.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\3e9d440a-0697-4641-a9f4-9e9e797ea20e.stderr"
+}

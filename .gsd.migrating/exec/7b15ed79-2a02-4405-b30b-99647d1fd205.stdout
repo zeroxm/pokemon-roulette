@@ -1,0 +1,45 @@
+=== Roulette container files ===
+src/app/main-game/roulette-container/roulette-container.component.css
+src/app/main-game/roulette-container/roulette-container.component.html
+src/app/main-game/roulette-container/roulette-container.component.spec.ts
+src/app/main-game/roulette-container/roulette-container.component.ts
+
+=== Battle result handlers ===
+src/app/main-game/roulette-container/roulettes/base-battle-roulette/base-battle-roulette.component.ts
+src/app/main-game/roulette-container/roulettes/champion-battle-roulette/champion-battle-roulette.component.ts
+src/app/main-game/roulette-container/roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component.spec.ts
+src/app/main-game/roulette-container/roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component.ts
+src/app/main-game/roulette-container/roulettes/gym-battle-roulette/gym-battle-roulette.component.spec.ts
+src/app/main-game/roulette-container/roulettes/gym-battle-roulette/gym-battle-roulette.component.ts
+src/app/main-game/roulette-container/roulettes/rival-battle-roulette/rival-battle-roulette.component.ts
+
+=== Trainer service ===
+src/app/services/trainer-service/palafin-forms.ts
+src/app/services/trainer-service/pokemon-mega-forms.ts
+src/app/services/trainer-service/sticky-battle-forms.ts
+src/app/services/trainer-service/trainer-sprite-data.ts
+src/app/services/trainer-service/trainer.service.spec.ts
+src/app/services/trainer-service/trainer.service.ts
+
+=== Aux list roulette ===
+src/app/main-game/roulette-container/roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component.spec.ts
+src/app/main-game/roulette-container/roulettes/pokemon-from-aux-list-roulette/pokemon-from-aux-list-roulette.component.ts
+
+=== Item-related methods in trainer service ===
+9:import { ItemName } from '../items-service/item-names';
+60:  trainerItems: ItemItem[] = [structuredClone(TrainerService.DEFAULT_POTION)];
+61:  private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
+202:    return this.trainerItems;
+206:    return this.trainerItemsObservable.asObservable();
+209:  hasItem(itemName: ItemName): boolean {
+210:    return this.trainerItems.some(item => item.name === itemName);
+213:  getItem(itemName: ItemName): ItemItem | undefined {
+214:    return this.trainerItems.find(item => item.name === itemName);
+226:    this.trainerItems.push(item);
+227:    this.trainerItemsObservable.next(this.trainerItems);
+230:  removeItem(item: ItemItem): void {
+231:    const index = this.trainerItems.indexOf(item);
+233:      this.trainerItems.splice(index, 1);
+235:    this.trainerItemsObservable.next(this.trainerItems);
+261:    this.trainerItems = [structuredClone(TrainerService.DEFAULT_POTION)];
+262:    this.trainerItemsObservable.next(this.trainerItems);

@@ -9,7 +9,7 @@ export class ItemSpriteService {
 
   constructor() { }
 
-  itemSpriteData: Record<ItemName, { sprite: string }> = {
+  itemSpriteData: Partial<Record<ItemName, { sprite: string }>> = {
     "potion": { sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png' },
     "rare-candy": { sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/rare-candy.png' },
     "running-shoes": { sprite: 'https://archives.bulbagarden.net/media/upload/4/42/Bag_Running_Shoes_Sprite.png' },
@@ -20,7 +20,7 @@ export class ItemSpriteService {
     "escape-rope": { sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/escape-rope.png' }
   };
 
-  getItemSprite(itemName: ItemName): Observable<{ sprite: string }> {
+  getItemSprite(itemName: ItemName): Observable<{ sprite: string } | undefined> {
     return of(this.itemSpriteData[itemName]);
   }
 }

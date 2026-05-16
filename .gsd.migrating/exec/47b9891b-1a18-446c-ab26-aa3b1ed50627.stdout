@@ -1,0 +1,20 @@
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m        [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mmain-QFKPUXRU.js[39m     [2m | [22m[2mmain[22m         [2m | [22m  [36m1.15 MB[39m[2m | [22m              [36m178.83 kB[39m
+[32mstyles-SL2IBA4H.css[39m  [2m | [22m[2mstyles[22m       [2m | [22m[36m231.28 kB[39m[2m | [22m               [36m22.65 kB[39m
+[32mpolyfills-LKDCGJYC.js[39m[2m | [22m[2mpolyfills[22m    [2m | [22m [36m36.23 kB[39m[2m | [22m               [36m11.77 kB[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m[2m | [22m  [1m[93m1.42 MB[39m[22m[2m | [22m              [1m213.24 kB[22m
+
+Application bundle generation complete. [3.593 seconds] - 2026-05-16T12:38:04.182Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mbundle initial exceeded maximum budget. Budget 1.00 MB was not met by 417.82 kB with a total of 1.42 MB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mModule 'dom-to-image-more' used by 'src/app/main-game/end-game/end-game.component.ts' is not ESM[0m
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: [4mhttps://angular.dev/tools/cli/build#configuring-commonjs-dependencies[0m
+
+[39m[22m
+Output location: D:\workspace\pokemon-roulette\dist\pokemon-roulette
+

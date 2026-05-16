@@ -1,0 +1,18 @@
+{
+  "id": "4ce97259-d007-4b74-b8ef-3eaa0b453679",
+  "runtime": "bash",
+  "purpose": "tsc check after T02 changes",
+  "script_chars": 88,
+  "started_at": "2026-05-16T13:21:27.633Z",
+  "finished_at": "2026-05-16T13:21:29.859Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 2226,
+  "stdout_bytes": 0,
+  "stderr_bytes": 0,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\4ce97259-d007-4b74-b8ef-3eaa0b453679.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\4ce97259-d007-4b74-b8ef-3eaa0b453679.stderr"
+}

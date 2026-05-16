@@ -1,0 +1,18 @@
+{
+  "id": "7b15ed79-2a02-4405-b30b-99647d1fd205",
+  "runtime": "bash",
+  "purpose": "Find key component and service files for S02",
+  "script_chars": 669,
+  "started_at": "2026-05-16T12:24:39.347Z",
+  "finished_at": "2026-05-16T12:24:40.347Z",
+  "exit_code": 0,
+  "signal": null,
+  "timed_out": false,
+  "duration_ms": 1000,
+  "stdout_bytes": 2805,
+  "stderr_bytes": 80,
+  "stdout_truncated": false,
+  "stderr_truncated": false,
+  "stdout_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\7b15ed79-2a02-4405-b30b-99647d1fd205.stdout",
+  "stderr_path": "D:\\workspace\\pokemon-roulette\\.gsd\\exec\\7b15ed79-2a02-4405-b30b-99647d1fd205.stderr"
+}

@@ -95,7 +95,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   /** Called for every game state change. Subclass checks its own trigger state. */
-  protected abstract onGameStateChange(state: string): void;
+  protected abstract onGameStateChange(state: string): void | Promise<void>;
 
   /** Rebuilds victoryOdds from current team, items, and opponent data. */
   protected abstract calcVictoryOdds(): void;
