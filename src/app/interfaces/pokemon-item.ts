@@ -10,5 +10,5 @@ export interface PokemonItem extends WheelItem {
     front_shiny: string;
   } | null;
   shiny: boolean;
-  power: 1 | 2 | 3 | 4 | 5;
+  power: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 }

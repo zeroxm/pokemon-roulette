@@ -50,17 +50,17 @@ export class TrainerService implements OnDestroy {
 
   trainerTeam: PokemonItem[] = [
     {
-        text: "pokemon.charizard",
-        pokemonId: 6,
-        fillStyle: "darkred",
-        type1: "fire",
-        type2: "flying",
+        text: "pokemon.nincada",
+        pokemonId: 290,
+        fillStyle: "gray",
+        type1: "bug",
+        type2: "ground",
         sprite: {
-            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
+            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/290.png",
+            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/290.png"
         },
         shiny: false,
-        power: 3,
+        power: 1,
         weight: 1
     },
   ];

@@ -448,6 +448,386 @@
     "escape-rope": {
       "name": "Escape Rope",
       "description": "Escape Rope saves you from bad situations !"
+    },
+    "abomasite": {
+      "name": "Abomasite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "absolite": {
+      "name": "Absolite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "absolite-z": {
+      "name": "Absolite Z",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "aerodactylite": {
+      "name": "Aerodactylite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "aggronite": {
+      "name": "Aggronite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "alakazite": {
+      "name": "Alakazite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "altarianite": {
+      "name": "Altarianite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "ampharosite": {
+      "name": "Ampharosite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "audinite": {
+      "name": "Audinite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "banettite": {
+      "name": "Banettite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "barbaracite": {
+      "name": "Barbaracite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "baxcalibrite": {
+      "name": "Baxcalibrite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "beedrillite": {
+      "name": "Beedrillite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "blastoisinite": {
+      "name": "Blastoisinite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "blazikenite": {
+      "name": "Blazikenite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "cameruptite": {
+      "name": "Cameruptite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "chandelurite": {
+      "name": "Chandelurite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "charizardite-x": {
+      "name": "Charizardite X",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "charizardite-y": {
+      "name": "Charizardite Y",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "chesnaughtite": {
+      "name": "Chesnaughtite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "chimechite": {
+      "name": "Chimechite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "clefablite": {
+      "name": "Clefablite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "crabominite": {
+      "name": "Crabominite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "darkranite": {
+      "name": "Darkranite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "delphoxite": {
+      "name": "Delphoxite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "diancite": {
+      "name": "Diancite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "dragalgite": {
+      "name": "Dragalgite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "dragoninite": {
+      "name": "Dragoninite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "drampanite": {
+      "name": "Drampanite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "eelektrossite": {
+      "name": "Eelektrossite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "emboarite": {
+      "name": "Emboarite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "excadrite": {
+      "name": "Excadrite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "falinksite": {
+      "name": "Falinksite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "feraligite": {
+      "name": "Feraligite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "floettite": {
+      "name": "Floettite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "froslassite": {
+      "name": "Froslassite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "galladite": {
+      "name": "Galladite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "garchompite": {
+      "name": "Garchompite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "garchompite-z": {
+      "name": "Garchompite Z",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "gardevoirite": {
+      "name": "Gardevoirite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "gengarite": {
+      "name": "Gengarite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "glalitite": {
+      "name": "Glalitite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "glimmoranite": {
+      "name": "Glimmoranite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "golisopite": {
+      "name": "Golisopite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "golurkite": {
+      "name": "Golurkite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "greninjite": {
+      "name": "Greninjite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "red-orb": {
+      "name": "Red Orb",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "gyaradosite": {
+      "name": "Gyaradosite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "hawluchanite": {
+      "name": "Hawluchanite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "heatranite": {
+      "name": "Heatranite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "heracronite": {
+      "name": "Heracronite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "houndoominite": {
+      "name": "Houndoominite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "kangaskhanite": {
+      "name": "Kangaskhanite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "blue-orb": {
+      "name": "Blue Orb",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "latiasite": {
+      "name": "Latiasite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "latiosite": {
+      "name": "Latiosite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "lopunnite": {
+      "name": "Lopunnite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "lucarionite": {
+      "name": "Lucarionite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "lucarionite-z": {
+      "name": "Lucarionite Z",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "magearnite": {
+      "name": "Magearnite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "malamarite": {
+      "name": "Malamarite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "manectite": {
+      "name": "Manectite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "mawilite": {
+      "name": "Mawilite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "medichamite": {
+      "name": "Medichamite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "meganiumite": {
+      "name": "Meganiumite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "meowsticite": {
+      "name": "Meowsticite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "metagrossite": {
+      "name": "Metagrossite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "mewtwonite-x": {
+      "name": "Mewtwonite X",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "mewtwonite-y": {
+      "name": "Mewtwonite Y",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "pidgeotite": {
+      "name": "Pidgeotite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "pinsirite": {
+      "name": "Pinsirite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "pyroarite": {
+      "name": "Pyroarite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "raichunite-x": {
+      "name": "Raichunite X",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "raichunite-y": {
+      "name": "Raichunite Y",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "dragon-ascent": {
+      "name": "Dragon Ascent",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "sablenite": {
+      "name": "Sablenite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "salamencite": {
+      "name": "Salamencite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "sceptilite": {
+      "name": "Sceptilite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "scizorite": {
+      "name": "Scizorite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "scolipite": {
+      "name": "Scolipite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "scovillainite": {
+      "name": "Scovillainite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "scraftinite": {
+      "name": "Scraftinite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "sharpedonite": {
+      "name": "Sharpedonite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "skarmorite": {
+      "name": "Skarmorite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "slowbronite": {
+      "name": "Slowbronite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "staraptite": {
+      "name": "Staraptite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "starminite": {
+      "name": "Starminite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "steelixite": {
+      "name": "Steelixite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "swampertite": {
+      "name": "Swampertite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "tatsugirinite": {
+      "name": "Tatsugirinite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "tyranitarite": {
+      "name": "Tyranitarite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "venusaurite": {
+      "name": "Venusaurite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "victreebelite": {
+      "name": "Victreebelite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "zeraorite": {
+      "name": "Zeraorite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
+    },
+    "zygardite": {
+      "name": "Zygardite",
+      "description": "Allows a compatible Pokemon to Mega Evolve in battle."
     }
   },
   "trainer": {

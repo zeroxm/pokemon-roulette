@@ -34,6 +34,7 @@ export class LanguageSelectorComponent {
   currentLanguage: Language = this.languages[0];
 
   constructor() {
+    this.translateService.setFallbackLang('en');
     const currentLanguage = this.translateService.currentLang || this.translateService.getDefaultLang() || 'en';
     this.updateCurrentLanguage(currentLanguage)
     this.translateService.onLangChange.pipe(takeUntilDestroyed()).subscribe(event => {

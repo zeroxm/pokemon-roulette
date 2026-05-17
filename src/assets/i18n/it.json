@@ -448,6 +448,386 @@
     "escape-rope": {
       "name": "Fune di Fuga",
       "description": "La Fune di Fuga ti salva dalle situazioni difficili!"
+    },
+    "abomasite": {
+      "name": "Abomasite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "absolite": {
+      "name": "Absolite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "absolite-z": {
+      "name": "Absolite Z",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "aerodactylite": {
+      "name": "Aerodactylite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "aggronite": {
+      "name": "Aggronite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "alakazite": {
+      "name": "Alakazite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "altarianite": {
+      "name": "Altarianite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "ampharosite": {
+      "name": "Ampharosite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "audinite": {
+      "name": "Audinite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "banettite": {
+      "name": "Banettite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "barbaracite": {
+      "name": "Barbaracite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "baxcalibrite": {
+      "name": "Baxcalibrite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "beedrillite": {
+      "name": "Beedrillite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "blastoisinite": {
+      "name": "Blastoisinite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "blazikenite": {
+      "name": "Blazikenite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "cameruptite": {
+      "name": "Cameruptite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "chandelurite": {
+      "name": "Chandelurite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "charizardite-x": {
+      "name": "Charizardite X",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "charizardite-y": {
+      "name": "Charizardite Y",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "chesnaughtite": {
+      "name": "Chesnaughtite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "chimechite": {
+      "name": "Chimechite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "clefablite": {
+      "name": "Clefablite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "crabominite": {
+      "name": "Crabominite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "darkranite": {
+      "name": "Darkranite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "delphoxite": {
+      "name": "Delphoxite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "diancite": {
+      "name": "Diancite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "dragalgite": {
+      "name": "Dragalgite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "dragoninite": {
+      "name": "Dragoninite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "drampanite": {
+      "name": "Drampanite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "eelektrossite": {
+      "name": "Eelektrossite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "emboarite": {
+      "name": "Emboarite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "excadrite": {
+      "name": "Excadrite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "falinksite": {
+      "name": "Falinksite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "feraligite": {
+      "name": "Feraligite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "floettite": {
+      "name": "Floettite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "froslassite": {
+      "name": "Froslassite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "galladite": {
+      "name": "Galladite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "garchompite": {
+      "name": "Garchompite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "garchompite-z": {
+      "name": "Garchompite Z",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "gardevoirite": {
+      "name": "Gardevoirite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "gengarite": {
+      "name": "Gengarite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "glalitite": {
+      "name": "Glalitite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "glimmoranite": {
+      "name": "Glimmoranite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "golisopite": {
+      "name": "Golisopite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "golurkite": {
+      "name": "Golurkite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "greninjite": {
+      "name": "Greninjite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "red-orb": {
+      "name": "Red Orb",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "gyaradosite": {
+      "name": "Gyaradosite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "hawluchanite": {
+      "name": "Hawluchanite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "heatranite": {
+      "name": "Heatranite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "heracronite": {
+      "name": "Heracronite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "houndoominite": {
+      "name": "Houndoominite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "kangaskhanite": {
+      "name": "Kangaskhanite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "blue-orb": {
+      "name": "Blue Orb",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "latiasite": {
+      "name": "Latiasite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "latiosite": {
+      "name": "Latiosite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "lopunnite": {
+      "name": "Lopunnite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "lucarionite": {
+      "name": "Lucarionite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "lucarionite-z": {
+      "name": "Lucarionite Z",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "magearnite": {
+      "name": "Magearnite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "malamarite": {
+      "name": "Malamarite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "manectite": {
+      "name": "Manectite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "mawilite": {
+      "name": "Mawilite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "medichamite": {
+      "name": "Medichamite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "meganiumite": {
+      "name": "Meganiumite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "meowsticite": {
+      "name": "Meowsticite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "metagrossite": {
+      "name": "Metagrossite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "mewtwonite-x": {
+      "name": "Mewtwonite X",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "mewtwonite-y": {
+      "name": "Mewtwonite Y",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "pidgeotite": {
+      "name": "Pidgeotite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "pinsirite": {
+      "name": "Pinsirite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "pyroarite": {
+      "name": "Pyroarite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "raichunite-x": {
+      "name": "Raichunite X",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "raichunite-y": {
+      "name": "Raichunite Y",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "dragon-ascent": {
+      "name": "Dragon Ascent",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "sablenite": {
+      "name": "Sablenite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "salamencite": {
+      "name": "Salamencite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "sceptilite": {
+      "name": "Sceptilite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "scizorite": {
+      "name": "Scizorite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "scolipite": {
+      "name": "Scolipite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "scovillainite": {
+      "name": "Scovillainite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "scraftinite": {
+      "name": "Scraftinite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "sharpedonite": {
+      "name": "Sharpedonite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "skarmorite": {
+      "name": "Skarmorite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "slowbronite": {
+      "name": "Slowbronite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "staraptite": {
+      "name": "Staraptite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "starminite": {
+      "name": "Starminite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "steelixite": {
+      "name": "Steelixite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "swampertite": {
+      "name": "Swampertite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "tatsugirinite": {
+      "name": "Tatsugirinite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "tyranitarite": {
+      "name": "Tyranitarite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "venusaurite": {
+      "name": "Venusaurite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "victreebelite": {
+      "name": "Victreebelite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "zeraorite": {
+      "name": "Zeraorite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
+    },
+    "zygardite": {
+      "name": "Zygardite",
+      "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
     }
   },
   "trainer": {

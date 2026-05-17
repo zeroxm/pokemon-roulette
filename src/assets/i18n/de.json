@@ -448,6 +448,386 @@
     "escape-rope": {
       "name": "Fluchtseil",
       "description": "Fluchtseile retten dich aus heiklen Situationen!"
+    },
+    "abomasite": {
+      "name": "Abomasite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "absolite": {
+      "name": "Absolite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "absolite-z": {
+      "name": "Absolite Z",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "aerodactylite": {
+      "name": "Aerodactylite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "aggronite": {
+      "name": "Aggronite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "alakazite": {
+      "name": "Alakazite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "altarianite": {
+      "name": "Altarianite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "ampharosite": {
+      "name": "Ampharosite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "audinite": {
+      "name": "Audinite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "banettite": {
+      "name": "Banettite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "barbaracite": {
+      "name": "Barbaracite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "baxcalibrite": {
+      "name": "Baxcalibrite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "beedrillite": {
+      "name": "Beedrillite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "blastoisinite": {
+      "name": "Blastoisinite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "blazikenite": {
+      "name": "Blazikenite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "cameruptite": {
+      "name": "Cameruptite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "chandelurite": {
+      "name": "Chandelurite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "charizardite-x": {
+      "name": "Charizardite X",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "charizardite-y": {
+      "name": "Charizardite Y",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "chesnaughtite": {
+      "name": "Chesnaughtite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "chimechite": {
+      "name": "Chimechite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "clefablite": {
+      "name": "Clefablite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "crabominite": {
+      "name": "Crabominite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "darkranite": {
+      "name": "Darkranite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "delphoxite": {
+      "name": "Delphoxite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "diancite": {
+      "name": "Diancite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "dragalgite": {
+      "name": "Dragalgite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "dragoninite": {
+      "name": "Dragoninite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "drampanite": {
+      "name": "Drampanite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "eelektrossite": {
+      "name": "Eelektrossite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "emboarite": {
+      "name": "Emboarite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "excadrite": {
+      "name": "Excadrite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "falinksite": {
+      "name": "Falinksite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "feraligite": {
+      "name": "Feraligite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "floettite": {
+      "name": "Floettite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "froslassite": {
+      "name": "Froslassite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "galladite": {
+      "name": "Galladite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "garchompite": {
+      "name": "Garchompite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "garchompite-z": {
+      "name": "Garchompite Z",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "gardevoirite": {
+      "name": "Gardevoirite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "gengarite": {
+      "name": "Gengarite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "glalitite": {
+      "name": "Glalitite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "glimmoranite": {
+      "name": "Glimmoranite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "golisopite": {
+      "name": "Golisopite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "golurkite": {
+      "name": "Golurkite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "greninjite": {
+      "name": "Greninjite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "red-orb": {
+      "name": "Red Orb",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "gyaradosite": {
+      "name": "Gyaradosite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "hawluchanite": {
+      "name": "Hawluchanite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "heatranite": {
+      "name": "Heatranite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "heracronite": {
+      "name": "Heracronite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "houndoominite": {
+      "name": "Houndoominite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "kangaskhanite": {
+      "name": "Kangaskhanite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "blue-orb": {
+      "name": "Blue Orb",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "latiasite": {
+      "name": "Latiasite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "latiosite": {
+      "name": "Latiosite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "lopunnite": {
+      "name": "Lopunnite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "lucarionite": {
+      "name": "Lucarionite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "lucarionite-z": {
+      "name": "Lucarionite Z",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "magearnite": {
+      "name": "Magearnite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "malamarite": {
+      "name": "Malamarite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "manectite": {
+      "name": "Manectite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "mawilite": {
+      "name": "Mawilite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "medichamite": {
+      "name": "Medichamite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "meganiumite": {
+      "name": "Meganiumite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "meowsticite": {
+      "name": "Meowsticite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "metagrossite": {
+      "name": "Metagrossite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "mewtwonite-x": {
+      "name": "Mewtwonite X",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "mewtwonite-y": {
+      "name": "Mewtwonite Y",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "pidgeotite": {
+      "name": "Pidgeotite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "pinsirite": {
+      "name": "Pinsirite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "pyroarite": {
+      "name": "Pyroarite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "raichunite-x": {
+      "name": "Raichunite X",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "raichunite-y": {
+      "name": "Raichunite Y",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "dragon-ascent": {
+      "name": "Dragon Ascent",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "sablenite": {
+      "name": "Sablenite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "salamencite": {
+      "name": "Salamencite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "sceptilite": {
+      "name": "Sceptilite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "scizorite": {
+      "name": "Scizorite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "scolipite": {
+      "name": "Scolipite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "scovillainite": {
+      "name": "Scovillainite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "scraftinite": {
+      "name": "Scraftinite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "sharpedonite": {
+      "name": "Sharpedonite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "skarmorite": {
+      "name": "Skarmorite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "slowbronite": {
+      "name": "Slowbronite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "staraptite": {
+      "name": "Staraptite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "starminite": {
+      "name": "Starminite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "steelixite": {
+      "name": "Steelixite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "swampertite": {
+      "name": "Swampertite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "tatsugirinite": {
+      "name": "Tatsugirinite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "tyranitarite": {
+      "name": "Tyranitarite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "venusaurite": {
+      "name": "Venusaurite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "victreebelite": {
+      "name": "Victreebelite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "zeraorite": {
+      "name": "Zeraorite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
+    },
+    "zygardite": {
+      "name": "Zygardite",
+      "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
     }
   },
   "trainer": {

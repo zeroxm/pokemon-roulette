@@ -577,7 +577,7 @@ export const pokemonForms: Record<number, PokemonForm[]> = {
         {
             pokemonId: 10169,
             text: "pokemon.articuno-galar",
-            fillStyle: "darkblue",
+            fillStyle: "darkviolet",
             type1: "psychic",
             type2: "flying",
             weight: 1
@@ -595,7 +595,7 @@ export const pokemonForms: Record<number, PokemonForm[]> = {
         {
             pokemonId: 10170,
             text: "pokemon.zapdos-galar",
-            fillStyle: "goldenrod",
+            fillStyle: "darkorange",
             type1: "fighting",
             type2: "flying",
             weight: 1
@@ -613,7 +613,7 @@ export const pokemonForms: Record<number, PokemonForm[]> = {
         {
             pokemonId: 10171,
             text: "pokemon.moltres-galar",
-            fillStyle: "goldenrod",
+            fillStyle: "black",
             type1: "dark",
             type2: "flying",
             weight: 1
