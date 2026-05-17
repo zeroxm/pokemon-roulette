@@ -942,6 +942,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.pkmnEvoTitle = "game.main.roulette.evolve.modal.title"
     this.trainerService.replaceForEvolution(this.pkmnOut, this.pkmnIn);
 
+    if (this.evolutionService.isNincadaSpecialEvolution(pokemonOut)) {
+      const nincadaEvolutions = this.evolutionService.getEvolutions(pokemonOut);
+      const bonusEvolution = nincadaEvolutions.find(evolution => evolution.pokemonId !== pokemonIn.pokemonId);
+
+      if (bonusEvolution) {
+        this.trainerService.addToTeam(bonusEvolution);
+        this.registerInPokedex(bonusEvolution);
+      }
+    }
+
     if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
       this.expShareUsed = true;
       this.expSharePokemon = this.pkmnIn;
@@ -957,10 +967,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
-    } else if (this.evolutionService.isNincadaSpecialEvolution(pokemon)) {
-      this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
-      this.trainerService.addToTeam(pokemonEvolutions[1]);
-      this.registerInPokedex(pokemonEvolutions[1]);
     } else {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
