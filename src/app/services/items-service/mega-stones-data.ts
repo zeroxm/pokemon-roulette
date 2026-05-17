@@ -762,6 +762,4 @@ export const megaStonesData: Record<MegaStoneItemName, ItemItem> = {
     weight: 1,
     description: 'items.zygardite.description'
   }
-
-  
 };

@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Vous avez obtenu une Méga-Pierre!",
-          "stoneDesc": "Touchez l'icône de Méga-Pierre dans votre équipe pour activer la Méga-Évolution en combat!"
+          "stoneDesc": "Touchez l'icône de Méga-Pierre pour activer la Méga-Évolution en combat!"
         }
       },
       "roulette": {

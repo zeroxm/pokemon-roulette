@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Got a Mega Stone!",
-          "stoneDesc": "Tap a Mega Stone icon on your team to activate Mega Evolution during battle!"
+          "stoneDesc": "Tap a Mega Stone icon to activate Mega Evolution during battle!"
         }
       },
       "roulette": {

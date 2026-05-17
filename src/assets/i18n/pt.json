@@ -175,7 +175,7 @@
         },
         "megaStone": {
           "stone": "Você obteve uma Mega Pedra!",
-          "stoneDesc": "Toque no ícone da Mega Pedra no seu time para ativar a Mega Evolução na batalha!"
+          "stoneDesc": "Toque no ícone da Mega Pedra para ativar a Mega Evolução na batalha!"
         }
       },
       "roulette": {
