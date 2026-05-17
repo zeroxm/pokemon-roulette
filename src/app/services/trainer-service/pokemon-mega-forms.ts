@@ -5,7 +5,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     3: [
         {
             pokemonId: 10033,
-            text: 'Venusaur (Mega)',
+            text: 'pokemon.venusaur-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'poison',
@@ -18,7 +18,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     6: [
         {
             pokemonId: 10034,
-            text: 'Charizard (Mega X)',
+            text: 'pokemon.charizard-mega-x',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'dragon',
@@ -29,7 +29,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10035,
-            text: 'Charizard (Mega Y)',
+            text: 'pokemon.charizard-mega-y',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'flying',
@@ -42,7 +42,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     9: [
         {
             pokemonId: 10036,
-            text: 'Blastoise (Mega)',
+            text: 'pokemon.blastoise-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: null,
@@ -55,7 +55,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     15: [
         {
             pokemonId: 10090,
-            text: 'Beedrill (Mega)',
+            text: 'pokemon.beedrill-mega',
             fillStyle: 'yellow',
             type1: 'bug',
             type2: 'poison',
@@ -68,7 +68,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     18: [
         {
             pokemonId: 10073,
-            text: 'Pidgeot (Mega)',
+            text: 'pokemon.pidgeot-mega',
             fillStyle: 'brown',
             type1: 'normal',
             type2: 'flying',
@@ -81,7 +81,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     26: [
         {
             pokemonId: 10304,
-            text: 'Raichu (Mega X)',
+            text: 'pokemon.raichu-mega-x',
             fillStyle: 'yellow',
             type1: 'electric',
             type2: null,
@@ -92,7 +92,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10305,
-            text: 'Raichu (Mega Y)',
+            text: 'pokemon.raichu-mega-y',
             fillStyle: 'yellow',
             type1: 'electric',
             type2: null,
@@ -105,7 +105,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     36: [
         {
             pokemonId: 10278,
-            text: 'Clefable (Mega)',
+            text: 'pokemon.clefable-mega',
             fillStyle: 'pink',
             type1: 'fairy',
             type2: 'flying',
@@ -118,7 +118,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     65: [
         {
             pokemonId: 10037,
-            text: 'Alakazam (Mega)',
+            text: 'pokemon.alakazam-mega',
             fillStyle: 'brown',
             type1: 'psychic',
             type2: null,
@@ -131,7 +131,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     71: [
         {
             pokemonId: 10279,
-            text: 'Victreebel (Mega)',
+            text: 'pokemon.victreebel-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'poison',
@@ -144,7 +144,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     80: [
         {
             pokemonId: 10071,
-            text: 'Slowbro (Mega)',
+            text: 'pokemon.slowbro-mega',
             fillStyle: 'pink',
             type1: 'water',
             type2: 'psychic',
@@ -157,7 +157,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     94: [
         {
             pokemonId: 10038,
-            text: 'Gengar (Mega)',
+            text: 'pokemon.gengar-mega',
             fillStyle: 'purple',
             type1: 'ghost',
             type2: 'poison',
@@ -170,7 +170,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     115: [
         {
             pokemonId: 10039,
-            text: 'Kangaskhan (Mega)',
+            text: 'pokemon.kangaskhan-mega',
             fillStyle: 'brown',
             type1: 'normal',
             type2: null,
@@ -183,7 +183,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     121: [
         {
             pokemonId: 10280,
-            text: 'Starmie (Mega)',
+            text: 'pokemon.starmie-mega',
             fillStyle: 'purple',
             type1: 'water',
             type2: 'psychic',
@@ -196,7 +196,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     127: [
         {
             pokemonId: 10040,
-            text: 'Pinsir (Mega)',
+            text: 'pokemon.pinsir-mega',
             fillStyle: 'brown',
             type1: 'bug',
             type2: 'flying',
@@ -209,7 +209,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     130: [
         {
             pokemonId: 10041,
-            text: 'Gyarados (Mega)',
+            text: 'pokemon.gyarados-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dark',
@@ -222,7 +222,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     142: [
         {
             pokemonId: 10042,
-            text: 'Aerodactyl (Mega)',
+            text: 'pokemon.aerodactyl-mega',
             fillStyle: 'purple',
             type1: 'rock',
             type2: 'flying',
@@ -235,7 +235,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     149: [
         {
             pokemonId: 10281,
-            text: 'Dragonite (Mega)',
+            text: 'pokemon.dragonite-mega',
             fillStyle: 'brown',
             type1: 'dragon',
             type2: 'flying',
@@ -248,7 +248,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     150: [
         {
             pokemonId: 10043,
-            text: 'Mewtwo (Mega X)',
+            text: 'pokemon.mewtwo-mega-x',
             fillStyle: 'purple',
             type1: 'psychic',
             type2: 'fighting',
@@ -259,7 +259,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10044,
-            text: 'Mewtwo (Mega Y)',
+            text: 'pokemon.mewtwo-mega-y',
             fillStyle: 'purple',
             type1: 'psychic',
             type2: null,
@@ -272,7 +272,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     154: [
         {
             pokemonId: 10282,
-            text: 'Meganium (Mega)',
+            text: 'pokemon.meganium-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'fairy',
@@ -285,7 +285,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     160: [
         {
             pokemonId: 10283,
-            text: 'Feraligatr (Mega)',
+            text: 'pokemon.feraligatr-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dragon',
@@ -298,7 +298,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     181: [
         {
             pokemonId: 10045,
-            text: 'Ampharos (Mega)',
+            text: 'pokemon.ampharos-mega',
             fillStyle: 'yellow',
             type1: 'electric',
             type2: 'dragon',
@@ -311,7 +311,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     208: [
         {
             pokemonId: 10072,
-            text: 'Steelix (Mega)',
+            text: 'pokemon.steelix-mega',
             fillStyle: 'gray',
             type1: 'steel',
             type2: 'ground',
@@ -324,7 +324,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     212: [
         {
             pokemonId: 10046,
-            text: 'Scizor (Mega)',
+            text: 'pokemon.scizor-mega',
             fillStyle: 'red',
             type1: 'bug',
             type2: 'steel',
@@ -337,7 +337,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     214: [
         {
             pokemonId: 10047,
-            text: 'Heracross (Mega)',
+            text: 'pokemon.heracross-mega',
             fillStyle: 'blue',
             type1: 'bug',
             type2: 'fighting',
@@ -350,7 +350,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     227: [
         {
             pokemonId: 10284,
-            text: 'Skarmory (Mega)',
+            text: 'pokemon.skarmory-mega',
             fillStyle: 'gray',
             type1: 'steel',
             type2: 'flying',
@@ -363,7 +363,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     229: [
         {
             pokemonId: 10048,
-            text: 'Houndoom (Mega)',
+            text: 'pokemon.houndoom-mega',
             fillStyle: 'black',
             type1: 'dark',
             type2: 'fire',
@@ -376,7 +376,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     248: [
         {
             pokemonId: 10049,
-            text: 'Tyranitar (Mega)',
+            text: 'pokemon.tyranitar-mega',
             fillStyle: 'green',
             type1: 'rock',
             type2: 'dark',
@@ -389,7 +389,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     254: [
         {
             pokemonId: 10065,
-            text: 'Sceptile (Mega)',
+            text: 'pokemon.sceptile-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'dragon',
@@ -402,7 +402,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     257: [
         {
             pokemonId: 10050,
-            text: 'Blaziken (Mega)',
+            text: 'pokemon.blaziken-mega',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'fighting',
@@ -415,7 +415,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     260: [
         {
             pokemonId: 10064,
-            text: 'Swampert (Mega)',
+            text: 'pokemon.swampert-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'ground',
@@ -428,7 +428,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     282: [
         {
             pokemonId: 10051,
-            text: 'Gardevoir (Mega)',
+            text: 'pokemon.gardevoir-mega',
             fillStyle: 'white',
             type1: 'psychic',
             type2: 'fairy',
@@ -441,7 +441,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     302: [
         {
             pokemonId: 10066,
-            text: 'Sableye (Mega)',
+            text: 'pokemon.sableye-mega',
             fillStyle: 'purple',
             type1: 'dark',
             type2: 'ghost',
@@ -454,7 +454,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     303: [
         {
             pokemonId: 10052,
-            text: 'Mawile (Mega)',
+            text: 'pokemon.mawile-mega',
             fillStyle: 'black',
             type1: 'steel',
             type2: 'fairy',
@@ -467,7 +467,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     306: [
         {
             pokemonId: 10053,
-            text: 'Aggron (Mega)',
+            text: 'pokemon.aggron-mega',
             fillStyle: 'gray',
             type1: 'steel',
             type2: 'rock',
@@ -480,7 +480,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     308: [
         {
             pokemonId: 10054,
-            text: 'Medicham (Mega)',
+            text: 'pokemon.medicham-mega',
             fillStyle: 'red',
             type1: 'fighting',
             type2: 'psychic',
@@ -493,7 +493,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     310: [
         {
             pokemonId: 10055,
-            text: 'Manectric (Mega)',
+            text: 'pokemon.manectric-mega',
             fillStyle: 'yellow',
             type1: 'electric',
             type2: null,
@@ -506,7 +506,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     319: [
         {
             pokemonId: 10070,
-            text: 'Sharpedo (Mega)',
+            text: 'pokemon.sharpedo-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dark',
@@ -519,7 +519,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     323: [
         {
             pokemonId: 10087,
-            text: 'Camerupt (Mega)',
+            text: 'pokemon.camerupt-mega',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'ground',
@@ -532,7 +532,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     334: [
         {
             pokemonId: 10067,
-            text: 'Altaria (Mega)',
+            text: 'pokemon.altaria-mega',
             fillStyle: 'blue',
             type1: 'dragon',
             type2: 'flying',
@@ -545,7 +545,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     354: [
         {
             pokemonId: 10056,
-            text: 'Banette (Mega)',
+            text: 'pokemon.banette-mega',
             fillStyle: 'black',
             type1: 'ghost',
             type2: null,
@@ -558,7 +558,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     358: [
         {
             pokemonId: 10306,
-            text: 'Chimecho (Mega)',
+            text: 'pokemon.chimecho-mega',
             fillStyle: 'blue',
             type1: 'psychic',
             type2: 'steel',
@@ -571,7 +571,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     359: [
         {
             pokemonId: 10057,
-            text: 'Absol (Mega)',
+            text: 'pokemon.absol-mega',
             fillStyle: 'white',
             type1: 'dark',
             type2: null,
@@ -582,7 +582,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10307,
-            text: 'Absol (Mega Z)',
+            text: 'pokemon.absol-mega-z',
             fillStyle: 'white',
             type1: 'dark',
             type2: 'ghost',
@@ -595,7 +595,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     362: [
         {
             pokemonId: 10074,
-            text: 'Glalie (Mega)',
+            text: 'pokemon.glalie-mega',
             fillStyle: 'gray',
             type1: 'ice',
             type2: null,
@@ -608,7 +608,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     373: [
         {
             pokemonId: 10089,
-            text: 'Salamence (Mega)',
+            text: 'pokemon.salamence-mega',
             fillStyle: 'blue',
             type1: 'dragon',
             type2: 'flying',
@@ -621,7 +621,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     376: [
         {
             pokemonId: 10076,
-            text: 'Metagross (Mega)',
+            text: 'pokemon.metagross-mega',
             fillStyle: 'blue',
             type1: 'steel',
             type2: 'psychic',
@@ -634,7 +634,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     380: [
         {
             pokemonId: 10062,
-            text: 'Latias (Mega)',
+            text: 'pokemon.latias-mega',
             fillStyle: 'red',
             type1: 'dragon',
             type2: 'psychic',
@@ -647,7 +647,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     381: [
         {
             pokemonId: 10063,
-            text: 'Latios (Mega)',
+            text: 'pokemon.latios-mega',
             fillStyle: 'blue',
             type1: 'dragon',
             type2: 'psychic',
@@ -660,7 +660,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     382: [
         {
             pokemonId: 10077,
-            text: 'Kyogre (Primal)',
+            text: 'pokemon.kyogre-primal',
             fillStyle: 'blue',
             type1: 'water',
             type2: null,
@@ -673,7 +673,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     383: [
         {
             pokemonId: 10078,
-            text: 'Groudon (Primal)',
+            text: 'pokemon.groudon-primal',
             fillStyle: 'red',
             type1: 'ground',
             type2: 'fire',
@@ -686,7 +686,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     384: [
         {
             pokemonId: 10079,
-            text: 'Rayquaza (Mega)',
+            text: 'pokemon.rayquaza-mega',
             fillStyle: 'green',
             type1: 'dragon',
             type2: 'flying',
@@ -699,7 +699,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     398: [
         {
             pokemonId: 10308,
-            text: 'Staraptor (Mega)',
+            text: 'pokemon.staraptor-mega',
             fillStyle: 'brown',
             type1: 'normal',
             type2: 'flying',
@@ -712,7 +712,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     428: [
         {
             pokemonId: 10088,
-            text: 'Lopunny (Mega)',
+            text: 'pokemon.lopunny-mega',
             fillStyle: 'brown',
             type1: 'normal',
             type2: 'fighting',
@@ -725,7 +725,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     445: [
         {
             pokemonId: 10058,
-            text: 'Garchomp (Mega)',
+            text: 'pokemon.garchomp-mega',
             fillStyle: 'blue',
             type1: 'dragon',
             type2: 'ground',
@@ -736,7 +736,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10309,
-            text: 'Garchomp (Mega Z)',
+            text: 'pokemon.garchomp-mega-z',
             fillStyle: 'blue',
             type1: 'dragon',
             type2: null,
@@ -749,7 +749,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     448: [
         {
             pokemonId: 10059,
-            text: 'Lucario (Mega)',
+            text: 'pokemon.lucario-mega',
             fillStyle: 'blue',
             type1: 'fighting',
             type2: 'steel',
@@ -760,7 +760,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10310,
-            text: 'Lucario (Mega Z)',
+            text: 'pokemon.lucario-mega-z',
             fillStyle: 'blue',
             type1: 'fighting',
             type2: 'steel',
@@ -773,7 +773,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     460: [
         {
             pokemonId: 10060,
-            text: 'Abomasnow (Mega)',
+            text: 'pokemon.abomasnow-mega',
             fillStyle: 'white',
             type1: 'grass',
             type2: 'ice',
@@ -786,7 +786,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     475: [
         {
             pokemonId: 10068,
-            text: 'Gallade (Mega)',
+            text: 'pokemon.gallade-mega',
             fillStyle: 'white',
             type1: 'psychic',
             type2: 'fighting',
@@ -799,7 +799,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     478: [
         {
             pokemonId: 10285,
-            text: 'Froslass (Mega)',
+            text: 'pokemon.froslass-mega',
             fillStyle: 'white',
             type1: 'ice',
             type2: 'ghost',
@@ -812,7 +812,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     485: [
         {
             pokemonId: 10311,
-            text: 'Heatran (Mega)',
+            text: 'pokemon.heatran-mega',
             fillStyle: 'brown',
             type1: 'fire',
             type2: 'steel',
@@ -825,7 +825,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     491: [
         {
             pokemonId: 10312,
-            text: 'Darkrai (Mega)',
+            text: 'pokemon.darkrai-mega',
             fillStyle: 'black',
             type1: 'dark',
             type2: null,
@@ -838,7 +838,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     500: [
         {
             pokemonId: 10286,
-            text: 'Emboar (Mega)',
+            text: 'pokemon.emboar-mega',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'fighting',
@@ -851,7 +851,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     530: [
         {
             pokemonId: 10287,
-            text: 'Excadrill (Mega)',
+            text: 'pokemon.excadrill-mega',
             fillStyle: 'gray',
             type1: 'ground',
             type2: 'steel',
@@ -864,7 +864,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     531: [
         {
             pokemonId: 10069,
-            text: 'Audino (Mega)',
+            text: 'pokemon.audino-mega',
             fillStyle: 'pink',
             type1: 'normal',
             type2: 'fairy',
@@ -877,7 +877,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     545: [
         {
             pokemonId: 10288,
-            text: 'Scolipede (Mega)',
+            text: 'pokemon.scolipede-mega',
             fillStyle: 'red',
             type1: 'bug',
             type2: 'poison',
@@ -890,7 +890,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     560: [
         {
             pokemonId: 10289,
-            text: 'Scrafty (Mega)',
+            text: 'pokemon.scrafty-mega',
             fillStyle: 'red',
             type1: 'dark',
             type2: 'fighting',
@@ -903,7 +903,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     604: [
         {
             pokemonId: 10290,
-            text: 'Eelektross (Mega)',
+            text: 'pokemon.eelektross-mega',
             fillStyle: 'blue',
             type1: 'electric',
             type2: null,
@@ -916,7 +916,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     609: [
         {
             pokemonId: 10291,
-            text: 'Chandelure (Mega)',
+            text: 'pokemon.chandelure-mega',
             fillStyle: 'black',
             type1: 'ghost',
             type2: 'fire',
@@ -929,7 +929,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     623: [
         {
             pokemonId: 10313,
-            text: 'Golurk (Mega)',
+            text: 'pokemon.golurk-mega',
             fillStyle: 'green',
             type1: 'ground',
             type2: 'ghost',
@@ -942,7 +942,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     652: [
         {
             pokemonId: 10292,
-            text: 'Chesnaught (Mega)',
+            text: 'pokemon.chesnaught-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'fighting',
@@ -955,7 +955,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     655: [
         {
             pokemonId: 10293,
-            text: 'Delphox (Mega)',
+            text: 'pokemon.delphox-mega',
             fillStyle: 'red',
             type1: 'fire',
             type2: 'psychic',
@@ -968,7 +968,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     658: [
         {
             pokemonId: 10294,
-            text: 'Greninja (Mega)',
+            text: 'pokemon.greninja-mega',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dark',
@@ -979,7 +979,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10116,
-            text: 'Greninja (Battle Bond)',
+            text: 'pokemon.greninja-battle-bond',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dark',
@@ -990,7 +990,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
         },
         {
             pokemonId: 10117,
-            text: 'Greninja (Ash)',
+            text: 'pokemon.greninja-ash',
             fillStyle: 'blue',
             type1: 'water',
             type2: 'dark',
@@ -1003,7 +1003,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     668: [
         {
             pokemonId: 10295,
-            text: 'Pyroar (Mega)',
+            text: 'pokemon.pyroar-mega',
             fillStyle: 'brown',
             type1: 'fire',
             type2: 'normal',
@@ -1016,7 +1016,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     10061: [
         {
             pokemonId: 10296,
-            text: 'Floette (Mega)',
+            text: 'pokemon.floette-mega',
             fillStyle: 'white',
             type1: 'fairy',
             type2: null,
@@ -1029,7 +1029,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     678: [
         {
             pokemonId: 10314,
-            text: 'Meowstic (Mega)',
+            text: 'pokemon.meowstic-mega',
             fillStyle: 'blue',
             type1: 'psychic',
             type2: null,
@@ -1042,7 +1042,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     687: [
         {
             pokemonId: 10297,
-            text: 'Malamar (Mega)',
+            text: 'pokemon.malamar-mega',
             fillStyle: 'blue',
             type1: 'dark',
             type2: 'psychic',
@@ -1055,7 +1055,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     689: [
         {
             pokemonId: 10298,
-            text: 'Barbaracle (Mega)',
+            text: 'pokemon.barbaracle-mega',
             fillStyle: 'brown',
             type1: 'rock',
             type2: 'fighting',
@@ -1068,7 +1068,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     691: [
         {
             pokemonId: 10299,
-            text: 'Dragalge (Mega)',
+            text: 'pokemon.dragalge-mega',
             fillStyle: 'brown',
             type1: 'poison',
             type2: 'dragon',
@@ -1081,7 +1081,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     701: [
         {
             pokemonId: 10300,
-            text: 'Hawlucha (Mega)',
+            text: 'pokemon.hawlucha-mega',
             fillStyle: 'green',
             type1: 'fighting',
             type2: 'flying',
@@ -1094,7 +1094,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     10120: [
         {
             pokemonId: 10301,
-            text: 'Zygarde (Mega)',
+            text: 'pokemon.zygarde-mega',
             fillStyle: 'green',
             type1: 'dragon',
             type2: 'ground',
@@ -1107,7 +1107,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     719: [
         {
             pokemonId: 10075,
-            text: 'Diancie (Mega)',
+            text: 'pokemon.diancie-mega',
             fillStyle: 'pink',
             type1: 'rock',
             type2: 'fairy',
@@ -1120,7 +1120,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     740: [
         {
             pokemonId: 10315,
-            text: 'Crabominable (Mega)',
+            text: 'pokemon.crabominable-mega',
             fillStyle: 'white',
             type1: 'fighting',
             type2: 'ice',
@@ -1133,7 +1133,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     768: [
         {
             pokemonId: 10316,
-            text: 'Golisopod (Mega)',
+            text: 'pokemon.golisopod-mega',
             fillStyle: 'gray',
             type1: 'bug',
             type2: 'steel',
@@ -1146,7 +1146,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     780: [
         {
             pokemonId: 10302,
-            text: 'Drampa (Mega)',
+            text: 'pokemon.drampa-mega',
             fillStyle: 'white',
             type1: 'normal',
             type2: 'dragon',
@@ -1159,7 +1159,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     801: [
         {
             pokemonId: 10317,
-            text: 'Magearna (Mega)',
+            text: 'pokemon.magearna-mega',
             fillStyle: 'gray',
             type1: 'steel',
             type2: 'fairy',
@@ -1172,7 +1172,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     10147: [
         {
             pokemonId: 10318,
-            text: 'Magearna (Original Mega)',
+            text: 'pokemon.magearna-original-mega',
             fillStyle: 'gray',
             type1: 'steel',
             type2: 'fairy',
@@ -1185,7 +1185,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     807: [
         {
             pokemonId: 10319,
-            text: 'Zeraora (Mega)',
+            text: 'pokemon.zeraora-mega',
             fillStyle: 'yellow',
             type1: 'electric',
             type2: null,
@@ -1198,7 +1198,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     870: [
         {
             pokemonId: 10303,
-            text: 'Falinks (Mega)',
+            text: 'pokemon.falinks-mega',
             fillStyle: 'yellow',
             type1: 'fighting',
             type2: null,
@@ -1211,7 +1211,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     952: [
         {
             pokemonId: 10320,
-            text: 'Scovillain (Mega)',
+            text: 'pokemon.scovillain-mega',
             fillStyle: 'green',
             type1: 'grass',
             type2: 'fire',
@@ -1224,7 +1224,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     970: [
         {
             pokemonId: 10321,
-            text: 'Glimmora (Mega)',
+            text: 'pokemon.glimmora-mega',
             fillStyle: 'blue',
             type1: 'rock',
             type2: 'poison',
@@ -1237,7 +1237,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     978: [
         {
             pokemonId: 10322,
-            text: 'Tatsugiri (Curly Mega)',
+            text: 'pokemon.tatsugiri-curly-mega',
             fillStyle: 'pink',
             type1: 'dragon',
             type2: 'water',
@@ -1250,7 +1250,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     10258: [
         {
             pokemonId: 10323,
-            text: 'Tatsugiri (Droopy Mega)',
+            text: 'pokemon.tatsugiri-droopy-mega',
             fillStyle: 'pink',
             type1: 'dragon',
             type2: 'water',
@@ -1263,7 +1263,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     10259: [
         {
             pokemonId: 10324,
-            text: 'Tatsugiri (Stretchy Mega)',
+            text: 'pokemon.tatsugiri-stretchy-mega',
             fillStyle: 'pink',
             type1: 'dragon',
             type2: 'water',
@@ -1276,7 +1276,7 @@ export const pokemonMegaForms: Record<number, PokemonItem[]> = {
     998: [
         {
             pokemonId: 10325,
-            text: 'Baxcalibur (Mega)',
+            text: 'pokemon.baxcalibur-mega',
             fillStyle: 'gray',
             type1: 'dragon',
             type2: 'ice',
