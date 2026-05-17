@@ -1,117 +1,517 @@
-/* ── Container ────────────────────────────────────────────────── */
+:host {
+  display: block;
+}
+
 .mega-anim-container {
   position: relative;
-  min-height: 300px;
+  min-height: 380px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000;
   overflow: hidden;
+  border-radius: 14px;
+  background: #000;
 }
 
-/* ── Sprite ───────────────────────────────────────────────────── */
-.mega-sprite {
+.mega-background-glow {
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(137, 195, 255, 0.14), transparent 55%),
+    radial-gradient(circle at 72% 32%, rgba(255, 98, 186, 0.12), transparent 52%),
+    radial-gradient(circle at 52% 74%, rgba(130, 74, 255, 0.18), transparent 60%);
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.expand .mega-background-glow,
+.crack .mega-background-glow,
+.reveal .mega-background-glow {
+  animation: backdropBreath 2s ease-in-out forwards;
+}
+
+.sprite-stage {
   position: relative;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.mega-sprite img {
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
-}
-
-/* Show sprite only in reveal / dissolve phases */
-.reveal .mega-sprite,
-.dissolve .mega-sprite {
-  animation: spriteReveal 0.7s ease-out forwards;
-}
-
-/* ── Sphere ───────────────────────────────────────────────────── */
-.mega-sphere {
-  position: absolute;
-  z-index: 2;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 40% 35%,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(200, 180, 255, 0.85) 25%,
-    rgba(100, 160, 255, 0.75) 50%,
-    rgba(180, 100, 255, 0.6) 75%,
-    rgba(80, 40, 160, 0.4) 100%
-  );
-  opacity: 0;
-  transform: scale(0);
-}
-
-.sphere .mega-sphere {
-  animation: sphereExpand 0.7s ease-out forwards;
-}
-
-.crack .mega-sphere {
-  /* Keep sphere visible at full scale */
-  opacity: 1;
-  transform: scale(1.5);
-  animation: crackAppear 0.7s ease-in-out forwards;
-}
-
-/* Sphere hidden in reveal / dissolve — sprite takes over */
-.reveal .mega-sphere,
-.dissolve .mega-sphere {
-  opacity: 0;
-}
-
-/* ── Mega icon ────────────────────────────────────────────────── */
-.mega-icon {
-  position: absolute;
   z-index: 3;
-  font-size: 3.5rem;
-  font-weight: 900;
-  letter-spacing: 0.15em;
-  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ffd700 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  width: min(46vw, 240px);
+  height: min(46vw, 240px);
+}
+
+.sprite {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center center;
+  will-change: transform, opacity, filter, clip-path;
+}
+
+.sprite-base {
   opacity: 0;
+}
+
+.sprite-mega {
+  opacity: 0;
+}
+
+.prelude .sprite-base,
+.gather .sprite-base {
+  opacity: 1;
   transform: scale(1);
-  text-shadow: none;
+  filter: brightness(1) saturate(1);
+}
+
+.expand .sprite-base {
+  animation: baseSpriteFadeOut 320ms ease 350ms both;
+}
+
+.expand .sprite-mega {
+  animation: megaSpriteSwapIn 360ms cubic-bezier(0.21, 0.91, 0.22, 1) 380ms both;
+}
+
+.crack .sprite-mega,
+.reveal .sprite-mega {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.12);
+}
+
+.dissolve .sprite-mega {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: brightness(1.1) saturate(1.12);
+}
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
 }
 
-.dissolve .mega-icon {
-  animation: iconPulse 0.9s ease-in-out forwards;
+.gather-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--particle-size, 9px);
+  height: var(--particle-size, 9px);
+  margin-left: calc(var(--particle-size, 9px) * -0.5);
+  margin-top: calc(var(--particle-size, 9px) * -0.5);
+  border-radius: 999px;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.98), rgba(200, 180, 255, 0.92) 36%, rgba(100, 160, 255, 0.9) 64%, rgba(180, 100, 255, 0.84) 84%, rgba(80, 40, 160, 0.78) 100%);
+  box-shadow:
+    0 0 14px rgba(156, 193, 255, 0.95),
+    0 0 24px rgba(179, 121, 255, 0.78);
+  transform: translate(var(--start-x, 0px), var(--start-y, 0px)) scale(0.8);
+  will-change: transform, opacity;
 }
 
-/* ── Keyframes ────────────────────────────────────────────────── */
-
-@keyframes sphereExpand {
-  0%   { opacity: 0;   transform: scale(0); }
-  40%  { opacity: 1;   transform: scale(0.9); }
-  100% { opacity: 1;   transform: scale(1.5); }
+.gather .gather-particle,
+.expand .gather-particle {
+  animation: particleGather var(--particle-duration, 640ms) cubic-bezier(0.17, 0.9, 0.28, 1) var(--particle-delay, 0ms) forwards;
 }
 
-@keyframes crackAppear {
-  0%   { opacity: 1; transform: scale(1.5); filter: hue-rotate(0deg) brightness(1); }
-  30%  { opacity: 1; transform: scale(1.5); filter: hue-rotate(60deg) brightness(1.5); }
-  60%  { opacity: 1; transform: scale(1.6); filter: hue-rotate(120deg) brightness(2); }
-  85%  { opacity: 0.7; transform: scale(1.7); filter: hue-rotate(200deg) brightness(2.5); }
-  100% { opacity: 0; transform: scale(2.2); filter: hue-rotate(270deg) brightness(3); }
+.sphere-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
 }
 
-@keyframes spriteReveal {
-  0%   { opacity: 0; transform: scale(0.8); }
-  60%  { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 1; transform: scale(1); }
+.sphere-core,
+.sphere-inner,
+.sphere-ring,
+.sphere-flare,
+.sphere-crack {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  will-change: transform, opacity, filter;
 }
 
-@keyframes iconPulse {
-  0%   { opacity: 0; transform: scale(1); }
-  30%  { opacity: 1; transform: scale(1.2); }
-  70%  { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 0; transform: scale(0); }
+.sphere-core {
+  width: min(32vw, 180px);
+  height: min(32vw, 180px);
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255, 255, 255, 1) 0%, rgba(200, 180, 255, 1) 28%, rgba(100, 160, 255, 1) 56%, rgba(180, 100, 255, 1) 78%, rgba(80, 40, 160, 1) 100%);
 }
+
+.sphere-inner {
+  width: min(40vw, 230px);
+  height: min(40vw, 230px);
+  background: radial-gradient(circle, rgba(200, 180, 255, 0.56), rgba(100, 160, 255, 0.46) 52%, rgba(180, 100, 255, 0.36) 72%, transparent 84%);
+}
+
+.sphere-ring {
+  width: min(46vw, 270px);
+  height: min(46vw, 270px);
+  border: 3px solid rgba(196, 220, 255, 0.86);
+  box-shadow:
+    0 0 28px rgba(132, 190, 255, 0.85),
+    inset 0 0 30px rgba(104, 58, 247, 0.62);
+}
+
+.sphere-flare {
+  width: min(58vw, 350px);
+  height: min(58vw, 350px);
+  background: radial-gradient(circle, rgba(211, 254, 255, 0.46), rgba(132, 88, 255, 0.34) 45%, transparent 74%);
+  filter: blur(2px);
+}
+
+.sphere-crack {
+  width: min(48vw, 285px);
+  height: min(48vw, 285px);
+  background:
+    conic-gradient(from 35deg, transparent 0deg 20deg, rgba(255, 255, 255, 0.82) 21deg 24deg, transparent 25deg 100deg, rgba(162, 210, 255, 0.72) 102deg 105deg, transparent 106deg 360deg);
+  filter: drop-shadow(0 0 16px rgba(145, 210, 255, 0.9));
+}
+
+.gather .sphere-core,
+.expand .sphere-core {
+  animation: coreBuildUp 1400ms linear forwards;
+}
+
+.gather .sphere-inner,
+.expand .sphere-inner {
+  animation: innerHaloBuild 1460ms linear 60ms forwards;
+}
+
+.gather .sphere-ring,
+.expand .sphere-ring {
+  animation: ringBuild 1300ms linear 120ms forwards;
+}
+
+.gather .sphere-flare,
+.expand .sphere-flare {
+  animation: flareBuild 1460ms linear 80ms forwards;
+}
+
+.crack .sphere-core {
+  animation: crackPulseCore 500ms ease-out forwards;
+}
+
+.crack .sphere-inner {
+  animation: crackPulseInner 520ms ease-out forwards;
+}
+
+.crack .sphere-ring {
+  animation: crackRingBurst 520ms ease-out forwards;
+}
+
+.crack .sphere-flare {
+  animation: crackFlareFlash 500ms ease-out forwards;
+}
+
+.crack .sphere-crack {
+  animation: crackLines 500ms ease-out forwards;
+}
+
+.reveal .sphere-core,
+.reveal .sphere-inner,
+.reveal .sphere-ring,
+.reveal .sphere-flare,
+.reveal .sphere-crack,
+.dissolve .sphere-core,
+.dissolve .sphere-inner,
+.dissolve .sphere-ring,
+.dissolve .sphere-flare,
+.dissolve .sphere-crack {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.55);
+}
+
+.mega-symbol {
+  position: absolute;
+  width: min(24vw, 122px);
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.72);
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 22px rgba(160, 108, 255, 0.8));
+  will-change: transform, opacity;
+}
+
+.reveal .mega-symbol {
+  animation: symbolReveal 640ms ease forwards;
+}
+
+.dissolve .mega-symbol {
+  animation: symbolDissolve 700ms linear forwards;
+}
+
+@keyframes backdropBreath {
+  0% {
+    opacity: 0.08;
+    transform: scale(0.95);
+  }
+  45% {
+    opacity: 0.72;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 0.24;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes particleGather {
+  0% {
+    opacity: 0;
+    transform: translate(var(--start-x, 0px), var(--start-y, 0px)) scale(0.7);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(calc(var(--start-x, 0px) * 0.88), calc(var(--start-y, 0px) * 0.88)) scale(0.92);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(calc(var(--start-x, 0px) * 0.58), calc(var(--start-y, 0px) * 0.58)) scale(1.04);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(calc(var(--start-x, 0px) * 0.24), calc(var(--start-y, 0px) * 0.24)) scale(1.08);
+  }
+  85% {
+    opacity: 0.6;
+    transform: translate(calc(var(--start-x, 0px) * 0.08), calc(var(--start-y, 0px) * 0.08)) scale(0.4);
+  }
+  100% {
+    opacity: 0.05;
+    transform: translate(0, 0) scale(0.15);
+  }
+}
+
+@keyframes coreBuildUp {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+    filter: brightness(1.05) saturate(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.52);
+    filter: brightness(1.05) saturate(1.1);
+  }
+}
+
+@keyframes innerHaloBuild {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.42);
+  }
+}
+
+@keyframes ringBuild {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.45) rotate(28deg);
+  }
+}
+
+@keyframes flareBuild {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    opacity: 0.52;
+    transform: translate(-50%, -50%) scale(1.65);
+  }
+}
+
+@keyframes crackPulseCore {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.52);
+    filter: brightness(1.1) saturate(1.1);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.28);
+    filter: brightness(1.95) saturate(1.55) hue-rotate(24deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.92);
+    filter: brightness(2.7) saturate(1.7);
+  }
+}
+
+@keyframes crackPulseInner {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(1.42);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.95);
+  }
+}
+
+@keyframes crackRingBurst {
+  0% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.45) rotate(28deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3) rotate(132deg);
+  }
+}
+
+@keyframes crackFlareFlash {
+  0% {
+    opacity: 0.52;
+    transform: translate(-50%, -50%) scale(1.65);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.45);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.45);
+  }
+}
+
+@keyframes crackLines {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+  }
+  45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(2.2) rotate(24deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.95) rotate(38deg);
+  }
+}
+
+@keyframes baseSpriteFadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1.05);
+  }
+  55% {
+    opacity: 0.38;
+    transform: scale(1.13);
+    filter: brightness(1.45) saturate(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+    filter: brightness(1.8);
+  }
+}
+
+@keyframes megaSpriteSwapIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.74);
+    filter: brightness(2.4) saturate(0.8);
+  }
+  38% {
+    opacity: 0.82;
+    transform: scale(1.22);
+    filter: brightness(1.55) saturate(1.25);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.03);
+    filter: brightness(1.1) saturate(1.1);
+  }
+}
+
+@keyframes symbolReveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.68) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes symbolDissolve {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  10% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.912);
+  }
+  20% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0.824);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.736);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.648);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(0.56);
+  }
+  60% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.472);
+  }
+  70% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.384);
+  }
+  80% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.296);
+  }
+  90% {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0.208);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.12);
+  }
+}
+
+@media (max-width: 680px) {
+  .mega-anim-container {
+    min-height: 320px;
+  }
+
+  .mega-symbol {
+    width: min(26vw, 94px);
+  }
+}
+
+

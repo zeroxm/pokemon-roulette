@@ -50,17 +50,17 @@ export class TrainerService implements OnDestroy {
 
   trainerTeam: PokemonItem[] = [
     {
-        text: "pokemon.nincada",
-        pokemonId: 290,
-        fillStyle: "gray",
-        type1: "bug",
-        type2: "ground",
+        text: "pokemon.charizard",
+        pokemonId: 6,
+        fillStyle: "darkred",
+        type1: "fire",
+        type2: "flying",
         sprite: {
-            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/290.png",
-            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/290.png"
+            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
+            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
         },
         shiny: false,
-        power: 1,
+        power: 3,
         weight: 1
     },
   ];
@@ -76,7 +76,17 @@ export class TrainerService implements OnDestroy {
   private megaBattleStoneName: MegaStoneItemName | null = null;
   private megaBattleOriginalPokemon: PokemonItem | null = null;
 
-  trainerItems: ItemItem[] = [structuredClone(TrainerService.DEFAULT_POTION)];
+  trainerItems: ItemItem[] = [
+    structuredClone(TrainerService.DEFAULT_POTION),
+    {
+      text: 'items.charizardite-x.name',
+      name: 'charizardite-x',
+      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/charizardite-x.png',
+      fillStyle: 'black',
+      weight: 1,
+      description: 'items.charizardite-x.description'
+    },
+  ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 
   trainerBadges: Badge[] = [];
@@ -308,6 +318,18 @@ export class TrainerService implements OnDestroy {
   /** Returns the base Pokémon ID that will mega-evolve this battle, or null if none. */
   getMegaBattleBaseId(): number | null {
     return this.megaBattleBaseId;
+  }
+
+  /** Returns true when any current team member is in a mega form. */
+  hasActiveMegaFormInTeam(): boolean {
+    const megaFormIds = new Set<number>();
+    for (const forms of Object.values(pokemonMegaForms)) {
+      for (const form of forms) {
+        megaFormIds.add(form.pokemonId);
+      }
+    }
+
+    return this.trainerTeam.some(pokemon => megaFormIds.has(pokemon.pokemonId));
   }
 
   /** Applies mega evolution immediately for the selected base Pokémon during a battle. */

@@ -5,6 +5,7 @@
     "explanations": "Menos explicaciones",
     "muteAudio": "Silenciar Audio",
     "skipShinyRolls": "Omitir Tiradas de Shiny",
+    "skipMegaEvolutionAnimation": "Omitir animacion de Mega Evolucion",
     "defaultGender": {
       "title": "Género del Personaje",
       "male": "Siempre Chico",

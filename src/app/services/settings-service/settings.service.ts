@@ -4,6 +4,7 @@ import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
 export interface GameSettings {
   muteAudio: boolean;
   skipShinyRolls: boolean;
+  skipMegaEvolutionAnimation: boolean;
   lessExplanations: boolean;
   defaultGender: 'male' | 'female' | 'always-choose';
 }
@@ -17,6 +18,7 @@ export class SettingsService {
   private readonly defaultSettings: GameSettings = {
     muteAudio: false,
     skipShinyRolls: false,
+    skipMegaEvolutionAnimation: false,
     lessExplanations: false,
     defaultGender: 'always-choose'
   };
@@ -44,6 +46,15 @@ export class SettingsService {
   toggleSkipShinyRolls(): void {
     const currentSettings = this.currentSettings;
     const newSettings = { ...currentSettings, skipShinyRolls: !currentSettings.skipShinyRolls };
+    this.updateSettings(newSettings);
+  }
+
+  toggleSkipMegaEvolutionAnimation(): void {
+    const currentSettings = this.currentSettings;
+    const newSettings = {
+      ...currentSettings,
+      skipMegaEvolutionAnimation: !currentSettings.skipMegaEvolutionAnimation
+    };
     this.updateSettings(newSettings);
   }
 

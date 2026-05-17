@@ -52,7 +52,7 @@ import { GameOverComponent } from "../game-over/game-over.component";
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { MegaStoneService } from '../../services/mega-stone-service/mega-stone.service';
-import { megaStoneNamesForBaseId } from '../../services/trainer-service/pokemon-mega-forms';
+import { megaStoneNamesForBaseId, pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 import { MegaEvolutionAnimationModalComponent } from './roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 import { SelectFromItemListRouletteComponent } from './roulettes/select-from-item-list-roulette/select-from-item-list-roulette.component';
 
@@ -120,6 +120,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private rareCandyService: RareCandyService,
       private megaStoneService: MegaStoneService) {
       this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
+      this.megaStoneTapAudio = this.soundFxService.createMegaStoneTapSoundFx();
+      this.megaEvolutionAudio = this.soundFxService.createMegaEvolutionSoundFx();
     }
 
     ngOnInit(): void {
@@ -193,6 +195,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   infoModalMessage = '';
   infoModalTitle = '';
   itemFoundAudio!: SoundFxHandle;
+  megaStoneTapAudio!: SoundFxHandle;
+  megaEvolutionAudio!: SoundFxHandle;
   leadersDefeatedAmount: number = 0;
   multitaskCounter: number = 0;
   pkmnEvoTitle = '';
@@ -799,6 +803,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // Defensive guard: if a mega form is already active on team, ignore further triggers.
+    if (this.trainerService.hasActiveMegaFormInTeam()) {
+      return;
+    }
+
     // One mega use per battle: after first activation, further attempts are ignored
     // until battle exit reverts forms and clears the selected mega base id.
     if (this.trainerService.getMegaBattleBaseId() !== null) {
@@ -812,6 +821,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     const matchingPokemon = this.getPokemonMatchingMegaStone(megaStone.name);
     if (matchingPokemon.length === 0) {
       return;
+    }
+
+    if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
+      void this.soundFxService.playSoundFx(this.megaStoneTapAudio, 0.30);
+    } else {
+      // Play mega sounds sequentially (tap -> evolution) via audio-ended queue.
+      void this.soundFxService.playSoundFxQueue([
+        { handle: this.megaStoneTapAudio, volume: 0.30 },
+        { handle: this.megaEvolutionAudio, volume: 0.30 }
+      ]);
     }
 
     if (matchingPokemon.length === 1) {
@@ -849,10 +868,36 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private activateMegaEvolutionForPokemon(basePokemonId: number, stoneName?: MegaStoneItemName): void {
     this.trainerService.setMegaBattlePokemon(basePokemonId, stoneName ?? null);
     this.trainerService.forceMegaActivation(basePokemonId, stoneName);
-    void this.showMegaEvolutionAnimation(basePokemonId);
+    void this.showMegaEvolutionAnimation(basePokemonId, stoneName);
   }
 
-  private async showMegaEvolutionAnimation(basePokemonId: number): Promise<void> {
+  private resolveMegaEvolutionPokemonId(basePokemonId: number, stoneName?: MegaStoneItemName): number {
+    const megaForms = pokemonMegaForms[basePokemonId] ?? [];
+
+    if (megaForms.length === 0) {
+      return basePokemonId;
+    }
+
+    if (!stoneName) {
+      return megaForms[0].pokemonId;
+    }
+
+    const stoneNames = megaStoneNamesForBaseId(basePokemonId);
+    const stoneIndex = stoneNames.indexOf(stoneName);
+
+    if (stoneIndex < 0 || !megaForms[stoneIndex]) {
+      return megaForms[0].pokemonId;
+    }
+
+    return megaForms[stoneIndex].pokemonId;
+  }
+
+  private async showMegaEvolutionAnimation(basePokemonId: number, stoneName?: MegaStoneItemName): Promise<void> {
+    if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
+      return;
+    }
+
+    const megaPokemonId = this.resolveMegaEvolutionPokemonId(basePokemonId, stoneName);
     const animRef = await this.modalQueueService.open(MegaEvolutionAnimationModalComponent, {
       centered: true,
       size: 'lg',
@@ -860,6 +905,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       keyboard: false
     });
     animRef.componentInstance.pokemonId = basePokemonId;
+    animRef.componentInstance.megaPokemonId = megaPokemonId;
   }
 
   private isBattleState(state: GameState): boolean {

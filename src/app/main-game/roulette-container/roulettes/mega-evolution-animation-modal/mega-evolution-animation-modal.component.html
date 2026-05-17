@@ -1,7 +1,32 @@
-<div class="mega-anim-container" [ngClass]="currentPhase">
-  <div class="mega-sprite">
-    <img [src]="spriteUrl" alt="Mega Evolution" />
+<div class="mega-anim-container" [ngClass]="currentPhase" role="img" aria-label="Mega evolution animation">
+  <div class="mega-background-glow"></div>
+
+  <div class="sprite-stage">
+    <img class="sprite sprite-base" [src]="baseSpriteUrl" alt="Base form" />
+    <img class="sprite sprite-mega" [src]="megaSpriteUrl" alt="Mega form" />
   </div>
-  <div class="mega-sphere"></div>
-  <div class="mega-icon">MEGA</div>
+
+  <div class="particle-field" aria-hidden="true">
+    <span
+      *ngFor="let particle of particles; trackBy: trackParticle"
+      class="gather-particle"
+      [style.--start-x.px]="particle.startX"
+      [style.--start-y.px]="particle.startY"
+      [style.--mid-x.px]="particle.midX"
+      [style.--mid-y.px]="particle.midY"
+      [style.--particle-delay.ms]="particle.delayMs"
+      [style.--particle-duration.ms]="particle.durationMs"
+      [style.--particle-size.px]="particle.sizePx"
+    ></span>
+  </div>
+
+  <div class="sphere-stack" aria-hidden="true">
+    <div class="sphere-core"></div>
+    <div class="sphere-inner"></div>
+    <div class="sphere-ring"></div>
+    <div class="sphere-flare"></div>
+    <div class="sphere-crack"></div>
+  </div>
+
+  <img class="mega-symbol" [src]="megaSymbolUrl" alt="Mega Evolution Symbol" />
 </div>

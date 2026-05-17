@@ -5,6 +5,7 @@
     "explanations": "Moins d'explications",
     "muteAudio": "Couper l'Audio",
     "skipShinyRolls": "Omettre les Roulettes Shiny",
+    "skipMegaEvolutionAnimation": "Passer l'animation de Mega Evolution",
     "defaultGender": {
       "title": "Genre du personnage",
       "male": "Toujours Garçon",

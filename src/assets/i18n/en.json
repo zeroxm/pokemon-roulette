@@ -5,6 +5,7 @@
     "explanations": "Less Explanations",
     "muteAudio": "Mute Audio",
     "skipShinyRolls": "Hide Shiny Rolls",
+    "skipMegaEvolutionAnimation": "Skip Mega Evolution Animation",
     "defaultGender": {
       "title": "Character Gender",
       "male": "Always Boy",

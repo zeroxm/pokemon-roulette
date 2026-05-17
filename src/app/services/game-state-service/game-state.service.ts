@@ -52,9 +52,9 @@ export class GameStateService {
       }
     }
 
-    stack.push('start-adventure');
-    stack.push('starter-pokemon');
-    stack.push('character-select');
+    // stack.push('start-adventure');
+    // stack.push('starter-pokemon');
+    // stack.push('character-select');
 
     this.stateStack = stack;
   }

@@ -1,8 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-type AnimationPhase = 'sphere' | 'crack' | 'reveal' | 'dissolve';
+type AnimationPhase = 'prelude' | 'gather' | 'expand' | 'crack' | 'reveal' | 'dissolve';
+
+interface ParticleConfig {
+  id: number;
+  startX: number;
+  startY: number;
+  midX: number;
+  midY: number;
+  delayMs: number;
+  durationMs: number;
+  sizePx: number;
+}
 
 @Component({
   selector: 'app-mega-evolution-animation-modal',
@@ -11,41 +22,102 @@ type AnimationPhase = 'sphere' | 'crack' | 'reveal' | 'dissolve';
   templateUrl: './mega-evolution-animation-modal.component.html',
   styleUrl: './mega-evolution-animation-modal.component.css'
 })
-// i18n note: This component intentionally uses hardcoded strings ("MEGA") rather than
-// TranslatePipe to avoid adding a translation dependency to a purely cinematic modal.
-// If translations are needed later, add keys under game.main.roulette.mega.megaEvolution
-// and game.main.roulette.mega.megaTitle in all six locale files, then import TranslateModule.
-export class MegaEvolutionAnimationModalComponent implements OnInit {
+// i18n note: This cinematic uses no translatable copy and relies on visual assets only.
+// If text is introduced later, add translation keys and import TranslateModule.
+export class MegaEvolutionAnimationModalComponent implements OnInit, OnDestroy {
   @Input() pokemonId!: number;
+  @Input() megaPokemonId: number | null = null;
 
-  currentPhase: AnimationPhase = 'sphere';
+  currentPhase: AnimationPhase = 'prelude';
+  particles: ParticleConfig[] = [];
+  private readonly timers: number[] = [];
 
   readonly artworkBaseUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
+  readonly megaSymbolUrl = '/Mega_Evolution_symbol.png';
+  private readonly timeline: Array<{ phase: AnimationPhase; atMs: number }> = [
+    { phase: 'prelude', atMs: 0 },
+    { phase: 'gather', atMs: 420 },
+    { phase: 'expand', atMs: 1220 },
+    { phase: 'crack', atMs: 1960 },
+    { phase: 'reveal', atMs: 2500 },
+    { phase: 'dissolve', atMs: 3120 }
+  ];
+  private readonly animationCloseMs = 4240;
 
-  get spriteUrl(): string {
+  get baseSpriteUrl(): string {
     return `${this.artworkBaseUrl}/${this.pokemonId}.png`;
+  }
+
+  get megaSpriteUrl(): string {
+    const resolvedMegaId = this.megaPokemonId ?? this.pokemonId;
+    return `${this.artworkBaseUrl}/${resolvedMegaId}.png`;
   }
 
   constructor(public activeModal: NgbActiveModal) {}
 
   ngOnInit(): void {
-    console.log('[MegaAnim] Opening for pokemonId', this.pokemonId);
+    this.particles = this.buildParticles(20);
+    console.log('[MegaAnim] Opening for pokemonId', this.pokemonId, 'megaPokemonId', this.megaPokemonId);
+    
+    // Delay animation start by 500ms
+    const animationDelayMs = 500;
 
-    this.setPhase('sphere', 0);
-    this.setPhase('crack', 800);
-    this.setPhase('reveal', 1600);
-    this.setPhase('dissolve', 2400);
+    // Schedule animation phases with 500ms delay
+    for (const step of this.timeline) {
+      this.schedule(() => {
+        this.currentPhase = step.phase;
+        console.log('[MegaAnim] Phase:', step.phase);
+      }, step.atMs + animationDelayMs);
+    }
 
-    setTimeout(() => {
+    // Close modal after animation completes + delay
+    this.schedule(() => {
       console.log('[MegaAnim] Animation complete');
       this.activeModal.close();
-    }, 3400);
+    }, this.animationCloseMs + animationDelayMs);
   }
 
-  private setPhase(phase: AnimationPhase, delay: number): void {
-    setTimeout(() => {
-      this.currentPhase = phase;
-      console.log('[MegaAnim] Phase:', phase);
-    }, delay);
+  ngOnDestroy(): void {
+    for (const timer of this.timers) {
+      window.clearTimeout(timer);
+    }
+    this.timers.length = 0;
+  }
+
+  trackParticle(_: number, particle: ParticleConfig): number {
+    return particle.id;
+  }
+
+  private schedule(callback: () => void, delayMs: number): void {
+    const timerId = window.setTimeout(callback, delayMs);
+    this.timers.push(timerId);
+  }
+
+  private buildParticles(count: number): ParticleConfig[] {
+    const particles: ParticleConfig[] = [];
+
+    for (let i = 0; i < count; i++) {
+      const startX = this.randomInRange(-220, 220);
+      const startY = this.randomInRange(-165, 165);
+      const midX = startX * this.randomInRange(0.2, 0.5) + this.randomInRange(-58, 58);
+      const midY = startY * this.randomInRange(0.2, 0.5) + this.randomInRange(-58, 58);
+
+      particles.push({
+        id: i,
+        startX,
+        startY,
+        midX,
+        midY,
+        delayMs: i * 52,
+        durationMs: 620 + (i % 4) * 92,
+        sizePx: 7 + (i % 3) * 3
+      });
+    }
+
+    return particles;
+  }
+
+  private randomInRange(min: number, max: number): number {
+    return min + Math.random() * (max - min);
   }
 }

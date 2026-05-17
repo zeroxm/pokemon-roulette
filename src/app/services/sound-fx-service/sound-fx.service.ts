@@ -7,6 +7,11 @@ type SoundFxEndedListener = () => void;
 export interface PlaySoundFxOptions {
   preventOverlap?: boolean;
 }
+export interface QueuedSoundFxItem {
+  handle: SoundFxHandle;
+  volume?: number;
+  options?: PlaySoundFxOptions;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +60,20 @@ export class SoundFxService {
    */
   createPcLogoutSoundFx(): SoundFxHandle {
     return this.createSoundFx('./PCLogout.mp3');
+  }
+
+  /**
+   * Creates a handle for the mega stone tap sound effect.
+   */
+  createMegaStoneTapSoundFx(): SoundFxHandle {
+    return this.createSoundFx('./Mega_Stone_tap.mp3');
+  }
+
+  /**
+   * Creates a handle for the mega evolution animation sound effect.
+   */
+  createMegaEvolutionSoundFx(): SoundFxHandle {
+    return this.createSoundFx('./Mega_Evolution.mp3');
   }
 
   /**
@@ -131,6 +150,24 @@ export class SoundFxService {
       return false;
     } finally {
       this.decrementPending(handle);
+    }
+  }
+
+  /**
+   * Plays a list of sound effects sequentially using audio-ended events.
+   * No timer-based scheduling is used.
+   */
+  async playSoundFxQueue(items: QueuedSoundFxItem[]): Promise<void> {
+    for (const item of items) {
+      const pendingEnded = this.waitForSoundFxEnded(item.handle);
+      const started = await this.playSoundFx(item.handle, item.volume ?? 1.0, item.options);
+
+      if (!started) {
+        pendingEnded.dispose();
+        continue;
+      }
+
+      await pendingEnded.promise;
     }
   }
 
@@ -284,6 +321,34 @@ export class SoundFxService {
     for (const listener of listeners) {
       listener();
     }
+  }
+
+  private waitForSoundFxEnded(handle: SoundFxHandle): { promise: Promise<void>; dispose: () => void } {
+    let resolved = false;
+    let unregister = () => {};
+
+    const promise = new Promise<void>((resolve) => {
+      unregister = this.onSoundFxEnded(handle, () => {
+        if (resolved) {
+          return;
+        }
+
+        resolved = true;
+        unregister();
+        resolve();
+      });
+    });
+
+    const dispose = (): void => {
+      if (resolved) {
+        return;
+      }
+
+      resolved = true;
+      unregister();
+    };
+
+    return { promise, dispose };
   }
 
   private stopSource(source: AudioBufferSourceNode): void {

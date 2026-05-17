@@ -43,6 +43,10 @@ export class SettingsComponent implements OnInit {
     this.settingsService.toggleSkipShinyRolls();
   }
 
+  onToggleSkipMegaEvolutionAnimation(): void {
+    this.settingsService.toggleSkipMegaEvolutionAnimation();
+  }
+
   onSelectGender(gender: 'male' | 'female' | 'always-choose'): void {
     this.settingsService.setDefaultGender(gender);
   }
