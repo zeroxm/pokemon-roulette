@@ -2,117 +2,141 @@ import { ItemItem } from '../../interfaces/item-item';
 import { MegaStoneItemName } from './item-names';
 
 export const megaStonesData: Record<MegaStoneItemName, ItemItem> = {
-  'abomasnow-ite': {
-    text: 'items.abomasnow-ite.name',
-    name: 'abomasnow-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'abomasite': {
+    text: 'items.abomasite.name',
+    name: 'abomasite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/abomasite.png',
+    fillStyle: 'darkgreen',
     weight: 1,
-    description: 'items.abomasnow-ite.description'
+    description: 'items.abomasite.description'
   },
-  'absol-ite': {
-    text: 'items.absol-ite.name',
-    name: 'absol-ite',
-    sprite: 'unknown.png',
+  'absolite': {
+    text: 'items.absolite.name',
+    name: 'absolite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/absolite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.absol-ite.description'
+    description: 'items.absolite.description'
   },
-  'aerodactyl-ite': {
-    text: 'items.aerodactyl-ite.name',
-    name: 'aerodactyl-ite',
-    sprite: 'unknown.png',
+  'absolite-z': {
+    text: 'items.absolite-z.name',
+    name: 'absolite-z',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/absolite-z.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.aerodactyl-ite.description'
+    description: 'items.absolite-z.description'
   },
-  'aggron-ite': {
-    text: 'items.aggron-ite.name',
-    name: 'aggron-ite',
-    sprite: 'unknown.png',
+  'aerodactylite': {
+    text: 'items.aerodactylite.name',
+    name: 'aerodactylite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/aerodactylite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.aggron-ite.description'
+    description: 'items.aerodactylite.description'
   },
-  'alakazam-ite': {
-    text: 'items.alakazam-ite.name',
-    name: 'alakazam-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'aggronite': {
+    text: 'items.aggronite.name',
+    name: 'aggronite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/aggronite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.alakazam-ite.description'
+    description: 'items.aggronite.description'
   },
-  'altaria-ite': {
-    text: 'items.altaria-ite.name',
-    name: 'altaria-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'alakazite': {
+    text: 'items.alakazite.name',
+    name: 'alakazite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/alakazite.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.altaria-ite.description'
+    description: 'items.alakazite.description'
   },
-  'ampharos-ite': {
-    text: 'items.ampharos-ite.name',
-    name: 'ampharos-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'altarianite': {
+    text: 'items.altarianite.name',
+    name: 'altarianite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/altarianite.png',
+    fillStyle: 'cyan',
     weight: 1,
-    description: 'items.ampharos-ite.description'
+    description: 'items.altarianite.description'
   },
-  'audino-ite': {
-    text: 'items.audino-ite.name',
-    name: 'audino-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'ampharosite': {
+    text: 'items.ampharosite.name',
+    name: 'ampharosite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/ampharosite.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.audino-ite.description'
+    description: 'items.ampharosite.description'
   },
-  'banette-ite': {
-    text: 'items.banette-ite.name',
-    name: 'banette-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'audinite': {
+    text: 'items.audinite.name',
+    name: 'audinite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/audinite.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.banette-ite.description'
+    description: 'items.audinite.description'
   },
-  'barbaracle-ite': {
-    text: 'items.barbaracle-ite.name',
-    name: 'barbaracle-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'banettite': {
+    text: 'items.banettite.name',
+    name: 'banettite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/banettite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.barbaracle-ite.description'
+    description: 'items.banettite.description'
   },
-  'beedrill-ite': {
-    text: 'items.beedrill-ite.name',
-    name: 'beedrill-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'barbaracite': {
+    text: 'items.barbaracite.name',
+    name: 'barbaracite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/barbaracite.png',
+    fillStyle: 'darkgray',
     weight: 1,
-    description: 'items.beedrill-ite.description'
+    description: 'items.barbaracite.description'
+  },
+  'baxcalibrite': {
+    text: 'items.baxcalibrite.name',
+    name: 'baxcalibrite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/baxcalibrite.png',
+    fillStyle: 'darkblue',
+    weight: 1,
+    description: 'items.baxcalibrite.description'
+  },
+  'beedrillite': {
+    text: 'items.beedrillite.name',
+    name: 'beedrillite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/beedrillite.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.beedrillite.description'
   },
   'blastoisinite': {
     text: 'items.blastoisinite.name',
     name: 'blastoisinite',
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/blastoisinite.png',
-    fillStyle: 'gray',
+    fillStyle: 'blue',
     weight: 1,
     description: 'items.blastoisinite.description'
   },
-  'blaziken-ite': {
-    text: 'items.blaziken-ite.name',
-    name: 'blaziken-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'blazikenite': {
+    text: 'items.blazikenite.name',
+    name: 'blazikenite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/blazikenite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.blaziken-ite.description'
+    description: 'items.blazikenite.description'
   },
-  'camerupt-ite': {
-    text: 'items.camerupt-ite.name',
-    name: 'camerupt-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'cameruptite': {
+    text: 'items.cameruptite.name',
+    name: 'cameruptite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/cameruptite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.camerupt-ite.description'
+    description: 'items.cameruptite.description'
+  },
+  'chandelurite': {
+    text: 'items.chandelurite.name',
+    name: 'chandelurite',
+    sprite: '  https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/chandelurite.png',
+    fillStyle: 'darkslategray',
+    weight: 1,
+    description: 'items.chandelurite.description'
   },
   'charizardite-x': {
     text: 'items.charizardite-x.name',
@@ -130,355 +154,611 @@ export const megaStonesData: Record<MegaStoneItemName, ItemItem> = {
     weight: 1,
     description: 'items.charizardite-y.description'
   },
-  'clefable-ite': {
-    text: 'items.clefable-ite.name',
-    name: 'clefable-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'chesnaughtite': {
+    text: 'items.chesnaughtite.name',
+    name: 'chesnaughtite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/chesnaughtite.png',
+    fillStyle: 'darkgreen',
     weight: 1,
-    description: 'items.clefable-ite.description'
+    description: 'items.chesnaughtite.description'
   },
-  'diancie-ite': {
-    text: 'items.diancie-ite.name',
-    name: 'diancie-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'chimechite': {
+    text: 'items.chimechite.name',
+    name: 'chimechite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/chimechite.png',
+    fillStyle: 'deeppink',
     weight: 1,
-    description: 'items.diancie-ite.description'
+    description: 'items.chimechite.description'
   },
-  'dragalge-ite': {
-    text: 'items.dragalge-ite.name',
-    name: 'dragalge-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'clefablite': {
+    text: 'items.clefablite.name',
+    name: 'clefablite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/clefablite.png',
+    fillStyle: 'deeppink',
     weight: 1,
-    description: 'items.dragalge-ite.description'
+    description: 'items.clefablite.description'
   },
-  'dragonite-ite': {
-    text: 'items.dragonite-ite.name',
-    name: 'dragonite-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'crabominite': {
+    text: 'items.crabominite.name',
+    name: 'crabominite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/crabominite.png',
+    fillStyle: 'cyan',
     weight: 1,
-    description: 'items.dragonite-ite.description'
+    description: 'items.crabominite.description'
   },
-  'feraligatr-ite': {
-    text: 'items.feraligatr-ite.name',
-    name: 'feraligatr-ite',
-    sprite: 'unknown.png',
+  'darkranite': {
+    text: 'items.darkranite.name',
+    name: 'darkranite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/darkranite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.feraligatr-ite.description'
+    description: 'items.darkranite.description'
   },
-  'gallade-ite': {
-    text: 'items.gallade-ite.name',
-    name: 'gallade-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'delphoxite': {
+    text: 'items.delphoxite.name',
+    name: 'delphoxite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/delphoxite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.gallade-ite.description'
+    description: 'items.delphoxite.description'
   },
-  'garchomp-ite': {
-    text: 'items.garchomp-ite.name',
-    name: 'garchomp-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'diancite': {
+    text: 'items.diancite.name',
+    name: 'diancite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/diancite.png',
+    fillStyle: 'deeppink',
     weight: 1,
-    description: 'items.garchomp-ite.description'
+    description: 'items.diancite.description'
   },
-  'gardevoir-ite': {
-    text: 'items.gardevoir-ite.name',
-    name: 'gardevoir-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'dragalgite': {
+    text: 'items.dragalgite.name',
+    name: 'dragalgite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/dragalgite.png',
+    fillStyle: 'saddlebrown',
     weight: 1,
-    description: 'items.gardevoir-ite.description'
+    description: 'items.dragalgite.description'
   },
-  'gengar-ite': {
-    text: 'items.gengar-ite.name',
-    name: 'gengar-ite',
-    sprite: 'unknown.png',
+  'dragoninite': {
+    text: 'items.dragoninite.name',
+    name: 'dragoninite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/dragoninite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.gengar-ite.description'
+    description: 'items.dragoninite.description'
   },
-  'glalie-ite': {
-    text: 'items.glalie-ite.name',
-    name: 'glalie-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'drampanite': {
+    text: 'items.drampanite.name',
+    name: 'drampanite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/drampanite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.glalie-ite.description'
+    description: 'items.drampanite.description'
   },
-  'groudon-ite': {
-    text: 'items.groudon-ite.name',
-    name: 'groudon-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'eelektrossite': {
+    text: 'items.eelektrossite.name',
+    name: 'eelektrossite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/eelektrossite.png',
+    fillStyle: 'darkslategray',
     weight: 1,
-    description: 'items.groudon-ite.description'
+    description: 'items.eelektrossite.description'
   },
-  'gyarados-ite': {
-    text: 'items.gyarados-ite.name',
-    name: 'gyarados-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'emboarite': {
+    text: 'items.emboarite.name',
+    name: 'emboarite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/emboarite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.gyarados-ite.description'
+    description: 'items.emboarite.description'
   },
-  'heracross-ite': {
-    text: 'items.heracross-ite.name',
-    name: 'heracross-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'excadrite': {
+    text: 'items.excadrite.name',
+    name: 'excadrite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/excadrite.png',
+    fillStyle: 'saddlebrown',
     weight: 1,
-    description: 'items.heracross-ite.description'
+    description: 'items.excadrite.description'
   },
-  'houndoom-ite': {
-    text: 'items.houndoom-ite.name',
-    name: 'houndoom-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'falinksite': {
+    text: 'items.falinksite.name',
+    name: 'falinksite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/falinksite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.houndoom-ite.description'
+    description: 'items.falinksite.description'
   },
-  'kangaskhan-ite': {
-    text: 'items.kangaskhan-ite.name',
-    name: 'kangaskhan-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'feraligite': {
+    text: 'items.feraligite.name',
+    name: 'feraligite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/feraligite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.kangaskhan-ite.description'
+    description: 'items.feraligite.description'
   },
-  'kyogre-ite': {
-    text: 'items.kyogre-ite.name',
-    name: 'kyogre-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'floettite': {
+    text: 'items.floettite.name',
+    name: 'floettite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/floettite.png',
+    fillStyle: 'deeppink',
     weight: 1,
-    description: 'items.kyogre-ite.description'
+    description: 'items.floettite.description'
   },
-  'latias-ite': {
-    text: 'items.latias-ite.name',
-    name: 'latias-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'froslassite': {
+    text: 'items.froslassite.name',
+    name: 'froslassite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/froslassite.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.latias-ite.description'
+    description: 'items.froslassite.description'
   },
-  'latios-ite': {
-    text: 'items.latios-ite.name',
-    name: 'latios-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'galladite': {
+    text: 'items.galladite.name',
+    name: 'galladite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/galladite.png',
+    fillStyle: 'darkgreen',
     weight: 1,
-    description: 'items.latios-ite.description'
+    description: 'items.galladite.description'
   },
-  'lopunny-ite': {
-    text: 'items.lopunny-ite.name',
-    name: 'lopunny-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'garchompite': {
+    text: 'items.garchompite.name',
+    name: 'garchompite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/garchompite.png',
+    fillStyle: 'darkred',
     weight: 1,
-    description: 'items.lopunny-ite.description'
+    description: 'items.garchompite.description'
   },
-  'lucario-ite': {
-    text: 'items.lucario-ite.name',
-    name: 'lucario-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'garchompite-z': {
+    text: 'items.garchompite-z.name',
+    name: 'garchompite-z',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/garchompite-z.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.lucario-ite.description'
+    description: 'items.garchompite-z.description'
+  },  
+  'gardevoirite': {
+    text: 'items.gardevoirite.name',
+    name: 'gardevoirite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gardevoirite.png',
+    fillStyle: 'darkgreen',
+    weight: 1,
+    description: 'items.gardevoirite.description'
   },
-  'manectric-ite': {
-    text: 'items.manectric-ite.name',
-    name: 'manectric-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'gengarite': {
+    text: 'items.gengarite.name',
+    name: 'gengarite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gengarite.png',
+    fillStyle: 'indigo',
     weight: 1,
-    description: 'items.manectric-ite.description'
+    description: 'items.gengarite.description'
   },
-  'mawile-ite': {
-    text: 'items.mawile-ite.name',
-    name: 'mawile-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'glalitite': {
+    text: 'items.glalitite.name',
+    name: 'glalitite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/glalitite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.mawile-ite.description'
+    description: 'items.glalitite.description'
   },
-  'medicham-ite': {
-    text: 'items.medicham-ite.name',
-    name: 'medicham-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'glimmoranite': {
+    text: 'items.glimmoranite.name',
+    name: 'glimmoranite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/glimmoranite.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.medicham-ite.description'
+    description: 'items.glimmoranite.description'
   },
-  'meganium-ite': {
-    text: 'items.meganium-ite.name',
-    name: 'meganium-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'golisopite': {
+    text: 'items.golisopite.name',
+    name: 'golisopite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/golisopite.png',
+    fillStyle: 'darkmagenta',
     weight: 1,
-    description: 'items.meganium-ite.description'
+    description: 'items.golisopite.description'
   },
-  'metagross-ite': {
-    text: 'items.metagross-ite.name',
-    name: 'metagross-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'golurkite': {
+    text: 'items.golurkite.name',
+    name: 'golurkite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/golurkite.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.metagross-ite.description'
+    description: 'items.golurkite.description'
   },
-  'mewtwo-ite': {
-    text: 'items.mewtwo-ite.name',
-    name: 'mewtwo-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'greninjite': {
+    text: 'items.greninjite.name',
+    name: 'greninjite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/greninjite.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.mewtwo-ite.description'
+    description: 'items.greninjite.description'
+  },  
+  'red-orb': {
+    text: 'items.red-orb.name',
+    name: 'red-orb',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/red-orb.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.red-orb.description'
   },
-  'pidgeot-ite': {
-    text: 'items.pidgeot-ite.name',
-    name: 'pidgeot-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'gyaradosite': {
+    text: 'items.gyaradosite.name',
+    name: 'gyaradosite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gyaradosite.png',
+    fillStyle: 'cyan',
     weight: 1,
-    description: 'items.pidgeot-ite.description'
+    description: 'items.gyaradosite.description'
   },
-  'pinsir-ite': {
-    text: 'items.pinsir-ite.name',
-    name: 'pinsir-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'hawluchanite': {
+    text: 'items.hawluchanite.name',
+    name: 'hawluchanite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/hawluchanite.png',
+    fillStyle: 'darkgreen',
     weight: 1,
-    description: 'items.pinsir-ite.description'
+    description: 'items.hawluchanite.description'
   },
-  'raichu-ite': {
-    text: 'items.raichu-ite.name',
-    name: 'raichu-ite',
-    sprite: 'unknown.png',
+  'heatranite': {
+    text: 'items.heatranite.name',
+    name: 'heatranite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/heatranite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.raichu-ite.description'
+    description: 'items.heatranite.description'
   },
-  'rayquaza-ite': {
-    text: 'items.rayquaza-ite.name',
-    name: 'rayquaza-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'heracronite': {
+    text: 'items.heracronite.name',
+    name: 'heracronite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/heracronite.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.rayquaza-ite.description'
+    description: 'items.heracronite.description'
   },
-  'sableye-ite': {
-    text: 'items.sableye-ite.name',
-    name: 'sableye-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'houndoominite': {
+    text: 'items.houndoominite.name',
+    name: 'houndoominite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/houndoominite.png',
+    fillStyle: 'black',
     weight: 1,
-    description: 'items.sableye-ite.description'
+    description: 'items.houndoominite.description'
   },
-  'salamence-ite': {
-    text: 'items.salamence-ite.name',
-    name: 'salamence-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'kangaskhanite': {
+    text: 'items.kangaskhanite.name',
+    name: 'kangaskhanite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/kangaskhanite.png',
+    fillStyle: 'saddlebrown',
     weight: 1,
-    description: 'items.salamence-ite.description'
+    description: 'items.kangaskhanite.description'
   },
-  'sceptile-ite': {
-    text: 'items.sceptile-ite.name',
-    name: 'sceptile-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'blue-orb': {
+    text: 'items.blue-orb.name',
+    name: 'blue-orb',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/blue-orb.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.sceptile-ite.description'
+    description: 'items.blue-orb.description'
   },
-  'scizor-ite': {
-    text: 'items.scizor-ite.name',
-    name: 'scizor-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'latiasite': {
+    text: 'items.latiasite.name',
+    name: 'latiasite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/latiasite.png',
+    fillStyle: 'darkviolet',
     weight: 1,
-    description: 'items.scizor-ite.description'
+    description: 'items.latiasite.description'
   },
-  'sharpedo-ite': {
-    text: 'items.sharpedo-ite.name',
-    name: 'sharpedo-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'latiosite': {
+    text: 'items.latiosite.name',
+    name: 'latiosite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/latiosite.png',
+    fillStyle: 'darkviolet',
     weight: 1,
-    description: 'items.sharpedo-ite.description'
+    description: 'items.latiosite.description'
   },
-  'skarmory-ite': {
-    text: 'items.skarmory-ite.name',
-    name: 'skarmory-ite',
-    sprite: 'unknown.png',
+  'lopunnite': {
+    text: 'items.lopunnite.name',
+    name: 'lopunnite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/lopunnite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.skarmory-ite.description'
+    description: 'items.lopunnite.description'
   },
-  'slowbro-ite': {
-    text: 'items.slowbro-ite.name',
-    name: 'slowbro-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'lucarionite': {
+    text: 'items.lucarionite.name',
+    name: 'lucarionite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/lucarionite.png',
+    fillStyle: 'darkblue',
     weight: 1,
-    description: 'items.slowbro-ite.description'
+    description: 'items.lucarionite.description'
   },
-  'starmie-ite': {
-    text: 'items.starmie-ite.name',
-    name: 'starmie-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'lucarionite-z': {
+    text: 'items.lucarionite-z.name',
+    name: 'lucarionite-z',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/lucarionite-z.png',
+    fillStyle: 'cyan',
     weight: 1,
-    description: 'items.starmie-ite.description'
+    description: 'items.lucarionite-z.description'
   },
-  'steelix-ite': {
-    text: 'items.steelix-ite.name',
-    name: 'steelix-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'magearnite': {
+    text: 'items.magearnite.name',
+    name: 'magearnite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/magearnite.png',
+    fillStyle: 'goldenrod',
     weight: 1,
-    description: 'items.steelix-ite.description'
+    description: 'items.magearnite.description'
   },
-  'swampert-ite': {
-    text: 'items.swampert-ite.name',
-    name: 'swampert-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'malamarite': {
+    text: 'items.malamarite.name',
+    name: 'malamarite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/malamarite.png',
+    fillStyle: 'cyan',
     weight: 1,
-    description: 'items.swampert-ite.description'
+    description: 'items.malamarite.description'
   },
-  'tyranitar-ite': {
-    text: 'items.tyranitar-ite.name',
-    name: 'tyranitar-ite',
-    sprite: 'unknown.png',
+  'manectite': {
+    text: 'items.manectite.name',
+    name: 'manectite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/manectite.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.manectite.description'
+  },
+  'mawilite': {
+    text: 'items.mawilite.name',
+    name: 'mawilite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mawilite.png',
+    fillStyle: 'deeppink',
+    weight: 1,
+    description: 'items.mawilite.description'
+  },
+  'medichamite': {
+    text: 'items.medichamite.name',
+    name: 'medichamite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/medichamite.png',
+    fillStyle: 'deeppink',
+    weight: 1,
+    description: 'items.medichamite.description'
+  },
+  'meganiumite': {
+    text: 'items.meganiumite.name',
+    name: 'meganiumite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/meganiumite.png',
+    fillStyle: 'darkgreen',
+    weight: 1,
+    description: 'items.meganiumite.description'
+  },
+  'meowsticite': {
+    text: 'items.meowsticite.name',
+    name: 'meowsticite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/meowsticite.png',
     fillStyle: 'gray',
     weight: 1,
-    description: 'items.tyranitar-ite.description'
+    description: 'items.meowsticite.description'
+  },
+  'metagrossite': {
+    text: 'items.metagrossite.name',
+    name: 'metagrossite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/metagrossite.png',
+    fillStyle: 'darkgray',
+    weight: 1,
+    description: 'items.metagrossite.description'
+  },
+  'mewtwonite-x': {
+    text: 'items.mewtwonite-x.name',
+    name: 'mewtwonite-x',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mewtwonite-x.png',
+    fillStyle: 'darkviolet',
+    weight: 1,
+    description: 'items.mewtwonite-x.description'
+  },
+  'mewtwonite-y': {
+    text: 'items.mewtwonite-y.name',
+    name: 'mewtwonite-y',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mewtwonite-y.png',
+    fillStyle: 'darkviolet',
+    weight: 1,
+    description: 'items.mewtwonite-y.description'
+  },
+  'pidgeotite': {
+    text: 'items.pidgeotite.name',
+    name: 'pidgeotite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/pidgeotite.png',
+    fillStyle: 'saddlebrown',
+    weight: 1,
+    description: 'items.pidgeotite.description'
+  },
+  'pinsirite': {
+    text: 'items.pinsirite.name',
+    name: 'pinsirite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/pinsirite.png',
+    fillStyle: 'saddlebrown',
+    weight: 1,
+    description: 'items.pinsirite.description'
+  },
+  'pyroarite': {
+    text: 'items.pyroarite.name',
+    name: 'pyroarite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/pyroarite.png',
+    fillStyle: 'black',
+    weight: 1,
+    description: 'items.pyroarite.description'
+  },
+  'raichunite-x': {
+    text: 'items.raichunite-x.name',
+    name: 'raichunite-x',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/raichunite-x.png',
+    fillStyle: 'black',
+    weight: 1,
+    description: 'items.raichunite-x.description'
+  },
+  'raichunite-y': {
+    text: 'items.raichunite-y.name',
+    name: 'raichunite-y',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/raichunite-y.png',
+    fillStyle: 'black',
+    weight: 1,
+    description: 'items.raichunite-y.description'
+  },
+  'dragon-ascent': {
+    text: 'items.dragon-ascent.name',
+    name: 'dragon-ascent',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/dragon-memory.png',
+    fillStyle: 'darkgreen',
+    weight: 1,
+    description: 'items.dragon-ascent.description'
+  },
+  'sablenite': {
+    text: 'items.sablenite.name',
+    name: 'sablenite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/sablenite.png',
+    fillStyle: 'darkviolet',
+    weight: 1,
+    description: 'items.sablenite.description'
+  },
+  'salamencite': {
+    text: 'items.salamencite.name',
+    name: 'salamencite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/salamencite.png',
+    fillStyle: 'cyan',
+    weight: 1,
+    description: 'items.salamencite.description'
+  },
+  'sceptilite': {
+    text: 'items.sceptilite.name',
+    name: 'sceptilite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/sceptilite.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.sceptilite.description'
+  },
+  'scizorite': {
+    text: 'items.scizorite.name',
+    name: 'scizorite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/scizorite.png',
+    fillStyle: 'darkred',
+    weight: 1,
+    description: 'items.scizorite.description'
+  },
+  'scolipite': {
+    text: 'items.scolipite.name',
+    name: 'scolipite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/scolipite.png',
+    fillStyle: 'black',
+    weight: 1,
+    description: 'items.scolipite.description'
+  },
+  'scovillainite': {
+    text: 'items.scovillainite.name',
+    name: 'scovillainite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/scovillainite.png',
+    fillStyle: 'darkred',
+    weight: 1,
+    description: 'items.scovillainite.description'
+  },
+  'scraftinite': {
+    text: 'items.scraftinite.name',
+    name: 'scraftinite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/scraftinite.png',
+    fillStyle: 'darkorange',
+    weight: 1,
+    description: 'items.scraftinite.description'
+  },
+  'sharpedonite': {
+    text: 'items.sharpedonite.name',
+    name: 'sharpedonite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/sharpedonite.png',
+    fillStyle: 'darkblue',
+    weight: 1,
+    description: 'items.sharpedonite.description'
+  },
+  'skarmorite': {
+    text: 'items.skarmorite.name',
+    name: 'skarmorite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/skarmorite.png',
+    fillStyle: 'gray',
+    weight: 1,
+    description: 'items.skarmorite.description'
+  },
+  'slowbronite': {
+    text: 'items.slowbronite.name',
+    name: 'slowbronite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/slowbronite.png',
+    fillStyle: 'deeppink',
+    weight: 1,
+    description: 'items.slowbronite.description'
+  },
+  'staraptite': {
+    text: 'items.staraptite.name',
+    name: 'staraptite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/staraptite.png',
+    fillStyle: 'black',
+    weight: 1,
+    description: 'items.staraptite.description'
+  },
+  'starminite': {
+    text: 'items.starminite.name',
+    name: 'starminite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/starminite.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.starminite.description'
+  },
+  'steelixite': {
+    text: 'items.steelixite.name',
+    name: 'steelixite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/steelixite.png',
+    fillStyle: 'gray',
+    weight: 1,
+    description: 'items.steelixite.description'
+  },
+  'swampertite': {
+    text: 'items.swampertite.name',
+    name: 'swampertite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/swampertite.png',
+    fillStyle: 'darkblue',
+    weight: 1,
+    description: 'items.swampertite.description'
+  },
+  'tatsugirinite': {
+    text: 'items.tatsugirinite.name',
+    name: 'tatsugirinite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/tatsugirinite.png',
+    fillStyle: 'gray',
+    weight: 1,
+    description: 'items.tatsugirinite.description'
+  },
+  'tyranitarite': {
+    text: 'items.tyranitarite.name',
+    name: 'tyranitarite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/tyranitarite.png',
+    fillStyle: 'darkgreen',
+    weight: 1,
+    description: 'items.tyranitarite.description'
   },
   'venusaurite': {
     text: 'items.venusaurite.name',
     name: 'venusaurite',
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/venusaurite.png',
-    fillStyle: 'gray',
+    fillStyle: 'darkgreen',
     weight: 1,
     description: 'items.venusaurite.description'
   },
-  'victreebel-ite': {
-    text: 'items.victreebel-ite.name',
-    name: 'victreebel-ite',
-    sprite: 'unknown.png',
-    fillStyle: 'gray',
+  'victreebelite': {
+    text: 'items.victreebelite.name',
+    name: 'victreebelite',
+    sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/victreebelite.png',
+    fillStyle: 'darkgreen',
     weight: 1,
-    description: 'items.victreebel-ite.description'
+    description: 'items.victreebelite.description'
+  },
+  'zeraorite': {
+    text: 'items.zeraorite.name',
+    name: 'zeraorite',
+    sprite: '  https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/zeraorite.png',
+    fillStyle: 'goldenrod',
+    weight: 1,
+    description: 'items.zeraorite.description'
   },
   'zygardite': {
     text: 'items.zygardite.name',
     name: 'zygardite',
     sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/gen9/zygardite.png',
-    fillStyle: 'gray',
+    fillStyle: 'green',
     weight: 1,
     description: 'items.zygardite.description'
   }
