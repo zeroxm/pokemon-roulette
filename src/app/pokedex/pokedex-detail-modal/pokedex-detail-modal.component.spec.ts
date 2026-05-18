@@ -128,7 +128,10 @@ describe('PokedexDetailModalComponent', () => {
 
   // hasAlternateForms
   it('hasAlternateForms is true when getFormIds returns array length > 1', () => {
-    mockFormsService.getFormIds.and.returnValue([386, 10001, 10002, 10003]);
+      mockFormsService.getPokemonForms.and.returnValue([
+        { pokemonId: 10001, text: 'form1', fillStyle: 'red', weight: 1, type1: 'fire', type2: null },
+        { pokemonId: 10002, text: 'form2', fillStyle: 'blue', weight: 1, type1: 'water', type2: null },
+      ]);
     expect(component.hasAlternateForms).toBeTrue();
   });
 
