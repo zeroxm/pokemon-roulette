@@ -13,7 +13,6 @@ import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
-import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 
 @Component({
   selector: 'app-champion-battle-roulette',
@@ -69,11 +68,6 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
     if (state === 'champion-battle') {
       this.getCurrentChampion();
       this.calcVictoryOdds();
-      const megaBaseId = this.trainerService.getMegaBattleBaseId();
-      if (megaBaseId !== null) {
-        const animRef = await this.modalQueueService.open(MegaEvolutionAnimationModalComponent, { centered: true, size: 'lg', backdrop: 'static', keyboard: false });
-        animRef.componentInstance.pokemonId = megaBaseId;
-      }
       this.modalService.open(this.championPresentationModal, { centered: true, size: 'lg' });
     }
   }

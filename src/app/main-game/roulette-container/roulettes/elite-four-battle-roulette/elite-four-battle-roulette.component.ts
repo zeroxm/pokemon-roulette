@@ -15,7 +15,6 @@ import { ModalQueueService } from '../../../../services/modal-queue-service/moda
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemon-type';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
-import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
@@ -84,11 +83,6 @@ export class EliteFourBattleRouletteComponent extends BaseBattleRouletteComponen
     if (state === 'elite-four-battle') {
       this.getCurrentElite();
       this.calcVictoryOdds();
-      const megaBaseId = this.trainerService.getMegaBattleBaseId();
-      if (megaBaseId !== null) {
-        const animRef = await this.modalQueueService.open(MegaEvolutionAnimationModalComponent, { centered: true, size: 'lg', backdrop: 'static', keyboard: false });
-        animRef.componentInstance.pokemonId = megaBaseId;
-      }
       this.modalQueueService.open(this.eliteFourPresentationModal, { centered: true, size: 'lg' });
     }
   }
