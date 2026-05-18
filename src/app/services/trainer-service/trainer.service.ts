@@ -407,7 +407,6 @@ export class TrainerService implements OnDestroy {
     replacement.sprite = null;
     this.loadPokemonSpriteIfMissing(replacement);
     this.trainerTeam[index] = replacement;
-    console.log(`[Mega] Applying ${megaForm.text} for battle`);
     return true;
   }
 
@@ -435,7 +434,6 @@ export class TrainerService implements OnDestroy {
       this.loadPokemonSpriteIfMissing(replacement);
       this.trainerTeam[i] = replacement;
       reverted = true;
-      console.log(`[Mega] Reverted to base form ${original.text}`);
       break;
     }
 

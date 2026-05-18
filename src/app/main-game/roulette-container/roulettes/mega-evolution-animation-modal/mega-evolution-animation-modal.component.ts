@@ -57,8 +57,6 @@ export class MegaEvolutionAnimationModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.particles = this.buildParticles(20);
-    console.log('[MegaAnim] Opening for pokemonId', this.pokemonId, 'megaPokemonId', this.megaPokemonId);
-    
     // Delay animation start by 500ms
     const animationDelayMs = 500;
 
@@ -66,13 +64,11 @@ export class MegaEvolutionAnimationModalComponent implements OnInit, OnDestroy {
     for (const step of this.timeline) {
       this.schedule(() => {
         this.currentPhase = step.phase;
-        console.log('[MegaAnim] Phase:', step.phase);
       }, step.atMs + animationDelayMs);
     }
 
     // Close modal after animation completes + delay
     this.schedule(() => {
-      console.log('[MegaAnim] Animation complete');
       this.activeModal.close();
     }, this.animationCloseMs + animationDelayMs);
   }

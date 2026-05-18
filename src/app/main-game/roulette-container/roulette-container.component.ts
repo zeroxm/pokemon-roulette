@@ -718,7 +718,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     const availableStoneNames = this.trainerService.getAvailableMegaStoneNamesForPokemon(pokemon);
 
     if (availableStoneNames.length === 0) {
-      console.log(`[MegaStone] No stone to award for ${pokemon.text} (already held or undefined)`);
       return;
     }
 
@@ -738,7 +737,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (!this.trainerService.hasItem(stoneName)) {
       const megaStone = structuredClone(this.itemService.getMegaStone(stoneName));
       this.trainerService.addToItems(megaStone);
-      console.log(`[MegaStone] Awarded ${stoneName} to ${pokemon.text}`);
       this.playItemFoundAudio();
       this.altPrizeText = 'game.main.altPrizes.megaStone.stone';
       this.altPrizeSprite = megaStone.sprite;
@@ -748,7 +746,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         size: 'md'
       });
     } else {
-      console.log(`[MegaStone] No stone to award for ${pokemon.text} (already held or undefined)`);
+      // No stone to award (already held or undefined)
     }
   }
 
