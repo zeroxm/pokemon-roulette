@@ -7,6 +7,7 @@ export interface PokedexEntry {
   won: boolean;
   sprite: string | null;
   shiny?: boolean;
+  mega?: boolean;
 }
 
 export interface PokedexData {
@@ -66,6 +67,27 @@ export class PokedexService {
     this.updatePokedex({ caught: updatedCaught });
   }
 
+  /** Permanently marks that the given Pokémon has mega-evolved at least once. No-op if already set. */
+  markMega(pokemonId: number): void {
+    const current = this.currentPokedex;
+    const key = String(pokemonId);
+    const existing = current.caught[key];
+
+    if (existing?.mega) {
+      return;
+    }
+
+    const updatedCaught = { ...current.caught };
+    updatedCaught[key] = {
+      won: existing?.won ?? false,
+      sprite: existing?.sprite ?? this.getSpriteUrl(pokemonId),
+      ...(existing?.shiny ? { shiny: true } : {}),
+      mega: true,
+    };
+
+    this.updatePokedex({ caught: updatedCaught });
+  }
+
   private getSpriteUrl(pokemonId: number): string {
     if (this.spriteCache.has(pokemonId)) {
       return this.spriteCache.get(pokemonId)!;
@@ -102,6 +124,7 @@ export class PokedexService {
       won: existing?.won ?? false,
       sprite: existing?.sprite ?? this.getSpriteUrl(pokemonId),
       ...(nextShiny ? { shiny: true } : {}),
+      ...(existing?.mega ? { mega: true } : {}),
     };
 
     const changed =

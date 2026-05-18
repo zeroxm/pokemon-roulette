@@ -868,6 +868,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private activateMegaEvolutionForPokemon(basePokemonId: number, stoneName?: MegaStoneItemName): void {
     this.trainerService.setMegaBattlePokemon(basePokemonId, stoneName ?? null);
     this.trainerService.forceMegaActivation(basePokemonId, stoneName);
+    this.pokedexService.markMega(basePokemonId);
     void this.showMegaEvolutionAnimation(basePokemonId, stoneName);
   }
 

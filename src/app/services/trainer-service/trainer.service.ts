@@ -48,22 +48,7 @@ export class TrainerService implements OnDestroy {
   private trainer = new BehaviorSubject<{ sprite: string }>({ sprite: './place-holder-pixel.png' });
   gender: string = 'male';
 
-  trainerTeam: PokemonItem[] = [
-    {
-        text: "pokemon.charizard",
-        pokemonId: 6,
-        fillStyle: "darkred",
-        type1: "fire",
-        type2: "flying",
-        sprite: {
-            front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-            front_shiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/6.png"
-        },
-        shiny: false,
-        power: 3,
-        weight: 1
-    },
-  ];
+  trainerTeam: PokemonItem[] = [];
 
   storedPokemon: PokemonItem[] = [];
 
@@ -77,15 +62,7 @@ export class TrainerService implements OnDestroy {
   private megaBattleOriginalPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
-    structuredClone(TrainerService.DEFAULT_POTION),
-    {
-      text: 'items.charizardite-x.name',
-      name: 'charizardite-x',
-      sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/charizardite-x.png',
-      fillStyle: 'black',
-      weight: 1,
-      description: 'items.charizardite-x.description'
-    },
+    structuredClone(TrainerService.DEFAULT_POTION)
   ];
   private trainerItemsObservable = new BehaviorSubject<ItemItem[]>(this.trainerItems);
 

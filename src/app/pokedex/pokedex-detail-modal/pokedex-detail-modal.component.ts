@@ -12,6 +12,7 @@ import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 import { PokemonForm } from '../../interfaces/pokemon-form';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonType, pokemonTypeDataByKey } from '../../interfaces/pokemon-type';
+import { pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 
 @Component({
   selector: 'app-pokedex-detail-modal',
@@ -96,13 +97,49 @@ export class PokedexDetailModalComponent implements OnInit {
   }
 
   get hasAlternateForms(): boolean {
-    return this.pokemonFormsService.getFormIds(this.pokemonId).length > 1;
+    return this.alternateForms.length > 1;
   }
 
   get alternateForms(): PokemonForm[] {
     const base = this.pokemonService.getPokemonById(this.pokemonId);
-    if (!base) return [];
-    return this.pokemonFormsService.getPokemonForms(base);
+    if (!base) {
+      return [];
+    }
+
+    const regularForms = this.pokemonFormsService.getPokemonForms(base);
+    const megaForms = this.entry?.mega
+      ? (pokemonMegaForms[this.pokemonId] ?? []).map((form): PokemonForm => ({
+          pokemonId: form.pokemonId,
+          text: form.text,
+          fillStyle: form.fillStyle,
+          weight: form.weight,
+          type1: form.type1!,
+          type2: form.type2 ?? null,
+        }))
+      : [];
+
+    const combined = [...regularForms, ...megaForms];
+
+    // Ensure base form exists in selector when only mega variants are available.
+    if (!combined.some(form => form.pokemonId === this.pokemonId)) {
+      combined.unshift({
+        pokemonId: base.pokemonId,
+        text: base.text,
+        fillStyle: base.fillStyle,
+        weight: base.weight,
+        type1: base.type1!,
+        type2: base.type2 ?? null,
+      });
+    }
+
+    const uniqueById = new Map<number, PokemonForm>();
+    for (const form of combined) {
+      if (!uniqueById.has(form.pokemonId)) {
+        uniqueById.set(form.pokemonId, form);
+      }
+    }
+
+    return Array.from(uniqueById.values());
   }
 
   formatPokemonNumber(id: number): string {
