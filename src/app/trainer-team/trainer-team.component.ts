@@ -73,6 +73,10 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
     return this.getHeldMegaStoneItem(pokemon)?.text || null;
   }
 
+  getMegaStoneFillStyle(pokemon: PokemonItem | undefined): string {
+    return this.getHeldMegaStoneItem(pokemon)?.fillStyle ?? 'rgba(255, 255, 255, 0.9)';
+  }
+
   triggerMegaStoneInterrupt(pokemon: PokemonItem | undefined): void {
     const megaStone = this.getHeldMegaStoneItem(pokemon);
     if (!megaStone) {
