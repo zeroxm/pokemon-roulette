@@ -207,8 +207,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   runningShoesUsed: boolean = false;
   stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
-  private megaSelectionMode: 'none' | 'battle-award-pokemon' | 'battle-award-stone' | 'interrupt' = 'none';
-  private interruptedMegaStone: MegaStoneItemName | null = null;
+  private megaSelectionMode: 'none' | 'battle-award-pokemon' | 'battle-award-stone' = 'none';
   private pendingMegaAwardPokemon: PokemonItem | null = null;
 
   getGameState(): string {
@@ -763,19 +762,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return true;
     }
 
-    this.megaSelectionMode = 'none';
-    const selectedStone = this.interruptedMegaStone;
-    this.interruptedMegaStone = null;
-    if (!selectedStone) {
-      return true;
-    }
-
-    if (!megaStoneNamesForBaseId(pokemon.pokemonId).includes(selectedStone)) {
-      return true;
-    }
-
-    this.activateMegaEvolutionForPokemon(pokemon.pokemonId, selectedStone);
-    return true;
+    return false;
   }
 
   private handleMegaStoneAwardSelection(item: ItemItem): boolean {
@@ -831,18 +818,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       ]);
     }
 
-    if (matchingPokemon.length === 1) {
-      this.activateMegaEvolutionForPokemon(matchingPokemon[0].pokemonId, megaStone.name);
-      return;
-    }
-
-    this.interruptedMegaStone = megaStone.name;
-    this.megaSelectionMode = 'interrupt';
-    this.auxPokemonList = matchingPokemon;
-    this.customWheelTitle = 'game.main.roulette.mega.whoMega';
-    this.gameStateService.repeatCurrentState();
-    this.gameStateService.setNextState('select-from-pokemon-list');
-    this.finishCurrentState();
+    this.activateMegaEvolutionForPokemon(matchingPokemon[0].pokemonId, megaStone.name);
   }
 
   private getPokemonMatchingMegaStone(stoneName: MegaStoneItemName): PokemonItem[] {
