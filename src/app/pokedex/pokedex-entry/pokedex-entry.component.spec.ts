@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { PokedexEntryComponent } from './pokedex-entry.component';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
-import { of } from 'rxjs';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 
 describe('PokedexEntryComponent', () => {

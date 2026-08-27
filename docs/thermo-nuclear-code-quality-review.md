@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**25 findings** (`CQ-01`–`CQ-26`, `CQ-05` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**22 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-21`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -34,7 +34,7 @@ The three knots, in order of leverage:
 
 **Deliberate non-findings.** Reviewers were asked to argue both sides and to say plainly when
 something is fine. The 309-line `@switch` template should **stay**; `TrainerService` should **not** be
-split four ways; ESLint is **not** worth adding (`CQ-21` proposes two tsconfig flags instead); and 26
+split four ways; ESLint is **not** worth adding (`T-02` enabled two tsconfig flags instead); and 26
 of the 31 roulette components should **not** be collapsed (`CQ-08` explains which five should, and
 why the other 26 are a different population). See **Verified healthy** below for the full list with
 reasoning.
@@ -537,10 +537,9 @@ This is also the answer to "four formats for form data" — the `.json` format h
 The real formats are two, and `CQ-02` makes it one. Delete them, or if Gigantamax is genuinely queued,
 bring it in as `FormRule` rows so it is exercised by the same code path as everything else.
 
-**Dead statement:** `wheel.component.ts:312` — `const totalWeight = this.getTotalWeights();` inside
-`animate()` is never used, and it is an O(n) reduce running **every animation frame**; on the
-mysterious-egg wheel (~1000 entries) that is ~1000 additions per frame for nothing. (`getTotalWeights`
-is still called twice more per frame from `drawWheel` and `getCurrentSegment` — worth caching.)
+~~**Dead statement:** `wheel.component.ts:312`~~ — **removed by `T-02`**. Note `getTotalWeights` is
+still called three more times per frame from `drawWheel`, `getCurrentSegment` and
+`getRandomWeightedIndex` — caching it is folded into `T-26`.
 
 **No-op ternary** in three battle roulettes: `Array.isArray(x.quotes) ? x.quotes : x.quotes` at
 `gym:165`, `elite:162`, `champion:110` — **both branches identical**. `rival:97` got it right
@@ -568,37 +567,6 @@ genuinely used.
 
 ---
 
-### CQ-21 — Two tsconfig flags beat adding ESLint
-- **Location:** `tsconfig.json`
-- **Status:** [ ] open
-
-The reviewer was asked to assess the missing linter and **pushed back on adding one.** `tsconfig.json`
-already sets `strict`, `noImplicitOverride`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`,
-`noFallthroughCasesInSwitch`, `strictTemplates`, `strictInjectionParameters` and
-`strictInputAccessModifiers` — a stricter baseline than most professional Angular codebases, catching
-most of what `@typescript-eslint/recommended` would. For a solo maintainer, `angular-eslint` means a
-config file, ~6 dev dependencies, a CI step, and a backlog of stylistic findings across 200+ files.
-
-**The proportionate fix is two flags, zero dependencies:**
-
-```jsonc
-"noUnusedLocals": true,
-"noUnusedParameters": true,
-```
-
-`noUnusedLocals` flags unused **private class members**. Confirmed by running the flags: they surface
-**21 diagnostics**, including all 14 dead `darkModeService` injections (since removed by `T-05`), the
-dead `totalWeight` in `CQ-19`, `private modalQueueService` in `champion-battle-roulette.component.ts`,
-and **three defects neither audit found** — an unused `pokemon` parameter in the container, an unused
-`itemService` in find-item-roulette, and an unused `modalRef` in storage-pc. **Every unused-code defect
-in this report would have been caught by those two lines**, plus three that were not. `AppComponent`'s deliberate `_theme: ThemeService`
-param is already underscore-prefixed, so it stays exempt.
-
-**Do this first** — the compiler then generates the deletion list for you. Revisit ESLint only if a
-class of bug appears that the compiler can't see.
-
----
-
 ### CQ-22 — `GENERATION_GAME_CONFIG` is a configuration table that configures nothing
 - **Location:** `src/app/services/game-state-service/game-state.service.ts:40-50`
 - **Status:** [ ] open
@@ -618,16 +586,6 @@ On an empty stack it returns `'game-over'` without calling `this.state.next(...)
 believes the game ended while the UI stays frozen. Either emit it or return `null` and let the caller
 decide — **the current shape is a lie in the type signature.** Same defect as `SEC-30e`, filed here as
 the contract problem it is.
-
----
-
-### CQ-24 — Two roulettes declare lifecycle hooks without implementing the interface
-- **Location:** `fishing-roulette.component.ts:17` · `snorlax-roulette.component.ts:13`
-- **Status:** [ ] open
-
-Both define `ngOnInit`/`ngOnDestroy` without `implements OnInit, OnDestroy`. Angular calls them by
-name so both work, but the compiler won't catch a typo'd hook. Every sibling declares the interface.
-Moot for fishing once `CQ-08` lands.
 
 ---
 
@@ -729,7 +687,7 @@ are mostly independent of each other.
 
 | # | Step | Finding | Risk |
 | --- | --- | --- | --- |
-| 1 | `noUnusedLocals` + `noUnusedParameters` → let the compiler generate the dead-code list | `CQ-21` | None |
+| 1 | ~~`noUnusedLocals` + `noUnusedParameters`~~ **done (`T-02`)** | `CQ-21` | — |
 | 2 | ~~Delete `DarkModeService`, `DarkModeToggleComponent`, the dead injections, the legacy CSS~~ **done (`T-05`)** | `CQ-05` | — |
 | 3 | Declare `@angular/localize`; drop 3 unused deps; delete the 6 dead methods and 3 orphan JSON files | `CQ-19`, `CQ-20` | Low |
 | 4 | Extract the six inline modals into components | `CQ-07` | Low — pure mechanical |
@@ -743,7 +701,7 @@ are mostly independent of each other.
 | 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the wheel defects | `CQ-13`, `CQ-19` | Medium |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
-| 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-22`–`CQ-24` | Low |
+| 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-22`, `CQ-23` | Low |
 
 **Expected landing:** `roulette-container.component.ts` at ~500–550 lines (from 1050), its template at
 ~215 (from 309), `trainer.service.ts` at ~300 (from 543), `sound-fx.service.ts` at ~200 (from 367),

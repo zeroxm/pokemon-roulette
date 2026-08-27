@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 describe('ChampionBattleRouletteComponent', () => {
   let component: ChampionBattleRouletteComponent;
   let fixture: ComponentFixture<ChampionBattleRouletteComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

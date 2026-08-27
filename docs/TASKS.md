@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**3 / 36 complete.** Findings cleared: 2 of 46 `SEC` · 1 of 26 `CQ`.
+**4 / 36 complete.** Findings cleared: 2 of 46 `SEC` · 4 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -68,7 +68,7 @@ Every task below must leave both green. Re-run before each merge.
 | --- | --- | --- | --- | --- |
 | **Phase 0 — make verification possible** ||||
 | T-01 | Install `npm`, `npm ci`, capture green build + test baseline; pin `.nvmrc` to 24 | — | none | [x] |
-| T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; fix the 7 remaining diagnostics (listed below) | `CQ-21`, `CQ-24` | low | [ ] |
+| T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; fix all 27 diagnostics (app + spec) | `CQ-21`, `CQ-24` | low | [x] |
 | **Phase 1 — urgent standalone bug** ||||
 | T-03 | Guard the wheel spin: disable until translations ready, single-array spin math, `finally` resets `wheelSpinning` | `SEC-01` | med | [ ] |
 | **Phase 2 — mechanical deletions** ||||
@@ -108,7 +108,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `WheelItem.weight` optional, `getGameState()`, `stolenPokemon`, `structuredClone` note | `CQ-15`, `CQ-16`, `CQ-17`, `CQ-18`, `SEC-30i` | med | [ ] |
 | T-33 | Defensive-parse cleanups: pokédex entry shapes, settings field types, `getTrainerSprite` guard, `distinctUntilChanged` no-op, `replaceForEvolution` warn | `SEC-30g`, `SEC-30h`, `SEC-30j`, `SEC-30m`, `SEC-30q` | low | [ ] |
 | **Phase 8 — tests, config, teardown** ||||
-| T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets`; `implements` on 2 roulettes | `SEC-29`, `CQ-14`, `CQ-24`, `CQ-26` | low | [ ] |
+| T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets` | `SEC-29`, `CQ-14`, `CQ-26` | low | [ ] |
 | T-35 | Dependency vulnerabilities + bundle/CSS budgets; CI audit step — see below | `SEC-15`, `SEC-30o` + baseline obs. | med | [ ] |
 | T-36 | UAT pass against `docs/CHANGELOG.md`; delete `docs/` audit reports, changelog and this file; push `main` to remote | — | — | [ ] |
 

@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 describe('EndGameComponent', () => {
   let component: EndGameComponent;
   let fixture: ComponentFixture<EndGameComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

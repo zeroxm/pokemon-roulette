@@ -12,7 +12,6 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
-import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 
 @Component({
   selector: 'app-champion-battle-roulette',
@@ -39,7 +38,6 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
 
   constructor(
     modalService: NgbModal,
-    private modalQueueService: ModalQueueService,
     gameStateService: GameStateService,
     generationService: GenerationService,
     trainerService: TrainerService,

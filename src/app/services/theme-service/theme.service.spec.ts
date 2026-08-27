@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { APP_BASE_HREF, DOCUMENT } from '@angular/common';
+import { APP_BASE_HREF } from '@angular/common';
 import { ThemeService } from './theme.service';
 
 describe('ThemeService — backgroundImage', () => {

@@ -24,7 +24,7 @@ export class FindItemRouletteComponent {
 
   constructor(private modalService: NgbModal,
     private modalQueueService: ModalQueueService,
-    private itemService: ItemsService,
+    itemService: ItemsService,
     private itemSpriteService: ItemSpriteService,
     private soundFxService: SoundFxService) {
     this.items = itemService.getRegularItems();

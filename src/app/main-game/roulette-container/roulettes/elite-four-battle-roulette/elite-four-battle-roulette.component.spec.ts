@@ -9,8 +9,6 @@ import { GymLeader } from '../../../../interfaces/gym-leader';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
-import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 
@@ -18,7 +16,6 @@ describe('EliteFourBattleRouletteComponent', () => {
   let component: EliteFourBattleRouletteComponent;
   let fixture: ComponentFixture<EliteFourBattleRouletteComponent>;
   let trainerService: TrainerService;
-  let typeMatchupService: TypeMatchupService;
   let modalQueueService: ModalQueueService;
   let gameStateService: GameStateService;
 
@@ -56,7 +53,6 @@ describe('EliteFourBattleRouletteComponent', () => {
     fixture = TestBed.createComponent(EliteFourBattleRouletteComponent);
     component = fixture.componentInstance;
     trainerService = TestBed.inject(TrainerService);
-    typeMatchupService = TestBed.inject(TypeMatchupService);
     modalQueueService = TestBed.inject(ModalQueueService);
     gameStateService = TestBed.inject(GameStateService);
 
