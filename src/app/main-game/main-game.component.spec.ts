@@ -19,8 +19,6 @@ import { AnalyticsService } from '../services/analytics-service/analytics.servic
 describe('MainGameComponent', () => {
   let component: MainGameComponent;
   let fixture: ComponentFixture<MainGameComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
-  let analyticsServiceSpy: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
@@ -49,8 +47,6 @@ describe('MainGameComponent', () => {
     })
     .compileComponents();
 
-    httpSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
-    analyticsServiceSpy = TestBed.inject(AnalyticsService) as jasmine.SpyObj<AnalyticsService>;
     fixture = TestBed.createComponent(MainGameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

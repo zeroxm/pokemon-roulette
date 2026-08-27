@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 describe('TrainerTeamComponent', () => {
   let component: TrainerTeamComponent;
   let fixture: ComponentFixture<TrainerTeamComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

@@ -46,6 +46,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | N1 | T-01 | Added `.nvmrc` (Node 24). No source touched. | `npm ci && npm run build && npm test -- --watch=false --browsers=ChromeHeadless` → build passes, 230/230. | [ ] |
 | N2 | T-05 | Deleted `DarkModeService` + the unreachable dark-mode toggle (12 files), 14 unused injections, the `body.dark-mode`/`body.light-mode` CSS rules, and the `dark-mode` localStorage key cleanup. `ThemeService` is now the only theming system. | **Theme switching must work identically.** Cycle all three themes (Starters / Plain Dark / Plain Light) in Settings; each applies immediately, survives a reload, and the Starters background image still renders. Check `<body>` in devtools carries exactly one `theme-*` class and **no** `dark-mode`/`light-mode` class. | [ ] |
 
+| N3 | T-02 | Enabled `noUnusedLocals` + `noUnusedParameters`; removed 27 unused declarations across app and specs. Two roulettes gained `implements OnInit(, OnDestroy)`. One dead `getTotalWeights()` call removed from the wheel's animation frame. | **No user-visible change expected.** Spin several wheels of very different sizes — the gen-9 cave wheel (73 segments), a fishing wheel, and a 2-option yes/no wheel — and confirm each spins, lands on a segment, and reports the same segment it visually stopped on. Fishing and Snorlax roulettes must still load their Pokémon (their lifecycle hooks were re-declared). | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
@@ -57,6 +59,18 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 - **Watch for unstyled backgrounds.** The deleted CSS rules set the same colours as `theme-plain-dark`
   / `theme-plain-light`, and only source order made them harmless. If any surface loses its background,
   this is the change that did it.
+
+### Notes on N3
+
+- **The wheel is the risk area.** An overly broad edit initially deleted five `const totalWeight` lines
+  instead of the one dead one — four were load-bearing in `drawWheel`, `spinWheel`,
+  `getCurrentSegment` and `getRandomWeightedIndex`. The compiler caught it and only the dead line was
+  removed, but wheel *selection* is worth a real look during UAT: spin a large wheel repeatedly and
+  confirm the pointer lands on the segment that gets reported.
+- **`grantMegaStone` lost an unused `pokemon` parameter.** Mega stone awards after important battles
+  should still grant the right stone — worth confirming if a run reaches one.
+- **Spec fixes removed write-only variables**, several of which were `TestBed.inject(...)` results
+  assigned but never read. No test behaviour changed; count stays 228.
 
 ---
 

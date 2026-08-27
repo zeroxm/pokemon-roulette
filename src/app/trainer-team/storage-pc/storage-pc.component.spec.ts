@@ -9,7 +9,6 @@ import { TranslateModule } from '@ngx-translate/core';
 describe('StoragePcComponent', () => {
   let component: StoragePcComponent;
   let fixture: ComponentFixture<StoragePcComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

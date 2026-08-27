@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 describe('MysteriousEggRouletteComponent', () => {
   let component: MysteriousEggRouletteComponent;
   let fixture: ComponentFixture<MysteriousEggRouletteComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

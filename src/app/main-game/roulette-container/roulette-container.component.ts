@@ -721,7 +721,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (availableStoneNames.length === 1) {
-      this.grantMegaStone(pokemon, availableStoneNames[0]);
+      this.grantMegaStone(availableStoneNames[0]);
       return;
     }
 
@@ -732,7 +732,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.gameStateService.setNextState('select-from-item-list');
   }
 
-  private grantMegaStone(pokemon: PokemonItem, stoneName: MegaStoneItemName): void {
+  private grantMegaStone(stoneName: MegaStoneItemName): void {
     if (!this.trainerService.hasItem(stoneName)) {
       const megaStone = structuredClone(this.itemService.getMegaStone(stoneName));
       this.trainerService.addToItems(megaStone);
@@ -779,7 +779,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return true;
     }
 
-    this.grantMegaStone(pokemon, item.name);
+    this.grantMegaStone(item.name);
     return true;
   }
 

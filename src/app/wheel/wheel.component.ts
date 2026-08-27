@@ -307,8 +307,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     const easedProgress = 1 - Math.pow(1 - progress, 3);
     this.currentRotation = easedProgress * this.finalRotation;
 
-    const totalWeight = this.getTotalWeights();
-
     this.drawWheel(this.currentRotation);
 
     if (progress < 1) {

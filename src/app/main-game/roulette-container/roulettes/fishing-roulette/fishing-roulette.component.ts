@@ -14,7 +14,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
   templateUrl: './fishing-roulette.component.html',
   styleUrl: './fishing-roulette.component.css'
 })
-export class FishingRouletteComponent {
+export class FishingRouletteComponent implements OnInit, OnDestroy {
 
   constructor(
     private generationService: GenerationService,

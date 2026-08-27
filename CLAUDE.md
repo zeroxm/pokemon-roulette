@@ -99,6 +99,10 @@ Badge names follow a per-locale house pattern (`Fire Badge` / `Insígnia de Fogo
 
 ## Conventions
 
+- **Unused code fails the build.** `tsconfig.json` sets `noUnusedLocals` and `noUnusedParameters` on top of an already-strict config (`strict`, `strictTemplates`, `noImplicitOverride`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`, `noFallthroughCasesInSwitch`). An unused import, private field, local, or constructor injection is a **build error**, not a warning — in specs too. There is deliberately no ESLint; the compiler covers it. Two consequences worth knowing:
+  - A constructor param you inject but never read must lose its `private` modifier (or go entirely). `find-item-roulette` shows the pattern: `itemService: ItemsService` with no `private`, used only inside the constructor body.
+  - Unused **parameters** are exempt when prefixed with `_`; unused private **properties** are not.
+- A component that defines `ngOnInit`/`ngOnDestroy` must declare `implements OnInit, OnDestroy`. Angular calls them by name either way, but without the interface a typo'd hook silently never runs.
 - Standalone components with an `imports: [...]` array; no NgModules.
 - Constructor injection is the norm; `inject(DestroyRef)` + `takeUntilDestroyed` for subscriptions in newer components, explicit `Subscription` fields + `ngOnDestroy` in older ones.
 - Components live in their own folder with `.ts`/`.html`/`.css`/`.spec.ts`. Services live in `services/<name>-service/`, with bulk data in adjacent `*-data.ts` / `*.json` files rather than inside the service.

@@ -80,7 +80,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
       if(this.currentGameState === 'team-rocket-encounter') {
         this.infoModalTitle = 'trainer.storage.unavailable';
         this.infoModalMessage = 'trainer.storage.unavailableMessage';
-        const modalRef = this.modalService.open(this.infoModal, {
+        this.modalService.open(this.infoModal, {
           centered: true,
           size: 'md'
         });
