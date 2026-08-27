@@ -51,7 +51,7 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 | `CQ-02` FormRule model | `SEC-02` stranded mega form · `SEC-03` double-applied sticky forms · `SEC-05` mega state survives reset |
 | `CQ-03` RunModifiers service | `SEC-04` stale container state · `SEC-07` exp-share flag |
 | `CQ-10` stone-on-form join | `SEC-30a` unreachable Greninja forms |
-| `CQ-13` extract weighted-random | `SEC-01` — makes the empty-items case unit-testable |
+| `CQ-13` extract weighted-random | `SEC-01` (fixed in `T-03`) — extraction would still remove the `as any` reach-through in its tests |
 
 ---
 
@@ -422,7 +422,7 @@ the seam telling you where the boundary is.
 and `totalWeight(items)` move out verbatim. The three statistical tests lose all three `as any` casts
 and the entire TestBed, and gain a seedable `random` for deterministic boundary assertions. Given
 CLAUDE.md flags wheel fairness tests as load-bearing, **this is the best return in the file** — and it
-makes `SEC-01`'s empty-items case directly testable.
+makes the empty-items case directly testable without the `as any` reach-through `T-03`'s tests still need.
 
 **Extract 2 — the spin animation → a plain `SpinAnimation` class** with `start(finalRotation, durationMs)`
 and `cancel()`. Pulls five mutable fields and `animate()` out of a public surface that currently

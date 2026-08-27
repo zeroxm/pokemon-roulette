@@ -26,6 +26,7 @@ spec covers.
 
 | # | Task | What to do | Expected | ✓ |
 | --- | --- | --- | --- | --- |
+| 0 | T-03 | **Throttle the network** (devtools → Slow 3G), hard-reload, and hammer the Spin button and spacebar the instant the page appears — before wheel labels render. | The Spin button is **disabled** until the wheel has labels, then enables. No console error. Critically, once the wheel is ready, **everything still works**: Spin, the settings/restart/coffee buttons, the storage PC, and rare-candy/mega-stone item clicks. Before this fix, spinning in that window permanently disabled all of them until a page reload. | [ ] |
 | 1 | T-09 | Start a **Generation 9 (Paldea)** run and win any gym. Open the badges panel and hover each badge. | Every badge shows a real name (**Bug Badge**, **Grass Badge**, **Electric Badge**, **Water Badge**, **Normal Badge**, **Ghost Badge**, **Psychic Badge**, **Ice Badge**) — never a raw string like `badges.bug_paldea`. | [ ] |
 | 2 | T-09 | Switch the language selector through **all six** locales (en, pt, es, fr, de, it) with gen-9 badges earned. | Badge names are translated in each. Portuguese shows *Insígnia Elétrica* / *Insígnia Normal*; German shows *Elektro-Orden* / *Normal-Orden*. No raw keys in any language. | [ ] |
 
@@ -34,6 +35,8 @@ spec covers.
 | # | Check | Expected | ✓ |
 | --- | --- | --- | --- |
 | R1 | Badges in generations **1–8** | Unchanged — the 67 pre-existing badge names still render correctly in all six locales. | [ ] |
+| R2 | **Wheel selection is honest** (T-03 touched the spin math) | Spin a large wheel — the gen-9 cave wheel has 73 segments — several times. The pointer must stop on the **same** segment the game then acts on. Also spin a 2-option wheel and a weighted wheel (gym battle odds) and confirm outcomes look right. | [ ] |
+| R3 | **Language switch mid-game** (T-03 changed when the wheel is considered ready) | Switch language while a wheel is on screen. Labels retranslate, the button stays usable, and the wheel still spins. | [ ] |
 
 ---
 
@@ -45,7 +48,6 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | --- | --- | --- | --- | --- |
 | N1 | T-01 | Added `.nvmrc` (Node 24). No source touched. | `npm ci && npm run build && npm test -- --watch=false --browsers=ChromeHeadless` → build passes, 230/230. | [ ] |
 | N2 | T-05 | Deleted `DarkModeService` + the unreachable dark-mode toggle (12 files), 14 unused injections, the `body.dark-mode`/`body.light-mode` CSS rules, and the `dark-mode` localStorage key cleanup. `ThemeService` is now the only theming system. | **Theme switching must work identically.** Cycle all three themes (Starters / Plain Dark / Plain Light) in Settings; each applies immediately, survives a reload, and the Starters background image still renders. Check `<body>` in devtools carries exactly one `theme-*` class and **no** `dark-mode`/`light-mode` class. | [ ] |
-
 | N3 | T-02 | Enabled `noUnusedLocals` + `noUnusedParameters`; removed 27 unused declarations across app and specs. Two roulettes gained `implements OnInit(, OnDestroy)`. One dead `getTotalWeights()` call removed from the wheel's animation frame. | **No user-visible change expected.** Spin several wheels of very different sizes — the gen-9 cave wheel (73 segments), a fishing wheel, and a 2-option yes/no wheel — and confirm each spins, lands on a segment, and reports the same segment it visually stopped on. Fishing and Snorlax roulettes must still load their Pokémon (their lifecycle hooks were re-declared). | [ ] |
 
 ### Notes on N2
@@ -81,7 +83,7 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | 230/230 (or higher, as tasks add specs) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | 234/234 at time of writing (baseline 230; `T-05` −2, `T-03` +6) | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
 | Both audit reports | empty and deleted | [ ] |
@@ -94,9 +96,10 @@ Do not push until every box above is ticked **and**:
 - **Restart-related tasks (T-21, T-22) need cross-run testing.** Several bugs only appear when you
   restart mid-run and start a *second* game in the same browser session. Reloading the page hides
   them — use the in-game restart button.
-- **T-03 needs a throttled connection.** The wheel soft-lock only reproduces when translations are
-  still loading, so test it with network throttling on and click Spin immediately.
 - **Mega-evolution tasks (T-23, T-24) need a mega stone**, which is awarded after important battles —
   budget a full run to reach one.
+- **`T-03` is best tested first**, while you still have throttling set up — it needs a slow load to
+  reproduce, and its failure mode (every control silently dead) is easy to mistake for something else
+  later in the session.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.

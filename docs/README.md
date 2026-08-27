@@ -37,10 +37,10 @@ than patched:
 | `CQ-02` unified form-rule model | `SEC-02`, `SEC-03`, `SEC-05` |
 | `CQ-03` run modifiers into a service | `SEC-04`, `SEC-07` |
 | `CQ-10` stone-on-form join | `SEC-30a` |
-| `CQ-13` extract weighted-random | makes `SEC-01` unit-testable |
+| `CQ-13` extract weighted-random | removes the `as any` reach-through the wheel tests still need |
 
-The exception is `SEC-01` itself — a reachable permanent soft-lock of the entire UI. That one is worth
-fixing on its own before any refactor.
+~~The exception is `SEC-01`~~ — **fixed in `T-03`**, ahead of the refactors, since it was a reachable
+permanent soft-lock of the entire UI.
 
 The quality report ends with a **15-step migration order** that sequences both reports' work.
 
