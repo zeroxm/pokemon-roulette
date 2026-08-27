@@ -4,7 +4,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { PokedexDetailModalComponent } from './pokedex-detail-modal.component';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
@@ -43,7 +42,6 @@ describe('PokedexDetailModalComponent', () => {
       ],
       providers: [
         { provide: NgbActiveModal, useValue: mockActiveModal },
-        { provide: DarkModeService, useValue: { darkMode$: of(false) } },
         { provide: PokemonService, useValue: mockPokemonService },
         { provide: PokemonFormsService, useValue: mockFormsService }
       ]

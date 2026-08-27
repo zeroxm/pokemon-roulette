@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable, Subscription } from 'rxjs';
 import { ItemItem } from '../interfaces/item-item';
@@ -19,7 +18,6 @@ import { isMegaStoneItemName } from '../services/items-service/item-names';
 export class ItemsComponent implements OnInit, OnDestroy {
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private trainerService: TrainerService,
     private translateService: TranslateService

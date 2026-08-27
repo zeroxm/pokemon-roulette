@@ -3,7 +3,6 @@ import { GenerationService } from '../../services/generation-service/generation.
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { Subscription } from 'rxjs';
 import { GenerationItem } from '../../interfaces/generation-item';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { CommonModule } from '@angular/common';
@@ -27,7 +26,6 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private translate: TranslateService
   ) { }

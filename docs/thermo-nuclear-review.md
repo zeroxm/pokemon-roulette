@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**4 High · 13 Medium · 28 Low** (11 detailed as `SEC-19`–`SEC-29`, 17 tabulated under `SEC-30`).
+**4 High · 13 Medium · 27 Low** (10 detailed as `SEC-20`–`SEC-29`, 17 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -442,23 +442,6 @@ placeholder text, no way back to the game, no styling.
 ---
 
 # Low
-
-### SEC-19 — `DarkModeService` is legacy-but-live and fights `ThemeService`
-- **Severity:** Low · **Location:** `src/app/services/dark-mode-service/dark-mode.service.ts:25`
-
-`theme.service.ts:10-17` documents `dark-mode`/`light-mode` as *"Legacy classes left by
-DarkModeService"* and strips them; line 82 deletes the `dark-mode` localStorage key. But
-`DarkModeService` is still instantiated by four **unused** constructor injections
-(`wheel.component.ts:53`, `items.component.ts:22`, `settings-button.component.ts:26`,
-`storage-pc.component.ts:31` — all four actually read `themeService.isDark$`). Its constructor
-immediately calls `enable()`/`disable()`, re-adding the legacy body class and re-writing the key
-`ThemeService` just deleted. It is visually harmless **only** because `body.theme-*` rules in
-`styles.css:19-34` come *after* `body.dark-mode`/`body.light-mode` (lines 7-15) at equal specificity —
-a source-order accident. **Fix:** delete the service and the four injections.
-
-> Correction to this audit's own brief: `media-query.ts` is **not** a 0-byte file. It is 69 bytes
-> containing `export const prefersDarkSchemeQuery`, correctly imported by `media-query.service.ts:2`.
-> The `wc -l` count of 0 reflects a missing trailing newline, not missing content.
 
 ### SEC-20 — `SoundFxService` has create-with-no-dispose
 - **Severity:** Low · **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:21, 85`

@@ -44,6 +44,19 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | # | Task | What changed under the hood | Regression check | ✓ |
 | --- | --- | --- | --- | --- |
 | N1 | T-01 | Added `.nvmrc` (Node 24). No source touched. | `npm ci && npm run build && npm test -- --watch=false --browsers=ChromeHeadless` → build passes, 230/230. | [ ] |
+| N2 | T-05 | Deleted `DarkModeService` + the unreachable dark-mode toggle (12 files), 14 unused injections, the `body.dark-mode`/`body.light-mode` CSS rules, and the `dark-mode` localStorage key cleanup. `ThemeService` is now the only theming system. | **Theme switching must work identically.** Cycle all three themes (Starters / Plain Dark / Plain Light) in Settings; each applies immediately, survives a reload, and the Starters background image still renders. Check `<body>` in devtools carries exactly one `theme-*` class and **no** `dark-mode`/`light-mode` class. | [ ] |
+
+### Notes on N2
+
+- **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
+  their components. This is expected, not a regression.
+- **Existing players keep a stale `dark-mode` key** in localStorage. Nothing reads it; the cleanup was
+  removed deliberately since the game has been live long enough for the population to be negligible.
+  To simulate a returning player: `localStorage.setItem('dark-mode','true')`, reload, confirm the theme
+  is unaffected and the page renders normally.
+- **Watch for unstyled backgrounds.** The deleted CSS rules set the same colours as `theme-plain-dark`
+  / `theme-plain-light`, and only source order made them harmless. If any surface loses its background,
+  this is the change that did it.
 
 ---
 
