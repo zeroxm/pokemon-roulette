@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**2 / 35 complete.** Findings cleared: 1 of 46 `SEC` · 0 of 26 `CQ`.
+**2 / 36 complete.** Findings cleared: 1 of 46 `SEC` · 0 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -58,7 +58,7 @@ Every task below must leave both green. Re-run before each merge.
 **Observed at baseline, not in either report** (both audits ran without a build):
 
 - Initial bundle is **1.47 MB against a 1.00 MB warning budget** — 467 kB over. Error threshold is
-  2 MB, so it warns rather than fails. Folded into `T-34`.
+  2 MB, so it warns rather than fails. Handled in `T-35`.
 - `npm audit`: **52 vulnerabilities (2 low, 13 moderate, 34 high, 3 critical)**. Quantifies `SEC-30o`.
 - `mega-evolution-animation-modal.component.css` is **8.52 kB** against a 4 kB warning / 10 kB error —
   confirming `SEC-15`'s hand-estimate of ~9.0 kB. 1.48 kB from breaking the build.
@@ -108,8 +108,41 @@ Every task below must leave both green. Re-run before each merge.
 | T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `WheelItem.weight` optional, `getGameState()`, `stolenPokemon`, `structuredClone` note | `CQ-15`, `CQ-16`, `CQ-17`, `CQ-18`, `SEC-30i` | med | [ ] |
 | T-33 | Defensive-parse cleanups: pokédex entry shapes, settings field types, `getTrainerSprite` guard, `distinctUntilChanged` no-op, `replaceForEvolution` warn | `SEC-30g`, `SEC-30h`, `SEC-30j`, `SEC-30m`, `SEC-30q` | low | [ ] |
 | **Phase 8 — tests, config, teardown** ||||
-| T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets`; CI audit step; component CSS budget; `implements` on 2 roulettes | `SEC-15`, `SEC-29`, `SEC-30o`, `CQ-14`, `CQ-24`, `CQ-26` | low | [ ] |
-| T-35 | Delete `docs/` audit reports + this file; push `main` to remote | — | — | [ ] |
+| T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets`; `implements` on 2 roulettes | `SEC-29`, `CQ-14`, `CQ-24`, `CQ-26` | low | [ ] |
+| T-35 | Dependency vulnerabilities + bundle/CSS budgets; CI audit step — see below | `SEC-15`, `SEC-30o` + baseline obs. | med | [ ] |
+| T-36 | UAT pass against `docs/CHANGELOG.md`; delete `docs/` audit reports, changelog and this file; push `main` to remote | — | — | [ ] |
+
+### T-35 in detail
+
+Both items were invisible to the audits, which ran without a build. Neither fails CI today; both are
+close enough that the next ordinary change tips them over.
+
+**Dependency vulnerabilities** — `npm audit` reports **52 (2 low, 13 moderate, 34 high, 3 critical)**
+against a committed lockfile. Work it in this order, because the split matters:
+
+1. `npm audit --omit=dev` first — separate what actually ships in the bundle from build-only tooling.
+   A critical in a Karma transitive is not the same risk as one in a runtime dependency.
+2. `npm audit fix` (no `--force`) for anything resolvable without a major bump; re-verify green.
+3. Triage the remainder individually. **Do not run `npm audit fix --force`** — it will happily bump
+   Angular majors and turn a 34-task campaign into a framework migration.
+4. Add `npm audit --audit-level=high` to CI (`SEC-30o`, currently folded into `T-34`) only once the
+   count is at a level that will not red-wall every future PR.
+
+**Budgets** — measured at baseline:
+
+| Budget | Configured | Actual | Headroom |
+| --- | --- | --- | --- |
+| initial bundle | 1 MB warn / 2 MB error | **1.47 MB** | 530 kB to failure |
+| `mega-evolution-animation-modal.component.css` | 4 kB warn / 10 kB error | **8.52 kB** | **1.48 kB to failure** |
+
+The stylesheet is the urgent half. `CQ-26` established the 517 lines are legitimately 15 `@keyframes`
+driving a six-phase animation and should *not* be split for tidiness — so the fix is either hoisting
+shared keyframes into `src/styles.css` or raising that budget deliberately, not decomposition.
+
+For the bundle: `dom-to-image-more` is CommonJS and triggers an optimization bailout on every build;
+check what it costs before assuming the 467 kB overage is inherent. Decide explicitly whether to trim
+or to raise the warning threshold to something honest — a permanently-breached budget trains everyone
+to ignore build warnings, which is worse than no budget.
 
 ---
 
