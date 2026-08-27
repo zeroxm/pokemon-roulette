@@ -34,11 +34,4 @@ export class ItemsService {
     return Object.values(this.regularItemsData);
   }
 
-  getMegaStones(): ItemItem[] {
-    return Object.values(this.megaStonesData);
-  }
-
-  getAllItems(): ItemItem[] {
-    return Object.values(this.itemsData);
-  }
 }

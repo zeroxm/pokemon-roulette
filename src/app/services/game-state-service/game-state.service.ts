@@ -78,10 +78,6 @@ export class GameStateService {
     this.currentRound.next(this.currentRound.value + 1);
   }
 
-  retreatRound(): void {
-    this.currentRound.next(this.currentRound.value - 1);
-  }
-
   repeatCurrentState(): void {
     this.stateStack.push(this.state.value);
   }

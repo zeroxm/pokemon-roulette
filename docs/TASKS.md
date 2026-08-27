@@ -72,7 +72,7 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 1 — urgent standalone bug** ||||
 | T-03 | Guard the wheel spin: readiness gate, single-array spin math, gate released on any throw, 6 regression tests | `SEC-01` | med | [x] |
 | **Phase 2 — mechanical deletions** ||||
-| T-04 | Delete 6 dead methods + 3 orphan JSON form files | `CQ-19`, `SEC-30n` | low | [ ] |
+| T-04 | Delete 7 dead methods + 3 orphan JSON form files | `CQ-19` (partial), `SEC-30n` | low | [x] |
 | T-05 | Delete `DarkModeService`, `DarkModeToggleComponent`, 14 dead injections, legacy CSS + storage key | `CQ-05`, `SEC-19` | low | [x] |
 | T-06 | Declare `@angular/localize`; drop 3 unused deps | `CQ-20`, `SEC-30p` | low | [ ] |
 | T-07 | Delete `GENERATION_GAME_CONFIG` and the `initializeStates` params | `CQ-22` | low | [ ] |
