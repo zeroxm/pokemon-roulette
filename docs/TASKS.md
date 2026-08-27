@@ -33,12 +33,41 @@ of everything.
 
 ## Status
 
-**0 / 34 complete.** Findings cleared: 0 of 46 `SEC` · 0 of 26 `CQ`.
+**1 / 35 complete.** Findings cleared: 0 of 46 `SEC` · 0 of 26 `CQ`.
+
+### Verified baseline — commit `4f14d63`, 2026-08-27
+
+| Check | Result |
+| --- | --- |
+| `npm ci` | 996 packages, exit 0 |
+| `npm run build` | **pass** (1.47 MB initial, 3.9 s) |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **230 / 230 pass** |
+
+Every task below must leave both green. Re-run before each merge.
+
+**Environment caveats** — these affect how much a green run proves:
+
+- **Local Node is 26.7.0; CI builds on 24.x.** `.nvmrc` now records 24, but nothing enforces it until a
+  version manager is installed, so local runs are on 26. A green local build is strong evidence, not
+  proof.
+- **`CHROME_BIN=/usr/bin/google-chrome-stable`** — `chromium` is not installed; the tests were run with
+  this exported.
+- **npm 12 blocked 4 install scripts** (`esbuild`, `@parcel/watcher`, `lmdb`, `msgpackr-extract`). Build
+  and tests pass regardless, but a future toolchain bump may need `npm install-scripts approve`.
+
+**Observed at baseline, not in either report** (both audits ran without a build):
+
+- Initial bundle is **1.47 MB against a 1.00 MB warning budget** — 467 kB over. Error threshold is
+  2 MB, so it warns rather than fails. Folded into `T-34`.
+- `npm audit`: **52 vulnerabilities (2 low, 13 moderate, 34 high, 3 critical)**. Quantifies `SEC-30o`.
+- `mega-evolution-animation-modal.component.css` is **8.52 kB** against a 4 kB warning / 10 kB error —
+  confirming `SEC-15`'s hand-estimate of ~9.0 kB. 1.48 kB from breaking the build.
+- `dom-to-image-more` is CommonJS, causing an optimization-bailout warning on every build.
 
 | # | Task | Covers | Risk | Status |
 | --- | --- | --- | --- | --- |
 | **Phase 0 — make verification possible** ||||
-| T-01 | Install `npm`, `npm ci`, capture green build + test baseline | — | none | [ ] |
+| T-01 | Install `npm`, `npm ci`, capture green build + test baseline; pin `.nvmrc` to 24 | — | none | [x] |
 | T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; let the compiler list the dead code | `CQ-21` | low | [ ] |
 | **Phase 1 — urgent standalone bug** ||||
 | T-03 | Guard the wheel spin: disable until translations ready, single-array spin math, `finally` resets `wheelSpinning` | `SEC-01` | med | [ ] |
