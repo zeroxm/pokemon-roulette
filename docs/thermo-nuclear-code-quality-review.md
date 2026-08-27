@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**26 findings** (`CQ-01`–`CQ-26`). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**25 findings** (`CQ-01`–`CQ-26`, `CQ-05` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -29,9 +29,8 @@ The three knots, in order of leverage:
    battle-only forms all end in the same five-line swap, written four times, differing on three
    orthogonal axes that should be table columns (`CQ-02`). This deletes ~180 lines *and* structurally
    eliminates two High-severity correctness bugs from Run 1.
-3. **Two theming services are both live and fight each other every session** (`CQ-05`). Not merely
-   dead code — `DarkModeService` re-adds the exact body class and storage key `ThemeService` just
-   removed, and it is invisible only through CSS source-order luck.
+3. ~~Two theming services fighting each other~~ — **cleared by `T-05`**: `DarkModeService` and the
+   unreachable toggle component are deleted, along with the legacy body classes and storage key.
 
 **Deliberate non-findings.** Reviewers were asked to argue both sides and to say plainly when
 something is fine. The 309-line `@switch` template should **stay**; `TrainerService` should **not** be
@@ -239,38 +238,6 @@ Deletes: seven `createXSoundFx()` factories (`:33-77`, ~45 lines); five map decl
 because state lives in parallel maps. At call sites, **8** `!: SoundFxHandle` fields and their
 initialisers disappear. **367 → ~200 lines**, and the union type lets `strictTemplates` police sound
 names, which a `string` handle cannot.
-
----
-
-### CQ-05 — Two theming services are both live, and the dead one overwrites the live one every session
-- **Location:** `src/app/services/dark-mode-service/dark-mode.service.ts:25` · `src/app/services/theme-service/theme.service.ts:14-17,76,82`
-- **Status:** [ ] open
-
-**What:** `ThemeService` is eagerly constructed by `AppComponent` and strips `dark-mode`/`light-mode`
-and deletes `localStorage['dark-mode']`. `DarkModeService` is `providedIn: 'root'`, injected by **15
-files**, and the first of those constructs *after* `AppComponent`. Its constructor unconditionally
-calls `enable()`/`disable()`, which **re-adds the body class and re-writes the storage key
-`ThemeService` just deleted.** Every session ends with `<body class="theme-starters dark-mode">` and
-both keys present.
-
-It is invisible **only by CSS source-order luck**: `body.theme-*` (`styles.css:19-34`) comes after
-`body.dark-mode` (`styles.css:7-15`) at identical specificity. Reorder those blocks, or add one
-property to `.dark-mode` that `theme-plain-light` doesn't override, and the theme picker half-breaks.
-
-**Verified:** of 15 injecting files, **exactly one** calls a method on it —
-`dark-mode-toggle.component.ts:18,22`. And `DarkModeToggleComponent` is **unreachable**: its selector
-`app-dark-mode-toggle` appears exactly once in the repo, in its own `@Component` declaration, and its
-only importer is its own spec. The other 13 injections are constructor parameters never read; each of
-those files reads `themeService.isDark$` one line later.
-
-**Remedy:** delete the 13 unused constructor params and imports; delete
-`src/app/settings/dark-mode-toggle/` and `src/app/services/dark-mode-service/` wholesale (that is
-`dark-mode.service.ts`, `media-query.service.ts`, `media-query.ts`, `dark-mode-options.ts`,
-`default-options.ts`, `types.ts`, `isNil.ts`, plus 2 specs); delete `body.dark-mode`/`body.light-mode`
-from `styles.css:7-15`; shrink `ALL_THEME_CLASSES` to its three real entries and drop the
-`localStorage.removeItem('dark-mode')` migration (or keep it one release as a *dated* TODO rather than
-permanent scaffolding). `ThemeService` is the correct end state as written — its `baseHref` handling
-for GitHub Pages (`:40-43`) is a real, non-obvious concern handled properly.
 
 ---
 
@@ -570,8 +537,6 @@ This is also the answer to "four formats for form data" — the `.json` format h
 The real formats are two, and `CQ-02` makes it one. Delete them, or if Gigantamax is genuinely queued,
 bring it in as `FormRule` rows so it is exercised by the same code path as everything else.
 
-**Unreachable component:** `settings/dark-mode-toggle/` — see `CQ-05`.
-
 **Dead statement:** `wheel.component.ts:312` — `const totalWeight = this.getTotalWeights();` inside
 `animate()` is never used, and it is an O(n) reduce running **every animation frame**; on the
 mysterious-egg wheel (~1000 entries) that is ~1000 additions per frame for nothing. (`getTotalWeights`
@@ -621,10 +586,12 @@ config file, ~6 dev dependencies, a CI step, and a backlog of stylistic findings
 "noUnusedParameters": true,
 ```
 
-`noUnusedLocals` flags unused **private class members** — precisely the 13 dead `darkModeService`
-injections in `CQ-05`, the dead `totalWeight` in `CQ-19`, and `private modalQueueService` in
-`champion-battle-roulette.component.ts:42` (injected, never used). **Every unused-code defect in this
-report would have been caught by those two lines.** `AppComponent`'s deliberate `_theme: ThemeService`
+`noUnusedLocals` flags unused **private class members**. Confirmed by running the flags: they surface
+**21 diagnostics**, including all 14 dead `darkModeService` injections (since removed by `T-05`), the
+dead `totalWeight` in `CQ-19`, `private modalQueueService` in `champion-battle-roulette.component.ts`,
+and **three defects neither audit found** — an unused `pokemon` parameter in the container, an unused
+`itemService` in find-item-roulette, and an unused `modalRef` in storage-pc. **Every unused-code defect
+in this report would have been caught by those two lines**, plus three that were not. `AppComponent`'s deliberate `_theme: ThemeService`
 param is already underscore-prefixed, so it stays exempt.
 
 **Do this first** — the compiler then generates the deletion list for you. Revisit ESLint only if a
@@ -763,7 +730,7 @@ are mostly independent of each other.
 | # | Step | Finding | Risk |
 | --- | --- | --- | --- |
 | 1 | `noUnusedLocals` + `noUnusedParameters` → let the compiler generate the dead-code list | `CQ-21` | None |
-| 2 | Delete `DarkModeService`, `DarkModeToggleComponent`, the 13 dead injections, the legacy CSS | `CQ-05` | Low |
+| 2 | ~~Delete `DarkModeService`, `DarkModeToggleComponent`, the dead injections, the legacy CSS~~ **done (`T-05`)** | `CQ-05` | — |
 | 3 | Declare `@angular/localize`; drop 3 unused deps; delete the 6 dead methods and 3 orphan JSON files | `CQ-19`, `CQ-20` | Low |
 | 4 | Extract the six inline modals into components | `CQ-07` | Low — pure mechanical |
 | 5 | Add `setNextStates(...)`, collapse the seven reverse-push pairs | `CQ-11` | Low |

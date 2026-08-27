@@ -11,7 +11,6 @@ import { TrainerService } from '../services/trainer-service/trainer.service';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 import { CoffeeButtonComponent } from "./coffee-button/coffee-button.component";
 import { NgIconsModule } from '@ng-icons/core';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
@@ -40,7 +39,6 @@ import { MegaStoneService } from '../services/mega-stone-service/mega-stone.serv
 export class MainGameComponent implements OnInit {
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private gameStateService: GameStateService,
     private trainerService: TrainerService,

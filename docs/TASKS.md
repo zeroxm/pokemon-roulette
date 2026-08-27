@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**2 / 36 complete.** Findings cleared: 1 of 46 `SEC` · 0 of 26 `CQ`.
+**3 / 36 complete.** Findings cleared: 2 of 46 `SEC` · 1 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -68,12 +68,12 @@ Every task below must leave both green. Re-run before each merge.
 | --- | --- | --- | --- | --- |
 | **Phase 0 — make verification possible** ||||
 | T-01 | Install `npm`, `npm ci`, capture green build + test baseline; pin `.nvmrc` to 24 | — | none | [x] |
-| T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; let the compiler list the dead code | `CQ-21` | low | [ ] |
+| T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; fix the 7 remaining diagnostics (listed below) | `CQ-21`, `CQ-24` | low | [ ] |
 | **Phase 1 — urgent standalone bug** ||||
 | T-03 | Guard the wheel spin: disable until translations ready, single-array spin math, `finally` resets `wheelSpinning` | `SEC-01` | med | [ ] |
 | **Phase 2 — mechanical deletions** ||||
 | T-04 | Delete 6 dead methods + 3 orphan JSON form files | `CQ-19`, `SEC-30n` | low | [ ] |
-| T-05 | Delete `DarkModeService`, `DarkModeToggleComponent`, 13 dead injections, legacy CSS | `CQ-05`, `SEC-19` | low | [ ] |
+| T-05 | Delete `DarkModeService`, `DarkModeToggleComponent`, 14 dead injections, legacy CSS + storage key | `CQ-05`, `SEC-19` | low | [x] |
 | T-06 | Declare `@angular/localize`; drop 3 unused deps | `CQ-20`, `SEC-30p` | low | [ ] |
 | T-07 | Delete `GENERATION_GAME_CONFIG` and the `initializeStates` params | `CQ-22` | low | [ ] |
 | T-08 | Fix the no-op `Array.isArray` ternary in 3 battle roulettes (decide intended behaviour) | `CQ-19` | low | [ ] |
@@ -111,6 +111,23 @@ Every task below must leave both green. Re-run before each merge.
 | T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets`; `implements` on 2 roulettes | `SEC-29`, `CQ-14`, `CQ-24`, `CQ-26` | low | [ ] |
 | T-35 | Dependency vulnerabilities + bundle/CSS budgets; CI audit step — see below | `SEC-15`, `SEC-30o` + baseline obs. | med | [ ] |
 | T-36 | UAT pass against `docs/CHANGELOG.md`; delete `docs/` audit reports, changelog and this file; push `main` to remote | — | — | [ ] |
+
+### T-02 in detail
+
+Running the flags at baseline surfaced **21 diagnostics**; `T-05` cleared 14 of them. The **7 that
+remain** must be fixed in the same commit that enables the flags, or the build goes red:
+
+| File | Diagnostic |
+| --- | --- |
+| `roulette-container.component.ts:735` | unused parameter `pokemon` |
+| `champion-battle-roulette.component.ts:42` | unused `private modalQueueService` — note `SEC-25` wants this roulette routed *through* the queue, so the fix may be to **use** it, not delete it |
+| `find-item-roulette.component.ts:27` | unused `private itemService` |
+| `fishing-roulette.component.ts:1` | unused `OnInit` / `OnDestroy` imports — the component defines both hooks without `implements` (`CQ-24`) |
+| `storage-pc.component.ts:83` | unused `modalRef` |
+| `wheel.component.ts:310` | dead `const totalWeight` inside `animate()` — an O(n) reduce per frame (`CQ-19`) |
+
+Three of these (`pokemon`, `itemService`, `modalRef`) were found by **neither audit** — the compiler
+caught what two review passes missed, which is the argument for `CQ-21` in a nutshell.
 
 ### T-35 in detail
 

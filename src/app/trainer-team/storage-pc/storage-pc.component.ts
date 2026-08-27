@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -28,7 +27,6 @@ import { Subscription } from 'rxjs';
 export class StoragePcComponent implements OnInit, OnDestroy {
 
     constructor(private trainerService: TrainerService,
-                private darkModeService: DarkModeService,
                 private themeService: ThemeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,

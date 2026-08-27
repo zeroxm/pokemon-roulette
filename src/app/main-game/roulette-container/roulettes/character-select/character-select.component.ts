@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import {TranslatePipe} from '@ngx-translate/core';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { DarkModeService } from '../../../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../../../services/theme-service/theme.service';
 import { SettingsService } from '../../../../services/settings-service/settings.service';
 import { GenerationItem } from '../../../../interfaces/generation-item';
@@ -22,7 +21,6 @@ export class CharacterSelectComponent implements OnInit, OnDestroy {
 
   constructor(private generationService: GenerationService,
               private trainerService: TrainerService,
-              private darkModeService: DarkModeService,
               private themeService: ThemeService,
               private settingsService: SettingsService
   ) { }

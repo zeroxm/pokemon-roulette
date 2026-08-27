@@ -5,7 +5,6 @@ import { GameStateService } from '../services/game-state-service/game-state.serv
 import { TranslatePipe } from '@ngx-translate/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 
@@ -23,7 +22,6 @@ export class SettingsButtonComponent {
 
   constructor(private router: Router,
               private gameStateService: GameStateService,
-              private darkModeService: DarkModeService,
               private themeService: ThemeService) {
       this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed()).subscribe(state => {
       this.wheelSpinning = state;

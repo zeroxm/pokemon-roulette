@@ -5,7 +5,6 @@ import { bootstrapBook } from '@ng-icons/bootstrap-icons';
 import { of } from 'rxjs';
 
 import { PokedexComponent } from './pokedex.component';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
@@ -19,7 +18,6 @@ describe('PokedexComponent', () => {
   let pokedexServiceSpy: jasmine.SpyObj<PokedexService>;
   let generationServiceSpy: jasmine.SpyObj<GenerationService>;
   let pokemonServiceSpy: jasmine.SpyObj<PokemonService>;
-  let darkModeServiceSpy: jasmine.SpyObj<DarkModeService>;
 
   beforeEach(async () => {
     modalServiceSpy = jasmine.createSpyObj('NgbModal', ['open', 'dismissAll']);
@@ -36,10 +34,6 @@ describe('PokedexComponent', () => {
     pokemonServiceSpy = jasmine.createSpyObj('PokemonService', [], {
       nationalDexPokemon: [{ pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 }]
     });
-    darkModeServiceSpy = jasmine.createSpyObj('DarkModeService', [], {
-      darkMode$: of(false)
-    });
-
     await TestBed.configureTestingModule({
       imports: [PokedexComponent, TranslateModule.forRoot()],
       providers: [
@@ -48,7 +42,6 @@ describe('PokedexComponent', () => {
         { provide: PokedexService, useValue: pokedexServiceSpy },
         { provide: GenerationService, useValue: generationServiceSpy },
         { provide: PokemonService, useValue: pokemonServiceSpy },
-        { provide: DarkModeService, useValue: darkModeServiceSpy }
       ]
     }).compileComponents();
 
