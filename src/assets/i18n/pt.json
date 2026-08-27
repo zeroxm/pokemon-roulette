@@ -96,7 +96,15 @@
     "rock": "Insígnia de Pedra",
     "ice_galar": "Insígnia de Gelo",
     "dark": "Insígnia Noturna",
-    "dragon": "Insígnia de Dragão"
+    "dragon": "Insígnia de Dragão",
+    "bug_paldea": "Insígnia do Inseto",
+    "grass_paldea": "Insígnia de Planta",
+    "electric": "Insígnia Elétrica",
+    "water_paldea": "Insígnia de Água",
+    "normal": "Insígnia Normal",
+    "ghost_paldea": "Insígnia de Fantasma",
+    "psychic_paldea": "Insígnia Psíquica",
+    "ice_paldea": "Insígnia de Gelo"
   },
   "credits": {
     "title": "Créditos e Agradecimentos",

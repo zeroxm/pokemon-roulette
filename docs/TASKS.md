@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**1 / 35 complete.** Findings cleared: 0 of 46 `SEC` · 0 of 26 `CQ`.
+**2 / 35 complete.** Findings cleared: 1 of 46 `SEC` · 0 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -78,7 +78,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-07 | Delete `GENERATION_GAME_CONFIG` and the `initializeStates` params | `CQ-22` | low | [ ] |
 | T-08 | Fix the no-op `Array.isArray` ternary in 3 battle roulettes (decide intended behaviour) | `CQ-19` | low | [ ] |
 | **Phase 3 — data and i18n (no build needed)** ||||
-| T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [ ] |
+| T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [x] |
 | T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [ ] |
 | T-11 | Repopulate the gen-8 fishing table; remove the duplicate id | `SEC-13` | low | [ ] |
 | T-12 | Replace the 404 scaffold with real translated content | `SEC-18` | low | [ ] |
