@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**4 High · 13 Medium · 27 Low** (10 detailed as `SEC-20`–`SEC-29`, 17 tabulated under `SEC-30`).
+**3 High · 13 Medium · 27 Low** (10 detailed as `SEC-20`–`SEC-29`, 17 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -19,9 +19,9 @@ Three themes dominate:
    emission rather than tracking battle entry/exit, so any interrupt mid-battle double-applies sticky
    forms and cancels an active mega. A mega-evolved Pokémon moved to the PC mid-battle is stranded
    permanently *and* disables mega evolution for the rest of the run.
-3. **The wheel has no failure envelope.** `spinWheel()` sets the global `wheelSpinning` gate before
-   any operation that can throw, and has no `try/finally`. Because that one flag gates nearly every
-   control in the app, a single throw inside the spin bricks the session until reload.
+3. ~~The wheel has no failure envelope~~ — **cleared by `T-03`**: the spin is gated on translations
+   being ready, reads a single array, and releases `wheelSpinning` on any throw. Six regression tests
+   added, verified to fail against the pre-fix component.
 
 **Security specifically: the app is clean.** Zero hits for `innerHTML`, `bypassSecurityTrust*`,
 `eval`, or `document.write` across `src/`. All sprite URLs originate from static local tables or
@@ -54,39 +54,6 @@ authored (`SEC-17`) and English literals bypassing the pipe (`SEC-22`, `SEC-23`)
 ---
 
 # High
-
-### SEC-01 — Spinning the wheel before translations load throws and permanently soft-locks the game
-- **Severity:** High
-- **Location:** `src/app/wheel/wheel.component.ts:272-290`
-- **Status:** [ ] open
-
-**What:** `spinWheel()` sets `spinning = true` and `setWheelSpinning(true)` (lines 277-278) *before*
-any operation that can throw, and has no `try/catch` or `finally`. When `translatedItems` is empty,
-`getRandomWeightedIndex()` returns `translatedItems.length - 1` → `-1` (line 364), and line 290
-dereferences `this.items[-1].weight` → `TypeError`.
-
-**Why it matters:** `wheelSpinning` gates nearly every control in the app — rare candy and mega stone
-interrupts (`main-game.component.ts:74,82`), the settings button, the restart button, the coffee and
-credits buttons, the storage PC, and the container. All become permanently inert. `spinning` stays
-`true`, so `spinWheel()` early-returns forever. **Only a page reload recovers.**
-
-**Failure scenario:** Translations load over HTTP (`app.config.ts:50-56`) and bootstrap does not block
-on that fetch, but the template renders the clickable canvas and Spin button unconditionally
-(`wheel.component.html:4-20`) and the spacebar handler is live (`wheel.component.ts:367`). A user on a
-slow connection who hits space during that window bricks the session. The same shape occurs whenever
-`translatedItems` is shorter than `items` — e.g. an `items` change racing a `translateService.use()`
-language switch.
-
-**Suggested fix:** Disable the canvas and button until `translatedItems.length === items.length`;
-derive `getRandomWeightedIndex` and the `spinWheel` angle loop from the **same** array; wrap the spin
-body so `spinning` / `setWheelSpinning(false)` reset in a `finally`. Guard the `-1` return explicitly.
-
-**Note:** the existing tests cannot catch this — `wheel.component.spec.ts:42,70,108` assigns
-`(component as any).translatedItems = component.items` directly, bypassing the real sync path, and
-neither the empty-array nor the zero-total-weight case is covered. See also `SEC-28`, a second route
-to the same crash.
-
----
 
 ### SEC-02 — A mega-evolved Pokémon moved to the PC mid-battle is stranded forever and permanently disables mega evolution
 - **Severity:** High
@@ -517,19 +484,25 @@ This is the closest thing to a security finding in the report. Also note this ke
 - **Severity:** Low (**latent**) · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:903-913, 989-997`
 
 Branches on `length === 1` vs. else. If `getEvolutions()` returns `[]`, `auxPokemonList` is empty and
-`select-from-pokemon-list` is pushed → a zero-item wheel → **the exact crash in `SEC-01`**, with the
-same permanent soft-lock. `canEvolve` only checks the chain key exists (`evolution.service.ts:20-22`)
-while `getEvolutions` drops unresolvable targets, so the two can disagree in principle. All 484
-`evolutionChain` entries were checked against the Dex and forms tables — **every target resolves
-today**, so this is unreachable now. **Fix:** guard `if (length === 0) return this.finishCurrentState();`
-in both methods.
+`select-from-pokemon-list` is pushed → a zero-item wheel. `canEvolve` only checks the chain key exists
+(`evolution.service.ts:20-22`) while `getEvolutions` drops unresolvable targets, so the two can
+disagree in principle. All 484 `evolutionChain` entries were checked against the Dex and forms tables —
+**every target resolves today**, so this is unreachable now.
+
+**Severity reduced by `T-03`.** This originally inherited the permanent soft-lock from the old
+`spinWheel`. The wheel now refuses to spin when it has nothing to spin, so the consequence is a
+non-spinnable wheel and a stalled game state rather than a bricked UI — recoverable by restarting
+instead of only by reload.
+
+**Fix:** guard `if (length === 0) return this.finishCurrentState();` in both methods.
 
 ### SEC-29 — Karma config omits `src/assets`, making the real translation path untestable
 - **Severity:** Low · **Location:** `angular.json:91-96`
 
 The `test` target's `assets` includes only `public`. The i18n JSON is unavailable to Karma, so specs
-use `TranslateModule.forRoot()` with no loader and the real translation sync path — the one that
-causes `SEC-01` — cannot be exercised as configured.
+use `TranslateModule.forRoot()` with no loader, and the real asynchronous translation path cannot be
+exercised as configured. `T-03` covered the readiness gate with a synchronous stand-in, but the
+async-loader case is still untested.
 
 ### SEC-30 — Remaining low-severity items
 - **Severity:** Low
@@ -558,8 +531,8 @@ causes `SEC-01` — cannot be exercised as configured.
 
 # Test coverage gaps
 
-Test coverage is the common thread under `SEC-01` through `SEC-07` — every High finding sits in an
-untested path.
+Test coverage is the common thread under the High findings — every one sits in an untested path.
+`T-03` added the first regression tests for one of them.
 
 - **67 spec files; 40 (60%) contain one `it()` or fewer** — i.e. pure `should create` scaffolds.
 - **No spec at all** for `sound-fx.service.ts` (367 lines, four parallel maps),

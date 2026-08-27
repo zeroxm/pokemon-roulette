@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**4 / 36 complete.** Findings cleared: 2 of 46 `SEC` · 4 of 26 `CQ`.
+**5 / 36 complete.** Findings cleared: 3 of 46 `SEC` · 4 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -41,7 +41,7 @@ of everything.
 | --- | --- |
 | `npm ci` | 996 packages, exit 0 |
 | `npm run build` | **pass** (1.47 MB initial, 3.9 s) |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **230 / 230 pass** |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **234 / 234 pass** (baseline was 230; `T-05` −2, `T-03` +6) |
 
 Every task below must leave both green. Re-run before each merge.
 
@@ -70,7 +70,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-01 | Install `npm`, `npm ci`, capture green build + test baseline; pin `.nvmrc` to 24 | — | none | [x] |
 | T-02 | Enable `noUnusedLocals` + `noUnusedParameters`; fix all 27 diagnostics (app + spec) | `CQ-21`, `CQ-24` | low | [x] |
 | **Phase 1 — urgent standalone bug** ||||
-| T-03 | Guard the wheel spin: disable until translations ready, single-array spin math, `finally` resets `wheelSpinning` | `SEC-01` | med | [ ] |
+| T-03 | Guard the wheel spin: readiness gate, single-array spin math, gate released on any throw, 6 regression tests | `SEC-01` | med | [x] |
 | **Phase 2 — mechanical deletions** ||||
 | T-04 | Delete 6 dead methods + 3 orphan JSON form files | `CQ-19`, `SEC-30n` | low | [ ] |
 | T-05 | Delete `DarkModeService`, `DarkModeToggleComponent`, 14 dead injections, legacy CSS + storage key | `CQ-05`, `SEC-19` | low | [x] |

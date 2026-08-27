@@ -15,6 +15,7 @@
     </div>
     <button class="btn my-3"
             [ngClass]="(darkMode | async) ? 'btn-light' : 'btn-dark'"
+            [disabled]="!isReady"
             (click)="spinWheel()">
             {{ 'wheel.spin' | translate }}
     </button>
