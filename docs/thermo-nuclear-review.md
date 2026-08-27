@@ -1,0 +1,670 @@
+# Thermo-Nuclear Review — correctness, bugs, security
+
+Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (no branch diff)
+
+## Summary
+
+**4 High · 14 Medium · 28 Low** (11 detailed as `SEC-19`–`SEC-29`, 17 tabulated under `SEC-30`).
+Three reviewers audited the codebase in parallel across game-flow
+core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
+`file:line` was independently re-verified against the source before inclusion.
+
+Three themes dominate:
+
+1. **Nothing resets on restart.** `RouletteContainerComponent` is never destroyed (no `@if` guards it
+   in `main-game.component.html:28`), and neither reset path clears its ~15 mutable fields or
+   `TrainerService`'s mega-battle bookkeeping. State leaks across runs and silently swallows player
+   actions. Two independent reviewers reached this from opposite directions (`SEC-04`, `SEC-05`).
+2. **Battle form apply/revert is not transactional.** `syncBattleForms` reacts to *every* state
+   emission rather than tracking battle entry/exit, so any interrupt mid-battle double-applies sticky
+   forms and cancels an active mega. A mega-evolved Pokémon moved to the PC mid-battle is stranded
+   permanently *and* disables mega evolution for the rest of the run.
+3. **The wheel has no failure envelope.** `spinWheel()` sets the global `wheelSpinning` gate before
+   any operation that can throw, and has no `try/finally`. Because that one flag gates nearly every
+   control in the app, a single throw inside the spin bricks the session until reload.
+
+**Security specifically: the app is clean.** Zero hits for `innerHTML`, `bypassSecurityTrust*`,
+`eval`, or `document.write` across `src/`. All sprite URLs originate from static local tables or
+PokéAPI ids and pass through Angular's URL sanitizer. No secrets in the bundle beyond the public GA
+id. The `localStorage` parsers lack schema validation but cannot reach `Object.prototype` (object
+spread copies `__proto__` as an own data property). The findings here are **correctness and
+availability** problems, not vulnerabilities — with the single partial exception of `SEC-27`.
+
+**i18n parity is excellent** and should not be re-investigated: all six locale files carry exactly
+**2,188 keys** with zero divergence. The gaps are on the *code* side — keys referenced but never
+authored (`SEC-16`, `SEC-17`) and English literals bypassing the pipe (`SEC-22`, `SEC-23`).
+
+---
+
+## Provenance and limitations
+
+- The `thermo-nuclear-review` skill is gated to explicit user invocation and refused to load inside
+  the subagents, so all three ran under **the rubric's own stated fallback** (its item 2: act as a
+  diff-scoped reviewer with the same rigor). Same standards, reached via the fallback path.
+- The skill is normally diff-scoped. `main` was clean with no diff against `origin/main`, so
+  reviewers were explicitly instructed to treat all of `src/` as the change under review.
+- **Nothing was executed.** `npm` is not installed on this machine and `node_modules/` is absent, so
+  the build and test suite could not run. Every finding is static analysis. No claim is made about
+  any test passing or failing. Standalone `node` scripts *were* used to verify data-table integrity,
+  the i18n key graph, and the odds math.
+- No PR exists, so the rubric's PR-discussion / BugBot step was skipped.
+- Findings marked **latent** are real defects with no currently reachable trigger. They are reported
+  because the guard that makes them unreachable is incidental, not designed.
+
+---
+
+# High
+
+### SEC-01 — Spinning the wheel before translations load throws and permanently soft-locks the game
+- **Severity:** High
+- **Location:** `src/app/wheel/wheel.component.ts:272-290`
+- **Status:** [ ] open
+
+**What:** `spinWheel()` sets `spinning = true` and `setWheelSpinning(true)` (lines 277-278) *before*
+any operation that can throw, and has no `try/catch` or `finally`. When `translatedItems` is empty,
+`getRandomWeightedIndex()` returns `translatedItems.length - 1` → `-1` (line 364), and line 290
+dereferences `this.items[-1].weight` → `TypeError`.
+
+**Why it matters:** `wheelSpinning` gates nearly every control in the app — rare candy and mega stone
+interrupts (`main-game.component.ts:74,82`), the settings button, the restart button, the coffee and
+credits buttons, the storage PC, and the container. All become permanently inert. `spinning` stays
+`true`, so `spinWheel()` early-returns forever. **Only a page reload recovers.**
+
+**Failure scenario:** Translations load over HTTP (`app.config.ts:50-56`) and bootstrap does not block
+on that fetch, but the template renders the clickable canvas and Spin button unconditionally
+(`wheel.component.html:4-20`) and the spacebar handler is live (`wheel.component.ts:367`). A user on a
+slow connection who hits space during that window bricks the session. The same shape occurs whenever
+`translatedItems` is shorter than `items` — e.g. an `items` change racing a `translateService.use()`
+language switch.
+
+**Suggested fix:** Disable the canvas and button until `translatedItems.length === items.length`;
+derive `getRandomWeightedIndex` and the `spinWheel` angle loop from the **same** array; wrap the spin
+body so `spinning` / `setWheelSpinning(false)` reset in a `finally`. Guard the `-1` return explicitly.
+
+**Note:** the existing tests cannot catch this — `wheel.component.spec.ts:42,70,108` assigns
+`(component as any).translatedItems = component.items` directly, bypassing the real sync path, and
+neither the empty-array nor the zero-total-weight case is covered. See also `SEC-28`, a second route
+to the same crash.
+
+---
+
+### SEC-02 — A mega-evolved Pokémon moved to the PC mid-battle is stranded forever and permanently disables mega evolution
+- **Severity:** High
+- **Location:** `src/app/services/trainer-service/trainer.service.ts:413-446`
+- **Status:** [ ] open
+
+**What:** `revertMegaForms()` iterates **`this.trainerTeam` only** (line 426), `break`s after the
+first match (line 437), and clears `megaBattleBaseId` / `megaBattleStoneName` /
+`megaBattleOriginalPokemon` **only inside `if (reverted)`** (lines 440-444). By contrast
+`revertBattleForms()` correctly sweeps team *and* `storedPokemon` (lines 379-380); the mega path gets
+no storage pass. The PC is open during battles — `storage-pc.component.ts:77-99` blocks only on
+`wheelSpinning` and only during `team-rocket-encounter`.
+
+**Failure scenario:** Team has Charizard (id 6) + Charizardite X. Enter `gym-battle`, tap the stone →
+slot 0 becomes id 10034 and the base is snapshotted. Before finishing, drag Mega Charizard X into the
+PC. On battle exit `revertMegaForms()` finds no team member with base id 6 → `reverted === false` →
+returns without clearing state. Two permanent consequences:
+
+1. **Mega Charizard X stays in storage forever.** No other path reverts it —
+   `replaceTemporaryForms` handles only Palafin, `applyStickyFormsToCollection` only sticky forms.
+   Id 10034 is not in the National Dex, so `getPokemonById(10034)` returns `undefined` and the
+   stranded Pokémon is outside normal lookup entirely.
+2. **`megaBattleBaseId` stays `6` forever**, so the guard at
+   `roulette-container.component.ts:798` (`if (getMegaBattleBaseId() !== null) return;`) rejects
+   **every** future mega-stone activation for the rest of the run, for any Pokémon. The feature dies
+   silently with no user-visible reason.
+
+**Suggested fix:** Scan `trainerTeam` **and** `storedPokemon`; drop the `break` so every matching mega
+form reverts; clear the three `megaBattle*` fields **unconditionally** at battle exit. They are
+battle-scoped bookkeeping — leaving them set on a missed revert is what converts a cosmetic miss into
+a permanent feature outage.
+
+---
+
+### SEC-03 — Using a Rare Candy during a battle reverts battle forms mid-battle, double-toggling sticky forms and cancelling an active mega
+- **Severity:** High
+- **Location:** `src/app/services/trainer-service/trainer.service.ts:165-172`
+- **Status:** [ ] open
+
+**What:** `syncBattleForms` applies forms on any battle state and **reverts on every other state**,
+with no notion of "still inside a battle". The Rare Candy interrupt is gated only on `wheelSpinning`
+(`main-game.component.ts:73-79`), not on battle state — unlike the mega stone path, which does
+re-check `isBattleState` at `roulette-container.component.ts:786-788`.
+
+**Failure scenario:** Rare candy during a gym battle → `handleRareCandyEvolution`
+(`roulette-container.component.ts:164-171`) calls `repeatCurrentState()` then `chooseWhoWillEvolve`,
+pushing `evolve-pokemon` + `select-from-pokemon-list`. Pop order is `select-from-pokemon-list` →
+`evolve-pokemon` → `gym-battle`, so `select-from-pokemon-list` is emitted **while the battle is still
+in progress**:
+
+1. `syncBattleForms('select-from-pokemon-list')` → `revertBattleForms()` → the active mega is
+   reverted and `megaBattleBaseId` nulled. The mega vanishes mid-battle and `calcVictoryOdds()`
+   (`base-battle-roulette.component.ts:41-44`) silently drops the odds.
+2. When `gym-battle` is popped again, `applyBattleForms()` runs a **second** time.
+   `applyStickyFormsToCollection` (lines 472-503) is a *toggle*, not an idempotent set: Aegislash goes
+   Shield → Blade → **Shield**, never reaching Blade for that battle. Ogerpon (`mode: 'random'`,
+   line 490) re-rolls a second mask.
+
+The sticky-form damage is **not transient** — `revertBattleForms` deliberately does not revert sticky
+forms (line 376), so the team ends the run in a form the game believes it toggled once but toggled
+twice.
+
+**Suggested fix:** Track battle *entry/exit* with a `battleFormsApplied` flag — apply only on a
+false→true transition, revert only on true→false. That also makes apply idempotent, the invariant
+`applyStickyFormsToCollection` currently violates. Separately, gate the Rare Candy interrupt on
+`isBattleState(currentGameState)` as the mega stone path already does.
+
+---
+
+### SEC-04 — Game reset leaves ~15 container fields dirty, corrupting the next run
+- **Severity:** High
+- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:181-211`
+- **Status:** [ ] open
+
+**What:** `RouletteContainerComponent` is a static element in `main-game.component.html:28-30` with no
+`@if`, so it is **never re-created**. Both reset paths reset only services:
+`main-game.component.ts:89-95` resets trainer/team/items/badges/gameState and nothing in the
+container; `resetGameAction()` (line 894-898) clears exactly one field (`evolutionCredits`); the
+sidebar restart (`main-game.component.html:12`) does not even do that.
+
+Fields that survive a restart: `megaSelectionMode`, `pendingMegaAwardPokemon`, `stolenPokemon`,
+`expShareUsed`, `expSharePokemon`, `multitaskCounter`, `runningShoesUsed`, `respinReason`,
+`auxPokemonList`, `auxItemList`, `customWheelTitle`, `currentContextPokemon`, `pkmnIn`, `pkmnOut`,
+and `evolutionCredits` on the sidebar path.
+
+**Failure scenarios** (three concrete, all traced):
+
+1. **A player's evolution is silently swallowed.** Win gym 8 with ≥2 mega-eligible Pokémon →
+   `megaSelectionMode = 'battle-award-pokemon'` (line 710-713) and the mega wheel renders. Player hits
+   Restart instead of spinning. In the new run, the first multi-candidate evolution calls
+   `continueWithPokemon` → `handleMegaSelection`, still in `'battle-award-pokemon'` mode, which
+   returns `true` and **returns before the `switch` at line 368**. `startMegaStoneAward` then finds
+   zero available stones and returns. The `evolve-pokemon` state was already popped at line 362. Net:
+   the evolution never happens, no modal, no feedback, and the run continues one state ahead.
+2. **Free Pokémon across a restart.** `stolenPokemon` (set at line 377) survives; hit a Team Rocket
+   encounter in the new run and roll "defeat" → `teamRocketDefeated` (lines 566-578) adds the
+   *previous run's* Pokémon to the new team.
+3. **Pity counter carries over.** `evolutionCredits` is the guaranteed-evolution counter
+   (`check-evolution-roulette.component.ts:28-44`). Accumulate 5, restart via the sidebar → the first
+   `check-evolution` roll of the new run is already near-guaranteed. That `resetGameAction` clears it
+   and the sidebar path does not is evidence the field was already known to need clearing.
+
+**Suggested fix:** Add a `private resetContainerState()` reinitialising every mutable field, and route
+**both** restart entry points through it. Add a spec that dirties every field, resets, and asserts
+each is back to its initial value.
+
+---
+
+# Medium
+
+### SEC-05 — `resetGame()` does not clear mega-battle state, leaking it into the next run
+- **Severity:** Medium
+- **Location:** `src/app/services/trainer-service/trainer.service.ts:346-350`
+- **Status:** [ ] open
+
+**Found independently by two reviewers** — weight accordingly.
+
+**What:** `resetTeam()` clears the arrays but leaves `megaBattleBaseId`, `megaBattleStoneName`, and
+`megaBattleOriginalPokemon` (declared lines 60-62) untouched. There is no `resetMegaBattleState`.
+
+**Failure scenario:** Player mega-evolves in gym 3, then restarts mid-battle. `megaBattleBaseId`
+survives. In the new run, the guard at `roulette-container.component.ts:798` sees a non-null base id
+and refuses the very first mega stone the player earns.
+
+Same failure mode as `SEC-02` but reached by a far more ordinary action. Rated Medium rather than High
+only because `resetItems()` clears the stones, so `resolveMegaStoneForBattle` returns `null` and no
+*incorrect* form is applied — the damage is confined to the blocked-activation guard.
+
+**Suggested fix:** Add `resetMegaBattleState()` nulling all three fields; call it from `resetTeam()`.
+
+---
+
+### SEC-06 — Mega-stone second stage pushes its state after the pop, deferring the reward and clobbering the wheel title
+- **Severity:** Medium
+- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:361-366`
+- **Status:** [ ] open
+
+**What:** `continueWithPokemon` pops first (line 362) and only then runs `handleMegaSelection`
+(line 364). By the time `startMegaStoneAward` pushes `'select-from-item-list'` (line 732), the stack
+has already advanced past it.
+
+**Failure scenario:** Gym win with ≥2 mega candidates, one holding ≥2 unowned stones:
+1. `gymBattleResult` pushes `check-evolution`, then `select-from-pokemon-list`, then pops → candidate wheel.
+2. Player picks → line 362 pops **`check-evolution`**; that roulette is now on screen.
+3. `startMegaStoneAward` sets `customWheelTitle = 'game.main.roulette.mega.whichStone'` (line 730) and
+   pushes `select-from-item-list` — now buried *under* the live `check-evolution`.
+4. Player spins check-evolution → `chooseWhoWillEvolve` overwrites `customWheelTitle` with
+   `'game.main.roulette.evolve.who'` (line 326).
+5. When the stone wheel finally surfaces, it renders titled **"Who will evolve?"** over mega stones.
+
+**Suggested fix:** Move `finishCurrentState()` to *after* the `handleMegaSelection` check, and have
+`handleMegaSelection` call it itself only when it does not push a follow-up state. Apply the same
+ordering review to `continueWithItem` (lines 389-395).
+
+---
+
+### SEC-07 — Exp-share silently skips every other trigger after a dry `secondEvolution()`
+- **Severity:** Medium
+- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:414-416`
+- **Status:** [ ] open
+
+**What:** `secondEvolution` returns early when nothing else can evolve **without clearing
+`expShareUsed`**. The flag is only ever cleared by the re-entrancy guard at lines 980-983, which is
+meant to be consumed by the *bonus* evolution that never happened.
+
+**Failure scenario:**
+- Evolution A: line 976-979 sets `expShareUsed = true`, calls `secondEvolution()` → 0 candidates → returns. Flag stuck.
+- Evolution B: line 976 is false, so 980-983 fires — flag cleared, **no bonus evolution**.
+- Evolution C: bonus works again.
+
+After any turn where the exp-share had no second target, the next evolution silently loses its bonus.
+
+**Suggested fix:** Reset `expShareUsed = false; expSharePokemon = null;` before the early return, and
+on the equivalent path in `evolveSecondPokemon` (lines 986-998).
+
+---
+
+### SEC-08 — Mega revert restores a stale snapshot, discarding in-battle changes
+- **Severity:** Medium
+- **Location:** `src/app/services/trainer-service/trainer.service.ts:404, 431-434`
+- **Status:** [ ] open
+
+**What:** Apply snapshots `structuredClone(trainerTeam[index])`; revert restores that clone, carrying
+forward only `shiny` (line 432) and forcing `sprite = null` (line 433).
+
+**Failure scenario:** Any in-battle mutation of that slot is lost. `makeShiny()` survives via line 432,
+but `power`, `type1`/`type2`, and a resolved `sprite` do not. The forced `sprite = null` also triggers
+a redundant PokéAPI round-trip on every apply *and* revert (lines 408, 434, 496, 534) for a sprite the
+app already had.
+
+**Suggested fix:** Store the base **id** and re-derive from `pokemonMegaForms` / the Dex on revert; at
+minimum carry the resolved `sprite` across instead of nulling it.
+
+---
+
+### SEC-09 — `loadPokemonSpriteIfMissing` has no error handler
+- **Severity:** Medium
+- **Location:** `src/app/services/trainer-service/trainer.service.ts:505-511`
+- **Status:** [ ] open
+
+**What:** `subscribe(response => …)` with **no error callback**. `getPokemonSprites`
+(`pokemon.service.ts:37-50`) re-raises via `throwError` after `retry({count: 3, delay: 1000})`. This is
+the **only** subscriber to `getPokemonSprites` in the codebase, so the error path is unhandled
+everywhere.
+
+**Failure scenario:** PokéAPI down or user offline. Four failed requests later RxJS delivers an error
+with no handler, surfacing through Angular's `ErrorHandler`. `pokemon.sprite` stays `null` and nothing
+ever retries — the Pokémon renders as a placeholder for the remainder of the run. (Whether the error
+reaches `window.onerror` or is swallowed by Angular's default handler could not be confirmed without
+executing; the null-sprite half is certain from the code.)
+
+**Suggested fix:** Add an error callback that logs and leaves the placeholder; consider a one-shot
+retry when the Pokédex or team is next opened.
+
+---
+
+### SEC-10 — Font-size clamping for large wheels never applies
+- **Severity:** Medium
+- **Location:** `src/app/wheel/wheel.component.ts:66, 110-123`
+- **Status:** [ ] open
+
+**What:** `updateWheelDimensions()` is called only from the constructor (line 66) and `handleResize()`
+(line 84). At construction `@Input() items` is still `[]`, so the `items.length >= 32` / `>= 16`
+clamps at lines 118-122 are dead. Neither `ngAfterViewInit` nor `ngOnChanges` re-runs it.
+
+**Failure scenario:** The gen-9 cave table has 73 entries and gen-9 fishing has 54. Those wheels draw
+at `fontSize = wheelWidth / 24` (~21px on a 500px wheel) instead of the intended 10px cap, so labels
+overlap into illegibility — until the user resizes the window, at which point they snap correct.
+
+**Suggested fix:** Call `updateWheelDimensions()` at the top of `drawWheel()`, or from `ngOnChanges`.
+
+---
+
+### SEC-11 — Wheel goes blank after any window resize
+- **Severity:** Medium
+- **Location:** `src/app/wheel/wheel.component.ts:83-91`
+- **Status:** [ ] open
+
+**What:** `handleResize()` updates `wheelWidth`/`canvasHeight` then *synchronously* calls `drawWheel()`,
+which reads `this.wheelCanvas.width` — still the old value. Change detection runs *after* the handler
+and writes the new `[width]`/`[height]`. Assigning `canvas.width` resets the drawing context and
+clears everything just painted. Nothing redraws afterwards.
+
+**Failure scenario:** On mobile, scrolling collapses the URL bar → `resize` fires → the wheel
+disappears entirely and stays blank until the next spin. Desktop resize and orientation change do the
+same.
+
+**Suggested fix:** Set `wheelCanvas.width/height` imperatively in `handleResize()` before drawing, or
+defer the redraw via `queueMicrotask` / `afterNextRender`.
+
+---
+
+### SEC-12 — `WheelComponent` has no `ngOnDestroy`
+- **Severity:** Medium
+- **Location:** `src/app/wheel/wheel.component.ts:21, 303, 317`
+- **Status:** [ ] open
+
+**What:** The class implements only `AfterViewInit, OnChanges`. `animate()` re-schedules itself via
+`requestAnimationFrame` with no destroyed-check, and the container's `@switch` destroys the roulette —
+and its `<app-wheel>` — on every state transition.
+
+**Failure scenario:** A transition landing mid-spin leaves the loop running on a detached canvas, still
+firing click SFX (line 328), then emitting `selectedItemEvent` (line 320) from a dead component. This
+is also a second route to a stuck `wheelSpinning`: `setWheelSpinning(false)` at line 321 is the only
+thing that clears it, and nothing guarantees it runs.
+
+**Suggested fix:** Implement `OnDestroy`, cancel the stored rAF id, and clear `setWheelSpinning(false)`.
+
+---
+
+### SEC-13 — Gen-8 fishing table has 4 entries, one duplicated
+- **Severity:** Medium
+- **Location:** `src/app/main-game/roulette-container/roulettes/fishing-roulette/fish-by-generation.ts:9`
+- **Status:** [ ] open
+
+**What:** `8: [833, 833, 846, 847],` — verified counts across all generations are
+`1:19 2:21 3:21 4:30 5:40 6:36 7:40 8:4 9:54`. Gen 8 is an order of magnitude short, and `833`
+(Chewtle) appears twice, giving it 50% weight on that wheel.
+
+**Failure scenario:** A Galar playthrough's fishing roulette shows the same 3 Pokémon repeatedly, half
+the time the same one.
+
+**Suggested fix:** Populate the gen-8 table properly and de-duplicate. The gym / elite-four / champion
+tables were verified complete for all nine generations, so this is an isolated data gap.
+
+---
+
+### SEC-14 — 2,401 sprite URLs pinned to a moving branch on a non-CDN host, with one error handler app-wide
+- **Severity:** Medium
+- **Location:** throughout the data tables, e.g. `src/app/services/badges-service/badges-data.ts`, `gym-battle-roulette.component.ts:49`
+- **Status:** [ ] open
+
+**What:** 2,401 references to
+`https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/…`, plus 12 to
+`archives.bulbagarden.net`. The only `(error)` handler in the entire app is
+`pokedex-detail-modal.component.html:14`.
+
+**Why it matters:** `raw.githubusercontent.com` is a source-fetch endpoint with unauthenticated
+per-IP rate limits, not a CDN with an availability SLA, and `refs/heads/master` is a moving target.
+Failure modes, all silent: a user behind corporate NAT hits 429 and gets broken images game-wide;
+PokéAPI renames the default branch and *every* sprite breaks at once; a flaky connection produces a
+game full of alt text.
+
+**Suggested fix:** At minimum a shared `(error)` handler swapping in `place-holder-pixel.png`. Better:
+pin a commit SHA instead of `refs/heads/master`, and consider vendoring the sprites into `public/`.
+
+---
+
+### SEC-15 — `mega-evolution-animation-modal.component.css` is at ~90% of the build-breaking budget
+- **Severity:** Medium
+- **Location:** `src/app/main-game/roulette-container/roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component.css`
+- **Status:** [ ] open
+
+**What:** `angular.json:45-49` sets `anyComponentStyle` `maximumWarning: 4kB`, `maximumError: 10kB`,
+and `defaultConfiguration: "production"` (line 65) means CI's `npm run build` enforces it. The file is
+10,954 raw bytes, ~9.0 kB minified — under the error but 2.25× the warning and roughly 1 kB from
+failing the build outright.
+
+**Why it matters:** The next feature added to that stylesheet blocks both CI and `npm run deploy` with
+a budget error rather than an obvious cause.
+
+**Suggested fix:** Split the animation styles (move keyframes into `src/styles.css` or a sibling
+component), or raise the budget deliberately.
+
+---
+
+### SEC-16 — Eight gen-9 badge translation keys are missing from all six locales
+- **Severity:** Medium
+- **Location:** `src/app/services/badges-service/badges-data.ts:97-105`
+- **Status:** [ ] open
+
+**What:** `badges.bug_paldea`, `badges.grass_paldea`, `badges.electric`, `badges.water_paldea`,
+`badges.normal`, `badges.ghost_paldea`, `badges.psychic_paldea`, `badges.ice_paldea` — **verified
+absent from all six locale files.**
+
+**Failure scenario:** A gen-9 playthrough shows the literal strings `badges.bug_paldea` etc. as badge
+tooltips (`badges.component.html:7,14,21,28,37,…`), for all 8 badges, in every language. Every other
+generation's badges resolve correctly.
+
+**Suggested fix:** Add the 8 keys to all six locale files.
+
+---
+
+### SEC-17 — `pokemon.unknown` is missing from all six locales
+- **Severity:** Medium
+- **Location:** `src/app/pokedex/pokedex-entry/pokedex-entry.component.ts:51`
+- **Status:** [ ] open
+
+**What:** `getPokemonById(id)?.text ?? 'pokemon.unknown'` — the fallback key is **verified absent**
+from every locale, so it renders as the raw string `pokemon.unknown` via
+`pokedex-entry.component.html:7`. Same pattern in `pokedex-detail-modal.component.ts`.
+
+**Suggested fix:** Add the key, or fall back to one that exists.
+
+---
+
+### SEC-18 — The 404 route ships the Angular scaffold
+- **Severity:** Medium
+- **Location:** `src/app/not-found/not-found.component.html:1`
+- **Status:** [ ] open
+
+**What:** The entire file is `<p>not-found works!</p>`.
+
+**Why it matters:** This is the `**` wildcard route (`app.routes.ts`), so it is what every mistyped
+path, stale bookmark, or bad deep link on the deployed GitHub Pages site renders — untranslated
+placeholder text, no way back to the game, no styling.
+
+**Suggested fix:** Real content plus `<app-main-game-button>`, with translated strings.
+
+---
+
+# Low
+
+### SEC-19 — `DarkModeService` is legacy-but-live and fights `ThemeService`
+- **Severity:** Low · **Location:** `src/app/services/dark-mode-service/dark-mode.service.ts:25`
+
+`theme.service.ts:10-17` documents `dark-mode`/`light-mode` as *"Legacy classes left by
+DarkModeService"* and strips them; line 82 deletes the `dark-mode` localStorage key. But
+`DarkModeService` is still instantiated by four **unused** constructor injections
+(`wheel.component.ts:53`, `items.component.ts:22`, `settings-button.component.ts:26`,
+`storage-pc.component.ts:31` — all four actually read `themeService.isDark$`). Its constructor
+immediately calls `enable()`/`disable()`, re-adding the legacy body class and re-writing the key
+`ThemeService` just deleted. It is visually harmless **only** because `body.theme-*` rules in
+`styles.css:19-34` come *after* `body.dark-mode`/`body.light-mode` (lines 7-15) at equal specificity —
+a source-order accident. **Fix:** delete the service and the four injections.
+
+> Correction to this audit's own brief: `media-query.ts` is **not** a 0-byte file. It is 69 bytes
+> containing `export const prefersDarkSchemeQuery`, correctly imported by `media-query.service.ts:2`.
+> The `wc -l` count of 0 reflects a missing trailing newline, not missing content.
+
+### SEC-20 — `SoundFxService` has create-with-no-dispose
+- **Severity:** Low · **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:21, 85`
+
+`sourceByHandle` is written by `createSoundFx` and never read for deletion — there is no dispose API.
+`WheelComponent`'s constructor mints a handle per instance and the wheel is recreated on every state;
+`StoragePcComponent` mints three. Entries are small strings, so this is slow unbounded growth rather
+than a crash. The other three maps *do* self-clean, and `decodedBufferCache` is keyed by `src` so it
+is bounded at 7. **Fix:** add `disposeSoundFx(handle)`, call from `ngOnDestroy`.
+
+### SEC-21 — `playSoundFxQueue` can await forever
+- **Severity:** Low · **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:170`
+
+Awaits `pendingEnded.promise`, resolved only via `source.onended`. If the tab is backgrounded Chrome
+suspends the `AudioContext` and `onended` may never fire; the listener stays registered and the queue
+never advances. Caller: `roulette-container.component.ts:815`. **Fix:** timeout or `visibilitychange`
+bail-out.
+
+### SEC-22 — `'Multitask x' + n` is a hardcoded English literal fed through the `translate` pipe
+- **Severity:** Low · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:132, 498`
+
+Rendered as `{{ respinReason | translate }}` (`main-adventure-roulette.component.html:2`,
+`elite-four-prep-roulette.component.html:2`). ngx-translate echoes the key on a miss, so all six
+locales show English "Multitask x2". Directly violates the CLAUDE.md rule that user-facing strings are
+never literals — and the sibling value on line 136 *is* a proper key. **Fix:** add
+`game.main.respin.multitask` to all six locales and use the pipe's parameter form.
+
+### SEC-23 — Hardcoded English `'Empty'`
+- **Severity:** Low · **Location:** `src/app/items/items.component.ts:68`
+
+Returns the literal for empty item slots — the only other user-facing string literal found. Also
+`getItemSprite`/`getItemText` are template-called getters running `translateService.instant` every
+change-detection cycle.
+
+### SEC-24 — `ModalQueueService` produces an unhandled rejection per dismissed modal
+- **Severity:** Low · **Location:** `src/app/services/modal-queue-service/modal-queue.service.ts:26`
+
+`modalRef.result.finally(...)` returns a *new* promise that adopts the rejection when the modal is
+dismissed (backdrop, Esc, X). Nothing handles it, so every dismissal logs an uncaught rejection.
+`open()` returns `scheduledOpen` (line 42) with no caller attaching `.catch`. **Fix:** `.catch(() => {})`
+on the tracking chain. *The `dismissAll()` desync concern was traced and is sound* — `activeModal` is
+nulled at line 47 and the queue's `.then(ok, () => undefined)` absorbs the rejection.
+
+### SEC-25 — Two roulettes bypass `ModalQueueService`
+- **Severity:** Low · **Location:** `champion-battle-roulette.component.ts:59,71`, `rival-battle-roulette.component.ts:60`
+
+Both open game-flow modals through raw `NgbModal` while gym and elite-four use the queue. CLAUDE.md
+states the queue is preferred for anything game flow triggers; modals opened outside it are invisible
+to it and can be stacked on by a queued open.
+
+### SEC-26 — Three `GameState` members have no `@switch` arm, and there is no `@default`
+- **Severity:** Low · **Location:** `src/app/main-game/roulette-container/roulette-container.component.html`
+
+`'evolve-pokemon'`, `'select-evolution'`, `'steal-pokemon'` — **verified zero `@case` arms and zero
+`@default`**. `'steal-pokemon'` is transient (popped immediately at line 379) so it never paints. But
+`'evolve-pokemon'` and `'select-evolution'` **do** paint: `showpkmnEvoModal` (lines 1009-1025) calls
+`finishCurrentState()` only inside the `modalRef.result` handler, so while the modal is open the game
+area behind it renders **nothing** — and with `lessExplanations` off and the modal queued behind
+another, the blank persists. **Fix:** add an `@default` rendering a neutral placeholder plus a dev
+console warning, so a future union member added without an arm fails loudly instead of blanking.
+
+### SEC-27 — `localStorage['language']` is unvalidated and reaches a fetch URL
+- **Severity:** Low · **Location:** `src/app/app.component.ts:24`
+
+Read and passed straight to `translate.use()`, which the loader interpolates into
+`./assets/i18n/${lang}.json` (`app.config.ts:53-55`). A crafted value (`../../../x`, or an absolute
+URL) redirects that fetch. Impact is low — it requires prior write access to the origin's storage,
+which implies existing XSS — but **a whitelist already exists at line 26 and simply is not applied.**
+This is the closest thing to a security finding in the report. Also note this key sits outside the
+`pokemon-roulette-settings` blob, inconsistent with `SettingsService`.
+
+### SEC-28 — `evolvePokemon` treats "zero evolutions" as "many", pushing an empty wheel
+- **Severity:** Low (**latent**) · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:903-913, 989-997`
+
+Branches on `length === 1` vs. else. If `getEvolutions()` returns `[]`, `auxPokemonList` is empty and
+`select-from-pokemon-list` is pushed → a zero-item wheel → **the exact crash in `SEC-01`**, with the
+same permanent soft-lock. `canEvolve` only checks the chain key exists (`evolution.service.ts:20-22`)
+while `getEvolutions` drops unresolvable targets, so the two can disagree in principle. All 484
+`evolutionChain` entries were checked against the Dex and forms tables — **every target resolves
+today**, so this is unreachable now. **Fix:** guard `if (length === 0) return this.finishCurrentState();`
+in both methods.
+
+### SEC-29 — Karma config omits `src/assets`, making the real translation path untestable
+- **Severity:** Low · **Location:** `angular.json:91-96`
+
+The `test` target's `assets` includes only `public`. The i18n JSON is unavailable to Karma, so specs
+use `TranslateModule.forRoot()` with no loader and the real translation sync path — the one that
+causes `SEC-01` — cannot be exercised as configured.
+
+### SEC-30 — Remaining low-severity items
+- **Severity:** Low
+
+| # | Finding | Location |
+| --- | --- | --- |
+| a | Greninja declares 3 mega forms but has 1 stone; `getMegaFormForStone` pairs by index so 2 are permanently unreachable. The **only** length mismatch across all 92 mega bases. | `pokemon-mega-forms.ts` base `658` |
+| b | `plusModifiers` divides by `trainerTeam.length` → `NaN` on an empty team; consuming loops use `i < NaN` so the X-Attack bonus is silently dropped rather than crashing. Fractional means always round up. | `base-battle-roulette.component.ts:65` |
+| c | `duration` is randomized once per component instance, not per spin, so every spin of a given wheel takes identical time. `totalRotations` *is* per-spin, so the intent was clearly per-spin variety. | `wheel.component.ts:41` |
+| d | `multitaskCounter` is decremented on *every* `adventure-continues` emission regardless of origin, so an escape rope consumes a multitask count and mislabels the spin. | `roulette-container.component.ts:130-138` |
+| e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
+| f | `resetGameAction()` emits the reset *before* `dismissAll()`; modal rejection handlers calling `finishCurrentState()` would pop the freshly-seeded stack. Not reachable — default backdrops block the restart control. | `roulette-container.component.ts:894-898` |
+| g | Pokédex `localStorage` entries are not shape-validated; individual entries cast unchecked. Not a security issue (see Summary). | `pokedex.service.ts:259-272` |
+| h | `distinctUntilChanged()` on `pokedex$` is a no-op — `updatePokedex` always emits a fresh object. | `pokedex.service.ts:31` |
+| i | `getItems()` returns the **live** mutable array while `getTeam()`/`getStored()` return copies. `usePotion` splices it directly then calls `removeItem`, which no-ops. Works by accident; one `OnPush` component away from a real bug. | `trainer.service.ts:207` |
+| j | `replaceForEvolution`/`performTrade` fail silently on an `indexOf` identity miss while the caller has already consumed the item and shows the modal. Latent. | `trainer.service.ts:174-205` |
+| k | `currentSegment` is translated twice — already-translated text piped through `\| translate` again. | `wheel.component.ts:343` + `.html:2` |
+| l | `check-evolution-roulette` emits `'gym-battle'` as `EventSource` unconditionally, so a failed post-Elite-Four roll shows gym-battle consolation copy. | `check-evolution-roulette.component.ts:29` |
+| m | `getTrainerSprite` indexes `[generation][gender]` unguarded. Cannot fire today (data covers 1-9). | `trainer.service.ts:81-83` |
+| n | `retreatRound()` is dead code — no callers anywhere in `src/`. | `game-state.service.ts:81-83` |
+| o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
+| p | `@angular/platform-browser-dynamic` is an unused dependency — zero references under `src/`. | `package.json` |
+| q | Settings `localStorage` has no per-field type validation (`{...defaults, ...stored}`). Not prototype pollution; impact cosmetic. | `settings.service.ts:82-85` |
+
+---
+
+# Test coverage gaps
+
+Test coverage is the common thread under `SEC-01` through `SEC-07` — every High finding sits in an
+untested path.
+
+- **67 spec files; 40 (60%) contain one `it()` or fewer** — i.e. pure `should create` scaffolds.
+- **No spec at all** for `sound-fx.service.ts` (367 lines, four parallel maps),
+  `modal-queue.service.ts`, or `base-battle-roulette.component.ts`.
+- **`trainer.service.spec.ts`** covers Palafin, sticky forms, and `commitTeamAndStorage` but has
+  **zero** tests for the entire mega pathway (`applyMegaForms`, `revertMegaForms`,
+  `resolveMegaStoneForBattle`, `getMegaFormForStone`, `forceMegaActivation`,
+  `hasActiveMegaFormInTeam`), nor for `addToTeam` overflow, `removeItem`, `performTrade`, or
+  `replaceForEvolution`. `SEC-02`, `SEC-05`, and `SEC-08` would all be caught by straightforward unit
+  tests here. The existing sticky-form tests drive only one battle-state transition, which is exactly
+  why `SEC-03`'s double-apply is invisible.
+- **`roulette-container.component.spec.ts`** (370 lines) has no coverage of the mega-stone award chain,
+  the running-shoes re-spin, multitask, exp-share/`secondEvolution`, `gymBattleResult`/
+  `eliteFourBattleResult` (only `championBattleResult(true)` is exercised), `teamRocketDefeated`, or
+  `useEscapeRope`. `SEC-04`, `SEC-06`, and `SEC-07` all live in that gap.
+- **`game-state.service.spec.ts`** (71 lines) never tests `initializeStates` play order — the thing the
+  service exists for. Also untested: underflow, `repeatCurrentState`, `advanceRound`/`retreatRound`,
+  and `resetGameState` on a *dirtied* stack.
+- **Assertions too weak to catch the findings.** The eight zero-branch tests stub
+  `modalQueueService.open` and assert only which consolation *method* ran — never `altPrizeText`/
+  `altPrizeSprite`/`altPrizeDescription`, so the copy could be wired to the wrong branch and every test
+  would still pass. `wheel.component.spec.ts` covers distribution only and bypasses the sync path.
+
+---
+
+# Verified clean
+
+Stated explicitly so these are not re-investigated:
+
+- **XSS surface is nil.** Zero hits for `innerHTML`, `bypassSecurityTrust*`, `document.write`, or
+  `eval` across `src/`. All sprite URLs come from static local tables or PokéAPI ids and pass through
+  Angular's URL sanitizer. The GA snippet interpolates a build-time constant.
+- **No secrets in the bundle.** The prod `fileReplacements` correctly swaps `environment.prod.ts`; its
+  only value is the public GA id `G-40CS5XD7G9`.
+- **Prototype pollution is not reachable.** Both `localStorage` parse sites use `JSON.parse` + object
+  spread, which copies `__proto__` as an own data property rather than invoking the setter.
+- **i18n locale parity is perfect** — all six files carry exactly **2,188 keys**, zero missing, zero
+  extra, zero structural divergence, zero empty values, zero placeholder mismatches. One genuine
+  orphan: `game.main.roulette.elite.prep.actions.catchPokemon` (the prep wheel uses
+  `catchTwoPokemon`/`catchThreePokemon`), safe to delete from all six.
+- **Data integrity.** National Dex: 1025 entries, no duplicate ids, all `power` values in range.
+  `pokemonForms`: no duplicate variant ids, every base id present among its variants. All 484
+  `evolutionChain` targets resolve — there is **no** Pokémon where `canEvolve()` is true but
+  `getEvolutions()` is empty. Gym leaders 8/gen, elite four 4/gen, champion 1/gen for all nine
+  generations.
+- **`interleaveSortedOdds` is correct** — brute-forced over all `(big, small)` pairs for `big` ∈ [1,200]:
+  zero mismatches, no `undefined` slots.
+- **`AudioContext` is created lazily** inside `playSoundFx`, not at construction, so it is created under
+  a user gesture with a `resume()` re-check. The autoplay concern does not apply. Mute is honored on
+  every play path.
+- **`ThemeService` validates the stored theme against a whitelist** and its `baseHref` handling is
+  consistent with `npm run deploy --base-href=/pokemon-roulette/`.
+- **Stack push ordering is correct at every multi-push site** — `chooseWhoWillEvolve`,
+  `secondEvolution`, `evolvePokemon`, `tradePokemon`, `stealPokemon`, `gymBattleResult` all push in
+  proper reverse order and balance push/pop counts across every traced branch.
+- **All seven `EventSource` members** have a case in `chooseWhoWillEvolve`, and every one ends in a
+  call that advances the state machine.
+- **Subscription lifecycle in the container and `BaseBattleRouletteComponent` is sound** — all
+  `takeUntilDestroyed` and manual subscriptions are released.
+- **`commitTeamAndStorage` is atomic** (copies both arrays in one shot), and `addToTeam` on a full team
+  overflows to uncapped storage, so nothing is ever dropped.
+- **`retries` does not leak between battles** — each battle state has its own `@case`, so the component
+  is destroyed and `retries` resets.
+- **`TypeMatchupService`, `BadgesService`, `ItemsService`, `ItemSpriteService`, `GenerationService`,
+  `RareCandyService`, `MegaStoneService`** — no findings.
+
+---
+
+# Noted, not a defect
+
+`coffee.component.ts:25` embeds a Pix payload containing the maintainer's name and phone number in the
+shipped bundle. That is the intended function of a donation QR code, not a leak — flagged only so it
+stays a conscious choice. Separately, `pixCodeCopied` (line 28) is never reset and the `.catch` at
+line 29 only logs, so a clipboard failure on an insecure origin is invisible to the user.
