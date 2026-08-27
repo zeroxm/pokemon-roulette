@@ -52,6 +52,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N4 | T-04 | Deleted 7 unreferenced methods (`updateTeam`, `getFirstAvailableMegaStoneNameForPokemon`, `getMegaBattleCandidates`, `getMegaStones`, `getAllItems`, `megaStoneNameForBaseId`, `retreatRound`) and 3 orphan JSON form files (`pikachu-forms`, `mimikyu-forms`, `pokemon-forms-gigantamax`). | **Nothing should change.** All seven had exactly one reference — their own declaration — and the JSON files were imported by nothing, including `angular.json`. Confirm mega-stone awards and activation still work, since three of the deletions were in that area. | [ ] |
 
+| N5 | T-06 | `@angular/localize` promoted to a real dependency (it was only reaching the build as a transitive of a **devDependency**, while `angular.json` loads it as a runtime polyfill). Dropped `@angular/animations`, `@angular/platform-browser-dynamic` and `@popperjs/core` as direct deps. | **ng-bootstrap behaviour is the thing to watch** — `@angular/animations` is now fully absent (it was an *optional* peer). Open several modals: gym battle result, item found, evolution, the mega-evolution animation, and the storage PC. Each must open, animate/transition, and close normally. Also confirm tooltips and dropdowns still behave. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with

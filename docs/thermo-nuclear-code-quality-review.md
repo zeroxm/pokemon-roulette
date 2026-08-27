@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**22 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-21`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**21 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-20`, `CQ-21`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -545,25 +545,6 @@ still called three more times per frame from `drawWheel`, `getCurrentSegment` an
 `gym:165`, `elite:162`, `champion:110` — **both branches identical**. `rival:97` got it right
 (`: [this.currentRival.quotes]`). Check whether the other three intended the rival's version — this
 may be a latent correctness bug, not just noise.
-
----
-
-### CQ-20 — `@angular/localize` is required but not declared
-- **Location:** `package.json`
-- **Status:** [ ] open
-
-**Verified: zero occurrences in `package.json`**, yet required in three places — `src/main.ts:1`
-(`/// <reference types="@angular/localize" />`) and `angular.json:21,88` (build and test polyfills).
-It resolves today only as a hoisted transitive of the Angular packages, pinned by `package-lock.json`
-so CI's `npm ci` works. **The day a dependency bump drops that transitive edge, both build and test
-fail with module-not-found and nothing in `package.json` explains why.** One-line fix: add
-`"@angular/localize": "^21.2.7"` to `dependencies`.
-
-**Unused dependencies** — verified zero references across `src/` and `angular.json`:
-`@angular/animations`, `@angular/platform-browser-dynamic` (not needed for standalone bootstrap), and
-`@popperjs/core` (only Bootstrap's *CSS* is loaded; `scripts: []` is empty and ng-bootstrap doesn't
-need it). Drop all three. `@angular/forms`, `@angular/cdk`, `fireworks-js` and `dom-to-image-more` are
-genuinely used.
 
 ---
 
