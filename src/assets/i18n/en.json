@@ -96,7 +96,15 @@
     "rock": "Rock Badge",
     "ice_galar": "Ice Badge",
     "dark": "Dark Badge",
-    "dragon": "Dragon Badge"
+    "dragon": "Dragon Badge",
+    "bug_paldea": "Bug Badge",
+    "grass_paldea": "Grass Badge",
+    "electric": "Electric Badge",
+    "water_paldea": "Water Badge",
+    "normal": "Normal Badge",
+    "ghost_paldea": "Ghost Badge",
+    "psychic_paldea": "Psychic Badge",
+    "ice_paldea": "Ice Badge"
   },
   "credits": {
     "title": "Credits & Acknowledgments",

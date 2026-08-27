@@ -96,7 +96,15 @@
     "rock": "Gesteins-Orden",
     "ice_galar": "Eis-Orden",
     "dark": "Unlicht-Orden",
-    "dragon": "Drachen-Orden"
+    "dragon": "Drachen-Orden",
+    "bug_paldea": "Käferorden",
+    "grass_paldea": "Pflanzen-Orden",
+    "electric": "Elektro-Orden",
+    "water_paldea": "Wasser-Orden",
+    "normal": "Normal-Orden",
+    "ghost_paldea": "Geister-Orden",
+    "psychic_paldea": "Psi-Orden",
+    "ice_paldea": "Eis-Orden"
   },
   "credits": {
     "title": "Mitwirkende & Danksagungen",

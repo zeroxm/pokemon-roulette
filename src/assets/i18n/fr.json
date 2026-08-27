@@ -96,7 +96,15 @@
     "rock": "Badge Roche",
     "ice_galar": "Badge Glace",
     "dark": "Badge Ténèbres",
-    "dragon": "Badge Dragon"
+    "dragon": "Badge Dragon",
+    "bug_paldea": "Badge Insecte",
+    "grass_paldea": "Badge Plante",
+    "electric": "Badge Électrik",
+    "water_paldea": "Badge Eau",
+    "normal": "Badge Normal",
+    "ghost_paldea": "Badge Spectre",
+    "psychic_paldea": "Badge Psy",
+    "ice_paldea": "Badge Glace"
   },
   "credits": {
     "title": "Crédits et remerciements",

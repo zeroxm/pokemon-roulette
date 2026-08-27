@@ -96,7 +96,15 @@
     "rock": "Medaglia Roccia",
     "ice_galar": "Medaglia Ghiaccio",
     "dark": "Medaglia Buio",
-    "dragon": "Medaglia Drago"
+    "dragon": "Medaglia Drago",
+    "bug_paldea": "Medaglia Insetto",
+    "grass_paldea": "Medaglia Erba",
+    "electric": "Medaglia Elettro",
+    "water_paldea": "Medaglia Acqua",
+    "normal": "Medaglia Normale",
+    "ghost_paldea": "Medaglia Spettro",
+    "psychic_paldea": "Medaglia Psico",
+    "ice_paldea": "Medaglia Ghiaccio"
   },
   "credits": {
     "title": "Crediti e Ringraziamenti",

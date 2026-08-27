@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**4 High · 14 Medium · 28 Low** (11 detailed as `SEC-19`–`SEC-29`, 17 tabulated under `SEC-30`).
+**4 High · 13 Medium · 28 Low** (11 detailed as `SEC-19`–`SEC-29`, 17 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -31,8 +31,8 @@ spread copies `__proto__` as an own data property). The findings here are **corr
 availability** problems, not vulnerabilities — with the single partial exception of `SEC-27`.
 
 **i18n parity is excellent** and should not be re-investigated: all six locale files carry exactly
-**2,188 keys** with zero divergence. The gaps are on the *code* side — keys referenced but never
-authored (`SEC-16`, `SEC-17`) and English literals bypassing the pipe (`SEC-22`, `SEC-23`).
+**2,196 keys** with zero divergence. The gaps are on the *code* side — keys referenced but never
+authored (`SEC-17`) and English literals bypassing the pipe (`SEC-22`, `SEC-23`).
 
 ---
 
@@ -413,23 +413,6 @@ component), or raise the budget deliberately.
 
 ---
 
-### SEC-16 — Eight gen-9 badge translation keys are missing from all six locales
-- **Severity:** Medium
-- **Location:** `src/app/services/badges-service/badges-data.ts:97-105`
-- **Status:** [ ] open
-
-**What:** `badges.bug_paldea`, `badges.grass_paldea`, `badges.electric`, `badges.water_paldea`,
-`badges.normal`, `badges.ghost_paldea`, `badges.psychic_paldea`, `badges.ice_paldea` — **verified
-absent from all six locale files.**
-
-**Failure scenario:** A gen-9 playthrough shows the literal strings `badges.bug_paldea` etc. as badge
-tooltips (`badges.component.html:7,14,21,28,37,…`), for all 8 badges, in every language. Every other
-generation's badges resolve correctly.
-
-**Suggested fix:** Add the 8 keys to all six locale files.
-
----
-
 ### SEC-17 — `pokemon.unknown` is missing from all six locales
 - **Severity:** Medium
 - **Location:** `src/app/pokedex/pokedex-entry/pokedex-entry.component.ts:51`
@@ -630,7 +613,7 @@ Stated explicitly so these are not re-investigated:
   only value is the public GA id `G-40CS5XD7G9`.
 - **Prototype pollution is not reachable.** Both `localStorage` parse sites use `JSON.parse` + object
   spread, which copies `__proto__` as an own data property rather than invoking the setter.
-- **i18n locale parity is perfect** — all six files carry exactly **2,188 keys**, zero missing, zero
+- **i18n locale parity is perfect** — all six files carry exactly **2,196 keys**, zero missing, zero
   extra, zero structural divergence, zero empty values, zero placeholder mismatches. One genuine
   orphan: `game.main.roulette.elite.prep.actions.catchPokemon` (the prep wheel uses
   `catchTwoPokemon`/`catchThreePokemon`), safe to delete from all six.
