@@ -523,7 +523,6 @@ async-loader case is still untested.
 | l | `check-evolution-roulette` emits `'gym-battle'` as `EventSource` unconditionally, so a failed post-Elite-Four roll shows gym-battle consolation copy. | `check-evolution-roulette.component.ts:29` |
 | m | `getTrainerSprite` indexes `[generation][gender]` unguarded. Cannot fire today (data covers 1-9). | `trainer.service.ts:81-83` |
 | o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
-| p | `@angular/platform-browser-dynamic` is an unused dependency — zero references under `src/`. | `package.json` |
 | q | Settings `localStorage` has no per-field type validation (`{...defaults, ...stored}`). Not prototype pollution; impact cosmetic. | `settings.service.ts:82-85` |
 
 ---
