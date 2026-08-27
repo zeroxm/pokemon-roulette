@@ -2,12 +2,25 @@
 
 Audit reports and working notes for **Pokémon Roulette**.
 
+## Working documents
+
+| Document | Purpose |
+| --- | --- |
+| [TASKS.md](TASKS.md) | The 36-task remediation worklist, ordered so structural work precedes the bugs it subsumes |
+| [CHANGELOG.md](CHANGELOG.md) | Observable changes as a UAT checklist — the pre-push verification script |
+
+Both are deleted along with the audit reports at `T-36`.
+
 ## Audit reports
 
 | Report | Focus | Findings | IDs |
 | --- | --- | --- | --- |
-| [Thermo-Nuclear Review](thermo-nuclear-review.md) | Correctness, bugs, security, breaking behavior, devex | 4 High · 14 Medium · 28 Low | `SEC-01`–`SEC-30` |
-| [Thermo-Nuclear Code Quality Review](thermo-nuclear-code-quality-review.md) | Maintainability, structure, abstractions, decomposition | 26 | `CQ-01`–`CQ-26` |
+| [Thermo-Nuclear Review](thermo-nuclear-review.md) | Correctness, bugs, security, breaking behavior, devex | 4 High · 13 Medium · 28 Low | `SEC-nn` |
+| [Thermo-Nuclear Code Quality Review](thermo-nuclear-code-quality-review.md) | Maintainability, structure, abstractions, decomposition | 26 | `CQ-nn` |
+
+**Counts shrink as tasks land** — findings are deleted from the reports once fixed, so these numbers
+are a live remaining-work total, not the original tally. Originally 4 High · 14 Medium · 28 Low and
+26; `SEC-16` was cleared by `T-09`. [TASKS.md](TASKS.md) holds the authoritative progress count.
 
 Both were generated on **2026-08-27** against commit **`a00ea99`**, each by three reviewers working in
 parallel over the same three areas (game-flow core, domain services, presentation/infra). The two runs
