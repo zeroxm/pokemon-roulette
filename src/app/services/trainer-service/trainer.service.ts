@@ -121,10 +121,6 @@ export class TrainerService implements OnDestroy {
     return [...this.trainerTeam];
   }
 
-  updateTeam(): void {
-    this.trainerTeamObservable.next(this.getTeam());
-  }
-
   commitTeamAndStorage(team: PokemonItem[], stored: PokemonItem[]): void {
     this.trainerTeam = [...team];
     this.storedPokemon = [...stored];
@@ -261,29 +257,6 @@ export class TrainerService implements OnDestroy {
 
   getHeldMegaStoneNamesForPokemon(pokemon: PokemonItem): MegaStoneItemName[] {
     return megaStoneNamesForBaseId(pokemon.pokemonId).filter(stoneName => this.hasItem(stoneName));
-  }
-
-  getFirstAvailableMegaStoneNameForPokemon(pokemon: PokemonItem): MegaStoneItemName | undefined {
-    return this.getAvailableMegaStoneNamesForPokemon(pokemon)[0];
-  }
-
-  /**
-   * Returns team members (deduplicated by pokemonId) whose base pokemonId exists
-   * in pokemonMegaForms AND for whom at least one mega stone is held.
-   */
-  getMegaBattleCandidates(): PokemonItem[] {
-    const seen = new Set<number>();
-    const candidates: PokemonItem[] = [];
-    for (const pokemon of this.trainerTeam) {
-      const baseId = pokemon.pokemonId;
-      if (seen.has(baseId)) continue;
-      if (!pokemonMegaForms[baseId]) continue;
-      if (this.getHeldMegaStoneNamesForPokemon(pokemon).length > 0) {
-        seen.add(baseId);
-        candidates.push(pokemon);
-      }
-    }
-    return candidates;
   }
 
   /** Sets which base Pokémon ID will mega-evolve at battle entry. Pass null to clear. */

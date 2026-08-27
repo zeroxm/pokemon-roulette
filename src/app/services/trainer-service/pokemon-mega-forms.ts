@@ -1395,10 +1395,3 @@ export function megaStoneNamesForBaseId(baseId: number): MegaStoneItemName[] {
     return Array.isArray(mapping) ? mapping : [mapping];
 }
 
-/**
- * Returns the first mega stone item name for a given base Pokémon ID,
- * or undefined if no stone mapping exists.
- */
-export function megaStoneNameForBaseId(baseId: number): MegaStoneItemName | undefined {
-    return megaStoneNamesForBaseId(baseId)[0];
-}
