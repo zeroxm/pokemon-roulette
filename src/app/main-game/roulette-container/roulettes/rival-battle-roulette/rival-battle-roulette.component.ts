@@ -94,7 +94,7 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
       this.translate.get(this.currentRival.name).pipe(take(1)).subscribe(translated => {
         const rivalNames = translated.split('/');
         const rivalSprites = Array.isArray(this.currentRival.sprite) ? this.currentRival.sprite : [this.currentRival.sprite];
-        const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : [this.currentRival.quotes];
+        const rivalQuotes = this.currentRival.quotes;
         // If the player is male, rival is Serena; if female, rival is Calem.
         const selectedIndex = this.trainerService.gender === 'male' ? 1 : 0;
 
