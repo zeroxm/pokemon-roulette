@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**27 / 36 complete.** Findings cleared: 30 of 46 `SEC` · 19 of 26 `CQ`.
+**28 / 36 complete.** Findings cleared: 31 of 46 `SEC` · 20 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -108,7 +108,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-25 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`; 8 call sites; bounded ended-wait | `CQ-04`, `SEC-20`, `SEC-21` | med | [x] |
 | T-26 | Extract `weighted-random.ts` + `SpinAnimation`; per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [x] |
 | T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [x] |
-| T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the battle base | `CQ-09`, `SEC-30b` | med | [ ] |
+| T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` up; guard `plusModifiers` | `CQ-09`, `SEC-30b` | med | [x] |
 | **Phase 7 — remaining correctness** ||||
 | T-29 | Sprite resilience: error handler on `loadPokemonSpriteIfMissing`, shared `(error)` fallback, pin sprite URLs to a SHA | `SEC-09`, `SEC-14` | med | [ ] |
 | T-30 | `ModalQueueService` unhandled rejection; route champion/rival modals through the queue | `SEC-24`, `SEC-25` | low | [ ] |

@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**7 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-08`, `CQ-10`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**6 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -68,29 +68,6 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 ---
 
 # 1 · Structural regressions and code-judo opportunities
-
-### CQ-09 — `calcVictoryOdds` is copy-pasted four times into subclasses of a base that should own it
-- **Location:** `gym-battle-roulette.component.ts:91-151` · `elite-four-battle-roulette.component.ts:90-151` · `champion-battle-roulette.component.ts:75-101` · `rival-battle-roulette.component.ts:64-88`
-- **Status:** [ ] open
-
-**What:** `BaseBattleRouletteComponent` is a *good* abstraction — it correctly owns subscriptions,
-`plusModifiers`, `hasPotions`, and the `usePotion` lambda seam (whose comment honestly explains the
-`ModalQueueService`-vs-`NgbModal` split). The problem is what it didn't absorb. Gym's and Elite Four's
-`calcVictoryOdds` are **the same 60 lines** — team-power loop, `plusModifiers` loop, the full
-type-matchup block with identical branch weights and an identical 6-field `else` reset — differing only
-in `'gym'` vs `'elite'` in a translation key and a trailing 1-vs-2 `noOdds` push. Champion and Rival are
-the same minus the matchup block. All four also duplicate `getTypeIconUrl` and `typeIconBaseUrl`.
-
-**Remedy:** pull `buildVictoryOdds(opponentTypes?)`, `outcomeKeyPrefix`, `baseNoOdds`,
-`typeIconBaseUrl` and `getTypeIconUrl` into the base. Each subclass's method becomes one line.
-**~200 lines removed across four files with no new indirection** — the base class already exists and
-the subclasses already extend it.
-
-Same story for `getCurrentLeader`/`getCurrentElite`/`getCurrentChampion`/`getCurrentRival` — the same
-`translate.get(name) → split('/') → pick index → rebuild` routine four times. That belongs in a free
-function `resolveSplitTrainer(leader, translated, index)`: pure, no DI, trivially testable.
-
----
 
 # 2 · Spaghetti and API-shape problems
 
@@ -273,7 +250,7 @@ are mostly independent of each other.
 | 11 | ~~`SoundFxService` → one `Map<SoundFxName, SoundFxClip>`~~ **done (`T-25`)** | `CQ-04` | — |
 | 12 | ~~Extract `weighted-random.ts` + `SpinAnimation`~~ **done (`T-26`)** | `CQ-13` | — |
 | 13 | ~~Collapse group-A pool roulettes~~ **done (`T-27`)** | `CQ-08` | — |
-| 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
+| 14 | ~~Pull `buildVictoryOdds` + `resolveSplitTrainer` up~~ **done (`T-28`)** | `CQ-09` | — |
 | 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-23` | Low |
 
 **Expected landing:** `roulette-container.component.ts` at ~500–550 lines (from 1050), its template at

@@ -97,6 +97,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N21 | T-27 | Five roulettes that differed only in a title key and a field name (fishing, fossil, legendary, starter, cave) are now one component driven by a named pool. Their `*-by-generation.ts` data files are untouched. | **All five wheels must look and behave exactly as before.** Reach each one: the **starter** pick at the start of a run, **fishing**, **fossil**, a **legendary encounter**, and **exploring a cave**. Check the heading text is right for each, that the generation appears in brackets on all of them **except starters**, and that picking a Pokémon does what it always did. | [ ] |
 
+| N22 | T-28 | The win/lose odds calculation and the split-trainer routine, each duplicated across four battle roulettes, moved into the shared base and a pure helper. | **Battle difficulty must feel unchanged.** Fight a gym, an Elite Four member, the champion and a rival, and confirm the wheels look like they always did — the champion should still be visibly the hardest. Check the **type-advantage panel** on gym and Elite Four battles renders its icons. Then reach a **split trainer** (gen 5 or 8 gym, gen 8 Elite Four, gen 7 champion, gen 6 rival) and confirm the name, sprite and quote all belong to the *same* trainer. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with

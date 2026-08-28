@@ -9,6 +9,9 @@ import { GenerationItem } from '../../../../interfaces/generation-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { ItemItem } from '../../../../interfaces/item-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
+import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemon-type';
+import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
+import { interleaveOdds } from '../../../../utils/odd-utils';
 
 @Directive()
 export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
@@ -19,6 +22,36 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected retries = 0;
   protected victoryOdds: WheelItem[] = [];
 
+  /** Key prefix for this battle's outcome labels, e.g. `game.main.roulette.gym`. */
+  protected abstract readonly outcomeKeyPrefix: string;
+  /**
+   * Losing slices every battle of this kind starts with, before round progression.
+   * Gym 1, Elite Four 2, Champion 3 — the difficulty curve, in one place.
+   */
+  protected abstract readonly baseNoOdds: number;
+
+  /** Type-matchup display state. Only battles that know their opponent's types populate it. */
+  strongCount = 0;
+  weakCount = 0;
+  advantageLabel: 'overwhelming' | 'advantage' | 'disadvantage' | null = null;
+  advantageLabelKey = '';
+  matchupAdvantageTypes: PokemonType[] = [];
+  matchupDisadvantageTypes: PokemonType[] = [];
+
+  /**
+   * Round the player has reached; drives how many losing slices accumulate.
+   * Each subclass declares it as an `@Input`, so it is abstract here.
+   */
+  abstract currentRound: number;
+
+  protected readonly typeIconBaseUrl =
+    'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/types/generation-viii/brilliant-diamond-shining-pearl';
+
+  /** Icons are keyed by the type's numeric id, not its name. */
+  getTypeIconUrl(type: PokemonType): string {
+    return `${this.typeIconBaseUrl}/${pokemonTypeDataByKey[type].id}.png`;
+  }
+
   private gameSubscription: Subscription | null = null;
   private generationSubscription: Subscription | null = null;
   private teamSubscription: Subscription | null = null;
@@ -28,7 +61,8 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     protected readonly gameStateService: GameStateService,
     protected readonly generationService: GenerationService,
     protected readonly trainerService: TrainerService,
-    protected readonly translate: TranslateService
+    protected readonly translate: TranslateService,
+    protected readonly typeMatchupService: TypeMatchupService,
   ) {}
 
   ngOnInit(): void {
@@ -58,14 +92,24 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     this.modalService.dismissAll();
   }
 
+  /**
+   * Extra winning slices from held X-Attacks: each grants the team's mean power.
+   *
+   * The empty-team guard matters — dividing by zero produced NaN, and the loop that consumes this
+   * (`i < NaN` is false) then dropped the bonus silently rather than failing. The result is
+   * Rounding is **up**, made explicit here. The consuming loop used `i < meanPower` on a
+   * fractional value, which ran the extra iteration — so 2.4 gave 3 slices. That is preserved
+   * rather than "corrected", since it is a balance decision, not a defect.
+   */
   protected plusModifiers(): number {
-    let power = 0;
-    const xAttacks = this.trainerItems.filter(item => item.name === 'x-attack');
-    xAttacks.forEach(() => {
-      const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
-      power += meanPower;
-    });
-    return power;
+    if (this.trainerTeam.length === 0) {
+      return 0;
+    }
+
+    const xAttackCount = this.trainerItems.filter(item => item.name === 'x-attack').length;
+    const meanPower = this.trainerTeam.reduce((sum, pokemon) => sum + pokemon.power, 0) / this.trainerTeam.length;
+
+    return Math.ceil(xAttackCount * meanPower);
   }
 
   protected hasPotions(): ItemItem | undefined {
@@ -99,4 +143,77 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
 
   /** Rebuilds victoryOdds from current team, items, and opponent data. */
   protected abstract calcVictoryOdds(): void;
+
+  /**
+   * Builds the win/lose wheel.
+   *
+   * Every battle roulette had its own copy of this; gym and elite-four were the same sixty lines
+   * differing only in a translation key and how many losing slices to start with.
+   *
+   * Pass `opponentTypes` to fold type matchup in — that also populates the display fields above.
+   * Omit it and the matchup state resets, which is what the battles that do not know their
+   * opponent's types want.
+   */
+  protected buildVictoryOdds(opponentTypes?: PokemonType[]): WheelItem[] {
+    const win = (): WheelItem => ({ text: `${this.outcomeKeyPrefix}.yes`, fillStyle: 'green', weight: 1 });
+    const lose = (): WheelItem => ({ text: `${this.outcomeKeyPrefix}.no`, fillStyle: 'crimson', weight: 1 });
+
+    const yesOdds: WheelItem[] = [win()];
+    const noOdds: WheelItem[] = [];
+
+    for (const pokemon of this.trainerTeam) {
+      for (let i = 0; i < pokemon.power; i++) {
+        yesOdds.push(win());
+      }
+    }
+
+    const powerModifier = this.plusModifiers();
+    for (let i = 0; i < powerModifier; i++) {
+      yesOdds.push(win());
+    }
+
+    if (opponentTypes?.length) {
+      const { strongCount, weakCount } = this.typeMatchupService.calcTeamMatchup(this.trainerTeam, opponentTypes);
+      this.strongCount = strongCount;
+      this.weakCount = weakCount;
+      this.advantageLabel = this.typeMatchupService.getAdvantageLabel(strongCount, weakCount);
+
+      if (this.advantageLabel === 'overwhelming') {
+        for (let i = 0; i < 3; i++) yesOdds.push(win());
+      } else if (this.advantageLabel === 'advantage') {
+        for (let i = 0; i < 2; i++) yesOdds.push(win());
+      } else if (this.advantageLabel === 'disadvantage') {
+        const extraNo = weakCount > 3 ? 2 : 1;
+        for (let i = 0; i < extraNo; i++) noOdds.push(lose());
+      }
+
+      this.advantageLabelKey = this.advantageLabel
+        ? `${this.outcomeKeyPrefix}.typeAdvantage.${this.advantageLabel}`
+        : '';
+      const { advantageTypes, disadvantageTypes } =
+        this.typeMatchupService.getMatchupTypes(this.trainerTeam, opponentTypes);
+      this.matchupAdvantageTypes = advantageTypes;
+      this.matchupDisadvantageTypes = disadvantageTypes;
+    } else {
+      this.resetMatchupState();
+    }
+
+    for (let index = 0; index < this.currentRound; index++) {
+      noOdds.push(lose());
+    }
+    for (let i = 0; i < this.baseNoOdds; i++) {
+      noOdds.push(lose());
+    }
+
+    return interleaveOdds(yesOdds, noOdds);
+  }
+
+  private resetMatchupState(): void {
+    this.advantageLabel = null;
+    this.advantageLabelKey = '';
+    this.strongCount = 0;
+    this.weakCount = 0;
+    this.matchupAdvantageTypes = [];
+    this.matchupDisadvantageTypes = [];
+  }
 }
