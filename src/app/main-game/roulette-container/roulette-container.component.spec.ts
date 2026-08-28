@@ -162,6 +162,68 @@ describe('RouletteContainerComponent', () => {
   // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
 
+  describe('pending selections', () => {
+    it('runs the continuation attached to the request, not a state-name lookup', () => {
+      const chosen = { pokemonId: 1, text: 'a', fillStyle: 'red', weight: 1, shiny: false, power: 1, sprite: null } as any;
+      let received: unknown = null;
+
+      (component as any).requestPokemonSelection({
+        title: 'some.title',
+        options: [chosen],
+        onSelected: (p: unknown) => { received = p; },
+      });
+      component.continueWithPokemon(chosen);
+
+      expect(received).toBe(chosen);
+    });
+
+    it('exposes the request title and options to the wheel', () => {
+      const options = [{ pokemonId: 7, text: 'b' } as any];
+
+      (component as any).requestPokemonSelection({
+        title: 'wheel.title', options, onSelected: () => undefined,
+      });
+
+      expect(component.customWheelTitle).toBe('wheel.title');
+      expect(component.auxPokemonList).toBe(options);
+    });
+
+    it('consumes the request, so a stray selection cannot re-run it', () => {
+      let calls = 0;
+      const chosen = { pokemonId: 1 } as any;
+
+      (component as any).requestPokemonSelection({
+        title: 't', options: [chosen], onSelected: () => { calls++; },
+      });
+      component.continueWithPokemon(chosen);
+      component.continueWithPokemon(chosen);
+
+      expect(calls).toBe(1);
+    });
+
+    it('queues the mega stone wheel before advancing, so it is what renders next (SEC-06)', () => {
+      const setNextState = spyOn(gameStateService, 'setNextState').and.callThrough();
+      const finish = spyOn(gameStateService, 'finishCurrentState').and.callThrough();
+      const order: string[] = [];
+      setNextState.and.callFake(() => { order.push('push'); });
+      finish.and.callFake(() => { order.push('pop'); return 'game-over' as any; });
+
+      (component as any).requestPokemonSelection({
+        title: 't',
+        options: [],
+        onSelected: () => {
+          (component as any).startMegaStoneAward({ pokemonId: 6 });
+          (component as any).finishCurrentState();
+        },
+      });
+      order.length = 0;
+      component.continueWithPokemon({ pokemonId: 6 } as any);
+
+      // Whatever the award pushed must be queued before the pop that reveals it.
+      expect(order[order.length - 1]).toBe('pop');
+    });
+  });
+
   describe('chooseWhoWillEvolve — zero evolvable pokemon', () => {
     let openedModals: ItemModalComponent[];
 
@@ -272,7 +334,7 @@ describe('RouletteContainerComponent', () => {
 
       component.chooseWhoWillEvolve('gym-battle');
 
-      // pushes 'evolve-pokemon' then 'select-from-pokemon-list', finishCurrentState() pops 'select-from-pokemon-list'
+      // queues a pokemon selection, then finishCurrentState() pops it so the wheel renders
       expect(component.getGameState()).toBe('select-from-pokemon-list');
     });
   });

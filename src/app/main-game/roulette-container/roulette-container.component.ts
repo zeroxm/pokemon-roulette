@@ -6,6 +6,7 @@ import { GameStateService } from '../../services/game-state-service/game-state.s
 import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
+import { PendingSelection } from './selection/pending-selection';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
@@ -200,8 +201,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   runningShoesUsed: boolean = false;
   stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
-  private megaSelectionMode: 'none' | 'battle-award-pokemon' | 'battle-award-stone' = 'none';
-  private pendingMegaAwardPokemon: PokemonItem | null = null;
+  private pendingPokemonSelection: PendingSelection<PokemonItem> | null = null;
+  private pendingItemSelection: PendingSelection<ItemItem> | null = null;
 
   getGameState(): string {
     return this.currentGameState;
@@ -328,8 +329,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolvePokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'game.main.roulette.evolve.who';
-    this.gameStateService.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.evolve.who',
+      options: this.auxPokemonList,
+      onSelected: chosen => this.evolvePokemon(chosen),
+    });
 
     this.finishCurrentState();
   }
@@ -362,40 +366,43 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
-  continueWithPokemon(pokemon: PokemonItem): void {
-    this.finishCurrentState();
+  /** Queues a "pick one of these Pokémon" spin, together with what to do afterwards. */
+  private requestPokemonSelection(request: PendingSelection<PokemonItem>): void {
+    this.pendingPokemonSelection = request;
+    this.customWheelTitle = request.title;
+    this.auxPokemonList = request.options;
+    this.gameStateService.setNextState('select-from-pokemon-list');
+  }
 
-    if (this.handleMegaSelection(pokemon)) {
+  /** Queues a "pick one of these items" spin, together with what to do afterwards. */
+  private requestItemSelection(request: PendingSelection<ItemItem>): void {
+    this.pendingItemSelection = request;
+    this.customWheelTitle = request.title;
+    this.auxItemList = request.options;
+    this.gameStateService.setNextState('select-from-item-list');
+  }
+
+  continueWithPokemon(pokemon: PokemonItem): void {
+    const selection = this.pendingPokemonSelection;
+    this.pendingPokemonSelection = null;
+
+    if (!selection) {
+      this.finishCurrentState();
       return;
     }
-
-    switch (this.currentGameState) {
-      case 'evolve-pokemon':
-        this.evolvePokemon(pokemon);
-        break;
-      case 'select-evolution':
-        this.replaceForEvolution(this.currentContextPokemon, pokemon);
-        this.showpkmnEvoModal();
-        break;
-      case 'steal-pokemon':
-        this.stolenPokemon = pokemon;
-        this.removeFromTeam(pokemon);
-        this.finishCurrentState();
-        break;
-      case 'trade-pokemon':
-        this.currentContextPokemon = pokemon;
-        break;
-      default:
-        break;
-    }
+    selection.onSelected(pokemon);
   }
 
   continueWithItem(item: ItemItem): void {
-    this.finishCurrentState();
+    const selection = this.pendingItemSelection;
+    this.pendingItemSelection = null;
+    this.auxItemList = [];
 
-    if (this.handleMegaStoneAwardSelection(item)) {
+    if (!selection) {
+      this.finishCurrentState();
       return;
     }
+    selection.onSelected(item);
   }
 
   selectPokemonForm(pokemonForm: PokemonForm): void {
@@ -423,8 +430,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolveSecondPokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'game.main.roulette.evolve.whoExpShare';
-    this.gameStateService.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.evolve.whoExpShare',
+      options: this.auxPokemonList,
+      onSelected: chosen => this.evolveSecondPokemon(chosen),
+    });
   }
 
   gymBattleResult(result: boolean): void {
@@ -473,9 +483,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (trainerTeam.length === 1) {
       this.currentContextPokemon = trainerTeam[0];
     } else {
-      this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'game.main.roulette.trade.which';
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.trade.which',
+        options: trainerTeam,
+        onSelected: chosen => {
+          this.currentContextPokemon = chosen;
+          this.finishCurrentState();
+        },
+      });
     }
 
     this.finishCurrentState();
@@ -547,9 +562,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
     } else {
-      this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'game.main.roulette.teamrocket.steal.which';
-      this.gameStateService.setNextStates('select-from-pokemon-list', 'steal-pokemon');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.teamrocket.steal.which',
+        options: trainerTeam,
+        onSelected: chosen => {
+          this.stolenPokemon = chosen;
+          this.removeFromTeam(chosen);
+          this.finishCurrentState();
+        },
+      });
       this.finishCurrentState();
     }
   }
@@ -691,10 +712,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.megaSelectionMode = 'battle-award-pokemon';
-    this.auxPokemonList = candidates;
-    this.customWheelTitle = 'game.main.roulette.mega.who';
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.mega.who',
+      options: candidates,
+      onSelected: chosen => {
+        // Queue the follow-up *before* advancing, so the stone wheel is what renders next.
+        this.startMegaStoneAward(chosen);
+        this.finishCurrentState();
+      },
+    });
   }
 
   private startMegaStoneAward(pokemon: PokemonItem): void {
@@ -709,11 +735,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.pendingMegaAwardPokemon = pokemon;
-    this.auxItemList = availableStoneNames.map(stoneName => structuredClone(this.itemService.getMegaStone(stoneName)));
-    this.customWheelTitle = 'game.main.roulette.mega.whichStone';
-    this.megaSelectionMode = 'battle-award-stone';
-    this.gameStateService.setNextState('select-from-item-list');
+    this.requestItemSelection({
+      title: 'game.main.roulette.mega.whichStone',
+      options: availableStoneNames.map(stoneName => structuredClone(this.itemService.getMegaStone(stoneName))),
+      onSelected: chosen => {
+        if (isMegaStoneItemName(chosen.name)) {
+          this.grantMegaStone(chosen.name);
+        }
+        this.finishCurrentState();
+      },
+    });
   }
 
   private grantMegaStone(stoneName: MegaStoneItemName): void {
@@ -729,39 +760,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleMegaSelection(pokemon: PokemonItem): boolean {
-    if (this.megaSelectionMode === 'none') {
-      return false;
-    }
-
-    const selectionMode = this.megaSelectionMode;
-
-    if (selectionMode === 'battle-award-pokemon') {
-      this.megaSelectionMode = 'none';
-      this.startMegaStoneAward(pokemon);
-      return true;
-    }
-
-    return false;
-  }
-
-  private handleMegaStoneAwardSelection(item: ItemItem): boolean {
-    if (this.megaSelectionMode !== 'battle-award-stone') {
-      return false;
-    }
-
-    const pokemon = this.pendingMegaAwardPokemon;
-    this.pendingMegaAwardPokemon = null;
-    this.auxItemList = [];
-    this.megaSelectionMode = 'none';
-
-    if (!pokemon || !isMegaStoneItemName(item.name)) {
-      return true;
-    }
-
-    this.grantMegaStone(item.name);
-    return true;
-  }
 
   private handleMegaStoneActivation(megaStone: ItemItem): void {
     if (!this.isBattleState(this.currentGameState)) {
@@ -881,10 +879,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.showpkmnEvoModal();
     } else {
-      this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextStates('select-from-pokemon-list', 'select-evolution');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.evolve.which',
+        options: pokemonEvolutions,
+        onSelected: chosen => {
+          this.replaceForEvolution(this.currentContextPokemon, chosen);
+          this.showpkmnEvoModal();
+        },
+      });
       this.finishCurrentState();
     }
   }
@@ -965,10 +968,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
     } else {
-      this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextStates('select-from-pokemon-list', 'select-evolution');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.evolve.which',
+        options: pokemonEvolutions,
+        onSelected: chosen => {
+          this.replaceForEvolution(this.currentContextPokemon, chosen);
+          this.showpkmnEvoModal();
+        },
+      });
     }
   }
 

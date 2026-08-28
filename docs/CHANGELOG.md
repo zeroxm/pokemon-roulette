@@ -79,6 +79,9 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N10 | T-19/T-20 | The consolation-prize switch became a `Record<EventSource, ConsolationPrize>` table; the four modal-then-continue blocks became one `showModalThenContinue` helper. Two sprite URLs were normalised from `refs/heads/master/...` to `master/...` to match their siblings. | **Every consolation prize must still be right.** Win each of these with **nothing able to evolve** and check the modal copy matches the event: gym battle, Elite Four, a trainer battle, the daycare (egg), a rival battle, Team Rocket, and Snorlax. Confirm the **sprite loads** in each — the two normalised URLs are the ones to watch (egg and the generic unknown item). Also verify "less explanations" still skips the evolution/trade modals, and that the Team Rocket failure modal still appears **even with that setting on**. | [ ] |
 
+| N11 | T-21 | Wheel selections now carry their own continuation. Three `GameState` members that rendered nothing (`evolve-pokemon`, `select-evolution`, `steal-pokemon`) and both mega-stone dispatchers are deleted. A `@default` arm was added to the state switch. | **Exercise every "pick one of these" wheel.** Choose who evolves (2+ candidates); pick which evolution (a branching line like Eevee); Team Rocket stealing (pick which Pokémon leaves); a trade (pick what you send); the exp-share second evolution; and the mega-stone award (pick the Pokémon, then pick the stone). Each must show the right heading, the right options, and do the right thing with your pick. | [ ] |
+| N12 | T-21 | Mega-stone award ordering fix (`SEC-06`). | Win an important battle with **2+ mega-eligible Pokémon**, one holding **2+ unowned stones**. Pick the Pokémon — the **stone wheel must appear next**, titled "which stone". Previously the check-evolution wheel appeared first and the stone wheel surfaced later wearing the wrong title ("Who will evolve?"). | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
@@ -104,6 +107,17 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
   watching where modals chain.
 - The Entei image's `alt` text was a hardcoded Portuguese in-joke; it now uses the existing
   `pokemon.entei` key and is localised.
+
+### Notes on N11 / N12
+
+- **This is the deepest change so far.** Every selection wheel routes through a new mechanism. If a
+  wheel shows the wrong heading, wrong options, or your pick does nothing, this is the cause.
+- **One asymmetry was preserved, not fixed.** The exp-share second evolution shows the evolution
+  modal when the Pokémon has several possible evolutions but not when it has exactly one. That
+  predates this change; it is now visible in one place rather than split across two methods, and is
+  worth deciding on separately.
+- **A `@default` arm now exists.** If you ever see "Something went off the map", a state was queued
+  with no matching wheel — please report which action triggered it.
 
 ### Notes on N3
 

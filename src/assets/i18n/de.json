@@ -407,7 +407,8 @@
       },
       "respin": {
         "multitask": "Multitasking x{{count}}"
-      }
+      },
+      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu."
     },
     "map": {
       "vermilion": "Du bist in Orania City"
