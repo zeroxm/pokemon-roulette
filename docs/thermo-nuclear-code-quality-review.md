@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**20 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-20`, `CQ-21`, `CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**19 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -517,37 +517,6 @@ removes one line per entry from every data table in the project.
 
 # 4 · Dead code and configuration
 
-### CQ-19 — Dead code inventory (all verified)
-- **Status:** [ ] open
-
-**Methods with exactly one reference — their own declaration — and zero spec references:**
-
-| Symbol | Location |
-| --- | --- |
-| `getMegaBattleCandidates` | `trainer.service.ts:274` |
-| `getFirstAvailableMegaStoneNameForPokemon` | `trainer.service.ts:266` |
-| `updateTeam` | `trainer.service.ts:124` |
-| `megaStoneNameForBaseId` | `pokemon-mega-forms.ts:1402` |
-| `getMegaStones` | `items.service.ts:37` |
-| `getAllItems` | `items.service.ts:41` |
-
-**Unreferenced data files** (zero references anywhere including `angular.json`):
-`trainer-service/pikachu-forms.json`, `mimikyu-forms.json`, `pokemon-forms-gigantamax.json` (3.9 kB).
-This is also the answer to "four formats for form data" — the `.json` format has **zero consumers**.
-The real formats are two, and `CQ-02` makes it one. Delete them, or if Gigantamax is genuinely queued,
-bring it in as `FormRule` rows so it is exercised by the same code path as everything else.
-
-~~**Dead statement:** `wheel.component.ts:312`~~ — **removed by `T-02`**. Note `getTotalWeights` is
-still called three more times per frame from `drawWheel`, `getCurrentSegment` and
-`getRandomWeightedIndex` — caching it is folded into `T-26`.
-
-**No-op ternary** in three battle roulettes: `Array.isArray(x.quotes) ? x.quotes : x.quotes` at
-`gym:165`, `elite:162`, `champion:110` — **both branches identical**. `rival:97` got it right
-(`: [this.currentRival.quotes]`). Check whether the other three intended the rival's version — this
-may be a latent correctness bug, not just noise.
-
----
-
 ### CQ-23 — `finishCurrentState` returns a state it never emits
 - **Location:** `src/app/services/game-state-service/game-state.service.ts:100-109`
 - **Status:** [ ] open
@@ -659,7 +628,7 @@ are mostly independent of each other.
 | --- | --- | --- | --- |
 | 1 | ~~`noUnusedLocals` + `noUnusedParameters`~~ **done (`T-02`)** | `CQ-21` | — |
 | 2 | ~~Delete `DarkModeService`, `DarkModeToggleComponent`, the dead injections, the legacy CSS~~ **done (`T-05`)** | `CQ-05` | — |
-| 3 | Declare `@angular/localize`; drop 3 unused deps; delete the 6 dead methods and 3 orphan JSON files | `CQ-19`, `CQ-20` | Low |
+| 3 | ~~Declare `@angular/localize`; drop 3 unused deps; delete the dead methods and orphan JSON files~~ **done (`T-04`, `T-06`)** | `CQ-19`, `CQ-20` | — |
 | 4 | Extract the six inline modals into components | `CQ-07` | Low — pure mechanical |
 | 5 | Add `setNextStates(...)`, collapse the seven reverse-push pairs | `CQ-11` | Low |
 | 6 | Add `showModalThenContinue`; decide the `stealPokemon` / `lessExplanations` question | `CQ-12` | Low |
@@ -668,7 +637,7 @@ are mostly independent of each other.
 | 9 | **`FormRuleService`** — three-phase migration; fixes `SEC-02`/`SEC-03`/`SEC-05` structurally | `CQ-02`, `CQ-10` | Medium-high |
 | 10 | `RunModifiers` into the service, reset in `resetGameState()`; add the restart regression test | `CQ-03` | Medium |
 | 11 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`, 8 call sites | `CQ-04` | Medium |
-| 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the wheel defects | `CQ-13`, `CQ-19` | Medium |
+| 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the remaining wheel defects | `CQ-13` | Medium |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
 | 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-23` | Low |

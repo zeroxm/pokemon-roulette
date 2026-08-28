@@ -33,7 +33,7 @@ of everything.
 
 ## Status
 
-**5 / 36 complete.** Findings cleared: 3 of 46 `SEC` · 4 of 26 `CQ`.
+**9 / 36 complete.** Findings cleared: 5 of 46 `SEC` · 7 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -72,11 +72,11 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 1 — urgent standalone bug** ||||
 | T-03 | Guard the wheel spin: readiness gate, single-array spin math, gate released on any throw, 6 regression tests | `SEC-01` | med | [x] |
 | **Phase 2 — mechanical deletions** ||||
-| T-04 | Delete 7 dead methods + 3 orphan JSON form files | `CQ-19` (partial), `SEC-30n` | low | [x] |
+| T-04 | Delete 7 dead methods + 3 orphan JSON form files | `CQ-19` (with `T-02`, `T-08`), `SEC-30n` | low | [x] |
 | T-05 | Delete `DarkModeService`, `DarkModeToggleComponent`, 14 dead injections, legacy CSS + storage key | `CQ-05`, `SEC-19` | low | [x] |
 | T-06 | Declare `@angular/localize`; drop 3 unused deps | `CQ-20`, `SEC-30p` | low | [x] |
 | T-07 | Delete `GENERATION_GAME_CONFIG` and the `initializeStates` params | `CQ-22` | low | [x] |
-| T-08 | Fix the no-op `Array.isArray` ternary in 3 battle roulettes (decide intended behaviour) | `CQ-19` | low | [ ] |
+| T-08 | Remove the dead `quotes` ternary from all 4 battle roulettes | `CQ-19` | low | [x] |
 | **Phase 3 — data and i18n (no build needed)** ||||
 | T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [x] |
 | T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [ ] |
