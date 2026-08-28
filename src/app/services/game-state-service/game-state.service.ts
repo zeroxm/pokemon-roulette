@@ -55,6 +55,19 @@ export class GameStateService {
     this.stateStack.push(newState);
   }
 
+  /**
+   * Queues several states in **play order**: `setNextStates('a', 'b')` runs `a`, then `b`.
+   *
+   * The stack pops last-in-first-out, so queuing by hand means pushing backwards. Doing that
+   * at the call site reads wrong and is easy to get subtly out of order; this keeps the
+   * reversal in one place.
+   */
+  setNextStates(...states: GameState[]): void {
+    for (let i = states.length - 1; i >= 0; i--) {
+      this.stateStack.push(states[i]);
+    }
+  }
+
   finishCurrentState(): GameState {
     if (this.stateStack.length > 0) {
       const poppedState = this.stateStack.pop();

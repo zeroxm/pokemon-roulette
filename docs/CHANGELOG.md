@@ -75,6 +75,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N8 | T-17 | The six inline `ng-template` modals moved out of the container into four components under `roulette-container/modals/`. Evolve+trade merged (identical markup, two differing phrases); consolation-prize+item-activation merged likewise. The container's stylesheet — which was 100% modal styling — was deleted, its rules moving to a shared `modal-shared.css`. | **Every modal must look and behave exactly as before.** Open all six: a consolation prize (win a battle with nothing able to evolve), an item activating (Escape Rope), an evolution, a trade, the Team Rocket recovery notice, and the Team Rocket failure (Entei). Check for each: heading, sprite(s), message text, button label, and that the **Ok button closes only that modal** — any queued modal behind it must still appear. | [ ] |
 
+| N9 | T-18 | `GameStateService.setNextStates(...)` queues several states in play order; eight call sites that pushed backwards now read forwards. | **Game flow order must be identical.** Exercise each converted path: an evolution after a battle, a "catch two"/"catch three" result, a multitask double re-spin, Team Rocket stealing a Pokémon, and a second evolution via exp-share. In each, the wheels must appear in the same sequence as before. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
