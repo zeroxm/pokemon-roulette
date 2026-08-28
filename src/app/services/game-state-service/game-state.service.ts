@@ -75,15 +75,19 @@ export class GameStateService {
     }
   }
 
+  /**
+   * Pops the next state and emits it.
+   *
+   * On an empty stack this used to *return* 'game-over' without emitting it, so a caller believed
+   * the game had ended while the UI stayed frozen on the previous state. It now emits, making the
+   * return value and what is on screen agree.
+   */
   finishCurrentState(): GameState {
-    if (this.stateStack.length > 0) {
-      const poppedState = this.stateStack.pop();
-      if (poppedState) {
-        this.state.next(poppedState);
-        return poppedState;
-      }
-    }
-    return 'game-over';
+    const poppedState = this.stateStack.pop();
+    const nextState = poppedState ?? 'game-over';
+
+    this.state.next(nextState);
+    return nextState;
   }
 
   advanceRound(): void {

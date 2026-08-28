@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { championByGeneration } from './champion-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -40,6 +41,7 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
 
   constructor(
     modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
     gameStateService: GameStateService,
     generationService: GenerationService,
     trainerService: TrainerService,
@@ -57,7 +59,7 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
       if (this.retries <= 0) {
         const potion = this.hasPotions();
         if (potion) {
-          this.usePotion(potion, () => this.modalService.open(this.itemUsedModal, { centered: true, size: 'md' }));
+          this.usePotion(potion, () => this.modalQueueService.open(this.itemUsedModal, { centered: true, size: 'md' }));
         } else {
           this.battleResultEvent.emit(false);
         }
@@ -69,7 +71,7 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
     if (state === 'champion-battle') {
       this.getCurrentChampion();
       this.calcVictoryOdds();
-      this.modalService.open(this.championPresentationModal, { centered: true, size: 'lg' });
+      void this.modalQueueService.open(this.championPresentationModal, { centered: true, size: 'lg' });
     }
   }
 

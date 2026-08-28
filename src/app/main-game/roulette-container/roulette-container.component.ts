@@ -202,9 +202,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private pendingPokemonSelection: PendingSelection<PokemonItem> | null = null;
   private pendingItemSelection: PendingSelection<ItemItem> | null = null;
 
-  getGameState(): string {
-    return this.currentGameState;
-  }
 
   /**
    * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
@@ -899,6 +896,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private evolvePokemon(pokemon: PokemonItem): void {
     const pokemonEvolutions = this.evolutionService.getEvolutions(pokemon);
 
+    if (pokemonEvolutions.length === 0) {
+      // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
+      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // a wheel with no segments.
+      this.finishCurrentState();
+      return;
+    }
+
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.showpkmnEvoModal();
@@ -988,6 +993,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   private evolveSecondPokemon(pokemon: PokemonItem): void {
     const pokemonEvolutions = this.evolutionService.getEvolutions(pokemon);
+
+    if (pokemonEvolutions.length === 0) {
+      // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
+      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // a wheel with no segments.
+      this.finishCurrentState();
+      return;
+    }
 
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);

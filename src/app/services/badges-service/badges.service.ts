@@ -13,14 +13,14 @@ export class BadgesService {
 
   badgesByGeneration = badgesByGeneration;
 
-  getBadge(generation: GenerationItem, fromRound: number, fromLeader: number): Observable<Badge> {
+  getBadge(generation: GenerationItem, fromRound: number, fromLeader: number): Observable<Badge | undefined> {
 
     if (!this.badgesByGeneration[generation.id] ||
         this.badgesByGeneration[generation.id][fromRound] === undefined) {
       console.warn(
         `BadgesService.getBadge: no badge for generation ${generation.id} round ${fromRound}`
       );
-      return of(undefined as unknown as Badge);
+      return of(undefined);
     }
 
     let badge = this.badgesByGeneration[generation.id][fromRound];
@@ -30,7 +30,7 @@ export class BadgesService {
         console.warn(
           `BadgesService.getBadge: fromLeader ${fromLeader} out of range for generation ${generation.id} round ${fromRound}`
         );
-        return of(undefined as unknown as Badge);
+        return of(undefined);
       }
       badge = badge[fromLeader];
     }

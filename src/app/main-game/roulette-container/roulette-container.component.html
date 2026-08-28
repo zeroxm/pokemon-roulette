@@ -1,4 +1,4 @@
-@switch (getGameState()) {
+@switch (currentGameState) {
   @case ('game-start') {
     <app-generation-roulette
         (generationSelectedEvent)="handleGenerationSelected()">

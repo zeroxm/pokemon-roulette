@@ -75,7 +75,16 @@ export class TrainerService implements OnDestroy {
   }
 
   getTrainerSprite(generation: number, gender: string): string {
-    return this.trainerSpriteData[generation][gender];
+    // Unguarded index chains here would throw on an unknown generation or gender. The data covers
+    // 1-9 and GenerationService only produces those, so this cannot fire today — it is a guard
+    // against a future generation being added to one table and not the other.
+    const sprite = this.trainerSpriteData[generation]?.[gender];
+
+    if (!sprite) {
+      console.warn(`No trainer sprite for generation ${generation} / ${gender}; using a placeholder.`);
+      return './place-holder-pixel.png';
+    }
+    return sprite;
   }
 
   setTrainer(generation: number, gender: string) {
@@ -199,6 +208,11 @@ export class TrainerService implements OnDestroy {
       index = this.storedPokemon.indexOf(pokemonOut);
       if (index > -1) {
         this.storedPokemon.splice(index, 1, pokemonIn);
+      } else {
+        // Located by reference identity, so a stale object silently evolves nothing while the
+        // caller has already consumed the item and shown the modal. Not reachable today; noisy
+        // if a future path ever hands us a copy.
+        console.warn(`Could not find Pokémon ${pokemonOut.pokemonId} to evolve; team unchanged.`);
       }
     }
 
@@ -220,8 +234,10 @@ export class TrainerService implements OnDestroy {
     this.trainerTeamObservable.next(this.getTeam());
   }
 
+  /** A copy, matching getTeam() and getStored(). Handing out the live array let a consumer
+   *  mutate it behind the service's back. */
   getItems(): ItemItem[] {
-    return this.trainerItems;
+    return [...this.trainerItems];
   }
 
   getItemsObservable(): Observable<ItemItem[]> {

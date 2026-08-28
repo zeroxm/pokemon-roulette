@@ -101,6 +101,9 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N23 | T-29 | Every `<img>` now falls back to the local placeholder if it fails to load, and the one sprite-fetch subscriber handles errors instead of throwing. | **Simulate the outage.** In devtools, block `raw.githubusercontent.com` (Network request blocking) and reload. The game must stay **usable**: wheels spin, battles resolve, the team panel and Pokédex render — every missing image shows the placeholder rather than a broken-image icon, and the console shows no unhandled errors. Then unblock and confirm sprites return. | [ ] |
 
+| N24 | T-30 | Champion and rival battle modals now go through the modal queue like the others; dismissing any modal no longer logs an unhandled rejection. | Fight a **champion** and a **rival**. Their presentation modals must appear, and closing one by **clicking the backdrop or pressing Esc** must leave no error in the console. Use a potion during a champion fight and confirm the item modal appears in order. | [ ] |
+| N25 | T-31/T-32/T-33 | Defensive cleanups: a stored settings blob is now validated field by field, an unknown trainer generation falls back to a placeholder, and a few silent failure paths now warn. | **Corrupt your settings deliberately.** In devtools: `localStorage.setItem('pokemon-roulette-settings','{"muteAudio":null,"defaultGender":"banana"}')`, reload. The game must start normally with **audio unmuted** and gender set to **Always Choose** — not crash, not stick on a broken value. Then set `'{not json'` and reload: same result. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
