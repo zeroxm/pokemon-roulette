@@ -77,6 +77,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N9 | T-18 | `GameStateService.setNextStates(...)` queues several states in play order; eight call sites that pushed backwards now read forwards. | **Game flow order must be identical.** Exercise each converted path: an evolution after a battle, a "catch two"/"catch three" result, a multitask double re-spin, Team Rocket stealing a Pokémon, and a second evolution via exp-share. In each, the wheels must appear in the same sequence as before. | [ ] |
 
+| N10 | T-19/T-20 | The consolation-prize switch became a `Record<EventSource, ConsolationPrize>` table; the four modal-then-continue blocks became one `showModalThenContinue` helper. Two sprite URLs were normalised from `refs/heads/master/...` to `master/...` to match their siblings. | **Every consolation prize must still be right.** Win each of these with **nothing able to evolve** and check the modal copy matches the event: gym battle, Elite Four, a trainer battle, the daycare (egg), a rival battle, Team Rocket, and Snorlax. Confirm the **sprite loads** in each — the two normalised URLs are the ones to watch (egg and the generic unknown item). Also verify "less explanations" still skips the evolution/trade modals, and that the Team Rocket failure modal still appears **even with that setting on**. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
