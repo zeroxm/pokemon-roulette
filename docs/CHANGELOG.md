@@ -159,6 +159,27 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 ---
 
+## T-38 — toolchain upgrade (added after the campaign closed)
+
+Angular 21 → 22, ng-bootstrap 20 → 21, ngx-translate 17 → 18, ng-icons 33 → 35,
+TypeScript 5.9 → 6.0, and the removal of `@angular-devkit/build-angular`. This took
+`npm audit` to **0 vulnerabilities with dev dependencies included**, up from 7.
+
+This is the highest-risk block in the whole UAT and the least covered by tests: it changes
+the framework's change-detection default, the HTTP transport, and the entire i18n loader.
+**Run these first — a failure here invalidates everything below.**
+
+| # | What to do | Expected | ✓ |
+| --- | --- | --- | --- |
+| 30 | Load the app and read any screen. | Real words everywhere. **A page full of raw keys** (`game.main.roulette.generation.title`) means the i18n loader is misconfigured — this exact failure shipped mid-upgrade and passed all 299 tests. Verified fixed, but it is the first thing to look at. | [ ] |
+| 31 | Switch through **all six** locales, then reload. | Each locale loads fully; the choice survives the reload. `getDefaultLang` → `getFallbackLang` was renamed in this upgrade, and that is the code path behind language restore. | [ ] |
+| 32 | Play a full run with the console open. | No `ExpressionChangedAfterItHasBeenChecked`, and **no view that fails to repaint after an action** — a stale panel, a counter that does not tick, a modal that opens blank. v22 makes OnPush the default; every component declares `Eager` to keep today's behaviour, and a missed one shows up exactly like that. | [ ] |
+| 33 | Watch sprites load across a run — team, Pokédex, storage PC. | Sprites appear, and failures still fall back to the local placeholder. HttpClient stayed on XHR (`withXhr()`) rather than v22's fetch default, so the sprite fetcher's 3× retry and error paths are unchanged — confirm that is still true in practice. | [ ] |
+| 34 | Open Settings and toggle every checkbox; open a Pokémon switch modal and an item modal. | Toggles reflect state correctly, and both modals show their sprites. These are the 8 bindings where v22 changed `a?.b` from `null` to `undefined` and the migration's wrapper was removed. | [ ] |
+| 35 | Use ng-bootstrap UI: modals, tooltips, the badges panel. | Unchanged look and behaviour. ng-bootstrap went up a major version in the same commit. | [ ] |
+
+---
+
 ## Pre-push gate
 
 Do not push until every box above is ticked **and**:
@@ -166,7 +187,8 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | 234/234 at time of writing (baseline 230; `T-05` −2, `T-03` +6) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **301/301** (baseline 230) | [ ] |
+| `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
 | Both audit reports | empty and deleted | [ ] |
@@ -184,5 +206,8 @@ Do not push until every box above is ticked **and**:
 - **`T-03` is best tested first**, while you still have throttling set up — it needs a slow load to
   reproduce, and its failure mode (every control silently dead) is easy to mistake for something else
   later in the session.
+- **T-38 changes the framework itself.** Its rows are numbered 30+ but should be run *first*; if
+  strings do not render or views do not repaint, stop and report that before working through the
+  campaign's own findings — those results would be meaningless.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
