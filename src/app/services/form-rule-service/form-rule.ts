@@ -1,5 +1,4 @@
 import { PokemonItem } from '../../interfaces/pokemon-item';
-import { MegaStoneItemName } from '../items-service/item-names';
 
 /** Which of a rule's forms a Pokémon changes into when the rule fires. */
 export type FormSelection =
@@ -14,8 +13,13 @@ export type FormSelection =
   | { kind: 'base-to-battle' }
   /** Any form other than the current one. */
   | { kind: 'random-other' }
-  /** The form paired with a held stone; the rule does nothing without one. */
-  | { kind: 'item-gated'; stones: MegaStoneItemName[] };
+  /**
+   * The form whose own `stone` the trainer holds; the rule does nothing without one.
+   *
+   * `baseId` is carried explicitly because the base Pokémon is not among `forms` — the forms are
+   * what it becomes, not what it is.
+   */
+  | { kind: 'item-gated'; baseId: number };
 
 /**
  * One form-changing mechanic, described as data.
@@ -28,7 +32,7 @@ export type FormSelection =
 export interface FormRule {
   /** Stable identity, used to record what to undo. */
   readonly id: string;
-  /** Candidate forms. For `item-gated`, index-aligned with `selection.stones`. */
+  /** Candidate forms. Item-gated forms carry the stone that selects them. */
   readonly forms: readonly PokemonItem[];
   /** Whether the PC is swept too. A form left in storage is otherwise stranded there. */
   readonly scope: 'team' | 'team+stored';

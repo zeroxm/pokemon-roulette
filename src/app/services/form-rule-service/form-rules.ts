@@ -1,7 +1,7 @@
 import { FormRule } from './form-rule';
 import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
-import { pokemonMegaForms, megaStoneNamesForBaseId } from '../trainer-service/pokemon-mega-forms';
+import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
 
 /**
  * The three existing form tables, adapted into one rule list.
@@ -37,6 +37,6 @@ export const formRules: FormRule[] = [
     forms,
     scope: 'team+stored',
     persistence: 'temporary',
-    selection: { kind: 'item-gated', stones: megaStoneNamesForBaseId(Number(baseIdText)) },
+    selection: { kind: 'item-gated', baseId: Number(baseIdText) },
   })),
 ];

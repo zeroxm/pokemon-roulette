@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**11 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-03`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**10 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-03`, `CQ-05`–`CQ-07`, `CQ-10`–`CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -46,7 +46,7 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 | --- | --- |
 | ~~`CQ-02` FormRule model~~ **done (`T-23`)** | `SEC-02` · `SEC-03` · `SEC-05` — all cleared with it |
 | ~~`CQ-03` RunModifiers~~ **done (`T-22`)** | `SEC-04` · `SEC-07` — both cleared with it |
-| `CQ-10` stone-on-form join | `SEC-30a` unreachable Greninja forms |
+| ~~`CQ-10` stone-on-form join~~ **done (`T-24`)** | `SEC-30a` — cleared with it |
 | `CQ-13` extract weighted-random | `SEC-01` (fixed in `T-03`) — extraction would still remove the `as any` reach-through in its tests |
 
 ---
@@ -170,28 +170,6 @@ the subclasses already extend it.
 Same story for `getCurrentLeader`/`getCurrentElite`/`getCurrentChampion`/`getCurrentRival` — the same
 `translate.get(name) → split('/') → pick index → rebuild` routine four times. That belongs in a free
 function `resolveSplitTrainer(leader, translated, index)`: pure, no DI, trivially testable.
-
----
-
-### CQ-10 — The mega form↔stone pairing is an unenforceable positional invariant, already broken
-- **Location:** `src/app/services/trainer-service/pokemon-mega-forms.ts:4,1294` · `trainer.service.ts:457-470`
-- **Status:** [ ] open
-
-**What:** Two tables keyed by the same base id, joined **by array index**:
-`forms[stoneNames.indexOf(stoneName)] ?? forms[0] ?? null`. Nothing in the type system ties `forms[i]`
-to `stones[i]`. Across all 92 entries, 91 agree in length — **Greninja does not**: base `658` has three
-forms (`greninja-mega`, `greninja-battle-bond`, `greninja-ash` at `:971,982,993`) and one stone. So
-`stoneIndex` is always `0`, two authored forms plus their i18n keys in six locales are dead, and the
-silent `?? forms[0]` fallback is exactly what hid it.
-
-**Remedy:** put the stone **on the form** — `{ pokemonId: 10034, stone: 'charizardite-x', … }`. The join
-becomes `forms.find(f => f.stone === stoneName)`, and a missing or duplicated stone is a compile error
-rather than a silent index slip. `megaStoneNamesForBaseId` derives from the forms table instead of
-being maintained beside it, and `_baseIdToStoneName`'s 92 lines disappear. Falls out naturally from
-`CQ-02`. Decide separately whether Greninja's extra forms should become reachable or be deleted.
-
-*Also:* `_baseIdToStoneName` keys include `10061, 10120, 10147, 10258, 10259` — form ids used as "base"
-ids. The name lies about the id space; keying by rule rather than base id removes the muddle.
 
 ---
 

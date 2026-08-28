@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { ItemName } from '../items-service/item-names';
 import { FormRule } from './form-rule';
+import { MegaForm } from '../trainer-service/pokemon-mega-forms';
 import { formRules } from './form-rules';
 
 /** What a fired rule replaced, so it can be put back. */
@@ -78,7 +79,7 @@ export class FormRuleService {
 
           if (rule.selection.kind === 'base-to-battle') {
             if (rule.forms[1]?.pokemonId === current.pokemonId) {
-              collection[i] = this.carryOver(rule.forms[0], current);
+              collection[i] = this.carryOver(rule.forms[0], current);   // table form: no sprite yet
               reverted = true;
             }
             continue;
@@ -89,7 +90,7 @@ export class FormRuleService {
           }
           const record = records.find(r => r.ruleId === rule.id);
           if (record) {
-            collection[i] = this.carryOver(record.original, current);
+            collection[i] = this.restore(record.original, current);
             reverted = true;
           }
         }
@@ -150,11 +151,29 @@ export class FormRuleService {
     return changed;
   }
 
-  /** The one swap every mechanic used to implement separately. */
+  /**
+   * The one swap every mechanic used to implement separately.
+   *
+   * Anything the player earned on this Pokémon during the battle has to survive the change back,
+   * so per-Pokémon state is carried across rather than taken from the stored form. Only the sprite
+   * is dropped, because the new form needs its own artwork.
+   */
   private carryOver(target: PokemonItem, replacing: PokemonItem): PokemonItem {
     const replacement = structuredClone(target);
     replacement.shiny = replacing.shiny;
     replacement.sprite = null;
+    return replacement;
+  }
+
+  /**
+   * Puts a Pokémon back into a form it previously held.
+   *
+   * Unlike `carryOver`, the sprite is kept: the stored form already resolved its artwork before
+   * the battle, so nulling it here would send the app back to PokéAPI for an image it has.
+   */
+  private restore(target: PokemonItem, replacing: PokemonItem): PokemonItem {
+    const replacement = structuredClone(target);
+    replacement.shiny = replacing.shiny;
     return replacement;
   }
 
@@ -178,18 +197,11 @@ export class FormRuleService {
 
       case 'item-gated': {
         // Gated rules key off the *base* Pokémon, which is not among `forms`.
-        if (index !== -1) {
+        if (current.pokemonId !== rule.selection.baseId) {
           return null;
         }
-        const baseId = Number(rule.id.split(':')[1]);
-        if (current.pokemonId !== baseId) {
-          return null;
-        }
-        const stoneIndex = rule.selection.stones.findIndex(stone => heldItems.includes(stone));
-        if (stoneIndex === -1) {
-          return null;
-        }
-        return rule.forms[stoneIndex] ?? rule.forms[0] ?? null;
+        // Each form names its own stone, so there is no index to keep aligned.
+        return rule.forms.find(form => heldItems.includes((form as MegaForm).stone)) ?? null;
       }
     }
   }
