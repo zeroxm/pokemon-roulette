@@ -155,6 +155,21 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 ---
 
+## T-39 — mega evolution no longer fires by itself
+
+Found during this UAT and fixed. Entering a battle used to mega-evolve any team member whose stone
+you were carrying, without being asked. A regression introduced by T-23's form-rule migration.
+
+| # | What to do | Expected | ✓ |
+| --- | --- | --- | --- |
+| 40 | Earn a mega stone, then enter a battle with the matching Pokémon on your team. **Do not tap anything.** | The Pokémon stays in its **base form**. Nothing mega-evolves on its own. | [ ] |
+| 41 | Now tap the mega stone in the items bar during that battle. | It mega-evolves, with the animation (or instantly, if *Skip Mega Evolution Animation* is on). | [ ] |
+| 42 | Finish that battle and check the Pokémon afterwards — in the team **and** in the storage PC if you move it there mid-battle. | Back to base form, keeping its shiny status and stats. | [ ] |
+| 43 | Enter a battle with **Palafin** on the team, and separately with **Aegislash** or **Ogerpon**. | These still transform automatically on battle entry — only mega became manual. | [ ] |
+| 44 | Tap the stone, then let the battle advance a step (a potion retry, an X-Attack). | The mega form stays active; it is not reverted or re-applied mid-battle. | [ ] |
+
+---
+
 ## T-38 — toolchain upgrade (added after the campaign closed)
 
 Angular 21 → 22, ng-bootstrap 20 → 21, ngx-translate 17 → 18, ng-icons 33 → 35,
@@ -183,7 +198,7 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **301/301** (baseline 230) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **305/305** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |

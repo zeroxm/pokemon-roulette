@@ -120,6 +120,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-35 | Angular patched to 21.2.22 (0 production advisories); budgets set honestly; CI audit gate | `SEC-15`, `SEC-30o` + baseline obs. | med | [x] |
 | T-36 | Audit reports deleted; `CLAUDE.md` updated; PR marked ready | — | — | [x] |
 | T-38 | Toolchain upgrade: Angular 22, ng-bootstrap 21, ngx-translate 18, TS 6.0; `@angular-devkit/build-angular` removed — **0 vulnerabilities including dev deps** | post-campaign request | high | [x] |
+| T-39 | **UAT fix:** mega evolution fired on battle entry for merely holding the stone — a T-23 regression; `trigger` axis added to the rule table | UAT finding | high | [x] |
 | T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
@@ -213,6 +214,32 @@ compiler-cli peers `>=6.0 <6.1`).
 Verified: build 1.50 MB with no budget breached, 301/301 tests, `npm audit` clean **with dev
 dependencies included**, i18n parity across all six locales, and a browser session confirming
 translations load, the state machine advances and the console stays clean.
+
+### T-39 — mega evolution fired automatically (regression from T-23)
+
+Found by playing, during UAT: reaching a battle with a Pokémon whose mega stone the player held
+mega-evolved it immediately, with no tap.
+
+**This was mine.** The pre-campaign `applyMegaForms` opened with
+`if (this.megaBattleBaseId === null) return false;`, and `megaBattleBaseId` is set only by
+`activateMegaEvolutionForPokemon` — the tap path. T-23 moved the mechanic into the rule table and
+lost that gate: the `item-gated` rule says the target is "the form whose stone you hold", and
+`applyAll` treated that as permission to apply it. Holding a stone became enough.
+
+Worth noting how it slipped through. T-23's safety net was the 11 pre-existing form specs, and they
+passed — but five of them *applied the mega form through `applyAll`*, so they were asserting the
+regression rather than catching it. A test that reaches the behaviour by a path the game never uses
+proves nothing about the game.
+
+The fix separates two questions the model had merged: *which* form a rule picks (`selection`) and
+*what makes it fire* (new `trigger: 'battle-start' | 'manual'`). Mega is `manual`; `applyAll` skips
+it; `forceApply` and revert are untouched. A `selection.kind === 'item-gated'` check inside
+`applyAll` would have fixed the symptom and left the confusion in place for the next rule.
+
+Tests: the five misrouted specs now go through `forceApply`, plus four new ones covering both
+directions — no mega on battle entry while holding the stone, an active mega undisturbed by a later
+battle-start pass, other Pokémon still transforming normally, and revert still working.
+Mutation-checked: removing the guard fails two of them. 301 → 305.
 
 ## Coverage check
 

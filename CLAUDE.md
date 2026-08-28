@@ -27,7 +27,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **301/301 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **305/305 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -129,9 +129,14 @@ X-Attack modifiers.
 
 - `TrainerService` — team, PC storage, items, badges. It no longer manipulates forms.
 - `FormRuleService` — **every** form change: mega, sticky (Aegislash, Ogerpon), and battle-only
-  (Palafin). One `FormRule` table with three axes — scope, persistence, selection. Apply is
-  idempotent, revert sweeps storage as well as the team, and revert bookkeeping always clears. Add a
-  mechanic by adding a rule, not another code path.
+  (Palafin). One `FormRule` table with four axes — scope, persistence, **trigger**, selection. Apply
+  is idempotent, revert sweeps storage as well as the team, and revert bookkeeping always clears. Add
+  a mechanic by adding a rule, not another code path.
+  `trigger` exists because `selection` alone conflated two questions. `battle-start` rules fire from
+  `applyAll` when a fight begins; `manual` rules fire **only** from `forceApply`. Mega evolution is
+  `manual` — holding the stone decides *which* mega form is available, never that one should happen.
+  Applying it from `applyAll` made every eligible Pokémon transform on battle entry just for owning
+  the stone, which is exactly the bug the axis prevents.
 - `GenerationService` — the selected generation drives nearly all content lookups.
 - `ItemsService` / `MegaStoneService` / `RareCandyService` — item catalogs and mid-game item interrupts (rare candy and mega stones bypass the wheel; both are gated on `wheelSpinning`).
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.
