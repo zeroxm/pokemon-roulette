@@ -215,4 +215,9 @@
         (restartEvent)="resetGameAction()">
     </app-game-over>
   }
+  @default {
+    <!-- Every GameState should have an arm above. Reaching here means one was added without a
+         matching case, which used to blank the screen silently. -->
+    <p class="unhandled-state">{{ 'game.main.unhandledState' | translate }}</p>
+  }
  }

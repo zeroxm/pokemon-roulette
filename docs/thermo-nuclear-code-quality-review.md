@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**14 findings** (`CQ-01`–`CQ-26`; `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**13 of the original 26 findings remain.** Cleared so far: `CQ-01`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -19,12 +19,9 @@ structural knots** and a pile of mechanical dead code.
 
 The three knots, in order of leverage:
 
-1. **`roulette-container.component.ts` is 1050 lines mostly because the state model can't carry a
-   payload.** Three `GameState` members (`evolve-pokemon`, `select-evolution`, `steal-pokemon`) are not
-   states at all — they render nothing and exist only as tags read back after a selection. When mega
-   stones needed a fourth meaning for the same selection state, the mechanism was implemented a second
-   time as `megaSelectionMode` + `pendingMegaAwardPokemon`. A third consumer will add a third. Give
-   selections a continuation (`CQ-01`) and ~400 lines evaporate rather than move.
+1. ~~The state model can't carry a payload~~ — **cleared by `T-21`**: selections now carry their own
+   continuation, the three marker `GameState` members are gone, and both mega dispatchers with them.
+   Every remaining member has exactly one `@switch` arm, with a `@default` backstop.
 2. **Four form-swapping mechanisms are one mechanism in four costumes.** Mega, sticky, temporary and
    battle-only forms all end in the same five-line swap, written four times, differing on three
    orthogonal axes that should be table columns (`CQ-02`). This deletes ~180 lines *and* structurally
@@ -73,48 +70,6 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 ---
 
 # 1 · Structural regressions and code-judo opportunities
-
-### CQ-01 — Three `GameState` members are smuggled parameters; give selections a continuation
-- **Location:** `src/app/services/game-state-service/game-state.ts:8,12,18` · `roulette-container.component.ts:210-211,364-386,752-784`
-- **Status:** [ ] open
-
-**What:** `'evolve-pokemon'`, `'select-evolution'` and `'steal-pokemon'` have **no `@case` arm** — verified
-zero. They render nothing. They exist so `continueWithPokemon` can pop one and read it back as a tag
-saying what the finished selection *meant*. The scheme ran out of road when mega stones needed a
-fourth meaning for the same `'select-from-pokemon-list'` state, so `megaSelectionMode` was bolted on as
-a parallel tag, guarded ahead of the switch, with `pendingMegaAwardPokemon` carrying the payload the
-state string couldn't. **That is the same mechanism implemented twice.**
-
-**Remedy:**
-
-```ts
-// roulette-container/pending-selection.ts
-export interface PendingSelection<T> {
-  title: string;                 // translation key
-  options: T[];
-  onSelected: (choice: T) => void;
-}
-```
-
-```ts
-continueWithPokemon(pokemon: PokemonItem): void {
-  const selection = this.pendingPokemonSelection;
-  this.pendingPokemonSelection = null;
-  this.finishCurrentState();
-  selection?.onSelected(pokemon);
-}
-```
-
-**What this deletes** (not moves): the `switch` at `:368-386`; `megaSelectionMode`,
-`pendingMegaAwardPokemon`, `handleMegaSelection`, `handleMegaStoneAwardSelection` (~40 lines);
-`continueWithItem` collapses to the symmetric two-line form; `customWheelTitle`, `auxPokemonList`,
-`auxItemList` stop being free-floating fields; three members leave the `GameState` union, which then
-genuinely means "what is on screen". `awardMegaStoneAfterImportantBattle` stops being a two-phase dance
-and becomes one `requestPokemonSelection({...})` call.
-
-**The single highest-leverage change in the codebase.**
-
----
 
 ### CQ-02 — Four form mechanisms are one mechanism in four costumes
 - **Location:** `src/app/services/trainer-service/trainer.service.ts:364-541`
@@ -535,7 +490,7 @@ are mostly independent of each other.
 | 5 | ~~Add `setNextStates(...)`, collapse the reverse-push pairs~~ **done (`T-18`)** | `CQ-11` | — |
 | 6 | ~~Add `showModalThenContinue`~~ **done (`T-19`)** — `stealPokemon` deliberately keeps its no-skip behaviour | `CQ-12` | — |
 | 7 | ~~Consolation-prize table + outcome-based tests~~ **done (`T-20`)** | `CQ-06`, `CQ-25` | — |
-| 8 | **`PendingSelection<T>` continuations** — delete `megaSelectionMode`, both mega dispatchers, three `GameState` members | `CQ-01` | Medium — small diff by now |
+| 8 | ~~**`PendingSelection<T>` continuations**~~ **done (`T-21`)** | `CQ-01` | — |
 | 9 | **`FormRuleService`** — three-phase migration; fixes `SEC-02`/`SEC-03`/`SEC-05` structurally | `CQ-02`, `CQ-10` | Medium-high |
 | 10 | `RunModifiers` into the service, reset in `resetGameState()`; add the restart regression test | `CQ-03` | Medium |
 | 11 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`, 8 call sites | `CQ-04` | Medium |

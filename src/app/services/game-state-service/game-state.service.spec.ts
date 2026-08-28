@@ -29,12 +29,12 @@ describe('GameStateService', () => {
     });
 
     it('matches what pushing one at a time in reverse used to do', () => {
-      service.setNextState('evolve-pokemon');
+      service.setNextState('go-fishing');
       service.setNextState('select-from-pokemon-list');
       const byHand = [service.finishCurrentState(), service.finishCurrentState()];
 
       service.resetGameState();
-      service.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
+      service.setNextStates('select-from-pokemon-list', 'go-fishing');
       const byHelper = [service.finishCurrentState(), service.finishCurrentState()];
 
       expect(byHelper).toEqual(byHand);
@@ -83,7 +83,7 @@ describe('GameStateService', () => {
   });
 
   it('should pop states in LIFO order when multiple setNextState calls are made', () => {
-    service.setNextState('evolve-pokemon');         // pushed 2nd
+    service.setNextState('go-fishing');         // pushed 2nd
     service.setNextState('select-from-pokemon-list'); // pushed 3rd — now on top
 
     const emitted: string[] = [];
@@ -91,11 +91,11 @@ describe('GameStateService', () => {
 
     // First pop: 'select-from-pokemon-list' (most recently pushed)
     service.finishCurrentState();
-    // Second pop: 'evolve-pokemon'
+    // Second pop: 'go-fishing'
     service.finishCurrentState();
 
     // emitted[0] is the BehaviorSubject's current value at subscribe time ('game-start')
     expect(emitted[1]).toBe('select-from-pokemon-list');
-    expect(emitted[2]).toBe('evolve-pokemon');
+    expect(emitted[2]).toBe('go-fishing');
   });
 });

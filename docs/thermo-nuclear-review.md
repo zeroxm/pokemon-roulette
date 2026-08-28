@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**3 High · 9 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**3 High · 8 Medium · 20 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -187,30 +187,6 @@ only because `resetItems()` clears the stones, so `resolveMegaStoneForBattle` re
 
 ---
 
-### SEC-06 — Mega-stone second stage pushes its state after the pop, deferring the reward and clobbering the wheel title
-- **Severity:** Medium
-- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:361-366`
-- **Status:** [ ] open
-
-**What:** `continueWithPokemon` pops first (line 362) and only then runs `handleMegaSelection`
-(line 364). By the time `startMegaStoneAward` pushes `'select-from-item-list'` (line 732), the stack
-has already advanced past it.
-
-**Failure scenario:** Gym win with ≥2 mega candidates, one holding ≥2 unowned stones:
-1. `gymBattleResult` pushes `check-evolution`, then `select-from-pokemon-list`, then pops → candidate wheel.
-2. Player picks → line 362 pops **`check-evolution`**; that roulette is now on screen.
-3. `startMegaStoneAward` sets `customWheelTitle = 'game.main.roulette.mega.whichStone'` (line 730) and
-   pushes `select-from-item-list` — now buried *under* the live `check-evolution`.
-4. Player spins check-evolution → `chooseWhoWillEvolve` overwrites `customWheelTitle` with
-   `'game.main.roulette.evolve.who'` (line 326).
-5. When the stone wheel finally surfaces, it renders titled **"Who will evolve?"** over mega stones.
-
-**Suggested fix:** Move `finishCurrentState()` to *after* the `handleMegaSelection` check, and have
-`handleMegaSelection` call it itself only when it does not push a follow-up state. Apply the same
-ordering review to `continueWithItem` (lines 389-395).
-
----
-
 ### SEC-07 — Exp-share silently skips every other trigger after a dry `secondEvolution()`
 - **Severity:** Medium
 - **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:414-416`
@@ -382,17 +358,6 @@ Both open game-flow modals through raw `NgbModal` while gym and elite-four use t
 states the queue is preferred for anything game flow triggers; modals opened outside it are invisible
 to it and can be stacked on by a queued open.
 
-### SEC-26 — Three `GameState` members have no `@switch` arm, and there is no `@default`
-- **Severity:** Low · **Location:** `src/app/main-game/roulette-container/roulette-container.component.html`
-
-`'evolve-pokemon'`, `'select-evolution'`, `'steal-pokemon'` — **verified zero `@case` arms and zero
-`@default`**. `'steal-pokemon'` is transient (popped immediately at line 379) so it never paints. But
-`'evolve-pokemon'` and `'select-evolution'` **do** paint: `showpkmnEvoModal` (lines 1009-1025) calls
-`finishCurrentState()` only inside the `modalRef.result` handler, so while the modal is open the game
-area behind it renders **nothing** — and with `lessExplanations` off and the modal queued behind
-another, the blank persists. **Fix:** add an `@default` rendering a neutral placeholder plus a dev
-console warning, so a future union member added without an arm fails loudly instead of blanking.
-
 ### SEC-28 — `evolvePokemon` treats "zero evolutions" as "many", pushing an empty wheel
 - **Severity:** Low (**latent**) · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:903-913, 989-997`
 
@@ -457,7 +422,7 @@ Test coverage is the common thread under the High findings — every one sits in
 - **`roulette-container.component.spec.ts`** (370 lines) has no coverage of the mega-stone award chain,
   the running-shoes re-spin, multitask, exp-share/`secondEvolution`, `gymBattleResult`/
   `eliteFourBattleResult` (only `championBattleResult(true)` is exercised), `teamRocketDefeated`, or
-  `useEscapeRope`. `SEC-04`, `SEC-06`, and `SEC-07` all live in that gap.
+  `useEscapeRope`. `SEC-04` and `SEC-07` still live in that gap.
 - **`game-state.service.spec.ts`** (71 lines) never tests `initializeStates` play order — the thing the
   service exists for. Also untested: underflow, `repeatCurrentState`, `advanceRound`/`retreatRound`,
   and `resetGameState` on a *dirtied* stack.

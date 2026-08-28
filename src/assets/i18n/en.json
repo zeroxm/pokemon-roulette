@@ -407,7 +407,8 @@
       },
       "respin": {
         "multitask": "Multitask x{{count}}"
-      }
+      },
+      "unhandledState": "Something went off the map. Try restarting the game."
     },
     "map": {
       "vermilion": "You are in Vermilion City"
