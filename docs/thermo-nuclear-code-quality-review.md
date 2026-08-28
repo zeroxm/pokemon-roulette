@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**17 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-07`, `CQ-11`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**14 findings** (`CQ-01`–`CQ-26`; `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -241,22 +241,6 @@ names, which a `string` handle cannot.
 
 ---
 
-### CQ-06 — The consolation-prize switch is a lookup table written as 60 lines of code
-- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:259-320`
-- **Status:** [ ] open
-
-**What:** Six cases, each an eight-line block differing only in three translation keys, a sprite URL,
-and a follow-up call. `'gym-battle'` and `'battle-trainer'` differ *only* in the key;
-`'battle-rival'`, `'team-rocket-encounter'` and `'snorlax-encounter'` are identical except the key, and
-repeat the same `unknown.png` URL three times (`:281, 299, 308`).
-
-**Remedy:** a `Record<EventSource, ConsolationPrize>` in `roulette-container/consolation-prizes.ts`
-with `{ text, sprite, description, action }`. The `Record` type makes the compiler **demand a row for
-every new `EventSource`** — today the `default:` at `:317-318` silently swallows one. Sixty lines
-become ~12: look up, open the modal if `action !== 'none'`, dispatch. Do this *after* `T-17` (done) — the modal call site is now one line.
-
----
-
 ### CQ-08 — Collapse the five pool roulettes; leave the other 26 alone
 - **Location:** `src/app/main-game/roulette-container/roulettes/{fishing,fossil,legendary,starter,cave-pokemon}-roulette/`
 - **Status:** [ ] open
@@ -351,18 +335,6 @@ ids. The name lies about the id space; keying by rule rather than base id remove
 ---
 
 # 2 · Spaghetti and API-shape problems
-
-### CQ-12 — The same modal-then-continue dance is written four times
-- **Location:** `roulette-container.component.ts:544-553, 601-614, 1011-1024, 1034-1047`
-- **Status:** [ ] open
-
-Every one is a nested promise with two identical callbacks (because dismissal rejects). Three of the
-four wrap it in `if (!lessExplanations)`; `stealPokemon` does not, and it is unclear whether that is
-intentional — **decide explicitly when fixing.** One `showModalThenContinue(content, { skippable })`
-helper kills all four. Verified: `{ centered: true, size: 'md' }` is repeated **12 times** in this file
-(13 `centered: true` total, one with `size: 'lg'`) — fold the options into the helper too.
-
----
 
 ### CQ-13 — `WheelComponent`: extract the two pieces that have no business being in a component
 - **Location:** `src/app/wheel/wheel.component.ts` (379 lines)
@@ -484,30 +456,6 @@ the contract problem it is.
 
 # 5 · Tests
 
-### CQ-25 — The container specs assert the shape of the switch, not behaviour
-- **Location:** `roulette-container.component.spec.ts:168-214, 226, 279, 326`
-- **Status:** [ ] open
-
-The eight `chooseWhoWillEvolve` tests spy on the component's own public methods and assert *which
-method was called*. That asserts the switch's shape, not the outcome — all eight break under `CQ-06`
-and **none of them would catch a wrong sprite or a wrong translation key**. Replace with one
-table-driven test over `CONSOLATION_PRIZES` asserting the observable outcome.
-
-Likewise `(component as any).evolvePokemon = evolveSpy` and three `(component as any).auxPokemonList`
-reads — reaching through `as any` into privates is the test telling you the seam is wrong. Under
-`CQ-01`, `pendingPokemonSelection.options` is the natural, honest assertion target.
-
-**The good tests are `:72-156`** — capture routing, Pokédex registration, shiny propagation,
-champion-win marking. Those assert observable outcomes and survive every proposed change untouched.
-That is the model. Notably **absent**: nothing covers the running-shoes re-spin, the mega-stone award
-flow, or restart cleanup — the three most fragile behaviours in the file.
-
-`trainer.service.spec.ts` is the counter-example and is **genuinely good** — behavioural, driving
-through the real `GameStateService`. All 11 form tests would pass unchanged against `CQ-02`'s
-`FormRuleService`, because none touch the private replacers by name.
-
----
-
 ### CQ-26 — 60% of the spec suite is scaffolding; three specs are worth writing
 - **Status:** [ ] open
 
@@ -585,8 +533,8 @@ are mostly independent of each other.
 | 3 | ~~Declare `@angular/localize`; drop 3 unused deps; delete the dead methods and orphan JSON files~~ **done (`T-04`, `T-06`)** | `CQ-19`, `CQ-20` | — |
 | 4 | ~~Extract the six inline modals into components~~ **done (`T-17`)** | `CQ-07` | — |
 | 5 | ~~Add `setNextStates(...)`, collapse the reverse-push pairs~~ **done (`T-18`)** | `CQ-11` | — |
-| 6 | Add `showModalThenContinue`; decide the `stealPokemon` / `lessExplanations` question | `CQ-12` | Low |
-| 7 | Consolation-prize table + rewrite the eight spies as one outcome test | `CQ-06`, `CQ-25` | Medium |
+| 6 | ~~Add `showModalThenContinue`~~ **done (`T-19`)** — `stealPokemon` deliberately keeps its no-skip behaviour | `CQ-12` | — |
+| 7 | ~~Consolation-prize table + outcome-based tests~~ **done (`T-20`)** | `CQ-06`, `CQ-25` | — |
 | 8 | **`PendingSelection<T>` continuations** — delete `megaSelectionMode`, both mega dispatchers, three `GameState` members | `CQ-01` | Medium — small diff by now |
 | 9 | **`FormRuleService`** — three-phase migration; fixes `SEC-02`/`SEC-03`/`SEC-05` structurally | `CQ-02`, `CQ-10` | Medium-high |
 | 10 | `RunModifiers` into the service, reset in `resetGameState()`; add the restart regression test | `CQ-03` | Medium |

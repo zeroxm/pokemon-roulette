@@ -5,6 +5,7 @@ import { GenerationRouletteComponent } from "./roulettes/generation-roulette/gen
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
+import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
@@ -212,16 +213,24 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.respinReasonParams = params;
   }
 
-  /** Opens the item modal (consolation prize, or an item announcing itself). */
-  private openItemModal(titleKey: string, sprite: string, descriptionKey: string, titleSuffixKey?: string): void {
-    void this.modalQueueService.open(ItemModalComponent, { centered: true, size: 'md' })
+  /** Opens the item modal and resolves with its ref (consolation prize, or an item announcing itself). */
+  private openItemModalRef(
+    titleKey: string, sprite: string, descriptionKey: string, titleSuffixKey?: string,
+  ): Promise<NgbModalRef> {
+    return this.modalQueueService.open(ItemModalComponent, { centered: true, size: 'md' })
       .then(modalRef => {
         const modal = modalRef.componentInstance as ItemModalComponent;
         modal.titleKey = titleKey;
         modal.sprite = sprite;
         modal.descriptionKey = descriptionKey;
         modal.titleSuffixKey = titleSuffixKey;
+        return modalRef;
       });
+  }
+
+  /** Fire-and-forget variant, for prizes shown alongside a state transition. */
+  private openItemModal(titleKey: string, sprite: string, descriptionKey: string, titleSuffixKey?: string): void {
+    void this.openItemModalRef(titleKey, sprite, descriptionKey, titleSuffixKey);
   }
 
   /** Opens the "X became Y" modal and resolves when it closes. */
@@ -238,6 +247,20 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         modal.joinKey = joinKey;
         return modalRef;
       });
+  }
+
+  /**
+   * Shows an explanatory modal, then advances the state machine — whether the player
+   * acknowledged it or dismissed it. Skipped entirely under the "less explanations" setting.
+   */
+  private async showModalThenContinue(open: () => Promise<NgbModalRef>): Promise<void> {
+    if (this.settingsService.currentSettings.lessExplanations) {
+      this.finishCurrentState();
+      return;
+    }
+    const modalRef = await open();
+    await modalRef.result.catch(() => undefined);
+    this.finishCurrentState();
   }
 
   private finishCurrentState(): void {
@@ -283,32 +306,21 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length === 0) {
-      switch (eventSource) {
-        case 'gym-battle':
-          this.openItemModal('game.main.altPrizes.gymBattle.potion', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png', 'game.main.altPrizes.gymBattle.potionDesc');
-          return this.buyPotions();
-        case 'visit-daycare':
-            this.openItemModal('game.main.altPrizes.visitDaycare.egg', 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png', 'game.main.altPrizes.visitDaycare.eggDesc');
-            return this.mysteriousEgg();
-        case 'battle-rival':
-          this.openItemModal('game.main.altPrizes.battleRival.item', 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png', 'game.main.altPrizes.battleRival.itemDesc');
-          return this.findItem();
-        case 'elite-four-battle':
-          this.openItemModal('game.main.altPrizes.eliteFourBattle.potion', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png', 'game.main.altPrizes.eliteFourBattle.potionDesc');
-          return this.buyPotions();
-        case 'battle-trainer':
-          this.openItemModal('game.main.altPrizes.battleTrainer.potion', 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png', 'game.main.altPrizes.battleTrainer.potionDesc');
-          return this.buyPotions();
-        case 'team-rocket-encounter':
-          this.openItemModal('game.main.altPrizes.teamRocket.item', 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png', 'game.main.altPrizes.teamRocket.itemDesc');
-          return this.findItem();
-        case 'snorlax-encounter':
-          this.openItemModal('game.main.altPrizes.snorlax.item', 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png', 'game.main.altPrizes.snorlax.itemDesc');
-          return this.findItem();
-        case 'rare-candy':
-          return this.doNothing();
-        default:
-          return this.doNothing();
+      // `Record<EventSource, …>` makes a missing row a compile error. The nullish check is for
+      // values arriving from template outputs, where a stale build could yield an unmapped
+      // literal — doing nothing is how this behaved before, and beats throwing mid-game.
+      const prize = CONSOLATION_PRIZES[eventSource];
+
+      if (!prize || prize.action === 'none') {
+        return this.doNothing();
+      }
+
+      this.openItemModal(prize.titleKey, prize.sprite, prize.descriptionKey);
+
+      switch (prize.action) {
+        case 'buy-potions': return this.buyPotions();
+        case 'mysterious-egg': return this.mysteriousEgg();
+        case 'find-item': return this.findItem();
       }
     }
 
@@ -528,16 +540,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     const trainerTeam = this.trainerService.getTeam();
 
     if (trainerTeam.length < 2) {
-      this.modalQueueService.open(TeamRocketFailsModalComponent, {
-        centered: true,
-        size: 'md'
-      }).then(modalRef => {
-        modalRef.result.then(() => {
-          return this.doNothing();
-        }, () => {
-          return this.doNothing();
-        });
-      });
+      void this.modalQueueService
+        .open(TeamRocketFailsModalComponent, { centered: true, size: 'md' })
+        .then(modalRef => modalRef.result.catch(() => undefined))
+        .then(() => this.doNothing());
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
     } else {
@@ -585,20 +591,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.registerInPokedex(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
-    if (!this.settingsService.currentSettings.lessExplanations) {
-      this.openPokemonSwitchModal(
-        'game.main.trade.title', this.pkmnOut, this.pkmnIn,
-        'game.main.trade.sent', 'game.main.trade.received',
-      ).then(modalRef => {
-        modalRef.result.then(() => {
-          this.finishCurrentState();
-        }, () => {
-          this.finishCurrentState();
-        });
-      });
-    } else {
-      this.finishCurrentState();
-    }
+    void this.showModalThenContinue(() => this.openPokemonSwitchModal(
+      'game.main.trade.title', this.pkmnOut, this.pkmnIn,
+      'game.main.trade.sent', 'game.main.trade.received',
+    ));
   }
 
   receiveItem(item: ItemItem): void {
@@ -987,20 +983,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   private showpkmnEvoModal(): void {
     this.playItemFoundAudio();
-    if (!this.settingsService.currentSettings.lessExplanations) {
-      this.openPokemonSwitchModal(
-        this.pkmnEvoTitle, this.pkmnOut, this.pkmnIn,
-        'game.main.roulette.evolve.modal.your', 'game.main.roulette.evolve.modal.to',
-      ).then(modalRef => {
-        modalRef.result.then(() => {
-          this.finishCurrentState();
-        }, () => {
-          this.finishCurrentState();
-        });
-      });
-    } else {
-      this.finishCurrentState();
-    }
+    void this.showModalThenContinue(() => this.openPokemonSwitchModal(
+      this.pkmnEvoTitle, this.pkmnOut, this.pkmnIn,
+      'game.main.roulette.evolve.modal.your', 'game.main.roulette.evolve.modal.to',
+    ));
   }
 
   private useEscapeRope(): void {
@@ -1009,24 +995,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.trainerService.removeItem(item);
       this.gameStateService.setNextState('adventure-continues');
 
-      if (!this.settingsService.currentSettings.lessExplanations) {
-        void this.modalQueueService.open(ItemModalComponent, { centered: true, size: 'md' })
-          .then(modalRef => {
-            const modal = modalRef.componentInstance as ItemModalComponent;
-            modal.titleKey = item.text;
-            modal.titleSuffixKey = 'game.main.item.activates';
-            modal.sprite = item.sprite;
-            modal.descriptionKey = item.description;
-
-            modalRef.result.then(() => {
-              this.finishCurrentState();
-            }, () => {
-              this.finishCurrentState();
-            });
-          });
-      } else {
-        this.finishCurrentState();
-      }
+      void this.showModalThenContinue(() => this.openItemModalRef(
+        item.text, item.sprite, item.description, 'game.main.item.activates',
+      ));
     }
   }
 }

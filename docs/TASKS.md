@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**18 / 36 complete.** Findings cleared: 13 of 46 `SEC` · 9 of 26 `CQ`.
+**20 / 36 complete.** Findings cleared: 13 of 46 `SEC` · 12 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -97,8 +97,8 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 4 — container decomposition** ||||
 | T-17 | Extract the 6 inline `ng-template` modals into 4 components | `CQ-07`, `CQ-18` (partial) | med | [x] |
 | T-18 | Add `setNextStates(...)`; collapse the 8 reverse-push sites | `CQ-11` | low | [x] |
-| T-19 | Add `showModalThenContinue`; fold the 12 repeated modal option literals | `CQ-12` | med | [ ] |
-| T-20 | Consolation-prize `Record<EventSource, …>` table + outcome-based test rewrite | `CQ-06`, `CQ-25` | med | [ ] |
+| T-19 | Add `showModalThenContinue` | `CQ-12` | med | [x] |
+| T-20 | Consolation-prize `Record<EventSource, …>` table + outcome-based test rewrite | `CQ-06`, `CQ-25` | med | [x] |
 | T-21 | `PendingSelection<T>` continuations — delete `megaSelectionMode`, both mega dispatchers, 3 marker states, add `@default` arm | `CQ-01`, `SEC-06`, `SEC-26` | high | [ ] |
 | T-22 | `RunModifiers` into `GameStateService`, reset in `resetGameState()` + regression test | `CQ-03`, `SEC-04`, `SEC-07`, `SEC-30d` | high | [ ] |
 | **Phase 5 — form subsystem** ||||

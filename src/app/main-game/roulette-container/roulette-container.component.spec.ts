@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EventSource } from '../EventSource';
+import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
+import { ItemModalComponent } from './modals/item-modal/item-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   bootstrapArrowRepeat,
@@ -160,56 +163,80 @@ describe('RouletteContainerComponent', () => {
   // ══════════════════════════════════════════════════════════════════════════
 
   describe('chooseWhoWillEvolve — zero evolvable pokemon', () => {
+    let openedModals: ItemModalComponent[];
+
     beforeEach(() => {
+      openedModals = [];
       spyOn(trainerService, 'getPokemonThatCanEvolve').and.returnValue([]);
-      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({ result: Promise.resolve() } as any));
+      spyOn(modalQueueService, 'open').and.callFake(() => {
+        const componentInstance = {} as ItemModalComponent;
+        openedModals.push(componentInstance);
+        return Promise.resolve({ componentInstance, result: Promise.resolve() } as any);
+      });
     });
 
-    it('gym-battle → buyPotions()', () => {
-      spyOn(component, 'buyPotions');
-      component.chooseWhoWillEvolve('gym-battle');
-      expect(component.buyPotions).toHaveBeenCalled();
-    });
+    // Asserts the observable outcome — which prize the player actually sees and which
+    // follow-up runs — rather than merely which method got called.
+    // Expected keys are spelled out rather than read back from CONSOLATION_PRIZES — comparing the
+    // table against itself would pass even if a row were wired to the wrong copy.
+    const cases: Array<{
+      source: EventSource;
+      follow: 'buyPotions' | 'mysteriousEgg' | 'findItem';
+      titleKey: string;
+      sprite: 'potion.png' | 'unknown.png' | 'mystery-egg.png';
+    }> = [
+      { source: 'gym-battle',            follow: 'buyPotions',    titleKey: 'game.main.altPrizes.gymBattle.potion',       sprite: 'potion.png' },
+      { source: 'elite-four-battle',     follow: 'buyPotions',    titleKey: 'game.main.altPrizes.eliteFourBattle.potion', sprite: 'potion.png' },
+      { source: 'battle-trainer',        follow: 'buyPotions',    titleKey: 'game.main.altPrizes.battleTrainer.potion',   sprite: 'potion.png' },
+      { source: 'visit-daycare',         follow: 'mysteriousEgg', titleKey: 'game.main.altPrizes.visitDaycare.egg',       sprite: 'mystery-egg.png' },
+      { source: 'battle-rival',          follow: 'findItem',      titleKey: 'game.main.altPrizes.battleRival.item',       sprite: 'unknown.png' },
+      { source: 'team-rocket-encounter', follow: 'findItem',      titleKey: 'game.main.altPrizes.teamRocket.item',        sprite: 'unknown.png' },
+      { source: 'snorlax-encounter',     follow: 'findItem',      titleKey: 'game.main.altPrizes.snorlax.item',           sprite: 'unknown.png' },
+    ];
 
-    it('visit-daycare → mysteriousEgg()', () => {
-      spyOn(component, 'mysteriousEgg');
-      component.chooseWhoWillEvolve('visit-daycare');
-      expect(component.mysteriousEgg).toHaveBeenCalled();
-    });
+    for (const { source, follow, titleKey, sprite } of cases) {
+      it(`${source}: shows its own prize copy and runs ${follow}()`, async () => {
+        spyOn(component, follow);
 
-    it('battle-rival → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('battle-rival');
-      expect(component.findItem).toHaveBeenCalled();
-    });
+        component.chooseWhoWillEvolve(source);
+        await Promise.resolve();
 
-    it('battle-trainer → buyPotions()', () => {
-      spyOn(component, 'buyPotions');
-      component.chooseWhoWillEvolve('battle-trainer');
-      expect(component.buyPotions).toHaveBeenCalled();
-    });
+        expect(component[follow]).toHaveBeenCalled();
+        expect(openedModals.length).toBe(1);
+        expect(openedModals[0].titleKey).toBe(titleKey);
+        expect(openedModals[0].descriptionKey).toBe(`${titleKey}Desc`);
+        expect(openedModals[0].sprite).toContain(sprite);
+      });
+    }
 
-    it('team-rocket-encounter → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('team-rocket-encounter');
-      expect(component.findItem).toHaveBeenCalled();
-    });
-
-    it('snorlax-encounter → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('snorlax-encounter');
-      expect(component.findItem).toHaveBeenCalled();
-    });
-
-    it('rare-candy → doNothing()', () => {
+    it('rare-candy does nothing and shows no prize', () => {
       spyOn(component, 'doNothing');
       component.chooseWhoWillEvolve('rare-candy');
+
       expect(component.doNothing).toHaveBeenCalled();
+      expect(openedModals.length).toBe(0);
     });
 
-    it('default (unknown eventSource) → doNothing()', () => {
+    it('every EventSource has a prize row, and each row is fully populated', () => {
+      const sources: EventSource[] = [
+        'battle-trainer', 'gym-battle', 'elite-four-battle', 'visit-daycare',
+        'team-rocket-encounter', 'snorlax-encounter', 'battle-rival', 'rare-candy',
+      ];
+
+      for (const source of sources) {
+        const prize = CONSOLATION_PRIZES[source];
+        expect(prize).withContext(source).toBeDefined();
+        if (prize.action !== 'none') {
+          expect(prize.titleKey).withContext(`${source} title`).toBeTruthy();
+          expect(prize.descriptionKey).withContext(`${source} description`).toBeTruthy();
+          expect(prize.sprite).withContext(`${source} sprite`).toMatch(/^https:\/\//);
+        }
+      }
+    });
+
+    it('falls back to doing nothing for an unmapped source', () => {
       spyOn(component, 'doNothing');
-      component.chooseWhoWillEvolve('explore-cave' as any);
+      component.chooseWhoWillEvolve('explore-cave' as unknown as EventSource);
       expect(component.doNothing).toHaveBeenCalled();
     });
   });
