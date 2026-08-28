@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 4 Medium · 13 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 4 Medium · 12 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -158,7 +158,6 @@ async-loader case is still untested.
 
 | # | Finding | Location |
 | --- | --- | --- |
-| b | `plusModifiers` divides by `trainerTeam.length` → `NaN` on an empty team; consuming loops use `i < NaN` so the X-Attack bonus is silently dropped rather than crashing. Fractional means always round up. | `base-battle-roulette.component.ts:65` |
 | e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
 | g | Pokédex `localStorage` entries are not shape-validated; individual entries cast unchecked. Not a security issue (see Summary). | `pokedex.service.ts:259-272` |
 | h | `distinctUntilChanged()` on `pokedex$` is a no-op — `updatePokedex` always emits a fresh object. | `pokedex.service.ts:31` |

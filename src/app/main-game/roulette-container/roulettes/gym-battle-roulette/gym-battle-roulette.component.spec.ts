@@ -14,6 +14,24 @@ import { ModalQueueService } from '../../../../services/modal-queue-service/moda
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 
 describe('GymBattleRouletteComponent', () => {
+
+  describe('plusModifiers (SEC-30b)', () => {
+    it('returns 0 for an empty team instead of NaN', () => {
+      (component as any).trainerTeam = [];
+      (component as any).trainerItems = [{ name: 'x-attack' }];
+
+      const result = (component as any).plusModifiers();
+      expect(Number.isNaN(result)).withContext('NaN silently dropped the bonus').toBeFalse();
+      expect(result).toBe(0);
+    });
+
+    it('rounds a fractional mean up, as the old loop did', () => {
+      (component as any).trainerTeam = [{ power: 2 }, { power: 3 }, { power: 3 }];  // mean 2.67
+      (component as any).trainerItems = [{ name: 'x-attack' }];
+
+      expect((component as any).plusModifiers()).toBe(3);
+    });
+  });
   let component: GymBattleRouletteComponent;
   let fixture: ComponentFixture<GymBattleRouletteComponent>;
   let trainerService: TrainerService;
