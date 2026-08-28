@@ -41,11 +41,15 @@ spec covers.
 | 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
 | 7 | T-14 | In devtools run `localStorage.setItem('language','../../../x')` and reload. | App loads normally in **English**. No failed request for a weird i18n path in the Network tab. Then set a valid `'pt'`, reload, and confirm Portuguese is restored. | [ ] |
 
+| 8 | T-11 | Start a **Generation 8 (Galar)** run and reach the fishing roulette several times. | The wheel shows a **wide variety** of Pokémon — Magikarp, Chewtle, Arrokuda, Goldeen, Feebas, Tentacool, Wooper and many more. Previously it only ever showed Chewtle (twice on the wheel), Arrokuda and Barraskewda. | [ ] |
+| 9 | T-11 | On that same gen-8 fishing wheel (45 segments), **read the segment labels**. | Labels are small but **legible and not overlapping**. This is the font-size clamp working; before this change a wheel this size drew labels at roughly double the intended size until the window was resized. | [ ] |
+
 ### Regression watch for the above
 
 | # | Check | Expected | ✓ |
 | --- | --- | --- | --- |
 | R1 | Badges in generations **1–8** | Unchanged — the 67 pre-existing badge names still render correctly in all six locales. | [ ] |
+| R6 | **Other generations' fishing wheels unchanged** | Gen 1–7 and gen 9 fishing wheels still show their usual species and label sizes. | [ ] |
 | R2 | **Wheel selection is honest** (T-03 touched the spin math) | Spin a large wheel — the gen-9 cave wheel has 73 segments — several times. The pointer must stop on the **same** segment the game then acts on. Also spin a 2-option wheel and a weighted wheel (gym battle odds) and confirm outcomes look right. | [ ] |
 | R4 | **All six locales still load** (T-14 changed language selection) | Switch through every language in the selector; each applies and survives a reload. | [ ] |
 | R5 | **Elite Four prep wheel** (T-16 deleted an orphan key from that section) | The prep wheel shows its full set of options with correct labels — nothing blank or raw. | [ ] |

@@ -73,6 +73,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     // Wait for translations to be ready
     this.translateService.get('wheel.spin').subscribe(() => {
+      this.updateWheelDimensions();
       this.preprocessTranslations();
       this.drawWheel();
       this.drawPointer();
@@ -96,6 +97,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items'] && !changes['items'].firstChange) {
       this.translateService.get('wheel.spin').subscribe(() => {
+        this.updateWheelDimensions();
         this.preprocessTranslations();
         this.drawWheel();
         this.drawPointer();
@@ -111,6 +113,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     }));
   }
 
+  /**
+   * Recomputes canvas size and font size. Must run *after* `items` is populated — the font-size
+   * clamps below depend on the item count, and the constructor runs before any input is bound.
+   */
   private updateWheelDimensions(): void {
     const viewportMin = Math.min(window.innerHeight, window.innerWidth);
     const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.50;
