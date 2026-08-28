@@ -63,6 +63,7 @@
   }
   @case ('check-evolution') {
     <app-check-evolution-roulette
+        [eventSource]="checkEvolutionSource"
         [(evolutionCredits)]="evolutionCredits"
         (evolvePokemonEvent)="chooseWhoWillEvolve($event)"
         (doNothingEvent)="doNothing()">
@@ -71,6 +72,7 @@
   @case ('adventure-continues') {
     <app-main-adventure-roulette
         [respinReason]="respinReason"
+        [respinReasonParams]="respinReasonParams"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
@@ -181,6 +183,7 @@
   @case ('elite-four-preparation') {
     <app-elite-four-prep-roulette
         [respinReason]="respinReason"
+        [respinReasonParams]="respinReasonParams"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
         (catchTwoPokemonEvent)="catchTwoPokemon()"

@@ -63,6 +63,6 @@ export class ItemsComponent implements OnInit, OnDestroy {
     if (this.trainerItems[index]) {
       return this.translateService.instant(this.trainerItems[index].text);
     }
-    return 'Empty';
+    return this.translateService.instant('items.empty');
   }
 }
