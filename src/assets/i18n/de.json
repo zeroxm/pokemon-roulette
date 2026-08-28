@@ -185,6 +185,10 @@
         "megaStone": {
           "stone": "Du hast einen Mega-Stein erhalten!",
           "stoneDesc": "Tippe das Mega-Stein-Symbol, um die Mega-Entwicklung im Kampf zu aktivieren!"
+        },
+        "eliteFourBattle": {
+          "potion": "Bonus Trank erhalten!",
+          "potionDesc": "Nach dem Kampf bekommst du von dem Top-Vier-Mitglied einen Trank!"
         }
       },
       "roulette": {
@@ -297,7 +301,6 @@
             "title": "Was tust du auf dem Weg zur Pokémon Liga?",
             "victoryRoad": "Betritt die Siegesstraße!",
             "actions": {
-              "catchPokemon": "Fange ein Pokémon",
               "trainingArc": "Trainieren",
               "buyPotions": "Kaufe Tränke",
               "catchTwoPokemon": "Fange zwei Pokémon",
@@ -401,6 +404,9 @@
         "title": "Tausch!",
         "received": "und erhältst",
         "sent": "Du tauschst"
+      },
+      "respin": {
+        "multitask": "Multitasking x{{count}}"
       }
     },
     "map": {
@@ -837,7 +843,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
-    }
+    },
+    "empty": "Leer"
   },
   "trainer": {
     "storage": {
@@ -2160,7 +2167,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Unbekanntes Pokémon"
   },
   "elite4": {
     "lorelei": {
