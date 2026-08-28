@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RestartGameButtonComponent } from './restart-game-button.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapArrowRepeat } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('RestartGameButtonComponent', () => {
   let component: RestartGameButtonComponent;
@@ -13,11 +13,11 @@ describe('RestartGameButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RestartGameButtonComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
-        provideIcons({ bootstrapArrowRepeat }),
+        provideTranslateService(),
+        provideIcons({ bootstrapArrowRepeat })
       ],
     })
     .compileComponents();

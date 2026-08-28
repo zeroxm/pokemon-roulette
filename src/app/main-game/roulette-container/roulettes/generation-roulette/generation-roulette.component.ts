@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
     TranslatePipe
   ],
   templateUrl: './generation-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './generation-roulette.component.css'
 })
 export class GenerationRouletteComponent {

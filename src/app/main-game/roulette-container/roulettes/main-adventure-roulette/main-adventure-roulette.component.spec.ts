@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -23,8 +23,9 @@ describe('MainAdventureRouletteComponent', () => {
     generationSubject = new BehaviorSubject<GenerationItem>(createGeneration(1));
 
     await TestBed.configureTestingModule({
-      imports: [MainAdventureRouletteComponent, TranslateModule.forRoot()],
+      imports: [MainAdventureRouletteComponent],
       providers: [
+        provideTranslateService(),
         {
           provide: GenerationService,
           useValue: {

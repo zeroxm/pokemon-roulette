@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { pokemonByGeneration } from './pokemon-by-generation';
 import { Subscription } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -12,6 +12,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
   selector: 'app-pokemon-from-generation-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './pokemon-from-generation-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokemon-from-generation-roulette.component.css'
 })
 export class PokemonFromGenerationRouletteComponent implements OnInit, OnDestroy {

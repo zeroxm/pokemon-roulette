@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WheelComponent } from './wheel.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 
 describe('WheelComponent', () => {
@@ -10,7 +10,8 @@ describe('WheelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WheelComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [WheelComponent]
     })
     .compileComponents();
 

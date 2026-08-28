@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemModalComponent } from './item-modal.component';
 
@@ -9,8 +9,9 @@ describe('ItemModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ItemModalComponent, TranslateModule.forRoot()],
-      providers: [NgbActiveModal]
+      imports: [ItemModalComponent],
+      providers: [
+        provideTranslateService(),NgbActiveModal]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ItemModalComponent);

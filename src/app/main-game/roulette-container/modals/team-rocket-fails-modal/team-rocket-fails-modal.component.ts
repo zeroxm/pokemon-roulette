@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
@@ -9,6 +9,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
   imports: [
     ImageFallbackDirective,TranslatePipe],
   templateUrl: './team-rocket-fails-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../modal-shared.css'
 })
 export class TeamRocketFailsModalComponent {

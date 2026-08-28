@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MainGameButtonComponent } from "../main-game-button/main-game-button.component";
 import {TranslatePipe} from '@ngx-translate/core';
 import { CoffeeButtonComponent } from "../main-game/coffee-button/coffee-button.component";
@@ -13,6 +13,7 @@ import { CoffeeButtonComponent } from "../main-game/coffee-button/coffee-button.
     CoffeeButtonComponent
 ],
   templateUrl: './credits.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './credits.component.css'
 })
 export class CreditsComponent {

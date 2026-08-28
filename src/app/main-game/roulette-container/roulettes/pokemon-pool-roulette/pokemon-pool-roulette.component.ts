@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -13,6 +13,7 @@ import { POKEMON_POOLS, PokemonPool, PokemonPoolId } from './pokemon-pools';
   selector: 'app-pokemon-pool-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './pokemon-pool-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokemon-pool-roulette.component.css'
 })
 export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {

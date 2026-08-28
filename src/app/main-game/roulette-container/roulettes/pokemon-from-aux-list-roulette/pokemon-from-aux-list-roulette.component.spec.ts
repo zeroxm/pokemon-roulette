@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PokemonFromAuxListRouletteComponent } from './pokemon-from-aux-list-roulette.component';
 
 
@@ -9,7 +9,8 @@ describe('PokemonFromAuxListRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokemonFromAuxListRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [PokemonFromAuxListRouletteComponent]
     })
     .compileComponents();
 

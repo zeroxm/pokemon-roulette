@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
@@ -15,6 +15,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
   imports: [
     ImageFallbackDirective,TranslatePipe],
   templateUrl: './pokemon-switch-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../modal-shared.css'
 })
 export class PokemonSwitchModalComponent {

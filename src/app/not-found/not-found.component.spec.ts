@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapController } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { NotFoundComponent } from './not-found.component';
 
@@ -13,11 +13,11 @@ describe('NotFoundComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         NotFoundComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
-        provideIcons({ bootstrapController }),
+        provideTranslateService(),
+        provideIcons({ bootstrapController })
       ]
     })
     .compileComponents();

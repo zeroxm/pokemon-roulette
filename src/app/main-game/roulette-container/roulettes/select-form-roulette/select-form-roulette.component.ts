@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PokemonForm } from '../../../../interfaces/pokemon-form';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -7,6 +7,7 @@ import { WheelComponent } from '../../../../wheel/wheel.component';
   selector: 'app-select-form-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './select-form-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './select-form-roulette.component.css'
 })
 export class SelectFormRouletteComponent {

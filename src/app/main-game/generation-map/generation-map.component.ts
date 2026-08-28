@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
@@ -9,6 +9,7 @@ import { ImageFallbackDirective } from '../../directives/image-fallback.directiv
     TranslatePipe
   ],
   templateUrl: './generation-map.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './generation-map.component.css'
 })
 export class GenerationMapComponent implements AfterViewInit, OnChanges {

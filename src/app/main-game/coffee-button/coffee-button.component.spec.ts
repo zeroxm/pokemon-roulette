@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CoffeeButtonComponent } from './coffee-button.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapCupHotFill } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('CoffeeButtonComponent', () => {
   let component: CoffeeButtonComponent;
@@ -13,11 +13,11 @@ describe('CoffeeButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CoffeeButtonComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
-        provideIcons({ bootstrapCupHotFill }),
+        provideTranslateService(),
+        provideIcons({ bootstrapCupHotFill })
       ],
     })
     .compileComponents();

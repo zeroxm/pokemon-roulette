@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokemonSwitchModalComponent } from './pokemon-switch-modal.component';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
@@ -15,8 +15,9 @@ describe('PokemonSwitchModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokemonSwitchModalComponent, TranslateModule.forRoot()],
-      providers: [NgbActiveModal]
+      imports: [PokemonSwitchModalComponent],
+      providers: [
+        provideTranslateService(),NgbActiveModal]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonSwitchModalComponent);

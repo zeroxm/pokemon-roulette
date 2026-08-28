@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs';
@@ -24,6 +24,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
     TranslatePipe
   ],
   templateUrl: './gym-battle-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './gym-battle-roulette.component.css'
 })
 export class GymBattleRouletteComponent extends BaseBattleRouletteComponent {

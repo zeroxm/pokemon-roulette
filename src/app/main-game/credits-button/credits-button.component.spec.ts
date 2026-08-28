@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreditsButtonComponent } from './credits-button.component';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapPeopleFill } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('CreditsButtonComponent', () => {
   let component: CreditsButtonComponent;
@@ -13,11 +13,11 @@ describe('CreditsButtonComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CreditsButtonComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
-        provideIcons({ bootstrapPeopleFill }),
+        provideTranslateService(),
+        provideIcons({ bootstrapPeopleFill })
       ],
     })
     .compileComponents();

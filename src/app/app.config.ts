@@ -1,8 +1,8 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import {
   bootstrapArrowRepeat,
   bootstrapCheck,
@@ -16,10 +16,8 @@ import {
   bootstrapShare,
   bootstrapBook
 } from '@ng-icons/bootstrap-icons';
-import { TranslateHttpLoader, TRANSLATE_HTTP_LOADER_CONFIG } from '@ngx-translate/http-loader';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-
-const httpLoaderFactory = () => new TranslateHttpLoader();
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,21 +35,18 @@ export const appConfig: ApplicationConfig = {
         bootstrapMap,
         bootstrapBook
        }),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    importProvidersFrom([TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: []
-      },
-      defaultLanguage: 'en'
-    })]),
-    {
-      provide: TRANSLATE_HTTP_LOADER_CONFIG,
-      useValue: {
+    provideTranslateService({
+      // v18 takes the paths through the loader's own provider. The old shape
+      // (a bare { prefix, suffix } on TRANSLATE_HTTP_LOADER_CONFIG) is now read as
+      // `resources: []`, which makes the loader issue zero requests and resolve to
+      // an empty translation set - the app then renders raw keys with no error.
+      loader: provideTranslateHttpLoader({
         prefix: './assets/i18n/',
         suffix: '.json'
-      }
-    }  ]
+      }),
+      fallbackLang: 'en'
+    })
+  ]
 };

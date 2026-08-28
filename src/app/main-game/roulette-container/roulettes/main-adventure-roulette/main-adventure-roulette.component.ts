@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-main-adventure-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './main-adventure-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './main-adventure-roulette.component.css'
 })
 export class MainAdventureRouletteComponent implements OnInit, OnDestroy {

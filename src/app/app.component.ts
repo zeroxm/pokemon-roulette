@@ -1,6 +1,6 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { ThemeService } from './services/theme-service/theme.service';
 
@@ -10,8 +10,9 @@ const DEFAULT_LANGUAGE = 'en';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TranslateModule],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
@@ -28,7 +29,7 @@ export class AppComponent {
     // (./assets/i18n/${lang}.json), so it must be checked against the supported
     // set rather than trusted — a crafted value would redirect that request.
     this.translate.addLangs([...SUPPORTED_LANGUAGES]);
-    this.translate.setDefaultLang(DEFAULT_LANGUAGE);
+    this.translate.setFallbackLang(DEFAULT_LANGUAGE);
 
     const stored = localStorage.getItem('language');
     const savedLanguage = stored !== null && (SUPPORTED_LANGUAGES as readonly string[]).includes(stored)

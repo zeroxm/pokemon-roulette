@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -8,6 +8,7 @@ import { EventSource } from '../../../EventSource';
   selector: 'app-explore-cave-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './explore-cave-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './explore-cave-roulette.component.css'
 })
 export class ExploreCaveRouletteComponent {

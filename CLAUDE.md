@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Angular 21 single-page game ("Pokémon Roulette"): a randomized Pokémon run driven by spinning wheels. Standalone components only (no NgModules), Bootstrap 5 + ng-bootstrap for UI/modals, `@ngx-translate` for i18n, deployed to GitHub Pages.
+Angular 22 single-page game ("Pokémon Roulette"): a randomized Pokémon run driven by spinning wheels. Standalone components only (no NgModules), Bootstrap 5 + ng-bootstrap for UI/modals, `@ngx-translate` for i18n, deployed to GitHub Pages.
 
 > **A remediation campaign has just landed** on `remediation/thermo-nuclear-audit`
 > ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42)). Two whole-codebase audits produced
@@ -25,21 +25,43 @@ npm test -- --include='**/wheel.component.spec.ts'    # single spec file
 npm run deploy                                   # gh-pages, base-href /pokemon-roulette/
 ```
 
-CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit is scoped to production dependencies on purpose — a DoS in an image parser used only by the build is not a user risk, and gating on dev tooling would red-wall every PR for something unshippable. There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
+CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **299/299 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **301/301 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
 - **`CHROME_BIN` may need exporting.** Karma finds no `chromium` on some setups; `export CHROME_BIN=/usr/bin/google-chrome-stable` (or your Chrome path) before `npm test`.
 - **Node: CI uses 24.x and `.nvmrc` pins 24**, but no version manager is installed, so local runs may be on a different major. A green local build is strong evidence, not proof — check CI.
 - **npm 12 blocks 4 install scripts** (`esbuild`, `@parcel/watcher`, `lmdb`, `msgpackr-extract`). Build and tests pass anyway; a toolchain bump may need `npm install-scripts approve`.
+- **`ng serve` and Karma cannot substitute for opening the page.** The i18n loader is reached only through DI at runtime; when it is misconfigured it resolves to an empty translation set rather than failing, and the app renders raw keys while every spec passes. `app.config.spec.ts` now guards that one path, but the general lesson holds for anything wired through providers.
+
+### Toolchain — three deliberate pins
+
+Everything is current except three packages, each held back for a reason that will outlive
+a casual `npm outdated`:
+
+- **No `@angular-devkit/build-angular`.** The builders come from `@angular/build`
+  (`application`, `dev-server`, `karma`). The devkit package exists only to carry the legacy
+  webpack stack, which is where all 7 of the last advisories lived
+  (`webpack-dev-server` → `sockjs` → `uuid`, `less` → `image-size`). Do not reintroduce it;
+  there is no `extract-i18n` target because nothing used it.
+- **`jasmine-core` stays on 6.** v7 seals the global test functions, so `zone.js`'s
+  `patchJasmine` cannot wrap `describe` and the suite dies at load. `@types/jasmine` has no
+  v7 published either. Revisit when zone.js supports it.
+- **`typescript` stays on 6.0.** `@angular/compiler-cli` peers `>=6.0 <6.1`; TS 7 waits on Angular.
+
+Angular 22 made two behavioural changes this app opts out of, both intentionally:
+`ChangeDetectionStrategy.Eager` is declared on every component because **v22's default is now
+OnPush** and this app mutates component fields directly throughout the game loop, and
+`provideHttpClient(withXhr())` keeps HttpClient on XHR rather than v22's new fetch default.
+Removing either is a real behaviour change, not cleanup.
 
 ### Build budgets — read before adding assets or CSS
 
 Configured in `angular.json`: initial bundle **1.55 MB warn / 2 MB error**; per-component stylesheet **9 kB warn / 12 kB error**.
 
-These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The new thresholds sit just above current reality — initial bundle **1.47 MB**, and `mega-evolution-animation-modal.component.css` at **8.52 kB** — so growth still trips them.
+These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The new thresholds sit just above current reality — initial bundle **1.50 MB**, and `mega-evolution-animation-modal.component.css` at **8.52 kB** — so growth still trips them.
 
 ## Architecture
 
@@ -138,7 +160,7 @@ Badge names follow a per-locale house pattern (`Fire Badge` / `Insígnia de Fogo
 - Standalone components with an `imports: [...]` array; no NgModules.
 - Constructor injection is the norm; `inject(DestroyRef)` + `takeUntilDestroyed` for subscriptions in newer components, explicit `Subscription` fields + `ngOnDestroy` in older ones.
 - Components live in their own folder with `.ts`/`.html`/`.css`/`.spec.ts`. Services live in `services/<name>-service/`, with bulk data in adjacent `*-data.ts` / `*.json` files rather than inside the service.
-- Specs use `TestBed.configureTestingModule({ imports: [Component, TranslateModule.forRoot()] })`.
+- Specs use `TestBed.configureTestingModule({ imports: [Component], providers: [provideTranslateService()] })`. ngx-translate 18 removed `TranslateModule`; the pipe and directive are standalone.
 - Two spacing indent, single quotes in TypeScript (`.editorconfig`).
 - Static assets go in `public/` (referenced as `./name.mp3`); translation JSON goes in `src/assets/`.
 - Game-flow modals are components under `roulette-container/modals/`, opened through

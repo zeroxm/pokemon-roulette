@@ -119,6 +119,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-34 | Specs for `ModalQueueService`; karma `src/assets`; `WheelItem.weight` optional; `finishCurrentState` clarity | `SEC-29`, `CQ-14`, `CQ-17`, `CQ-26` | low | [x] |
 | T-35 | Angular patched to 21.2.22 (0 production advisories); budgets set honestly; CI audit gate | `SEC-15`, `SEC-30o` + baseline obs. | med | [x] |
 | T-36 | Audit reports deleted; `CLAUDE.md` updated; PR marked ready | — | — | [x] |
+| T-38 | Toolchain upgrade: Angular 22, ng-bootstrap 21, ngx-translate 18, TS 6.0; `@angular-devkit/build-angular` removed — **0 vulnerabilities including dev deps** | post-campaign request | high | [x] |
 | T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
@@ -171,6 +172,47 @@ or to raise the warning threshold to something honest — a permanently-breached
 to ignore build warnings, which is worse than no budget.
 
 ---
+
+### T-38 — toolchain upgrade to zero vulnerabilities
+
+Asked for after the campaign closed: "did we address the node install vulnerabilities... you can
+update everything, including angular, just as long it still works."
+
+`T-35` had already cleared production advisories. The 7 that remained were dev-only and all
+reachable through **one** package — `@angular-devkit/build-angular`, which carries the legacy
+webpack stack (`webpack-dev-server` → `sockjs` → `uuid`, `less` → `image-size`). Since every
+builder in use has a native equivalent in `@angular/build`, the fix was to drop webpack rather
+than bump it: **7 → 0 advisories, 403 packages removed.** The unused `extract-i18n` target went
+with it (this app translates via ngx-translate; there is not one `i18n` attribute in the source).
+
+Then the majors: Angular 21 → 22 (`ng update`), ng-bootstrap 20 → 21 (forced into the same
+commit — v20 pins the Angular 21 peer range), ngx-translate 17 → 18, ng-icons 33 → 35,
+TypeScript 5.9 → 6.0.
+
+**Three v22 breaking changes, two of which stay opted out.** `ChangeDetectionStrategy.Eager` is
+now declared on all 60 components because v22 makes OnPush the default and this app mutates
+component fields directly throughout the game loop; `provideHttpClient(withXhr())` keeps the old
+transport. Both preserve current behaviour and are not cleanup targets. The third — the
+`$safeNavigationMigration()` wrappers and the two tsconfig diagnostic suppressions — was
+scaffolding and was removed after checking all 8 sites; one of them fed an input already declared
+`| undefined`, so the wrapper had been forcing the wrong type.
+
+**The finding worth remembering.** ngx-translate 18 moved the HTTP loader's paths into
+`provideTranslateHttpLoader({prefix, suffix})`. The old shape parses as `resources: []`, and the
+loader short-circuits an empty request list to `of({})`. The result was an app that booted, ran,
+logged nothing, and rendered every string as its raw translation key — **with all 299 specs
+passing**. It was caught by loading the page in a browser, not by the suite. `app.config.spec.ts`
+now asserts the loader by the request it issues rather than by its configuration, and is
+mutation-checked against the broken wiring. 299 → 301 tests.
+
+**Two packages deliberately held back**, both documented in `CLAUDE.md`: `jasmine-core` stays on 6
+(v7 seals the global test functions, so zone.js's `patchJasmine` cannot wrap `describe` and the
+suite dies at load; `@types/jasmine` has no v7 either), and `typescript` stays on 6.0 (Angular's
+compiler-cli peers `>=6.0 <6.1`).
+
+Verified: build 1.50 MB with no budget breached, 301/301 tests, `npm audit` clean **with dev
+dependencies included**, i18n parity across all six locales, and a browser session confirming
+translations load, the state machine advances and the console stays clean.
 
 ## Coverage check
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
@@ -26,6 +26,7 @@ import { ImageFallbackDirective } from '../../directives/image-fallback.directiv
     TranslatePipe
   ],
   templateUrl: './game-over.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './game-over.component.css'
 })
 export class GameOverComponent implements OnInit, OnDestroy {

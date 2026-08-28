@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import {TranslatePipe} from '@ngx-translate/core';
 
@@ -6,6 +6,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   selector: 'app-catch-legendary-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './catch-legendary-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './catch-legendary-roulette.component.css'
 })
 export class CatchLegendaryRouletteComponent implements OnInit {

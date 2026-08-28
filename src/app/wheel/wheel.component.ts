@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { pickWeightedIndex, totalWeight, weightOf } from '../utils/weighted-random';
 import { SpinAnimation } from './spin-animation';
 import { WheelItem } from '../interfaces/wheel-item';
@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     TranslatePipe
   ],
   templateUrl: './wheel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './wheel.component.css'
 })
 export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
@@ -24,6 +24,7 @@ import { ImageFallbackDirective } from '../../directives/image-fallback.directiv
     TranslatePipe
   ],
   templateUrl: './storage-pc.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './storage-pc.component.css'
 })
 export class StoragePcComponent implements OnInit, OnDestroy {
