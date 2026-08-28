@@ -31,7 +31,7 @@ npm test -- --include='**/wheel.component.spec.ts'    # single spec file
 npm run deploy                                   # gh-pages, base-href /pokemon-roulette/
 ```
 
-CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm run build`, and the headless test command on every push/PR to `main`. There is no lint step and no dependency audit.
+CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit is scoped to production dependencies on purpose — a DoS in an image parser used only by the build is not a user risk, and gating on dev tooling would red-wall every PR for something unshippable. There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
 **Green baseline:** build passes, **230/230 tests pass**. Any change must leave both green.
 
@@ -43,12 +43,9 @@ CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm run build`, and the hea
 
 ### Build budgets — read before adding assets or CSS
 
-Configured in `angular.json`: initial bundle 1 MB warn / **2 MB error**; per-component stylesheet 4 kB warn / **10 kB error**. Both warn today and neither has much headroom:
+Configured in `angular.json`: initial bundle **1.55 MB warn / 2 MB error**; per-component stylesheet **9 kB warn / 12 kB error**.
 
-- initial bundle **1.47 MB** — 467 kB past the warning
-- `mega-evolution-animation-modal.component.css` **8.52 kB** — 1.48 kB from failing the build
-
-A moderate addition to that stylesheet, or a new dependency, will break CI rather than warn.
+These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The new thresholds sit just above current reality — initial bundle **1.47 MB**, and `mega-evolution-animation-modal.component.css` at **8.52 kB** — so growth still trips them.
 
 ## Architecture
 

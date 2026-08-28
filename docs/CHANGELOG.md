@@ -106,6 +106,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N26 | T-34 | `WheelItem.weight` is now optional and defaults to 1; the running-shoes re-spin reads the state it actually inspects. | **Wheel proportions must be unchanged.** Spin a wheel where one option is deliberately weighted — the **gym battle odds** wheel, where team power adds winning slices — and confirm the green/red proportions still reflect your team's strength. Then trigger a **Running Shoes** re-spin and confirm it grants exactly one extra spin, labelled as such. | [ ] |
 
+| N27 | T-35 | Angular patched 21.2.7 → 21.2.22, clearing every advisory in shipped code. Build budgets set to honest values. CI now fails on a high-or-worse production advisory. | **This is a framework patch bump — exercise the app broadly.** A full run start to champion, all six languages, every modal, the storage PC, mega evolution, and the Pokédex. Watch the console for anything new. The tests cover a lot, but a framework bump is exactly the thing they cover least. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with

@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 2 Medium · 2 Low.** Remaining: `SEC-14` (a decision), `SEC-15` and `SEC-29`, plus one `SEC-30` item — all owned by `T-34` and `T-35`.
+**One finding remains: `SEC-14`, and it is a decision rather than a defect.** Everything else is cleared.
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -77,34 +77,7 @@ Whichever is chosen, the base URL should first be centralised so it is one edit 
 
 ---
 
-### SEC-15 — `mega-evolution-animation-modal.component.css` is at ~90% of the build-breaking budget
-- **Severity:** Medium
-- **Location:** `src/app/main-game/roulette-container/roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component.css`
-- **Status:** [ ] open
-
-**What:** `angular.json:45-49` sets `anyComponentStyle` `maximumWarning: 4kB`, `maximumError: 10kB`,
-and `defaultConfiguration: "production"` (line 65) means CI's `npm run build` enforces it. The file is
-10,954 raw bytes, ~9.0 kB minified — under the error but 2.25× the warning and roughly 1 kB from
-failing the build outright.
-
-**Why it matters:** The next feature added to that stylesheet blocks both CI and `npm run deploy` with
-a budget error rather than an obvious cause.
-
-**Suggested fix:** Split the animation styles (move keyframes into `src/styles.css` or a sibling
-component), or raise the budget deliberately.
-
----
-
 # Low
-
-### SEC-30 — Remaining low-severity items
-- **Severity:** Low
-
-| # | Finding | Location |
-| --- | --- | --- |
-| o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
-
----
 
 # Test coverage gaps
 
