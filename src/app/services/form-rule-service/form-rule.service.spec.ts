@@ -100,6 +100,32 @@ describe('FormRuleService', () => {
     });
   });
 
+  describe('reverting a mega form', () => {
+    it('keeps the sprite the base form had already resolved (SEC-08)', () => {
+      const resolved = { front_default: 'charizard.png', front_shiny: 'charizard-shiny.png' };
+      const team = [mon(CHARIZARD, { sprite: resolved })];
+
+      service.applyAll(team, [], heldStones());
+      expect(team[0].sprite).withContext('the new form fetches its own artwork').toBeNull();
+
+      service.revertAll(team, []);
+      expect(team[0].sprite)
+        .withContext('the base form should not need refetching')
+        .toEqual(resolved);
+    });
+
+    it('restores the stats the Pokémon had before transforming', () => {
+      const team = [mon(CHARIZARD, { power: 4, type1: 'fire', type2: 'flying' } as Partial<PokemonItem>)];
+
+      service.applyAll(team, [], heldStones());
+      service.revertAll(team, []);
+
+      expect(team[0].power).toBe(4);
+      expect(team[0].type1).toBe('fire');
+      expect(team[0].type2).toBe('flying');
+    });
+  });
+
   describe('item gating', () => {
     it('does nothing without the stone', () => {
       const team = [mon(CHARIZARD)];

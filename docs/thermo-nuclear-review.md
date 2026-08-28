@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 7 Medium · 18 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 6 Medium · 17 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -50,24 +50,6 @@ literals now resolve through the pipe.
 ---
 
 # High
-
-### SEC-08 — Mega revert restores a stale snapshot, discarding in-battle changes
-- **Severity:** Medium
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:404, 431-434`
-- **Status:** [ ] open
-
-**What:** Apply snapshots `structuredClone(trainerTeam[index])`; revert restores that clone, carrying
-forward only `shiny` (line 432) and forcing `sprite = null` (line 433).
-
-**Failure scenario:** Any in-battle mutation of that slot is lost. `makeShiny()` survives via line 432,
-but `power`, `type1`/`type2`, and a resolved `sprite` do not. The forced `sprite = null` also triggers
-a redundant PokéAPI round-trip on every apply *and* revert (lines 408, 434, 496, 534) for a sprite the
-app already had.
-
-**Suggested fix:** Store the base **id** and re-derive from `pokemonMegaForms` / the Dex on revert; at
-minimum carry the resolved `sprite` across instead of nulling it.
-
----
 
 ### SEC-09 — `loadPokemonSpriteIfMissing` has no error handler
 - **Severity:** Medium
@@ -230,7 +212,6 @@ async-loader case is still untested.
 
 | # | Finding | Location |
 | --- | --- | --- |
-| a | Greninja declares 3 mega forms but has 1 stone; `getMegaFormForStone` pairs by index so 2 are permanently unreachable. The **only** length mismatch across all 92 mega bases. | `pokemon-mega-forms.ts` base `658` |
 | b | `plusModifiers` divides by `trainerTeam.length` → `NaN` on an empty team; consuming loops use `i < NaN` so the X-Attack bonus is silently dropped rather than crashing. Fractional means always round up. | `base-battle-roulette.component.ts:65` |
 | c | `duration` is randomized once per component instance, not per spin, so every spin of a given wheel takes identical time. `totalRotations` *is* per-spin, so the intent was clearly per-spin variety. | `wheel.component.ts:41` |
 | e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
