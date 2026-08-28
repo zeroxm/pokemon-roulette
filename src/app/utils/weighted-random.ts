@@ -1,10 +1,15 @@
-/** The minimum an item needs for weighted selection — anything with a `weight` qualifies. */
+/** The minimum an item needs for weighted selection. An absent weight counts as 1. */
 export interface Weighted {
-  readonly weight: number;
+  readonly weight?: number;
+}
+
+/** A missing weight is an equal share, so data rows only state a weight when it differs. */
+export function weightOf(item: Weighted): number {
+  return item.weight ?? 1;
 }
 
 export function totalWeight(items: readonly Weighted[]): number {
-  return items.reduce((sum, item) => sum + item.weight, 0);
+  return items.reduce((sum, item) => sum + weightOf(item), 0);
 }
 
 /**
@@ -31,7 +36,7 @@ export function pickWeightedIndex(
   let accumulated = 0;
 
   for (let i = 0; i < items.length; i++) {
-    accumulated += items[i].weight;
+    accumulated += weightOf(items[i]);
     if (target < accumulated) {
       return i;
     }
