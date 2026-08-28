@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**14 / 36 complete.** Findings cleared: 10 of 46 `SEC` · 7 of 26 `CQ`.
+**15 / 36 complete.** Findings cleared: 12 of 46 `SEC` · 7 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -88,7 +88,7 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 3 — data and i18n (no build needed)** ||||
 | T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [x] |
 | T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [x] |
-| T-11 | Repopulate the gen-8 fishing table; remove the duplicate id | `SEC-13` | low | [ ] |
+| T-11 | Repopulate the gen-8 fishing table (4 → 45); fix the font clamp it exposes | `SEC-13`, `SEC-10` | low | [x] |
 | T-12 | Replace the 404 scaffold with real translated content | `SEC-18` | low | [ ] |
 | T-13 | Remove the two English literals (`Multitask x`, `Empty`); add keys | `SEC-22`, `SEC-23` | low | [x] |
 | T-14 | Apply the existing language whitelist before `translate.use()` | `SEC-27` | low | [x] |
@@ -106,7 +106,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-24 | Move the mega stone onto the form; delete `_baseIdToStoneName`; resolve Greninja | `CQ-10`, `SEC-30a` | med | [ ] |
 | **Phase 6 — infra restructures** ||||
 | T-25 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`; update 8 call sites | `CQ-04`, `SEC-20`, `SEC-21` | med | [ ] |
-| T-26 | Extract `weighted-random.ts` + `SpinAnimation`; fix dead `totalWeight`, per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw, font clamp | `CQ-13`, `SEC-10`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [ ] |
+| T-26 | Extract `weighted-random.ts` + `SpinAnimation`; fix per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [ ] |
 | T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [ ] |
 | T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the battle base | `CQ-09`, `SEC-30b` | med | [ ] |
 | **Phase 7 — remaining correctness** ||||

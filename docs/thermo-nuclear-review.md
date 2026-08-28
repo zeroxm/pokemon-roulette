@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**3 High · 12 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**3 High · 10 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -271,23 +271,6 @@ retry when the Pokédex or team is next opened.
 
 ---
 
-### SEC-10 — Font-size clamping for large wheels never applies
-- **Severity:** Medium
-- **Location:** `src/app/wheel/wheel.component.ts:66, 110-123`
-- **Status:** [ ] open
-
-**What:** `updateWheelDimensions()` is called only from the constructor (line 66) and `handleResize()`
-(line 84). At construction `@Input() items` is still `[]`, so the `items.length >= 32` / `>= 16`
-clamps at lines 118-122 are dead. Neither `ngAfterViewInit` nor `ngOnChanges` re-runs it.
-
-**Failure scenario:** The gen-9 cave table has 73 entries and gen-9 fishing has 54. Those wheels draw
-at `fontSize = wheelWidth / 24` (~21px on a 500px wheel) instead of the intended 10px cap, so labels
-overlap into illegibility — until the user resizes the window, at which point they snap correct.
-
-**Suggested fix:** Call `updateWheelDimensions()` at the top of `drawWheel()`, or from `ngOnChanges`.
-
----
-
 ### SEC-11 — Wheel goes blank after any window resize
 - **Severity:** Medium
 - **Location:** `src/app/wheel/wheel.component.ts:83-91`
@@ -322,23 +305,6 @@ is also a second route to a stuck `wheelSpinning`: `setWheelSpinning(false)` at 
 thing that clears it, and nothing guarantees it runs.
 
 **Suggested fix:** Implement `OnDestroy`, cancel the stored rAF id, and clear `setWheelSpinning(false)`.
-
----
-
-### SEC-13 — Gen-8 fishing table has 4 entries, one duplicated
-- **Severity:** Medium
-- **Location:** `src/app/main-game/roulette-container/roulettes/fishing-roulette/fish-by-generation.ts:9`
-- **Status:** [ ] open
-
-**What:** `8: [833, 833, 846, 847],` — verified counts across all generations are
-`1:19 2:21 3:21 4:30 5:40 6:36 7:40 8:4 9:54`. Gen 8 is an order of magnitude short, and `833`
-(Chewtle) appears twice, giving it 50% weight on that wheel.
-
-**Failure scenario:** A Galar playthrough's fishing roulette shows the same 3 Pokémon repeatedly, half
-the time the same one.
-
-**Suggested fix:** Populate the gen-8 table properly and de-duplicate. The gym / elite-four / champion
-tables were verified complete for all nine generations, so this is an isolated data gap.
 
 ---
 
