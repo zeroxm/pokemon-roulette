@@ -1,0 +1,5 @@
+<h1 class="title">{{ poolDefinition.titleKey | translate }}@if (poolDefinition.showGeneration) {<br/>({{ generation.text }})}</h1>
+<app-wheel  #wheel
+            [items]="pokemon"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

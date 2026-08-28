@@ -6,6 +6,7 @@ import { GameStateService } from '../../services/game-state-service/game-state.s
 import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
+import { PokemonPoolRouletteComponent } from './roulettes/pokemon-pool-roulette/pokemon-pool-roulette.component';
 import { PendingSelection } from './selection/pending-selection';
 import { RunModifiers } from '../../services/game-state-service/run-modifiers';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +21,6 @@ import { SettingsService } from '../../services/settings-service/settings.servic
 import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
 import { Subscription } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
-import { StarterRouletteComponent } from "./roulettes/starter-roulette/starter-roulette.component";
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonForm } from '../../interfaces/pokemon-form';
 import { ItemItem } from '../../interfaces/item-item';
@@ -34,18 +34,14 @@ import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-rou
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
 import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/team-rocket-roulette.component";
 import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
-import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 import { SelectFormRouletteComponent } from './roulettes/select-form-roulette/select-form-roulette.component';
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
-import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
-import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
 import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
-import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
 import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component";
@@ -69,8 +65,8 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     CommonModule,
     TranslatePipe,
     GenerationRouletteComponent,
+    PokemonPoolRouletteComponent,
     CharacterSelectComponent,
-    StarterRouletteComponent,
     ShinyRouletteComponent,
     StartAdventureRouletteComponent,
     PokemonFromGenerationRouletteComponent,
@@ -82,17 +78,13 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     MainAdventureRouletteComponent,
     TeamRocketRouletteComponent,
     MysteriousEggRouletteComponent,
-    LegendaryRouletteComponent,
     CatchLegendaryRouletteComponent,
     TradePokemonRouletteComponent,
     FindItemRouletteComponent,
     ExploreCaveRouletteComponent,
-    CavePokemonRouletteComponent,
-    FossilRouletteComponent,
     AreaZeroRoulette,
     CatchParadoxRouletteComponent,
     SnorlaxRouletteComponent,
-    FishingRouletteComponent,
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
     EliteFourBattleRouletteComponent,

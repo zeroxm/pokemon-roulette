@@ -95,6 +95,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N20 | T-26 | Weighted selection and the spin animation were extracted from `WheelComponent`. Four wheel defects fixed with them. | **(a)** Spin, then **resize the window** — the wheel must stay visible, not go blank until the next spin. On mobile, scrolling collapses the URL bar and triggers this. **(b)** Spin the same wheel several times — the durations should **vary**, not be identical every time. **(c)** The label above the wheel must show a **real Pokémon/option name**, not a raw key. **(d)** Start a spin and let the result change the screen — no console errors, no ghost clicking sounds afterwards. | [ ] |
 
+| N21 | T-27 | Five roulettes that differed only in a title key and a field name (fishing, fossil, legendary, starter, cave) are now one component driven by a named pool. Their `*-by-generation.ts` data files are untouched. | **All five wheels must look and behave exactly as before.** Reach each one: the **starter** pick at the start of a run, **fishing**, **fossil**, a **legendary encounter**, and **exploring a cave**. Check the heading text is right for each, that the generation appears in brackets on all of them **except starters**, and that picking a Pokémon does what it always did. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
