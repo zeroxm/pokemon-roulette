@@ -91,6 +91,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N18 | T-24 | Each mega form now names its own stone, replacing a second table joined by array position. Two unreachable Greninja entries were removed. Reverting a mega form keeps the sprite it already had. | **Mega evolution must work exactly as before.** Reach a mega stone, tap it in battle, and confirm the right Pokémon becomes the right mega form — then that it reverts afterwards **without the sprite blanking and reloading**. For a Pokémon with two stones (Charizard, Mewtwo, Raichu), confirm the stone you hold selects the matching form (X vs Y). | [ ] |
 
+| N19 | T-25 | Sounds are now identified by name rather than by a per-caller handle. Five parallel maps became one clip object; the eight handle fields at call sites are gone. | **Every sound must still play.** Spin a wheel (click ticks), find an item, open and close the storage PC (boot → login, then logout), and tap a mega stone (tap, then the mega-evolution sound). Toggle **mute** in settings and confirm sounds respect it. Then background the tab mid mega-evolution and return — the game must not be stuck waiting. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with

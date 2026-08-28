@@ -10,7 +10,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
-import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -31,18 +31,12 @@ export class StoragePcComponent implements OnInit, OnDestroy {
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
                 private soundFxService: SoundFxService) {
-      this.pcTurningOn = this.soundFxService.createPcTurningOnSoundFx();
-      this.pcLoginAudio = this.soundFxService.createPcLoginSoundFx();
-      this.pcLogoutAudio = this.soundFxService.createPcLogoutSoundFx();
     }
 
     @ViewChild('pcStorageModal', { static: true }) pcStorageModal!: TemplateRef<any>;
     @ViewChild('pcInfoModal', { static: true }) infoModal!: TemplateRef<any>;
 
     darkMode!: Observable<boolean>;
-    pcTurningOn!: SoundFxHandle;
-    pcLoginAudio!: SoundFxHandle;
-    pcLogoutAudio!: SoundFxHandle;
     trainerTeam!: PokemonItem[];
     storedPokemon!: PokemonItem[];
     wheelSpinning: boolean = false;
@@ -54,8 +48,8 @@ export class StoragePcComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
       this.darkMode = this.themeService.isDark$;
-      this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded(this.pcTurningOn, () => {
-        void this.soundFxService.playSoundFx(this.pcLoginAudio, 0.30);
+      this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded('pc-turning-on', () => {
+        void this.soundFxService.playSoundFx('pc-login', 0.30);
       });
 
       this.subscriptions.add(this.gameStateService.wheelSpinningObserver.subscribe(state => {
@@ -87,7 +81,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
       } else {
         this.trainerTeam = this.trainerService.getTeam();
         this.storedPokemon = this.trainerService.getStored();
-        void this.soundFxService.playSoundFx(this.pcTurningOn, 0.30);
+        void this.soundFxService.playSoundFx('pc-turning-on', 0.30);
 
         this.modalService.open(this.pcStorageModal, {
           centered: true,
@@ -99,7 +93,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
     }
 
     logOut(): void {
-      void this.soundFxService.playSoundFx(this.pcLogoutAudio, 0.30);
+      void this.soundFxService.playSoundFx('pc-logout', 0.30);
       this.modalService.dismissAll();
     }
 

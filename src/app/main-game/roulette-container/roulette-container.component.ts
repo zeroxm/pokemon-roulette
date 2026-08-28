@@ -15,7 +15,7 @@ import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
-import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { SettingsService } from '../../services/settings-service/settings.service';
 import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
 import { Subscription } from 'rxjs';
@@ -125,9 +125,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService,
       private megaStoneService: MegaStoneService) {
-      this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
-      this.megaStoneTapAudio = this.soundFxService.createMegaStoneTapSoundFx();
-      this.megaEvolutionAudio = this.soundFxService.createMegaEvolutionSoundFx();
     }
 
     ngOnInit(): void {
@@ -188,9 +185,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   currentGameState!: GameState;
   customWheelTitle = '';
   fromLeader: number = 0;
-  itemFoundAudio!: SoundFxHandle;
-  megaStoneTapAudio!: SoundFxHandle;
-  megaEvolutionAudio!: SoundFxHandle;
   leadersDefeatedAmount: number = 0;
   pkmnEvoTitle = '';
   pkmnIn!: PokemonItem;
@@ -824,12 +818,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
-      void this.soundFxService.playSoundFx(this.megaStoneTapAudio, 0.30);
+      void this.soundFxService.playSoundFx('mega-stone-tap', 0.30);
     } else {
       // Play mega sounds sequentially (tap -> evolution) via audio-ended queue.
       void this.soundFxService.playSoundFxQueue([
-        { handle: this.megaStoneTapAudio, volume: 0.30 },
-        { handle: this.megaEvolutionAudio, volume: 0.30 }
+        { name: 'mega-stone-tap', volume: 0.30 },
+        { name: 'mega-evolution', volume: 0.30 }
       ]);
     }
 
@@ -1024,7 +1018,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private playItemFoundAudio(): void {
-    void this.soundFxService.playSoundFx(this.itemFoundAudio, 0.25);
+    void this.soundFxService.playSoundFx('item-found', 0.25);
   }
 
   private showpkmnEvoModal(): void {

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { SoundFxHandle, SoundFxService } from '../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../services/sound-fx-service/sound-fx.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -43,7 +43,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerFillColor = 'yellow';
   winningNumber!: number;
   currentSegment: string = '-';
-  clickAudio!: SoundFxHandle;
 
   private translatedItems: WheelItem[] = [];
   private readonly mobileBreakpoint = 768;
@@ -56,7 +55,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     private modalService: NgbModal,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.clickAudio = this.soundFxService.createClickSoundFx();
     this.darkMode = this.themeService.isDark$;
     this.canvasHeight = 0;
     this.wheelWidth = 0;
@@ -365,7 +363,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
       if (segment !== this.currentSegment) {
         this.currentSegment = segment;
-        void this.soundFxService.playSoundFx(this.clickAudio, 1.0, { preventOverlap: true });
+        void this.soundFxService.playSoundFx('click', 1.0, { preventOverlap: true });
       }
     } catch (error) {
       // A throw here would end the animation loop with the gate still latched.

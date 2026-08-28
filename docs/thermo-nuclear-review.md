@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 6 Medium · 17 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 6 Medium · 15 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -149,23 +149,6 @@ component), or raise the budget deliberately.
 ---
 
 # Low
-
-### SEC-20 — `SoundFxService` has create-with-no-dispose
-- **Severity:** Low · **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:21, 85`
-
-`sourceByHandle` is written by `createSoundFx` and never read for deletion — there is no dispose API.
-`WheelComponent`'s constructor mints a handle per instance and the wheel is recreated on every state;
-`StoragePcComponent` mints three. Entries are small strings, so this is slow unbounded growth rather
-than a crash. The other three maps *do* self-clean, and `decodedBufferCache` is keyed by `src` so it
-is bounded at 7. **Fix:** add `disposeSoundFx(handle)`, call from `ngOnDestroy`.
-
-### SEC-21 — `playSoundFxQueue` can await forever
-- **Severity:** Low · **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:170`
-
-Awaits `pendingEnded.promise`, resolved only via `source.onended`. If the tab is backgrounded Chrome
-suspends the `AudioContext` and `onended` may never fire; the listener stays registered and the queue
-never advances. Caller: `roulette-container.component.ts:815`. **Fix:** timeout or `visibilitychange`
-bail-out.
 
 ### SEC-24 — `ModalQueueService` produces an unhandled rejection per dismissed modal
 - **Severity:** Low · **Location:** `src/app/services/modal-queue-service/modal-queue.service.ts:26`
