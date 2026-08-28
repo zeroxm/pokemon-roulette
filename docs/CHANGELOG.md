@@ -31,10 +31,6 @@ spec covers.
 
 | # | Task | What to do | Expected | ✓ |
 | --- | --- | --- | --- | --- |
-| 0 | T-03 | **Throttle the network** (devtools → Slow 3G), hard-reload, and hammer the Spin button and spacebar the instant the page appears — before wheel labels render. | The Spin button is **disabled** until the wheel has labels, then enables. No console error. Critically, once the wheel is ready, **everything still works**: Spin, the settings/restart/coffee buttons, the storage PC, and rare-candy/mega-stone item clicks. Before this fix, spinning in that window permanently disabled all of them until a page reload. | [ ] |
-| 1 | T-09 | Start a **Generation 9 (Paldea)** run and win any gym. Open the badges panel and hover each badge. | Every badge shows a real name (**Bug Badge**, **Grass Badge**, **Electric Badge**, **Water Badge**, **Normal Badge**, **Ghost Badge**, **Psychic Badge**, **Ice Badge**) — never a raw string like `badges.bug_paldea`. | [ ] |
-| 2 | T-09 | Switch the language selector through **all six** locales (en, pt, es, fr, de, it) with gen-9 badges earned. | Badge names are translated in each. Portuguese shows *Insígnia Elétrica* / *Insígnia Normal*; German shows *Elektro-Orden* / *Normal-Orden*. No raw keys in any language. | [ ] |
-
 | 3 | T-10 | Open the Pokédex and find an entry the app can't resolve (rare — a form id outside the National Dex). Failing that, confirm no entry anywhere shows the literal `pokemon.unknown`. | The fallback label reads **Unknown Pokémon** (localised), never the raw key. | [ ] |
 | 4 | T-13 | Trigger a **Multitask** result on the adventure wheel, in a non-English locale. | The re-spin label reads e.g. *Multitarefa x2* (pt) / *Multitasking x2* (de) — not English `Multitask x2`. Then trigger a **Running Shoes** re-spin and confirm that label is still correct. | [ ] |
 | 5 | T-13 | Hover an **empty item slot** in the items bar, in a non-English locale. | Tooltip reads *Vazio* / *Vacío* / *Vide* / *Leer* / *Vuoto* — not English "Empty". | [ ] |
