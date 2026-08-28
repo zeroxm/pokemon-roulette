@@ -12,8 +12,7 @@ import { BadgesService } from '../badges-service/badges.service';
 import { GenerationService } from '../generation-service/generation.service';
 import { GameState } from '../game-state-service/game-state';
 import { GameStateService } from '../game-state-service/game-state.service';
-import { palafinForms } from './palafin-forms';
-import { stickyBattleForms } from './sticky-battle-forms';
+import { FormRuleService } from '../form-rule-service/form-rule.service';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from './pokemon-mega-forms';
 
 @Injectable({
@@ -37,7 +36,8 @@ export class TrainerService implements OnDestroy {
     private generationService: GenerationService,
     private itemSpriteService: ItemSpriteService,
     private pokemonService: PokemonService,
-    private gameStateService: GameStateService) {
+    private gameStateService: GameStateService,
+    private formRuleService: FormRuleService) {
     this.gameStateSubscription = this.gameStateService.currentState.subscribe((gameState) => {
       this.syncBattleForms(gameState);
     });
@@ -55,11 +55,7 @@ export class TrainerService implements OnDestroy {
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
   private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
-  private readonly temporaryBattleForms = palafinForms;
-  private readonly stickyBattleFormGroups = stickyBattleForms;
   private megaBattleBaseId: number | null = null;
-  private megaBattleStoneName: MegaStoneItemName | null = null;
-  private megaBattleOriginalPokemon: PokemonItem | null = null;
 
   trainerItems: ItemItem[] = [
     structuredClone(TrainerService.DEFAULT_POTION)
@@ -159,12 +155,36 @@ export class TrainerService implements OnDestroy {
   }
 
   private syncBattleForms(gameState: GameState): void {
-    if (this.battleStates.has(gameState)) {
-      this.applyBattleForms();
+    const changed = this.battleStates.has(gameState)
+      ? this.formRuleService.applyAll(this.trainerTeam, this.storedPokemon, this.heldItemNames())
+      : this.formRuleService.revertAll(this.trainerTeam, this.storedPokemon);
+
+    if (!changed) {
       return;
     }
 
-    this.revertBattleForms();
+    if (!this.battleStates.has(gameState)) {
+      this.clearMegaBattleState();
+    }
+    this.loadMissingSprites();
+    this.trainerTeamObservable.next(this.getTeam());
+  }
+
+  private heldItemNames(): ItemName[] {
+    return this.trainerItems.map(item => item.name);
+  }
+
+  /** Form swaps drop the sprite so the new form fetches its own. */
+  private loadMissingSprites(): void {
+    for (const collection of [this.trainerTeam, this.storedPokemon]) {
+      for (const pokemon of collection) {
+        this.loadPokemonSpriteIfMissing(pokemon);
+      }
+    }
+  }
+
+  private clearMegaBattleState(): void {
+    this.megaBattleBaseId = null;
   }
 
   replaceForEvolution(pokemonOut: PokemonItem, pokemonIn: PokemonItem): void {
@@ -260,9 +280,9 @@ export class TrainerService implements OnDestroy {
   }
 
   /** Sets which base Pokémon ID will mega-evolve at battle entry. Pass null to clear. */
-  setMegaBattlePokemon(baseId: number | null, stoneName: MegaStoneItemName | null = null): void {
+  /** Records that a mega evolution is claimed for this battle, so a second cannot start. */
+  setMegaBattlePokemon(baseId: number | null): void {
     this.megaBattleBaseId = baseId;
-    this.megaBattleStoneName = baseId === null ? null : stoneName;
   }
 
   /** Returns the base Pokémon ID that will mega-evolve this battle, or null if none. */
@@ -272,22 +292,22 @@ export class TrainerService implements OnDestroy {
 
   /** Returns true when any current team member is in a mega form. */
   hasActiveMegaFormInTeam(): boolean {
-    const megaFormIds = new Set<number>();
-    for (const forms of Object.values(pokemonMegaForms)) {
-      for (const form of forms) {
-        megaFormIds.add(form.pokemonId);
-      }
-    }
-
-    return this.trainerTeam.some(pokemon => megaFormIds.has(pokemon.pokemonId));
+    return this.megaBattleBaseId !== null
+      && this.formRuleService.isRuleActive(`mega:${this.megaBattleBaseId}`, this.trainerTeam, this.storedPokemon);
   }
 
   /** Applies mega evolution immediately for the selected base Pokémon during a battle. */
   forceMegaActivation(baseId: number, stoneName?: MegaStoneItemName): void {
     this.megaBattleBaseId = baseId;
-    this.megaBattleStoneName = stoneName ?? this.resolveMegaStoneForBattle(baseId);
-    const changed = this.applyMegaForms();
+
+    // A specific stone was tapped, so offer only that one; otherwise any held stone will do.
+    const heldItems = stoneName ? [stoneName, ...this.heldItemNames()] : this.heldItemNames();
+    const changed = this.formRuleService.forceApply(
+      `mega:${baseId}`, this.trainerTeam, this.storedPokemon, heldItems,
+    );
+
     if (changed) {
+      this.loadMissingSprites();
       this.trainerTeamObservable.next(this.getTeam());
     }
   }
@@ -319,6 +339,8 @@ export class TrainerService implements OnDestroy {
   resetTeam() {
     this.trainerTeam = [];
     this.storedPokemon = [];
+    this.clearMegaBattleState();
+    this.formRuleService.reset();
     this.trainerTeamObservable.next(this.trainerTeam);
   }
 
@@ -334,146 +356,13 @@ export class TrainerService implements OnDestroy {
 
   // Applies all battle-entry transforms in one pass with a single emit.
   // Temporary forms apply to team+stored; sticky forms apply to team only.
-  private applyBattleForms(): void {
-    let changed = false;
-    changed = this.replaceTemporaryForms(this.trainerTeam, true) || changed;
-    changed = this.replaceTemporaryForms(this.storedPokemon, true) || changed;
-    changed = this.applyStickyFormsToCollection(this.trainerTeam) || changed;
-    changed = this.applyMegaForms() || changed;
-
-    if (changed) {
-      this.trainerTeamObservable.next(this.getTeam());
-    }
-  }
 
   // Reverts temporary forms only. Sticky forms intentionally persist after battle.
-  private revertBattleForms(): void {
-    let changed = false;
-    changed = this.replaceTemporaryForms(this.trainerTeam, false) || changed;
-    changed = this.replaceTemporaryForms(this.storedPokemon, false) || changed;
-    changed = this.revertMegaForms() || changed;
 
-    if (changed) {
-      this.trainerTeamObservable.next(this.getTeam());
-    }
-  }
 
-  private applyMegaForms(): boolean {
-    if (this.megaBattleBaseId === null) return false;
 
-    const baseId = this.megaBattleBaseId;
-    const index = this.trainerTeam.findIndex(p => p.pokemonId === baseId);
-    if (index === -1) return false;
 
-    const forms = pokemonMegaForms[baseId];
-    if (!forms) return false;
 
-    const stoneName = this.resolveMegaStoneForBattle(baseId);
-    if (!stoneName) return false;
-
-    const megaForm = this.getMegaFormForStone(baseId, stoneName);
-    if (!megaForm) return false;
-
-    this.megaBattleOriginalPokemon = structuredClone(this.trainerTeam[index]);
-    const replacement = structuredClone(megaForm);
-    replacement.shiny = this.trainerTeam[index].shiny;
-    replacement.sprite = null;
-    this.loadPokemonSpriteIfMissing(replacement);
-    this.trainerTeam[index] = replacement;
-    return true;
-  }
-
-  private revertMegaForms(): boolean {
-    if (!this.megaBattleOriginalPokemon) return false;
-
-    const original = this.megaBattleOriginalPokemon;
-    const megaIdToBaseId = new Map<number, number>();
-    for (const [baseIdStr, forms] of Object.entries(pokemonMegaForms)) {
-      const baseId = Number(baseIdStr);
-      for (const form of forms) {
-        megaIdToBaseId.set(form.pokemonId, baseId);
-      }
-    }
-
-    let reverted = false;
-    for (let i = 0; i < this.trainerTeam.length; i++) {
-      const pokemon = this.trainerTeam[i];
-      const baseId = megaIdToBaseId.get(pokemon.pokemonId);
-      if (baseId === undefined || baseId !== original.pokemonId) continue;
-
-      const replacement = structuredClone(original);
-      replacement.shiny = pokemon.shiny;
-      replacement.sprite = null;
-      this.loadPokemonSpriteIfMissing(replacement);
-      this.trainerTeam[i] = replacement;
-      reverted = true;
-      break;
-    }
-
-    if (reverted) {
-      this.megaBattleBaseId = null;
-      this.megaBattleStoneName = null;
-      this.megaBattleOriginalPokemon = null;
-    }
-    return reverted;
-  }
-
-  private resolveMegaStoneForBattle(baseId: number): MegaStoneItemName | null {
-    if (this.megaBattleStoneName && this.hasItem(this.megaBattleStoneName)) {
-      return this.megaBattleStoneName;
-    }
-
-    const heldStoneNames = megaStoneNamesForBaseId(baseId).filter(stoneName => this.hasItem(stoneName));
-    return heldStoneNames[0] ?? null;
-  }
-
-  private getMegaFormForStone(baseId: number, stoneName: MegaStoneItemName): PokemonItem | null {
-    const forms = pokemonMegaForms[baseId];
-    if (!forms || forms.length === 0) {
-      return null;
-    }
-
-    const stoneNames = megaStoneNamesForBaseId(baseId);
-    const stoneIndex = stoneNames.indexOf(stoneName);
-    if (stoneIndex === -1) {
-      return forms[0] ?? null;
-    }
-
-    return forms[stoneIndex] ?? forms[0] ?? null;
-  }
-
-  private applyStickyFormsToCollection(collection: PokemonItem[]): boolean {
-    let replaced = false;
-
-    this.stickyBattleFormGroups.forEach(group => {
-      const formIds = new Set(group.forms.map(f => f.pokemonId));
-
-      collection.forEach((pokemon, index) => {
-        if (!formIds.has(pokemon.pokemonId)) {
-          return;
-        }
-
-        const currentFormIndex = group.forms.findIndex(f => f.pokemonId === pokemon.pokemonId);
-        let targetForm: PokemonItem;
-
-        if (group.mode === 'toggle') {
-          targetForm = group.forms[(currentFormIndex + 1) % group.forms.length];
-        } else {
-          const otherForms = group.forms.filter(f => f.pokemonId !== pokemon.pokemonId);
-          targetForm = otherForms[Math.floor(Math.random() * otherForms.length)];
-        }
-
-        const replacement = structuredClone(targetForm);
-        replacement.shiny = pokemon.shiny;
-        replacement.sprite = null;
-        this.loadPokemonSpriteIfMissing(replacement);
-        collection[index] = replacement;
-        replaced = true;
-      });
-    });
-
-    return replaced;
-  }
 
   private loadPokemonSpriteIfMissing(pokemon: PokemonItem): void {
     if (!pokemon.sprite) {
@@ -483,34 +372,5 @@ export class TrainerService implements OnDestroy {
     }
   }
 
-  private replaceTemporaryForms(collection: PokemonItem[], transformToBattleForm: boolean): boolean {
-    let replaced = false;
-
-    Object.values(this.temporaryBattleForms).forEach(forms => {
-      if (forms.length < 2) {
-        return;
-      }
-
-      const baseForm = forms[0];
-      const battleForm = forms[1];
-      const sourceId = transformToBattleForm ? baseForm.pokemonId : battleForm.pokemonId;
-      const targetForm = transformToBattleForm ? battleForm : baseForm;
-
-      collection.forEach((pokemon, index) => {
-        if (pokemon.pokemonId !== sourceId) {
-          return;
-        }
-
-        const replacement = structuredClone(targetForm);
-        replacement.shiny = pokemon.shiny;
-        replacement.sprite = null;
-        this.loadPokemonSpriteIfMissing(replacement);
-        collection[index] = replacement;
-        replaced = true;
-      });
-    });
-
-    return replaced;
-  }
 }
 

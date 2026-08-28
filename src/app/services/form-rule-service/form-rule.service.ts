@@ -48,31 +48,50 @@ export class FormRuleService {
     return changed;
   }
 
-  /** Puts back everything a `temporary` rule replaced, wherever it now sits. */
+  /**
+   * Undoes every `temporary` rule, wherever the Pokémon now sits.
+   *
+   * Two styles, because the mechanics genuinely differ:
+   *
+   * - `base-to-battle` reverts **unconditionally** — a battle-only form is battle-only whether or
+   *   not this code produced it, so a Pokémon caught in Hero form still leaves the fight as base.
+   * - `item-gated` restores the **recorded original**, which carries the shiny flag and stats of
+   *   the exact Pokémon that mega-evolved.
+   */
   revertAll(team: PokemonItem[], stored: PokemonItem[]): boolean {
-    if (!this.formsApplied) {
-      return false;
-    }
-    this.formsApplied = false;
-
-    const toRevert = this.applied;
+    const records = this.applied;
     // Cleared unconditionally, before any attempt: leaving stale bookkeeping behind after a
     // missed revert is what used to disable mega evolution for the rest of the run.
     this.applied = [];
+    this.formsApplied = false;
 
     let reverted = false;
-    for (const record of toRevert) {
-      const rule = this.rulesById.get(record.ruleId);
-      if (!rule) {
+
+    for (const rule of this.rules) {
+      if (rule.persistence !== 'temporary') {
         continue;
       }
+
       for (const collection of this.collectionsFor(rule, team, stored)) {
         for (let i = 0; i < collection.length; i++) {
-          if (!this.isFormOf(rule, collection[i])) {
+          const current = collection[i];
+
+          if (rule.selection.kind === 'base-to-battle') {
+            if (rule.forms[1]?.pokemonId === current.pokemonId) {
+              collection[i] = this.carryOver(rule.forms[0], current);
+              reverted = true;
+            }
             continue;
           }
-          collection[i] = this.carryOver(record.original, collection[i]);
-          reverted = true;
+
+          if (!this.isFormOf(rule, current)) {
+            continue;
+          }
+          const record = records.find(r => r.ruleId === rule.id);
+          if (record) {
+            collection[i] = this.carryOver(record.original, current);
+            reverted = true;
+          }
         }
       }
     }
@@ -145,6 +164,9 @@ export class FormRuleService {
     switch (rule.selection.kind) {
       case 'cycle':
         return index === -1 ? null : rule.forms[(index + 1) % rule.forms.length];
+
+      case 'base-to-battle':
+        return index === 0 ? rule.forms[1] ?? null : null;
 
       case 'random-other': {
         if (index === -1) {

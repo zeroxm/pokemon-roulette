@@ -19,7 +19,7 @@ export const formRules: FormRule[] = [
       forms,
       scope: 'team+stored',
       persistence: 'temporary',
-      selection: { kind: 'cycle' },
+      selection: { kind: 'base-to-battle' },
     })),
 
   // Aegislash, Ogerpon and friends: change on entering a battle and stay changed.

@@ -3,8 +3,15 @@ import { MegaStoneItemName } from '../items-service/item-names';
 
 /** Which of a rule's forms a Pokémon changes into when the rule fires. */
 export type FormSelection =
-  /** Next form in the list, wrapping. Two-form rules toggle. */
+  /** Next form in the list, wrapping. Two-form rules toggle back and forth. */
   | { kind: 'cycle' }
+  /**
+   * Only the *base* form (index 0) changes, into index 1.
+   *
+   * Distinct from `cycle`: a Pokémon caught already in its battle form must be left alone rather
+   * than demoted on entering a fight.
+   */
+  | { kind: 'base-to-battle' }
   /** Any form other than the current one. */
   | { kind: 'random-other' }
   /** The form paired with a held stone; the rule does nothing without one. */
