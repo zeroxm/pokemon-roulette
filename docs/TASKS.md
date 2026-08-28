@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**16 / 36 complete.** Findings cleared: 12 of 46 `SEC` · 8 of 26 `CQ`.
+**17 / 36 complete.** Findings cleared: 13 of 46 `SEC` · 8 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -89,7 +89,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [x] |
 | T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [x] |
 | T-11 | Repopulate the gen-8 fishing table (4 → 45); fix the font clamp it exposes | `SEC-13`, `SEC-10` | low | [x] |
-| T-12 | Replace the 404 scaffold with real translated content | `SEC-18` | low | [ ] |
+| T-12 | Replace the 404 scaffold with real translated content | `SEC-18` | low | [x] |
 | T-13 | Remove the two English literals (`Multitask x`, `Empty`); add keys | `SEC-22`, `SEC-23` | low | [x] |
 | T-14 | Apply the existing language whitelist before `translate.use()` | `SEC-27` | low | [x] |
 | T-15 | Pass the real `EventSource`; adds an `elite-four-battle` member + consolation copy | `SEC-30l` | low | [x] |

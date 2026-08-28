@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**3 High · 10 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**3 High · 9 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -344,21 +344,6 @@ a budget error rather than an obvious cause.
 
 **Suggested fix:** Split the animation styles (move keyframes into `src/styles.css` or a sibling
 component), or raise the budget deliberately.
-
----
-
-### SEC-18 — The 404 route ships the Angular scaffold
-- **Severity:** Medium
-- **Location:** `src/app/not-found/not-found.component.html:1`
-- **Status:** [ ] open
-
-**What:** The entire file is `<p>not-found works!</p>`.
-
-**Why it matters:** This is the `**` wildcard route (`app.routes.ts`), so it is what every mistyped
-path, stale bookmark, or bad deep link on the deployed GitHub Pages site renders — untranslated
-placeholder text, no way back to the game, no styling.
-
-**Suggested fix:** Real content plus `<app-main-game-button>`, with translated strings.
 
 ---
 

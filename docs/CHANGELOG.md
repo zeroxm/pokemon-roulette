@@ -44,6 +44,8 @@ spec covers.
 | 8 | T-11 | Start a **Generation 8 (Galar)** run and reach the fishing roulette several times. | The wheel shows a **wide variety** of Pokémon — Magikarp, Chewtle, Arrokuda, Goldeen, Feebas, Tentacool, Wooper and many more. Previously it only ever showed Chewtle (twice on the wheel), Arrokuda and Barraskewda. | [ ] |
 | 9 | T-11 | On that same gen-8 fishing wheel (45 segments), **read the segment labels**. | Labels are small but **legible and not overlapping**. This is the font-size clamp working; before this change a wheel this size drew labels at roughly double the intended size until the window was resized. | [ ] |
 
+| 10 | T-12 | Visit a bad URL, e.g. `http://localhost:4200/#/nonsense` or any mistyped path. | A real 404 page: translated heading, the "fled into the tall grass" message, and a **working button back to the game**. Previously this rendered the Angular scaffold text `not-found works!`. Check it in a non-English locale too. | [ ] |
+
 ### Regression watch for the above
 
 | # | Check | Expected | ✓ |
