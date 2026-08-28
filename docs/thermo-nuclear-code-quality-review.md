@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**13 of the original 26 findings remain.** Cleared so far: `CQ-01`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**12 of the original 26 findings remain.** Cleared so far: `CQ-01`, `CQ-03`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -46,7 +46,7 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 | Quality finding | Correctness finding it structurally prevents |
 | --- | --- |
 | `CQ-02` FormRule model | `SEC-02` stranded mega form · `SEC-03` double-applied sticky forms · `SEC-05` mega state survives reset |
-| `CQ-03` RunModifiers service | `SEC-04` stale container state · `SEC-07` exp-share flag |
+| ~~`CQ-03` RunModifiers~~ **done (`T-22`)** | `SEC-04` · `SEC-07` — both cleared with it |
 | `CQ-10` stone-on-form join | `SEC-30a` unreachable Greninja forms |
 | `CQ-13` extract weighted-random | `SEC-01` (fixed in `T-03`) — extraction would still remove the `as any` reach-through in its tests |
 
@@ -128,39 +128,6 @@ private syncBattleForms(gameState: GameState): void {
 existing tables at module load — zero data edits, existing specs still pass; (2) switch
 `syncBattleForms` over and delete the six private methods; (3) flatten the adapters into one literal
 table and delete `palafin-forms.ts` / `sticky-battle-forms.ts` / the mega pairing helper.
-
----
-
-### CQ-03 — Per-run game rules are stored as component fields, so restart can't reset them
-- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:192-210`
-- **Status:** [ ] open
-
-**What:** `resetGameAction()` (`:894-898`) resets exactly one field. `resetGameEvent` reaches
-`MainGameComponent.resetGame()`, which resets the trainer and `GameStateService` — and nothing in the
-container. The container is **not** recreated (no `@if` guards it), so `expShareUsed`, `expSharePokemon`,
-`runningShoesUsed`, `multitaskCounter`, `respinReason`, `stolenPokemon`, `fromLeader` and
-`megaSelectionMode` all survive a restart.
-
-**The diagnosis is not "add lines to `resetGameAction`".** These are per-run *game rules*: they outlive
-every individual state transition, and `GameStateService` already owns run-scoped data (`currentRound`).
-They are in the wrong object.
-
-**Remedy:** one `RunModifiers` object on `GameStateService` (or a small `RunModifiersService`), reset
-inside the existing `resetGameState()`:
-
-```ts
-interface RunModifiers {
-  expShareUsed: boolean;
-  expSharePokemon: PokemonItem | null;
-  runningShoesUsed: boolean;
-  multitaskCounter: number;
-  evolutionCredits: number;
-  stolenPokemon: PokemonItem | null;
-}
-```
-
-Reset becomes one assignment in the place that already resets everything else, and can never drift
-again. **This is the structural fix for `SEC-04` and `SEC-07`.**
 
 ---
 
@@ -492,7 +459,7 @@ are mostly independent of each other.
 | 7 | ~~Consolation-prize table + outcome-based tests~~ **done (`T-20`)** | `CQ-06`, `CQ-25` | — |
 | 8 | ~~**`PendingSelection<T>` continuations**~~ **done (`T-21`)** | `CQ-01` | — |
 | 9 | **`FormRuleService`** — three-phase migration; fixes `SEC-02`/`SEC-03`/`SEC-05` structurally | `CQ-02`, `CQ-10` | Medium-high |
-| 10 | `RunModifiers` into the service, reset in `resetGameState()`; add the restart regression test | `CQ-03` | Medium |
+| 10 | ~~`RunModifiers` into the service~~ **done (`T-22`)** | `CQ-03` | — |
 | 11 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`, 8 call sites | `CQ-04` | Medium |
 | 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the remaining wheel defects | `CQ-13` | Medium |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |

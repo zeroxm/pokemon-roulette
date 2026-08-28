@@ -7,6 +7,7 @@ import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
 import { PendingSelection } from './selection/pending-selection';
+import { RunModifiers } from '../../services/game-state-service/run-modifiers';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
@@ -132,12 +133,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
       this.gameStateService.currentState.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
         this.currentGameState = state;
+        if (this.currentGameState === 'game-start') {
+          this.resetTransientState();
+        }
+
         if (this.currentGameState === 'adventure-continues') {
-          if (this.multitaskCounter > 0) {
-            this.setRespinReason('game.main.respin.multitask', { count: this.multitaskCounter });
-            this.multitaskCounter--;
-          }
-          if (this.runningShoesUsed) {
+          const queued = this.queuedRespinReasons.shift();
+          if (queued) {
+            this.setRespinReason(queued.key, queued.params);
+          } else if (this.run.runningShoesUsed) {
             this.setRespinReason('items.running-shoes.name');
           }
         }
@@ -183,29 +187,55 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   currentContextPokemon!: PokemonItem;
   currentGameState!: GameState;
   customWheelTitle = '';
-  evolutionCredits: number = 0;
-  expSharePokemon: PokemonItem | null = null;
-  expShareUsed: boolean = false;
   fromLeader: number = 0;
   itemFoundAudio!: SoundFxHandle;
   megaStoneTapAudio!: SoundFxHandle;
   megaEvolutionAudio!: SoundFxHandle;
   leadersDefeatedAmount: number = 0;
-  multitaskCounter: number = 0;
   pkmnEvoTitle = '';
   pkmnIn!: PokemonItem;
   pkmnOut!: PokemonItem;
+  /** Run-scoped game rules, owned by GameStateService so one reset clears them all. */
+  get run(): RunModifiers {
+    return this.gameStateService.runModifiers;
+  }
+
+  /**
+   * Labels for re-spins that have been queued but not yet shown.
+   *
+   * Consumed one per `adventure-continues`. Previously a bare counter was decremented on *every*
+   * emission of that state, so an escape rope — which queues its own `adventure-continues` —
+   * silently ate a multitask spin's label.
+   */
+  private queuedRespinReasons: Array<{ key: string; params: Record<string, unknown> }> = [];
+
   respinReason = '';
   respinReasonParams: Record<string, unknown> = {};
   checkEvolutionSource: EventSource = 'gym-battle';
-  runningShoesUsed: boolean = false;
-  stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
   private pendingPokemonSelection: PendingSelection<PokemonItem> | null = null;
   private pendingItemSelection: PendingSelection<ItemItem> | null = null;
 
   getGameState(): string {
     return this.currentGameState;
+  }
+
+  /**
+   * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
+   * wheel contents, and the Pokémon being acted on.
+   *
+   * Driven by the `game-start` emission rather than by the restart handlers, because there are two
+   * restart entry points and only one of them used to clear anything.
+   */
+  private resetTransientState(): void {
+    this.pendingPokemonSelection = null;
+    this.pendingItemSelection = null;
+    this.queuedRespinReasons = [];
+    this.auxPokemonList = [];
+    this.auxItemList = [];
+    this.customWheelTitle = '';
+    this.fromLeader = 0;
+    this.setRespinReason('');
   }
 
   /** Sets the re-spin label. Interpolation params travel with the key so the pipe can use them. */
@@ -269,8 +299,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.gameStateService.finishCurrentState();
 
     if (this.currentGameState === 'adventure-continues') {
-      if (this.trainerService.hasItem('running-shoes') && !this.runningShoesUsed) {
-        this.runningShoesUsed = true;
+      if (this.trainerService.hasItem('running-shoes') && !this.run.runningShoesUsed) {
+        this.run.runningShoesUsed = true;
         this.gameStateService.setNextState('adventure-continues');
       }
     }
@@ -415,14 +445,18 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
-    if (this.expSharePokemon) {
-      const index = this.auxPokemonList.indexOf(this.expSharePokemon);
+    if (this.run.expSharePokemon) {
+      const index = this.auxPokemonList.indexOf(this.run.expSharePokemon);
       if (index > -1) {
         this.auxPokemonList.splice(index, 1);
       }
     }
 
     if (this.auxPokemonList.length === 0) {
+      // Nothing else could evolve, so the bonus was never spent — release it, or the next
+      // evolution silently loses its exp-share bonus to the re-entrancy guard.
+      this.run.expShareUsed = false;
+      this.run.expSharePokemon = null;
       return;
     }
 
@@ -438,7 +472,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   gymBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
+    this.run.runningShoesUsed = false;
     this.setRespinReason('');
 
     if (result) {
@@ -508,8 +542,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   multitask(): void {
     this.gameStateService.setNextStates('adventure-continues', 'adventure-continues');
-    this.multitaskCounter = this.multitaskCounter + 2;
-    this.setRespinReason('game.main.respin.multitask', { count: this.multitaskCounter });
+    // One label per queued spin, so an unrelated `adventure-continues` cannot consume one.
+    this.queuedRespinReasons.push(
+      { key: 'game.main.respin.multitask', params: { count: 2 } },
+      { key: 'game.main.respin.multitask', params: { count: 1 } },
+    );
     this.finishCurrentState();
   }
 
@@ -566,7 +603,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         title: 'game.main.roulette.teamrocket.steal.which',
         options: trainerTeam,
         onSelected: chosen => {
-          this.stolenPokemon = chosen;
+          this.run.stolenPokemon = chosen;
           this.removeFromTeam(chosen);
           this.finishCurrentState();
         },
@@ -576,14 +613,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   teamRocketDefeated(): void {
-    if (this.stolenPokemon) {
-      const pokemonName = this.translateService.instant(this.stolenPokemon.text);
+    if (this.run.stolenPokemon) {
+      const pokemonName = this.translateService.instant(this.run.stolenPokemon.text);
 
-      this.trainerService.addToTeam(this.stolenPokemon);
-      this.registerInPokedex(this.stolenPokemon);
+      this.trainerService.addToTeam(this.run.stolenPokemon);
+      this.registerInPokedex(this.run.stolenPokemon);
       const infoTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title') + pokemonName + '!';
       const infoMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
-      this.stolenPokemon = null;
+      this.run.stolenPokemon = null;
       void this.modalQueueService.open(InfoModalComponent, { centered: true, size: 'md' })
         .then(modalRef => {
           const modal = modalRef.componentInstance as InfoModalComponent;
@@ -655,7 +692,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   eliteFourBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
+    this.run.runningShoesUsed = false;
     this.setRespinReason('');
 
     if (result) {
@@ -670,7 +707,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   championBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
+    this.run.runningShoesUsed = false;
     this.setRespinReason('');
 
     if (result) {
@@ -867,9 +904,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
 
   resetGameAction(): void {
-    this.evolutionCredits = 0;
-    this.resetGameEvent.emit();
+    // Dismiss first: a modal's rejection handler can call finishCurrentState(), which would
+    // otherwise pop the freshly-seeded stack.
     this.modalService.dismissAll();
+    this.resetGameEvent.emit();
   }
 
   private evolvePokemon(pokemon: PokemonItem): void {
@@ -952,13 +990,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
-      this.expShareUsed = true;
-      this.expSharePokemon = this.pkmnIn;
+    if (this.trainerService.hasItem('exp-share') && this.run.expShareUsed === false) {
+      this.run.expShareUsed = true;
+      this.run.expSharePokemon = this.pkmnIn;
       this.secondEvolution();
-    } else if (this.trainerService.hasItem('exp-share') && this.expShareUsed === true) {
-      this.expShareUsed = false;
-      this.expSharePokemon = null;
+    } else if (this.trainerService.hasItem('exp-share') && this.run.expShareUsed === true) {
+      this.run.expShareUsed = false;
+      this.run.expSharePokemon = null;
     }
   }
 

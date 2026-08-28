@@ -4,17 +4,16 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**3 High · 8 Medium · 20 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**2 High · 8 Medium · 18 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
 
 Three themes dominate:
 
-1. **Nothing resets on restart.** `RouletteContainerComponent` is never destroyed (no `@if` guards it
-   in `main-game.component.html:28`), and neither reset path clears its ~15 mutable fields or
-   `TrainerService`'s mega-battle bookkeeping. State leaks across runs and silently swallows player
-   actions. Two independent reviewers reached this from opposite directions (`SEC-04`, `SEC-05`).
+1. **Nothing resets on restart** — **half cleared by `T-22`**: run-scoped rules moved to
+   `GameStateService` and transient container state is now wiped on `game-start`. What remains is
+   `TrainerService`'s mega-battle bookkeeping (`SEC-05`), which `T-23` subsumes.
 2. **Battle form apply/revert is not transactional.** `syncBattleForms` reacts to *every* state
    emission rather than tracking battle entry/exit, so any interrupt mid-battle double-applies sticky
    forms and cancels an active mega. A mega-evolved Pokémon moved to the PC mid-battle is stranded
@@ -124,47 +123,6 @@ false→true transition, revert only on true→false. That also makes apply idem
 
 ---
 
-### SEC-04 — Game reset leaves ~15 container fields dirty, corrupting the next run
-- **Severity:** High
-- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:181-211`
-- **Status:** [ ] open
-
-**What:** `RouletteContainerComponent` is a static element in `main-game.component.html:28-30` with no
-`@if`, so it is **never re-created**. Both reset paths reset only services:
-`main-game.component.ts:89-95` resets trainer/team/items/badges/gameState and nothing in the
-container; `resetGameAction()` (line 894-898) clears exactly one field (`evolutionCredits`); the
-sidebar restart (`main-game.component.html:12`) does not even do that.
-
-Fields that survive a restart: `megaSelectionMode`, `pendingMegaAwardPokemon`, `stolenPokemon`,
-`expShareUsed`, `expSharePokemon`, `multitaskCounter`, `runningShoesUsed`, `respinReason`,
-`auxPokemonList`, `auxItemList`, `customWheelTitle`, `currentContextPokemon`, `pkmnIn`, `pkmnOut`,
-and `evolutionCredits` on the sidebar path.
-
-**Failure scenarios** (three concrete, all traced):
-
-1. **A player's evolution is silently swallowed.** Win gym 8 with ≥2 mega-eligible Pokémon →
-   `megaSelectionMode = 'battle-award-pokemon'` (line 710-713) and the mega wheel renders. Player hits
-   Restart instead of spinning. In the new run, the first multi-candidate evolution calls
-   `continueWithPokemon` → `handleMegaSelection`, still in `'battle-award-pokemon'` mode, which
-   returns `true` and **returns before the `switch` at line 368**. `startMegaStoneAward` then finds
-   zero available stones and returns. The `evolve-pokemon` state was already popped at line 362. Net:
-   the evolution never happens, no modal, no feedback, and the run continues one state ahead.
-2. **Free Pokémon across a restart.** `stolenPokemon` (set at line 377) survives; hit a Team Rocket
-   encounter in the new run and roll "defeat" → `teamRocketDefeated` (lines 566-578) adds the
-   *previous run's* Pokémon to the new team.
-3. **Pity counter carries over.** `evolutionCredits` is the guaranteed-evolution counter
-   (`check-evolution-roulette.component.ts:28-44`). Accumulate 5, restart via the sidebar → the first
-   `check-evolution` roll of the new run is already near-guaranteed. That `resetGameAction` clears it
-   and the sidebar path does not is evidence the field was already known to need clearing.
-
-**Suggested fix:** Add a `private resetContainerState()` reinitialising every mutable field, and route
-**both** restart entry points through it. Add a spec that dirties every field, resets, and asserts
-each is back to its initial value.
-
----
-
-# Medium
-
 ### SEC-05 — `resetGame()` does not clear mega-battle state, leaking it into the next run
 - **Severity:** Medium
 - **Location:** `src/app/services/trainer-service/trainer.service.ts:346-350`
@@ -184,27 +142,6 @@ only because `resetItems()` clears the stones, so `resolveMegaStoneForBattle` re
 *incorrect* form is applied — the damage is confined to the blocked-activation guard.
 
 **Suggested fix:** Add `resetMegaBattleState()` nulling all three fields; call it from `resetTeam()`.
-
----
-
-### SEC-07 — Exp-share silently skips every other trigger after a dry `secondEvolution()`
-- **Severity:** Medium
-- **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:414-416`
-- **Status:** [ ] open
-
-**What:** `secondEvolution` returns early when nothing else can evolve **without clearing
-`expShareUsed`**. The flag is only ever cleared by the re-entrancy guard at lines 980-983, which is
-meant to be consumed by the *bonus* evolution that never happened.
-
-**Failure scenario:**
-- Evolution A: line 976-979 sets `expShareUsed = true`, calls `secondEvolution()` → 0 candidates → returns. Flag stuck.
-- Evolution B: line 976 is false, so 980-983 fires — flag cleared, **no bonus evolution**.
-- Evolution C: bonus works again.
-
-After any turn where the exp-share had no second target, the next evolution silently loses its bonus.
-
-**Suggested fix:** Reset `expShareUsed = false; expSharePokemon = null;` before the early return, and
-on the equivalent path in `evolveSecondPokemon` (lines 986-998).
 
 ---
 
@@ -390,9 +327,7 @@ async-loader case is still untested.
 | a | Greninja declares 3 mega forms but has 1 stone; `getMegaFormForStone` pairs by index so 2 are permanently unreachable. The **only** length mismatch across all 92 mega bases. | `pokemon-mega-forms.ts` base `658` |
 | b | `plusModifiers` divides by `trainerTeam.length` → `NaN` on an empty team; consuming loops use `i < NaN` so the X-Attack bonus is silently dropped rather than crashing. Fractional means always round up. | `base-battle-roulette.component.ts:65` |
 | c | `duration` is randomized once per component instance, not per spin, so every spin of a given wheel takes identical time. `totalRotations` *is* per-spin, so the intent was clearly per-spin variety. | `wheel.component.ts:41` |
-| d | `multitaskCounter` is decremented on *every* `adventure-continues` emission regardless of origin, so an escape rope consumes a multitask count and mislabels the spin. | `roulette-container.component.ts:130-138` |
 | e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
-| f | `resetGameAction()` emits the reset *before* `dismissAll()`; modal rejection handlers calling `finishCurrentState()` would pop the freshly-seeded stack. Not reachable — default backdrops block the restart control. | `roulette-container.component.ts:894-898` |
 | g | Pokédex `localStorage` entries are not shape-validated; individual entries cast unchecked. Not a security issue (see Summary). | `pokedex.service.ts:259-272` |
 | h | `distinctUntilChanged()` on `pokedex$` is a no-op — `updatePokedex` always emits a fresh object. | `pokedex.service.ts:31` |
 | i | `getItems()` returns the **live** mutable array while `getTeam()`/`getStored()` return copies. `usePotion` splices it directly then calls `removeItem`, which no-ops. Works by accident; one `OnPush` component away from a real bug. | `trainer.service.ts:207` |

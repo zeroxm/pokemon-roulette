@@ -162,6 +162,67 @@ describe('RouletteContainerComponent', () => {
   // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
 
+  describe('restart clears run state (SEC-04)', () => {
+    it('wipes every run modifier', () => {
+      const run = gameStateService.runModifiers;
+      run.evolutionCredits = 5;
+      run.expShareUsed = true;
+      run.expSharePokemon = { pokemonId: 25 } as any;
+      run.runningShoesUsed = true;
+      run.stolenPokemon = { pokemonId: 143 } as any;
+
+      gameStateService.resetGameState();
+
+      expect(run.evolutionCredits).toBe(0);
+      expect(run.expShareUsed).toBeFalse();
+      expect(run.expSharePokemon).toBeNull();
+      expect(run.runningShoesUsed).toBeFalse();
+      expect(run.stolenPokemon).toBeNull();
+    });
+
+    it('wipes the container’s transient state when a new run starts', () => {
+      component.auxPokemonList = [{ pokemonId: 1 } as any];
+      component.auxItemList = [{ name: 'potion' } as any];
+      component.customWheelTitle = 'stale.title';
+      component.fromLeader = 3;
+      (component as any).pendingPokemonSelection = { title: 't', options: [], onSelected: () => undefined };
+
+      gameStateService.resetGameState();
+
+      expect(component.auxPokemonList).toEqual([]);
+      expect(component.auxItemList).toEqual([]);
+      expect(component.customWheelTitle).toBe('');
+      expect(component.fromLeader).toBe(0);
+      expect((component as any).pendingPokemonSelection).toBeNull();
+    });
+
+    it('does not carry a pending selection into the next run', () => {
+      let ranFromPreviousRun = false;
+      (component as any).requestPokemonSelection({
+        title: 'previous.run', options: [], onSelected: () => { ranFromPreviousRun = true; },
+      });
+
+      gameStateService.resetGameState();
+      component.continueWithPokemon({ pokemonId: 1 } as any);
+
+      expect(ranFromPreviousRun).toBeFalse();
+    });
+  });
+
+  describe('exp-share bonus (SEC-07)', () => {
+    it('releases the bonus when nothing else can evolve', () => {
+      const run = gameStateService.runModifiers;
+      run.expShareUsed = true;
+      run.expSharePokemon = { pokemonId: 25 } as any;
+      spyOn(trainerService, 'getPokemonThatCanEvolve').and.returnValue([]);
+
+      component.secondEvolution();
+
+      expect(run.expShareUsed).toBeFalse();
+      expect(run.expSharePokemon).toBeNull();
+    });
+  });
+
   describe('pending selections', () => {
     it('runs the continuation attached to the request, not a state-name lookup', () => {
       const chosen = { pokemonId: 1, text: 'a', fillStyle: 'red', weight: 1, shiny: false, power: 1, sprite: null } as any;

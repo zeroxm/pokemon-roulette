@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GameState } from './game-state';
 import { BehaviorSubject } from 'rxjs';
+import { RunModifiers, initialRunModifiers } from './run-modifiers';
 
 /**
  * Every generation currently runs the same league shape. If one ever differs, reintroduce a
@@ -23,6 +24,12 @@ export class GameStateService {
 
   private wheelSpinning = new BehaviorSubject<boolean>(false);
   wheelSpinningObserver = this.wheelSpinning.asObservable();
+
+  /**
+   * Run-scoped game rules. Mutated directly by the container; cleared wholesale by
+   * `resetGameState()`, so no caller has to remember to reset them one by one.
+   */
+  readonly runModifiers: RunModifiers = initialRunModifiers();
 
   constructor() {
     this.initializeStates();
@@ -92,6 +99,7 @@ export class GameStateService {
   }
 
   resetGameState(): void {
+    Object.assign(this.runModifiers, initialRunModifiers());
     this.initializeStates();
     this.setNextState('game-start');
     this.finishCurrentState();

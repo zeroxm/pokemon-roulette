@@ -64,7 +64,8 @@
   @case ('check-evolution') {
     <app-check-evolution-roulette
         [eventSource]="checkEvolutionSource"
-        [(evolutionCredits)]="evolutionCredits"
+        [evolutionCredits]="run.evolutionCredits"
+        (evolutionCreditsChange)="run.evolutionCredits = $event"
         (evolvePokemonEvent)="chooseWhoWillEvolve($event)"
         (doNothingEvent)="doNothing()">
     </app-check-evolution-roulette>
@@ -95,7 +96,7 @@
   }
   @case ('team-rocket-encounter') {
     <app-team-rocket-roulette
-        [stolenPokemon]="stolenPokemon"
+        [stolenPokemon]="run.stolenPokemon"
         (stealPokemonEvent)="stealPokemon()"
         (nothingHappensEvent)="doNothing()"
         (defeatInBattleEvent)="teamRocketDefeated()">
