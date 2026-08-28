@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**10 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-03`, `CQ-05`–`CQ-07`, `CQ-10`–`CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**9 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-07`, `CQ-10`–`CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -69,38 +69,6 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 ---
 
 # 1 · Structural regressions and code-judo opportunities
-
-### CQ-04 — `SoundFxService`: five maps keyed by a handle that carries no identity
-- **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:21-26`
-- **Status:** [ ] open
-
-**What:** Five parallel `Map`s (`sourceByHandle`, `decodedBufferCache`, `activeSourcesByHandle`,
-`endedListenersByHandle`, `pendingPlayCountByHandle`) modelling one object. The tell:
-
-```
-roulette-container.component.ts:122:  this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
-find-item-roulette.component.ts:31:   this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
-```
-
-Two components ask for the same asset and get two different handles. So `preventOverlap` is scoped to
-the *caller*, not the sound — those two `ItemFound.mp3` plays cannot suppress each other, presumably
-defeating the flag's purpose. Meanwhile `decodedBufferCache` is keyed by `src`, not handle: the service
-already carries two competing notions of identity. And `sourceByHandle` is append-only while
-`WheelComponent` mints a fresh handle per instantiation — dozens per playthrough.
-
-**Remedy:** the identity that matters is the **asset**. One `SOUND_FX_SRC: Record<SoundFxName, string>`
-table plus one `Map<SoundFxName, SoundFxClip>`, where `SoundFxClip` holds `active`, `endedListeners`,
-`buffer`, `pending` and a `busy` getter. Public API becomes
-`play(name: SoundFxName, volume?, options?)`.
-
-Deletes: seven `createXSoundFx()` factories (`:33-77`, ~45 lines); five map declarations become one;
-`trackActiveSource`, `isHandleBusy`, `incrementPending`, `decrementPending`, `untrackActiveSource`,
-`emitEnded` (`:276-324`, ~55 lines) — all pure get-or-default-then-set boilerplate that exists *only*
-because state lives in parallel maps. At call sites, **8** `!: SoundFxHandle` fields and their
-initialisers disappear. **367 → ~200 lines**, and the union type lets `strictTemplates` police sound
-names, which a `string` handle cannot.
-
----
 
 ### CQ-08 — Collapse the five pool roulettes; leave the other 26 alone
 - **Location:** `src/app/main-game/roulette-container/roulettes/{fishing,fossil,legendary,starter,cave-pokemon}-roulette/`
@@ -377,7 +345,7 @@ are mostly independent of each other.
 | 8 | ~~**`PendingSelection<T>` continuations**~~ **done (`T-21`)** | `CQ-01` | — |
 | 9 | ~~**`FormRuleService`**~~ **done (`T-23`)** — `CQ-10`'s stone-on-form join remains for `T-24` | `CQ-02` | — |
 | 10 | ~~`RunModifiers` into the service~~ **done (`T-22`)** | `CQ-03` | — |
-| 11 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`, 8 call sites | `CQ-04` | Medium |
+| 11 | ~~`SoundFxService` → one `Map<SoundFxName, SoundFxClip>`~~ **done (`T-25`)** | `CQ-04` | — |
 | 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the remaining wheel defects | `CQ-13` | Medium |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
