@@ -15,9 +15,11 @@ import { eliteFourByGeneration } from '../roulette-container/roulettes/elite-fou
 import { championByGeneration } from '../roulette-container/roulettes/champion-battle-roulette/champion-by-generation';
 import { RestartGameButtonComponent } from "../../restart-game-button/restart-game-button.component";
 import {TranslatePipe} from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 @Component({
   selector: 'app-game-over',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgIconsModule,
     RestartGameButtonComponent,

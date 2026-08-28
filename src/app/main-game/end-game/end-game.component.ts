@@ -10,10 +10,12 @@ import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
 import domtoimage from 'dom-to-image-more'
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-end-game',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgIconsModule,
     TranslatePipe

@@ -4,10 +4,12 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { WheelItem } from '../../../../interfaces/wheel-item';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-team-rocket-roulette',
-  imports: [WheelComponent, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,WheelComponent, TranslatePipe],
   templateUrl: './team-rocket-roulette.component.html',
   styleUrl: './team-rocket-roulette.component.css'
 })

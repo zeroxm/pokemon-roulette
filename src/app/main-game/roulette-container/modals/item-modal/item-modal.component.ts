@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 /**
  * "Here is an item" modal: heading, sprite, description.
@@ -10,7 +11,8 @@ import { TranslatePipe } from '@ngx-translate/core';
  */
 @Component({
   selector: 'app-item-modal',
-  imports: [TranslatePipe],
+  imports: [
+    ImageFallbackDirective,TranslatePipe],
   templateUrl: './item-modal.component.html',
   styleUrl: '../modal-shared.css'
 })

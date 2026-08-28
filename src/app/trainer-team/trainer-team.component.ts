@@ -11,10 +11,12 @@ import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 import { PokedexComponent } from "./pokedex/pokedex.component";
 import {TranslatePipe} from '@ngx-translate/core';
 import { ItemItem } from '../interfaces/item-item';
+import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-trainer-team',
-  imports: [CommonModule,
+  imports: [
+    ImageFallbackDirective,CommonModule,
     NgbTooltipModule,
     BadgesComponent,
     StoragePcComponent, TranslatePipe, PokedexComponent],

@@ -364,12 +364,25 @@ export class TrainerService implements OnDestroy {
 
 
 
+  /**
+   * Fetches artwork for a Pokémon that has none.
+   *
+   * This is the only subscriber to getPokemonSprites in the app, and it had no error callback —
+   * so once the service exhausted its three retries, the error surfaced as an unhandled rejection.
+   * A failure is not exceptional here (offline, rate-limited, PokéAPI down); the UI already falls
+   * back to a placeholder, so it is logged and left alone.
+   */
   private loadPokemonSpriteIfMissing(pokemon: PokemonItem): void {
-    if (!pokemon.sprite) {
-      this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe(response => {
-        pokemon.sprite = response.sprite;
-      });
+    if (pokemon.sprite) {
+      return;
     }
+
+    this.pokemonService.getPokemonSprites(pokemon.pokemonId).subscribe({
+      next: response => { pokemon.sprite = response.sprite; },
+      error: () => {
+        console.warn(`Could not load artwork for Pokémon ${pokemon.pokemonId}; showing a placeholder.`);
+      },
+    });
   }
 
 }

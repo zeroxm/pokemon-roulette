@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 4 Medium · 12 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 2 Medium · 13 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -51,45 +51,29 @@ literals now resolve through the pipe.
 
 # High
 
-### SEC-09 — `loadPokemonSpriteIfMissing` has no error handler
-- **Severity:** Medium
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:505-511`
-- **Status:** [ ] open
+### SEC-14 — Sprites are hot-linked from a moving branch on a non-CDN host
+- **Severity:** Low (reduced from Medium by `T-29`)
+- **Location:** throughout the data tables, e.g. `services/badges-service/badges-data.ts`
+- **Status:** [ ] open — **needs a decision, not a fix**
 
-**What:** `subscribe(response => …)` with **no error callback**. `getPokemonSprites`
-(`pokemon.service.ts:37-50`) re-raises via `throwError` after `retry({count: 3, delay: 1000})`. This is
-the **only** subscriber to `getPokemonSprites` in the codebase, so the error path is unhandled
-everywhere.
+**What:** ~2,400 references to
+`https://raw.githubusercontent.com/PokeAPI/sprites/…/master/…`. That is a source-fetch endpoint with
+unauthenticated per-IP rate limits, not a CDN with an availability guarantee, and `master` is a
+moving target.
 
-**Failure scenario:** PokéAPI down or user offline. Four failed requests later RxJS delivers an error
-with no handler, surfacing through Angular's `ErrorHandler`. `pokemon.sprite` stays `null` and nothing
-ever retries — the Pokémon renders as a placeholder for the remainder of the run. (Whether the error
-reaches `window.onerror` or is swallowed by Angular's default handler could not be confirmed without
-executing; the null-sprite half is certain from the code.)
+**Mitigated by `T-29`:** every `<img>` in the app now falls back to a local placeholder on error,
+and the one sprite-fetch subscriber handles failure. A rate-limited or offline player now sees
+placeholders rather than broken-image icons, and no unhandled errors.
 
-**Suggested fix:** Add an error callback that logs and leaves the placeholder; consider a one-shot
-retry when the Pokédex or team is next opened.
+**What remains is a judgement call**, not something to fix blind:
 
----
+- **Pin to a commit SHA.** Removes the moving-branch risk, but freezes artwork — new or updated
+  sprites never arrive — and touches ~2,400 lines.
+- **Vendor the sprites into `public/`.** Removes the third-party dependency entirely, at the cost of
+  repository size and the GitHub Pages deploy.
+- **Accept it.** The failure mode is now cosmetic and self-healing on the next load.
 
-### SEC-14 — 2,401 sprite URLs pinned to a moving branch on a non-CDN host, with one error handler app-wide
-- **Severity:** Medium
-- **Location:** throughout the data tables, e.g. `src/app/services/badges-service/badges-data.ts`, `gym-battle-roulette.component.ts:49`
-- **Status:** [ ] open
-
-**What:** 2,401 references to
-`https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/…`, plus 12 to
-`archives.bulbagarden.net`. The only `(error)` handler in the entire app is
-`pokedex-detail-modal.component.html:14`.
-
-**Why it matters:** `raw.githubusercontent.com` is a source-fetch endpoint with unauthenticated
-per-IP rate limits, not a CDN with an availability SLA, and `refs/heads/master` is a moving target.
-Failure modes, all silent: a user behind corporate NAT hits 429 and gets broken images game-wide;
-PokéAPI renames the default branch and *every* sprite breaks at once; a flaky connection produces a
-game full of alt text.
-
-**Suggested fix:** At minimum a shared `(error)` handler swapping in `place-holder-pixel.png`. Better:
-pin a commit SHA instead of `refs/heads/master`, and consider vendoring the sprites into `public/`.
+Whichever is chosen, the base URL should first be centralised so it is one edit rather than 2,400.
 
 ---
 

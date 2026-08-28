@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 /**
  * "One Pokémon became another" modal: outgoing sprite, a sentence, incoming sprite.
@@ -11,7 +12,8 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
  */
 @Component({
   selector: 'app-pokemon-switch-modal',
-  imports: [TranslatePipe],
+  imports: [
+    ImageFallbackDirective,TranslatePipe],
   templateUrl: './pokemon-switch-modal.component.html',
   styleUrl: '../modal-shared.css'
 })

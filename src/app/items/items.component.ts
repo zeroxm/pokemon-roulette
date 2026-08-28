@@ -7,10 +7,12 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { isMegaStoneItemName } from '../services/items-service/item-names';
+import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule,
+  imports: [
+    ImageFallbackDirective,CommonModule,
     NgbTooltipModule, TranslatePipe],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'

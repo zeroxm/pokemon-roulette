@@ -9,10 +9,12 @@ import { ItemSpriteService } from '../../../../services/item-sprite-service/item
 import { ItemItem } from '../../../../interfaces/item-item';
 import { SoundFxService } from '../../../../services/sound-fx-service/sound-fx.service';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-find-item-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe

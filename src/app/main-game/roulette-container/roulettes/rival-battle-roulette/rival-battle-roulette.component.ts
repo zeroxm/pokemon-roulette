@@ -12,10 +12,12 @@ import { GymLeader } from '../../../../interfaces/gym-leader';
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 import { resolveSplitTrainer } from '../../../../utils/split-trainer';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-rival-battle-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe
