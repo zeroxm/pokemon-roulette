@@ -277,15 +277,23 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  /**
+   * Advances the state machine, granting the running-shoes re-spin when appropriate.
+   *
+   * The check reads the state being **entered**, not the one being finished: the service emits
+   * synchronously, so the `ngOnInit` subscription has already updated `currentGameState` by the
+   * time the pop returns. That was previously invisible — the condition looked like it inspected
+   * the finished state, under a method named `finishCurrentState`.
+   */
   private finishCurrentState(): void {
+    const enteredState = this.gameStateService.finishCurrentState();
 
-    this.gameStateService.finishCurrentState();
+    const arrivingAtAdventure = enteredState === 'adventure-continues';
+    const canUseRunningShoes = this.trainerService.hasItem('running-shoes') && !this.run.runningShoesUsed;
 
-    if (this.currentGameState === 'adventure-continues') {
-      if (this.trainerService.hasItem('running-shoes') && !this.run.runningShoesUsed) {
-        this.run.runningShoesUsed = true;
-        this.gameStateService.setNextState('adventure-continues');
-      }
+    if (arrivingAtAdventure && canUseRunningShoes) {
+      this.run.runningShoesUsed = true;
+      this.gameStateService.setNextState('adventure-continues');
     }
   }
 

@@ -97,14 +97,6 @@ component), or raise the budget deliberately.
 
 # Low
 
-### SEC-29 — Karma config omits `src/assets`, making the real translation path untestable
-- **Severity:** Low · **Location:** `angular.json:91-96`
-
-The `test` target's `assets` includes only `public`. The i18n JSON is unavailable to Karma, so specs
-use `TranslateModule.forRoot()` with no loader, and the real asynchronous translation path cannot be
-exercised as configured. `T-03` covered the readiness gate with a synchronous stand-in, but the
-async-loader case is still untested.
-
 ### SEC-30 — Remaining low-severity items
 - **Severity:** Low
 

@@ -104,6 +104,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | N24 | T-30 | Champion and rival battle modals now go through the modal queue like the others; dismissing any modal no longer logs an unhandled rejection. | Fight a **champion** and a **rival**. Their presentation modals must appear, and closing one by **clicking the backdrop or pressing Esc** must leave no error in the console. Use a potion during a champion fight and confirm the item modal appears in order. | [ ] |
 | N25 | T-31/T-32/T-33 | Defensive cleanups: a stored settings blob is now validated field by field, an unknown trainer generation falls back to a placeholder, and a few silent failure paths now warn. | **Corrupt your settings deliberately.** In devtools: `localStorage.setItem('pokemon-roulette-settings','{"muteAudio":null,"defaultGender":"banana"}')`, reload. The game must start normally with **audio unmuted** and gender set to **Always Choose** — not crash, not stick on a broken value. Then set `'{not json'` and reload: same result. | [ ] |
 
+| N26 | T-34 | `WheelItem.weight` is now optional and defaults to 1; the running-shoes re-spin reads the state it actually inspects. | **Wheel proportions must be unchanged.** Spin a wheel where one option is deliberately weighted — the **gym battle odds** wheel, where team power adds winning slices — and confirm the green/red proportions still reflect your team's strength. Then trigger a **Running Shoes** re-spin and confirm it grants exactly one extra spin, labelled as such. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with

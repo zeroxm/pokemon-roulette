@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { pickWeightedIndex, totalWeight } from '../utils/weighted-random';
+import { pickWeightedIndex, totalWeight, weightOf } from '../utils/weighted-random';
 import { SpinAnimation } from './spin-animation';
 import { WheelItem } from '../interfaces/wheel-item';
 import { ThemeService } from '../services/theme-service/theme.service';
@@ -171,7 +171,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     let startAngle = rotation;
     for (let index = 0; index < this.translatedItems.length; index++) {
       const item = this.translatedItems[index];
-      const segmentSize = arcSize * item.weight;
+      const segmentSize = arcSize * weightOf(item);
       const endAngle = startAngle + segmentSize;
 
       /** Draw the segment */
@@ -343,10 +343,10 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
       // and it is the array the selection above was drawn from. Mixing the two invites a pointer
       // that stops on a different segment than the one emitted.
       let winningAngle = 0;
-      const winningSegmentSize = arcSize * this.translatedItems[this.winningNumber].weight;
+      const winningSegmentSize = arcSize * weightOf(this.translatedItems[this.winningNumber]);
 
       for (let index = 0; index < this.translatedItems.length; index++) {
-        winningAngle += arcSize * this.translatedItems[index].weight;
+        winningAngle += arcSize * weightOf(this.translatedItems[index]);
         if (index === this.winningNumber) {
           break;
         }
@@ -401,7 +401,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     let accumulatedWeight = 0;
 
     for (const item of this.translatedItems) {
-      accumulatedWeight += item.weight;
+      accumulatedWeight += weightOf(item);
       const segmentEnd = (accumulatedWeight / totalWeight) * 2 * Math.PI;
 
       if (currentAngle <= segmentEnd) {

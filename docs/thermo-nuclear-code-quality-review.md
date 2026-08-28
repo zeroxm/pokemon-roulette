@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**2 of the original 26 findings remain** (`CQ-14`, `CQ-17`, `CQ-26` — see below). Everything else is cleared. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**All 26 findings cleared.** This report is empty and can be deleted. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -71,68 +71,11 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 
 # 2 · Spaghetti and API-shape problems
 
-### CQ-14 — `finishCurrentState()` reads the post-pop state under a pre-pop name
-- **Location:** `roulette-container.component.ts:217-227`
-- **Status:** [ ] open
-
-`this.currentGameState` is mutated by the `ngOnInit` subscription *during* the call on line 219, so the
-running-shoes condition tests the state being **entered**, not the one being finished — under a method
-name saying otherwise. The `ngOnInit` handler's own running-shoes branch (`:135-137`) reads
-`runningShoesUsed` *before* line 223 sets it, so `respinReason` lands one arrival late. Behaviour
-depends entirely on the interleaving of a synchronous `BehaviorSubject` emission with the lines after
-it.
-
-Not claimed as a visible bug — it may produce the intended result by accident. But it is unreadable,
-and any future edit near it is a coin flip. Capture `const finishedState = this.currentGameState`
-before the call, or name a local `enteredState` and comment the intent. Either way, stop relying on
-mutation-during-call.
-
----
-
 # 3 · Type and contract cleanliness
-
-### CQ-17 — `WheelItem.weight` leaks wheel tuning into every hand-authored data row
-- **Location:** `src/app/interfaces/wheel-item.ts`
-- **Status:** [ ] open
-
-The `WheelItem` inheritance itself is **fine** and should stay — `text` is a translation key every
-domain object needs anyway, `fillStyle` doubles as team-card theming, and the adapter-layer
-alternative is real ceremony for a game where nearly every domain object *is* a wheel entry.
-
-But `weight` is pure wheel-selection tuning, and it is `1` in every literal sampled across
-`pokemon-mega-forms.ts`, `sticky-battle-forms.ts`, `palafin-forms.ts`, `items-data.ts` and
-`generation.service.ts`. Make it `weight?: number` defaulting to `1` in the selection function. That
-removes one line per entry from every data table in the project.
-
----
 
 # 4 · Dead code and configuration
 
 # 5 · Tests
-
-### CQ-26 — 60% of the spec suite is scaffolding; three specs are worth writing
-- **Status:** [ ] open
-
-**Measured: 67 spec files, 231 `it()` blocks, and 40 files (60%) with one or fewer.** Deleting the
-scaffolds is not obviously right — they catch DI-wiring breakage at near-zero cost, worth something
-with 14 root services. But three are actively misleading, because the subject has real logic and the
-spec asserts none of it:
-
-- **`settings.service.spec.ts`** — `should create` only, yet `getInitialSettings` does a
-  `{...defaults, ...fromStorage}` merge and `getSettingsFromStorage` has a try/catch fallback. **Worth
-  testing:** a persisted blob missing a newly-added key merges to the default rather than `undefined`;
-  corrupt JSON falls back without throwing. That is the forward-compat path for *every future setting*,
-  completely unverified.
-- **`ModalQueueService`** — **no spec at all.** 49 lines of promise-chaining whose entire purpose is
-  serialising modals so results "don't stomp each other". **Worth testing:** two `open()` calls resolve
-  strictly in order; a *dismissed* first modal still lets the second open — the `catch` and the
-  `.then(openModal, openModal)` both exist specifically for that.
-- **`wheel.component.spec.ts`** — the three fairness tests are the best in the repo but reach through
-  `as any`. `CQ-13` turns them into a plain function spec with a seedable `random`.
-
-`odd-utils.spec.ts` is the model to copy: pure function, real assertions, no TestBed.
-
----
 
 # Verified healthy — do not touch
 
