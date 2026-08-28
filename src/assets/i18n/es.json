@@ -2820,5 +2820,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Mega Evolucionado"
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "message": "Parece que esta página huyó a la hierba alta.",
+    "hint": "Usa el botón para volver a tu aventura."
   }
 }
