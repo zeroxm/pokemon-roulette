@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GameState } from './game-state';
 import { BehaviorSubject } from 'rxjs';
-import { GenerationService } from '../generation-service/generation.service';
 
-const GENERATION_GAME_CONFIG: Record<number, { gymCount: number; eliteFourCount: number }> = {
-  1: { gymCount: 8, eliteFourCount: 4 },
-  2: { gymCount: 8, eliteFourCount: 4 },
-  3: { gymCount: 8, eliteFourCount: 4 },
-  4: { gymCount: 8, eliteFourCount: 4 },
-  5: { gymCount: 8, eliteFourCount: 4 },
-  6: { gymCount: 8, eliteFourCount: 4 },
-  7: { gymCount: 8, eliteFourCount: 4 },
-  8: { gymCount: 8, eliteFourCount: 4 },
-  9: { gymCount: 8, eliteFourCount: 4 },
-};
+/**
+ * Every generation currently runs the same league shape. If one ever differs, reintroduce a
+ * per-generation lookup here rather than threading counts through call sites.
+ */
+const GYM_COUNT = 8;
+const ELITE_FOUR_COUNT = 4;
 
 @Injectable({
   providedIn: 'root'
@@ -30,24 +24,22 @@ export class GameStateService {
   private wheelSpinning = new BehaviorSubject<boolean>(false);
   wheelSpinningObserver = this.wheelSpinning.asObservable();
 
-  constructor(private generationService: GenerationService) {
-    const genId = this.generationService.getCurrentGeneration().id;
-    const config = GENERATION_GAME_CONFIG[genId] ?? { gymCount: 8, eliteFourCount: 4 };
-    this.initializeStates(config.gymCount, config.eliteFourCount);
+  constructor() {
+    this.initializeStates();
   }
 
-  private initializeStates(gymCount: number = 8, eliteFourCount: number = 4): void {
+  private initializeStates(): void {
     const stack: GameState[] = ['game-finish', 'champion-battle'];
 
-    for (let i = 0; i < eliteFourCount; i++) {
+    for (let i = 0; i < ELITE_FOUR_COUNT; i++) {
       stack.push('elite-four-battle');
     }
 
     stack.push('elite-four-preparation');
 
-    for (let i = 0; i < gymCount; i++) {
+    for (let i = 0; i < GYM_COUNT; i++) {
       stack.push('gym-battle');
-      if (i < gymCount - 1) {
+      if (i < GYM_COUNT - 1) {
         stack.push('adventure-continues');
       }
     }
@@ -87,9 +79,7 @@ export class GameStateService {
   }
 
   resetGameState(): void {
-    const genId = this.generationService.getCurrentGeneration().id;
-    const config = GENERATION_GAME_CONFIG[genId] ?? { gymCount: 8, eliteFourCount: 4 };
-    this.initializeStates(config.gymCount, config.eliteFourCount);
+    this.initializeStates();
     this.setNextState('game-start');
     this.finishCurrentState();
     this.currentRound.next(0);
