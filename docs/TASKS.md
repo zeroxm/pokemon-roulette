@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**25 / 36 complete.** Findings cleared: 26 of 46 `SEC` · 17 of 26 `CQ`.
+**26 / 36 complete.** Findings cleared: 30 of 46 `SEC` · 18 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -106,7 +106,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-24 | Stone moved onto the form; `_baseIdToStoneName` deleted; Greninja resolved; revert keeps the resolved sprite | `CQ-10`, `SEC-30a`, `SEC-08` | med | [x] |
 | **Phase 6 — infra restructures** ||||
 | T-25 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`; 8 call sites; bounded ended-wait | `CQ-04`, `SEC-20`, `SEC-21` | med | [x] |
-| T-26 | Extract `weighted-random.ts` + `SpinAnimation`; fix per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [ ] |
+| T-26 | Extract `weighted-random.ts` + `SpinAnimation`; per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [x] |
 | T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [ ] |
 | T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the battle base | `CQ-09`, `SEC-30b` | med | [ ] |
 | **Phase 7 — remaining correctness** ||||

@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**9 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-07`, `CQ-10`–`CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**8 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-07`, `CQ-10`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -47,7 +47,7 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 | ~~`CQ-02` FormRule model~~ **done (`T-23`)** | `SEC-02` · `SEC-03` · `SEC-05` — all cleared with it |
 | ~~`CQ-03` RunModifiers~~ **done (`T-22`)** | `SEC-04` · `SEC-07` — both cleared with it |
 | ~~`CQ-10` stone-on-form join~~ **done (`T-24`)** | `SEC-30a` — cleared with it |
-| `CQ-13` extract weighted-random | `SEC-01` (fixed in `T-03`) — extraction would still remove the `as any` reach-through in its tests |
+| ~~`CQ-13` extract weighted-random~~ **done (`T-26`)** | `SEC-01` was fixed earlier in `T-03` |
 
 ---
 
@@ -142,32 +142,6 @@ function `resolveSplitTrainer(leader, translated, index)`: pure, no DI, triviall
 ---
 
 # 2 · Spaghetti and API-shape problems
-
-### CQ-13 — `WheelComponent`: extract the two pieces that have no business being in a component
-- **Location:** `src/app/wheel/wheel.component.ts` (379 lines)
-- **Status:** [ ] open
-
-**The evidence is in the spec.** `wheel.component.spec.ts` writes
-`(component as any).translatedItems = component.items` at lines **42, 70 and 108** — because testing a
-12-line weighted-random function currently requires standing up a component with two canvases,
-`NgbModal`, `TranslateService`, `GameStateService`, `SoundFxService` and two theme services. That is
-the seam telling you where the boundary is.
-
-**Extract 1 — selection → `src/app/utils/weighted-random.ts`:** `pickWeightedIndex(items, random = Math.random)`
-and `totalWeight(items)` move out verbatim. The three statistical tests lose all three `as any` casts
-and the entire TestBed, and gain a seedable `random` for deterministic boundary assertions. Given
-CLAUDE.md flags wheel fairness tests as load-bearing, **this is the best return in the file** — and it
-makes the empty-items case directly testable without the `as any` reach-through `T-03`'s tests still need.
-
-**Extract 2 — the spin animation → a plain `SpinAnimation` class** with `start(finalRotation, durationMs)`
-and `cancel()`. Pulls five mutable fields and `animate()` out of a public surface that currently
-exposes **twelve** mutable public fields.
-
-**Do not extract the canvas drawing.** `drawWheel`/`drawBorderRing`/`drawPokeball`/`drawPointer`
-(`:125-270`) are ~145 lines of pure `CanvasRenderingContext2D` calls with no logic worth isolating — a
-"renderer" class would be indirection for its own sake.
-
----
 
 ### CQ-14 — `finishCurrentState()` reads the post-pop state under a pre-pop name
 - **Location:** `roulette-container.component.ts:217-227`
@@ -346,7 +320,7 @@ are mostly independent of each other.
 | 9 | ~~**`FormRuleService`**~~ **done (`T-23`)** — `CQ-10`'s stone-on-form join remains for `T-24` | `CQ-02` | — |
 | 10 | ~~`RunModifiers` into the service~~ **done (`T-22`)** | `CQ-03` | — |
 | 11 | ~~`SoundFxService` → one `Map<SoundFxName, SoundFxClip>`~~ **done (`T-25`)** | `CQ-04` | — |
-| 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the remaining wheel defects | `CQ-13` | Medium |
+| 12 | ~~Extract `weighted-random.ts` + `SpinAnimation`~~ **done (`T-26`)** | `CQ-13` | — |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
 | 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-23` | Low |
