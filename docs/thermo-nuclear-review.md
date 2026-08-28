@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 6 Medium · 15 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 4 Medium · 13 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -69,43 +69,6 @@ executing; the null-sprite half is certain from the code.)
 
 **Suggested fix:** Add an error callback that logs and leaves the placeholder; consider a one-shot
 retry when the Pokédex or team is next opened.
-
----
-
-### SEC-11 — Wheel goes blank after any window resize
-- **Severity:** Medium
-- **Location:** `src/app/wheel/wheel.component.ts:83-91`
-- **Status:** [ ] open
-
-**What:** `handleResize()` updates `wheelWidth`/`canvasHeight` then *synchronously* calls `drawWheel()`,
-which reads `this.wheelCanvas.width` — still the old value. Change detection runs *after* the handler
-and writes the new `[width]`/`[height]`. Assigning `canvas.width` resets the drawing context and
-clears everything just painted. Nothing redraws afterwards.
-
-**Failure scenario:** On mobile, scrolling collapses the URL bar → `resize` fires → the wheel
-disappears entirely and stays blank until the next spin. Desktop resize and orientation change do the
-same.
-
-**Suggested fix:** Set `wheelCanvas.width/height` imperatively in `handleResize()` before drawing, or
-defer the redraw via `queueMicrotask` / `afterNextRender`.
-
----
-
-### SEC-12 — `WheelComponent` has no `ngOnDestroy`
-- **Severity:** Medium
-- **Location:** `src/app/wheel/wheel.component.ts:21, 303, 317`
-- **Status:** [ ] open
-
-**What:** The class implements only `AfterViewInit, OnChanges`. `animate()` re-schedules itself via
-`requestAnimationFrame` with no destroyed-check, and the container's `@switch` destroys the roulette —
-and its `<app-wheel>` — on every state transition.
-
-**Failure scenario:** A transition landing mid-spin leaves the loop running on a detached canvas, still
-firing click SFX (line 328), then emitting `selectedItemEvent` (line 320) from a dead component. This
-is also a second route to a stuck `wheelSpinning`: `setWheelSpinning(false)` at line 321 is the only
-thing that clears it, and nothing guarantees it runs.
-
-**Suggested fix:** Implement `OnDestroy`, cancel the stored rAF id, and clear `setWheelSpinning(false)`.
 
 ---
 
@@ -196,13 +159,11 @@ async-loader case is still untested.
 | # | Finding | Location |
 | --- | --- | --- |
 | b | `plusModifiers` divides by `trainerTeam.length` → `NaN` on an empty team; consuming loops use `i < NaN` so the X-Attack bonus is silently dropped rather than crashing. Fractional means always round up. | `base-battle-roulette.component.ts:65` |
-| c | `duration` is randomized once per component instance, not per spin, so every spin of a given wheel takes identical time. `totalRotations` *is* per-spin, so the intent was clearly per-spin variety. | `wheel.component.ts:41` |
 | e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
 | g | Pokédex `localStorage` entries are not shape-validated; individual entries cast unchecked. Not a security issue (see Summary). | `pokedex.service.ts:259-272` |
 | h | `distinctUntilChanged()` on `pokedex$` is a no-op — `updatePokedex` always emits a fresh object. | `pokedex.service.ts:31` |
 | i | `getItems()` returns the **live** mutable array while `getTeam()`/`getStored()` return copies. `usePotion` splices it directly then calls `removeItem`, which no-ops. Works by accident; one `OnPush` component away from a real bug. | `trainer.service.ts:207` |
 | j | `replaceForEvolution`/`performTrade` fail silently on an `indexOf` identity miss while the caller has already consumed the item and shows the modal. Latent. | `trainer.service.ts:174-205` |
-| k | `currentSegment` is translated twice — already-translated text piped through `\| translate` again. | `wheel.component.ts:343` + `.html:2` |
 | m | `getTrainerSprite` indexes `[generation][gender]` unguarded. Cannot fire today (data covers 1-9). | `trainer.service.ts:81-83` |
 | o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
 | q | Settings `localStorage` has no per-field type validation (`{...defaults, ...stored}`). Not prototype pollution; impact cosmetic. | `settings.service.ts:82-85` |
