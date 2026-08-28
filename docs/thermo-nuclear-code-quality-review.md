@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**21 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-20`, `CQ-21`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**20 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-20`, `CQ-21`, `CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -548,17 +548,6 @@ may be a latent correctness bug, not just noise.
 
 ---
 
-### CQ-22 — `GENERATION_GAME_CONFIG` is a configuration table that configures nothing
-- **Location:** `src/app/services/game-state-service/game-state.service.ts:40-50`
-- **Status:** [ ] open
-
-**Verified: all nine rows reduce to the single distinct value** `{ gymCount: 8, eliteFourCount: 4 }`,
-consulted through a `?? { gymCount: 8, eliteFourCount: 4 }` fallback that is the same value again, at
-two call sites. Delete it and the `initializeStates` parameters until a generation actually differs —
-the `initializeStates(8, 4)` defaults already carry the meaning.
-
----
-
 ### CQ-23 — `finishCurrentState` returns a state it never emits
 - **Location:** `src/app/services/game-state-service/game-state.service.ts:100-109`
 - **Status:** [ ] open
@@ -682,7 +671,7 @@ are mostly independent of each other.
 | 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the wheel defects | `CQ-13`, `CQ-19` | Medium |
 | 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
-| 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-22`, `CQ-23` | Low |
+| 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-23` | Low |
 
 **Expected landing:** `roulette-container.component.ts` at ~500–550 lines (from 1050), its template at
 ~215 (from 309), `trainer.service.ts` at ~300 (from 543), `sound-fx.service.ts` at ~200 (from 367),
