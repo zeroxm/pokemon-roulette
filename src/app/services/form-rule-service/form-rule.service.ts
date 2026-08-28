@@ -33,8 +33,12 @@ export class FormRuleService {
   private formsApplied = false;
 
   /**
-   * Applies every rule whose conditions are met. A no-op if forms are already applied, so
-   * re-entering the same battle state cannot double-toggle anything.
+   * Applies every `battle-start` rule whose conditions are met. A no-op if forms are already
+   * applied, so re-entering the same battle state cannot double-toggle anything.
+   *
+   * `manual` rules are skipped deliberately. Mega evolution is player-initiated: holding the stone
+   * decides *which* mega form is available, not that one should happen. Applying it here made every
+   * eligible Pokémon mega-evolve the moment a battle started, just for owning the stone.
    */
   applyAll(team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
     if (this.formsApplied) {
@@ -44,6 +48,9 @@ export class FormRuleService {
 
     let changed = false;
     for (const rule of this.rules) {
+      if (rule.trigger !== 'battle-start') {
+        continue;
+      }
       changed = this.applyRule(rule, team, stored, heldItems) || changed;
     }
     return changed;

@@ -19,6 +19,7 @@ export const formRules: FormRule[] = [
       forms,
       scope: 'team+stored',
       persistence: 'temporary',
+      trigger: 'battle-start',
       selection: { kind: 'base-to-battle' },
     })),
 
@@ -28,15 +29,18 @@ export const formRules: FormRule[] = [
     forms: group.forms,
     scope: 'team',
     persistence: 'sticky',
+    trigger: 'battle-start',
     selection: group.mode === 'toggle' ? { kind: 'cycle' } : { kind: 'random-other' },
   })),
 
-  // Mega evolution: gated on holding the matching stone, reverts after the battle.
+  // Mega evolution: the player taps a stone mid-battle, so this rule is `manual` and never fires
+  // from `applyAll`. Holding the stone selects *which* mega form; it is not permission to apply one.
   ...Object.entries(pokemonMegaForms).map(([baseIdText, forms]): FormRule => ({
     id: `mega:${baseIdText}`,
     forms,
     scope: 'team+stored',
     persistence: 'temporary',
+    trigger: 'manual',
     selection: { kind: 'item-gated', baseId: Number(baseIdText) },
   })),
 ];

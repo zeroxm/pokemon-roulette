@@ -22,11 +22,25 @@ export type FormSelection =
   | { kind: 'item-gated'; baseId: number };
 
 /**
+ * What makes a rule fire.
+ *
+ * Separate from {@link FormSelection}, which only says *which* form is picked once a rule runs.
+ * Conflating the two is what made mega evolution fire on entering a battle: the item-gated rule
+ * answered "which form" with "the one whose stone you hold", and `applyAll` read that as licence
+ * to apply it, so merely owning a stone was enough.
+ */
+export type FormTrigger =
+  /** Fires automatically when a battle starts. */
+  | 'battle-start'
+  /** Fires only when the player asks for it, through `forceApply`. Never from `applyAll`. */
+  | 'manual';
+
+/**
  * One form-changing mechanic, described as data.
  *
  * Mega, sticky and temporary battle forms were three separate code paths that all ended in the
  * same swap — clone the target, carry `shiny` across, drop the sprite, write it back. They differ
- * only along the three axes below, so they are now rows in one table rather than three near-copies
+ * only along the four axes below, so they are now rows in one table rather than three near-copies
  * of the same loop.
  */
 export interface FormRule {
@@ -38,5 +52,7 @@ export interface FormRule {
   readonly scope: 'team' | 'team+stored';
   /** `temporary` reverts when the battle ends; `sticky` is kept. */
   readonly persistence: 'temporary' | 'sticky';
+  /** Whether entering a battle applies this rule, or the player has to trigger it. */
+  readonly trigger: FormTrigger;
   readonly selection: FormSelection;
 }

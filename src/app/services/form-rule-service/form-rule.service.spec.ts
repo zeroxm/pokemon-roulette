@@ -23,6 +23,10 @@ describe('FormRuleService', () => {
 
   const heldStones = (): ItemName[] => ['charizardite-x' as ItemName];
 
+  /** The tap path: mega evolution is `manual`, so this is the only way it ever applies. */
+  const tapStone = (team: PokemonItem[], stored: PokemonItem[] = []): boolean =>
+    service.forceApply(`mega:${CHARIZARD}`, team, stored, heldStones());
+
   describe('apply is idempotent (SEC-03)', () => {
     it('a second apply cannot toggle a sticky form back', () => {
       const aegislash = mon(681);              // Aegislash Shield
@@ -43,7 +47,7 @@ describe('FormRuleService', () => {
       const team = [mon(CHARIZARD)];
       const stored: PokemonItem[] = [];
 
-      service.applyAll(team, stored, heldStones());
+      tapStone(team, stored);
       expect(team[0].pokemonId).toBe(MEGA_CHARIZARD_X);
 
       // The player drags the mega-evolved Pokémon into storage before the battle ends.
@@ -57,7 +61,7 @@ describe('FormRuleService', () => {
 
     it('clears its bookkeeping even when it reverts nothing (SEC-05)', () => {
       const team = [mon(CHARIZARD)];
-      service.applyAll(team, [], heldStones());
+      tapStone(team);
 
       // Simulate the Pokémon vanishing entirely — revert finds nothing to do.
       team.length = 0;
@@ -65,7 +69,7 @@ describe('FormRuleService', () => {
 
       // A stale record here is what used to disable mega evolution for the rest of the run.
       const secondTeam = [mon(CHARIZARD)];
-      expect(service.applyAll(secondTeam, [], heldStones()))
+      expect(tapStone(secondTeam))
         .withContext('a later battle must still be able to mega-evolve')
         .toBeTrue();
       expect(secondTeam[0].pokemonId).toBe(MEGA_CHARIZARD_X);
@@ -105,7 +109,7 @@ describe('FormRuleService', () => {
       const resolved = { front_default: 'charizard.png', front_shiny: 'charizard-shiny.png' };
       const team = [mon(CHARIZARD, { sprite: resolved })];
 
-      service.applyAll(team, [], heldStones());
+      tapStone(team);
       expect(team[0].sprite).withContext('the new form fetches its own artwork').toBeNull();
 
       service.revertAll(team, []);
@@ -117,7 +121,7 @@ describe('FormRuleService', () => {
     it('restores the stats the Pokémon had before transforming', () => {
       const team = [mon(CHARIZARD, { power: 4, type1: 'fire', type2: 'flying' } as Partial<PokemonItem>)];
 
-      service.applyAll(team, [], heldStones());
+      tapStone(team);
       service.revertAll(team, []);
 
       expect(team[0].power).toBe(4);
@@ -129,7 +133,49 @@ describe('FormRuleService', () => {
   describe('item gating', () => {
     it('does nothing without the stone', () => {
       const team = [mon(CHARIZARD)];
-      expect(service.applyAll(team, [], [])).toBeFalse();
+      expect(service.forceApply(`mega:${CHARIZARD}`, team, [], [])).toBeFalse();
+      expect(team[0].pokemonId).toBe(CHARIZARD);
+    });
+  });
+
+  describe('mega evolution is player-initiated, never automatic', () => {
+    it('does not mega-evolve on entering a battle, even holding the stone', () => {
+      const team = [mon(CHARIZARD)];
+
+      const changed = service.applyAll(team, [], heldStones());
+
+      expect(team[0].pokemonId)
+        .withContext('owning a stone selects which mega form is available, not that one happens')
+        .toBe(CHARIZARD);
+      expect(changed).toBeFalse();
+    });
+
+    it('leaves a mega form applied when the battle-start pass runs afterwards', () => {
+      const team = [mon(CHARIZARD)];
+      tapStone(team);
+      expect(team[0].pokemonId).toBe(MEGA_CHARIZARD_X);
+
+      service.applyAll(team, [], heldStones());
+
+      expect(team[0].pokemonId)
+        .withContext('a later battle-state emission must not disturb an active mega')
+        .toBe(MEGA_CHARIZARD_X);
+    });
+
+    it('still applies battle-start rules for other Pokémon in the same team', () => {
+      const team = [mon(CHARIZARD), mon(PALAFIN)];
+
+      service.applyAll(team, [], heldStones());
+
+      expect(team[0].pokemonId).withContext('mega stays manual').toBe(CHARIZARD);
+      expect(team[1].pokemonId).withContext('Palafin still promotes automatically').toBe(PALAFIN_HERO);
+    });
+
+    it('reverts a tapped mega at battle end as before', () => {
+      const team = [mon(CHARIZARD)];
+      tapStone(team);
+
+      expect(service.revertAll(team, [])).toBeTrue();
       expect(team[0].pokemonId).toBe(CHARIZARD);
     });
   });
