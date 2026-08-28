@@ -31,11 +31,8 @@ spec covers.
 
 | # | Task | What to do | Expected | ✓ |
 | --- | --- | --- | --- | --- |
-| 3 | T-10 | Open the Pokédex and find an entry the app can't resolve (rare — a form id outside the National Dex). Failing that, confirm no entry anywhere shows the literal `pokemon.unknown`. | The fallback label reads **Unknown Pokémon** (localised), never the raw key. | [ ] |
 | 4 | T-13 | Trigger a **Multitask** result on the adventure wheel, in a non-English locale. | The re-spin label reads e.g. *Multitarefa x2* (pt) / *Multitasking x2* (de) — not English `Multitask x2`. Then trigger a **Running Shoes** re-spin and confirm that label is still correct. | [ ] |
-| 5 | T-13 | Hover an **empty item slot** in the items bar, in a non-English locale. | Tooltip reads *Vazio* / *Vacío* / *Vide* / *Leer* / *Vuoto* — not English "Empty". | [ ] |
 | 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
-| 7 | T-14 | In devtools run `localStorage.setItem('language','../../../x')` and reload. | App loads normally in **English**. No failed request for a weird i18n path in the Network tab. Then set a valid `'pt'`, reload, and confirm Portuguese is restored. | [ ] |
 
 | 8 | T-11 | Start a **Generation 8 (Galar)** run and reach the fishing roulette several times. | The wheel shows a **wide variety** of Pokémon — Magikarp, Chewtle, Arrokuda, Goldeen, Feebas, Tentacool, Wooper and many more. Previously it only ever showed Chewtle (twice on the wheel), Arrokuda and Barraskewda. | [ ] |
 | 9 | T-11 | On that same gen-8 fishing wheel (45 segments), **read the segment labels**. | Labels are small but **legible and not overlapping**. This is the font-size clamp working; before this change a wheel this size drew labels at roughly double the intended size until the window was resized. | [ ] |
