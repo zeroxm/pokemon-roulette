@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**22 / 36 complete.** Findings cleared: 19 of 46 `SEC` · 14 of 26 `CQ`.
+**23 / 36 complete.** Findings cleared: 22 of 46 `SEC` · 15 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -102,8 +102,8 @@ Every task below must leave both green. Re-run before each merge.
 | T-21 | `PendingSelection<T>` continuations — deleted both mega dispatchers, 3 marker states, added `@default` arm | `CQ-01`, `SEC-06`, `SEC-26` | high | [x] |
 | T-22 | `RunModifiers` into `GameStateService` + transient reset on `game-start` + regression tests | `CQ-03`, `SEC-04`, `SEC-07`, `SEC-30d`, `SEC-30f` | high | [x] |
 | **Phase 5 — form subsystem** ||||
-| T-23 | `FormRule` model + `FormRuleService`; 3-phase migration | `CQ-02`, `SEC-02`, `SEC-03`, `SEC-05`, `SEC-08` | high | [ ] |
-| T-24 | Move the mega stone onto the form; delete `_baseIdToStoneName`; resolve Greninja | `CQ-10`, `SEC-30a` | med | [ ] |
+| T-23 | `FormRule` model + `FormRuleService` | `CQ-02`, `SEC-02`, `SEC-03`, `SEC-05` | high | [x] |
+| T-24 | Move the mega stone onto the form; delete `_baseIdToStoneName`; resolve Greninja; mega revert snapshot | `CQ-10`, `SEC-30a`, `SEC-08` | med | [ ] |
 | **Phase 6 — infra restructures** ||||
 | T-25 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`; update 8 call sites | `CQ-04`, `SEC-20`, `SEC-21` | med | [ ] |
 | T-26 | Extract `weighted-random.ts` + `SpinAnimation`; fix per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [ ] |

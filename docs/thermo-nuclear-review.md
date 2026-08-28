@@ -4,20 +4,16 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**2 High · 8 Medium · 18 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 7 Medium · 18 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
 
 Three themes dominate:
 
-1. **Nothing resets on restart** — **half cleared by `T-22`**: run-scoped rules moved to
-   `GameStateService` and transient container state is now wiped on `game-start`. What remains is
-   `TrainerService`'s mega-battle bookkeeping (`SEC-05`), which `T-23` subsumes.
-2. **Battle form apply/revert is not transactional.** `syncBattleForms` reacts to *every* state
-   emission rather than tracking battle entry/exit, so any interrupt mid-battle double-applies sticky
-   forms and cancels an active mega. A mega-evolved Pokémon moved to the PC mid-battle is stranded
-   permanently *and* disables mega evolution for the rest of the run.
+1. ~~Nothing resets on restart~~ — **cleared by `T-22` and `T-23`**.
+2. ~~Battle form apply/revert is not transactional~~ — **cleared by `T-23`**: one rule engine owns
+   every form change, apply is idempotent, and revert sweeps storage.
 3. ~~The wheel has no failure envelope~~ — **cleared by `T-03`**: the spin is gated on translations
    being ready, reads a single array, and releases `wheelSpinning` on any throw. Six regression tests
    added, verified to fail against the pre-fix component.
@@ -54,96 +50,6 @@ literals now resolve through the pipe.
 ---
 
 # High
-
-### SEC-02 — A mega-evolved Pokémon moved to the PC mid-battle is stranded forever and permanently disables mega evolution
-- **Severity:** High
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:413-446`
-- **Status:** [ ] open
-
-**What:** `revertMegaForms()` iterates **`this.trainerTeam` only** (line 426), `break`s after the
-first match (line 437), and clears `megaBattleBaseId` / `megaBattleStoneName` /
-`megaBattleOriginalPokemon` **only inside `if (reverted)`** (lines 440-444). By contrast
-`revertBattleForms()` correctly sweeps team *and* `storedPokemon` (lines 379-380); the mega path gets
-no storage pass. The PC is open during battles — `storage-pc.component.ts:77-99` blocks only on
-`wheelSpinning` and only during `team-rocket-encounter`.
-
-**Failure scenario:** Team has Charizard (id 6) + Charizardite X. Enter `gym-battle`, tap the stone →
-slot 0 becomes id 10034 and the base is snapshotted. Before finishing, drag Mega Charizard X into the
-PC. On battle exit `revertMegaForms()` finds no team member with base id 6 → `reverted === false` →
-returns without clearing state. Two permanent consequences:
-
-1. **Mega Charizard X stays in storage forever.** No other path reverts it —
-   `replaceTemporaryForms` handles only Palafin, `applyStickyFormsToCollection` only sticky forms.
-   Id 10034 is not in the National Dex, so `getPokemonById(10034)` returns `undefined` and the
-   stranded Pokémon is outside normal lookup entirely.
-2. **`megaBattleBaseId` stays `6` forever**, so the guard at
-   `roulette-container.component.ts:798` (`if (getMegaBattleBaseId() !== null) return;`) rejects
-   **every** future mega-stone activation for the rest of the run, for any Pokémon. The feature dies
-   silently with no user-visible reason.
-
-**Suggested fix:** Scan `trainerTeam` **and** `storedPokemon`; drop the `break` so every matching mega
-form reverts; clear the three `megaBattle*` fields **unconditionally** at battle exit. They are
-battle-scoped bookkeeping — leaving them set on a missed revert is what converts a cosmetic miss into
-a permanent feature outage.
-
----
-
-### SEC-03 — Using a Rare Candy during a battle reverts battle forms mid-battle, double-toggling sticky forms and cancelling an active mega
-- **Severity:** High
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:165-172`
-- **Status:** [ ] open
-
-**What:** `syncBattleForms` applies forms on any battle state and **reverts on every other state**,
-with no notion of "still inside a battle". The Rare Candy interrupt is gated only on `wheelSpinning`
-(`main-game.component.ts:73-79`), not on battle state — unlike the mega stone path, which does
-re-check `isBattleState` at `roulette-container.component.ts:786-788`.
-
-**Failure scenario:** Rare candy during a gym battle → `handleRareCandyEvolution`
-(`roulette-container.component.ts:164-171`) calls `repeatCurrentState()` then `chooseWhoWillEvolve`,
-pushing `evolve-pokemon` + `select-from-pokemon-list`. Pop order is `select-from-pokemon-list` →
-`evolve-pokemon` → `gym-battle`, so `select-from-pokemon-list` is emitted **while the battle is still
-in progress**:
-
-1. `syncBattleForms('select-from-pokemon-list')` → `revertBattleForms()` → the active mega is
-   reverted and `megaBattleBaseId` nulled. The mega vanishes mid-battle and `calcVictoryOdds()`
-   (`base-battle-roulette.component.ts:41-44`) silently drops the odds.
-2. When `gym-battle` is popped again, `applyBattleForms()` runs a **second** time.
-   `applyStickyFormsToCollection` (lines 472-503) is a *toggle*, not an idempotent set: Aegislash goes
-   Shield → Blade → **Shield**, never reaching Blade for that battle. Ogerpon (`mode: 'random'`,
-   line 490) re-rolls a second mask.
-
-The sticky-form damage is **not transient** — `revertBattleForms` deliberately does not revert sticky
-forms (line 376), so the team ends the run in a form the game believes it toggled once but toggled
-twice.
-
-**Suggested fix:** Track battle *entry/exit* with a `battleFormsApplied` flag — apply only on a
-false→true transition, revert only on true→false. That also makes apply idempotent, the invariant
-`applyStickyFormsToCollection` currently violates. Separately, gate the Rare Candy interrupt on
-`isBattleState(currentGameState)` as the mega stone path already does.
-
----
-
-### SEC-05 — `resetGame()` does not clear mega-battle state, leaking it into the next run
-- **Severity:** Medium
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:346-350`
-- **Status:** [ ] open
-
-**Found independently by two reviewers** — weight accordingly.
-
-**What:** `resetTeam()` clears the arrays but leaves `megaBattleBaseId`, `megaBattleStoneName`, and
-`megaBattleOriginalPokemon` (declared lines 60-62) untouched. There is no `resetMegaBattleState`.
-
-**Failure scenario:** Player mega-evolves in gym 3, then restarts mid-battle. `megaBattleBaseId`
-survives. In the new run, the guard at `roulette-container.component.ts:798` sees a non-null base id
-and refuses the very first mega stone the player earns.
-
-Same failure mode as `SEC-02` but reached by a far more ordinary action. Rated Medium rather than High
-only because `resetItems()` clears the stones, so `resolveMegaStoneForBattle` returns `null` and no
-*incorrect* form is applied — the damage is confined to the blocked-activation guard.
-
-**Suggested fix:** Add `resetMegaBattleState()` nulling all three fields; call it from `resetTeam()`.
-
----
 
 ### SEC-08 — Mega revert restores a stale snapshot, discarding in-battle changes
 - **Severity:** Medium

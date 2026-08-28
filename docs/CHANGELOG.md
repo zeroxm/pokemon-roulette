@@ -86,6 +86,9 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | N14 | T-22 | Exp-share bonus release (`SEC-07`). | Trigger an evolution where the exp-share has **no second Pokémon** to evolve. Then trigger another evolution that **does** have one — the bonus second evolution must happen. Previously it was silently skipped every other time. | [ ] |
 | N15 | T-22 | Multitask labels are queued per spin. | Trigger a **Multitask** result, then during those bonus spins use an **Escape Rope**. The multitask labels ("Multitask x2", then "x1") must still appear on the multitask spins — the escape rope must not eat one. | [ ] |
 
+| N16 | T-23 | Every form change — mega, Aegislash/Ogerpon sticky forms, Palafin's Hero form — now runs through one `FormRuleService` instead of four separate code paths. `TrainerService` lost 140 lines. | **This touches every form change in the game.** Verify: Palafin becomes Hero on entering a battle and reverts after; Aegislash flips to Blade form for a battle and **stays** Blade; Ogerpon re-rolls a mask; and a mega evolution activates from a tapped stone and reverts after the fight. A **shiny** Pokémon must stay shiny through every one of those swaps. | [ ] |
+| N17 | T-23 | Three bugs made structurally impossible. | **(a)** Use a **Rare Candy during a battle** — Aegislash must still be in Blade form afterwards, not back in Shield. **(b)** Mega-evolve, then **drag that Pokémon into the PC** before the battle ends — it must revert to its base form, not stay mega forever. **(c)** After doing (b), earn another stone in the same run — mega evolution must **still work**. All three were broken before. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
