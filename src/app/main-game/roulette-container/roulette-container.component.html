@@ -10,9 +10,10 @@
     </app-character-select>
   }
   @case ('starter-pokemon') {
-    <app-starter-roulette
-        (selectedStarterEvent)="capturePokemon($event)">
-    </app-starter-roulette>
+    <app-pokemon-pool-roulette
+        pool="starter"
+        (selectedPokemonEvent)="capturePokemon($event)">
+    </app-pokemon-pool-roulette>
   }
   @case ('check-shininess') {
     <app-shiny-roulette
@@ -108,9 +109,10 @@
     </app-mysterious-egg-roulette>
   }
   @case ('legendary-encounter') {
-    <app-legendary-roulette
+    <app-pokemon-pool-roulette
+        pool="legendary"
         (selectedPokemonEvent)="legendaryCaptureChance($event)">
-    </app-legendary-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('catch-legendary') {
     <app-catch-legendary-roulette
@@ -153,14 +155,16 @@
     </app-explore-cave-roulette>
   }
   @case ('catch-cave-pokemon') {
-    <app-cave-pokemon-roulette
+    <app-pokemon-pool-roulette
+        pool="cave"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-cave-pokemon-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('find-fossil') {
-    <app-fossil-roulette
+    <app-pokemon-pool-roulette
+        pool="fossil"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-fossil-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case('snorlax-encounter') {
     <app-snorlax-roulette
@@ -171,9 +175,10 @@
     </app-snorlax-roulette>
   }
   @case ('go-fishing') {
-    <app-fishing-roulette
+    <app-pokemon-pool-roulette
+        pool="fish"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-fishing-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('battle-rival') {
     <app-rival-battle-roulette

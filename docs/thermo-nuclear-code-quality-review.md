@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**8 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-07`, `CQ-10`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**7 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-08`, `CQ-10`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -29,11 +29,10 @@ The three knots, in order of leverage:
    unreachable toggle component are deleted, along with the legacy body classes and storage key.
 
 **Deliberate non-findings.** Reviewers were asked to argue both sides and to say plainly when
-something is fine. The 309-line `@switch` template should **stay**; `TrainerService` should **not** be
-split four ways; ESLint is **not** worth adding (`T-02` enabled two tsconfig flags instead); and 26
-of the 31 roulette components should **not** be collapsed (`CQ-08` explains which five should, and
-why the other 26 are a different population). See **Verified healthy** below for the full list with
-reasoning.
+something is fine. The `@switch` template should **stay**; `TrainerService` should **not** be split
+four ways; ESLint is **not** worth adding (`T-02` enabled two tsconfig flags instead); and 26 of the
+31 roulette components should **not** be collapsed — `T-27` collapsed only the five that were one
+table in disguise. See **Verified healthy** below for the full list with reasoning.
 
 ### Relationship to the correctness report
 
@@ -69,54 +68,6 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 ---
 
 # 1 · Structural regressions and code-judo opportunities
-
-### CQ-08 — Collapse the five pool roulettes; leave the other 26 alone
-- **Location:** `src/app/main-game/roulette-container/roulettes/{fishing,fossil,legendary,starter,cave-pokemon}-roulette/`
-- **Status:** [ ] open
-
-The reviewer was asked to argue this both ways. **The 31 roulette components are not one population.**
-
-| Group | Members | Verdict |
-| --- | --- | --- |
-| **A. Generation → id table → `PokemonItem[]`** | fishing, fossil, legendary, starter, cave-pokemon (5) | **Collapse** |
-| B. Static full-dex list | mysterious-egg, trade-pokemon, area-zero (3) | Leave — already 21-27 lines |
-| C. Pass-through `@Input` list | pokemon-from-aux-list, select-form, select-from-item-list (3) | Leave — 20 lines, different payload types |
-| D. Static odds → binary emit | shiny, catch-legendary, catch-paradox, check-evolution (4) | Leave — the odds *are* the content |
-| E. Action list → `switch(index)` → distinct outputs | start-adventure, main-adventure, explore-cave, elite-four-prep, snorlax, team-rocket (6) | **Leave — collapsing loses type safety** |
-| F. Battle | gym, elite-four, champion, rival + base (5) | See `CQ-09` |
-
-**Group A only.** Normalising identifiers and whitespace, **23 of ~37 statement lines are
-byte-identical across all five**; the ~14 that differ do so only in the spelling of a field name
-(`fish` vs `fossils` vs `starters`). Templates are the same four lines with one key swapped; all five
-stylesheets are the identical three-line `.title { text-align: center; }`. That is **659 lines across
-20 files expressing five rows of a table**, plus five `@switch` arms.
-
-The counter-argument — that a generic roulette would be a *thin magic abstraction* hiding a data-shape
-assumption behind an untyped string — is correct against the naive version, and is defused by making
-the variance **named data**:
-
-```ts
-export const POKEMON_POOLS = {
-  fish:   { titleKey: 'game.main.roulette.fishing.title', showGeneration: true,  idsByGeneration: fishByGeneration },
-  // …
-} as const satisfies Record<string, PokemonPool>;
-export type PokemonPoolId = keyof typeof POKEMON_POOLS;
-```
-
-The shape is named (`PokemonPool`), so nothing is hidden; the key is a union type, so
-`pool="fsh"` is a compile error — `strictTemplates` is already on, so that check is free. The
-`*-by-generation.ts` data files stay put; only the five wrappers merge. **20 files → 5, 659 lines →
-~120, one spec instead of five.**
-
-**Group E deserves the opposite verdict, explicitly.** `main-adventure-roulette.component.ts:81-138` is
-a 57-line `switch` on wheel index emitting into 18 distinct typed `@Output`s. It *looks* like the worst
-duplication in the folder. Collapsing it would replace 18 compiler-checked outputs with one
-`(action)="onAction($event)"` emitting a string, moving 18 bindings from compile-time to a runtime
-string match inside the already-1050-line container. The `switch`-index coupling **is** fragile
-(reordering `baseActions` silently rewires the game), but the fix for that is putting the emitter on
-the item, not a generic component — and even that is optional.
-
----
 
 ### CQ-09 — `calcVictoryOdds` is copy-pasted four times into subclasses of a base that should own it
 - **Location:** `gym-battle-roulette.component.ts:91-151` · `elite-four-battle-roulette.component.ts:90-151` · `champion-battle-roulette.component.ts:75-101` · `rival-battle-roulette.component.ts:64-88`
@@ -321,7 +272,7 @@ are mostly independent of each other.
 | 10 | ~~`RunModifiers` into the service~~ **done (`T-22`)** | `CQ-03` | — |
 | 11 | ~~`SoundFxService` → one `Map<SoundFxName, SoundFxClip>`~~ **done (`T-25`)** | `CQ-04` | — |
 | 12 | ~~Extract `weighted-random.ts` + `SpinAnimation`~~ **done (`T-26`)** | `CQ-13` | — |
-| 13 | Collapse group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | Medium |
+| 13 | ~~Collapse group-A pool roulettes~~ **done (`T-27`)** | `CQ-08` | — |
 | 14 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the base | `CQ-09` | Medium |
 | 15 | Specs for `ModalQueueService` and `SettingsService`; remaining cleanups | `CQ-26`, `CQ-14`–`CQ-18`, `CQ-23` | Low |
 

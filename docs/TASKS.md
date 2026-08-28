@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**26 / 36 complete.** Findings cleared: 30 of 46 `SEC` · 18 of 26 `CQ`.
+**27 / 36 complete.** Findings cleared: 30 of 46 `SEC` · 19 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -107,7 +107,7 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 6 — infra restructures** ||||
 | T-25 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`; 8 call sites; bounded ended-wait | `CQ-04`, `SEC-20`, `SEC-21` | med | [x] |
 | T-26 | Extract `weighted-random.ts` + `SpinAnimation`; per-spin `duration`, double-translate, `ngOnDestroy`, resize redraw | `CQ-13`, `SEC-11`, `SEC-12`, `SEC-30c`, `SEC-30k` | med | [x] |
-| T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [ ] |
+| T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [x] |
 | T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` into the battle base | `CQ-09`, `SEC-30b` | med | [ ] |
 | **Phase 7 — remaining correctness** ||||
 | T-29 | Sprite resilience: error handler on `loadPokemonSpriteIfMissing`, shared `(error)` fallback, pin sprite URLs to a SHA | `SEC-09`, `SEC-14` | med | [ ] |
