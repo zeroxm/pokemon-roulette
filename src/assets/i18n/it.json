@@ -185,6 +185,10 @@
         "megaStone": {
           "stone": "Hai ottenuto una Mega Pietra!",
           "stoneDesc": "Tocca l'icona della Mega Pietra per attivare la Mega Evoluzione in battaglia!"
+        },
+        "eliteFourBattle": {
+          "potion": "Hai ottenuto una Pozione Bonus!",
+          "potionDesc": "Dopo la lotta, il membro dei Superquattro ti ha dato una Pozione!"
         }
       },
       "roulette": {
@@ -297,7 +301,6 @@
             "title": "Cosa fai prima dei Superquattro?",
             "victoryRoad": "Entra nella Via Vittoria!",
             "actions": {
-              "catchPokemon": "Cattura un Pokémon",
               "trainingArc": "Allenamento intensivo",
               "buyPotions": "Compra Pozioni",
               "catchTwoPokemon": "Cattura due Pokémon",
@@ -401,6 +404,9 @@
         "title": "Scambio!",
         "received": "e hai ricevuto un",
         "sent": "Hai scambiato"
+      },
+      "respin": {
+        "multitask": "Multitasking x{{count}}"
       }
     },
     "map": {
@@ -837,7 +843,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
-    }
+    },
+    "empty": "Vuoto"
   },
   "trainer": {
     "storage": {
@@ -2160,7 +2167,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Pokémon Sconosciuto"
   },
   "elite4": {
     "lorelei": {

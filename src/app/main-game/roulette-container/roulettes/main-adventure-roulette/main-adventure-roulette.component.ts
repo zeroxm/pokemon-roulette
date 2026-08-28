@@ -18,6 +18,7 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   }
 
   @Input() respinReason!: string;
+  @Input() respinReasonParams: Record<string, unknown> = {};
   @Output() catchPokemonEvent = new EventEmitter<void>();
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();

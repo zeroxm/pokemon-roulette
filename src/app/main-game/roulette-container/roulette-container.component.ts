@@ -129,11 +129,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         this.currentGameState = state;
         if (this.currentGameState === 'adventure-continues') {
           if (this.multitaskCounter > 0) {
-            this.respinReason = 'Multitask x' + this.multitaskCounter;
+            this.setRespinReason('game.main.respin.multitask', { count: this.multitaskCounter });
             this.multitaskCounter--;
           }
           if (this.runningShoesUsed) {
-            this.respinReason = 'items.running-shoes.name';
+            this.setRespinReason('items.running-shoes.name');
           }
         }
       });
@@ -204,6 +204,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   pkmnOut!: PokemonItem;
   pkmnTradeTitle = '';
   respinReason = '';
+  respinReasonParams: Record<string, unknown> = {};
+  checkEvolutionSource: EventSource = 'gym-battle';
   runningShoesUsed: boolean = false;
   stolenPokemon!: PokemonItem | null;
   wheelSpinning: boolean = false;
@@ -212,6 +214,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   getGameState(): string {
     return this.currentGameState;
+  }
+
+  /** Sets the re-spin label. Interpolation params travel with the key so the pipe can use them. */
+  private setRespinReason(key: string, params: Record<string, unknown> = {}): void {
+    this.respinReason = key;
+    this.respinReasonParams = params;
   }
 
   private finishCurrentState(): void {
@@ -285,6 +293,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
             size: 'md'
           });
           return this.findItem();
+        case 'elite-four-battle':
+          this.altPrizeText = 'game.main.altPrizes.eliteFourBattle.potion';
+          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
+          this.altPrizeDescription = 'game.main.altPrizes.eliteFourBattle.potionDesc';
+          this.modalQueueService.open(this.altPrizeModal, {
+            centered: true,
+            size: 'md'
+          });
+          return this.buyPotions();
         case 'battle-trainer':
           this.altPrizeText = 'game.main.altPrizes.battleTrainer.potion';
           this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
@@ -426,13 +443,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   gymBattleResult(result: boolean): void {
     this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.setRespinReason('');
 
     if (result) {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
-      this.queueCheckEvolutionAfterImportantBattle();
+      this.queueCheckEvolutionAfterImportantBattle('gym-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
 
@@ -495,7 +512,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.gameStateService.setNextState('adventure-continues');
     this.gameStateService.setNextState('adventure-continues');
     this.multitaskCounter = this.multitaskCounter + 2;
-    this.respinReason = 'Multitask x' + this.multitaskCounter;
+    this.setRespinReason('game.main.respin.multitask', { count: this.multitaskCounter });
     this.finishCurrentState();
   }
 
@@ -652,11 +669,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   eliteFourBattleResult(result: boolean): void {
     this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.setRespinReason('');
 
     if (result) {
       this.gameStateService.advanceRound();
-      this.queueCheckEvolutionAfterImportantBattle();
+      this.queueCheckEvolutionAfterImportantBattle('elite-four-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
     } else {
@@ -667,7 +684,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   championBattleResult(result: boolean): void {
     this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.setRespinReason('');
 
     if (result) {
       const rawIds = [
@@ -687,7 +704,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private queueCheckEvolutionAfterImportantBattle(): void {
+  private queueCheckEvolutionAfterImportantBattle(source: EventSource): void {
+    this.checkEvolutionSource = source;
     this.gameStateService.setNextState('check-evolution');
   }
 

@@ -29,6 +29,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   }
 
   @Input() respinReason!: string;
+  @Input() respinReasonParams: Record<string, unknown> = {};
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();

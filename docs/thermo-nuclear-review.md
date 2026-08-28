@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**3 High · 13 Medium · 27 Low** (10 detailed as `SEC-20`–`SEC-29`, 17 tabulated under `SEC-30`).
+**3 High · 12 Medium · 21 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -28,11 +28,12 @@ Three themes dominate:
 PokéAPI ids and pass through Angular's URL sanitizer. No secrets in the bundle beyond the public GA
 id. The `localStorage` parsers lack schema validation but cannot reach `Object.prototype` (object
 spread copies `__proto__` as an own data property). The findings here are **correctness and
-availability** problems, not vulnerabilities — with the single partial exception of `SEC-27`.
+availability** problems, not vulnerabilities. The one item with a security flavour, an
+unvalidated language key reaching a fetch URL, was cleared by `T-14`.
 
-**i18n parity is excellent** and should not be re-investigated: all six locale files carry exactly
-**2,196 keys** with zero divergence. The gaps are on the *code* side — keys referenced but never
-authored (`SEC-17`) and English literals bypassing the pipe (`SEC-22`, `SEC-23`).
+~~**i18n gaps**~~ — **cleared by `T-09` and the `T-10`–`T-16` batch.** All six locale files carry
+exactly **2,200 keys** with zero divergence; the missing keys are authored and the two English
+literals now resolve through the pipe.
 
 ---
 
@@ -380,19 +381,6 @@ component), or raise the budget deliberately.
 
 ---
 
-### SEC-17 — `pokemon.unknown` is missing from all six locales
-- **Severity:** Medium
-- **Location:** `src/app/pokedex/pokedex-entry/pokedex-entry.component.ts:51`
-- **Status:** [ ] open
-
-**What:** `getPokemonById(id)?.text ?? 'pokemon.unknown'` — the fallback key is **verified absent**
-from every locale, so it renders as the raw string `pokemon.unknown` via
-`pokedex-entry.component.html:7`. Same pattern in `pokedex-detail-modal.component.ts`.
-
-**Suggested fix:** Add the key, or fall back to one that exists.
-
----
-
 ### SEC-18 — The 404 route ships the Angular scaffold
 - **Severity:** Medium
 - **Location:** `src/app/not-found/not-found.component.html:1`
@@ -427,22 +415,6 @@ suspends the `AudioContext` and `onended` may never fire; the listener stays reg
 never advances. Caller: `roulette-container.component.ts:815`. **Fix:** timeout or `visibilitychange`
 bail-out.
 
-### SEC-22 — `'Multitask x' + n` is a hardcoded English literal fed through the `translate` pipe
-- **Severity:** Low · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:132, 498`
-
-Rendered as `{{ respinReason | translate }}` (`main-adventure-roulette.component.html:2`,
-`elite-four-prep-roulette.component.html:2`). ngx-translate echoes the key on a miss, so all six
-locales show English "Multitask x2". Directly violates the CLAUDE.md rule that user-facing strings are
-never literals — and the sibling value on line 136 *is* a proper key. **Fix:** add
-`game.main.respin.multitask` to all six locales and use the pipe's parameter form.
-
-### SEC-23 — Hardcoded English `'Empty'`
-- **Severity:** Low · **Location:** `src/app/items/items.component.ts:68`
-
-Returns the literal for empty item slots — the only other user-facing string literal found. Also
-`getItemSprite`/`getItemText` are template-called getters running `translateService.instant` every
-change-detection cycle.
-
 ### SEC-24 — `ModalQueueService` produces an unhandled rejection per dismissed modal
 - **Severity:** Low · **Location:** `src/app/services/modal-queue-service/modal-queue.service.ts:26`
 
@@ -469,16 +441,6 @@ to it and can be stacked on by a queued open.
 area behind it renders **nothing** — and with `lessExplanations` off and the modal queued behind
 another, the blank persists. **Fix:** add an `@default` rendering a neutral placeholder plus a dev
 console warning, so a future union member added without an arm fails loudly instead of blanking.
-
-### SEC-27 — `localStorage['language']` is unvalidated and reaches a fetch URL
-- **Severity:** Low · **Location:** `src/app/app.component.ts:24`
-
-Read and passed straight to `translate.use()`, which the loader interpolates into
-`./assets/i18n/${lang}.json` (`app.config.ts:53-55`). A crafted value (`../../../x`, or an absolute
-URL) redirects that fetch. Impact is low — it requires prior write access to the origin's storage,
-which implies existing XSS — but **a whitelist already exists at line 26 and simply is not applied.**
-This is the closest thing to a security finding in the report. Also note this key sits outside the
-`pokemon-roulette-settings` blob, inconsistent with `SettingsService`.
 
 ### SEC-28 — `evolvePokemon` treats "zero evolutions" as "many", pushing an empty wheel
 - **Severity:** Low (**latent**) · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:903-913, 989-997`
@@ -520,7 +482,6 @@ async-loader case is still untested.
 | i | `getItems()` returns the **live** mutable array while `getTeam()`/`getStored()` return copies. `usePotion` splices it directly then calls `removeItem`, which no-ops. Works by accident; one `OnPush` component away from a real bug. | `trainer.service.ts:207` |
 | j | `replaceForEvolution`/`performTrade` fail silently on an `indexOf` identity miss while the caller has already consumed the item and shows the modal. Latent. | `trainer.service.ts:174-205` |
 | k | `currentSegment` is translated twice — already-translated text piped through `\| translate` again. | `wheel.component.ts:343` + `.html:2` |
-| l | `check-evolution-roulette` emits `'gym-battle'` as `EventSource` unconditionally, so a failed post-Elite-Four roll shows gym-battle consolation copy. | `check-evolution-roulette.component.ts:29` |
 | m | `getTrainerSprite` indexes `[generation][gender]` unguarded. Cannot fire today (data covers 1-9). | `trainer.service.ts:81-83` |
 | o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
 | q | Settings `localStorage` has no per-field type validation (`{...defaults, ...stored}`). Not prototype pollution; impact cosmetic. | `settings.service.ts:82-85` |
