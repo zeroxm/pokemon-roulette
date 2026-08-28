@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 export interface PokedexEntryClickEvent {
   pokemonId: number;
@@ -15,7 +16,8 @@ export interface PokedexEntryClickEvent {
 @Component({
   selector: 'app-pokedex-entry',
   standalone: true,
-  imports: [CommonModule, NgbTooltipModule, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,CommonModule, NgbTooltipModule, TranslatePipe],
   templateUrl: './pokedex-entry.component.html',
   styleUrl: './pokedex-entry.component.css'
 })

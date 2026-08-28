@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 /** Entei intervenes and Team Rocket's theft fails. Fixed copy, no inputs. */
 @Component({
   selector: 'app-team-rocket-fails-modal',
-  imports: [TranslatePipe],
+  imports: [
+    ImageFallbackDirective,TranslatePipe],
   templateUrl: './team-rocket-fails-modal.component.html',
   styleUrl: '../modal-shared.css'
 })

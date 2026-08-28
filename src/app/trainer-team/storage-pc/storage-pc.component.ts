@@ -12,10 +12,12 @@ import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
 import { SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { Subscription } from 'rxjs';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-storage-pc',
   imports: [
+    ImageFallbackDirective,
     DragDropModule,
     CommonModule,
     NgIconsModule,

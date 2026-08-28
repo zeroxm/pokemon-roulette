@@ -13,10 +13,12 @@ import { ModalQueueService } from '../../../../services/modal-queue-service/moda
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 import { resolveSplitTrainer, splitTrainerCount } from '../../../../utils/split-trainer';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-elite-four-battle-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe

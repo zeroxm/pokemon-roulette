@@ -13,10 +13,12 @@ import { TypeMatchupService } from '../../../../services/type-matchup-service/ty
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
 import { resolveSplitTrainer, splitTrainerCount } from '../../../../utils/split-trainer';
 import { gymLeadersByGeneration } from './gym-leaders-by-generation';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-gym-battle-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe

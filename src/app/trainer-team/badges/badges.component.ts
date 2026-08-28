@@ -5,10 +5,12 @@ import { ThemeService } from '../../services/theme-service/theme.service';
 import { CommonModule } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-badges',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgbTooltipModule,
     TranslatePipe

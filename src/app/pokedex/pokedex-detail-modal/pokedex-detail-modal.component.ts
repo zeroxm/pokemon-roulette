@@ -12,11 +12,13 @@ import { PokemonForm } from '../../interfaces/pokemon-form';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonType, pokemonTypeDataByKey } from '../../interfaces/pokemon-type';
 import { pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-pokedex-detail-modal',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,CommonModule, TranslatePipe],
   templateUrl: './pokedex-detail-modal.component.html',
   styleUrl: './pokedex-detail-modal.component.css'
 })

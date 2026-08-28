@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**28 / 36 complete.** Findings cleared: 31 of 46 `SEC` · 20 of 26 `CQ`.
+**29 / 36 complete.** Findings cleared: 32 of 46 `SEC` · 20 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -110,7 +110,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-27 | Collapse the 5 group-A pool roulettes into `pokemon-pool-roulette` | `CQ-08` | med | [x] |
 | T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` up; guard `plusModifiers` | `CQ-09`, `SEC-30b` | med | [x] |
 | **Phase 7 — remaining correctness** ||||
-| T-29 | Sprite resilience: error handler on `loadPokemonSpriteIfMissing`, shared `(error)` fallback, pin sprite URLs to a SHA | `SEC-09`, `SEC-14` | med | [ ] |
+| T-29 | Sprite resilience: error handler + app-wide image fallback. `SEC-14` pinning left as a decision | `SEC-09`, `SEC-14` (partial) | med | [x] |
 | T-30 | `ModalQueueService` unhandled rejection; route champion/rival modals through the queue | `SEC-24`, `SEC-25` | low | [ ] |
 | T-31 | Guard `evolvePokemon` zero-evolutions; emit on `finishCurrentState` underflow | `SEC-28`, `SEC-30e`, `CQ-23` | low | [ ] |
 | T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `WheelItem.weight` optional, `getGameState()`, `stolenPokemon`, `structuredClone` note | `CQ-15`, `CQ-16`, `CQ-17`, `CQ-18`, `SEC-30i` | med | [ ] |

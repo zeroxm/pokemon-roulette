@@ -5,10 +5,12 @@ import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { EventSource } from '../../../EventSource';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
-  imports: [WheelComponent, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,WheelComponent, TranslatePipe],
   templateUrl: './elite-four-prep-roulette.component.html',
   styleUrl: './elite-four-prep-roulette.component.css'
 })

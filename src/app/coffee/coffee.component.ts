@@ -4,10 +4,12 @@ import { MainGameButtonComponent } from "../main-game-button/main-game-button.co
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CreditsButtonComponent } from "../main-game/credits-button/credits-button.component";
+import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-coffee',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgIconsModule,
     MainGameButtonComponent,

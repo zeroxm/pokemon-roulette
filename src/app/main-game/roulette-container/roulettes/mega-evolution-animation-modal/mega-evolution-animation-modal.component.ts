@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 type AnimationPhase = 'prelude' | 'gather' | 'expand' | 'crack' | 'reveal' | 'dissolve';
 
@@ -18,7 +19,8 @@ interface ParticleConfig {
 @Component({
   selector: 'app-mega-evolution-animation-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    ImageFallbackDirective,CommonModule],
   templateUrl: './mega-evolution-animation-modal.component.html',
   styleUrl: './mega-evolution-animation-modal.component.css'
 })
