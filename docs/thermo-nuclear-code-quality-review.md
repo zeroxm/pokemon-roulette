@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**18 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-07`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**17 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-07`, `CQ-11`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -352,25 +352,6 @@ ids. The name lies about the id space; keying by rule rather than base id remove
 
 # 2 · Spaghetti and API-shape problems
 
-### CQ-11 — Callers must push states in reverse; fix the API, not the callers
-- **Location:** `src/app/services/game-state-service/game-state.service.ts` · seven call sites incl. `roulette-container.component.ts:327-328,423-424,559-560,910-911`
-- **Status:** [ ] open
-
-Seven call sites push multi-state sequences backwards and rely on a comment or the reader's memory.
-The spec at `roulette-container.component.spec.ts:248` needs prose to explain the resulting order.
-**The stack is the right abstraction — do not replace it.** Add one method:
-
-```ts
-setNextStates(...states: GameState[]): void {
-  for (let i = states.length - 1; i >= 0; i--) this.stateStack.push(states[i]);
-}
-```
-
-Call sites then read in play order. An entire category of ordering bug stops being possible.
-**Five-minute change, disproportionate payoff — do it early.**
-
----
-
 ### CQ-12 — The same modal-then-continue dance is written four times
 - **Location:** `roulette-container.component.ts:544-553, 601-614, 1011-1024, 1034-1047`
 - **Status:** [ ] open
@@ -603,7 +584,7 @@ are mostly independent of each other.
 | 2 | ~~Delete `DarkModeService`, `DarkModeToggleComponent`, the dead injections, the legacy CSS~~ **done (`T-05`)** | `CQ-05` | — |
 | 3 | ~~Declare `@angular/localize`; drop 3 unused deps; delete the dead methods and orphan JSON files~~ **done (`T-04`, `T-06`)** | `CQ-19`, `CQ-20` | — |
 | 4 | ~~Extract the six inline modals into components~~ **done (`T-17`)** | `CQ-07` | — |
-| 5 | Add `setNextStates(...)`, collapse the seven reverse-push pairs | `CQ-11` | Low |
+| 5 | ~~Add `setNextStates(...)`, collapse the reverse-push pairs~~ **done (`T-18`)** | `CQ-11` | — |
 | 6 | Add `showModalThenContinue`; decide the `stealPokemon` / `lessExplanations` question | `CQ-12` | Low |
 | 7 | Consolation-prize table + rewrite the eight spies as one outcome test | `CQ-06`, `CQ-25` | Medium |
 | 8 | **`PendingSelection<T>` continuations** — delete `megaSelectionMode`, both mega dispatchers, three `GameState` members | `CQ-01` | Medium — small diff by now |

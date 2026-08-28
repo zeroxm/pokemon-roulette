@@ -317,8 +317,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     this.customWheelTitle = 'game.main.roulette.evolve.who';
-    this.gameStateService.setNextState('evolve-pokemon');
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.gameStateService.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
 
     this.finishCurrentState();
   }
@@ -413,8 +412,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     this.customWheelTitle = 'game.main.roulette.evolve.whoExpShare';
-    this.gameStateService.setNextState('evolve-pokemon');
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.gameStateService.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
   }
 
   gymBattleResult(result: boolean): void {
@@ -436,15 +434,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   catchTwoPokemon(): void {
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextStates('catch-pokemon', 'catch-pokemon');
     this.finishCurrentState();
   }
 
   catchThreePokemon(): void {
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextStates('catch-pokemon', 'catch-pokemon', 'catch-pokemon');
     this.finishCurrentState();
   }
 
@@ -485,8 +480,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   multitask(): void {
-    this.gameStateService.setNextState('adventure-continues');
-    this.gameStateService.setNextState('adventure-continues');
+    this.gameStateService.setNextStates('adventure-continues', 'adventure-continues');
     this.multitaskCounter = this.multitaskCounter + 2;
     this.setRespinReason('game.main.respin.multitask', { count: this.multitaskCounter });
     this.finishCurrentState();
@@ -549,8 +543,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     } else {
       this.auxPokemonList = trainerTeam;
       this.customWheelTitle = 'game.main.roulette.teamrocket.steal.which';
-      this.gameStateService.setNextState('steal-pokemon');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.gameStateService.setNextStates('select-from-pokemon-list', 'steal-pokemon');
       this.finishCurrentState();
     }
   }
@@ -895,8 +888,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
       this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextState('select-evolution');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.gameStateService.setNextStates('select-from-pokemon-list', 'select-evolution');
       this.finishCurrentState();
     }
   }
@@ -980,8 +972,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
       this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextState('select-evolution');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.gameStateService.setNextStates('select-from-pokemon-list', 'select-evolution');
     }
   }
 

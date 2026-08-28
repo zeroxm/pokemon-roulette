@@ -19,6 +19,36 @@ describe('GameStateService', () => {
     expect(service).toBeTruthy();
   });
 
+  describe('setNextStates', () => {
+    it('runs the queued states in the order they are written', () => {
+      service.setNextStates('go-fishing', 'find-fossil', 'explore-cave');
+
+      expect(service.finishCurrentState()).toBe('go-fishing');
+      expect(service.finishCurrentState()).toBe('find-fossil');
+      expect(service.finishCurrentState()).toBe('explore-cave');
+    });
+
+    it('matches what pushing one at a time in reverse used to do', () => {
+      service.setNextState('evolve-pokemon');
+      service.setNextState('select-from-pokemon-list');
+      const byHand = [service.finishCurrentState(), service.finishCurrentState()];
+
+      service.resetGameState();
+      service.setNextStates('select-from-pokemon-list', 'evolve-pokemon');
+      const byHelper = [service.finishCurrentState(), service.finishCurrentState()];
+
+      expect(byHelper).toEqual(byHand);
+    });
+
+    it('leaves the stack untouched when given nothing', () => {
+      const before = service.finishCurrentState();
+      service.resetGameState();
+      service.setNextStates();
+
+      expect(service.finishCurrentState()).toBe(before);
+    });
+  });
+
   // ── finishCurrentState: pops and emits ─────────────────────────────────
 
   it('should emit character-select after one finishCurrentState call from reset state', () => {
