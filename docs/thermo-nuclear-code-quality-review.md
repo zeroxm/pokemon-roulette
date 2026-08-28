@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**12 of the original 26 findings remain.** Cleared so far: `CQ-01`, `CQ-03`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**11 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-03`, `CQ-05`–`CQ-07`, `CQ-11`, `CQ-12`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -22,10 +22,9 @@ The three knots, in order of leverage:
 1. ~~The state model can't carry a payload~~ — **cleared by `T-21`**: selections now carry their own
    continuation, the three marker `GameState` members are gone, and both mega dispatchers with them.
    Every remaining member has exactly one `@switch` arm, with a `@default` backstop.
-2. **Four form-swapping mechanisms are one mechanism in four costumes.** Mega, sticky, temporary and
-   battle-only forms all end in the same five-line swap, written four times, differing on three
-   orthogonal axes that should be table columns (`CQ-02`). This deletes ~180 lines *and* structurally
-   eliminates two High-severity correctness bugs from Run 1.
+2. ~~Four form-swapping mechanisms in four costumes~~ — **cleared by `T-23`**: one `FormRuleService`
+   now owns every form change. `TrainerService` went 516 → 376 lines and `SEC-02`, `SEC-03` and
+   `SEC-05` became unrepresentable.
 3. ~~Two theming services fighting each other~~ — **cleared by `T-05`**: `DarkModeService` and the
    unreachable toggle component are deleted, along with the legacy body classes and storage key.
 
@@ -45,7 +44,7 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 
 | Quality finding | Correctness finding it structurally prevents |
 | --- | --- |
-| `CQ-02` FormRule model | `SEC-02` stranded mega form · `SEC-03` double-applied sticky forms · `SEC-05` mega state survives reset |
+| ~~`CQ-02` FormRule model~~ **done (`T-23`)** | `SEC-02` · `SEC-03` · `SEC-05` — all cleared with it |
 | ~~`CQ-03` RunModifiers~~ **done (`T-22`)** | `SEC-04` · `SEC-07` — both cleared with it |
 | `CQ-10` stone-on-form join | `SEC-30a` unreachable Greninja forms |
 | `CQ-13` extract weighted-random | `SEC-01` (fixed in `T-03`) — extraction would still remove the `as any` reach-through in its tests |
@@ -70,66 +69,6 @@ refactors makes those bugs *unrepresentable* rather than fixed. If you plan to a
 ---
 
 # 1 · Structural regressions and code-judo opportunities
-
-### CQ-02 — Four form mechanisms are one mechanism in four costumes
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:364-541`
-- **Status:** [ ] open
-
-**What:** `applyBattleForms`/`revertBattleForms` fan out to three private replacers that are
-structurally the same function — `replaceTemporaryForms` (`:513-541`),
-`applyStickyFormsToCollection` (`:472-503`), `applyMegaForms`/`revertMegaForms` (`:388-446`). All end
-in the **identical five-line body**: clone target, carry `shiny`, null `sprite`,
-`loadPokemonSpriteIfMissing`, write back — at `:404-409`, `:431-435`, `:493-497`, `:531-535`. Four
-copies of the same swap.
-
-They differ on exactly **three orthogonal axes**: scope (team vs. team+stored), persistence (revert on
-exit vs. sticky), selection (cycle, random-other, item-gated). Those are table columns, not code paths.
-Terastal and Gigantamax ids are already sitting unused in the data — each new mechanic means a fifth
-copy plus another `changed = … || changed` line in both apply and revert.
-
-**Remedy:**
-
-```ts
-// services/form-rule-service/form-rule.ts
-export type FormSelection =
-  | { kind: 'cycle' }
-  | { kind: 'random-other' }
-  | { kind: 'item-gated'; stones: MegaStoneItemName[] };
-
-export interface FormRule {
-  id: string;                    // 'palafin', 'aegislash', 'mega:6'
-  forms: PokemonItem[];          // index 0 is the base form
-  scope: 'team' | 'team+stored';
-  persistence: 'temporary' | 'sticky';
-  selection: FormSelection;
-}
-```
-
-`FormRuleService.applyAll/revertAll/forceApply` iterate one flat `formRules` table and call a single
-`swapInPlace`. Revert state stops being three ad-hoc fields (`:60-62`) and becomes one
-`Map<string, {index, original}>` keyed by rule id — **which also removes the single-slot limitation
-where only one Pokémon can be mid-mega at a time** (`revertMegaForms` `break`s at `:437`).
-
-`TrainerService` keeps only:
-
-```ts
-private syncBattleForms(gameState: GameState): void {
-  const changed = this.battleStates.has(gameState)
-    ? this.formRuleService.applyAll(this.trainerTeam, this.storedPokemon, this.heldItemNames())
-    : this.formRuleService.revertAll(this.trainerTeam, this.storedPokemon);
-  if (changed) this.trainerTeamObservable.next(this.getTeam());
-}
-```
-
-**~180 lines deleted from `trainer.service.ts`**, adding Gigantamax becomes a table row, and `SEC-02`,
-`SEC-03` and `SEC-05` become structurally impossible.
-
-**Migration:** (1) land `FormRule`/`FormRuleService` with `formRules` built by *adapting* the three
-existing tables at module load — zero data edits, existing specs still pass; (2) switch
-`syncBattleForms` over and delete the six private methods; (3) flatten the adapters into one literal
-table and delete `palafin-forms.ts` / `sticky-battle-forms.ts` / the mega pairing helper.
-
----
 
 ### CQ-04 — `SoundFxService`: five maps keyed by a handle that carries no identity
 - **Location:** `src/app/services/sound-fx-service/sound-fx.service.ts:21-26`
@@ -458,7 +397,7 @@ are mostly independent of each other.
 | 6 | ~~Add `showModalThenContinue`~~ **done (`T-19`)** — `stealPokemon` deliberately keeps its no-skip behaviour | `CQ-12` | — |
 | 7 | ~~Consolation-prize table + outcome-based tests~~ **done (`T-20`)** | `CQ-06`, `CQ-25` | — |
 | 8 | ~~**`PendingSelection<T>` continuations**~~ **done (`T-21`)** | `CQ-01` | — |
-| 9 | **`FormRuleService`** — three-phase migration; fixes `SEC-02`/`SEC-03`/`SEC-05` structurally | `CQ-02`, `CQ-10` | Medium-high |
+| 9 | ~~**`FormRuleService`**~~ **done (`T-23`)** — `CQ-10`'s stone-on-form join remains for `T-24` | `CQ-02` | — |
 | 10 | ~~`RunModifiers` into the service~~ **done (`T-22`)** | `CQ-03` | — |
 | 11 | `SoundFxService` → one `Map<SoundFxName, SoundFxClip>`, 8 call sites | `CQ-04` | Medium |
 | 12 | Extract `weighted-random.ts` + `SpinAnimation`; fix the remaining wheel defects | `CQ-13` | Medium |
