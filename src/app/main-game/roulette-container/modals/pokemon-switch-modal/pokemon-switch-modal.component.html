@@ -1,0 +1,13 @@
+<div class="modal-body">
+    <h1>{{ titleKey | translate }}</h1>
+    <div class="panel">
+        <img [src]="from.sprite?.front_default" height="128">
+        <div class="message">
+            <p>{{ leadKey | translate }} {{ from.text | translate }} {{ joinKey | translate }} {{ to.text | translate }}!</p>
+        </div>
+        <img [src]="to.sprite?.front_default" height="128">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="activeModal.close()">Ok</button>
+</div>
