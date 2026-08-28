@@ -209,18 +209,5 @@ Do not push until every box above is ticked **and**:
 - **T-38 changes the framework itself.** Its rows are numbered 30+ but should be run *first*; if
   strings do not render or views do not repaint, stop and report that before working through the
   campaign's own findings — those results would be meaningless.
-- **Modal slide-in animations are absent on this desktop, and that is correct.** KDE Plasma has
-  `AnimationDurationFactor=0` (`~/.config/kdeglobals`), which syncs `gtk-enable-animations=false`,
-  which makes Chrome on Linux report `prefers-reduced-motion: reduce`. Bootstrap then applies
-  `.modal.fade .modal-dialog { transition: none }`, and ng-bootstrap's `ngbRunTransition` skips the
-  animation whenever the computed `transition-property` is `none`. The modal still opens centred and
-  correctly positioned (`transform: none`, 0 px off centre) — it just arrives instantly. Phones do
-  not carry that setting, which is why animations look right there. **Do not log this as a defect**,
-  and do not "fix" it in code: honouring the preference is the accessible behaviour.
-  To see the animations for UAT, prefer the per-tab route over changing system settings —
-  DevTools → ⋮ → More tools → **Rendering** → *Emulate CSS media feature prefers-reduced-motion* →
-  `no-preference`. System-wide alternative: KDE System Settings → General Behavior → Animation speed,
-  off "Instant". Only Bootstrap components are gated this way; the game's own CSS animations
-  (mega evolution, fireworks) declare no reduced-motion rules and play regardless.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
