@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**21 / 36 complete.** Findings cleared: 15 of 46 `SEC` · 13 of 26 `CQ`.
+**22 / 36 complete.** Findings cleared: 19 of 46 `SEC` · 14 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -100,7 +100,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-19 | Add `showModalThenContinue` | `CQ-12` | med | [x] |
 | T-20 | Consolation-prize `Record<EventSource, …>` table + outcome-based test rewrite | `CQ-06`, `CQ-25` | med | [x] |
 | T-21 | `PendingSelection<T>` continuations — deleted both mega dispatchers, 3 marker states, added `@default` arm | `CQ-01`, `SEC-06`, `SEC-26` | high | [x] |
-| T-22 | `RunModifiers` into `GameStateService`, reset in `resetGameState()` + regression test | `CQ-03`, `SEC-04`, `SEC-07`, `SEC-30d` | high | [ ] |
+| T-22 | `RunModifiers` into `GameStateService` + transient reset on `game-start` + regression tests | `CQ-03`, `SEC-04`, `SEC-07`, `SEC-30d`, `SEC-30f` | high | [x] |
 | **Phase 5 — form subsystem** ||||
 | T-23 | `FormRule` model + `FormRuleService`; 3-phase migration | `CQ-02`, `SEC-02`, `SEC-03`, `SEC-05`, `SEC-08` | high | [ ] |
 | T-24 | Move the mega stone onto the form; delete `_baseIdToStoneName`; resolve Greninja | `CQ-10`, `SEC-30a` | med | [ ] |
@@ -112,7 +112,7 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 7 — remaining correctness** ||||
 | T-29 | Sprite resilience: error handler on `loadPokemonSpriteIfMissing`, shared `(error)` fallback, pin sprite URLs to a SHA | `SEC-09`, `SEC-14` | med | [ ] |
 | T-30 | `ModalQueueService` unhandled rejection; route champion/rival modals through the queue | `SEC-24`, `SEC-25` | low | [ ] |
-| T-31 | Guard `evolvePokemon` zero-evolutions; fix `resetGameAction` ordering; emit on `finishCurrentState` underflow | `SEC-28`, `SEC-30e`, `SEC-30f`, `CQ-23` | low | [ ] |
+| T-31 | Guard `evolvePokemon` zero-evolutions; emit on `finishCurrentState` underflow | `SEC-28`, `SEC-30e`, `CQ-23` | low | [ ] |
 | T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `WheelItem.weight` optional, `getGameState()`, `stolenPokemon`, `structuredClone` note | `CQ-15`, `CQ-16`, `CQ-17`, `CQ-18`, `SEC-30i` | med | [ ] |
 | T-33 | Defensive-parse cleanups: pokédex entry shapes, settings field types, `getTrainerSprite` guard, `distinctUntilChanged` no-op, `replaceForEvolution` warn | `SEC-30g`, `SEC-30h`, `SEC-30j`, `SEC-30m`, `SEC-30q` | low | [ ] |
 | **Phase 8 — tests, config, teardown** ||||
