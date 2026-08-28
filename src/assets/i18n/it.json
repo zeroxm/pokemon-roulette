@@ -332,6 +332,10 @@
         "fossil": {
           "which": "Quale fossile?"
         },
+        "disguise": {
+          "title": "Il travestimento di Mimikyu si è rotto!",
+          "message": "Eri rimasto senza pozioni, così Mimikyu ha incassato il colpo per la squadra. Il suo travestimento è rovinato per il resto dell'avventura, ma hai un'altra possibilità in questa battaglia!"
+        },
         "gym": {
           "against": "Lotta contro",
           "defeated": "Sconfitto?",
@@ -1722,6 +1726,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Smascherato)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",

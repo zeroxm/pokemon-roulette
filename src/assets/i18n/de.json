@@ -332,6 +332,10 @@
         "fossil": {
           "which": "Welches Fossil?"
         },
+        "disguise": {
+          "title": "Mimigmas Verkleidung ist zerbrochen!",
+          "message": "Du hattest keine Tränke mehr, also hat Mimigma den Treffer für das Team eingesteckt. Seine Verkleidung ist für den Rest des Abenteuers ruiniert — dafür bekommst du eine weitere Chance in diesem Kampf!"
+        },
         "gym": {
           "against": "Kampf gegen",
           "defeated": "besiegt?",
@@ -1722,6 +1726,7 @@
     "turtonator": "Tortunator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimigma",
+    "mimikyu-busted": "Mimigma (Entlarvt)",
     "bruxish": "Knirfish",
     "drampa": "Sen-Long",
     "drampa-mega": "Sen-Long (Mega)",

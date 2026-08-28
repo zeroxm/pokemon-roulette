@@ -20,6 +20,8 @@ export interface RunModifiers {
   runningShoesUsed: boolean;
   /** Pokémon Team Rocket took, held until it can be recovered. */
   stolenPokemon: PokemonItem | null;
+  /** Whether Mimikyu's Disguise has already absorbed a defeat. Once per run. */
+  disguiseUsed: boolean;
 }
 
 export const initialRunModifiers = (): RunModifiers => ({
@@ -28,4 +30,5 @@ export const initialRunModifiers = (): RunModifiers => ({
   expSharePokemon: null,
   runningShoesUsed: false,
   stolenPokemon: null,
+  disguiseUsed: false,
 });

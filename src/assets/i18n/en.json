@@ -332,6 +332,10 @@
         "fossil": {
           "which": "Which fossil?"
         },
+        "disguise": {
+          "title": "Mimikyu's disguise broke!",
+          "message": "You were out of potions, so Mimikyu took the hit for the team. Its disguise is ruined for the rest of the adventure — but you get another chance at this battle!"
+        },
         "gym": {
           "against": "Battle against",
           "defeated": "Defeated?",
@@ -1722,6 +1726,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Busted)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",

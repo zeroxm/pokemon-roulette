@@ -91,6 +91,108 @@ describe('GymBattleRouletteComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // ── Mimikyu's Disguise: the last-resort retry ─────────────────────────────
+
+  describe("Mimikyu's Disguise", () => {
+    const MIMIKYU = 778;
+    const MIMIKYU_BUSTED = 10143;
+    const LOSE = 'game.main.roulette.gym.no';
+
+    /** Puts the component in the state a losing spin lands in, with no potions held. */
+    const loseWithNoPotions = (): void => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [];
+      (component as any).retries = 1;   // onItemSelected decrements to 0 before deciding
+    };
+
+    beforeEach(() => {
+      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({
+        componentInstance: {},
+      } as NgbModalRef));
+    });
+
+    it('busts the disguise instead of losing, and grants a retry', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(lost).withContext('the battle must not end').not.toHaveBeenCalled();
+      expect((component as any).retries).withContext('one more spin, like a Potion').toBe(1);
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
+      expect(gameStateService.runModifiers.disguiseUsed).toBeTrue();
+    });
+
+    it('cannot absorb a second defeat with the same Mimikyu', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      expect(lost).toHaveBeenCalledWith(false);
+    });
+
+    it('is spent for the run, so a freshly caught Mimikyu gets no second free retry', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+      expect(gameStateService.runModifiers.disguiseUsed).toBeTrue();
+
+      // The player catches a *different*, still-disguised Mimikyu later in the same run.
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      expect(lost)
+        .withContext('the run-scoped flag, not the busted sprite, is what limits this to one use')
+        .toHaveBeenCalledWith(false);
+      expect(trainerService.getTeam().some(p => p.pokemonId === MIMIKYU_BUSTED && p !== trainerService.getTeam()[0]))
+        .withContext('the new Mimikyu must still be wearing its disguise')
+        .toBeFalse();
+    });
+
+    it('starts a new run with the disguise available again', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      gameStateService.resetGameState();
+
+      expect(gameStateService.runModifiers.disguiseUsed)
+        .withContext('run modifiers are cleared on restart')
+        .toBeFalse();
+    });
+
+    it('does not fire while a potion is still available', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('potions are spent first; the disguise is the last resort')
+        .toBe(MIMIKYU);
+      expect(gameStateService.runModifiers.disguiseUsed).toBeFalse();
+    });
+
+    it('loses normally when no Mimikyu is on the team', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: 1 }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(lost).toHaveBeenCalledWith(false);
+    });
+  });
+
   // ── calcVictoryOdds: slice count by team power ────────────────────────────
 
   it('should produce 1 yes and 1 no slice with empty team at round 0', () => {

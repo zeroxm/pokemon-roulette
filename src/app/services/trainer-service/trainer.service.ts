@@ -15,6 +15,9 @@ import { GameStateService } from '../game-state-service/game-state.service';
 import { FormRuleService } from '../form-rule-service/form-rule.service';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from './pokemon-mega-forms';
 
+/** Mimikyu's disguised form; the busted form lives in `mimikyu-forms`. */
+const MIMIKYU_ID = 778;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -326,6 +329,29 @@ export class TrainerService implements OnDestroy {
       this.loadMissingSprites();
       this.trainerTeamObservable.next(this.getTeam());
     }
+  }
+
+  /** True while an undisguised Mimikyu is on the team — the only thing Disguise can fire on. */
+  hasDisguisedMimikyu(): boolean {
+    return this.trainerTeam.some(pokemon => pokemon.pokemonId === MIMIKYU_ID);
+  }
+
+  /**
+   * Breaks Mimikyu's Disguise. Sticky, so unlike mega it survives the end of the battle.
+   *
+   * Returns whether anything actually changed, so a caller cannot grant a retry for a bust that
+   * did not happen.
+   */
+  bustMimikyuDisguise(): boolean {
+    const changed = this.formRuleService.forceApply(
+      `disguise:${MIMIKYU_ID}`, this.trainerTeam, this.storedPokemon, [],
+    );
+
+    if (changed) {
+      this.loadMissingSprites();
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+    return changed;
   }
 
   removeItem(item: ItemItem): void {

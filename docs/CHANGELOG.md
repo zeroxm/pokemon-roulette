@@ -42,10 +42,7 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | # | Task | What changed under the hood | Regression check | ✓ |
 | --- | --- | --- | --- | --- |
-| N1 | T-01 | Added `.nvmrc` (Node 24). No source touched. | `npm ci && npm run build && npm test -- --watch=false --browsers=ChromeHeadless` → build passes, 230/230. | [ ] |
-| N2 | T-05 | Deleted `DarkModeService` + the unreachable dark-mode toggle (12 files), 14 unused injections, the `body.dark-mode`/`body.light-mode` CSS rules, and the `dark-mode` localStorage key cleanup. `ThemeService` is now the only theming system. | **Theme switching must work identically.** Cycle all three themes (Starters / Plain Dark / Plain Light) in Settings; each applies immediately, survives a reload, and the Starters background image still renders. Check `<body>` in devtools carries exactly one `theme-*` class and **no** `dark-mode`/`light-mode` class. | [ ] |
-| N3 | T-02 | Enabled `noUnusedLocals` + `noUnusedParameters`; removed 27 unused declarations across app and specs. Two roulettes gained `implements OnInit(, OnDestroy)`. One dead `getTotalWeights()` call removed from the wheel's animation frame. | **No user-visible change expected.** Spin several wheels of very different sizes — the gen-9 cave wheel (73 segments), a fishing wheel, and a 2-option yes/no wheel — and confirm each spins, lands on a segment, and reports the same segment it visually stopped on. Fishing and Snorlax roulettes must still load their Pokémon (their lifecycle hooks were re-declared). | [ ] |
-| N4 | T-04 | Deleted 7 unreferenced methods (`updateTeam`, `getFirstAvailableMegaStoneNameForPokemon`, `getMegaBattleCandidates`, `getMegaStones`, `getAllItems`, `megaStoneNameForBaseId`, `retreatRound`) and 3 orphan JSON form files (`pikachu-forms`, `mimikyu-forms`, `pokemon-forms-gigantamax`). | **Nothing should change.** All seven had exactly one reference — their own declaration — and the JSON files were imported by nothing, including `angular.json`. Confirm mega-stone awards and activation still work, since three of the deletions were in that area. | [ ] |
+| N4 | T-04 / T-40 | Deleted 7 unreferenced methods and `pikachu-forms.json`. **`pokemon-forms-gigantamax.json` is restored** as a reference for future forms, and `mimikyu-forms` came back as real behaviour — see T-40 below. | Team, storage PC and mega-stone awards behave as before; nothing references the Gigantamax table yet. | [ ] |
 | N5 | T-06 | `@angular/localize` promoted to a real dependency (it was only reaching the build as a transitive of a **devDependency**, while `angular.json` loads it as a runtime polyfill). Dropped `@angular/animations`, `@angular/platform-browser-dynamic` and `@popperjs/core` as direct deps. | **ng-bootstrap behaviour is the thing to watch** — `@angular/animations` is now fully absent (it was an *optional* peer). Open several modals: gym battle result, item found, evolution, the mega-evolution animation, and the storage PC. Each must open, animate/transition, and close normally. Also confirm tooltips and dropdowns still behave. | [ ] |
 | N6 | T-07 | Replaced `GENERATION_GAME_CONFIG` — nine identical rows of `{ gymCount: 8, eliteFourCount: 4 }` consulted through a fallback of the same value — with two named constants. `GameStateService` no longer injects `GenerationService`. | **League shape must be unchanged.** Play a run and count: 8 gyms with an "adventure continues" between each (7 of them), then Elite Four prep, then 4 Elite Four battles, then the champion. Do this on **two different generations** to confirm nothing was generation-specific. Restart mid-run and confirm the same shape rebuilds. | [ ] |
 | N7 | T-08 | Removed a dead `Array.isArray(x.quotes) ? x.quotes : x.quotes` ternary from the gym, elite-four and champion roulettes, plus rival's differently-dead variant. `quotes` is typed `string[]` and all 126 data entries are arrays, so the check was always true. | **Split-trainer battles are the check.** These sites only run where one entry covers two trainers: **gym gen 5 & gen 8**, **elite four**, **champion**, and **rival gen 6** (Serena/Calem, chosen by player gender). Reach one of each and confirm the opponent's name, sprite and quote all belong to the *same* trainer — a mismatch would mean the index wiring broke. | [ ] |
@@ -136,6 +133,26 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 ---
 
+## T-40 — new: Mimikyu's Disguise
+
+A new mechanic, requested during UAT. Mimikyu now has its signature ability: when a battle is lost
+and **no potion is left**, the Disguise takes the hit instead — you get another spin, and Mimikyu
+stays busted for the rest of the run.
+
+| # | What to do | Expected | ✓ |
+| --- | --- | --- | --- |
+| 50 | Take a **Mimikyu** into a gym battle while still holding a potion, and lose a spin. | The **potion is used first**, as before. The disguise is untouched — Mimikyu still looks normal. | [ ] |
+| 51 | Now lose a spin with Mimikyu on the team and **no potions at all**. | A modal explains the disguise broke and you get another chance. The battle does **not** end, and you can spin again exactly as if a potion had been used. | [ ] |
+| 52 | Look at Mimikyu in the team panel and the storage PC afterwards. | It shows the **busted** form and keeps it — through the rest of that battle, later battles, and the rest of the run. | [ ] |
+| 53 | Lose again later in the same run with no potions. | No second rescue. The battle is lost normally. | [ ] |
+| 54 | Catch a **second** Mimikyu later in the same run, then lose with no potions. | Still no rescue — the Disguise is once per **run**, not once per Mimikyu. The new one keeps its disguise. | [ ] |
+| 55 | Repeat 51 in the **Elite Four** and against the **Champion**. | Works the same in all three battle types. | [ ] |
+| 56 | Restart the game and take a Mimikyu into a battle with no potions. | The Disguise is available again — run modifiers reset on restart. | [ ] |
+| 57 | Check the modal copy in **all six locales**. | Translated everywhere; Mimikyu's busted form is named in each language (fr *Mimiqui*, de *Mimigma*). No raw keys. | [ ] |
+| 58 | Compare the win/lose wheel before and after the disguise busts. | The odds are **unchanged** — the disguise is a free retry, not a stat change. | [ ] |
+
+---
+
 ## T-39 — mega evolution no longer fires by itself
 
 Found during this UAT and fixed. Entering a battle used to mega-evolve any team member whose stone
@@ -179,9 +196,9 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **305/305** (baseline 230) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **316/316** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
-| i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` | [ ] |
+| i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |

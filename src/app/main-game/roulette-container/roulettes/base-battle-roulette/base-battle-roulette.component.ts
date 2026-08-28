@@ -12,6 +12,8 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { PokemonType, pokemonTypeDataByKey } from '../../../../interfaces/pokemon-type';
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { interleaveOdds } from '../../../../utils/odd-utils';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { InfoModalComponent } from '../../modals/info-modal/info-modal.component';
 
 @Directive()
 export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
@@ -136,6 +138,52 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
       case 'hyper-potion': this.retries = 3; break;
     }
     openItemUsedModal();
+  }
+
+  /**
+   * Mimikyu's Disguise: a last-resort retry once the potions are gone.
+   *
+   * Three conditions, all required — an undisguised Mimikyu on the team, no potion left (checked by
+   * the caller, which reaches here only when `hasPotions()` came back empty), and the Disguise
+   * unused this run. The run-scoped flag is what makes it once per *run* rather than once per
+   * Mimikyu: catching a second one does not buy a second free retry.
+   */
+  protected hasDisguise(): boolean {
+    return !this.gameStateService.runModifiers.disguiseUsed
+      && this.trainerService.hasDisguisedMimikyu();
+  }
+
+  /**
+   * Busts the disguise and grants exactly one retry — the same thing a plain Potion grants.
+   *
+   * The flag is only set when the form change actually happened, so a bust that found nothing to
+   * change cannot silently spend the run's one use.
+   */
+  protected useDisguise(openDisguiseModal: () => void): boolean {
+    if (!this.trainerService.bustMimikyuDisguise()) {
+      return false;
+    }
+
+    this.gameStateService.runModifiers.disguiseUsed = true;
+    this.retries = 1;
+    openDisguiseModal();
+    return true;
+  }
+
+  /**
+   * The "your disguise broke" notice.
+   *
+   * Takes the queue service rather than injecting it, because the base class is also extended by
+   * the rival battle, which has no retry mechanic and no reason to gain a dependency. Kept here so
+   * the copy and wiring exist once instead of once per battle type.
+   */
+  protected openDisguiseNotice(modalQueueService: ModalQueueService): void {
+    void modalQueueService
+      .open(InfoModalComponent, { centered: true, size: 'md' })
+      .then(ref => {
+        ref.componentInstance.title = this.translate.instant('game.main.roulette.disguise.title');
+        ref.componentInstance.message = this.translate.instant('game.main.roulette.disguise.message');
+      });
   }
 
   /** Called for every game state change. Subclass checks its own trigger state. */

@@ -2,6 +2,7 @@ import { FormRule } from './form-rule';
 import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
 import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
+import { mimikyuForms } from '../trainer-service/mimikyu-forms';
 
 /**
  * The three existing form tables, adapted into one rule list.
@@ -31,6 +32,18 @@ export const formRules: FormRule[] = [
     persistence: 'sticky',
     trigger: 'battle-start',
     selection: group.mode === 'toggle' ? { kind: 'cycle' } : { kind: 'random-other' },
+  })),
+
+  // Mimikyu's Disguise: busts as a last-resort retry when the player is out of potions, and stays
+  // busted for the rest of the run. `manual` because losing a battle is what fires it, not entering
+  // one; `sticky` so revertAll leaves it alone at battle end.
+  ...Object.entries(mimikyuForms).map(([baseIdText, forms]): FormRule => ({
+    id: `disguise:${baseIdText}`,
+    forms,
+    scope: 'team+stored',
+    persistence: 'sticky',
+    trigger: 'manual',
+    selection: { kind: 'base-to-battle' },
   })),
 
   // Mega evolution: the player taps a stone mid-battle, so this rule is `manual` and never fires

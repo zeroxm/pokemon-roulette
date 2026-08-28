@@ -121,6 +121,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-36 | Audit reports deleted; `CLAUDE.md` updated; PR marked ready | — | — | [x] |
 | T-38 | Toolchain upgrade: Angular 22, ng-bootstrap 21, ngx-translate 18, TS 6.0; `@angular-devkit/build-angular` removed — **0 vulnerabilities including dev deps** | post-campaign request | high | [x] |
 | T-39 | **UAT fix:** mega evolution fired on battle entry for merely holding the stone — a T-23 regression; `trigger` axis added to the rule table | UAT finding | high | [x] |
+| T-40 | **New behaviour:** Mimikyu's Disguise as a last-resort retry; `pokemon-forms-gigantamax.json` restored as a reference | UAT request | high | [x] |
 | T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
@@ -240,6 +241,42 @@ Tests: the five misrouted specs now go through `forceApply`, plus four new ones 
 directions — no mega on battle entry while holding the stone, an active mega undisturbed by a later
 battle-start pass, other Pokémon still transforming normally, and revert still working.
 Mutation-checked: removing the guard fails two of them. 301 → 305.
+
+### T-40 — Mimikyu's Disguise, and the restored Gigantamax reference
+
+Asked for during UAT, revisiting T-04's deletions: the Gigantamax table was wanted back as a
+reference for future forms, and `mimikyu-forms` was wanted back as an actual mechanic.
+
+`pokemon-forms-gigantamax.json` is restored verbatim from before T-04. Nothing imports it yet, which
+is exactly what it was — a reference. `pikachu-forms.json` stays deleted; it was not asked for.
+
+**The mechanic.** When a battle spin is lost, the retry ladder was: spend a potion, else lose. It is
+now: spend a potion, else bust Mimikyu's Disguise, else lose. Busting grants `retries = 1` — the same
+as a plain Potion — and shows a modal explaining what happened. It fires in all three battle types
+because the ladder lives in `BaseBattleRouletteComponent`.
+
+**Three deliberate choices.**
+
+- **Sticky, not temporary.** `mimikyuForms` enters the rule table as `persistence: 'sticky'`, so
+  `revertAll` leaves it alone and the busted sprite survives to the end of the run. It is also
+  `trigger: 'manual'` (the axis added in T-39) because a *defeat* fires it, not entering a battle.
+- **`power` is identical in both forms.** `carryOver` takes `power` from the target form, so a
+  different value would silently shift the win/lose odds the moment the disguise broke. A free retry
+  should not double as a stat change.
+- **Once per run, not once per Mimikyu.** The limit is `runModifiers.disguiseUsed`, which resets on
+  restart along with the other run-scoped rules.
+
+That last one is where mutation testing earned its keep. The first "once per run" test passed with
+the `disguiseUsed` guard *removed* — after a bust the Pokémon is id 10143, so `hasDisguisedMimikyu()`
+already returns false, and the test was proving nothing about the flag. The flag's real job is a
+**second, freshly caught Mimikyu**, and only a test that catches one exercises it. That test now
+exists and does fail without the guard.
+
+Tests: five on the rule itself (no bust on battle entry, busts on request, survives revert, keeps
+shiny, leaves power alone) and six at the battle level (retry granted, potions still take priority,
+no Mimikyu loses normally, no second rescue from the same Mimikyu, none from a new one, available
+again after a restart). 305 → 316. Six locales gained `pokemon.mimikyu-busted` and the modal copy;
+2,204 → 2,207 keys, parity verified.
 
 ## Coverage check
 

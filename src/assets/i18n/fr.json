@@ -332,6 +332,10 @@
         "fossil": {
           "which": "Quel Fossile?"
         },
+        "disguise": {
+          "title": "Le déguisement de Mimiqui est brisé !",
+          "message": "Vous n'aviez plus de potions, alors Mimiqui a encaissé le coup pour l'équipe. Son déguisement est fichu pour le reste de l'aventure — mais vous avez droit à une nouvelle chance dans ce combat !"
+        },
         "gym": {
           "against": "Combat contre",
           "defeated": "Vaincu?",
@@ -1722,6 +1726,7 @@
     "turtonator": "Boumata",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimiqui",
+    "mimikyu-busted": "Mimiqui (Démasqué)",
     "bruxish": "Denticrisse",
     "drampa": "Draïeul",
     "drampa-mega": "Drampa (Mega)",

@@ -27,7 +27,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **305/305 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **316/316 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -118,8 +118,10 @@ compile-time checking for runtime string matching.
 
 Battle roulettes (gym / elite four / champion / rival) extend `BaseBattleRouletteComponent`, which
 owns `buildVictoryOdds` — the whole win/lose wheel, parameterised by `outcomeKeyPrefix` and
-`baseNoOdds` (the difficulty curve: gym 1, elite four 2, champion 3) — plus potion retries and
-X-Attack modifiers.
+`baseNoOdds` (the difficulty curve: gym 1, elite four 2, champion 3) — plus retries and X-Attack
+modifiers. The retry ladder on a lost spin is **potion → Mimikyu's Disguise → lose**; it lives in the
+base class so all three battle types share it, and the Disguise is limited to once per run by
+`runModifiers.disguiseUsed` rather than by the Pokémon's own state.
 
 ### Domain data
 
@@ -137,6 +139,9 @@ X-Attack modifiers.
   `manual` — holding the stone decides *which* mega form is available, never that one should happen.
   Applying it from `applyAll` made every eligible Pokémon transform on battle entry just for owning
   the stone, which is exactly the bug the axis prevents.
+  Mimikyu's Disguise is the other `manual` rule: a *defeat* fires it, not entering a battle. It is
+  `sticky`, so the busted form outlives the fight, and both of its forms carry the same `power` —
+  `carryOver` reads `power` from the target, so differing values would move the battle odds.
 - `GenerationService` — the selected generation drives nearly all content lookups.
 - `ItemsService` / `MegaStoneService` / `RareCandyService` — item catalogs and mid-game item interrupts (rare candy and mega stones bypass the wheel; both are gated on `wheelSpinning`).
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.
@@ -148,7 +153,7 @@ X-Attack modifiers.
 
 Six locales in `src/assets/i18n/*.json` (en, pt, es, fr, de, it), loaded over HTTP by `TranslateHttpLoader`. User-facing strings are **never** literals — data files store dotted keys (`items.potion.name`, `game.main.roulette.fishing.title`) that templates resolve with the `translate` pipe. Adding a string means adding it to all six files.
 
-**All six files hold an identical key set** (2,204 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
+**All six files hold an identical key set** (2,207 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
 
 ```bash
 node -e "const p=(o,x='')=>Object.entries(o).flatMap(([k,v])=>typeof v==='object'&&v?p(v,x+k+'.'):[x+k]);const b=p(require('./src/assets/i18n/en.json')).sort();for(const l of ['pt','es','fr','de','it']){const o=p(require('./src/assets/i18n/'+l+'.json')).sort();console.log(l,b.filter(k=>!o.includes(k)).length||o.filter(k=>!b.includes(k)).length?'DIVERGENT':'ok')}"
