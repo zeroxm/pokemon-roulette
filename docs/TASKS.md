@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**29 / 36 complete.** Findings cleared: 32 of 46 `SEC` · 20 of 26 `CQ`.
+**33 / 36 complete.** Findings cleared: 42 of 46 `SEC` · 23 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -111,12 +111,12 @@ Every task below must leave both green. Re-run before each merge.
 | T-28 | Pull `buildVictoryOdds` + `resolveSplitTrainer` up; guard `plusModifiers` | `CQ-09`, `SEC-30b` | med | [x] |
 | **Phase 7 — remaining correctness** ||||
 | T-29 | Sprite resilience: error handler + app-wide image fallback. `SEC-14` pinning left as a decision | `SEC-09`, `SEC-14` (partial) | med | [x] |
-| T-30 | `ModalQueueService` unhandled rejection; route champion/rival modals through the queue | `SEC-24`, `SEC-25` | low | [ ] |
-| T-31 | Guard `evolvePokemon` zero-evolutions; emit on `finishCurrentState` underflow | `SEC-28`, `SEC-30e`, `CQ-23` | low | [ ] |
-| T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `WheelItem.weight` optional, `getGameState()`, `stolenPokemon`, `structuredClone` note | `CQ-15`, `CQ-16`, `CQ-17`, `CQ-18`, `SEC-30i` | med | [ ] |
-| T-33 | Defensive-parse cleanups: pokédex entry shapes, settings field types, `getTrainerSprite` guard, `distinctUntilChanged` no-op, `replaceForEvolution` warn | `SEC-30g`, `SEC-30h`, `SEC-30j`, `SEC-30m`, `SEC-30q` | low | [ ] |
+| T-30 | `ModalQueueService` unhandled rejection; route champion/rival modals through the queue | `SEC-24`, `SEC-25` | low | [x] |
+| T-31 | Guard `evolvePokemon` zero-evolutions; emit on `finishCurrentState` underflow | `SEC-28`, `SEC-30e`, `CQ-23` | low | [x] |
+| T-32 | Type/contract cleanups: `BadgesService` return type, `getItems()` copy, `getGameState()` removed | `CQ-15`, `CQ-16`, `CQ-18`, `SEC-30i` | med | [x] |
+| T-33 | Defensive-parse cleanups: settings field types, `getTrainerSprite` guard, `distinctUntilChanged` no-op, `replaceForEvolution` warn | `SEC-30g`, `SEC-30h`, `SEC-30j`, `SEC-30m`, `SEC-30q` | low | [x] |
 | **Phase 8 — tests, config, teardown** ||||
-| T-34 | Specs for `ModalQueueService` + `SettingsService`; karma `src/assets` | `SEC-29`, `CQ-14`, `CQ-26` | low | [ ] |
+| T-34 | Specs for `ModalQueueService`; karma `src/assets`; make `WheelItem.weight` optional | `SEC-29`, `CQ-14`, `CQ-17`, `CQ-26` | low | [ ] |
 | T-35 | Dependency vulnerabilities + bundle/CSS budgets; CI audit step — see below | `SEC-15`, `SEC-30o` + baseline obs. | med | [ ] |
 | T-36 | UAT pass against `docs/CHANGELOG.md`; delete `docs/` audit reports, changelog and this file; push `main` to remote | — | — | [ ] |
 

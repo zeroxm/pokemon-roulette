@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -39,6 +40,7 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
 
   constructor(
     modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
     gameStateService: GameStateService,
     generationService: GenerationService,
     trainerService: TrainerService,
@@ -60,7 +62,7 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
     if (state === 'battle-rival') {
       this.getCurrentRival();
       this.calcVictoryOdds();
-      this.modalService.open(this.rivalPresentationModal, { centered: true, size: 'lg' });
+      void this.modalQueueService.open(this.rivalPresentationModal, { centered: true, size: 'lg' });
     }
   }
 

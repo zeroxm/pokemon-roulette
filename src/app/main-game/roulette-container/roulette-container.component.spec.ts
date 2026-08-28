@@ -78,7 +78,7 @@ describe('RouletteContainerComponent', () => {
 
     component.capturePokemon(deoxys!);
 
-    expect(component.getGameState()).toBe('select-form');
+    expect(component.currentGameState).toBe('select-form');
     expect(component.pokemonForms.map(form => form.pokemonId)).toEqual([386, 10001, 10002, 10003]);
     expect(trainerService.getTeam().length).toBe(0);
   });
@@ -89,7 +89,7 @@ describe('RouletteContainerComponent', () => {
 
     component.capturePokemon(bulbasaur!);
 
-    expect(component.getGameState()).toBe('check-shininess');
+    expect(component.currentGameState).toBe('check-shininess');
     expect(trainerService.getTeam().length).toBe(1);
     expect(trainerService.getTeam()[0].pokemonId).toBe(1);
   });
@@ -396,7 +396,7 @@ describe('RouletteContainerComponent', () => {
       component.chooseWhoWillEvolve('gym-battle');
 
       // queues a pokemon selection, then finishCurrentState() pops it so the wheel renders
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
   });
 
@@ -417,7 +417,7 @@ describe('RouletteContainerComponent', () => {
 
       component.stealPokemon();
 
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
 
     it('with team >= 2 and no escape-rope → auxPokemonList contains both team members', () => {
@@ -464,7 +464,7 @@ describe('RouletteContainerComponent', () => {
 
       component.tradePokemon();
 
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
 
     it('with multi-member team → auxPokemonList contains all team members', () => {

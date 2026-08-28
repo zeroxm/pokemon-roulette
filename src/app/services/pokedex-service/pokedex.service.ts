@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { evolutionChain } from '../evolution-service/evolution-chain';
 import { pokemonForms } from '../pokemon-forms-service/pokemon-forms';
 
@@ -28,7 +28,9 @@ export class PokedexService {
   }
 
   get pokedex$(): Observable<PokedexData> {
-    return this.pokedexSubject$.asObservable().pipe(distinctUntilChanged());
+    // No distinctUntilChanged: updatePokedex always emits a freshly built object, so reference
+    // comparison would never dedupe. It advertised a guarantee it did not provide.
+    return this.pokedexSubject$.asObservable();
   }
 
   get currentPokedex(): PokedexData {

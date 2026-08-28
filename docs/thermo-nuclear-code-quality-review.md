@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**6 of the original 26 findings remain.** Cleared so far: `CQ-01`–`CQ-13`, `CQ-19`–`CQ-22`, `CQ-24`, `CQ-25`. Three reviewers audited game-flow core, domain services, and presentation/infra in
+**2 of the original 26 findings remain** (`CQ-14`, `CQ-17`, `CQ-26` — see below). Everything else is cleared. Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -91,33 +91,6 @@ mutation-during-call.
 
 # 3 · Type and contract cleanliness
 
-### CQ-15 — `BadgesService` lies in its return type
-- **Location:** `src/app/services/badges-service/badges.service.ts:23,33`
-- **Status:** [ ] open
-
-Both `return of(undefined as unknown as Badge)` from a method typed `Observable<Badge>`. The cast
-exists purely to defeat the compiler, and the caller at `trainer.service.ts:336` then checks
-`if (badge === undefined) return;` — proving the signature is wrong. Type it
-`Observable<Badge | undefined>`, return `of(undefined)`, delete both casts. **The caller already
-handles it correctly.**
-
-Related: `PokemonItem.type1`/`type2` are optional while `PokemonForm`'s are required, which is why
-`TypeMatchupService` needs `as Array<PokemonType | null | undefined>` at `:33` and `:93`. If the
-National Dex always populates both, make them required and the casts go away.
-
----
-
-### CQ-16 — `getItems()` hands out the live array while `getTeam()`/`getStored()` copy
-- **Location:** `src/app/services/trainer-service/trainer.service.ts:207-209`
-- **Status:** [ ] open
-
-The one consumer, `base-battle-roulette.component.ts:39`, stores that reference — so `removeItem`'s
-in-place `splice` silently mutates the component's field behind its back. Nothing depends on it today
-(see `SEC-30i`), but it is an accident waiting for its second consumer. Return `[...this.trainerItems]`
-and match the rest of the API.
-
----
-
 ### CQ-17 — `WheelItem.weight` leaks wheel tuning into every hand-authored data row
 - **Location:** `src/app/interfaces/wheel-item.ts`
 - **Status:** [ ] open
@@ -133,35 +106,7 @@ removes one line per entry from every data table in the project.
 
 ---
 
-### CQ-18 — Assorted type/contract cleanups in the container
-- **Location:** `roulette-container.component.ts`
-- **Status:** [ ] open
-
-- `stolenPokemon!: PokemonItem | null` (`:208`) — a definite-assignment assertion on a nullable field is
-  self-contradictory. Use `= null`.
-- `currentContextPokemon!`, `pkmnIn!`, `pkmnOut!` are unset for most of the run. `T-17` made the
-  modal-facing ones required component inputs; the remaining container fields still carry the
-  definite-assignment assertion.
-- `getGameState(): string` (`:213`) is invoked from `html:1` every change-detection pass **and widens
-  the type to `string`**, discarding any chance of the template type-checker catching a typo'd `@case`.
-  Bind `currentGameState` directly and delete the method.
-- `structuredClone` appears at seven sites with no stated ownership rule — one comment on `PokemonItem`
-  about who clones and why would save a future debugging session.
-
----
-
 # 4 · Dead code and configuration
-
-### CQ-23 — `finishCurrentState` returns a state it never emits
-- **Location:** `src/app/services/game-state-service/game-state.service.ts:100-109`
-- **Status:** [ ] open
-
-On an empty stack it returns `'game-over'` without calling `this.state.next(...)`, so the caller
-believes the game ended while the UI stays frozen. Either emit it or return `null` and let the caller
-decide — **the current shape is a lie in the type signature.** Same defect as `SEC-30e`, filed here as
-the contract problem it is.
-
----
 
 # 5 · Tests
 

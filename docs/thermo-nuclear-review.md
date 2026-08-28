@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**0 High · 2 Medium · 13 Low** (7 detailed as `SEC-20`–`SEC-29`, 14 tabulated under `SEC-30`).
+**0 High · 2 Medium · 2 Low.** Remaining: `SEC-14` (a decision), `SEC-15` and `SEC-29`, plus one `SEC-30` item — all owned by `T-34` and `T-35`.
 Three reviewers audited the codebase in parallel across game-flow
 core, domain services, and presentation/infra. Findings below are deduplicated, and every cited
 `file:line` was independently re-verified against the source before inclusion.
@@ -97,38 +97,6 @@ component), or raise the budget deliberately.
 
 # Low
 
-### SEC-24 — `ModalQueueService` produces an unhandled rejection per dismissed modal
-- **Severity:** Low · **Location:** `src/app/services/modal-queue-service/modal-queue.service.ts:26`
-
-`modalRef.result.finally(...)` returns a *new* promise that adopts the rejection when the modal is
-dismissed (backdrop, Esc, X). Nothing handles it, so every dismissal logs an uncaught rejection.
-`open()` returns `scheduledOpen` (line 42) with no caller attaching `.catch`. **Fix:** `.catch(() => {})`
-on the tracking chain. *The `dismissAll()` desync concern was traced and is sound* — `activeModal` is
-nulled at line 47 and the queue's `.then(ok, () => undefined)` absorbs the rejection.
-
-### SEC-25 — Two roulettes bypass `ModalQueueService`
-- **Severity:** Low · **Location:** `champion-battle-roulette.component.ts:59,71`, `rival-battle-roulette.component.ts:60`
-
-Both open game-flow modals through raw `NgbModal` while gym and elite-four use the queue. CLAUDE.md
-states the queue is preferred for anything game flow triggers; modals opened outside it are invisible
-to it and can be stacked on by a queued open.
-
-### SEC-28 — `evolvePokemon` treats "zero evolutions" as "many", pushing an empty wheel
-- **Severity:** Low (**latent**) · **Location:** `src/app/main-game/roulette-container/roulette-container.component.ts:903-913, 989-997`
-
-Branches on `length === 1` vs. else. If `getEvolutions()` returns `[]`, `auxPokemonList` is empty and
-`select-from-pokemon-list` is pushed → a zero-item wheel. `canEvolve` only checks the chain key exists
-(`evolution.service.ts:20-22`) while `getEvolutions` drops unresolvable targets, so the two can
-disagree in principle. All 484 `evolutionChain` entries were checked against the Dex and forms tables —
-**every target resolves today**, so this is unreachable now.
-
-**Severity reduced by `T-03`.** This originally inherited the permanent soft-lock from the old
-`spinWheel`. The wheel now refuses to spin when it has nothing to spin, so the consequence is a
-non-spinnable wheel and a stalled game state rather than a bricked UI — recoverable by restarting
-instead of only by reload.
-
-**Fix:** guard `if (length === 0) return this.finishCurrentState();` in both methods.
-
 ### SEC-29 — Karma config omits `src/assets`, making the real translation path untestable
 - **Severity:** Low · **Location:** `angular.json:91-96`
 
@@ -142,14 +110,7 @@ async-loader case is still untested.
 
 | # | Finding | Location |
 | --- | --- | --- |
-| e | `finishCurrentState()` underflow returns `'game-over'` **without emitting it**, so an over-pop would silently freeze on the previous state. No live trigger found. | `game-state.service.ts:66-75` |
-| g | Pokédex `localStorage` entries are not shape-validated; individual entries cast unchecked. Not a security issue (see Summary). | `pokedex.service.ts:259-272` |
-| h | `distinctUntilChanged()` on `pokedex$` is a no-op — `updatePokedex` always emits a fresh object. | `pokedex.service.ts:31` |
-| i | `getItems()` returns the **live** mutable array while `getTeam()`/`getStored()` return copies. `usePotion` splices it directly then calls `removeItem`, which no-ops. Works by accident; one `OnPush` component away from a real bug. | `trainer.service.ts:207` |
-| j | `replaceForEvolution`/`performTrade` fail silently on an `indexOf` identity miss while the caller has already consumed the item and shows the modal. Latent. | `trainer.service.ts:174-205` |
-| m | `getTrainerSprite` indexes `[generation][gender]` unguarded. Cannot fire today (data covers 1-9). | `trainer.service.ts:81-83` |
 | o | CI has no lint step (and no lint config in the repo) and no `npm audit`. `--if-present` on the build line is a no-op. | `.github/workflows/node.js.yml:29-31` |
-| q | Settings `localStorage` has no per-field type validation (`{...defaults, ...stored}`). Not prototype pollution; impact cosmetic. | `settings.service.ts:82-85` |
 
 ---
 

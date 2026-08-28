@@ -23,11 +23,16 @@ export class ModalQueueService {
       const modalRef = this.ngbModal.open(content, options);
       this.activeModal = modalRef;
 
-      modalRef.result.finally(() => {
-        if (this.activeModal === modalRef) {
-          this.activeModal = null;
-        }
-      });
+      // `.finally()` returns a *new* promise that adopts the rejection a dismissal produces
+      // (backdrop click, Esc, the X). Nothing consumes it, so without the catch every dismissed
+      // modal logged an unhandled rejection.
+      modalRef.result
+        .finally(() => {
+          if (this.activeModal === modalRef) {
+            this.activeModal = null;
+          }
+        })
+        .catch(() => undefined);
 
       return modalRef;
     };
@@ -39,6 +44,8 @@ export class ModalQueueService {
       () => undefined
     );
 
+    // Callers await the ref, not the outcome; a failed open must not surface as unhandled either.
+    scheduledOpen.catch(() => undefined);
     return scheduledOpen;
   }
 
