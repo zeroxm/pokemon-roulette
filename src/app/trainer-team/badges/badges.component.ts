@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Badge } from '../../interfaces/badge';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../services/theme-service/theme.service';
@@ -16,6 +16,7 @@ import { ImageFallbackDirective } from '../../directives/image-fallback.directiv
     TranslatePipe
   ],
   templateUrl: './badges.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './badges.component.css'
 })
 export class BadgesComponent {

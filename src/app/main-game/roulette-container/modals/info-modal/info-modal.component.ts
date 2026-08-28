@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 /**
@@ -11,6 +11,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-info-modal',
   imports: [],
   templateUrl: './info-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: '../modal-shared.css'
 })
 export class InfoModalComponent {

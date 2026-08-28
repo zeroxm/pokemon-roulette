@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LanguageSelectorComponent } from "../main-game/language-selector/language-selector.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { MainGameButtonComponent } from "../main-game-button/main-game-button.component";
@@ -19,6 +19,7 @@ import { SettingsService, GameSettings } from '../services/settings-service/sett
     CommonModule
 ],
   templateUrl: './settings.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent implements OnInit {

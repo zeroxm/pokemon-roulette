@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { PokemonItem } from '../interfaces/pokemon-item';
 import { Observable, Subscription } from 'rxjs';
 import { ThemeService } from '../services/theme-service/theme.service';
@@ -21,6 +21,7 @@ import { ImageFallbackDirective } from '../directives/image-fallback.directive';
     BadgesComponent,
     StoragePcComponent, TranslatePipe, PokedexComponent],
   templateUrl: './trainer-team.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trainer-team.component.css']
 })
 export class TrainerTeamComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -7,6 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-pokemon-from-aux-list-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './pokemon-from-aux-list-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokemon-from-aux-list-roulette.component.css'
 })
 export class PokemonFromAuxListRouletteComponent {

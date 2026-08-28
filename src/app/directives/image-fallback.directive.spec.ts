@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ImageFallbackDirective, IMAGE_FALLBACK_SRC } from './image-fallback.directive';
 
 @Component({
   standalone: true,
   imports: [ImageFallbackDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<img [src]="src"><img [src]="src" fallbackSrc="./custom.png">`,
 })
 class HostComponent {

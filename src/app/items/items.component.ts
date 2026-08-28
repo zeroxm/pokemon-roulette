@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable, Subscription } from 'rxjs';
 import { ItemItem } from '../interfaces/item-item';
@@ -15,6 +15,7 @@ import { ImageFallbackDirective } from '../directives/image-fallback.directive';
     ImageFallbackDirective,CommonModule,
     NgbTooltipModule, TranslatePipe],
   templateUrl: './items.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './items.component.css'
 })
 export class ItemsComponent implements OnInit, OnDestroy {

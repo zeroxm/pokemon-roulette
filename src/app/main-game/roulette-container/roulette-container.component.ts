@@ -1,4 +1,4 @@
-import { Component, DestroyRef, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
@@ -92,6 +92,7 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     EndGameComponent,
     GameOverComponent
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './roulette-container.component.html'
 })
 export class RouletteContainerComponent implements OnInit, OnDestroy {

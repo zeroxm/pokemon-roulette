@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
@@ -9,6 +9,7 @@ import { areaZeroParadoxPokemonIds } from './area-zero-pokemon';
   selector: 'app-area-zero-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './area-zero-roulette.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './area-zero-roulette.css',
 })
 export class AreaZeroRoulette {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService, Theme } from '../../services/theme-service/theme.service';
@@ -8,6 +8,7 @@ import { ThemeService, Theme } from '../../services/theme-service/theme.service'
   standalone: true,
   imports: [FormsModule, TranslatePipe],
   templateUrl: './theme-selector.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './theme-selector.component.css'
 })
 export class ThemeSelectorComponent {

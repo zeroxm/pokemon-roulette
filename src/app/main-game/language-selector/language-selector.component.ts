@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { Language } from '../../interfaces/language';
@@ -17,6 +17,7 @@ import { bootstrapCheck } from '@ng-icons/bootstrap-icons';
   providers: [
     provideIcons({ bootstrapCheck })
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true
 })
 export class LanguageSelectorComponent {

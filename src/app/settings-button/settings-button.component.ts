@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { GameStateService } from '../services/game-state-service/game-state.service';
@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
     TranslatePipe
   ],
   templateUrl: './settings-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './settings-button.component.css'
 })
 export class SettingsButtonComponent {

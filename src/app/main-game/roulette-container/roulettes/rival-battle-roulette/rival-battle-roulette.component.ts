@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
@@ -24,6 +24,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
     TranslatePipe
   ],
   templateUrl: './rival-battle-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './rival-battle-roulette.component.css'
 })
 export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {

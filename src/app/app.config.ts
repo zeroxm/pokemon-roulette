@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import {
   bootstrapArrowRepeat,
   bootstrapCheck,
@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
         bootstrapMap,
         bootstrapBook
        }),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     importProvidersFrom([TranslateModule.forRoot({
       loader: {

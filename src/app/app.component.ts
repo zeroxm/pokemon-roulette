@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
@@ -12,6 +12,7 @@ const DEFAULT_LANGUAGE = 'en';
   standalone: true,
   imports: [RouterOutlet, TranslateModule],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',
 })
 export class AppComponent {

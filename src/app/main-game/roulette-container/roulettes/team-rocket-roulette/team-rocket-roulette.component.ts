@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
@@ -11,6 +11,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
   imports: [
     ImageFallbackDirective,WheelComponent, TranslatePipe],
   templateUrl: './team-rocket-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './team-rocket-roulette.component.css'
 })
 export class TeamRocketRouletteComponent implements OnInit {

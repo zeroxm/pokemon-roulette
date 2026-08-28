@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
@@ -16,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     provideIcons({ bootstrapArrowRepeat })
   ],
   templateUrl: './restart-game-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './restart-game-button.component.css'
 })
 export class RestartGameButtonComponent {

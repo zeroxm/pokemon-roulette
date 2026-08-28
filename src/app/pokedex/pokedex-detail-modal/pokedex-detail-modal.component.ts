@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -20,6 +20,7 @@ import { ImageFallbackDirective } from '../../directives/image-fallback.directiv
   imports: [
     ImageFallbackDirective,CommonModule, TranslatePipe],
   templateUrl: './pokedex-detail-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokedex-detail-modal.component.css'
 })
 export class PokedexDetailModalComponent implements OnInit {
