@@ -6,7 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Angular 21 single-page game ("Pokémon Roulette"): a randomized Pokémon run driven by spinning wheels. Standalone components only (no NgModules), Bootstrap 5 + ng-bootstrap for UI/modals, `@ngx-translate` for i18n, deployed to GitHub Pages.
 
-> **A remediation campaign is in progress — read `docs/TASKS.md` before starting work.**
+> **A remediation campaign is in progress on `remediation/thermo-nuclear-audit`**
+> ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42), draft) — **read `docs/TASKS.md`
+> before starting work.** Do not commit to `main`; it tracks `origin/main` untouched so the PR shows
+> the whole change. Task branches fork from, and merge back into, the remediation branch.
 > Two whole-codebase audits produced `docs/thermo-nuclear-review.md` (correctness, `SEC-nn`) and
 > `docs/thermo-nuclear-code-quality-review.md` (maintainability, `CQ-nn`). `docs/TASKS.md` sequences
 > the fixes; `docs/CHANGELOG.md` lists observable changes for UAT.

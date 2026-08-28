@@ -6,19 +6,27 @@ Working list for clearing every finding in
 
 ## Process
 
-Each task: local branch → implement → verify → merge to `main` locally → tick here → **delete the
-covered findings from the report files**. When both reports are empty they get deleted, and only then
-does anything push to the remote.
+All work lands on **`remediation/thermo-nuclear-audit`**, which is open as
+[PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42) (draft) against `main`. **Local `main`
+tracks `origin/main` and must stay untouched** — every change lives on the branch so the PR shows the
+complete picture.
+
+Each task: task branch off the remediation branch → implement → verify → merge back into it → tick
+here → **delete the covered findings from the report files**. When both reports are empty they get
+deleted and the PR comes out of draft.
 
 ```bash
-git switch -c task/T-09-gen9-badge-keys
+git switch remediation/thermo-nuclear-audit
+git switch -c task/T-10-pokemon-unknown-key
 # implement + verify
-git switch main && git merge --no-ff task/T-09-gen9-badge-keys
-git branch -d task/T-09-gen9-badge-keys
+git switch remediation/thermo-nuclear-audit
+git merge --no-ff task/T-10-pokemon-unknown-key
+git branch -d task/T-10-pokemon-unknown-key
+git push                      # keeps the PR current for review
 ```
 
 Branch naming: `task/T-nn-short-slug`. Merges use `--no-ff` so each task stays a visible unit in
-history and can be reverted whole.
+history, is reviewable on its own in the PR, and can be reverted whole.
 
 ## Ordering rationale
 

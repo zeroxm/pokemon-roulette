@@ -7,7 +7,12 @@ Entries are added as tasks merge. Internal refactors with no visible effect are 
 **No observable change** — those still need a regression check (the game must behave *identically*),
 which is exactly what makes them worth listing.
 
-**Scope:** local `main` only. Nothing here has been pushed to the remote.
+**Scope:** the `remediation/thermo-nuclear-audit` branch —
+[PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42). Nothing here has reached `main`.
+
+```bash
+git switch remediation/thermo-nuclear-audit    # UAT runs against this branch, not main
+```
 
 ## How to run the UAT
 
