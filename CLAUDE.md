@@ -6,19 +6,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Angular 21 single-page game ("Pokémon Roulette"): a randomized Pokémon run driven by spinning wheels. Standalone components only (no NgModules), Bootstrap 5 + ng-bootstrap for UI/modals, `@ngx-translate` for i18n, deployed to GitHub Pages.
 
-> **A remediation campaign is in progress on `remediation/thermo-nuclear-audit`**
-> ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42), draft) — **read `docs/TASKS.md`
-> before starting work.** Do not commit to `main`; it tracks `origin/main` untouched so the PR shows
-> the whole change. Task branches fork from, and merge back into, the remediation branch.
-> Two whole-codebase audits produced `docs/thermo-nuclear-review.md` (correctness, `SEC-nn`) and
-> `docs/thermo-nuclear-code-quality-review.md` (maintainability, `CQ-nn`). `docs/TASKS.md` sequences
-> the fixes; `docs/CHANGELOG.md` lists observable changes for UAT.
+> **A remediation campaign has just landed** on `remediation/thermo-nuclear-audit`
+> ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42)). Two whole-codebase audits produced
+> 46 correctness and 26 maintainability findings; all but one are fixed. The reports are deleted;
+> `docs/CHANGELOG.md` is the UAT script and `docs/TASKS.md` the record of what was done — both go
+> once UAT passes.
 >
-> Several tasks are **structural refactors that delete the code other findings sit in** — e.g. the
-> planned `FormRuleService` removes ~180 lines of `TrainerService` that two High-severity bugs live in.
-> Check whether a file you are about to change is scheduled for restructuring before patching it by
-> hand, or your fix gets deleted. Findings are struck from the reports as tasks land; when the reports
-> are empty they are deleted and `main` pushes to the remote.
+> **One finding was deliberately left open** — see *Known accepted risk* below.
 
 ## Commands
 
@@ -33,7 +27,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit is scoped to production dependencies on purpose — a DoS in an image parser used only by the build is not a user risk, and gating on dev tooling would red-wall every PR for something unshippable. There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **230/230 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **299/299 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -53,23 +47,57 @@ These were raised deliberately. The previous values (1 MB / 4 kB) were breached 
 
 `GameStateService` (`src/app/services/game-state-service/`) is the spine. It holds a **stack** of `GameState` strings (see `game-state.ts` for the full union), pre-seeded in `initializeStates()` in reverse play order (`character-select` … 8 gyms … elite four … `game-finish`). Two operations drive everything:
 
-- `setNextState(s)` — push a state to run *next* (push in reverse order when queuing several).
-- `finishCurrentState()` — pop and emit; the emitted value is what the UI renders.
+- `setNextState(s)` — push one state to run *next*.
+- `setNextStates(a, b, …)` — queue several **in play order**; it does the stack reversal for you.
+- `finishCurrentState()` — pop and emit; the emitted value is what the UI renders and is returned.
 
-`RouletteContainerComponent` subscribes to `currentState` and its template is one big `@switch` over the state, rendering exactly one roulette component per state. Its handler methods are the transition table: each handler pushes any follow-up states then calls its own `finishCurrentState()` wrapper (which also implements the running-shoes re-spin). This component is ~1000 lines and is where new game flow belongs.
+`GameStateService` also owns `runModifiers` — the rules that span a whole run (evolution credits,
+exp-share, running shoes, a stolen Pokémon). They live there rather than on the container because
+the container is never destroyed, so a restart would otherwise leave them set.
+
+`RouletteContainerComponent` subscribes to `currentState`; its template is one `@switch` over the
+state rendering exactly one roulette per state, with a `@default` arm so an unhandled state fails
+loudly instead of blanking the screen. Its handler methods are the transition table. It is ~1050
+lines and is where new game flow belongs.
+
+**Selections carry their own continuation.** Both "pick one of these" states —
+`select-from-pokemon-list` and `select-from-item-list` — are driven by `PendingSelection<T>`
+(`roulette-container/selection/`), which bundles the wheel title, the options, and what to do with
+the choice. Queue one with `requestPokemonSelection` / `requestItemSelection`; the continuation
+**owns advancing the state machine**, so push any follow-up state *before* calling
+`finishCurrentState()`.
+
+Consolation prizes — what the player gets when a branch offers an evolution but nothing can evolve —
+are a `Record<EventSource, ConsolationPrize>` table in `roulette-container/consolation/`. Adding an
+`EventSource` member without a row is a compile error.
 
 `EventSource` (`src/app/main-game/EventSource.ts`) tags *why* a shared state was entered (e.g. `chooseWhoWillEvolve` fires from gym battles, daycare, rival battles) so the container can pick the right consolation prize when the branch is a dead end.
 
 ### Roulettes
 
 Every roulette is a thin standalone component that:
-1. builds an array of `WheelItem`s (`text` is a **translation key**, plus `fillStyle` and `weight`),
-2. renders `<app-wheel [items]="…" (selectedItemEvent)="…">` (`src/app/wheel/wheel.component.ts` — canvas-drawn wheel, weighted random via `getRandomWeightedIndex()`, click SFX, theme-aware),
+1. builds an array of `WheelItem`s (`text` is a **translation key**, plus `fillStyle`; `weight` is
+   optional and defaults to 1),
+2. renders `<app-wheel [items]="…" (selectedItemEvent)="…">`,
 3. emits the chosen domain object upward to the container.
 
-Wheel fairness/weighting is covered by statistical tests in `wheel.component.spec.ts` — keep those passing when touching selection logic.
+`WheelComponent` draws the canvas; selection and animation live outside it —
+`utils/weighted-random.ts` (`pickWeightedIndex`, with an injectable `random` so boundaries are
+testable) and `wheel/spin-animation.ts`. The wheel refuses to spin until translations have resolved
+and releases the global `wheelSpinning` gate on any throw; that gate disables most of the UI, so
+never latch it without a path that clears it.
 
-Per-generation content lives in sibling data files next to each roulette (`fish-by-generation.ts`, `gym-leaders-by-generation.ts`, `legendaries-by-generation.ts`, …), keyed by generation id 1–9. Battle roulettes (gym / elite four / champion) extend the abstract `BaseBattleRouletteComponent`, which owns victory-odds recalculation, potion retries, and X-Attack modifiers.
+Per-generation content lives in sibling data files (`fish-by-generation.ts`,
+`gym-leaders-by-generation.ts`, …), keyed by generation id 1–9. **Five pool roulettes — fishing,
+fossil, legendary, starter, cave — are one `PokemonPoolRouletteComponent`** driven by
+`POKEMON_POOLS`; add a pool by adding a row, not a component. The other 26 roulettes are
+deliberately separate: they emit into different typed outputs and collapsing them would trade
+compile-time checking for runtime string matching.
+
+Battle roulettes (gym / elite four / champion / rival) extend `BaseBattleRouletteComponent`, which
+owns `buildVictoryOdds` — the whole win/lose wheel, parameterised by `outcomeKeyPrefix` and
+`baseNoOdds` (the difficulty curve: gym 1, elite four 2, champion 3) — plus potion retries and
+X-Attack modifiers.
 
 ### Domain data
 
@@ -77,11 +105,15 @@ Per-generation content lives in sibling data files next to each roulette (`fish-
 
 ### Services (all `providedIn: 'root'`, BehaviorSubject-based)
 
-- `TrainerService` — team, PC storage, items, badges; also owns form swapping (mega/gigantamax/sticky/battle-only forms) applied and reverted around battle states.
+- `TrainerService` — team, PC storage, items, badges. It no longer manipulates forms.
+- `FormRuleService` — **every** form change: mega, sticky (Aegislash, Ogerpon), and battle-only
+  (Palafin). One `FormRule` table with three axes — scope, persistence, selection. Apply is
+  idempotent, revert sweeps storage as well as the team, and revert bookkeeping always clears. Add a
+  mechanic by adding a rule, not another code path.
 - `GenerationService` — the selected generation drives nearly all content lookups.
 - `ItemsService` / `MegaStoneService` / `RareCandyService` — item catalogs and mid-game item interrupts (rare candy and mega stones bypass the wheel; both are gated on `wheelSpinning`).
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.
-- `SoundFxService` — WebAudio handles for the mp3s in `public/`; honors the mute setting.
+- `SoundFxService` — `playSoundFx('click')`; sounds are named by a `SoundFxName` union, not by per-caller handles. Honors the mute setting.
 - `SettingsService` / `ThemeService` — persisted to `localStorage` (`pokemon-roulette-settings`, `pokemon-roulette-theme`).
 - `PokedexService`, `BadgesService`, `EvolutionService`, `TypeMatchupService`, `AnalyticsService` (GA id in `src/environments/`).
 
@@ -89,7 +121,7 @@ Per-generation content lives in sibling data files next to each roulette (`fish-
 
 Six locales in `src/assets/i18n/*.json` (en, pt, es, fr, de, it), loaded over HTTP by `TranslateHttpLoader`. User-facing strings are **never** literals — data files store dotted keys (`items.potion.name`, `game.main.roulette.fishing.title`) that templates resolve with the `translate` pipe. Adding a string means adding it to all six files.
 
-**All six files hold an identical key set** (2,196 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
+**All six files hold an identical key set** (2,204 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
 
 ```bash
 node -e "const p=(o,x='')=>Object.entries(o).flatMap(([k,v])=>typeof v==='object'&&v?p(v,x+k+'.'):[x+k]);const b=p(require('./src/assets/i18n/en.json')).sort();for(const l of ['pt','es','fr','de','it']){const o=p(require('./src/assets/i18n/'+l+'.json')).sort();console.log(l,b.filter(k=>!o.includes(k)).length||o.filter(k=>!b.includes(k)).length?'DIVERGENT':'ok')}"
@@ -108,4 +140,16 @@ Badge names follow a per-locale house pattern (`Fire Badge` / `Insígnia de Fogo
 - Components live in their own folder with `.ts`/`.html`/`.css`/`.spec.ts`. Services live in `services/<name>-service/`, with bulk data in adjacent `*-data.ts` / `*.json` files rather than inside the service.
 - Specs use `TestBed.configureTestingModule({ imports: [Component, TranslateModule.forRoot()] })`.
 - Two spacing indent, single quotes in TypeScript (`.editorconfig`).
-- Static assets go in `public/` (served from the app root, referenced as `./name.mp3`); translation JSON goes in `src/assets/`.
+- Static assets go in `public/` (referenced as `./name.mp3`); translation JSON goes in `src/assets/`.
+- Game-flow modals are components under `roulette-container/modals/`, opened through
+  `ModalQueueService` and closed with `NgbActiveModal` — not inline `ng-template` + `dismissAll()`.
+- `<img>` gets a local placeholder on error automatically in any component that imports
+  `ImageFallbackDirective`; import it when adding a component that renders remote images.
+
+## Known accepted risk
+
+**~2,400 sprites are hot-linked from `raw.githubusercontent.com`** — a source-fetch endpoint with
+unauthenticated per-IP rate limits, not a CDN — at a moving branch. Failure is now *cosmetic*: every
+image falls back to a local placeholder and the one sprite fetcher handles errors. Eliminating it
+means pinning to a commit SHA (freezes artwork) or vendoring the sprites (repo size, deploy weight).
+That trade-off is open; centralise the base URL first so it is one edit rather than 2,400.

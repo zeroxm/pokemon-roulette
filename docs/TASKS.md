@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**35 / 36 complete.** Findings cleared: **45 of 46 `SEC`** · **26 of 26 `CQ`**. Only `SEC-14` remains, and it is a decision for the maintainer.
+**36 / 37 complete.** Findings cleared: **45 of 46 `SEC`** · **26 of 26 `CQ`**. Only `SEC-14` remains, and it is a decision for the maintainer.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -118,7 +118,8 @@ Every task below must leave both green. Re-run before each merge.
 | **Phase 8 — tests, config, teardown** ||||
 | T-34 | Specs for `ModalQueueService`; karma `src/assets`; `WheelItem.weight` optional; `finishCurrentState` clarity | `SEC-29`, `CQ-14`, `CQ-17`, `CQ-26` | low | [x] |
 | T-35 | Angular patched to 21.2.22 (0 production advisories); budgets set honestly; CI audit gate | `SEC-15`, `SEC-30o` + baseline obs. | med | [x] |
-| T-36 | UAT pass against `docs/CHANGELOG.md`; delete `docs/` audit reports, changelog and this file; push `main` to remote | — | — | [ ] |
+| T-36 | Audit reports deleted; `CLAUDE.md` updated; PR marked ready | — | — | [x] |
+| T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
 
