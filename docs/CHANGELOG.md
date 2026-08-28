@@ -34,19 +34,6 @@ spec covers.
 | 4 | T-13 | Trigger a **Multitask** result on the adventure wheel, in a non-English locale. | The re-spin label reads e.g. *Multitarefa x2* (pt) / *Multitasking x2* (de) — not English `Multitask x2`. Then trigger a **Running Shoes** re-spin and confirm that label is still correct. | [ ] |
 | 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
 
-
-
-### Regression watch for the above
-
-| # | Check | Expected | ✓ |
-| --- | --- | --- | --- |
-| R1 | Badges in generations **1–8** | Unchanged — the 67 pre-existing badge names still render correctly in all six locales. | [ ] |
-| R6 | **Other generations' fishing wheels unchanged** | Gen 1–7 and gen 9 fishing wheels still show their usual species and label sizes. | [ ] |
-| R2 | **Wheel selection is honest** (T-03 touched the spin math) | Spin a large wheel — the gen-9 cave wheel has 73 segments — several times. The pointer must stop on the **same** segment the game then acts on. Also spin a 2-option wheel and a weighted wheel (gym battle odds) and confirm outcomes look right. | [ ] |
-| R4 | **All six locales still load** (T-14 changed language selection) | Switch through every language in the selector; each applies and survives a reload. | [ ] |
-| R5 | **Elite Four prep wheel** (T-16 deleted an orphan key from that section) | The prep wheel shows its full set of options with correct labels — nothing blank or raw. | [ ] |
-| R3 | **Language switch mid-game** (T-03 changed when the wheel is considered ready) | Switch language while a wheel is on screen. Labels retranslate, the button stays usable, and the wheel still spins. | [ ] |
-
 ---
 
 ## No observable change — regression only
