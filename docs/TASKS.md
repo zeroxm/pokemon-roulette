@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**15 / 36 complete.** Findings cleared: 12 of 46 `SEC` · 7 of 26 `CQ`.
+**16 / 36 complete.** Findings cleared: 12 of 46 `SEC` · 8 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -95,7 +95,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-15 | Pass the real `EventSource`; adds an `elite-four-battle` member + consolation copy | `SEC-30l` | low | [x] |
 | T-16 | Delete the orphan i18n key `…elite.prep.actions.catchPokemon` from six locales | report note | low | [x] |
 | **Phase 4 — container decomposition** ||||
-| T-17 | Extract the 6 inline `ng-template` modals into components | `CQ-07`, `CQ-18` (partial) | med | [ ] |
+| T-17 | Extract the 6 inline `ng-template` modals into 4 components | `CQ-07`, `CQ-18` (partial) | med | [x] |
 | T-18 | Add `setNextStates(...)`; collapse the 7 reverse-push pairs | `CQ-11` | low | [ ] |
 | T-19 | Add `showModalThenContinue`; fold the 12 repeated modal option literals | `CQ-12` | med | [ ] |
 | T-20 | Consolation-prize `Record<EventSource, …>` table + outcome-based test rewrite | `CQ-06`, `CQ-25` | med | [ ] |

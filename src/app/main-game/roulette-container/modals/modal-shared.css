@@ -1,3 +1,6 @@
+/* Shared chrome for the game-flow modals. The three panel classes this replaces
+   (.item-panel, .pokemon-switch-panel, .explain-panel) were byte-identical. */
+
 .modal-footer {
 	justify-content: center;
 }
@@ -11,14 +14,7 @@
 	font-size: medium;
 }
 
-.explain-panel {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-}
-
-.pokemon-switch-panel {
+.panel {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -42,11 +38,4 @@
 		inset 0 0 0 1px black;
 	user-select: none;
 	max-width: 50%;
-}
-
-.item-panel {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
 }

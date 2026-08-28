@@ -4,7 +4,7 @@ Generated **2026-08-27** · commit **`a00ea99`** · scope: **whole codebase** (n
 
 ## Summary
 
-**19 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
+**18 findings** (`CQ-01`–`CQ-26`; `CQ-05`, `CQ-07`, `CQ-19`–`CQ-22`, `CQ-24` cleared). Three reviewers audited game-flow core, domain services, and presentation/infra in
 parallel, independently of the correctness pass in
 [thermo-nuclear-review.md](thermo-nuclear-review.md). Findings are deduplicated and every cited
 `file:line` was re-verified against source.
@@ -253,32 +253,7 @@ repeat the same `unknown.png` URL three times (`:281, 299, 308`).
 **Remedy:** a `Record<EventSource, ConsolationPrize>` in `roulette-container/consolation-prizes.ts`
 with `{ text, sprite, description, action }`. The `Record` type makes the compiler **demand a row for
 every new `EventSource`** — today the `default:` at `:317-318` silently swallows one. Sixty lines
-become ~12: look up, open the modal if `action !== 'none'`, dispatch. Do this *after* `CQ-07` so the
-modal call site is already one line.
-
----
-
-### CQ-07 — Six inline `ng-template` modals cost 10 fields and 94 lines of HTML
-- **Location:** `roulette-container.component.ts:174-179` · `roulette-container.component.html:217-310`
-- **Status:** [ ] open
-
-**What:** Six `@ViewChild(..., TemplateRef<any>)` (verified: exactly 6) require ten fields existing
-purely as modal view-model — `altPrizeDescription`, `altPrizeSprite`, `altPrizeText`,
-`infoModalMessage`, `infoModalTitle`, `pkmnEvoTitle`, `pkmnIn`, `pkmnOut`, `pkmnTradeTitle`,
-`currentContextItem`.
-
-**The codebase already knows the better pattern** — `showMegaEvolutionAnimation` (`:870-884`) opens a
-real component and sets `componentInstance` inputs. `ModalQueueService` already accepts a component
-type.
-
-**Remedy:** extract `AltPrizeModalComponent`, `InfoModalComponent`, `ItemActivateModalComponent`,
-`PokemonSwitchModalComponent` and `TeamRocketFailsModalComponent`. Note `pkmnEvoModal` and
-`pkmnTradeModal` are the **same markup** (`html:232-262`, differing in three translation keys), so one
-component with `title`/`sentKey`/`receivedKey` inputs covers both: six templates → four components.
-The ten fields become inputs scoped to the modal's lifetime; the template drops 94 lines to ~215.
-
-**This is the safest first step in the whole migration** — pure mechanical extraction, zero logic
-change, biggest immediate line reduction.
+become ~12: look up, open the modal if `action !== 'none'`, dispatch. Do this *after* `T-17` (done) — the modal call site is now one line.
 
 ---
 
@@ -502,11 +477,9 @@ removes one line per entry from every data table in the project.
 
 - `stolenPokemon!: PokemonItem | null` (`:208`) — a definite-assignment assertion on a nullable field is
   self-contradictory. Use `= null`.
-- `TemplateRef<any>` ×6 (`:174-179`) — disappears with `CQ-07`.
-- `currentContextItem!`, `currentContextPokemon!`, `pkmnIn!`, `pkmnOut!` are unset for most of the run,
-  yet `html:236` dereferences `pkmnOut.sprite?.front_default` — the `?.` on `sprite` but not on
-  `pkmnOut` shows someone already hit this. `CQ-07` makes them required inputs.
-- `grantMegaStone`'s empty `else` with only a comment (`:747-749`) is dead — delete the branch.
+- `currentContextPokemon!`, `pkmnIn!`, `pkmnOut!` are unset for most of the run. `T-17` made the
+  modal-facing ones required component inputs; the remaining container fields still carry the
+  definite-assignment assertion.
 - `getGameState(): string` (`:213`) is invoked from `html:1` every change-detection pass **and widens
   the type to `string`**, discarding any chance of the template type-checker catching a typo'd `@case`.
   Bind `currentGameState` directly and delete the method.
@@ -589,8 +562,8 @@ and deliberately cleared.
   `[forms]`) and wire 1 to 18 outputs each. A registry would be **more** code than the template, lose
   template type-checking on every input, lose AOT-compiled output binding, and turn "which component
   handles `catch-paradox`?" into a runtime question instead of a Ctrl-F. The switch is honest and
-  exhaustively greppable. Its only real problem is sharing a file with 94 lines of modal markup, which
-  `CQ-07` fixes.
+  exhaustively greppable. Its only real problem was sharing a file with 94 lines of modal markup,
+  which `T-17` removed.
 - **`TrainerService` should not be split four ways.** Team, PC storage, items and badges are one
   aggregate: `addToTeam` overflows into `storedPokemon`, and `getMegaStoneEligiblePokemon` /
   `resolveMegaStoneForBattle` need team *and* items together. Badges are 30 lines. Four services buys
@@ -629,7 +602,7 @@ are mostly independent of each other.
 | 1 | ~~`noUnusedLocals` + `noUnusedParameters`~~ **done (`T-02`)** | `CQ-21` | — |
 | 2 | ~~Delete `DarkModeService`, `DarkModeToggleComponent`, the dead injections, the legacy CSS~~ **done (`T-05`)** | `CQ-05` | — |
 | 3 | ~~Declare `@angular/localize`; drop 3 unused deps; delete the dead methods and orphan JSON files~~ **done (`T-04`, `T-06`)** | `CQ-19`, `CQ-20` | — |
-| 4 | Extract the six inline modals into components | `CQ-07` | Low — pure mechanical |
+| 4 | ~~Extract the six inline modals into components~~ **done (`T-17`)** | `CQ-07` | — |
 | 5 | Add `setNextStates(...)`, collapse the seven reverse-push pairs | `CQ-11` | Low |
 | 6 | Add `showModalThenContinue`; decide the `stealPokemon` / `lessExplanations` question | `CQ-12` | Low |
 | 7 | Consolation-prize table + rewrite the eight spies as one outcome test | `CQ-06`, `CQ-25` | Medium |

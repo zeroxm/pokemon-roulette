@@ -71,6 +71,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | N6 | T-07 | Replaced `GENERATION_GAME_CONFIG` — nine identical rows of `{ gymCount: 8, eliteFourCount: 4 }` consulted through a fallback of the same value — with two named constants. `GameStateService` no longer injects `GenerationService`. | **League shape must be unchanged.** Play a run and count: 8 gyms with an "adventure continues" between each (7 of them), then Elite Four prep, then 4 Elite Four battles, then the champion. Do this on **two different generations** to confirm nothing was generation-specific. Restart mid-run and confirm the same shape rebuilds. | [ ] |
 | N7 | T-08 | Removed a dead `Array.isArray(x.quotes) ? x.quotes : x.quotes` ternary from the gym, elite-four and champion roulettes, plus rival's differently-dead variant. `quotes` is typed `string[]` and all 126 data entries are arrays, so the check was always true. | **Split-trainer battles are the check.** These sites only run where one entry covers two trainers: **gym gen 5 & gen 8**, **elite four**, **champion**, and **rival gen 6** (Serena/Calem, chosen by player gender). Reach one of each and confirm the opponent's name, sprite and quote all belong to the *same* trainer — a mismatch would mean the index wiring broke. | [ ] |
 
+| N8 | T-17 | The six inline `ng-template` modals moved out of the container into four components under `roulette-container/modals/`. Evolve+trade merged (identical markup, two differing phrases); consolation-prize+item-activation merged likewise. The container's stylesheet — which was 100% modal styling — was deleted, its rules moving to a shared `modal-shared.css`. | **Every modal must look and behave exactly as before.** Open all six: a consolation prize (win a battle with nothing able to evolve), an item activating (Escape Rope), an evolution, a trade, the Team Rocket recovery notice, and the Team Rocket failure (Entei). Check for each: heading, sprite(s), message text, button label, and that the **Ok button closes only that modal** — any queued modal behind it must still appear. | [ ] |
+
 ### Notes on N2
 
 - **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
@@ -82,6 +84,20 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 - **Watch for unstyled backgrounds.** The deleted CSS rules set the same colours as `theme-plain-dark`
   / `theme-plain-light`, and only source order made them harmless. If any surface loses its background,
   this is the change that did it.
+
+### Notes on N8
+
+- **CSS is the risk.** Angular scopes component styles, so markup moving into a child component
+  loses the parent's rules. All shared modal styling was moved to `modal-shared.css` and the three
+  identical panel classes (`.item-panel`, `.pokemon-switch-panel`, `.explain-panel`) collapsed into
+  one `.panel`. If a modal looks unstyled — wrong layout, missing message box border, sprites
+  stacked vertically — this is the change that did it.
+- **Closing changed mechanism.** The templates called the container's `closeModal()`, which ran
+  `dismissAll()` and tore down *every* open modal. Each component now closes only itself via
+  `NgbActiveModal`. This is the intended behaviour, but it is a real behavioural difference worth
+  watching where modals chain.
+- The Entei image's `alt` text was a hardcoded Portuguese in-joke; it now uses the existing
+  `pokemon.entei` key and is localised.
 
 ### Notes on N3
 
