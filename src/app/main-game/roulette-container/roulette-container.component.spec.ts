@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
 import { ItemModalComponent } from './modals/item-modal/item-modal.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import {
   bootstrapArrowRepeat,
   bootstrapBook,
@@ -36,8 +36,9 @@ describe('RouletteContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouletteContainerComponent, TranslateModule.forRoot()],
+      imports: [RouletteContainerComponent],
       providers: [
+        provideTranslateService(),
         provideIcons({
           bootstrapArrowRepeat,
           bootstrapBook,
@@ -50,7 +51,7 @@ describe('RouletteContainerComponent', () => {
           bootstrapPcDisplayHorizontal,
           bootstrapPeopleFill,
           bootstrapShare,
-        }),
+        })
       ],
     })
     .compileComponents();
@@ -314,7 +315,7 @@ describe('RouletteContainerComponent', () => {
       { source: 'visit-daycare',         follow: 'mysteriousEgg', titleKey: 'game.main.altPrizes.visitDaycare.egg',       sprite: 'mystery-egg.png' },
       { source: 'battle-rival',          follow: 'findItem',      titleKey: 'game.main.altPrizes.battleRival.item',       sprite: 'unknown.png' },
       { source: 'team-rocket-encounter', follow: 'findItem',      titleKey: 'game.main.altPrizes.teamRocket.item',        sprite: 'unknown.png' },
-      { source: 'snorlax-encounter',     follow: 'findItem',      titleKey: 'game.main.altPrizes.snorlax.item',           sprite: 'unknown.png' },
+      { source: 'snorlax-encounter',     follow: 'findItem',      titleKey: 'game.main.altPrizes.snorlax.item',           sprite: 'unknown.png' }
     ];
 
     for (const { source, follow, titleKey, sprite } of cases) {
@@ -343,7 +344,7 @@ describe('RouletteContainerComponent', () => {
     it('every EventSource has a prize row, and each row is fully populated', () => {
       const sources: EventSource[] = [
         'battle-trainer', 'gym-battle', 'elite-four-battle', 'visit-daycare',
-        'team-rocket-encounter', 'snorlax-encounter', 'battle-rival', 'rare-candy',
+        'team-rocket-encounter', 'snorlax-encounter', 'battle-rival', 'rare-candy'
       ];
 
       for (const source of sources) {

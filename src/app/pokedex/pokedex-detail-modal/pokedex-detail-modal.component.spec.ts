@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { PokedexDetailModalComponent } from './pokedex-detail-modal.component';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
@@ -36,10 +36,10 @@ describe('PokedexDetailModalComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        PokedexDetailModalComponent,
-        TranslateModule.forRoot()
+        PokedexDetailModalComponent
       ],
       providers: [
+        provideTranslateService(),
         { provide: NgbActiveModal, useValue: mockActiveModal },
         { provide: PokemonService, useValue: mockPokemonService },
         { provide: PokemonFormsService, useValue: mockFormsService }
@@ -127,7 +127,7 @@ describe('PokedexDetailModalComponent', () => {
   it('hasAlternateForms is true when getFormIds returns array length > 1', () => {
       mockFormsService.getPokemonForms.and.returnValue([
         { pokemonId: 10001, text: 'form1', fillStyle: 'red', weight: 1, type1: 'fire', type2: null },
-        { pokemonId: 10002, text: 'form2', fillStyle: 'blue', weight: 1, type1: 'water', type2: null },
+        { pokemonId: 10002, text: 'form2', fillStyle: 'blue', weight: 1, type1: 'water', type2: null }
       ]);
     expect(component.hasAlternateForms).toBeTrue();
   });

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -67,8 +67,9 @@ describe('GymBattleRouletteComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [GymBattleRouletteComponent, TranslateModule.forRoot()],
-      providers: [{ provide: HttpClient, useValue: httpSpyObj }],
+      imports: [GymBattleRouletteComponent],
+      providers: [
+        provideTranslateService(),{ provide: HttpClient, useValue: httpSpyObj }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GymBattleRouletteComponent);
@@ -195,7 +196,7 @@ describe('GymBattleRouletteComponent', () => {
 
   it('should emit true on winning spin regardless of retries', () => {
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 },
+      { text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 }
     ];
     (component as any).retries = 3;
     spyOn(component.battleResultEvent, 'emit');
@@ -210,7 +211,7 @@ describe('GymBattleRouletteComponent', () => {
     // Directly assign trainerItems to bypass resetItems() reference staleness
     (component as any).trainerItems = [POTION_ITEM];
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1; // will be decremented to 0, triggering potion check
     spyOn(component.battleResultEvent, 'emit');
@@ -226,7 +227,7 @@ describe('GymBattleRouletteComponent', () => {
   it('should emit false on failed spin when retries exhausted and no potion available', () => {
     (component as any).trainerItems = []; // no potions
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1;
     spyOn(component.battleResultEvent, 'emit');

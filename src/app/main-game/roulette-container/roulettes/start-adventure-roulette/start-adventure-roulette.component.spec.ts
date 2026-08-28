@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StartAdventureRouletteComponent } from './start-adventure-roulette.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('StartAdventureRouletteComponent', () => {
   let component: StartAdventureRouletteComponent;
@@ -9,7 +9,8 @@ describe('StartAdventureRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StartAdventureRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [StartAdventureRouletteComponent]
     })
     .compileComponents();
 

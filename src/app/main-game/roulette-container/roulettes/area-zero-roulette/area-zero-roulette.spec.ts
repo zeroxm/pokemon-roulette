@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
 
@@ -22,8 +22,9 @@ describe('AreaZeroRoulette', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AreaZeroRoulette, TranslateModule.forRoot()],
+      imports: [AreaZeroRoulette],
       providers: [
+        provideTranslateService(),
         {
           provide: PokemonService,
           useValue: {

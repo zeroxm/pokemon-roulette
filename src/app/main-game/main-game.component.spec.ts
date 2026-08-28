@@ -13,7 +13,7 @@ import {
   bootstrapPcDisplayHorizontal,
   bootstrapShare,
 } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 
 describe('MainGameComponent', () => {
@@ -27,10 +27,10 @@ describe('MainGameComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         MainGameComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
+        provideTranslateService(),
         provideIcons({
           bootstrapShare,
           bootstrapClock,

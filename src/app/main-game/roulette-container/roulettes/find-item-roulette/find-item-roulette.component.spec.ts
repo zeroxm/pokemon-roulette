@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { FindItemRouletteComponent } from './find-item-roulette.component';
 
@@ -9,7 +9,8 @@ describe('FindItemRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FindItemRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [FindItemRouletteComponent]
     })
     .compileComponents();
 

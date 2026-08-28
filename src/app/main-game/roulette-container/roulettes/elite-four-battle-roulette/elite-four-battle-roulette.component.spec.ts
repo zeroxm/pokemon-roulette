@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -46,8 +46,9 @@ describe('EliteFourBattleRouletteComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [EliteFourBattleRouletteComponent, TranslateModule.forRoot()],
-      providers: [{ provide: HttpClient, useValue: httpSpyObj }],
+      imports: [EliteFourBattleRouletteComponent],
+      providers: [
+        provideTranslateService(),{ provide: HttpClient, useValue: httpSpyObj }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EliteFourBattleRouletteComponent);
@@ -100,7 +101,7 @@ describe('EliteFourBattleRouletteComponent', () => {
     spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({} as NgbModalRef));
     (component as any).trainerItems = [HYPER_POTION_ITEM];
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1;
     spyOn(component.battleResultEvent, 'emit');

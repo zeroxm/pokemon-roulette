@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { GenerationRouletteComponent } from './generation-roulette.component';
 import { HttpClient } from '@angular/common/http';
@@ -12,8 +12,9 @@ describe('GenerationRouletteComponent', () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [GenerationRouletteComponent, TranslateModule.forRoot()],
+      imports: [GenerationRouletteComponent],
       providers: [
+        provideTranslateService(),
         {provide: HttpClient, useValue: httpSpyObj }
       ],
     })

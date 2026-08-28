@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PokemonPoolRouletteComponent } from './pokemon-pool-roulette.component';
 import { POKEMON_POOLS, PokemonPoolId } from './pokemon-pools';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -14,7 +14,8 @@ describe('PokemonPoolRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokemonPoolRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [PokemonPoolRouletteComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PokemonPoolRouletteComponent);

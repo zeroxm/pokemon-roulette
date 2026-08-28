@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { provideIcons } from '@ng-icons/core';
 import { bootstrapBook } from '@ng-icons/bootstrap-icons';
 import { of } from 'rxjs';
@@ -35,13 +35,14 @@ describe('PokedexComponent', () => {
       nationalDexPokemon: [{ pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 }]
     });
     await TestBed.configureTestingModule({
-      imports: [PokedexComponent, TranslateModule.forRoot()],
+      imports: [PokedexComponent],
       providers: [
+        provideTranslateService(),
         provideIcons({ bootstrapBook }),
         { provide: NgbModal, useValue: modalServiceSpy },
         { provide: PokedexService, useValue: pokedexServiceSpy },
         { provide: GenerationService, useValue: generationServiceSpy },
-        { provide: PokemonService, useValue: pokemonServiceSpy },
+        { provide: PokemonService, useValue: pokemonServiceSpy }
       ]
     }).compileComponents();
 
