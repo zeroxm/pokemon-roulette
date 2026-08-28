@@ -35,12 +35,20 @@ spec covers.
 | 1 | T-09 | Start a **Generation 9 (Paldea)** run and win any gym. Open the badges panel and hover each badge. | Every badge shows a real name (**Bug Badge**, **Grass Badge**, **Electric Badge**, **Water Badge**, **Normal Badge**, **Ghost Badge**, **Psychic Badge**, **Ice Badge**) — never a raw string like `badges.bug_paldea`. | [ ] |
 | 2 | T-09 | Switch the language selector through **all six** locales (en, pt, es, fr, de, it) with gen-9 badges earned. | Badge names are translated in each. Portuguese shows *Insígnia Elétrica* / *Insígnia Normal*; German shows *Elektro-Orden* / *Normal-Orden*. No raw keys in any language. | [ ] |
 
+| 3 | T-10 | Open the Pokédex and find an entry the app can't resolve (rare — a form id outside the National Dex). Failing that, confirm no entry anywhere shows the literal `pokemon.unknown`. | The fallback label reads **Unknown Pokémon** (localised), never the raw key. | [ ] |
+| 4 | T-13 | Trigger a **Multitask** result on the adventure wheel, in a non-English locale. | The re-spin label reads e.g. *Multitarefa x2* (pt) / *Multitasking x2* (de) — not English `Multitask x2`. Then trigger a **Running Shoes** re-spin and confirm that label is still correct. | [ ] |
+| 5 | T-13 | Hover an **empty item slot** in the items bar, in a non-English locale. | Tooltip reads *Vazio* / *Vacío* / *Vide* / *Leer* / *Vuoto* — not English "Empty". | [ ] |
+| 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
+| 7 | T-14 | In devtools run `localStorage.setItem('language','../../../x')` and reload. | App loads normally in **English**. No failed request for a weird i18n path in the Network tab. Then set a valid `'pt'`, reload, and confirm Portuguese is restored. | [ ] |
+
 ### Regression watch for the above
 
 | # | Check | Expected | ✓ |
 | --- | --- | --- | --- |
 | R1 | Badges in generations **1–8** | Unchanged — the 67 pre-existing badge names still render correctly in all six locales. | [ ] |
 | R2 | **Wheel selection is honest** (T-03 touched the spin math) | Spin a large wheel — the gen-9 cave wheel has 73 segments — several times. The pointer must stop on the **same** segment the game then acts on. Also spin a 2-option wheel and a weighted wheel (gym battle odds) and confirm outcomes look right. | [ ] |
+| R4 | **All six locales still load** (T-14 changed language selection) | Switch through every language in the selector; each applies and survives a reload. | [ ] |
+| R5 | **Elite Four prep wheel** (T-16 deleted an orphan key from that section) | The prep wheel shows its full set of options with correct labels — nothing blank or raw. | [ ] |
 | R3 | **Language switch mid-game** (T-03 changed when the wheel is considered ready) | Switch language while a wheel is on screen. Labels retranslate, the button stays usable, and the wheel still spins. | [ ] |
 
 ---

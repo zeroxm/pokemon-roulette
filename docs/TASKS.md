@@ -41,7 +41,7 @@ of everything.
 
 ## Status
 
-**9 / 36 complete.** Findings cleared: 5 of 46 `SEC` · 7 of 26 `CQ`.
+**14 / 36 complete.** Findings cleared: 10 of 46 `SEC` · 7 of 26 `CQ`.
 
 ### Verified baseline — commit `4f14d63`, 2026-08-27
 
@@ -87,13 +87,13 @@ Every task below must leave both green. Re-run before each merge.
 | T-08 | Remove the dead `quotes` ternary from all 4 battle roulettes | `CQ-19` | low | [x] |
 | **Phase 3 — data and i18n (no build needed)** ||||
 | T-09 | Add the 8 missing gen-9 badge keys to all six locales | `SEC-16` | low | [x] |
-| T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [ ] |
+| T-10 | Add `pokemon.unknown` to all six locales | `SEC-17` | low | [x] |
 | T-11 | Repopulate the gen-8 fishing table; remove the duplicate id | `SEC-13` | low | [ ] |
 | T-12 | Replace the 404 scaffold with real translated content | `SEC-18` | low | [ ] |
-| T-13 | Remove the two English literals (`Multitask x`, `Empty`); add keys | `SEC-22`, `SEC-23` | low | [ ] |
-| T-14 | Apply the existing language whitelist before `translate.use()` | `SEC-27` | low | [ ] |
-| T-15 | Pass the real `EventSource` from check-evolution instead of hardcoded `gym-battle` | `SEC-30l` | low | [ ] |
-| T-16 | Delete the orphan i18n key `…elite.prep.actions.catchPokemon` from six locales | report note | low | [ ] |
+| T-13 | Remove the two English literals (`Multitask x`, `Empty`); add keys | `SEC-22`, `SEC-23` | low | [x] |
+| T-14 | Apply the existing language whitelist before `translate.use()` | `SEC-27` | low | [x] |
+| T-15 | Pass the real `EventSource`; adds an `elite-four-battle` member + consolation copy | `SEC-30l` | low | [x] |
+| T-16 | Delete the orphan i18n key `…elite.prep.actions.catchPokemon` from six locales | report note | low | [x] |
 | **Phase 4 — container decomposition** ||||
 | T-17 | Extract the 6 inline `ng-template` modals into components | `CQ-07`, `CQ-18` (partial) | med | [ ] |
 | T-18 | Add `setNextStates(...)`; collapse the 7 reverse-push pairs | `CQ-11` | low | [ ] |
