@@ -37,27 +37,6 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 ---
 
-## T-42 — new: Ash-Greninja
-
-A hidden transformation, requested during UAT. A **base-form Greninja on the team turns into
-Ash-Greninja the first time a potion is used in a battle.** No stone, no wheel slice, no warning —
-it is meant to be a surprise. It uses the mega-evolution cutscene, and reverts at the end of the
-fight like a mega does.
-
-| # | What to do | Expected | ✓ |
-| --- | --- | --- | --- |
-| 70 | Take a base **Greninja** into a battle and lose a spin **while holding a potion**. | The potion modal appears as usual, then the **mega-evolution animation** plays Greninja → Ash-Greninja. | [ ] |
-| 71 | Look at Greninja in the team panel afterwards. | It shows **Ash-Greninja** art, and its power has gone **3 → 5**. | [ ] |
-| 72 | Finish the battle, win or lose, then look again. | Back to base Greninja at power 3 — it is temporary, like a mega. | [ ] |
-| 73 | Use a **second** potion in the same battle. | Nothing further happens; no repeat animation. | [ ] |
-| 74 | Take Greninja into a **new** battle and use a potion again. | It transforms again. Every battle is a fresh chance. | [ ] |
-| 75 | Turn on **Skip Mega Evolution Animation** in settings, then repeat 70. | The form still changes; the cutscene is skipped — same opt-out as a mega. | [ ] |
-| 76 | Repeat in the **Elite Four** and against the **Champion**, in any region. | Works everywhere — it is deliberately not Kalos-only. | [ ] |
-| 77 | Use a potion with **no** Greninja on the team. | Nothing unusual: potion modal, retry, no animation. | [ ] |
-| 78 | Move Greninja to the **storage PC** mid-battle after it transforms, then end the battle. | It reverts to base form in the PC too. | [ ] |
-
----
-
 ## T-41 — two bugs found in UAT
 
 | # | What to do | Expected | ✓ |
