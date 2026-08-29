@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThemeSelectorComponent } from './theme-selector.component';
 import { ThemeService, Theme } from '../../services/theme-service/theme.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('ThemeSelectorComponent', () => {
   let component: ThemeSelectorComponent;
@@ -16,9 +16,10 @@ describe('ThemeSelectorComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [ThemeSelectorComponent, TranslateModule.forRoot()],
+      imports: [ThemeSelectorComponent],
       providers: [
-        { provide: ThemeService, useValue: mockThemeService },
+        provideTranslateService(),
+        { provide: ThemeService, useValue: mockThemeService }
       ],
     }).compileComponents();
 

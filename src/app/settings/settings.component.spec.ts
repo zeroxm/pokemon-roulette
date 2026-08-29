@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SettingsComponent } from './settings.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { provideIcons } from '@ng-icons/core';
 import { bootstrapController, bootstrapGear } from '@ng-icons/bootstrap-icons';
 
@@ -11,8 +11,9 @@ describe('SettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SettingsComponent, TranslateModule.forRoot()],
+      imports: [SettingsComponent],
       providers: [
+        provideTranslateService(),
         provideIcons({ bootstrapController, bootstrapGear })
       ]
     })

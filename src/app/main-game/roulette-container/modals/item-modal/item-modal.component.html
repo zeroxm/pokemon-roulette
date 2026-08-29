@@ -1,0 +1,12 @@
+<div class="modal-body">
+    <h1>{{ titleKey | translate }}@if (titleSuffixKey) { {{ titleSuffixKey | translate }}}</h1>
+    <div class="panel">
+        <img [src]="sprite" height="128">
+        <div class="message">
+            <p>{{ descriptionKey | translate }}</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="activeModal.close()">Ok</button>
+</div>

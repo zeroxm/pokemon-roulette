@@ -96,7 +96,15 @@
     "rock": "Medalla Roca",
     "ice_galar": "Medalla Hielo",
     "dark": "Medalla Siniestro",
-    "dragon": "Medalla Dragón"
+    "dragon": "Medalla Dragón",
+    "bug_paldea": "Medalla Bicho",
+    "grass_paldea": "Medalla Planta",
+    "electric": "Medalla Eléctrico",
+    "water_paldea": "Medalla Agua",
+    "normal": "Medalla Normal",
+    "ghost_paldea": "Medalla Fantasma",
+    "psychic_paldea": "Medalla Psíquico",
+    "ice_paldea": "Medalla Hielo"
   },
   "credits": {
     "title": "Créditos y agradecimientos",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "¡Conseguiste una Mega Piedra!",
           "stoneDesc": "¡Toca el icono de Mega Piedra para activar la Mega Evolución en combate!"
+        },
+        "eliteFourBattle": {
+          "potion": "¡Recibiste una Poción de Bono!",
+          "potionDesc": "Después de la batalla, el miembro del Alto Mando te dio una Poción."
         }
       },
       "roulette": {
@@ -289,7 +301,6 @@
             "title": "¿Qué haces antes del Alto Mando?",
             "victoryRoad": "¡Entra en la Calle Victoria!",
             "actions": {
-              "catchPokemon": "Capturar un Pokémon",
               "trainingArc": "Arco de entrenamiento",
               "buyPotions": "Comprar pociones",
               "catchTwoPokemon": "Capturar dos Pokémon",
@@ -320,6 +331,11 @@
         },
         "fossil": {
           "which": "¿Cuál Fósil?"
+        },
+        "disguise": {
+          "respin": "Disfraz",
+          "title": "¡El disfraz de Mimikyu se rompió!",
+          "message": "¡Mimikyu recibió el golpe por el equipo! ¡Tienes otra oportunidad!"
         },
         "gym": {
           "against": "Combate contra",
@@ -393,7 +409,11 @@
         "title": "¡Intercambio!",
         "received": "y recibió un(a)",
         "sent": "Has enviado"
-      }
+      },
+      "respin": {
+        "multitask": "Multitarea x{{count}}"
+      },
+      "unhandledState": "Algo se salió del mapa. Intenta reiniciar el juego."
     },
     "map": {
       "vermilion": "Estás en Ciudad Carmín"
@@ -829,7 +849,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Permite que un Pokemon compatible megaevolucione en combate."
-    }
+    },
+    "empty": "Vacío"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1727,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Descubierto)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",
@@ -2152,7 +2174,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Pokémon Desconocido"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2827,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Mega Evolucionado"
+  },
+  "notFound": {
+    "title": "Página No Encontrada",
+    "message": "Parece que esta página huyó a la hierba alta.",
+    "hint": "Usa el botón para volver a tu aventura."
   }
 }

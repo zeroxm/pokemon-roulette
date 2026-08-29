@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { EventSource } from '../EventSource';
+import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
+import { ItemModalComponent } from './modals/item-modal/item-modal.component';
+import { provideTranslateService } from '@ngx-translate/core';
 import {
   bootstrapArrowRepeat,
   bootstrapBook,
@@ -33,8 +36,9 @@ describe('RouletteContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouletteContainerComponent, TranslateModule.forRoot()],
+      imports: [RouletteContainerComponent],
       providers: [
+        provideTranslateService(),
         provideIcons({
           bootstrapArrowRepeat,
           bootstrapBook,
@@ -47,7 +51,7 @@ describe('RouletteContainerComponent', () => {
           bootstrapPcDisplayHorizontal,
           bootstrapPeopleFill,
           bootstrapShare,
-        }),
+        })
       ],
     })
     .compileComponents();
@@ -75,7 +79,7 @@ describe('RouletteContainerComponent', () => {
 
     component.capturePokemon(deoxys!);
 
-    expect(component.getGameState()).toBe('select-form');
+    expect(component.currentGameState).toBe('select-form');
     expect(component.pokemonForms.map(form => form.pokemonId)).toEqual([386, 10001, 10002, 10003]);
     expect(trainerService.getTeam().length).toBe(0);
   });
@@ -86,7 +90,7 @@ describe('RouletteContainerComponent', () => {
 
     component.capturePokemon(bulbasaur!);
 
-    expect(component.getGameState()).toBe('check-shininess');
+    expect(component.currentGameState).toBe('check-shininess');
     expect(trainerService.getTeam().length).toBe(1);
     expect(trainerService.getTeam()[0].pokemonId).toBe(1);
   });
@@ -159,57 +163,204 @@ describe('RouletteContainerComponent', () => {
   // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
 
-  describe('chooseWhoWillEvolve — zero evolvable pokemon', () => {
-    beforeEach(() => {
+  describe('restart clears run state', () => {
+    it('wipes every run modifier', () => {
+      const run = gameStateService.runModifiers;
+      run.evolutionCredits = 5;
+      run.expShareUsed = true;
+      run.expSharePokemon = { pokemonId: 25 } as any;
+      run.runningShoesUsed = true;
+      run.stolenPokemon = { pokemonId: 143 } as any;
+
+      gameStateService.resetGameState();
+
+      expect(run.evolutionCredits).toBe(0);
+      expect(run.expShareUsed).toBeFalse();
+      expect(run.expSharePokemon).toBeNull();
+      expect(run.runningShoesUsed).toBeFalse();
+      expect(run.stolenPokemon).toBeNull();
+    });
+
+    it('wipes the container’s transient state when a new run starts', () => {
+      component.auxPokemonList = [{ pokemonId: 1 } as any];
+      component.auxItemList = [{ name: 'potion' } as any];
+      component.customWheelTitle = 'stale.title';
+      component.fromLeader = 3;
+      (component as any).pendingPokemonSelection = { title: 't', options: [], onSelected: () => undefined };
+
+      gameStateService.resetGameState();
+
+      expect(component.auxPokemonList).toEqual([]);
+      expect(component.auxItemList).toEqual([]);
+      expect(component.customWheelTitle).toBe('');
+      expect(component.fromLeader).toBe(0);
+      expect((component as any).pendingPokemonSelection).toBeNull();
+    });
+
+    it('does not carry a pending selection into the next run', () => {
+      let ranFromPreviousRun = false;
+      (component as any).requestPokemonSelection({
+        title: 'previous.run', options: [], onSelected: () => { ranFromPreviousRun = true; },
+      });
+
+      gameStateService.resetGameState();
+      component.continueWithPokemon({ pokemonId: 1 } as any);
+
+      expect(ranFromPreviousRun).toBeFalse();
+    });
+  });
+
+  describe('exp-share bonus', () => {
+    it('releases the bonus when nothing else can evolve', () => {
+      const run = gameStateService.runModifiers;
+      run.expShareUsed = true;
+      run.expSharePokemon = { pokemonId: 25 } as any;
       spyOn(trainerService, 'getPokemonThatCanEvolve').and.returnValue([]);
-      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({ result: Promise.resolve() } as any));
+
+      component.secondEvolution();
+
+      expect(run.expShareUsed).toBeFalse();
+      expect(run.expSharePokemon).toBeNull();
+    });
+  });
+
+  describe('pending selections', () => {
+    it('runs the continuation attached to the request, not a state-name lookup', () => {
+      const chosen = { pokemonId: 1, text: 'a', fillStyle: 'red', weight: 1, shiny: false, power: 1, sprite: null } as any;
+      let received: unknown = null;
+
+      (component as any).requestPokemonSelection({
+        title: 'some.title',
+        options: [chosen],
+        onSelected: (p: unknown) => { received = p; },
+      });
+      component.continueWithPokemon(chosen);
+
+      expect(received).toBe(chosen);
     });
 
-    it('gym-battle → buyPotions()', () => {
-      spyOn(component, 'buyPotions');
-      component.chooseWhoWillEvolve('gym-battle');
-      expect(component.buyPotions).toHaveBeenCalled();
+    it('exposes the request title and options to the wheel', () => {
+      const options = [{ pokemonId: 7, text: 'b' } as any];
+
+      (component as any).requestPokemonSelection({
+        title: 'wheel.title', options, onSelected: () => undefined,
+      });
+
+      expect(component.customWheelTitle).toBe('wheel.title');
+      expect(component.auxPokemonList).toBe(options);
     });
 
-    it('visit-daycare → mysteriousEgg()', () => {
-      spyOn(component, 'mysteriousEgg');
-      component.chooseWhoWillEvolve('visit-daycare');
-      expect(component.mysteriousEgg).toHaveBeenCalled();
+    it('consumes the request, so a stray selection cannot re-run it', () => {
+      let calls = 0;
+      const chosen = { pokemonId: 1 } as any;
+
+      (component as any).requestPokemonSelection({
+        title: 't', options: [chosen], onSelected: () => { calls++; },
+      });
+      component.continueWithPokemon(chosen);
+      component.continueWithPokemon(chosen);
+
+      expect(calls).toBe(1);
     });
 
-    it('battle-rival → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('battle-rival');
-      expect(component.findItem).toHaveBeenCalled();
+    it('queues the mega stone wheel before advancing, so it is what renders next', () => {
+      const setNextState = spyOn(gameStateService, 'setNextState').and.callThrough();
+      const finish = spyOn(gameStateService, 'finishCurrentState').and.callThrough();
+      const order: string[] = [];
+      setNextState.and.callFake(() => { order.push('push'); });
+      finish.and.callFake(() => { order.push('pop'); return 'game-over' as any; });
+
+      (component as any).requestPokemonSelection({
+        title: 't',
+        options: [],
+        onSelected: () => {
+          (component as any).startMegaStoneAward({ pokemonId: 6 });
+          (component as any).finishCurrentState();
+        },
+      });
+      order.length = 0;
+      component.continueWithPokemon({ pokemonId: 6 } as any);
+
+      // Whatever the award pushed must be queued before the pop that reveals it.
+      expect(order[order.length - 1]).toBe('pop');
+    });
+  });
+
+  describe('chooseWhoWillEvolve — zero evolvable pokemon', () => {
+    let openedModals: ItemModalComponent[];
+
+    beforeEach(() => {
+      openedModals = [];
+      spyOn(trainerService, 'getPokemonThatCanEvolve').and.returnValue([]);
+      spyOn(modalQueueService, 'open').and.callFake(() => {
+        const componentInstance = {} as ItemModalComponent;
+        openedModals.push(componentInstance);
+        return Promise.resolve({ componentInstance, result: Promise.resolve() } as any);
+      });
     });
 
-    it('battle-trainer → buyPotions()', () => {
-      spyOn(component, 'buyPotions');
-      component.chooseWhoWillEvolve('battle-trainer');
-      expect(component.buyPotions).toHaveBeenCalled();
-    });
+    // Asserts the observable outcome — which prize the player actually sees and which
+    // follow-up runs — rather than merely which method got called.
+    // Expected keys are spelled out rather than read back from CONSOLATION_PRIZES — comparing the
+    // table against itself would pass even if a row were wired to the wrong copy.
+    const cases: Array<{
+      source: EventSource;
+      follow: 'buyPotions' | 'mysteriousEgg' | 'findItem';
+      titleKey: string;
+      sprite: 'potion.png' | 'unknown.png' | 'mystery-egg.png';
+    }> = [
+      { source: 'gym-battle',            follow: 'buyPotions',    titleKey: 'game.main.altPrizes.gymBattle.potion',       sprite: 'potion.png' },
+      { source: 'elite-four-battle',     follow: 'buyPotions',    titleKey: 'game.main.altPrizes.eliteFourBattle.potion', sprite: 'potion.png' },
+      { source: 'battle-trainer',        follow: 'buyPotions',    titleKey: 'game.main.altPrizes.battleTrainer.potion',   sprite: 'potion.png' },
+      { source: 'visit-daycare',         follow: 'mysteriousEgg', titleKey: 'game.main.altPrizes.visitDaycare.egg',       sprite: 'mystery-egg.png' },
+      { source: 'battle-rival',          follow: 'findItem',      titleKey: 'game.main.altPrizes.battleRival.item',       sprite: 'unknown.png' },
+      { source: 'team-rocket-encounter', follow: 'findItem',      titleKey: 'game.main.altPrizes.teamRocket.item',        sprite: 'unknown.png' },
+      { source: 'snorlax-encounter',     follow: 'findItem',      titleKey: 'game.main.altPrizes.snorlax.item',           sprite: 'unknown.png' }
+    ];
 
-    it('team-rocket-encounter → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('team-rocket-encounter');
-      expect(component.findItem).toHaveBeenCalled();
-    });
+    for (const { source, follow, titleKey, sprite } of cases) {
+      it(`${source}: shows its own prize copy and runs ${follow}()`, async () => {
+        spyOn(component, follow);
 
-    it('snorlax-encounter → findItem()', () => {
-      spyOn(component, 'findItem');
-      component.chooseWhoWillEvolve('snorlax-encounter');
-      expect(component.findItem).toHaveBeenCalled();
-    });
+        component.chooseWhoWillEvolve(source);
+        await Promise.resolve();
 
-    it('rare-candy → doNothing()', () => {
+        expect(component[follow]).toHaveBeenCalled();
+        expect(openedModals.length).toBe(1);
+        expect(openedModals[0].titleKey).toBe(titleKey);
+        expect(openedModals[0].descriptionKey).toBe(`${titleKey}Desc`);
+        expect(openedModals[0].sprite).toContain(sprite);
+      });
+    }
+
+    it('rare-candy does nothing and shows no prize', () => {
       spyOn(component, 'doNothing');
       component.chooseWhoWillEvolve('rare-candy');
+
       expect(component.doNothing).toHaveBeenCalled();
+      expect(openedModals.length).toBe(0);
     });
 
-    it('default (unknown eventSource) → doNothing()', () => {
+    it('every EventSource has a prize row, and each row is fully populated', () => {
+      const sources: EventSource[] = [
+        'battle-trainer', 'gym-battle', 'elite-four-battle', 'visit-daycare',
+        'team-rocket-encounter', 'snorlax-encounter', 'battle-rival', 'rare-candy'
+      ];
+
+      for (const source of sources) {
+        const prize = CONSOLATION_PRIZES[source];
+        expect(prize).withContext(source).toBeDefined();
+        if (prize.action !== 'none') {
+          expect(prize.titleKey).withContext(`${source} title`).toBeTruthy();
+          expect(prize.descriptionKey).withContext(`${source} description`).toBeTruthy();
+          expect(prize.sprite).withContext(`${source} sprite`).toMatch(/^https:\/\//);
+        }
+      }
+    });
+
+    it('falls back to doing nothing for an unmapped source', () => {
       spyOn(component, 'doNothing');
-      component.chooseWhoWillEvolve('explore-cave' as any);
+      component.chooseWhoWillEvolve('explore-cave' as unknown as EventSource);
       expect(component.doNothing).toHaveBeenCalled();
     });
   });
@@ -245,8 +396,8 @@ describe('RouletteContainerComponent', () => {
 
       component.chooseWhoWillEvolve('gym-battle');
 
-      // pushes 'evolve-pokemon' then 'select-from-pokemon-list', finishCurrentState() pops 'select-from-pokemon-list'
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      // queues a pokemon selection, then finishCurrentState() pops it so the wheel renders
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
   });
 
@@ -267,7 +418,7 @@ describe('RouletteContainerComponent', () => {
 
       component.stealPokemon();
 
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
 
     it('with team >= 2 and no escape-rope → auxPokemonList contains both team members', () => {
@@ -314,7 +465,7 @@ describe('RouletteContainerComponent', () => {
 
       component.tradePokemon();
 
-      expect(component.getGameState()).toBe('select-from-pokemon-list');
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
     });
 
     it('with multi-member team → auxPokemonList contains all team members', () => {

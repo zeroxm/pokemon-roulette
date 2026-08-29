@@ -1,15 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { EventSource } from '../../../EventSource';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-elite-four-prep-roulette',
-  imports: [WheelComponent, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,WheelComponent, TranslatePipe],
   templateUrl: './elite-four-prep-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './elite-four-prep-roulette.component.css'
 })
 export class EliteFourPrepRouletteComponent implements OnInit {
@@ -29,6 +32,7 @@ export class EliteFourPrepRouletteComponent implements OnInit {
   }
 
   @Input() respinReason!: string;
+  @Input() respinReasonParams: Record<string, unknown> = {};
   @Output() battleTrainerEvent = new EventEmitter<EventSource>();
   @Output() buyPotionsEvent = new EventEmitter<void>();
   @Output() catchTwoPokemonEvent = new EventEmitter<void>();

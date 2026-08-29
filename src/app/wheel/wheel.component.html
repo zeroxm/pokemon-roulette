@@ -1,5 +1,6 @@
 <div class="wheel-container">
-    <p>{{ currentSegment | translate }}</p>
+    <!-- Already translated: it comes from translatedItems, not from a key. -->
+    <p>{{ currentSegment }}</p>
     <div class="canvas-container">
         <canvas id="wheel"
                 #wheel
@@ -15,6 +16,7 @@
     </div>
     <button class="btn my-3"
             [ngClass]="(darkMode | async) ? 'btn-light' : 'btn-dark'"
+            [disabled]="!isReady"
             (click)="spinWheel()">
             {{ 'wheel.spin' | translate }}
     </button>

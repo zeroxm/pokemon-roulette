@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 export interface PokedexEntryClickEvent {
   pokemonId: number;
@@ -16,8 +16,10 @@ export interface PokedexEntryClickEvent {
 @Component({
   selector: 'app-pokedex-entry',
   standalone: true,
-  imports: [CommonModule, NgbTooltipModule, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,CommonModule, NgbTooltipModule, TranslatePipe],
   templateUrl: './pokedex-entry.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokedex-entry.component.css'
 })
 export class PokedexEntryComponent implements OnInit {
@@ -30,7 +32,6 @@ export class PokedexEntryComponent implements OnInit {
   readonly unknownPngUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private pokemonService: PokemonService
   ) {}

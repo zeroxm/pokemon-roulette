@@ -1,23 +1,26 @@
-import { Component, DestroyRef, EventEmitter, inject, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DestroyRef, EventEmitter, inject, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
+import { PokemonPoolRouletteComponent } from './roulettes/pokemon-pool-roulette/pokemon-pool-roulette.component';
+import { PendingSelection } from './selection/pending-selection';
+import { RunModifiers } from '../../services/game-state-service/run-modifiers';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
-import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { SettingsService } from '../../services/settings-service/settings.service';
 import { RareCandyService } from '../../services/rare-candy-service/rare-candy.service';
 import { Subscription } from 'rxjs';
 import { CharacterSelectComponent } from "./roulettes/character-select/character-select.component";
-import { StarterRouletteComponent } from "./roulettes/starter-roulette/starter-roulette.component";
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonForm } from '../../interfaces/pokemon-form';
 import { ItemItem } from '../../interfaces/item-item';
@@ -31,18 +34,14 @@ import { CheckEvolutionRouletteComponent } from "./roulettes/check-evolution-rou
 import { MainAdventureRouletteComponent } from "./roulettes/main-adventure-roulette/main-adventure-roulette.component";
 import { TeamRocketRouletteComponent } from "./roulettes/team-rocket-roulette/team-rocket-roulette.component";
 import { MysteriousEggRouletteComponent } from "./roulettes/mysterious-egg-roulette/mysterious-egg-roulette.component";
-import { LegendaryRouletteComponent } from "./roulettes/legendary-roulette/legendary-roulette.component";
 import { CatchLegendaryRouletteComponent } from "./roulettes/catch-legendary-roulette/catch-legendary-roulette.component";
 import { SelectFormRouletteComponent } from './roulettes/select-form-roulette/select-form-roulette.component';
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
-import { CavePokemonRouletteComponent } from "./roulettes/cave-pokemon-roulette/cave-pokemon-roulette.component";
-import { FossilRouletteComponent } from "./roulettes/fossil-roulette/fossil-roulette.component";
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
 import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
-import { FishingRouletteComponent } from "./roulettes/fishing-roulette/fishing-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
 import { EliteFourBattleRouletteComponent } from "./roulettes/elite-four-battle-roulette/elite-four-battle-roulette.component";
@@ -55,6 +54,10 @@ import { MegaStoneService } from '../../services/mega-stone-service/mega-stone.s
 import { megaStoneNamesForBaseId, pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 import { MegaEvolutionAnimationModalComponent } from './roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 import { SelectFromItemListRouletteComponent } from './roulettes/select-from-item-list-roulette/select-from-item-list-roulette.component';
+import { ItemModalComponent } from './modals/item-modal/item-modal.component';
+import { PokemonSwitchModalComponent } from './modals/pokemon-switch-modal/pokemon-switch-modal.component';
+import { InfoModalComponent } from './modals/info-modal/info-modal.component';
+import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/team-rocket-fails-modal.component';
 
 @Component({
   selector: 'app-roulette-container',
@@ -62,8 +65,8 @@ import { SelectFromItemListRouletteComponent } from './roulettes/select-from-ite
     CommonModule,
     TranslatePipe,
     GenerationRouletteComponent,
+    PokemonPoolRouletteComponent,
     CharacterSelectComponent,
-    StarterRouletteComponent,
     ShinyRouletteComponent,
     StartAdventureRouletteComponent,
     PokemonFromGenerationRouletteComponent,
@@ -75,17 +78,13 @@ import { SelectFromItemListRouletteComponent } from './roulettes/select-from-ite
     MainAdventureRouletteComponent,
     TeamRocketRouletteComponent,
     MysteriousEggRouletteComponent,
-    LegendaryRouletteComponent,
     CatchLegendaryRouletteComponent,
     TradePokemonRouletteComponent,
     FindItemRouletteComponent,
     ExploreCaveRouletteComponent,
-    CavePokemonRouletteComponent,
-    FossilRouletteComponent,
     AreaZeroRoulette,
     CatchParadoxRouletteComponent,
     SnorlaxRouletteComponent,
-    FishingRouletteComponent,
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
     EliteFourBattleRouletteComponent,
@@ -93,8 +92,8 @@ import { SelectFromItemListRouletteComponent } from './roulettes/select-from-ite
     EndGameComponent,
     GameOverComponent
 ],
-  templateUrl: './roulette-container.component.html',
-  styleUrl: './roulette-container.component.css'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  templateUrl: './roulette-container.component.html'
 })
 export class RouletteContainerComponent implements OnInit, OnDestroy {
 
@@ -119,21 +118,21 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService,
       private megaStoneService: MegaStoneService) {
-      this.itemFoundAudio = this.soundFxService.createItemFoundSoundFx();
-      this.megaStoneTapAudio = this.soundFxService.createMegaStoneTapSoundFx();
-      this.megaEvolutionAudio = this.soundFxService.createMegaEvolutionSoundFx();
     }
 
     ngOnInit(): void {
       this.gameStateService.currentState.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(state => {
         this.currentGameState = state;
+        if (this.currentGameState === 'game-start') {
+          this.resetTransientState();
+        }
+
         if (this.currentGameState === 'adventure-continues') {
-          if (this.multitaskCounter > 0) {
-            this.respinReason = 'Multitask x' + this.multitaskCounter;
-            this.multitaskCounter--;
-          }
-          if (this.runningShoesUsed) {
-            this.respinReason = 'items.running-shoes.name';
+          const queued = this.queuedRespinReasons.shift();
+          if (queued) {
+            this.setRespinReason(queued.key, queued.params);
+          } else if (this.run.runningShoesUsed) {
+            this.setRespinReason('items.running-shoes.name');
           }
         }
       });
@@ -171,58 +170,129 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  @ViewChild('altPrizeModal', { static: true }) altPrizeModal!: TemplateRef<any>;
-  @ViewChild('infoModal', { static: true }) infoModal!: TemplateRef<any>;
-  @ViewChild('itemActivateModal', { static: true }) itemActivateModal!: TemplateRef<any>;
-  @ViewChild('pkmnEvoModal', { static: true }) pkmnEvoModal!: TemplateRef<any>;
-  @ViewChild('pkmnTradeModal', { static: true }) pkmnTradeModal!: TemplateRef<any>;
-  @ViewChild('teamRocketFailsModal', { static: true }) teamRocketFailsModal!: TemplateRef<any>;
 
-  altPrizeDescription = '';
-  altPrizeSprite = '';
-  altPrizeText = '';
   auxItemList: ItemItem[] = [];
   auxPokemonList: PokemonItem[] = [];
   pokemonForms: PokemonForm[] = [];
-  currentContextItem!: ItemItem;
   currentContextPokemon!: PokemonItem;
   currentGameState!: GameState;
   customWheelTitle = '';
-  evolutionCredits: number = 0;
-  expSharePokemon: PokemonItem | null = null;
-  expShareUsed: boolean = false;
   fromLeader: number = 0;
-  infoModalMessage = '';
-  infoModalTitle = '';
-  itemFoundAudio!: SoundFxHandle;
-  megaStoneTapAudio!: SoundFxHandle;
-  megaEvolutionAudio!: SoundFxHandle;
   leadersDefeatedAmount: number = 0;
-  multitaskCounter: number = 0;
   pkmnEvoTitle = '';
   pkmnIn!: PokemonItem;
   pkmnOut!: PokemonItem;
-  pkmnTradeTitle = '';
-  respinReason = '';
-  runningShoesUsed: boolean = false;
-  stolenPokemon!: PokemonItem | null;
-  wheelSpinning: boolean = false;
-  private megaSelectionMode: 'none' | 'battle-award-pokemon' | 'battle-award-stone' = 'none';
-  private pendingMegaAwardPokemon: PokemonItem | null = null;
-
-  getGameState(): string {
-    return this.currentGameState;
+  /** Run-scoped game rules, owned by GameStateService so one reset clears them all. */
+  get run(): RunModifiers {
+    return this.gameStateService.runModifiers;
   }
 
+  /**
+   * Labels for re-spins that have been queued but not yet shown.
+   *
+   * A queue rather than a counter: an escape rope queues its own `adventure-continues`, and a
+   * counter decremented on every emission of that state would eat a multitask spin's label.
+   */
+  private queuedRespinReasons: Array<{ key: string; params: Record<string, unknown> }> = [];
+
+  respinReason = '';
+  respinReasonParams: Record<string, unknown> = {};
+  checkEvolutionSource: EventSource = 'gym-battle';
+  wheelSpinning: boolean = false;
+  private pendingPokemonSelection: PendingSelection<PokemonItem> | null = null;
+  private pendingItemSelection: PendingSelection<ItemItem> | null = null;
+
+
+  /**
+   * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
+   * wheel contents, and the Pokémon being acted on.
+   *
+   * Driven by the `game-start` emission rather than by the restart handlers, so both restart entry
+   * points clear it.
+   */
+  private resetTransientState(): void {
+    this.pendingPokemonSelection = null;
+    this.pendingItemSelection = null;
+    this.queuedRespinReasons = [];
+    this.auxPokemonList = [];
+    this.auxItemList = [];
+    this.customWheelTitle = '';
+    this.fromLeader = 0;
+    this.setRespinReason('');
+  }
+
+  /** Sets the re-spin label. Interpolation params travel with the key so the pipe can use them. */
+  private setRespinReason(key: string, params: Record<string, unknown> = {}): void {
+    this.respinReason = key;
+    this.respinReasonParams = params;
+  }
+
+  /** Opens the item modal and resolves with its ref (consolation prize, or an item announcing itself). */
+  private openItemModalRef(
+    titleKey: string, sprite: string, descriptionKey: string, titleSuffixKey?: string,
+  ): Promise<NgbModalRef> {
+    return this.modalQueueService.open(ItemModalComponent, { centered: true, size: 'md' })
+      .then(modalRef => {
+        const modal = modalRef.componentInstance as ItemModalComponent;
+        modal.titleKey = titleKey;
+        modal.sprite = sprite;
+        modal.descriptionKey = descriptionKey;
+        modal.titleSuffixKey = titleSuffixKey;
+        return modalRef;
+      });
+  }
+
+  /** Fire-and-forget variant, for prizes shown alongside a state transition. */
+  private openItemModal(titleKey: string, sprite: string, descriptionKey: string, titleSuffixKey?: string): void {
+    void this.openItemModalRef(titleKey, sprite, descriptionKey, titleSuffixKey);
+  }
+
+  /** Opens the "X became Y" modal and resolves when it closes. */
+  private openPokemonSwitchModal(
+    titleKey: string, from: PokemonItem, to: PokemonItem, leadKey: string, joinKey: string,
+  ): Promise<NgbModalRef> {
+    return this.modalQueueService.open(PokemonSwitchModalComponent, { centered: true, size: 'md' })
+      .then(modalRef => {
+        const modal = modalRef.componentInstance as PokemonSwitchModalComponent;
+        modal.titleKey = titleKey;
+        modal.from = from;
+        modal.to = to;
+        modal.leadKey = leadKey;
+        modal.joinKey = joinKey;
+        return modalRef;
+      });
+  }
+
+  /**
+   * Shows an explanatory modal, then advances the state machine — whether the player
+   * acknowledged it or dismissed it. Skipped entirely under the "less explanations" setting.
+   */
+  private async showModalThenContinue(open: () => Promise<NgbModalRef>): Promise<void> {
+    if (this.settingsService.currentSettings.lessExplanations) {
+      this.finishCurrentState();
+      return;
+    }
+    const modalRef = await open();
+    await modalRef.result.catch(() => undefined);
+    this.finishCurrentState();
+  }
+
+  /**
+   * Advances the state machine, granting the running-shoes re-spin when appropriate.
+   *
+   * The check reads the state being **entered**, not the one being finished: the service emits
+   * synchronously, so the `ngOnInit` subscription has already updated `currentGameState` by the
+   * time the pop returns.
+   */
   private finishCurrentState(): void {
+    const enteredState = this.gameStateService.finishCurrentState();
 
-    this.gameStateService.finishCurrentState();
+    const arrivingAtAdventure = enteredState === 'adventure-continues';
+    const canUseRunningShoes = this.trainerService.hasItem('running-shoes') && !this.run.runningShoesUsed;
 
-    if (this.currentGameState === 'adventure-continues') {
-      if (this.trainerService.hasItem('running-shoes') && !this.runningShoesUsed) {
-        this.runningShoesUsed = true;
-        this.gameStateService.setNextState('adventure-continues');
-      }
+    if (arrivingAtAdventure && canUseRunningShoes) {
+      this.run.runningShoesUsed = true;
+      this.gameStateService.setNextState('adventure-continues');
     }
   }
 
@@ -257,65 +327,21 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length === 0) {
-      switch (eventSource) {
-        case 'gym-battle':
-          this.altPrizeText = 'game.main.altPrizes.gymBattle.potion';
-          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
-          this.altPrizeDescription = 'game.main.altPrizes.gymBattle.potionDesc';
-          this.modalQueueService.open(this.altPrizeModal, {
-            centered: true,
-            size: 'md'
-          });
-          return this.buyPotions();
-        case 'visit-daycare':
-            this.altPrizeText = 'game.main.altPrizes.visitDaycare.egg';
-            this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/mystery-egg.png';
-            this.altPrizeDescription = 'game.main.altPrizes.visitDaycare.eggDesc';
-            this.modalQueueService.open(this.altPrizeModal, {
-              centered: true,
-              size: 'md'
-            });
-            return this.mysteriousEgg();
-        case 'battle-rival':
-          this.altPrizeText = 'game.main.altPrizes.battleRival.item';
-          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
-          this.altPrizeDescription = 'game.main.altPrizes.battleRival.itemDesc';
-          this.modalQueueService.open(this.altPrizeModal, {
-            centered: true,
-            size: 'md'
-          });
-          return this.findItem();
-        case 'battle-trainer':
-          this.altPrizeText = 'game.main.altPrizes.battleTrainer.potion';
-          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/potion.png';
-          this.altPrizeDescription = 'game.main.altPrizes.battleTrainer.potionDesc';
-          this.modalQueueService.open(this.altPrizeModal, {
-            centered: true,
-            size: 'md'
-          });
-          return this.buyPotions();
-        case 'team-rocket-encounter':
-          this.altPrizeText = 'game.main.altPrizes.teamRocket.item';
-          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
-          this.altPrizeDescription = 'game.main.altPrizes.teamRocket.itemDesc';
-          this.modalQueueService.open(this.altPrizeModal, {
-            centered: true,
-            size: 'md'
-          });
-          return this.findItem();
-        case 'snorlax-encounter':
-          this.altPrizeText = 'game.main.altPrizes.snorlax.item';
-          this.altPrizeSprite = 'https://raw.githubusercontent.com/PokeAPI/sprites/refs/heads/master/sprites/items/unknown.png';
-          this.altPrizeDescription = 'game.main.altPrizes.snorlax.itemDesc';
-          this.modalQueueService.open(this.altPrizeModal, {
-            centered: true,
-            size: 'md'
-          });
-          return this.findItem();
-        case 'rare-candy':
-          return this.doNothing();
-        default:
-          return this.doNothing();
+      // `Record<EventSource, …>` makes a missing row a compile error. The nullish check covers
+      // values arriving from template outputs, where a stale build could yield an unmapped
+      // literal — doing nothing beats throwing mid-game.
+      const prize = CONSOLATION_PRIZES[eventSource];
+
+      if (!prize || prize.action === 'none') {
+        return this.doNothing();
+      }
+
+      this.openItemModal(prize.titleKey, prize.sprite, prize.descriptionKey);
+
+      switch (prize.action) {
+        case 'buy-potions': return this.buyPotions();
+        case 'mysterious-egg': return this.mysteriousEgg();
+        case 'find-item': return this.findItem();
       }
     }
 
@@ -323,9 +349,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolvePokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'game.main.roulette.evolve.who';
-    this.gameStateService.setNextState('evolve-pokemon');
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.evolve.who',
+      options: this.auxPokemonList,
+      onSelected: chosen => this.evolvePokemon(chosen),
+    });
 
     this.finishCurrentState();
   }
@@ -358,40 +386,43 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
-  continueWithPokemon(pokemon: PokemonItem): void {
-    this.finishCurrentState();
+  /** Queues a "pick one of these Pokémon" spin, together with what to do afterwards. */
+  private requestPokemonSelection(request: PendingSelection<PokemonItem>): void {
+    this.pendingPokemonSelection = request;
+    this.customWheelTitle = request.title;
+    this.auxPokemonList = request.options;
+    this.gameStateService.setNextState('select-from-pokemon-list');
+  }
 
-    if (this.handleMegaSelection(pokemon)) {
+  /** Queues a "pick one of these items" spin, together with what to do afterwards. */
+  private requestItemSelection(request: PendingSelection<ItemItem>): void {
+    this.pendingItemSelection = request;
+    this.customWheelTitle = request.title;
+    this.auxItemList = request.options;
+    this.gameStateService.setNextState('select-from-item-list');
+  }
+
+  continueWithPokemon(pokemon: PokemonItem): void {
+    const selection = this.pendingPokemonSelection;
+    this.pendingPokemonSelection = null;
+
+    if (!selection) {
+      this.finishCurrentState();
       return;
     }
-
-    switch (this.currentGameState) {
-      case 'evolve-pokemon':
-        this.evolvePokemon(pokemon);
-        break;
-      case 'select-evolution':
-        this.replaceForEvolution(this.currentContextPokemon, pokemon);
-        this.showpkmnEvoModal();
-        break;
-      case 'steal-pokemon':
-        this.stolenPokemon = pokemon;
-        this.removeFromTeam(pokemon);
-        this.finishCurrentState();
-        break;
-      case 'trade-pokemon':
-        this.currentContextPokemon = pokemon;
-        break;
-      default:
-        break;
-    }
+    selection.onSelected(pokemon);
   }
 
   continueWithItem(item: ItemItem): void {
-    this.finishCurrentState();
+    const selection = this.pendingItemSelection;
+    this.pendingItemSelection = null;
+    this.auxItemList = [];
 
-    if (this.handleMegaStoneAwardSelection(item)) {
+    if (!selection) {
+      this.finishCurrentState();
       return;
     }
+    selection.onSelected(item);
   }
 
   selectPokemonForm(pokemonForm: PokemonForm): void {
@@ -404,14 +435,18 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
-    if (this.expSharePokemon) {
-      const index = this.auxPokemonList.indexOf(this.expSharePokemon);
+    if (this.run.expSharePokemon) {
+      const index = this.auxPokemonList.indexOf(this.run.expSharePokemon);
       if (index > -1) {
         this.auxPokemonList.splice(index, 1);
       }
     }
 
     if (this.auxPokemonList.length === 0) {
+      // Nothing else could evolve, so the bonus was never spent — release it, or the next
+      // evolution silently loses its exp-share bonus to the re-entrancy guard.
+      this.run.expShareUsed = false;
+      this.run.expSharePokemon = null;
       return;
     }
 
@@ -419,20 +454,22 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return this.evolveSecondPokemon(this.auxPokemonList[0]);
     }
 
-    this.customWheelTitle = 'game.main.roulette.evolve.whoExpShare';
-    this.gameStateService.setNextState('evolve-pokemon');
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.evolve.whoExpShare',
+      options: this.auxPokemonList,
+      onSelected: chosen => this.evolveSecondPokemon(chosen),
+    });
   }
 
   gymBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.run.runningShoesUsed = false;
+    this.setRespinReason('');
 
     if (result) {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
-      this.queueCheckEvolutionAfterImportantBattle();
+      this.queueCheckEvolutionAfterImportantBattle('gym-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
 
@@ -443,15 +480,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   catchTwoPokemon(): void {
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextStates('catch-pokemon', 'catch-pokemon');
     this.finishCurrentState();
   }
 
   catchThreePokemon(): void {
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
-    this.gameStateService.setNextState('catch-pokemon');
+    this.gameStateService.setNextStates('catch-pokemon', 'catch-pokemon', 'catch-pokemon');
     this.finishCurrentState();
   }
 
@@ -473,9 +507,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (trainerTeam.length === 1) {
       this.currentContextPokemon = trainerTeam[0];
     } else {
-      this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'game.main.roulette.trade.which';
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.trade.which',
+        options: trainerTeam,
+        onSelected: chosen => {
+          this.currentContextPokemon = chosen;
+          this.finishCurrentState();
+        },
+      });
     }
 
     this.finishCurrentState();
@@ -492,10 +531,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   multitask(): void {
-    this.gameStateService.setNextState('adventure-continues');
-    this.gameStateService.setNextState('adventure-continues');
-    this.multitaskCounter = this.multitaskCounter + 2;
-    this.respinReason = 'Multitask x' + this.multitaskCounter;
+    this.gameStateService.setNextStates('adventure-continues', 'adventure-continues');
+    // One label per queued spin, so an unrelated `adventure-continues` cannot consume one.
+    this.queuedRespinReasons.push(
+      { key: 'game.main.respin.multitask', params: { count: 2 } },
+      { key: 'game.main.respin.multitask', params: { count: 1 } },
+    );
     this.finishCurrentState();
   }
 
@@ -541,40 +582,41 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     const trainerTeam = this.trainerService.getTeam();
 
     if (trainerTeam.length < 2) {
-      this.modalQueueService.open(this.teamRocketFailsModal, {
-        centered: true,
-        size: 'md'
-      }).then(modalRef => {
-        modalRef.result.then(() => {
-          return this.doNothing();
-        }, () => {
-          return this.doNothing();
-        });
-      });
+      void this.modalQueueService
+        .open(TeamRocketFailsModalComponent, { centered: true, size: 'md' })
+        .then(modalRef => modalRef.result.catch(() => undefined))
+        .then(() => this.doNothing());
     } else if (this.trainerService.hasItem('escape-rope')) {
       this.useEscapeRope();
     } else {
-      this.auxPokemonList = trainerTeam;
-      this.customWheelTitle = 'game.main.roulette.teamrocket.steal.which';
-      this.gameStateService.setNextState('steal-pokemon');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.teamrocket.steal.which',
+        options: trainerTeam,
+        onSelected: chosen => {
+          this.run.stolenPokemon = chosen;
+          this.removeFromTeam(chosen);
+          this.finishCurrentState();
+        },
+      });
       this.finishCurrentState();
     }
   }
 
   teamRocketDefeated(): void {
-    if (this.stolenPokemon) {
-      const pokemonName = this.translateService.instant(this.stolenPokemon.text);
+    if (this.run.stolenPokemon) {
+      const pokemonName = this.translateService.instant(this.run.stolenPokemon.text);
 
-      this.trainerService.addToTeam(this.stolenPokemon);
-      this.registerInPokedex(this.stolenPokemon);
-      this.infoModalTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title') + pokemonName + '!';
-      this.infoModalMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
-      this.stolenPokemon = null;
-      this.modalQueueService.open(this.infoModal, {
-        centered: true,
-        size: 'md'
-      });
+      this.trainerService.addToTeam(this.run.stolenPokemon);
+      this.registerInPokedex(this.run.stolenPokemon);
+      const infoTitle = this.translateService.instant('game.main.roulette.teamrocket.saved.title') + pokemonName + '!';
+      const infoMessage = this.translateService.instant('game.main.roulette.teamrocket.saved.recovered') + pokemonName + ' ' + this.translateService.instant('game.main.roulette.teamrocket.saved.from');
+      this.run.stolenPokemon = null;
+      void this.modalQueueService.open(InfoModalComponent, { centered: true, size: 'md' })
+        .then(modalRef => {
+          const modal = modalRef.componentInstance as InfoModalComponent;
+          modal.title = infoTitle;
+          modal.message = infoMessage;
+        });
     }
 
     this.chooseWhoWillEvolve('team-rocket-encounter');
@@ -593,25 +635,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   performTrade(pokemon: PokemonItem): void {
     this.pkmnIn = structuredClone(pokemon);
     this.pkmnOut = this.currentContextPokemon;
-    this.pkmnTradeTitle = "game.main.trade.title";
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
     this.registerInPokedex(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
-    if (!this.settingsService.currentSettings.lessExplanations) {
-      this.modalQueueService.open(this.pkmnTradeModal, {
-        centered: true,
-        size: 'md'
-      }).then(modalRef => {
-        modalRef.result.then(() => {
-          this.finishCurrentState();
-        }, () => {
-          this.finishCurrentState();
-        });
-      });
-    } else {
-      this.finishCurrentState();
-    }
+    void this.showModalThenContinue(() => this.openPokemonSwitchModal(
+      'game.main.trade.title', this.pkmnOut, this.pkmnIn,
+      'game.main.trade.sent', 'game.main.trade.received',
+    ));
   }
 
   receiveItem(item: ItemItem): void {
@@ -651,12 +682,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   eliteFourBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.run.runningShoesUsed = false;
+    this.setRespinReason('');
 
     if (result) {
       this.gameStateService.advanceRound();
-      this.queueCheckEvolutionAfterImportantBattle();
+      this.queueCheckEvolutionAfterImportantBattle('elite-four-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
     } else {
@@ -666,8 +697,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   championBattleResult(result: boolean): void {
-    this.runningShoesUsed = false;
-    this.respinReason = '';
+    this.run.runningShoesUsed = false;
+    this.setRespinReason('');
 
     if (result) {
       const rawIds = [
@@ -687,7 +718,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private queueCheckEvolutionAfterImportantBattle(): void {
+  private queueCheckEvolutionAfterImportantBattle(source: EventSource): void {
+    this.checkEvolutionSource = source;
     this.gameStateService.setNextState('check-evolution');
   }
 
@@ -707,10 +739,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.megaSelectionMode = 'battle-award-pokemon';
-    this.auxPokemonList = candidates;
-    this.customWheelTitle = 'game.main.roulette.mega.who';
-    this.gameStateService.setNextState('select-from-pokemon-list');
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.mega.who',
+      options: candidates,
+      onSelected: chosen => {
+        // Queue the follow-up *before* advancing, so the stone wheel is what renders next.
+        this.startMegaStoneAward(chosen);
+        this.finishCurrentState();
+      },
+    });
   }
 
   private startMegaStoneAward(pokemon: PokemonItem): void {
@@ -721,67 +758,35 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (availableStoneNames.length === 1) {
-      this.grantMegaStone(pokemon, availableStoneNames[0]);
+      this.grantMegaStone(availableStoneNames[0]);
       return;
     }
 
-    this.pendingMegaAwardPokemon = pokemon;
-    this.auxItemList = availableStoneNames.map(stoneName => structuredClone(this.itemService.getMegaStone(stoneName)));
-    this.customWheelTitle = 'game.main.roulette.mega.whichStone';
-    this.megaSelectionMode = 'battle-award-stone';
-    this.gameStateService.setNextState('select-from-item-list');
+    this.requestItemSelection({
+      title: 'game.main.roulette.mega.whichStone',
+      options: availableStoneNames.map(stoneName => structuredClone(this.itemService.getMegaStone(stoneName))),
+      onSelected: chosen => {
+        if (isMegaStoneItemName(chosen.name)) {
+          this.grantMegaStone(chosen.name);
+        }
+        this.finishCurrentState();
+      },
+    });
   }
 
-  private grantMegaStone(pokemon: PokemonItem, stoneName: MegaStoneItemName): void {
+  private grantMegaStone(stoneName: MegaStoneItemName): void {
     if (!this.trainerService.hasItem(stoneName)) {
       const megaStone = structuredClone(this.itemService.getMegaStone(stoneName));
       this.trainerService.addToItems(megaStone);
       this.playItemFoundAudio();
-      this.altPrizeText = 'game.main.altPrizes.megaStone.stone';
-      this.altPrizeSprite = megaStone.sprite;
-      this.altPrizeDescription = 'game.main.altPrizes.megaStone.stoneDesc';
-      this.modalQueueService.open(this.altPrizeModal, {
-        centered: true,
-        size: 'md'
-      });
-    } else {
-      // No stone to award (already held or undefined)
+      this.openItemModal(
+        'game.main.altPrizes.megaStone.stone',
+        megaStone.sprite,
+        'game.main.altPrizes.megaStone.stoneDesc',
+      );
     }
   }
 
-  private handleMegaSelection(pokemon: PokemonItem): boolean {
-    if (this.megaSelectionMode === 'none') {
-      return false;
-    }
-
-    const selectionMode = this.megaSelectionMode;
-
-    if (selectionMode === 'battle-award-pokemon') {
-      this.megaSelectionMode = 'none';
-      this.startMegaStoneAward(pokemon);
-      return true;
-    }
-
-    return false;
-  }
-
-  private handleMegaStoneAwardSelection(item: ItemItem): boolean {
-    if (this.megaSelectionMode !== 'battle-award-stone') {
-      return false;
-    }
-
-    const pokemon = this.pendingMegaAwardPokemon;
-    this.pendingMegaAwardPokemon = null;
-    this.auxItemList = [];
-    this.megaSelectionMode = 'none';
-
-    if (!pokemon || !isMegaStoneItemName(item.name)) {
-      return true;
-    }
-
-    this.grantMegaStone(pokemon, item.name);
-    return true;
-  }
 
   private handleMegaStoneActivation(megaStone: ItemItem): void {
     if (!this.isBattleState(this.currentGameState)) {
@@ -809,12 +814,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
-      void this.soundFxService.playSoundFx(this.megaStoneTapAudio, 0.30);
+      void this.soundFxService.playSoundFx('mega-stone-tap', 0.30);
     } else {
       // Play mega sounds sequentially (tap -> evolution) via audio-ended queue.
       void this.soundFxService.playSoundFxQueue([
-        { handle: this.megaStoneTapAudio, volume: 0.30 },
-        { handle: this.megaEvolutionAudio, volume: 0.30 }
+        { name: 'mega-stone-tap', volume: 0.30 },
+        { name: 'mega-evolution', volume: 0.30 }
       ]);
     }
 
@@ -840,7 +845,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private activateMegaEvolutionForPokemon(basePokemonId: number, stoneName?: MegaStoneItemName): void {
-    this.trainerService.setMegaBattlePokemon(basePokemonId, stoneName ?? null);
+    this.trainerService.setMegaBattlePokemon(basePokemonId);
     this.trainerService.forceMegaActivation(basePokemonId, stoneName);
     this.pokedexService.markMega(basePokemonId);
     void this.showMegaEvolutionAnimation(basePokemonId, stoneName);
@@ -887,28 +892,38 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     return state === 'gym-battle' || state === 'elite-four-battle' || state === 'champion-battle';
   }
 
-  closeModal(): void {
-    this.modalService.dismissAll();
-  }
 
   resetGameAction(): void {
-    this.evolutionCredits = 0;
-    this.resetGameEvent.emit();
+    // Dismiss first: a modal's rejection handler can call finishCurrentState(), which would
+    // otherwise pop the freshly-seeded stack.
     this.modalService.dismissAll();
+    this.resetGameEvent.emit();
   }
 
   private evolvePokemon(pokemon: PokemonItem): void {
     const pokemonEvolutions = this.evolutionService.getEvolutions(pokemon);
 
+    if (pokemonEvolutions.length === 0) {
+      // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
+      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // a wheel with no segments.
+      this.finishCurrentState();
+      return;
+    }
+
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
       this.showpkmnEvoModal();
     } else {
-      this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextState('select-evolution');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.evolve.which',
+        options: pokemonEvolutions,
+        onSelected: chosen => {
+          this.replaceForEvolution(this.currentContextPokemon, chosen);
+          this.showpkmnEvoModal();
+        },
+      });
       this.finishCurrentState();
     }
   }
@@ -973,27 +988,39 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.trainerService.hasItem('exp-share') && this.expShareUsed === false) {
-      this.expShareUsed = true;
-      this.expSharePokemon = this.pkmnIn;
+    if (this.trainerService.hasItem('exp-share') && this.run.expShareUsed === false) {
+      this.run.expShareUsed = true;
+      this.run.expSharePokemon = this.pkmnIn;
       this.secondEvolution();
-    } else if (this.trainerService.hasItem('exp-share') && this.expShareUsed === true) {
-      this.expShareUsed = false;
-      this.expSharePokemon = null;
+    } else if (this.trainerService.hasItem('exp-share') && this.run.expShareUsed === true) {
+      this.run.expShareUsed = false;
+      this.run.expSharePokemon = null;
     }
   }
 
   private evolveSecondPokemon(pokemon: PokemonItem): void {
     const pokemonEvolutions = this.evolutionService.getEvolutions(pokemon);
 
+    if (pokemonEvolutions.length === 0) {
+      // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
+      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // a wheel with no segments.
+      this.finishCurrentState();
+      return;
+    }
+
     if (pokemonEvolutions.length === 1) {
       this.replaceForEvolution(pokemon, pokemonEvolutions[0]);
     } else {
-      this.auxPokemonList = pokemonEvolutions;
       this.currentContextPokemon = pokemon;
-      this.customWheelTitle = 'game.main.roulette.evolve.which';
-      this.gameStateService.setNextState('select-evolution');
-      this.gameStateService.setNextState('select-from-pokemon-list');
+      this.requestPokemonSelection({
+        title: 'game.main.roulette.evolve.which',
+        options: pokemonEvolutions,
+        onSelected: chosen => {
+          this.replaceForEvolution(this.currentContextPokemon, chosen);
+          this.showpkmnEvoModal();
+        },
+      });
     }
   }
 
@@ -1003,48 +1030,26 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private playItemFoundAudio(): void {
-    void this.soundFxService.playSoundFx(this.itemFoundAudio, 0.25);
+    void this.soundFxService.playSoundFx('item-found', 0.25);
   }
 
   private showpkmnEvoModal(): void {
     this.playItemFoundAudio();
-    if (!this.settingsService.currentSettings.lessExplanations) {
-      this.modalQueueService.open(this.pkmnEvoModal, {
-        centered: true,
-        size: 'md'
-      }).then(modalRef => {
-        modalRef.result.then(() => {
-          this.finishCurrentState();
-        }, () => {
-          this.finishCurrentState();
-        });
-      });
-    } else {
-      this.finishCurrentState();
-    }
+    void this.showModalThenContinue(() => this.openPokemonSwitchModal(
+      this.pkmnEvoTitle, this.pkmnOut, this.pkmnIn,
+      'game.main.roulette.evolve.modal.your', 'game.main.roulette.evolve.modal.to',
+    ));
   }
 
   private useEscapeRope(): void {
     const item = this.trainerService.getItem('escape-rope');
     if (item) {
       this.trainerService.removeItem(item);
-      this.currentContextItem = item;
       this.gameStateService.setNextState('adventure-continues');
 
-      if (!this.settingsService.currentSettings.lessExplanations) {
-        this.modalQueueService.open(this.itemActivateModal, {
-          centered: true,
-          size: 'md'
-        }).then(modalRef => {
-          modalRef.result.then(() => {
-            this.finishCurrentState();
-          }, () => {
-            this.finishCurrentState();
-          });
-        });
-      } else {
-        this.finishCurrentState();
-      }
+      void this.showModalThenContinue(() => this.openItemModalRef(
+        item.text, item.sprite, item.description, 'game.main.item.activates',
+      ));
     }
   }
 }

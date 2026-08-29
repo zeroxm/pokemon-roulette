@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
 import {TranslatePipe} from '@ngx-translate/core';
@@ -10,6 +10,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './main-game-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './main-game-button.component.css'
 })
 export class MainGameButtonComponent {

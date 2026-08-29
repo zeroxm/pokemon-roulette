@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
@@ -13,12 +12,15 @@ import { PokemonForm } from '../../interfaces/pokemon-form';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { PokemonType, pokemonTypeDataByKey } from '../../interfaces/pokemon-type';
 import { pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-pokedex-detail-modal',
   standalone: true,
-  imports: [CommonModule, TranslatePipe],
+  imports: [
+    ImageFallbackDirective,CommonModule, TranslatePipe],
   templateUrl: './pokedex-detail-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokedex-detail-modal.component.css'
 })
 export class PokedexDetailModalComponent implements OnInit {
@@ -37,7 +39,6 @@ export class PokedexDetailModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private pokemonService: PokemonService,
     private pokemonFormsService: PokemonFormsService,
-    private darkModeService: DarkModeService,
     private themeService: ThemeService
   ) {}
 

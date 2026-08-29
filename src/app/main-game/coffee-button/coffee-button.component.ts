@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { NgIconsModule } from '@ng-icons/core';
@@ -12,6 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
   ],
   templateUrl: './coffee-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './coffee-button.component.css'
 })
 export class CoffeeButtonComponent {

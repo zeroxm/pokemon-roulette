@@ -96,7 +96,15 @@
     "rock": "Insígnia de Pedra",
     "ice_galar": "Insígnia de Gelo",
     "dark": "Insígnia Noturna",
-    "dragon": "Insígnia de Dragão"
+    "dragon": "Insígnia de Dragão",
+    "bug_paldea": "Insígnia do Inseto",
+    "grass_paldea": "Insígnia de Planta",
+    "electric": "Insígnia Elétrica",
+    "water_paldea": "Insígnia de Água",
+    "normal": "Insígnia Normal",
+    "ghost_paldea": "Insígnia de Fantasma",
+    "psychic_paldea": "Insígnia Psíquica",
+    "ice_paldea": "Insígnia de Gelo"
   },
   "credits": {
     "title": "Créditos e Agradecimentos",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "Você obteve uma Mega Pedra!",
           "stoneDesc": "Toque no ícone da Mega Pedra para ativar a Mega Evolução na batalha!"
+        },
+        "eliteFourBattle": {
+          "potion": "Você recebeu uma Poção de Bônus!",
+          "potionDesc": "Após a batalha, o membro da Elite dos Quatro lhe deu uma Poção!"
         }
       },
       "roulette": {
@@ -289,7 +301,6 @@
             "title": "O que fazer antes da Elite dos 4?",
             "victoryRoad": "Entre na Rota da Vitória!",
             "actions": {
-              "catchPokemon": "Pegar um Pokémon",
               "trainingArc": "Arco do Treinamento",
               "buyPotions": "Comprar Poções",
               "catchTwoPokemon": "Capturar Dois Pokémon",
@@ -320,6 +331,11 @@
         },
         "fossil": {
           "which": "Qual Fóssil?"
+        },
+        "disguise": {
+          "respin": "Disfarce",
+          "title": "O disfarce do Mimikyu quebrou!",
+          "message": "O Mimikyu levou o golpe pela equipe! Você ganha mais uma chance!"
         },
         "gym": {
           "against": "Batalha contra",
@@ -393,7 +409,11 @@
         "title": "Troca!",
         "received": "e recebeu ",
         "sent": "Você enviou"
-      }
+      },
+      "respin": {
+        "multitask": "Multitarefa x{{count}}"
+      },
+      "unhandledState": "Algo saiu do mapa. Tente reiniciar o jogo."
     },
     "map": {
       "vermilion": "Você está em Cidade de Vermilion"
@@ -829,7 +849,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Permite que um Pokemon compativel megaevolua em batalha."
-    }
+    },
+    "empty": "Vazio"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1727,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Desmascarado)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",
@@ -2152,7 +2174,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Pokémon Desconhecido"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2827,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Mega Evoluído"
+  },
+  "notFound": {
+    "title": "Página Não Encontrada",
+    "message": "Parece que esta página fugiu para o mato alto.",
+    "hint": "Use o botão para voltar à sua aventura."
   }
 }

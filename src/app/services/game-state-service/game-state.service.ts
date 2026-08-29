@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
 import { GameState } from './game-state';
 import { BehaviorSubject } from 'rxjs';
-import { GenerationService } from '../generation-service/generation.service';
+import { RunModifiers, initialRunModifiers } from './run-modifiers';
 
-const GENERATION_GAME_CONFIG: Record<number, { gymCount: number; eliteFourCount: number }> = {
-  1: { gymCount: 8, eliteFourCount: 4 },
-  2: { gymCount: 8, eliteFourCount: 4 },
-  3: { gymCount: 8, eliteFourCount: 4 },
-  4: { gymCount: 8, eliteFourCount: 4 },
-  5: { gymCount: 8, eliteFourCount: 4 },
-  6: { gymCount: 8, eliteFourCount: 4 },
-  7: { gymCount: 8, eliteFourCount: 4 },
-  8: { gymCount: 8, eliteFourCount: 4 },
-  9: { gymCount: 8, eliteFourCount: 4 },
-};
+/**
+ * Every generation currently runs the same league shape. If one ever differs, reintroduce a
+ * per-generation lookup here rather than threading counts through call sites.
+ */
+const GYM_COUNT = 8;
+const ELITE_FOUR_COUNT = 4;
 
 @Injectable({
   providedIn: 'root'
@@ -30,24 +25,28 @@ export class GameStateService {
   private wheelSpinning = new BehaviorSubject<boolean>(false);
   wheelSpinningObserver = this.wheelSpinning.asObservable();
 
-  constructor(private generationService: GenerationService) {
-    const genId = this.generationService.getCurrentGeneration().id;
-    const config = GENERATION_GAME_CONFIG[genId] ?? { gymCount: 8, eliteFourCount: 4 };
-    this.initializeStates(config.gymCount, config.eliteFourCount);
+  /**
+   * Run-scoped game rules. Mutated directly by the container; cleared wholesale by
+   * `resetGameState()`, so no caller has to remember to reset them one by one.
+   */
+  readonly runModifiers: RunModifiers = initialRunModifiers();
+
+  constructor() {
+    this.initializeStates();
   }
 
-  private initializeStates(gymCount: number = 8, eliteFourCount: number = 4): void {
+  private initializeStates(): void {
     const stack: GameState[] = ['game-finish', 'champion-battle'];
 
-    for (let i = 0; i < eliteFourCount; i++) {
+    for (let i = 0; i < ELITE_FOUR_COUNT; i++) {
       stack.push('elite-four-battle');
     }
 
     stack.push('elite-four-preparation');
 
-    for (let i = 0; i < gymCount; i++) {
+    for (let i = 0; i < GYM_COUNT; i++) {
       stack.push('gym-battle');
-      if (i < gymCount - 1) {
+      if (i < GYM_COUNT - 1) {
         stack.push('adventure-continues');
       }
     }
@@ -63,23 +62,35 @@ export class GameStateService {
     this.stateStack.push(newState);
   }
 
-  finishCurrentState(): GameState {
-    if (this.stateStack.length > 0) {
-      const poppedState = this.stateStack.pop();
-      if (poppedState) {
-        this.state.next(poppedState);
-        return poppedState;
-      }
+  /**
+   * Queues several states in **play order**: `setNextStates('a', 'b')` runs `a`, then `b`.
+   *
+   * The stack pops last-in-first-out, so queuing by hand means pushing backwards. Doing that
+   * at the call site reads wrong and is easy to get subtly out of order; this keeps the
+   * reversal in one place.
+   */
+  setNextStates(...states: GameState[]): void {
+    for (let i = states.length - 1; i >= 0; i--) {
+      this.stateStack.push(states[i]);
     }
-    return 'game-over';
+  }
+
+  /**
+   * Pops the next state and emits it.
+   *
+   * An empty stack emits 'game-over' rather than only returning it, so the return value and what is
+   * on screen always agree.
+   */
+  finishCurrentState(): GameState {
+    const poppedState = this.stateStack.pop();
+    const nextState = poppedState ?? 'game-over';
+
+    this.state.next(nextState);
+    return nextState;
   }
 
   advanceRound(): void {
     this.currentRound.next(this.currentRound.value + 1);
-  }
-
-  retreatRound(): void {
-    this.currentRound.next(this.currentRound.value - 1);
   }
 
   repeatCurrentState(): void {
@@ -91,9 +102,8 @@ export class GameStateService {
   }
 
   resetGameState(): void {
-    const genId = this.generationService.getCurrentGeneration().id;
-    const config = GENERATION_GAME_CONFIG[genId] ?? { gymCount: 8, eliteFourCount: 4 };
-    this.initializeStates(config.gymCount, config.eliteFourCount);
+    Object.assign(this.runModifiers, initialRunModifiers());
+    this.initializeStates();
     this.setNextState('game-start');
     this.finishCurrentState();
     this.currentRound.next(0);

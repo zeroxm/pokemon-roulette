@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { pickWeightedIndex, totalWeight, weightOf } from '../utils/weighted-random';
+import { SpinAnimation } from './spin-animation';
 import { WheelItem } from '../interfaces/wheel-item';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { SoundFxHandle, SoundFxService } from '../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../services/sound-fx-service/sound-fx.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -16,9 +17,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     TranslatePipe
   ],
   templateUrl: './wheel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './wheel.component.css'
 })
-export class WheelComponent implements AfterViewInit, OnChanges {
+export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   wheelCanvas!: HTMLCanvasElement;
   wheelCtx!: CanvasRenderingContext2D;
@@ -36,7 +38,6 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   cursorWidth: number;
   fontSize: number;
   currentRotation = 0;
-  startTime = 0;
   totalRotations!: number;
   duration = Math.floor(Math.random() * (2000)) + 3000;
   finalRotation = 0;
@@ -44,20 +45,23 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   pointerFillColor = 'yellow';
   winningNumber!: number;
   currentSegment: string = '-';
-  clickAudio!: SoundFxHandle;
+
+  private readonly animation = new SpinAnimation(
+    rotation => this.onSpinFrame(rotation),
+    () => this.onSpinFinished(),
+  );
 
   private translatedItems: WheelItem[] = [];
   private readonly mobileBreakpoint = 768;
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private gameStateService: GameStateService,
     private translateService: TranslateService,
     private soundFxService: SoundFxService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.clickAudio = this.soundFxService.createClickSoundFx();
     this.darkMode = this.themeService.isDark$;
     this.canvasHeight = 0;
     this.wheelWidth = 0;
@@ -74,28 +78,54 @@ export class WheelComponent implements AfterViewInit, OnChanges {
 
     // Wait for translations to be ready
     this.translateService.get('wheel.spin').subscribe(() => {
+      this.updateWheelDimensions();
       this.preprocessTranslations();
       this.drawWheel();
       this.drawPointer();
+      // `isReady` (and therefore the button's disabled state) flips here. With a synchronous
+      // translate loader that happens inside the same change-detection pass that already checked
+      // the view, so ask for another pass rather than tripping NG0100.
+      this.changeDetectorRef.detectChanges();
     });
+  }
+
+  ngOnDestroy(): void {
+    // The container's @switch destroys this component on every state change. Without this, a spin
+    // interrupted mid-flight kept animating a detached canvas and still emitted its result.
+    this.animation.cancel();
+    if (this.spinning) {
+      this.abortSpin();
+    }
   }
 
   @HostListener('window:resize')
   handleResize(): void {
     this.updateWheelDimensions();
 
-    if (this.wheelCtx && this.pointerCtx) {
-      this.drawWheel(this.currentRotation);
-      this.drawPointer();
+    if (!this.wheelCtx || !this.pointerCtx) {
+      return;
     }
+
+    // Apply the new size to the elements *before* drawing. Change detection would otherwise write
+    // the width/height bindings afterwards, and assigning canvas.width resets the drawing context —
+    // wiping everything just painted and leaving the wheel blank until the next spin.
+    this.wheelCanvas.width = this.wheelWidth;
+    this.wheelCanvas.height = this.canvasHeight;
+    this.pointerCanvas.width = this.cursorWidth;
+    this.pointerCanvas.height = this.canvasHeight;
+
+    this.drawWheel(this.currentRotation);
+    this.drawPointer();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items'] && !changes['items'].firstChange) {
       this.translateService.get('wheel.spin').subscribe(() => {
+        this.updateWheelDimensions();
         this.preprocessTranslations();
         this.drawWheel();
         this.drawPointer();
+        this.changeDetectorRef.detectChanges();
       });
     }
   }
@@ -107,6 +137,10 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     }));
   }
 
+  /**
+   * Recomputes canvas size and font size. Must run *after* `items` is populated — the font-size
+   * clamps below depend on the item count, and the constructor runs before any input is bound.
+   */
   private updateWheelDimensions(): void {
     const viewportMin = Math.min(window.innerHeight, window.innerWidth);
     const wheelScale = window.innerWidth <= this.mobileBreakpoint ? 0.70 : 0.50;
@@ -138,7 +172,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     let startAngle = rotation;
     for (let index = 0; index < this.translatedItems.length; index++) {
       const item = this.translatedItems[index];
-      const segmentSize = arcSize * item.weight;
+      const segmentSize = arcSize * weightOf(item);
       const endAngle = startAngle + segmentSize;
 
       /** Draw the segment */
@@ -269,66 +303,98 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     this.pointerCtx.restore();
   }
 
+  /**
+   * True once translations have resolved and `translatedItems` mirrors `items`.
+   *
+   * `translatedItems` is populated asynchronously (see `ngAfterViewInit` / `ngOnChanges`), but the
+   * canvas, the button and the spacebar handler are all live before that. Spinning in the gap used
+   * to throw and leave `wheelSpinning` latched true, which disables every control in the app until
+   * a page reload.
+   */
+  get isReady(): boolean {
+    return this.translatedItems.length > 0 && this.translatedItems.length === this.items.length;
+  }
+
   spinWheel(): void {
-    if (this.spinning) {
+    if (this.spinning || !this.isReady) {
       return;
     }
 
     this.spinning = true;
     this.gameStateService.setWheelSpinning(this.spinning);
 
-
-    this.startTime = performance.now();
-    const totalWeight = this.getTotalWeights();
-    const arcSize = (2 * Math.PI) / (totalWeight);
-
-    this.winningNumber = this.getRandomWeightedIndex();
-
-    this.totalRotations = Math.floor(Math.random() * 4) + 1;
-
-    let winningAngle = 0;
-    const winningSegmentSize = arcSize * this.items[this.winningNumber].weight;
-
-    for (let index = 0; index < this.items.length; index++) {
-      const item = this.items[index];
-      winningAngle += arcSize * item.weight;
-      if (index === this.winningNumber) {
-        break;
+    try {
+      const totalWeight = this.getTotalWeights();
+      if (totalWeight <= 0) {
+        throw new Error(`Cannot spin a wheel with total weight ${totalWeight}`);
       }
+      const arcSize = (2 * Math.PI) / (totalWeight);
+
+      this.winningNumber = this.getRandomWeightedIndex();
+      if (this.winningNumber < 0) {
+        throw new Error('Weighted selection produced no winner');
+      }
+
+      this.totalRotations = Math.floor(Math.random() * 4) + 1;
+      // Per spin, not per component: a field initialiser gave every spin of a given wheel the
+      // exact same duration, which `totalRotations` being per-spin shows was not the intent.
+      this.duration = Math.floor(Math.random() * 2000) + 3000;
+
+      // Read `translatedItems` throughout: it is the same length, order and weights as `items`,
+      // and it is the array the selection above was drawn from. Mixing the two invites a pointer
+      // that stops on a different segment than the one emitted.
+      let winningAngle = 0;
+      const winningSegmentSize = arcSize * weightOf(this.translatedItems[this.winningNumber]);
+
+      for (let index = 0; index < this.translatedItems.length; index++) {
+        winningAngle += arcSize * weightOf(this.translatedItems[index]);
+        if (index === this.winningNumber) {
+          break;
+        }
+      }
+
+      const offset = Math.random() * winningSegmentSize;
+      this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
+
+      this.animation.start(this.finalRotation, this.duration);
+    } catch (error) {
+      // Never leave the global gate latched: it disables the whole UI.
+      console.error('Wheel spin aborted:', error);
+      this.abortSpin();
     }
-
-    const offset = Math.random() * winningSegmentSize;
-    this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
-
-    requestAnimationFrame(this.animate.bind(this));
   }
 
-  private animate(currentTime: number): void {
-    const elapsed = currentTime - this.startTime;
-    const progress = Math.min(elapsed / this.duration, 1);
-    const easedProgress = 1 - Math.pow(1 - progress, 3);
-    this.currentRotation = easedProgress * this.finalRotation;
+  /** Releases the spin gate after a failure, so the rest of the app stays usable. */
+  private abortSpin(): void {
+    this.spinning = false;
+    this.gameStateService.setWheelSpinning(false);
+  }
 
-    const totalWeight = this.getTotalWeights();
+  private onSpinFrame(rotation: number): void {
+    try {
+      this.currentRotation = rotation;
+      this.drawWheel(this.currentRotation);
 
-    this.drawWheel(this.currentRotation);
-
-    if (progress < 1) {
-      requestAnimationFrame(this.animate.bind(this));
-    } else {
-      this.spinning = false;
-      this.selectedItemEvent.emit(this.winningNumber);
-      this.gameStateService.setWheelSpinning(false);
-    }
-
-    const segment = this.getCurrentSegment();
-
-    if (segment !== this.currentSegment) {
-      this.currentSegment = segment;
-      void this.soundFxService.playSoundFx(this.clickAudio, 1.0, { preventOverlap: true });
+      const segment = this.getCurrentSegment();
+      if (segment !== this.currentSegment) {
+        this.currentSegment = segment;
+        void this.soundFxService.playSoundFx('click', 1.0, { preventOverlap: true });
+      }
+    } catch (error) {
+      // A throw mid-animation would otherwise leave the global gate latched.
+      console.error('Wheel animation aborted:', error);
+      this.animation.cancel();
+      this.abortSpin();
     }
   }
 
+  private onSpinFinished(): void {
+    this.spinning = false;
+    this.selectedItemEvent.emit(this.winningNumber);
+    this.gameStateService.setWheelSpinning(false);
+  }
+
+  /** Label of the segment under the pointer. Already translated — do not pipe it again. */
   private getCurrentSegment(): string {
     const totalWeight = this.getTotalWeights();
 
@@ -336,7 +402,7 @@ export class WheelComponent implements AfterViewInit, OnChanges {
     let accumulatedWeight = 0;
 
     for (const item of this.translatedItems) {
-      accumulatedWeight += item.weight;
+      accumulatedWeight += weightOf(item);
       const segmentEnd = (accumulatedWeight / totalWeight) * 2 * Math.PI;
 
       if (currentAngle <= segmentEnd) {
@@ -347,21 +413,12 @@ export class WheelComponent implements AfterViewInit, OnChanges {
   }
 
   private getTotalWeights(): number {
-    return this.translatedItems.reduce((sum, item) => sum + item.weight, 0);
+    return totalWeight(this.translatedItems);
   }
 
+  /** Picks a winning index. Returns -1 when there is nothing to pick from. */
   getRandomWeightedIndex(): number {
-    const totalWeight = this.getTotalWeights();
-    let random = Math.random() * totalWeight;
-    let accumulatedWeight = 0;
-
-    for (let i = 0; i < this.translatedItems.length; i++) {
-      accumulatedWeight += this.translatedItems[i].weight;
-      if (random < accumulatedWeight) {
-        return i;
-      }
-    }
-    return this.translatedItems.length - 1;
+    return pickWeightedIndex(this.translatedItems);
   }
 
   @HostListener('window:keydown.space', ['$event'])

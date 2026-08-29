@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,16 +10,32 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
 import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
-import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 
 describe('GymBattleRouletteComponent', () => {
+
+  describe('plusModifiers', () => {
+    it('returns 0 for an empty team instead of NaN', () => {
+      (component as any).trainerTeam = [];
+      (component as any).trainerItems = [{ name: 'x-attack' }];
+
+      const result = (component as any).plusModifiers();
+      expect(Number.isNaN(result)).withContext('NaN silently dropped the bonus').toBeFalse();
+      expect(result).toBe(0);
+    });
+
+    it('rounds a fractional mean up', () => {
+      (component as any).trainerTeam = [{ power: 2 }, { power: 3 }, { power: 3 }];  // mean 2.67
+      (component as any).trainerItems = [{ name: 'x-attack' }];
+
+      expect((component as any).plusModifiers()).toBe(3);
+    });
+  });
   let component: GymBattleRouletteComponent;
   let fixture: ComponentFixture<GymBattleRouletteComponent>;
   let trainerService: TrainerService;
   let typeMatchupService: TypeMatchupService;
-  let generationService: GenerationService;
   let modalQueueService: ModalQueueService;
   let gameStateService: GameStateService;
 
@@ -51,15 +67,15 @@ describe('GymBattleRouletteComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [GymBattleRouletteComponent, TranslateModule.forRoot()],
-      providers: [{ provide: HttpClient, useValue: httpSpyObj }],
+      imports: [GymBattleRouletteComponent],
+      providers: [
+        provideTranslateService(),{ provide: HttpClient, useValue: httpSpyObj }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GymBattleRouletteComponent);
     component = fixture.componentInstance;
     trainerService = TestBed.inject(TrainerService);
     typeMatchupService = TestBed.inject(TypeMatchupService);
-    generationService = TestBed.inject(GenerationService);
     modalQueueService = TestBed.inject(ModalQueueService);
     gameStateService = TestBed.inject(GameStateService);
 
@@ -73,6 +89,227 @@ describe('GymBattleRouletteComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  // ── Ash-Greninja: the hidden potion reward ────────────────────────────────
+
+  describe('Ash-Greninja', () => {
+    const GRENINJA = 658;
+    const ASH_GRENINJA = 10117;
+    const LOSE = 'game.main.roulette.gym.no';
+
+    const loseWithPotion = (): void => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+    };
+
+    beforeEach(() => {
+      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({
+        componentInstance: {},
+      } as NgbModalRef));
+    });
+
+    it('transforms when a potion is used in the battle', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA, power: 3 }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+
+      expect(trainerService.getTeam()[0].pokemonId).toBe(ASH_GRENINJA);
+      expect(trainerService.getTeam()[0].power).toBe(5);
+    });
+
+    it('stays base while no potion has been used', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA }));
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('losing alone must not transform it')
+        .toBe(GRENINJA);
+    });
+
+    it('plays the mega animation with the right pair of ids', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+      await Promise.resolve();
+
+      const opened = (modalQueueService.open as jasmine.Spy).calls.allArgs().map(args => args[0]);
+      expect(opened.some((c: any) => c?.name?.includes('MegaEvolutionAnimationModal')))
+        .withContext('the transformation reuses the mega cutscene')
+        .toBeTrue();
+    });
+
+    it('leaves other Pokemon alone when a potion is used', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: 1 }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+
+      expect(trainerService.getTeam()[0].pokemonId).toBe(1);
+    });
+  });
+
+  // ── Mimikyu's Disguise: the last-resort retry ─────────────────────────────
+
+  describe("Mimikyu's Disguise", () => {
+    const MIMIKYU = 778;
+    const MIMIKYU_BUSTED = 10143;
+    const LOSE = 'game.main.roulette.gym.no';
+
+    /** Puts the component in the state a losing spin lands in, with no potions held. */
+    const loseWithNoPotions = (): void => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [];
+      (component as any).retries = 1;   // onItemSelected decrements to 0 before deciding
+    };
+
+    beforeEach(() => {
+      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({
+        componentInstance: {},
+      } as NgbModalRef));
+    });
+
+    it('busts the disguise instead of losing, and grants a retry', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(lost).withContext('the battle must not end').not.toHaveBeenCalled();
+      expect((component as any).retries).withContext('one more spin, like a Potion').toBe(1);
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
+    });
+
+    it('cannot absorb a second defeat with the same Mimikyu', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      expect(lost).toHaveBeenCalledWith(false);
+    });
+
+    it('cannot be spent twice in one battle, even with a second Mimikyu', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      // A second, still-disguised Mimikyu joins mid-battle. The limit is per battle, not per
+      // Pokémon, so it must not buy another retry in this same fight.
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+      component.onItemSelected(0);
+
+      expect(lost).toHaveBeenCalledWith(false);
+      expect(trainerService.getTeam()[1].pokemonId)
+        .withContext('the newcomer keeps its disguise')
+        .toBe(MIMIKYU);
+    });
+
+    it('is available again in the next battle', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+      component.onItemSelected(0);
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
+
+      // Leaving the battle repairs the disguise, and the container destroys this component - the
+      // next battle gets a fresh instance with an unspent one.
+      (trainerService as any).syncBattleForms('main-adventure');   // what the state subscription does
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('the disguise goes back on when the fight ends')
+        .toBe(MIMIKYU);
+
+      const next = TestBed.createComponent(GymBattleRouletteComponent);
+      next.componentInstance.currentLeader = { name: 'Misty', sprite: '', quotes: [] } as GymLeader;
+      next.componentInstance.currentRound = 1;
+      next.detectChanges();
+      const lost = spyOn(next.componentInstance.battleResultEvent, 'emit');
+      (next.componentInstance as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (next.componentInstance as any).trainerItems = [];
+      (next.componentInstance as any).retries = 1;
+
+      next.componentInstance.onItemSelected(0);
+
+      expect(lost).withContext('a fresh battle can be rescued again').not.toHaveBeenCalled();
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
+    });
+
+    it('shows the busted artwork without calling PokeAPI', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const http = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+      http.get.calls.reset();
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].sprite?.front_default)
+        .withContext('PokeAPI has no official artwork for 10143, so the form hard-links its own')
+        .toContain('10143.png');
+      expect(http.get).not.toHaveBeenCalled();
+    });
+
+    it('does not fire while a potion is still available', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('potions are spent first; the disguise is the last resort')
+        .toBe(MIMIKYU);
+    });
+
+    it('renders the retry banner without a potion behind it', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+      fixture.detectChanges();
+
+      // The banner must not read `currentItem`, which only a potion sets.
+      const banner: HTMLElement = fixture.nativeElement.querySelector('.respin-reason');
+      expect(banner.textContent).toContain('x1');
+      expect((component as any).respinReasonKey).toBe('game.main.roulette.disguise.respin');
+    });
+
+    it('renders the retry banner naming the potion when one was used', () => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+      fixture.detectChanges();
+
+      expect((component as any).respinReasonKey).toBe('items.potion.name');
+      expect(fixture.nativeElement.querySelector('.respin-reason').textContent).toContain('x1');
+    });
+
+    it('loses normally when no Mimikyu is on the team', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: 1 }));
+      const lost = spyOn(component.battleResultEvent, 'emit');
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(lost).toHaveBeenCalledWith(false);
+    });
   });
 
   // ── calcVictoryOdds: slice count by team power ────────────────────────────
@@ -180,7 +417,7 @@ describe('GymBattleRouletteComponent', () => {
 
   it('should emit true on winning spin regardless of retries', () => {
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 },
+      { text: 'game.main.roulette.gym.yes', fillStyle: 'green', weight: 1 }
     ];
     (component as any).retries = 3;
     spyOn(component.battleResultEvent, 'emit');
@@ -195,7 +432,7 @@ describe('GymBattleRouletteComponent', () => {
     // Directly assign trainerItems to bypass resetItems() reference staleness
     (component as any).trainerItems = [POTION_ITEM];
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1; // will be decremented to 0, triggering potion check
     spyOn(component.battleResultEvent, 'emit');
@@ -211,7 +448,7 @@ describe('GymBattleRouletteComponent', () => {
   it('should emit false on failed spin when retries exhausted and no potion available', () => {
     (component as any).trainerItems = []; // no potions
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.gym.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1;
     spyOn(component.battleResultEvent, 'emit');

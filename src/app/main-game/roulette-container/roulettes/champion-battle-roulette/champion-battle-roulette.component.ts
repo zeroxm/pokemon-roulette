@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { championByGeneration } from './champion-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { CommonModule } from '@angular/common';
 import { take } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -8,20 +9,22 @@ import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
-import { interleaveOdds } from '../../../../utils/odd-utils';
+import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
-import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
+import { resolveSplitTrainer, splitTrainerCount } from '../../../../utils/split-trainer';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-champion-battle-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe
   ],
   templateUrl: './champion-battle-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './champion-battle-roulette.component.css'
 })
 export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent {
@@ -31,7 +34,7 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
   @ViewChild('championPresentationModal', { static: true }) championPresentationModal!: TemplateRef<any>;
   @ViewChild('itemUsedModal', { static: true }) itemUsedModal!: TemplateRef<any>;
 
-  @Input() currentRound!: number;
+  @Input() override currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
   @Output() fromChampionChange = new EventEmitter<number>();
 
@@ -43,9 +46,10 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
     gameStateService: GameStateService,
     generationService: GenerationService,
     trainerService: TrainerService,
-    translate: TranslateService
+    translate: TranslateService,
+    typeMatchupService: TypeMatchupService,
   ) {
-    super(modalService, gameStateService, generationService, trainerService, translate);
+    super(modalService, gameStateService, generationService, trainerService, translate, typeMatchupService);
   }
 
   onItemSelected(index: number): void {
@@ -56,7 +60,9 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
       if (this.retries <= 0) {
         const potion = this.hasPotions();
         if (potion) {
-          this.usePotion(potion, () => this.modalService.open(this.itemUsedModal, { centered: true, size: 'md' }));
+          this.usePotion(potion, () => this.modalQueueService.open(this.itemUsedModal, { centered: true, size: 'md' }));
+        } else if (this.hasDisguise() && this.useDisguise(() => this.openDisguiseNotice())) {
+          // Mimikyu took the hit: the retry is already granted, so the battle does not end here.
         } else {
           this.battleResultEvent.emit(false);
         }
@@ -68,36 +74,15 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
     if (state === 'champion-battle') {
       this.getCurrentChampion();
       this.calcVictoryOdds();
-      this.modalService.open(this.championPresentationModal, { centered: true, size: 'lg' });
+      void this.modalQueueService.open(this.championPresentationModal, { centered: true, size: 'lg' });
     }
   }
 
+  protected override readonly outcomeKeyPrefix = 'game.main.roulette.champion';
+  protected override readonly baseNoOdds = 3;
+
   protected override calcVictoryOdds(): void {
-    const yesOdds: WheelItem[] = [];
-    const noOdds: WheelItem[] = [];
-
-    yesOdds.push({ text: 'game.main.roulette.champion.yes', fillStyle: 'green', weight: 1 });
-
-    this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: 'game.main.roulette.champion.yes', fillStyle: 'green', weight: 1 });
-      }
-    });
-
-    const powerModifier = this.plusModifiers();
-    for (let i = 0; i < powerModifier; i++) {
-      yesOdds.push({ text: 'game.main.roulette.champion.yes', fillStyle: 'green', weight: 1 });
-    }
-
-    for (let index = 0; index < this.currentRound; index++) {
-      noOdds.push({ text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 });
-    }
-    // Champion battles should be the toughest, so it starts with 3 noOdds
-    noOdds.push({ text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 });
-    noOdds.push({ text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 });
-    noOdds.push({ text: 'game.main.roulette.champion.no', fillStyle: 'crimson', weight: 1 });
-
-    this.victoryOdds = interleaveOdds(yesOdds, noOdds);
+    this.victoryOdds = this.buildVictoryOdds();
   }
 
   private getCurrentChampion(): void {
@@ -105,18 +90,10 @@ export class ChampionBattleRouletteComponent extends BaseBattleRouletteComponent
 
     if (this.generation.id === 7) {
       this.translate.get(this.currentChampion.name).pipe(take(1)).subscribe(translated => {
-        const championNames = translated.split('/');
-        const championSprites = Array.isArray(this.currentChampion.sprite) ? this.currentChampion.sprite : [this.currentChampion.sprite];
-        const championQuotes = Array.isArray(this.currentChampion.quotes) ? this.currentChampion.quotes : this.currentChampion.quotes;
-        const randomIndex = Math.floor(Math.random() * championNames.length);
+        const randomIndex = Math.floor(Math.random() * splitTrainerCount(translated));
 
         this.fromChampionChange.emit(randomIndex);
-
-        this.currentChampion = {
-          name: championNames[randomIndex],
-          sprite: championSprites[randomIndex],
-          quotes: [Array.isArray(championQuotes) ? championQuotes[randomIndex] : championQuotes]
-        } as GymLeader;
+        this.currentChampion = resolveSplitTrainer(this.currentChampion, translated, randomIndex);
       });
     }
   }

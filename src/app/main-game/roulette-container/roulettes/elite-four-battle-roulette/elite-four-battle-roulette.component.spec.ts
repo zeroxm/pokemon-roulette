@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,8 +9,6 @@ import { GymLeader } from '../../../../interfaces/gym-leader';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
-import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 
@@ -18,7 +16,6 @@ describe('EliteFourBattleRouletteComponent', () => {
   let component: EliteFourBattleRouletteComponent;
   let fixture: ComponentFixture<EliteFourBattleRouletteComponent>;
   let trainerService: TrainerService;
-  let typeMatchupService: TypeMatchupService;
   let modalQueueService: ModalQueueService;
   let gameStateService: GameStateService;
 
@@ -49,14 +46,14 @@ describe('EliteFourBattleRouletteComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [EliteFourBattleRouletteComponent, TranslateModule.forRoot()],
-      providers: [{ provide: HttpClient, useValue: httpSpyObj }],
+      imports: [EliteFourBattleRouletteComponent],
+      providers: [
+        provideTranslateService(),{ provide: HttpClient, useValue: httpSpyObj }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EliteFourBattleRouletteComponent);
     component = fixture.componentInstance;
     trainerService = TestBed.inject(TrainerService);
-    typeMatchupService = TestBed.inject(TypeMatchupService);
     modalQueueService = TestBed.inject(ModalQueueService);
     gameStateService = TestBed.inject(GameStateService);
 
@@ -104,7 +101,7 @@ describe('EliteFourBattleRouletteComponent', () => {
     spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({} as NgbModalRef));
     (component as any).trainerItems = [HYPER_POTION_ITEM];
     (component as any).victoryOdds = [
-      { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 },
+      { text: 'game.main.roulette.elite.no', fillStyle: 'crimson', weight: 1 }
     ];
     (component as any).retries = 1;
     spyOn(component.battleResultEvent, 'emit');

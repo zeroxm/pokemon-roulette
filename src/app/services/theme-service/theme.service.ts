@@ -11,9 +11,6 @@ const ALL_THEME_CLASSES: string[] = [
   'theme-starters',
   'theme-plain-dark',
   'theme-plain-light',
-  // Legacy classes left by DarkModeService — remove them too
-  'dark-mode',
-  'light-mode',
 ];
 
 @Injectable({
@@ -63,7 +60,7 @@ export class ThemeService {
 
   /**
    * Apply a theme:
-   * 1. Removes ALL old theme + legacy dark-mode/light-mode classes from body
+   * 1. Removes ALL old theme classes from body
    * 2. Adds `theme-${theme}` to body
    * 3. Persists selection to localStorage
    * 4. Emits new value on theme$
@@ -72,14 +69,11 @@ export class ThemeService {
   setTheme(theme: Theme): void {
     const body = this.doc.body;
 
-    // Remove all known theme classes (including legacy ones from DarkModeService)
+    // Remove all known theme classes
     ALL_THEME_CLASSES.forEach(cls => this.renderer.removeClass(body, cls));
 
     // Apply the selected theme class
     this.renderer.addClass(body, `theme-${theme}`);
-
-    // Clean up legacy dark-mode localStorage key from DarkModeService
-    localStorage.removeItem('dark-mode');
 
     // Persist
     localStorage.setItem(STORAGE_KEY, theme);

@@ -1,4 +1,4 @@
-@switch (getGameState()) {
+@switch (currentGameState) {
   @case ('game-start') {
     <app-generation-roulette
         (generationSelectedEvent)="handleGenerationSelected()">
@@ -10,9 +10,10 @@
     </app-character-select>
   }
   @case ('starter-pokemon') {
-    <app-starter-roulette
-        (selectedStarterEvent)="capturePokemon($event)">
-    </app-starter-roulette>
+    <app-pokemon-pool-roulette
+        pool="starter"
+        (selectedPokemonEvent)="capturePokemon($event)">
+    </app-pokemon-pool-roulette>
   }
   @case ('check-shininess') {
     <app-shiny-roulette
@@ -63,7 +64,9 @@
   }
   @case ('check-evolution') {
     <app-check-evolution-roulette
-        [(evolutionCredits)]="evolutionCredits"
+        [eventSource]="checkEvolutionSource"
+        [evolutionCredits]="run.evolutionCredits"
+        (evolutionCreditsChange)="run.evolutionCredits = $event"
         (evolvePokemonEvent)="chooseWhoWillEvolve($event)"
         (doNothingEvent)="doNothing()">
     </app-check-evolution-roulette>
@@ -71,6 +74,7 @@
   @case ('adventure-continues') {
     <app-main-adventure-roulette
         [respinReason]="respinReason"
+        [respinReasonParams]="respinReasonParams"
         (catchPokemonEvent)="catchPokemon()"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
@@ -93,7 +97,7 @@
   }
   @case ('team-rocket-encounter') {
     <app-team-rocket-roulette
-        [stolenPokemon]="stolenPokemon"
+        [stolenPokemon]="run.stolenPokemon"
         (stealPokemonEvent)="stealPokemon()"
         (nothingHappensEvent)="doNothing()"
         (defeatInBattleEvent)="teamRocketDefeated()">
@@ -105,9 +109,10 @@
     </app-mysterious-egg-roulette>
   }
   @case ('legendary-encounter') {
-    <app-legendary-roulette
+    <app-pokemon-pool-roulette
+        pool="legendary"
         (selectedPokemonEvent)="legendaryCaptureChance($event)">
-    </app-legendary-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('catch-legendary') {
     <app-catch-legendary-roulette
@@ -150,14 +155,16 @@
     </app-explore-cave-roulette>
   }
   @case ('catch-cave-pokemon') {
-    <app-cave-pokemon-roulette
+    <app-pokemon-pool-roulette
+        pool="cave"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-cave-pokemon-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('find-fossil') {
-    <app-fossil-roulette
+    <app-pokemon-pool-roulette
+        pool="fossil"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-fossil-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case('snorlax-encounter') {
     <app-snorlax-roulette
@@ -168,9 +175,10 @@
     </app-snorlax-roulette>
   }
   @case ('go-fishing') {
-    <app-fishing-roulette
+    <app-pokemon-pool-roulette
+        pool="fish"
         (selectedPokemonEvent)="capturePokemon($event)">
-    </app-fishing-roulette>
+    </app-pokemon-pool-roulette>
   }
   @case ('battle-rival') {
     <app-rival-battle-roulette
@@ -181,6 +189,7 @@
   @case ('elite-four-preparation') {
     <app-elite-four-prep-roulette
         [respinReason]="respinReason"
+        [respinReasonParams]="respinReasonParams"
         (battleTrainerEvent)="chooseWhoWillEvolve($event)"
         (buyPotionsEvent)="buyPotions()"
         (catchTwoPokemonEvent)="catchTwoPokemon()"
@@ -212,99 +221,9 @@
         (restartEvent)="resetGameAction()">
     </app-game-over>
   }
+  @default {
+    <!-- Every GameState should have an arm above. Reaching here means one was added without a
+         matching case; failing loudly beats blanking the screen. -->
+    <p class="unhandled-state">{{ 'game.main.unhandledState' | translate }}</p>
+  }
  }
-
-<ng-template #altPrizeModal let-modal>
-    <div class="modal-body">
-        <h1>{{ altPrizeText | translate }}</h1>
-        <div class="item-panel">
-            <img [src]="altPrizeSprite" height="128">
-            <div class="message">
-                <p>{{ altPrizeDescription | translate }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
-    </div>
-</ng-template>
-
-<ng-template #pkmnEvoModal let-modal>
-    <div class="modal-body">
-        <h1>{{ pkmnEvoTitle | translate }}</h1>
-        <div class="pokemon-switch-panel">
-            <img [src]="pkmnOut.sprite?.front_default" height="128">
-            <div class="message">
-                <p>{{ 'game.main.roulette.evolve.modal.your' | translate }} {{ pkmnOut.text | translate }} {{ 'game.main.roulette.evolve.modal.to' | translate }} {{ pkmnIn.text | translate }}!</p>
-            </div>
-            <img [src]="pkmnIn.sprite?.front_default" height="128">
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
-    </div>
-</ng-template>
-
-<ng-template #pkmnTradeModal let-modal>
-    <div class="modal-body">
-        <h1>{{ pkmnTradeTitle | translate }}</h1>
-        <div class="pokemon-switch-panel">
-            <img [src]="pkmnOut.sprite?.front_default" height="128">
-            <div class="message">
-                <p>{{ 'game.main.trade.sent' | translate }} {{ pkmnOut.text | translate }} {{ 'game.main.trade.received' | translate }} {{ pkmnIn.text | translate }}!</p>
-            </div>
-            <img [src]="pkmnIn.sprite?.front_default" height="128">
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
-    </div>
-</ng-template>
-
-<ng-template #itemActivateModal let-modal>
-    <div class="modal-body">
-        <h1>{{ currentContextItem.text | translate }} {{ 'game.main.item.activates' | translate }}</h1>
-        <div class="item-panel">
-            <img [src]="currentContextItem.sprite" height="128">
-            <div class="message">
-                <p>{{ currentContextItem.description | translate }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
-    </div>
-</ng-template>
-
-<ng-template #infoModal let-modal>
-    <div class="modal-body">
-        <h1>{{ infoModalTitle  }}</h1>
-        <div class="explain-panel">
-            <div class="message">
-                <p>{{ infoModalMessage }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Ok</button>
-    </div>
-</ng-template>
-
-<ng-template #teamRocketFailsModal let-modal>
-    <div class="modal-body">
-        <h1>{{ 'game.main.rocket.fails' | translate }}</h1>
-        <div class="explain-panel">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/244.png"
-                 alt="Forte igual o Entei!"
-                 height="128">
-            <div class="message">
-                <p>{{ 'game.main.rocket.entei.emerges' | translate }}</p>
-                <p>{{ 'game.main.rocket.entei.prevents' | translate}}</p>
-                <p>{{ 'game.main.rocket.entei.fine' | translate }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">{{ 'game.main.rocket.entei.thanks' | translate}}</button>
-    </div>
-</ng-template>

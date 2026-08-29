@@ -2,19 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TradePokemonRouletteComponent } from './trade-pokemon-roulette.component';
 import { HttpClient } from '@angular/common/http';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('TradePokemonRouletteComponent', () => {
   let component: TradePokemonRouletteComponent;
   let fixture: ComponentFixture<TradePokemonRouletteComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [TradePokemonRouletteComponent, TranslateModule.forRoot()],
+      imports: [TradePokemonRouletteComponent],
       providers: [
+        provideTranslateService(),
         {provide: HttpClient, useValue: httpSpyObj }
       ]
     })

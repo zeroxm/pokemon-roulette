@@ -1,15 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PokedexEntryComponent } from './pokedex-entry.component';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
-import { of } from 'rxjs';
 import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
 
 describe('PokedexEntryComponent', () => {
   let component: PokedexEntryComponent;
   let fixture: ComponentFixture<PokedexEntryComponent>;
-  let darkModeServiceSpy: jasmine.SpyObj<DarkModeService>;
   let pokemonServiceSpy: jasmine.SpyObj<PokemonService>;
 
   const seenEntry: PokedexEntry = { won: false, sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png' };
@@ -18,9 +15,6 @@ describe('PokedexEntryComponent', () => {
   beforeEach(async () => {
     localStorage.clear();
 
-    darkModeServiceSpy = jasmine.createSpyObj('DarkModeService', [], {
-      darkMode$: of(false)
-    });
     pokemonServiceSpy = jasmine.createSpyObj('PokemonService', ['getPokemonById']);
     pokemonServiceSpy.getPokemonById.and.returnValue({
       pokemonId: 25,
@@ -33,9 +27,9 @@ describe('PokedexEntryComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [PokedexEntryComponent, TranslateModule.forRoot()],
+      imports: [PokedexEntryComponent],
       providers: [
-        { provide: DarkModeService, useValue: darkModeServiceSpy },
+        provideTranslateService(),
         { provide: PokemonService, useValue: pokemonServiceSpy }
       ]
     }).compileComponents();

@@ -258,6 +258,51 @@ describe('TrainerService', () => {
     });
   });
 
+  describe('mega evolution honours the stone that was tapped', () => {
+    const CHARIZARD = 6;
+    const MEGA_X = 10034;
+    const MEGA_Y = 10035;
+
+    const charizard: PokemonItem = {
+      text: 'pokemon.charizard', pokemonId: CHARIZARD, fillStyle: 'red',
+      sprite: null, shiny: false, power: 3, weight: 1,
+    };
+
+    const stone = (name: string): any => ({
+      name, text: `items.${name}.name`, description: `items.${name}.description`,
+      sprite: `${name}.png`, fillStyle: 'purple', weight: 1,
+    });
+
+    beforeEach(() => {
+      service.trainerTeam = [structuredClone(charizard)];
+      service.storedPokemon = [];
+      // Both stones in the bag: the case where scanning the forms list instead of honouring the
+      // tap always produced Mega X, whichever stone was clicked.
+      service.addToItems(stone('charizardite-x'));
+      service.addToItems(stone('charizardite-y'));
+    });
+
+    it('gives Mega Y when Charizardite Y is the stone tapped', () => {
+      service.forceMegaActivation(CHARIZARD, 'charizardite-y' as any);
+
+      expect(service.trainerTeam[0].pokemonId)
+        .withContext('holding X as well must not override the stone the player tapped')
+        .toBe(MEGA_Y);
+    });
+
+    it('gives Mega X when Charizardite X is the stone tapped', () => {
+      service.forceMegaActivation(CHARIZARD, 'charizardite-x' as any);
+
+      expect(service.trainerTeam[0].pokemonId).toBe(MEGA_X);
+    });
+
+    it('falls back to any held stone when none was named', () => {
+      service.forceMegaActivation(CHARIZARD);
+
+      expect([MEGA_X, MEGA_Y]).toContain(service.trainerTeam[0].pokemonId);
+    });
+  });
+
   describe('commitTeamAndStorage', () => {
     it('should write back team and stored arrays into service state', () => {
       service.trainerTeam = [structuredClone(bulbasaur)];

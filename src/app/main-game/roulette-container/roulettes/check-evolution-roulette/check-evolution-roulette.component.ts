@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -8,6 +8,7 @@ import { EventSource } from '../../../EventSource';
   selector: 'app-check-evolution-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './check-evolution-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './check-evolution-roulette.component.css'
 })
 export class CheckEvolutionRouletteComponent implements OnInit {
@@ -15,6 +16,8 @@ export class CheckEvolutionRouletteComponent implements OnInit {
   evolveOdds: WheelItem[] = [];
 
   @Input() evolutionCredits!: number;
+  /** Which battle queued this roll — decides the consolation prize when nothing can evolve. */
+  @Input() eventSource: EventSource = 'gym-battle';
   @Output() evolvePokemonEvent = new EventEmitter<EventSource>();
   @Output() evolutionCreditsChange = new EventEmitter<number>();
   @Output() doNothingEvent = new EventEmitter<void>();
@@ -26,7 +29,7 @@ export class CheckEvolutionRouletteComponent implements OnInit {
   onItemSelected(index: number): void {
     if (this.evolveOdds[index].text === 'game.main.roulette.checkEvolution.yes') {
       this.evolutionCreditsChange.emit(0);
-      this.evolvePokemonEvent.emit('gym-battle');
+      this.evolvePokemonEvent.emit(this.eventSource);
     } else {
       this.evolutionCreditsChange.emit(this.evolutionCredits + 1);
       this.doNothingEvent.emit();

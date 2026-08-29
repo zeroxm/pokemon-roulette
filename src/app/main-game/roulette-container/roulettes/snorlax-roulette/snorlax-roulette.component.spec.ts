@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SnorlaxRouletteComponent } from './snorlax-roulette.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('SnorlaxRouletteComponent', () => {
   let component: SnorlaxRouletteComponent;
@@ -9,7 +9,8 @@ describe('SnorlaxRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SnorlaxRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [SnorlaxRouletteComponent]
     })
     .compileComponents();
 

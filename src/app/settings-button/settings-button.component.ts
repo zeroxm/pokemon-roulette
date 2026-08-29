@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 
@@ -17,13 +16,13 @@ import { Observable } from 'rxjs';
     TranslatePipe
   ],
   templateUrl: './settings-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './settings-button.component.css'
 })
 export class SettingsButtonComponent {
 
   constructor(private router: Router,
               private gameStateService: GameStateService,
-              private darkModeService: DarkModeService,
               private themeService: ThemeService) {
       this.gameStateService.wheelSpinningObserver.pipe(takeUntilDestroyed()).subscribe(state => {
       this.wheelSpinning = state;

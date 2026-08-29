@@ -1,0 +1,231 @@
+import { Injectable } from '@angular/core';
+import { PokemonItem } from '../../interfaces/pokemon-item';
+import { ItemName } from '../items-service/item-names';
+import { FormRule } from './form-rule';
+import { MegaForm } from '../trainer-service/pokemon-mega-forms';
+import { formRules } from './form-rules';
+
+/** What a fired rule replaced, so it can be put back. */
+interface AppliedForm {
+  readonly ruleId: string;
+  readonly original: PokemonItem;
+}
+
+/**
+ * Applies and reverts every form-changing mechanic through one code path.
+ *
+ * Three invariants it guarantees:
+ *
+ * - **Apply is idempotent**, so a battle state emitted twice cannot toggle a two-form rule back
+ *   (Shield → Blade → Shield) or re-roll a random one.
+ * - **Revert sweeps storage as well as the team**, so a form moved to the PC mid-battle is not
+ *   stranded there.
+ * - **Revert bookkeeping always clears**, even when the revert itself finds nothing to do.
+ */
+@Injectable({ providedIn: 'root' })
+export class FormRuleService {
+  private readonly rules: readonly FormRule[] = formRules;
+  private readonly rulesById = new Map(formRules.map(rule => [rule.id, rule]));
+
+  /** Non-empty only while battle forms are applied; also the idempotency guard. */
+  private applied: AppliedForm[] = [];
+  private formsApplied = false;
+
+  /**
+   * Applies every `battle-start` rule whose conditions are met. A no-op if forms are already
+   * applied, so re-entering the same battle state cannot double-toggle anything.
+   *
+   * `manual` rules are skipped: holding a mega stone decides *which* form is available, not that
+   * one should happen.
+   */
+  applyAll(team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
+    if (this.formsApplied) {
+      return false;
+    }
+    this.formsApplied = true;
+
+    let changed = false;
+    for (const rule of this.rules) {
+      if (rule.trigger !== 'battle-start') {
+        continue;
+      }
+      changed = this.applyRule(rule, team, stored, heldItems) || changed;
+    }
+    return changed;
+  }
+
+  /**
+   * Undoes every `temporary` rule, wherever the Pokémon now sits.
+   *
+   * `base-to-battle` reverts unconditionally: a battle-only form is battle-only whether or not this
+   * code produced it, so a Pokémon caught in Hero form still leaves the fight as base.
+   */
+  revertAll(team: PokemonItem[], stored: PokemonItem[]): boolean {
+    const records = this.applied;
+    // Cleared before any attempt, so a missed revert cannot strand bookkeeping and disable the
+    // rule for the rest of the run.
+    this.applied = [];
+    this.formsApplied = false;
+
+    let reverted = false;
+
+    for (const rule of this.rules) {
+      if (rule.persistence !== 'temporary') {
+        continue;
+      }
+
+      for (const collection of this.collectionsFor(rule, team, stored)) {
+        for (let i = 0; i < collection.length; i++) {
+          const current = collection[i];
+
+          if (rule.selection.kind === 'base-to-battle') {
+            if (rule.forms[1]?.pokemonId === current.pokemonId) {
+              // Prefer the Pokémon this rule replaced: it carries the already-resolved sprite and
+              // any power gained since (a rare candy, say). A Pokémon *caught* in its battle form
+              // has no record, and falls back to the table form.
+              const applied = records.find(r => r.ruleId === rule.id);
+              collection[i] = applied
+                ? this.restore(applied.original, current)
+                : this.carryOver(rule.forms[0], current);
+              reverted = true;
+            }
+            continue;
+          }
+
+          if (!this.isFormOf(rule, current)) {
+            continue;
+          }
+          const record = records.find(r => r.ruleId === rule.id);
+          if (record) {
+            collection[i] = this.restore(record.original, current);
+            reverted = true;
+          }
+        }
+      }
+    }
+    return reverted;
+  }
+
+  /** Applies one rule immediately — used when a stone is tapped mid-battle. */
+  forceApply(ruleId: string, team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
+    const rule = this.rulesById.get(ruleId);
+    if (!rule) {
+      return false;
+    }
+    // A forced application still has to be undone at battle end.
+    this.formsApplied = true;
+    return this.applyRule(rule, team, stored, heldItems);
+  }
+
+  /** True when any collection currently holds a non-base form of the given rule. */
+  isRuleActive(ruleId: string, team: PokemonItem[], stored: PokemonItem[]): boolean {
+    const rule = this.rulesById.get(ruleId);
+    if (!rule) {
+      return false;
+    }
+    return this.collectionsFor(rule, team, stored)
+      .some(collection => collection.some(pokemon => this.isNonBaseFormOf(rule, pokemon)));
+  }
+
+  /** Forgets all bookkeeping without touching any Pokémon. For a game reset. */
+  reset(): void {
+    this.applied = [];
+    this.formsApplied = false;
+  }
+
+  // ── internals ─────────────────────────────────────────────────────────────
+
+  private applyRule(
+    rule: FormRule, team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[],
+  ): boolean {
+    let changed = false;
+
+    for (const collection of this.collectionsFor(rule, team, stored)) {
+      for (let i = 0; i < collection.length; i++) {
+        const current = collection[i];
+        const target = this.pickTarget(rule, current, heldItems);
+        if (!target || target.pokemonId === current.pokemonId) {
+          continue;
+        }
+
+        if (rule.persistence === 'temporary') {
+          this.applied.push({ ruleId: rule.id, original: structuredClone(current) });
+        }
+        collection[i] = this.carryOver(target, current);
+        changed = true;
+      }
+    }
+    return changed;
+  }
+
+  /**
+   * The one swap shared by every mechanic.
+   *
+   * Per-Pokémon state is carried across rather than taken from the table form, so anything earned
+   * during the battle survives the change back.
+   *
+   * The sprite is dropped only when the target form does not name one — the usual case, where the
+   * runtime fetches the artwork. A form that hard-links its own sprite keeps it, because PokéAPI has
+   * no official artwork for some forms (Mimikyu busted) and the fetch yields nothing.
+   */
+  private carryOver(target: PokemonItem, replacing: PokemonItem): PokemonItem {
+    const replacement = structuredClone(target);
+    replacement.shiny = replacing.shiny;
+    replacement.sprite = target.sprite ?? null;
+    return replacement;
+  }
+
+  /**
+   * Restores a recorded form. Unlike `carryOver` the sprite is kept — its artwork was resolved
+   * before the battle, so dropping it would refetch an image the app already has.
+   */
+  private restore(target: PokemonItem, replacing: PokemonItem): PokemonItem {
+    const replacement = structuredClone(target);
+    replacement.shiny = replacing.shiny;
+    return replacement;
+  }
+
+  private pickTarget(rule: FormRule, current: PokemonItem, heldItems: readonly ItemName[]): PokemonItem | null {
+    const index = rule.forms.findIndex(form => form.pokemonId === current.pokemonId);
+
+    switch (rule.selection.kind) {
+      case 'cycle':
+        return index === -1 ? null : rule.forms[(index + 1) % rule.forms.length];
+
+      case 'base-to-battle':
+        return index === 0 ? rule.forms[1] ?? null : null;
+
+      case 'random-other': {
+        if (index === -1) {
+          return null;
+        }
+        const others = rule.forms.filter(form => form.pokemonId !== current.pokemonId);
+        return others.length ? others[Math.floor(Math.random() * others.length)] : null;
+      }
+
+      case 'item-gated': {
+        // Gated rules key off the *base* Pokémon, which is not among `forms`.
+        if (current.pokemonId !== rule.selection.baseId) {
+          return null;
+        }
+        // Each form names its own stone, so there is no index to keep aligned.
+        return rule.forms.find(form => heldItems.includes((form as MegaForm).stone)) ?? null;
+      }
+    }
+  }
+
+  private collectionsFor(rule: FormRule, team: PokemonItem[], stored: PokemonItem[]): PokemonItem[][] {
+    return rule.scope === 'team+stored' ? [team, stored] : [team];
+  }
+
+  private isFormOf(rule: FormRule, pokemon: PokemonItem): boolean {
+    return rule.forms.some(form => form.pokemonId === pokemon.pokemonId);
+  }
+
+  private isNonBaseFormOf(rule: FormRule, pokemon: PokemonItem): boolean {
+    if (rule.selection.kind === 'item-gated') {
+      return this.isFormOf(rule, pokemon);
+    }
+    return rule.forms.slice(1).some(form => form.pokemonId === pokemon.pokemonId);
+  }
+}

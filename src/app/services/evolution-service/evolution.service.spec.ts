@@ -6,7 +6,6 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 
 describe('EvolutionService', () => {
   let service: EvolutionService;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);

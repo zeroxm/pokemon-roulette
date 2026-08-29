@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { EliteFourPrepRouletteComponent } from './elite-four-prep-roulette.component';
 
@@ -9,7 +9,8 @@ describe('EliteFourPrepRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EliteFourPrepRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [EliteFourPrepRouletteComponent]
     })
     .compileComponents();
 

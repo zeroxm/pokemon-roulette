@@ -96,7 +96,15 @@
     "rock": "Gesteins-Orden",
     "ice_galar": "Eis-Orden",
     "dark": "Unlicht-Orden",
-    "dragon": "Drachen-Orden"
+    "dragon": "Drachen-Orden",
+    "bug_paldea": "Käferorden",
+    "grass_paldea": "Pflanzen-Orden",
+    "electric": "Elektro-Orden",
+    "water_paldea": "Wasser-Orden",
+    "normal": "Normal-Orden",
+    "ghost_paldea": "Geister-Orden",
+    "psychic_paldea": "Psi-Orden",
+    "ice_paldea": "Eis-Orden"
   },
   "credits": {
     "title": "Mitwirkende & Danksagungen",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "Du hast einen Mega-Stein erhalten!",
           "stoneDesc": "Tippe das Mega-Stein-Symbol, um die Mega-Entwicklung im Kampf zu aktivieren!"
+        },
+        "eliteFourBattle": {
+          "potion": "Bonus Trank erhalten!",
+          "potionDesc": "Nach dem Kampf bekommst du von dem Top-Vier-Mitglied einen Trank!"
         }
       },
       "roulette": {
@@ -289,7 +301,6 @@
             "title": "Was tust du auf dem Weg zur Pokémon Liga?",
             "victoryRoad": "Betritt die Siegesstraße!",
             "actions": {
-              "catchPokemon": "Fange ein Pokémon",
               "trainingArc": "Trainieren",
               "buyPotions": "Kaufe Tränke",
               "catchTwoPokemon": "Fange zwei Pokémon",
@@ -320,6 +331,11 @@
         },
         "fossil": {
           "which": "Welches Fossil?"
+        },
+        "disguise": {
+          "respin": "Verkleidung",
+          "title": "Mimigmas Verkleidung ist zerstört!",
+          "message": "Mimigma hat den Treffer für das Team eingesteckt! Du bekommst eine weitere Chance!"
         },
         "gym": {
           "against": "Kampf gegen",
@@ -393,7 +409,11 @@
         "title": "Tausch!",
         "received": "und erhältst",
         "sent": "Du tauschst"
-      }
+      },
+      "respin": {
+        "multitask": "Multitasking x{{count}}"
+      },
+      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu."
     },
     "map": {
       "vermilion": "Du bist in Orania City"
@@ -829,7 +849,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Ermoeglicht es einem kompatiblen Pokemon, sich im Kampf megazuentwickeln."
-    }
+    },
+    "empty": "Leer"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1727,7 @@
     "turtonator": "Tortunator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimigma",
+    "mimikyu-busted": "Mimigma (Entlarvt)",
     "bruxish": "Knirfish",
     "drampa": "Sen-Long",
     "drampa-mega": "Sen-Long (Mega)",
@@ -2152,7 +2174,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Unbekanntes Pokémon"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2827,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Mega-Entwickelt"
+  },
+  "notFound": {
+    "title": "Seite Nicht Gefunden",
+    "message": "Diese Seite ist wohl ins hohe Gras geflohen.",
+    "hint": "Nutze den Button, um zu deinem Abenteuer zurückzukehren."
   }
 }

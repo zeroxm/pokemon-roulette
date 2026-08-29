@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-shiny-roulette',
   imports: [WheelComponent, TranslatePipe, CommonModule],
   templateUrl: './shiny-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './shiny-roulette.component.css'
 })
 export class ShinyRouletteComponent {

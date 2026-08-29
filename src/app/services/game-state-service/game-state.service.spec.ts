@@ -19,6 +19,36 @@ describe('GameStateService', () => {
     expect(service).toBeTruthy();
   });
 
+  describe('setNextStates', () => {
+    it('runs the queued states in the order they are written', () => {
+      service.setNextStates('go-fishing', 'find-fossil', 'explore-cave');
+
+      expect(service.finishCurrentState()).toBe('go-fishing');
+      expect(service.finishCurrentState()).toBe('find-fossil');
+      expect(service.finishCurrentState()).toBe('explore-cave');
+    });
+
+    it('matches pushing one at a time in reverse order', () => {
+      service.setNextState('go-fishing');
+      service.setNextState('select-from-pokemon-list');
+      const byHand = [service.finishCurrentState(), service.finishCurrentState()];
+
+      service.resetGameState();
+      service.setNextStates('select-from-pokemon-list', 'go-fishing');
+      const byHelper = [service.finishCurrentState(), service.finishCurrentState()];
+
+      expect(byHelper).toEqual(byHand);
+    });
+
+    it('leaves the stack untouched when given nothing', () => {
+      const before = service.finishCurrentState();
+      service.resetGameState();
+      service.setNextStates();
+
+      expect(service.finishCurrentState()).toBe(before);
+    });
+  });
+
   // ── finishCurrentState: pops and emits ─────────────────────────────────
 
   it('should emit character-select after one finishCurrentState call from reset state', () => {
@@ -53,7 +83,7 @@ describe('GameStateService', () => {
   });
 
   it('should pop states in LIFO order when multiple setNextState calls are made', () => {
-    service.setNextState('evolve-pokemon');         // pushed 2nd
+    service.setNextState('go-fishing');         // pushed 2nd
     service.setNextState('select-from-pokemon-list'); // pushed 3rd — now on top
 
     const emitted: string[] = [];
@@ -61,11 +91,11 @@ describe('GameStateService', () => {
 
     // First pop: 'select-from-pokemon-list' (most recently pushed)
     service.finishCurrentState();
-    // Second pop: 'evolve-pokemon'
+    // Second pop: 'go-fishing'
     service.finishCurrentState();
 
     // emitted[0] is the BehaviorSubject's current value at subscribe time ('game-start')
     expect(emitted[1]).toBe('select-from-pokemon-list');
-    expect(emitted[2]).toBe('evolve-pokemon');
+    expect(emitted[2]).toBe('go-fishing');
   });
 });

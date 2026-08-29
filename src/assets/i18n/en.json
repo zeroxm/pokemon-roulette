@@ -96,7 +96,15 @@
     "rock": "Rock Badge",
     "ice_galar": "Ice Badge",
     "dark": "Dark Badge",
-    "dragon": "Dragon Badge"
+    "dragon": "Dragon Badge",
+    "bug_paldea": "Bug Badge",
+    "grass_paldea": "Grass Badge",
+    "electric": "Electric Badge",
+    "water_paldea": "Water Badge",
+    "normal": "Normal Badge",
+    "ghost_paldea": "Ghost Badge",
+    "psychic_paldea": "Psychic Badge",
+    "ice_paldea": "Ice Badge"
   },
   "credits": {
     "title": "Credits & Acknowledgments",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "Got a Mega Stone!",
           "stoneDesc": "Tap a Mega Stone icon to activate Mega Evolution during battle!"
+        },
+        "eliteFourBattle": {
+          "potion": "Got a Bonus Potion!",
+          "potionDesc": "After the battle, the Elite Four member gave you a Potion!"
         }
       },
       "roulette": {
@@ -289,7 +301,6 @@
             "title": "What do you do before the Elite 4?",
             "victoryRoad": "Enter the Victory Road!",
             "actions": {
-              "catchPokemon": "Catch a Pokemon",
               "trainingArc": "Training Arc",
               "buyPotions": "Buy Potions",
               "catchTwoPokemon": "Catch Two Pokemon",
@@ -320,6 +331,11 @@
         },
         "fossil": {
           "which": "Which fossil?"
+        },
+        "disguise": {
+          "respin": "Disguise",
+          "title": "Mimikyu's disguise busted!",
+          "message": "Mimikyu took the hit for the team! You get another chance!"
         },
         "gym": {
           "against": "Battle against",
@@ -393,7 +409,11 @@
         "title": "Trade!",
         "received": "and received a",
         "sent": "You sent"
-      }
+      },
+      "respin": {
+        "multitask": "Multitask x{{count}}"
+      },
+      "unhandledState": "Something went off the map. Try restarting the game."
     },
     "map": {
       "vermilion": "You are in Vermilion City"
@@ -829,7 +849,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Allows a compatible Pokemon to Mega Evolve in battle."
-    }
+    },
+    "empty": "Empty"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1727,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Busted)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",
@@ -2152,7 +2174,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Unknown Pokémon"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2827,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Mega Evolved"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "This page seems to have fled into the tall grass.",
+    "hint": "Use the button to get back to your adventure."
   }
 }

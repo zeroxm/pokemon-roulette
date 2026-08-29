@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { Subscription } from 'rxjs';
 import { GenerationItem } from '../../interfaces/generation-item';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { CommonModule } from '@angular/common';
@@ -11,15 +10,18 @@ import { NgIconsModule } from '@ng-icons/core';
 import Fireworks from 'fireworks-js';
 import domtoimage from 'dom-to-image-more'
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-end-game',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgIconsModule,
     TranslatePipe
   ],
   templateUrl: './end-game.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './end-game.component.css'
 })
 export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -27,7 +29,6 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private translate: TranslateService
   ) { }

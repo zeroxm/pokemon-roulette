@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { DarkModeService } from '../services/dark-mode-service/dark-mode.service';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../services/theme-service/theme.service';
 import { Observable, Subscription } from 'rxjs';
 import { ItemItem } from '../interfaces/item-item';
@@ -8,18 +7,20 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { isMegaStoneItemName } from '../services/items-service/item-names';
+import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule,
+  imports: [
+    ImageFallbackDirective,CommonModule,
     NgbTooltipModule, TranslatePipe],
   templateUrl: './items.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './items.component.css'
 })
 export class ItemsComponent implements OnInit, OnDestroy {
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private trainerService: TrainerService,
     private translateService: TranslateService
@@ -28,6 +29,9 @@ export class ItemsComponent implements OnInit, OnDestroy {
   }
 
   trainerItems!: ItemItem[];
+
+  /** Slot indices for the item grid. The bag renders a fixed twelve, filled or not. */
+  readonly slots = Array.from({ length: 12 }, (_, index) => index);
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
   @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
 
@@ -65,6 +69,6 @@ export class ItemsComponent implements OnInit, OnDestroy {
     if (this.trainerItems[index]) {
       return this.translateService.instant(this.trainerItems[index].text);
     }
-    return 'Empty';
+    return this.translateService.instant('items.empty');
   }
 }

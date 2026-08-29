@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
@@ -8,9 +8,10 @@ import { EventSource } from '../../../EventSource';
   selector: 'app-snorlax-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './snorlax-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './snorlax-roulette.component.css'
 })
-export class SnorlaxRouletteComponent {
+export class SnorlaxRouletteComponent implements OnInit {
 
   @Input() currentRound!: number;
   @Output() runAwayEvent = new EventEmitter<void>();

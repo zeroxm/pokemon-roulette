@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-catch-paradox-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './catch-paradox-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './catch-paradox-roulette.component.css'
 })
 export class CatchParadoxRouletteComponent implements OnInit {

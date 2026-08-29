@@ -13,14 +13,12 @@ import {
   bootstrapPcDisplayHorizontal,
   bootstrapShare,
 } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { AnalyticsService } from '../services/analytics-service/analytics.service';
 
 describe('MainGameComponent', () => {
   let component: MainGameComponent;
   let fixture: ComponentFixture<MainGameComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
-  let analyticsServiceSpy: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
@@ -29,10 +27,10 @@ describe('MainGameComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         MainGameComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
+        provideTranslateService(),
         provideIcons({
           bootstrapShare,
           bootstrapClock,
@@ -49,8 +47,6 @@ describe('MainGameComponent', () => {
     })
     .compileComponents();
 
-    httpSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
-    analyticsServiceSpy = TestBed.inject(AnalyticsService) as jasmine.SpyObj<AnalyticsService>;
     fixture = TestBed.createComponent(MainGameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

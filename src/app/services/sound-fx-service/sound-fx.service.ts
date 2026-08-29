@@ -2,15 +2,58 @@ import { Injectable } from '@angular/core';
 import { SettingsService } from '../settings-service/settings.service';
 import { Observable, map } from 'rxjs';
 
-export type SoundFxHandle = string;
+/**
+ * The sounds the game can play.
+ *
+ * Sounds are identified by name, not by a per-caller handle, so `preventOverlap` is scoped to the
+ * sound itself and the clip map is bounded by the size of this union.
+ */
+export type SoundFxName =
+  | 'click'
+  | 'item-found'
+  | 'pc-turning-on'
+  | 'pc-login'
+  | 'pc-logout'
+  | 'mega-stone-tap'
+  | 'mega-evolution';
+
+const SOUND_FX_SRC: Record<SoundFxName, string> = {
+  'click': './click.mp3',
+  'item-found': './ItemFound.mp3',
+  'pc-turning-on': './PCTurningOn.mp3',
+  'pc-login': './PCLogin.mp3',
+  'pc-logout': './PCLogout.mp3',
+  'mega-stone-tap': './Mega_Stone_tap.mp3',
+  'mega-evolution': './Mega_Evolution.mp3',
+};
+
+/** How long to wait for an `onended` that a suspended AudioContext may never deliver. */
+const ENDED_TIMEOUT_MS = 10_000;
+
 type SoundFxEndedListener = () => void;
+
 export interface PlaySoundFxOptions {
   preventOverlap?: boolean;
 }
+
 export interface QueuedSoundFxItem {
-  handle: SoundFxHandle;
+  name: SoundFxName;
   volume?: number;
   options?: PlaySoundFxOptions;
+}
+
+/** Everything the service tracks about one sound, in one place. */
+class SoundFxClip {
+  readonly active = new Set<AudioBufferSourceNode>();
+  readonly endedListeners = new Set<SoundFxEndedListener>();
+  buffer?: Promise<AudioBuffer>;
+  pending = 0;
+
+  constructor(readonly src: string) {}
+
+  get busy(): boolean {
+    return this.active.size > 0 || this.pending > 0;
+  }
 }
 
 @Injectable({
@@ -18,89 +61,21 @@ export interface QueuedSoundFxItem {
 })
 export class SoundFxService {
   private audioContext: AudioContext | null = null;
-  private readonly sourceByHandle = new Map<SoundFxHandle, string>();
-  private readonly decodedBufferCache = new Map<string, Promise<AudioBuffer>>();
-  private readonly activeSourcesByHandle = new Map<SoundFxHandle, Set<AudioBufferSourceNode>>();
-  private readonly endedListenersByHandle = new Map<SoundFxHandle, Set<SoundFxEndedListener>>();
-  private readonly pendingPlayCountByHandle = new Map<SoundFxHandle, number>();
-  private handleCounter = 0;
+  private readonly clips = new Map<SoundFxName, SoundFxClip>();
 
   constructor(private settingsService: SettingsService) {}
 
   /**
-   * Creates a handle for the item-found sound effect.
+   * Plays a sound. Returns false for blocked or failed attempts rather than throwing.
    */
-  createItemFoundSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./ItemFound.mp3');
-  }
+  async playSoundFx(name: SoundFxName, volume: number = 1.0, options?: PlaySoundFxOptions): Promise<boolean> {
+    const clip = this.clip(name);
 
-  /**
-   * Creates a handle for the wheel click sound effect.
-   */
-  createClickSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./click.mp3');
-  }
-
-  /**
-   * Creates a handle for the PC boot sound effect.
-   */
-  createPcTurningOnSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./PCTurningOn.mp3');
-  }
-
-  /**
-   * Creates a handle for the PC login sound effect.
-   */
-  createPcLoginSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./PCLogin.mp3');
-  }
-
-  /**
-   * Creates a handle for the PC logout sound effect.
-   */
-  createPcLogoutSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./PCLogout.mp3');
-  }
-
-  /**
-   * Creates a handle for the mega stone tap sound effect.
-   */
-  createMegaStoneTapSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./Mega_Stone_tap.mp3');
-  }
-
-  /**
-   * Creates a handle for the mega evolution animation sound effect.
-   */
-  createMegaEvolutionSoundFx(): SoundFxHandle {
-    return this.createSoundFx('./Mega_Evolution.mp3');
-  }
-
-  /**
-   * Internal generic creator so only this service owns asset paths.
-   */
-  private createSoundFx(src: string): SoundFxHandle {
-    this.handleCounter += 1;
-    const handle = `sound-fx-${this.handleCounter}`;
-    this.sourceByHandle.set(handle, src);
-    return handle;
-  }
-
-  /**
-  * Plays sound effect audio for a given handle.
-   * Returns false for blocked/failed play attempts without throwing.
-   */
-  async playSoundFx(handle: SoundFxHandle, volume: number = 1.0, options?: PlaySoundFxOptions): Promise<boolean> {
-    const src = this.sourceByHandle.get(handle);
-    if (!src) {
+    if (options?.preventOverlap && clip.busy) {
       return false;
     }
 
-    if (options?.preventOverlap && this.isHandleBusy(handle)) {
-      return false;
-    }
-
-    this.incrementPending(handle);
+    clip.pending += 1;
 
     try {
       const context = this.getOrCreateAudioContext();
@@ -122,7 +97,7 @@ export class SoundFxService {
 
       let buffer: AudioBuffer;
       try {
-        buffer = await this.getOrDecodeBuffer(src, context);
+        buffer = await this.getOrDecodeBuffer(clip, context);
       } catch {
         return false;
       }
@@ -138,10 +113,10 @@ export class SoundFxService {
       // Mute policy is future-only: each new play reads current mute state.
       gain.gain.value = this.settingsService.currentSettings.muteAudio ? 0 : clampedVolume;
 
-      this.trackActiveSource(handle, source);
+      clip.active.add(source);
       source.onended = () => {
-        this.untrackActiveSource(handle, source);
-        this.emitEnded(handle);
+        clip.active.delete(source);
+        this.emitEnded(clip);
       };
 
       source.start(0);
@@ -149,18 +124,21 @@ export class SoundFxService {
     } catch {
       return false;
     } finally {
-      this.decrementPending(handle);
+      clip.pending = Math.max(0, clip.pending - 1);
     }
   }
 
   /**
-   * Plays a list of sound effects sequentially using audio-ended events.
-   * No timer-based scheduling is used.
+   * Plays sounds one after another, each waiting on the previous one's `ended` event.
+   *
+   * The wait is bounded: a backgrounded tab can suspend the AudioContext so `onended` never
+   * fires, which would otherwise stall the queue — and with it whatever game flow is awaiting it —
+   * indefinitely.
    */
   async playSoundFxQueue(items: QueuedSoundFxItem[]): Promise<void> {
     for (const item of items) {
-      const pendingEnded = this.waitForSoundFxEnded(item.handle);
-      const started = await this.playSoundFx(item.handle, item.volume ?? 1.0, item.options);
+      const pendingEnded = this.waitForSoundFxEnded(item.name);
+      const started = await this.playSoundFx(item.name, item.volume ?? 1.0, item.options);
 
       if (!started) {
         pendingEnded.dispose();
@@ -171,66 +149,46 @@ export class SoundFxService {
     }
   }
 
-  /**
-  * Stops currently playing sound effects.
-   * If no handle is provided, all active audio sources are stopped.
-   */
-  stopSoundFx(handle?: SoundFxHandle): void {
-    if (handle) {
-      const sources = this.activeSourcesByHandle.get(handle);
-      if (!sources) {
-        return;
-      }
+  /** Stops one sound, or every sound when no name is given. */
+  stopSoundFx(name?: SoundFxName): void {
+    const clips = name ? [this.clips.get(name)] : [...this.clips.values()];
 
-      for (const source of sources) {
-        this.stopSource(source);
+    for (const clip of clips) {
+      if (!clip) {
+        continue;
       }
-      return;
-    }
-
-    for (const sources of this.activeSourcesByHandle.values()) {
-      for (const source of sources) {
+      for (const source of clip.active) {
         this.stopSource(source);
       }
     }
   }
 
-  /**
-   * Registers an ended callback for a sound effect handle.
-   * Returns a function to unregister the callback.
-   */
-  onSoundFxEnded(handle: SoundFxHandle, listener: SoundFxEndedListener): () => void {
-    const listeners = this.endedListenersByHandle.get(handle) ?? new Set<SoundFxEndedListener>();
-    listeners.add(listener);
-    this.endedListenersByHandle.set(handle, listeners);
-
-    return () => {
-      const currentListeners = this.endedListenersByHandle.get(handle);
-      if (!currentListeners) {
-        return;
-      }
-
-      currentListeners.delete(listener);
-      if (currentListeners.size === 0) {
-        this.endedListenersByHandle.delete(handle);
-      }
-    };
+  /** Registers an ended callback. Returns a function that unregisters it. */
+  onSoundFxEnded(name: SoundFxName, listener: SoundFxEndedListener): () => void {
+    const clip = this.clip(name);
+    clip.endedListeners.add(listener);
+    return () => clip.endedListeners.delete(listener);
   }
 
-  /**
-  * Observable that emits true when sound effects are muted.
-   */
+  /** Emits true when sound effects are muted. */
   get isSoundFxMuted$(): Observable<boolean> {
     return this.settingsService.settings$.pipe(
       map(settings => settings.muteAudio)
     );
   }
 
-  /**
-  * Gets current sound effects mute state synchronously.
-   */
+  /** Current mute state, read synchronously. */
   get isSoundFxMuted(): boolean {
     return this.settingsService.currentSettings.muteAudio;
+  }
+
+  private clip(name: SoundFxName): SoundFxClip {
+    let clip = this.clips.get(name);
+    if (!clip) {
+      clip = new SoundFxClip(SOUND_FX_SRC[name]);
+      this.clips.set(name, clip);
+    }
+    return clip;
   }
 
   private getOrCreateAudioContext(): AudioContext | null {
@@ -250,101 +208,59 @@ export class SoundFxService {
     return this.audioContext;
   }
 
-  private getOrDecodeBuffer(src: string, context: AudioContext): Promise<AudioBuffer> {
-    const cached = this.decodedBufferCache.get(src);
-    if (cached) {
-      return cached;
+  private getOrDecodeBuffer(clip: SoundFxClip, context: AudioContext): Promise<AudioBuffer> {
+    if (clip.buffer) {
+      return clip.buffer;
     }
 
-    const loadPromise = fetch(src)
+    clip.buffer = fetch(clip.src)
       .then(response => {
         if (!response.ok) {
-          throw new Error(`Failed to load audio asset: ${src}`);
+          throw new Error(`Failed to load audio asset: ${clip.src}`);
         }
         return response.arrayBuffer();
       })
       .then(arrayBuffer => context.decodeAudioData(arrayBuffer))
       .catch(error => {
-        this.decodedBufferCache.delete(src);
+        clip.buffer = undefined;
         throw error;
       });
 
-    this.decodedBufferCache.set(src, loadPromise);
-    return loadPromise;
+    return clip.buffer;
   }
 
-  private trackActiveSource(handle: SoundFxHandle, source: AudioBufferSourceNode): void {
-    const activeSources = this.activeSourcesByHandle.get(handle) ?? new Set<AudioBufferSourceNode>();
-    activeSources.add(source);
-    this.activeSourcesByHandle.set(handle, activeSources);
-  }
-
-  private isHandleBusy(handle: SoundFxHandle): boolean {
-    const activeCount = this.activeSourcesByHandle.get(handle)?.size ?? 0;
-    const pendingCount = this.pendingPlayCountByHandle.get(handle) ?? 0;
-    return activeCount > 0 || pendingCount > 0;
-  }
-
-  private incrementPending(handle: SoundFxHandle): void {
-    const currentCount = this.pendingPlayCountByHandle.get(handle) ?? 0;
-    this.pendingPlayCountByHandle.set(handle, currentCount + 1);
-  }
-
-  private decrementPending(handle: SoundFxHandle): void {
-    const currentCount = this.pendingPlayCountByHandle.get(handle) ?? 0;
-    if (currentCount <= 1) {
-      this.pendingPlayCountByHandle.delete(handle);
-      return;
-    }
-
-    this.pendingPlayCountByHandle.set(handle, currentCount - 1);
-  }
-
-  private untrackActiveSource(handle: SoundFxHandle, source: AudioBufferSourceNode): void {
-    const activeSources = this.activeSourcesByHandle.get(handle);
-    if (!activeSources) {
-      return;
-    }
-
-    activeSources.delete(source);
-    if (activeSources.size === 0) {
-      this.activeSourcesByHandle.delete(handle);
-    }
-  }
-
-  private emitEnded(handle: SoundFxHandle): void {
-    const listeners = this.endedListenersByHandle.get(handle);
-    if (!listeners) {
-      return;
-    }
-
-    for (const listener of listeners) {
+  private emitEnded(clip: SoundFxClip): void {
+    for (const listener of clip.endedListeners) {
       listener();
     }
   }
 
-  private waitForSoundFxEnded(handle: SoundFxHandle): { promise: Promise<void>; dispose: () => void } {
-    let resolved = false;
+  private waitForSoundFxEnded(name: SoundFxName): { promise: Promise<void>; dispose: () => void } {
+    let settled = false;
     let unregister = () => {};
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const finish = (resolve: () => void) => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      clearTimeout(timer);
+      unregister();
+      resolve();
+    };
 
     const promise = new Promise<void>((resolve) => {
-      unregister = this.onSoundFxEnded(handle, () => {
-        if (resolved) {
-          return;
-        }
-
-        resolved = true;
-        unregister();
-        resolve();
-      });
+      unregister = this.onSoundFxEnded(name, () => finish(resolve));
+      timer = setTimeout(() => finish(resolve), ENDED_TIMEOUT_MS);
     });
 
     const dispose = (): void => {
-      if (resolved) {
+      if (settled) {
         return;
       }
-
-      resolved = true;
+      settled = true;
+      clearTimeout(timer);
       unregister();
     };
 

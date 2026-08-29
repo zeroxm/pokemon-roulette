@@ -1,0 +1,14 @@
+<div class="modal-body">
+    <h1>{{ 'game.main.rocket.fails' | translate }}</h1>
+    <div class="panel">
+        <img [src]="enteiArtwork" [alt]="'pokemon.entei' | translate" height="128">
+        <div class="message">
+            <p>{{ 'game.main.rocket.entei.emerges' | translate }}</p>
+            <p>{{ 'game.main.rocket.entei.prevents' | translate }}</p>
+            <p>{{ 'game.main.rocket.entei.fine' | translate }}</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="activeModal.close()">{{ 'game.main.rocket.entei.thanks' | translate }}</button>
+</div>

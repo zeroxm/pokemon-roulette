@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgIconsModule } from '@ng-icons/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokedexService, PokedexData } from '../../services/pokedex-service/pokedex.service';
 import { GenerationService } from '../../services/generation-service/generation.service';
@@ -19,12 +18,12 @@ import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
   selector: 'app-pokedex',
   imports: [CommonModule, NgIconsModule, TranslatePipe, PokedexEntryComponent],
   templateUrl: './pokedex.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokedex.component.css'
 })
 export class PokedexComponent implements OnInit, OnDestroy {
 
   constructor(
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private modalService: NgbModal,
     private pokedexService: PokedexService,

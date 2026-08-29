@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamRocketRouletteComponent } from './team-rocket-roulette.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('TeamRocketRouletteComponent', () => {
   let component: TeamRocketRouletteComponent;
@@ -9,7 +9,8 @@ describe('TeamRocketRouletteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TeamRocketRouletteComponent, TranslateModule.forRoot()]
+      providers: [provideTranslateService()],
+      imports: [TeamRocketRouletteComponent]
     })
     .compileComponents();
 

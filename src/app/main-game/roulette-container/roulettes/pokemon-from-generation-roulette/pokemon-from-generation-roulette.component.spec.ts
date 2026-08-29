@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 import { PokemonFromGenerationRouletteComponent } from './pokemon-from-generation-roulette.component';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
@@ -38,8 +38,9 @@ describe('PokemonFromGenerationRouletteComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [PokemonFromGenerationRouletteComponent, TranslateModule.forRoot()],
+      imports: [PokemonFromGenerationRouletteComponent],
       providers: [
+        provideTranslateService(),
         { provide: GenerationService, useValue: generationService },
         { provide: PokemonService, useValue: pokemonService }
       ]

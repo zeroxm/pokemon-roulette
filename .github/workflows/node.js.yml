@@ -27,5 +27,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm run build --if-present
+    # Fails on a high-or-worse advisory in code that actually ships. Dev-only tooling is
+    # excluded deliberately: a DoS in an image parser used by the build is not a user risk,
+    # and gating on it would red-wall every PR for something unshippable.
+    - run: npm audit --omit=dev --audit-level=high
+    - run: npm run build
     - run: npm run test -- --watch=false --browsers=ChromeHeadless

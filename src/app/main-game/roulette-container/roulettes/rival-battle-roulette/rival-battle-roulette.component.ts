@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { rivalByGeneration } from './rival-by-generation';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -8,19 +9,22 @@ import { WheelComponent } from '../../../../wheel/wheel.component';
 import { GameStateService } from '../../../../services/game-state-service/game-state.service';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { TrainerService } from '../../../../services/trainer-service/trainer.service';
-import { WheelItem } from '../../../../interfaces/wheel-item';
 import { GymLeader } from '../../../../interfaces/gym-leader';
-import { interleaveOdds } from '../../../../utils/odd-utils';
+import { TypeMatchupService } from '../../../../services/type-matchup-service/type-matchup.service';
 import { BaseBattleRouletteComponent } from '../base-battle-roulette/base-battle-roulette.component';
+import { resolveSplitTrainer } from '../../../../utils/split-trainer';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-rival-battle-roulette',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     WheelComponent,
     TranslatePipe
   ],
   templateUrl: './rival-battle-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './rival-battle-roulette.component.css'
 })
 export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
@@ -29,7 +33,7 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
 
   @ViewChild('rivalPresentationModal', { static: true }) rivalPresentationModal!: TemplateRef<any>;
 
-  @Input() currentRound!: number;
+  @Input() override currentRound!: number;
   @Output() battleResultEvent = new EventEmitter<boolean>();
   @Output() fromRivalChange = new EventEmitter<number>();
 
@@ -37,12 +41,14 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
 
   constructor(
     modalService: NgbModal,
+    private modalQueueService: ModalQueueService,
     gameStateService: GameStateService,
     generationService: GenerationService,
     trainerService: TrainerService,
-    translate: TranslateService
+    translate: TranslateService,
+    typeMatchupService: TypeMatchupService,
   ) {
-    super(modalService, gameStateService, generationService, trainerService, translate);
+    super(modalService, gameStateService, generationService, trainerService, translate, typeMatchupService);
   }
 
   onItemSelected(index: number): void {
@@ -57,34 +63,15 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
     if (state === 'battle-rival') {
       this.getCurrentRival();
       this.calcVictoryOdds();
-      this.modalService.open(this.rivalPresentationModal, { centered: true, size: 'lg' });
+      void this.modalQueueService.open(this.rivalPresentationModal, { centered: true, size: 'lg' });
     }
   }
 
+  protected override readonly outcomeKeyPrefix = 'game.main.roulette.rival';
+  protected override readonly baseNoOdds = 1;
+
   protected override calcVictoryOdds(): void {
-    const yesOdds: WheelItem[] = [];
-    const noOdds: WheelItem[] = [];
-
-    yesOdds.push({ text: 'game.main.roulette.rival.yes', fillStyle: 'green', weight: 1 });
-
-    this.trainerTeam.forEach(pokemon => {
-      for (let i = 0; i < pokemon.power; i++) {
-        yesOdds.push({ text: 'game.main.roulette.rival.yes', fillStyle: 'green', weight: 1 });
-      }
-    });
-
-    const powerModifier = this.plusModifiers();
-    for (let i = 0; i < powerModifier; i++) {
-      yesOdds.push({ text: 'game.main.roulette.rival.yes', fillStyle: 'green', weight: 1 });
-    }
-
-    for (let index = 0; index < this.currentRound; index++) {
-      noOdds.push({ text: 'game.main.roulette.rival.no', fillStyle: 'crimson', weight: 1 });
-    }
-    // Rival battles mirror the current gym-leader difficulty; starts with 1 noOdds
-    noOdds.push({ text: 'game.main.roulette.rival.no', fillStyle: 'crimson', weight: 1 });
-
-    this.victoryOdds = interleaveOdds(yesOdds, noOdds);
+    this.victoryOdds = this.buildVictoryOdds();
   }
 
   private getCurrentRival(): void {
@@ -92,19 +79,11 @@ export class RivalBattleRouletteComponent extends BaseBattleRouletteComponent {
 
     if (this.generation.id === 6) {
       this.translate.get(this.currentRival.name).pipe(take(1)).subscribe(translated => {
-        const rivalNames = translated.split('/');
-        const rivalSprites = Array.isArray(this.currentRival.sprite) ? this.currentRival.sprite : [this.currentRival.sprite];
-        const rivalQuotes = Array.isArray(this.currentRival.quotes) ? this.currentRival.quotes : [this.currentRival.quotes];
         // If the player is male, rival is Serena; if female, rival is Calem.
         const selectedIndex = this.trainerService.gender === 'male' ? 1 : 0;
 
         this.fromRivalChange.emit(selectedIndex);
-
-        this.currentRival = {
-          name: rivalNames[selectedIndex],
-          sprite: rivalSprites[selectedIndex],
-          quotes: [rivalQuotes[selectedIndex]]
-        } as GymLeader;
+        this.currentRival = resolveSplitTrainer(this.currentRival, translated, selectedIndex);
       });
     }
   }

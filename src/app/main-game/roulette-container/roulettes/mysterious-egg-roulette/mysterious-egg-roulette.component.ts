@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
@@ -8,6 +8,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
   selector: 'app-mysterious-egg-roulette',
   imports: [WheelComponent, TranslatePipe],
   templateUrl: './mysterious-egg-roulette.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './mysterious-egg-roulette.component.css'
 })
 export class MysteriousEggRouletteComponent {

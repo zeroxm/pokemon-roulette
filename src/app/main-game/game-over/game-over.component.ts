@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { Subscription } from 'rxjs';
@@ -16,15 +15,18 @@ import { eliteFourByGeneration } from '../roulette-container/roulettes/elite-fou
 import { championByGeneration } from '../roulette-container/roulettes/champion-battle-roulette/champion-by-generation';
 import { RestartGameButtonComponent } from "../../restart-game-button/restart-game-button.component";
 import {TranslatePipe} from '@ngx-translate/core';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 @Component({
   selector: 'app-game-over',
   imports: [
+    ImageFallbackDirective,
     CommonModule,
     NgIconsModule,
     RestartGameButtonComponent,
     TranslatePipe
   ],
   templateUrl: './game-over.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './game-over.component.css'
 })
 export class GameOverComponent implements OnInit, OnDestroy {
@@ -32,7 +34,6 @@ export class GameOverComponent implements OnInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private trainerService: TrainerService,
-    private darkModeService: DarkModeService,
     private themeService: ThemeService,
     private translate: TranslateService
   ) { }

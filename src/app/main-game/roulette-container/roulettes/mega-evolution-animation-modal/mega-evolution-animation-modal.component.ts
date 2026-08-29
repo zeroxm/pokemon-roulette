@@ -1,6 +1,7 @@
-import { Component, Inject, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { APP_BASE_HREF, CommonModule, DOCUMENT } from '@angular/common';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImageFallbackDirective } from '../../../../directives/image-fallback.directive';
 
 type AnimationPhase = 'prelude' | 'gather' | 'expand' | 'crack' | 'reveal' | 'dissolve';
 
@@ -18,8 +19,10 @@ interface ParticleConfig {
 @Component({
   selector: 'app-mega-evolution-animation-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    ImageFallbackDirective,CommonModule],
   templateUrl: './mega-evolution-animation-modal.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './mega-evolution-animation-modal.component.css'
 })
 // i18n note: This cinematic uses no translatable copy and relies on visual assets only.

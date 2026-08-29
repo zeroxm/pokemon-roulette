@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgIconsModule } from '@ng-icons/core';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
-import { DarkModeService } from '../../services/dark-mode-service/dark-mode.service';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -11,40 +10,36 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import {TranslatePipe} from '@ngx-translate/core';
-import { SoundFxHandle, SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
+import { SoundFxService } from '../../services/sound-fx-service/sound-fx.service';
 import { Subscription } from 'rxjs';
+import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 @Component({
   selector: 'app-storage-pc',
   imports: [
+    ImageFallbackDirective,
     DragDropModule,
     CommonModule,
     NgIconsModule,
     TranslatePipe
   ],
   templateUrl: './storage-pc.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './storage-pc.component.css'
 })
 export class StoragePcComponent implements OnInit, OnDestroy {
 
     constructor(private trainerService: TrainerService,
-                private darkModeService: DarkModeService,
                 private themeService: ThemeService,
                 private modalService: NgbModal,
                 private gameStateService: GameStateService,
                 private soundFxService: SoundFxService) {
-      this.pcTurningOn = this.soundFxService.createPcTurningOnSoundFx();
-      this.pcLoginAudio = this.soundFxService.createPcLoginSoundFx();
-      this.pcLogoutAudio = this.soundFxService.createPcLogoutSoundFx();
     }
 
     @ViewChild('pcStorageModal', { static: true }) pcStorageModal!: TemplateRef<any>;
     @ViewChild('pcInfoModal', { static: true }) infoModal!: TemplateRef<any>;
 
     darkMode!: Observable<boolean>;
-    pcTurningOn!: SoundFxHandle;
-    pcLoginAudio!: SoundFxHandle;
-    pcLogoutAudio!: SoundFxHandle;
     trainerTeam!: PokemonItem[];
     storedPokemon!: PokemonItem[];
     wheelSpinning: boolean = false;
@@ -56,8 +51,8 @@ export class StoragePcComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
       this.darkMode = this.themeService.isDark$;
-      this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded(this.pcTurningOn, () => {
-        void this.soundFxService.playSoundFx(this.pcLoginAudio, 0.30);
+      this.removePcTurningOnEndedListener = this.soundFxService.onSoundFxEnded('pc-turning-on', () => {
+        void this.soundFxService.playSoundFx('pc-login', 0.30);
       });
 
       this.subscriptions.add(this.gameStateService.wheelSpinningObserver.subscribe(state => {
@@ -82,14 +77,14 @@ export class StoragePcComponent implements OnInit, OnDestroy {
       if(this.currentGameState === 'team-rocket-encounter') {
         this.infoModalTitle = 'trainer.storage.unavailable';
         this.infoModalMessage = 'trainer.storage.unavailableMessage';
-        const modalRef = this.modalService.open(this.infoModal, {
+        this.modalService.open(this.infoModal, {
           centered: true,
           size: 'md'
         });
       } else {
         this.trainerTeam = this.trainerService.getTeam();
         this.storedPokemon = this.trainerService.getStored();
-        void this.soundFxService.playSoundFx(this.pcTurningOn, 0.30);
+        void this.soundFxService.playSoundFx('pc-turning-on', 0.30);
 
         this.modalService.open(this.pcStorageModal, {
           centered: true,
@@ -101,7 +96,7 @@ export class StoragePcComponent implements OnInit, OnDestroy {
     }
 
     logOut(): void {
-      void this.soundFxService.playSoundFx(this.pcLogoutAudio, 0.30);
+      void this.soundFxService.playSoundFx('pc-logout', 0.30);
       this.modalService.dismissAll();
     }
 

@@ -4,12 +4,11 @@ import { TrainerTeamComponent } from './trainer-team.component';
 import { HttpClient } from '@angular/common/http';
 import { NgIconsModule, provideIcons } from '@ng-icons/core';
 import { bootstrapBook, bootstrapPcDisplayHorizontal } from '@ng-icons/bootstrap-icons';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 
 describe('TrainerTeamComponent', () => {
   let component: TrainerTeamComponent;
   let fixture: ComponentFixture<TrainerTeamComponent>;
-  let httpSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(async () => {
     const httpSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
@@ -17,10 +16,10 @@ describe('TrainerTeamComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         TrainerTeamComponent,
-        NgIconsModule,
-        TranslateModule.forRoot()
+        NgIconsModule
       ],
       providers: [
+        provideTranslateService(),
         provideIcons({ bootstrapPcDisplayHorizontal, bootstrapBook }),
         {provide: HttpClient, useValue: httpSpyObj }
       ]
