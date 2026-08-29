@@ -31,7 +31,6 @@ spec covers.
 
 | # | Task | What to do | Expected | ✓ |
 | --- | --- | --- | --- | --- |
-| 4 | T-13 | Trigger a **Multitask** result on the adventure wheel, in a non-English locale. | The re-spin label reads e.g. *Multitarefa x2* (pt) / *Multitasking x2* (de) — not English `Multitask x2`. Then trigger a **Running Shoes** re-spin and confirm that label is still correct. | [ ] |
 | 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
 
 ---
@@ -200,6 +199,7 @@ Do not push until every box above is ticked **and**:
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
+| **Remove the T-40 UAT seed** | `seedTestMimikyu` deleted from `roulette-container.component.ts`, and its `environment` import with it | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
@@ -218,5 +218,9 @@ Do not push until every box above is ticked **and**:
 - **T-38 changes the framework itself.** Its rows are numbered 30+ but should be run *first*; if
   strings do not render or views do not repaint, stop and report that before working through the
   campaign's own findings — those results would be meaningless.
+- **A Mimikyu is seeded onto your team at the start of every run** while this branch is under UAT, so
+  T-40's rows are reachable without hunting one down. It is guarded on `environment.production`, so
+  `npm start` seeds it and `npm run build` / `npm run deploy` do not — but the code still ships, and
+  the pre-push gate above requires deleting it before merge.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
