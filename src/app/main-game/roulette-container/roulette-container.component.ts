@@ -303,8 +303,36 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   handleTrainerSelected(): void {
+    this.seedStorageForFormTesting();
     this.finishCurrentState();
   }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // TEMPORARY — UAT aid for N16/N17 (form changes). DELETE BEFORE MERGE.
+  // Ungated on purpose, at the user's request: this WILL affect a production
+  // build. Removing it is a row in the pre-push gate.
+  // ─────────────────────────────────────────────────────────────────────────
+  private seedStorageForFormTesting(): void {
+    const ids = [
+      681,   // Aegislash — sticky toggle (Shield ↔ Blade)
+      1017,  // Ogerpon   — sticky random mask
+      964,   // Palafin   — battle-only, reverts after the fight
+      6,     // Charizard — mega X / Y
+      9,     // Blastoise — mega
+      3,     // Venusaur  — mega
+    ];
+
+    const seeded = ids
+      .map(id => this.pokemonService.getPokemonById(id))
+      .filter((pokemon): pokemon is PokemonItem => pokemon !== undefined)
+      .map(pokemon => structuredClone(pokemon));
+
+    this.trainerService.commitTeamAndStorage(
+      this.trainerService.getTeam(),
+      [...this.trainerService.getStored(), ...seeded],
+    );
+  }
+  // ───────────────────────── end temporary block ───────────────────────────
 
   capturePokemon(pokemon: PokemonItem): void {
     this.preparePokemonCapture(pokemon);

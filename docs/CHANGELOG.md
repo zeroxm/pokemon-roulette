@@ -142,6 +142,7 @@ Do not push until every box above is ticked **and**:
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
+| **Remove the N16/N17 storage seed** | `seedStorageForFormTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
@@ -162,5 +163,11 @@ Do not push until every box above is ticked **and**:
   campaign's own findings — those results would be meaningless.
 - **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
   off the map", a state was queued with no matching wheel — please report which action triggered it.
+- **Six Pokémon are seeded into the storage PC at the start of every run** while N16/N17 are under
+  test — Aegislash, Ogerpon, Palafin, Charizard, Blastoise and Venusaur. Move whichever you need onto
+  the team. Unlike the earlier Mimikyu aid this one is **not gated on `environment.production`**, so
+  it would reach a real build: the pre-push gate above requires deleting it.
+  Mega stones are **not** seeded — Charizard, Blastoise and Venusaur still need one awarded after an
+  important battle before they can mega-evolve.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
