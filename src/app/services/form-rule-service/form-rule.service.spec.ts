@@ -154,7 +154,7 @@ describe('FormRuleService', () => {
         .toBe(MIMIKYU);
     });
 
-    it('busts when asked, and survives the end of the battle', () => {
+    it('busts when asked, and is repaired when the battle ends', () => {
       const team = [mon(MIMIKYU)];
 
       expect(bust(team)).toBeTrue();
@@ -163,8 +163,35 @@ describe('FormRuleService', () => {
       service.revertAll(team, []);
 
       expect(team[0].pokemonId)
-        .withContext('sticky: the busted disguise is meant to last the rest of the run')
-        .toBe(MIMIKYU_BUSTED);
+        .withContext('temporary: the disguise goes back on once the fight is over')
+        .toBe(MIMIKYU);
+    });
+
+    it('hard-links the busted artwork instead of asking PokéAPI for it', () => {
+      const team = [mon(MIMIKYU)];
+
+      bust(team);
+
+      // PokéAPI returns a literal null official-artwork for 10143, so a fetch resolves to no image.
+      expect(team[0].sprite?.front_default)
+        .withContext('the busted form must carry its own sprite through the swap')
+        .toContain('10143.png');
+    });
+
+    it('gives the pre-battle Pokémon back intact, sprite and all', () => {
+      const resolved = { front_default: 'mimikyu.png', front_shiny: 'mimikyu-shiny.png' };
+      const team = [mon(MIMIKYU, { sprite: resolved, power: 5, shiny: true })];
+
+      bust(team);
+      service.revertAll(team, []);
+
+      expect(team[0].sprite)
+        .withContext('no refetch: the disguised sprite was already resolved before the battle')
+        .toEqual(resolved);
+      expect(team[0].power)
+        .withContext('power earned during the run must survive the round trip')
+        .toBe(5);
+      expect(team[0].shiny).toBeTrue();
     });
 
     it('reports no change for an already-busted Mimikyu', () => {

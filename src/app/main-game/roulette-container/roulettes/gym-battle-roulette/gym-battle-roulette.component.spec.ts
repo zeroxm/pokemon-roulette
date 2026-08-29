@@ -121,7 +121,6 @@ describe('GymBattleRouletteComponent', () => {
       expect(lost).withContext('the battle must not end').not.toHaveBeenCalled();
       expect((component as any).retries).withContext('one more spin, like a Potion').toBe(1);
       expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
-      expect(gameStateService.runModifiers.disguiseUsed).toBeTrue();
     });
 
     it('cannot absorb a second defeat with the same Mimikyu', () => {
@@ -136,36 +135,64 @@ describe('GymBattleRouletteComponent', () => {
       expect(lost).toHaveBeenCalledWith(false);
     });
 
-    it('is spent for the run, so a freshly caught Mimikyu gets no second free retry', () => {
+    it('cannot be spent twice in one battle, even with a second Mimikyu', () => {
       trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
       loseWithNoPotions();
       component.onItemSelected(0);
-      expect(gameStateService.runModifiers.disguiseUsed).toBeTrue();
 
-      // The player catches a *different*, still-disguised Mimikyu later in the same run.
+      // A second, still-disguised Mimikyu joins mid-battle. The limit is per battle, not per
+      // Pokémon, so it must not buy another retry in this same fight.
       trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
       const lost = spyOn(component.battleResultEvent, 'emit');
       loseWithNoPotions();
       component.onItemSelected(0);
 
-      expect(lost)
-        .withContext('the run-scoped flag, not the busted sprite, is what limits this to one use')
-        .toHaveBeenCalledWith(false);
-      expect(trainerService.getTeam().some(p => p.pokemonId === MIMIKYU_BUSTED && p !== trainerService.getTeam()[0]))
-        .withContext('the new Mimikyu must still be wearing its disguise')
-        .toBeFalse();
+      expect(lost).toHaveBeenCalledWith(false);
+      expect(trainerService.getTeam()[1].pokemonId)
+        .withContext('the newcomer keeps its disguise')
+        .toBe(MIMIKYU);
     });
 
-    it('starts a new run with the disguise available again', () => {
+    it('is available again in the next battle', () => {
       trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
       loseWithNoPotions();
       component.onItemSelected(0);
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
 
-      gameStateService.resetGameState();
+      // Leaving the battle repairs the disguise, and the container destroys this component - the
+      // next battle gets a fresh instance with an unspent one.
+      (trainerService as any).syncBattleForms('main-adventure');   // what the state subscription does
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('the disguise goes back on when the fight ends')
+        .toBe(MIMIKYU);
 
-      expect(gameStateService.runModifiers.disguiseUsed)
-        .withContext('run modifiers are cleared on restart')
-        .toBeFalse();
+      const next = TestBed.createComponent(GymBattleRouletteComponent);
+      next.componentInstance.currentLeader = { name: 'Misty', sprite: '', quotes: [] } as GymLeader;
+      next.componentInstance.currentRound = 1;
+      next.detectChanges();
+      const lost = spyOn(next.componentInstance.battleResultEvent, 'emit');
+      (next.componentInstance as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (next.componentInstance as any).trainerItems = [];
+      (next.componentInstance as any).retries = 1;
+
+      next.componentInstance.onItemSelected(0);
+
+      expect(lost).withContext('a fresh battle can be rescued again').not.toHaveBeenCalled();
+      expect(trainerService.getTeam()[0].pokemonId).toBe(MIMIKYU_BUSTED);
+    });
+
+    it('shows the busted artwork without calling PokeAPI', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      const http = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+      http.get.calls.reset();
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].sprite?.front_default)
+        .withContext('PokeAPI has no official artwork for 10143, so the form hard-links its own')
+        .toContain('10143.png');
+      expect(http.get).not.toHaveBeenCalled();
     });
 
     it('does not fire while a potion is still available', () => {
@@ -179,7 +206,6 @@ describe('GymBattleRouletteComponent', () => {
       expect(trainerService.getTeam()[0].pokemonId)
         .withContext('potions are spent first; the disguise is the last resort')
         .toBe(MIMIKYU);
-      expect(gameStateService.runModifiers.disguiseUsed).toBeFalse();
     });
 
     it('renders the retry banner without a potion behind it', () => {

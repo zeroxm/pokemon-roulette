@@ -34,14 +34,14 @@ export const formRules: FormRule[] = [
     selection: group.mode === 'toggle' ? { kind: 'cycle' } : { kind: 'random-other' },
   })),
 
-  // Mimikyu's Disguise: busts as a last-resort retry when the player is out of potions, and stays
-  // busted for the rest of the run. `manual` because losing a battle is what fires it, not entering
-  // one; `sticky` so revertAll leaves it alone at battle end.
+  // Mimikyu's Disguise: busts as a last-resort retry when the player is out of potions, and is
+  // repaired when the battle ends. `manual` because losing a spin is what fires it, not entering a
+  // battle; `temporary` so revertAll puts the disguise back on the way out.
   ...Object.entries(mimikyuForms).map(([baseIdText, forms]): FormRule => ({
     id: `disguise:${baseIdText}`,
     forms,
     scope: 'team+stored',
-    persistence: 'sticky',
+    persistence: 'temporary',
     trigger: 'manual',
     selection: { kind: 'base-to-battle' },
   })),

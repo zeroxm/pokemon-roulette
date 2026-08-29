@@ -134,21 +134,22 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 ## T-40 — new: Mimikyu's Disguise
 
-A new mechanic, requested during UAT. Mimikyu now has its signature ability: when a battle is lost
-and **no potion is left**, the Disguise takes the hit instead — you get another spin, and Mimikyu
-stays busted for the rest of the run.
+A new mechanic, requested during UAT. When a battle spin is lost and **no potion is left**, Mimikyu's
+Disguise takes the hit instead: you get another spin, Mimikyu is busted for the **rest of that
+battle**, and the disguise is repaired when the fight ends. Once per battle, reusable in the next one.
 
 | # | What to do | Expected | ✓ |
 | --- | --- | --- | --- |
-| 50 | Take a **Mimikyu** into a gym battle while still holding a potion, and lose a spin. | The **potion is used first**, as before. The disguise is untouched — Mimikyu still looks normal. | [ ] |
-| 51 | Now lose a spin with Mimikyu on the team and **no potions at all**. | A modal explains the disguise broke and you get another chance. The battle does **not** end, and you can spin again exactly as if a potion had been used. | [ ] |
-| 52 | Look at Mimikyu in the team panel and the storage PC afterwards. | It shows the **busted** form and keeps it — through the rest of that battle, later battles, and the rest of the run. | [ ] |
-| 53 | Lose again later in the same run with no potions. | No second rescue. The battle is lost normally. | [ ] |
-| 54 | Catch a **second** Mimikyu later in the same run, then lose with no potions. | Still no rescue — the Disguise is once per **run**, not once per Mimikyu. The new one keeps its disguise. | [ ] |
-| 55 | Repeat 51 in the **Elite Four** and against the **Champion**. | Works the same in all three battle types. | [ ] |
-| 56 | Restart the game and take a Mimikyu into a battle with no potions. | The Disguise is available again — run modifiers reset on restart. | [ ] |
-| 57 | Check the modal copy in **all six locales**. | Translated everywhere; Mimikyu's busted form is named in each language (fr *Mimiqui*, de *Mimigma*). No raw keys. | [ ] |
+| 50 | Lose a spin with a Mimikyu on the team **while still holding a potion**. | The **potion is used first**. The disguise is untouched — Mimikyu still looks normal. | [ ] |
+| 51 | Now lose a spin with **no potions at all**. | A modal explains the disguise broke and you get another chance. The battle does **not** end. The retry banner reads **"Disguise x1"** where a potion would have read "Potion x1". | [ ] |
+| 52 | Look at Mimikyu in the team panel **during** that battle. | It shows the **busted** artwork — a real sprite, not the placeholder. | [ ] |
+| 53 | Win the battle, then look at Mimikyu again. | The disguise is **back on**, and it keeps its shiny status and any power it had gained. | [ ] |
+| 54 | Lose again with no potions **in the same battle** (catch a second Mimikyu if you can). | No second rescue — the disguise is once per **battle**, not once per Mimikyu. | [ ] |
+| 55 | Reach the **next** battle and lose with no potions. | It works again. Every battle gets one rescue while Mimikyu is on the team. | [ ] |
+| 56 | Repeat 51 in the **Elite Four** and against the **Champion**. | Works the same in all three battle types. | [ ] |
+| 57 | Check the modal and the retry banner in **all six locales**. | Translated everywhere; the busted form is named in each language (fr *Mimiqui*, de *Mimigma*). No raw keys. | [ ] |
 | 58 | Compare the win/lose wheel before and after the disguise busts. | The odds are **unchanged** — the disguise is a free retry, not a stat change. | [ ] |
+| 59 | Watch the network tab while the disguise busts. | **No request to pokeapi.co.** The busted artwork is hard-linked, because PokéAPI has no official artwork for that form. | [ ] |
 
 ---
 
@@ -195,7 +196,7 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **316/316** (baseline 230) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **321/321** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |

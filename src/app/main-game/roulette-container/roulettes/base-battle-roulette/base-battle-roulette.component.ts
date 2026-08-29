@@ -150,30 +150,39 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Whether the Disguise has already absorbed a defeat in *this* battle.
+   *
+   * A component field rather than a run modifier, because the limit is per battle: the container
+   * renders battle roulettes from an `@switch`, so leaving the battle state destroys this component
+   * and the next battle starts with a fresh, unspent disguise. Tracking it separately from the
+   * Pokémon's own form matters because a second Mimikyu caught mid-battle would otherwise be a
+   * second free retry in the same fight.
+   */
+  private disguiseUsedThisBattle = false;
+
+  /**
    * Mimikyu's Disguise: a last-resort retry once the potions are gone.
    *
    * Three conditions, all required — an undisguised Mimikyu on the team, no potion left (checked by
    * the caller, which reaches here only when `hasPotions()` came back empty), and the Disguise
-   * unused this run. The run-scoped flag is what makes it once per *run* rather than once per
-   * Mimikyu: catching a second one does not buy a second free retry.
+   * unspent in this battle.
    */
   protected hasDisguise(): boolean {
-    return !this.gameStateService.runModifiers.disguiseUsed
-      && this.trainerService.hasDisguisedMimikyu();
+    return !this.disguiseUsedThisBattle && this.trainerService.hasDisguisedMimikyu();
   }
 
   /**
    * Busts the disguise and grants exactly one retry — the same thing a plain Potion grants.
    *
    * The flag is only set when the form change actually happened, so a bust that found nothing to
-   * change cannot silently spend the run's one use.
+   * change cannot silently spend this battle's use.
    */
   protected useDisguise(openDisguiseModal: () => void): boolean {
     if (!this.trainerService.bustMimikyuDisguise()) {
       return false;
     }
 
-    this.gameStateService.runModifiers.disguiseUsed = true;
+    this.disguiseUsedThisBattle = true;
     this.respinReasonKey = 'game.main.roulette.disguise.respin';
     this.retries = 1;
     openDisguiseModal();

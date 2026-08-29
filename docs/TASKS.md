@@ -263,14 +263,29 @@ because the ladder lives in `BaseBattleRouletteComponent`.
 - **`power` is identical in both forms.** `carryOver` takes `power` from the target form, so a
   different value would silently shift the win/lose odds the moment the disguise broke. A free retry
   should not double as a stat change.
-- **Once per run, not once per Mimikyu.** The limit is `runModifiers.disguiseUsed`, which resets on
-  restart along with the other run-scoped rules.
+- **Once per battle, and repaired at the end of it.** The rule is `temporary`, so `revertAll` puts
+  the disguise back on the way out, and the next battle gets a fresh one. The limit is a component
+  field on `BaseBattleRouletteComponent`, not a run modifier: the container renders battle roulettes
+  from an `@switch`, so leaving the state destroys the component and the flag with it. Tracking it
+  apart from the Pokémon's own form is what stops a second Mimikyu caught mid-battle from buying a
+  second retry in the same fight.
 
-That last one is where mutation testing earned its keep. The first "once per run" test passed with
-the `disguiseUsed` guard *removed* — after a bust the Pokémon is id 10143, so `hasDisguisedMimikyu()`
-already returns false, and the test was proving nothing about the flag. The flag's real job is a
-**second, freshly caught Mimikyu**, and only a test that catches one exercises it. That test now
-exists and does fail without the guard.
+Three follow-up fixes came out of playing it, each one a gap the tests had left:
+
+- **The retry banner threw.** All three battle templates rendered it as `currentItem.text`, and
+  `currentItem` is set only by `usePotion` — so any other source of retries made the condition true
+  while the field was undefined, and the view threw on every change-detection pass. Every disguise
+  test asserted state and never rendered. Two tests now call `detectChanges()` and read
+  `.respin-reason`.
+- **The busted sprite never appeared.** Form tables leave `sprite: null` and let the runtime fetch
+  the artwork, but PokéAPI returns a literal `null` official-artwork for 10143 — the request
+  succeeded and produced no image. The busted form now hard-links the HOME sprites, `carryOver`
+  keeps a sprite the target form declares instead of unconditionally nulling it, and a test asserts
+  no HTTP call happens on a bust.
+- **Revert now restores the recorded original** rather than the flat table form, so the disguised
+  sprite resolved before the battle is reused and any power gained since survives the round trip.
+  That also fixes the same loss for Palafin, whose rare-candy gains were being reset to the table
+  value on every battle exit.
 
 Tests: five on the rule itself (no bust on battle entry, busts on request, survives revert, keeps
 shiny, leaves power alone) and six at the battle level (retry granted, potions still take priority,

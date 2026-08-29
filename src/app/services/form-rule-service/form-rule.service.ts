@@ -86,7 +86,14 @@ export class FormRuleService {
 
           if (rule.selection.kind === 'base-to-battle') {
             if (rule.forms[1]?.pokemonId === current.pokemonId) {
-              collection[i] = this.carryOver(rule.forms[0], current);   // table form: no sprite yet
+              // Prefer the Pokémon this rule actually replaced: it carries the sprite already
+              // resolved before the battle, and any power gained since (a rare candy, say) that the
+              // flat table form does not know about. Falling back to the table form keeps the
+              // documented behaviour for a Pokémon *caught* in its battle form, which has no record.
+              const applied = records.find(r => r.ruleId === rule.id);
+              collection[i] = applied
+                ? this.restore(applied.original, current)
+                : this.carryOver(rule.forms[0], current);
               reverted = true;
             }
             continue;
@@ -162,13 +169,17 @@ export class FormRuleService {
    * The one swap every mechanic used to implement separately.
    *
    * Anything the player earned on this Pokémon during the battle has to survive the change back,
-   * so per-Pokémon state is carried across rather than taken from the stored form. Only the sprite
-   * is dropped, because the new form needs its own artwork.
+   * so per-Pokémon state is carried across rather than taken from the stored form.
+   *
+   * The sprite is dropped **only when the target form does not name one**, which is the usual case:
+   * form tables leave `sprite: null` and the runtime fetches the artwork. A form that hard-links its
+   * own sprite keeps it, because for some forms the fetch cannot work — PokéAPI returns a literal
+   * `null` official-artwork for Mimikyu's busted form, so nulling here produced no image at all.
    */
   private carryOver(target: PokemonItem, replacing: PokemonItem): PokemonItem {
     const replacement = structuredClone(target);
     replacement.shiny = replacing.shiny;
-    replacement.sprite = null;
+    replacement.sprite = target.sprite ?? null;
     return replacement;
   }
 

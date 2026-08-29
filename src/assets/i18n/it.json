@@ -335,7 +335,7 @@
         "disguise": {
           "respin": "Travestimento",
           "title": "Il travestimento di Mimikyu si è rotto!",
-          "message": "Eri rimasto senza pozioni, così Mimikyu ha incassato il colpo per la squadra. Il suo travestimento è rovinato per il resto dell'avventura, ma hai un'altra possibilità in questa battaglia!"
+          "message": "Eri rimasto senza pozioni, così Mimikyu ha incassato il colpo per la squadra. Il suo travestimento resta distrutto fino alla fine di questa battaglia, ma hai un'altra possibilità!"
         },
         "gym": {
           "against": "Lotta contro",
