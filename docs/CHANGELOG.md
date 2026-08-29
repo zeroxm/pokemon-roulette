@@ -27,50 +27,6 @@ spec covers.
 
 ---
 
-## T-41 — two bugs found in UAT
-
-| # | What to do | Expected | ✓ |
-| --- | --- | --- | --- |
-| 61 | Do the same for any other two-stone species (**Mewtwo**). | The tapped stone decides the form. | [ ] |
-
----
-
-## T-40 — new: Mimikyu's Disguise
-
-A new mechanic, requested during UAT. When a battle spin is lost and **no potion is left**, Mimikyu's
-Disguise takes the hit instead: you get another spin, Mimikyu is busted for the **rest of that
-battle**, and the disguise is repaired when the fight ends. Once per battle, reusable in the next one.
-
-| # | What to do | Expected | ✓ |
-| --- | --- | --- | --- |
-| 50 | Lose a spin with a Mimikyu on the team **while still holding a potion**. | The **potion is used first**. The disguise is untouched — Mimikyu still looks normal. | [ ] |
-| 51 | Now lose a spin with **no potions at all**. | A modal explains the disguise broke and you get another chance. The battle does **not** end. The retry banner reads **"Disguise x1"** where a potion would have read "Potion x1". | [ ] |
-| 52 | Look at Mimikyu in the team panel **during** that battle. | It shows the **busted** artwork — a real sprite, not the placeholder. | [ ] |
-| 53 | Win the battle, then look at Mimikyu again. | The disguise is **back on**, and it keeps its shiny status and any power it had gained. | [ ] |
-| 54 | Lose again with no potions **in the same battle** (catch a second Mimikyu if you can). | No second rescue — the disguise is once per **battle**, not once per Mimikyu. | [ ] |
-| 55 | Reach the **next** battle and lose with no potions. | It works again. Every battle gets one rescue while Mimikyu is on the team. | [ ] |
-| 56 | Repeat 51 in the **Elite Four** and against the **Champion**. | Works the same in all three battle types. | [ ] |
-| 57 | Check the modal and the retry banner in **all six locales**. | Translated everywhere; the busted form is named in each language (fr *Mimiqui*, de *Mimigma*). No raw keys. | [ ] |
-| 58 | Compare the win/lose wheel before and after the disguise busts. | The odds are **unchanged** — the disguise is a free retry, not a stat change. | [ ] |
-| 59 | Watch the network tab while the disguise busts. | **No request to pokeapi.co.** The busted artwork is hard-linked, because PokéAPI has no official artwork for that form. | [ ] |
-
----
-
-## T-39 — mega evolution no longer fires by itself
-
-Found during this UAT and fixed. Entering a battle used to mega-evolve any team member whose stone
-you were carrying, without being asked. A regression introduced by T-23's form-rule migration.
-
-| # | What to do | Expected | ✓ |
-| --- | --- | --- | --- |
-| 40 | Earn a mega stone, then enter a battle with the matching Pokémon on your team. **Do not tap anything.** | The Pokémon stays in its **base form**. Nothing mega-evolves on its own. | [ ] |
-| 41 | Now tap the mega stone in the items bar during that battle. | It mega-evolves, with the animation (or instantly, if *Skip Mega Evolution Animation* is on). | [ ] |
-| 42 | Finish that battle and check the Pokémon afterwards — in the team **and** in the storage PC if you move it there mid-battle. | Back to base form, keeping its shiny status and stats. | [ ] |
-| 43 | Enter a battle with **Palafin** on the team, and separately with **Aegislash** or **Ogerpon**. | These still transform automatically on battle entry — only mega became manual. | [ ] |
-| 44 | Tap the stone, then let the battle advance a step (a potion retry, an X-Attack). | The mega form stays active; it is not reverted or re-applied mid-battle. | [ ] |
-
----
-
 ## T-38 — toolchain upgrade (added after the campaign closed)
 
 Angular 21 → 22, ng-bootstrap 20 → 21, ngx-translate 17 → 18, ng-icons 33 → 35,
@@ -101,10 +57,10 @@ Do not push until every box above is ticked **and**:
 | `npm run build` | passes | [ ] |
 | `npm test -- --watch=false --browsers=ChromeHeadless` | **336/336** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
-| i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
-| `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
-| **Remove the T-41 Mewtwo seed** | `seedMewtwoForTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
+| i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,208 keys) | [ ] |
+| `git log --oneline --graph` | 30 `--no-ff` task merges for the campaign proper (T-01…T-38); the UAT-era work (T-39…T-42) is committed straight onto the branch, since each fix was a response to a specific finding rather than a planned task | [ ] |
 | Both audit reports | empty and deleted | [ ] |
+| No UAT seeds left in the source | `grep -rn 'ForTesting\|seedTest' src/` returns nothing — four temporary seeds were added and removed during UAT | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
 ---
@@ -124,9 +80,5 @@ Do not push until every box above is ticked **and**:
   campaign's own findings — those results would be meaningless.
 - **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
   off the map", a state was queued with no matching wheel — please report which action triggered it.
-- **Mewtwo and both Mewtwonites are seeded at the start of every run** while row 61 is outstanding —
-  Mewtwo in the storage PC, the stones in the item bag. Move Mewtwo onto the team and take it into a
-  battle. Not gated on `environment.production`, so it would reach a real build; the pre-push gate
-  above requires deleting it.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
