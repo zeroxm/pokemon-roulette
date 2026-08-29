@@ -334,8 +334,8 @@
         },
         "disguise": {
           "respin": "Verkleidung",
-          "title": "Mimigmas Verkleidung ist zerbrochen!",
-          "message": "Du hattest keine Tränke mehr, also hat Mimigma den Treffer für das Team eingesteckt. Seine Verkleidung ist bis zum Ende dieses Kampfes zerstört — dafür bekommst du eine weitere Chance!"
+          "title": "Mimigmas Verkleidung ist zerstört!",
+          "message": "Mimigma hat den Treffer für das Team eingesteckt! Du bekommst eine weitere Chance!"
         },
         "gym": {
           "against": "Kampf gegen",

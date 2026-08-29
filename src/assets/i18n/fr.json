@@ -334,8 +334,8 @@
         },
         "disguise": {
           "respin": "Déguisement",
-          "title": "Le déguisement de Mimiqui est brisé !",
-          "message": "Vous n'aviez plus de potions, alors Mimiqui a encaissé le coup pour l'équipe. Son déguisement est en morceaux jusqu'à la fin de ce combat — mais vous avez droit à une nouvelle chance !"
+          "title": "Le déguisement de Mimiqui a volé en éclats !",
+          "message": "Mimiqui a encaissé le coup pour l'équipe ! Vous avez droit à une nouvelle chance !"
         },
         "gym": {
           "against": "Combat contre",

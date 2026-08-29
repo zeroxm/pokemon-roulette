@@ -334,8 +334,8 @@
         },
         "disguise": {
           "respin": "Disguise",
-          "title": "Mimikyu's disguise broke!",
-          "message": "You were out of potions, so Mimikyu took the hit for the team. Its disguise is wrecked for the rest of this battle — but you get another chance!"
+          "title": "Mimikyu's disguise busted!",
+          "message": "Mimikyu took the hit for the team! You get another chance!"
         },
         "gym": {
           "against": "Battle against",

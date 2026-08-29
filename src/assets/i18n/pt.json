@@ -335,7 +335,7 @@
         "disguise": {
           "respin": "Disfarce",
           "title": "O disfarce do Mimikyu quebrou!",
-          "message": "Você estava sem poções, então o Mimikyu levou o golpe pela equipe. O disfarce dele fica destruído até o fim desta batalha — mas você ganha mais uma chance!"
+          "message": "O Mimikyu levou o golpe pela equipe! Você ganha mais uma chance!"
         },
         "gym": {
           "against": "Batalha contra",
