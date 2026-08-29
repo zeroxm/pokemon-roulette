@@ -2,12 +2,8 @@
  * A wheel spin whose meaning travels with it.
  *
  * The container reuses two states — `select-from-pokemon-list` and `select-from-item-list` — for
- * every "pick one of these" moment in the game. What the pick *means* used to be recorded
- * separately: as marker `GameState` members that rendered nothing and were read back after the
- * pop, and later, when mega stones needed a meaning the state string could not carry, as a second
- * parallel tag alongside them.
- *
- * Carrying the continuation with the request removes the need for either.
+ * every "pick one of these" moment. Carrying the continuation with the request is what keeps those
+ * states generic, rather than tagging the meaning somewhere alongside them.
  */
 export interface PendingSelection<T> {
   /** Translation key for the wheel's heading. */

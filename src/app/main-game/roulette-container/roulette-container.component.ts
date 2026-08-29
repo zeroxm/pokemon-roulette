@@ -190,9 +190,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   /**
    * Labels for re-spins that have been queued but not yet shown.
    *
-   * Consumed one per `adventure-continues`. Previously a bare counter was decremented on *every*
-   * emission of that state, so an escape rope — which queues its own `adventure-continues` —
-   * silently ate a multitask spin's label.
+   * A queue rather than a counter: an escape rope queues its own `adventure-continues`, and a
+   * counter decremented on every emission of that state would eat a multitask spin's label.
    */
   private queuedRespinReasons: Array<{ key: string; params: Record<string, unknown> }> = [];
 
@@ -208,8 +207,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
    * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
    * wheel contents, and the Pokémon being acted on.
    *
-   * Driven by the `game-start` emission rather than by the restart handlers, because there are two
-   * restart entry points and only one of them used to clear anything.
+   * Driven by the `game-start` emission rather than by the restart handlers, so both restart entry
+   * points clear it.
    */
   private resetTransientState(): void {
     this.pendingPokemonSelection = null;
@@ -283,8 +282,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
    *
    * The check reads the state being **entered**, not the one being finished: the service emits
    * synchronously, so the `ngOnInit` subscription has already updated `currentGameState` by the
-   * time the pop returns. That was previously invisible — the condition looked like it inspected
-   * the finished state, under a method named `finishCurrentState`.
+   * time the pop returns.
    */
   private finishCurrentState(): void {
     const enteredState = this.gameStateService.finishCurrentState();
@@ -329,9 +327,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.auxPokemonList = this.trainerService.getPokemonThatCanEvolve();
 
     if (this.auxPokemonList.length === 0) {
-      // `Record<EventSource, …>` makes a missing row a compile error. The nullish check is for
+      // `Record<EventSource, …>` makes a missing row a compile error. The nullish check covers
       // values arriving from template outputs, where a stale build could yield an unmapped
-      // literal — doing nothing is how this behaved before, and beats throwing mid-game.
+      // literal — doing nothing beats throwing mid-game.
       const prize = CONSOLATION_PRIZES[eventSource];
 
       if (!prize || prize.action === 'none') {

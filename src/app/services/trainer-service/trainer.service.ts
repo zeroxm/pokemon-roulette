@@ -81,9 +81,8 @@ export class TrainerService implements OnDestroy {
   }
 
   getTrainerSprite(generation: number, gender: string): string {
-    // Unguarded index chains here would throw on an unknown generation or gender. The data covers
-    // 1-9 and GenerationService only produces those, so this cannot fire today — it is a guard
-    // against a future generation being added to one table and not the other.
+    // Unreachable today — GenerationService only produces 1-9, which the data covers. Guards
+    // against a future generation reaching one table and not the other.
     const sprite = this.trainerSpriteData[generation]?.[gender];
 
     if (!sprite) {
@@ -215,9 +214,8 @@ export class TrainerService implements OnDestroy {
       if (index > -1) {
         this.storedPokemon.splice(index, 1, pokemonIn);
       } else {
-        // Located by reference identity, so a stale object silently evolves nothing while the
-        // caller has already consumed the item and shown the modal. Not reachable today; noisy
-        // if a future path ever hands us a copy.
+        // Located by reference identity: a stale copy would silently evolve nothing after the
+        // caller had already consumed the item and shown the modal.
         console.warn(`Could not find Pokémon ${pokemonOut.pokemonId} to evolve; team unchanged.`);
       }
     }
@@ -322,9 +320,8 @@ export class TrainerService implements OnDestroy {
   forceMegaActivation(baseId: number, stoneName?: MegaStoneItemName): void {
     this.megaBattleBaseId = baseId;
 
-    // A specific stone was tapped, so offer *only* that one. The rule picks by scanning its own
-    // forms in order, not the list it is handed, so including the other stones let forms[0] win
-    // regardless of what was tapped — holding both Charizardite X and Y always produced Mega X.
+    // Offer *only* the tapped stone. The rule scans its own forms in order rather than the list it
+    // is handed, so passing the others would let forms[0] win whichever stone the player tapped.
     const heldItems = stoneName && this.hasItem(stoneName) ? [stoneName] : this.heldItemNames();
     const changed = this.formRuleService.forceApply(
       `mega:${baseId}`, this.trainerTeam, this.storedPokemon, heldItems,
@@ -424,10 +421,7 @@ export class TrainerService implements OnDestroy {
     this.trainerBadgesObservable.next(this.trainerBadges);
   }
 
-  // Applies all battle-entry transforms in one pass with a single emit.
-  // Temporary forms apply to team+stored; sticky forms apply to team only.
 
-  // Reverts temporary forms only. Sticky forms intentionally persist after battle.
 
 
 

@@ -54,8 +54,6 @@ describe('ItemsComponent', () => {
     });
 
     it('shows the placeholder in an empty slot next to a filled one', () => {
-      // The original bug in miniature: slot 5 held a potion and slot 6 borrowed its sprite,
-      // so an empty slot appeared to contain one.
       component.trainerItems = Array.from({ length: 6 }, (_, i) => item(`item-${i}`));
       fixture.detectChanges();
 

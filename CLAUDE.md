@@ -6,11 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Angular 22 single-page game ("Pokémon Roulette"): a randomized Pokémon run driven by spinning wheels. Standalone components only (no NgModules), Bootstrap 5 + ng-bootstrap for UI/modals, `@ngx-translate` for i18n, deployed to GitHub Pages.
 
-> **A remediation campaign has just landed** on `remediation/thermo-nuclear-audit`
-> ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42)). Two whole-codebase audits produced
-> 46 correctness and 26 maintainability findings; all but one are fixed. The reports are deleted;
-> `docs/CHANGELOG.md` is the UAT script and `docs/TASKS.md` the record of what was done — both go
-> once UAT passes.
+> Two whole-codebase audits produced 46 correctness and 26 maintainability findings; all but one
+> were fixed on `remediation/thermo-nuclear-audit`
+> ([PR #42](https://github.com/zeroxm/pokemon-roulette/pull/42)), which is also where the toolchain
+> moved to Angular 22 and where Mimikyu's Disguise and Ash-Greninja were added. The reports, the
+> task list and the UAT script are deleted; that PR and the git history are the record.
 >
 > **One finding was deliberately left open** — see *Known accepted risk* below.
 

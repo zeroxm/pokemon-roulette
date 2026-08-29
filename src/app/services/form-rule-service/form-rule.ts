@@ -25,9 +25,7 @@ export type FormSelection =
  * What makes a rule fire.
  *
  * Separate from {@link FormSelection}, which only says *which* form is picked once a rule runs.
- * Conflating the two is what made mega evolution fire on entering a battle: the item-gated rule
- * answered "which form" with "the one whose stone you hold", and `applyAll` read that as licence
- * to apply it, so merely owning a stone was enough.
+ * Owning a mega stone answers the second question, never the first.
  */
 export type FormTrigger =
   /** Fires automatically when a battle starts. */
@@ -44,7 +42,7 @@ export type FormTrigger =
  * of the same loop.
  */
 export interface FormRule {
-  /** Stable identity, used to record what to undo. */
+  /** Stable identity, keyed on when recording what to undo. */
   readonly id: string;
   /** Candidate forms. Item-gated forms carry the stone that selects them. */
   readonly forms: readonly PokemonItem[];

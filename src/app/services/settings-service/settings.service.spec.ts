@@ -14,7 +14,7 @@ describe('SettingsServiceService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('reading stored settings (SEC-30q)', () => {
+  describe('reading stored settings', () => {
     const read = (stored: unknown): unknown => {
       localStorage.setItem('pokemon-roulette-settings', JSON.stringify(stored));
       return TestBed.inject(SettingsService).currentSettings;

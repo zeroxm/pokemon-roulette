@@ -163,7 +163,7 @@ describe('RouletteContainerComponent', () => {
   // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
 
-  describe('restart clears run state (SEC-04)', () => {
+  describe('restart clears run state', () => {
     it('wipes every run modifier', () => {
       const run = gameStateService.runModifiers;
       run.evolutionCredits = 5;
@@ -210,7 +210,7 @@ describe('RouletteContainerComponent', () => {
     });
   });
 
-  describe('exp-share bonus (SEC-07)', () => {
+  describe('exp-share bonus', () => {
     it('releases the bonus when nothing else can evolve', () => {
       const run = gameStateService.runModifiers;
       run.expShareUsed = true;
@@ -263,7 +263,7 @@ describe('RouletteContainerComponent', () => {
       expect(calls).toBe(1);
     });
 
-    it('queues the mega stone wheel before advancing, so it is what renders next (SEC-06)', () => {
+    it('queues the mega stone wheel before advancing, so it is what renders next', () => {
       const setNextState = spyOn(gameStateService, 'setNextState').and.callThrough();
       const finish = spyOn(gameStateService, 'finishCurrentState').and.callThrough();
       const order: string[] = [];

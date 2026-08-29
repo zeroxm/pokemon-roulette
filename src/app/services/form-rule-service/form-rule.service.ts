@@ -14,14 +14,13 @@ interface AppliedForm {
 /**
  * Applies and reverts every form-changing mechanic through one code path.
  *
- * Three things this design fixes by construction rather than by patch:
+ * Three invariants it guarantees:
  *
- * - **Apply is idempotent.** A battle state emitted twice used to run apply twice, which turned
- *   a two-form toggle into a no-op (Shield → Blade → Shield) and re-rolled random forms.
- * - **Revert sweeps storage.** A form moved to the PC mid-battle used to be missed and stranded
- *   there permanently.
- * - **Revert bookkeeping always clears.** It used to clear only on a *successful* revert, so one
- *   miss disabled mega evolution for the rest of the run.
+ * - **Apply is idempotent**, so a battle state emitted twice cannot toggle a two-form rule back
+ *   (Shield → Blade → Shield) or re-roll a random one.
+ * - **Revert sweeps storage as well as the team**, so a form moved to the PC mid-battle is not
+ *   stranded there.
+ * - **Revert bookkeeping always clears**, even when the revert itself finds nothing to do.
  */
 @Injectable({ providedIn: 'root' })
 export class FormRuleService {
@@ -36,9 +35,8 @@ export class FormRuleService {
    * Applies every `battle-start` rule whose conditions are met. A no-op if forms are already
    * applied, so re-entering the same battle state cannot double-toggle anything.
    *
-   * `manual` rules are skipped deliberately. Mega evolution is player-initiated: holding the stone
-   * decides *which* mega form is available, not that one should happen. Applying it here made every
-   * eligible Pokémon mega-evolve the moment a battle started, just for owning the stone.
+   * `manual` rules are skipped: holding a mega stone decides *which* form is available, not that
+   * one should happen.
    */
   applyAll(team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
     if (this.formsApplied) {
@@ -59,17 +57,13 @@ export class FormRuleService {
   /**
    * Undoes every `temporary` rule, wherever the Pokémon now sits.
    *
-   * Two styles, because the mechanics genuinely differ:
-   *
-   * - `base-to-battle` reverts **unconditionally** — a battle-only form is battle-only whether or
-   *   not this code produced it, so a Pokémon caught in Hero form still leaves the fight as base.
-   * - `item-gated` restores the **recorded original**, which carries the shiny flag and stats of
-   *   the exact Pokémon that mega-evolved.
+   * `base-to-battle` reverts unconditionally: a battle-only form is battle-only whether or not this
+   * code produced it, so a Pokémon caught in Hero form still leaves the fight as base.
    */
   revertAll(team: PokemonItem[], stored: PokemonItem[]): boolean {
     const records = this.applied;
-    // Cleared unconditionally, before any attempt: leaving stale bookkeeping behind after a
-    // missed revert is what used to disable mega evolution for the rest of the run.
+    // Cleared before any attempt, so a missed revert cannot strand bookkeeping and disable the
+    // rule for the rest of the run.
     this.applied = [];
     this.formsApplied = false;
 
@@ -86,10 +80,9 @@ export class FormRuleService {
 
           if (rule.selection.kind === 'base-to-battle') {
             if (rule.forms[1]?.pokemonId === current.pokemonId) {
-              // Prefer the Pokémon this rule actually replaced: it carries the sprite already
-              // resolved before the battle, and any power gained since (a rare candy, say) that the
-              // flat table form does not know about. Falling back to the table form keeps the
-              // documented behaviour for a Pokémon *caught* in its battle form, which has no record.
+              // Prefer the Pokémon this rule replaced: it carries the already-resolved sprite and
+              // any power gained since (a rare candy, say). A Pokémon *caught* in its battle form
+              // has no record, and falls back to the table form.
               const applied = records.find(r => r.ruleId === rule.id);
               collection[i] = applied
                 ? this.restore(applied.original, current)
@@ -166,15 +159,14 @@ export class FormRuleService {
   }
 
   /**
-   * The one swap every mechanic used to implement separately.
+   * The one swap shared by every mechanic.
    *
-   * Anything the player earned on this Pokémon during the battle has to survive the change back,
-   * so per-Pokémon state is carried across rather than taken from the stored form.
+   * Per-Pokémon state is carried across rather than taken from the table form, so anything earned
+   * during the battle survives the change back.
    *
-   * The sprite is dropped **only when the target form does not name one**, which is the usual case:
-   * form tables leave `sprite: null` and the runtime fetches the artwork. A form that hard-links its
-   * own sprite keeps it, because for some forms the fetch cannot work — PokéAPI returns a literal
-   * `null` official-artwork for Mimikyu's busted form, so nulling here produced no image at all.
+   * The sprite is dropped only when the target form does not name one — the usual case, where the
+   * runtime fetches the artwork. A form that hard-links its own sprite keeps it, because PokéAPI has
+   * no official artwork for some forms (Mimikyu busted) and the fetch yields nothing.
    */
   private carryOver(target: PokemonItem, replacing: PokemonItem): PokemonItem {
     const replacement = structuredClone(target);
@@ -184,10 +176,8 @@ export class FormRuleService {
   }
 
   /**
-   * Puts a Pokémon back into a form it previously held.
-   *
-   * Unlike `carryOver`, the sprite is kept: the stored form already resolved its artwork before
-   * the battle, so nulling it here would send the app back to PokéAPI for an image it has.
+   * Restores a recorded form. Unlike `carryOver` the sprite is kept — its artwork was resolved
+   * before the battle, so dropping it would refetch an image the app already has.
    */
   private restore(target: PokemonItem, replacing: PokemonItem): PokemonItem {
     const replacement = structuredClone(target);

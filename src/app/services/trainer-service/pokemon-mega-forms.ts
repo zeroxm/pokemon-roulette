@@ -4,9 +4,8 @@ import { MegaStoneItemName } from '../items-service/item-names';
 /**
  * A mega form and the stone that produces it.
  *
- * The pairing used to live in a second table keyed by the same base id and joined **by array
- * index**, which nothing could enforce — and which was already wrong: Greninja had three forms
- * against one stone, so two of them were unreachable and the silent `?? forms[0]` fallback hid it.
+ * Pairing them on the form itself makes the lookup a find rather than an index into a second table,
+ * so a missing or duplicated stone is a compile error.
  */
 export interface MegaForm extends PokemonItem {
     readonly stone: MegaStoneItemName;

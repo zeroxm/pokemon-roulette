@@ -38,10 +38,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withXhr()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideTranslateService({
-      // v18 takes the paths through the loader's own provider. The old shape
-      // (a bare { prefix, suffix } on TRANSLATE_HTTP_LOADER_CONFIG) is now read as
-      // `resources: []`, which makes the loader issue zero requests and resolve to
-      // an empty translation set - the app then renders raw keys with no error.
+      // The paths must go through the loader's own provider. A bare { prefix, suffix } on
+      // TRANSLATE_HTTP_LOADER_CONFIG parses as `resources: []`, and the loader then issues no
+      // requests and resolves to an empty translation set — the app renders raw keys, silently.
       loader: provideTranslateHttpLoader({
         prefix: './assets/i18n/',
         suffix: '.json'

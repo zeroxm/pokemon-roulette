@@ -30,15 +30,13 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   /**
    * Translation key naming *why* the player gets another spin, shown beside the retry count.
    *
-   * Separate from `currentItem` because a retry is no longer always an item — Mimikyu's Disguise
-   * grants one too. The templates used to read `currentItem.text` directly, which threw the moment
-   * anything other than a potion set `retries`.
+   * Separate from `currentItem` because a retry is not always an item — Mimikyu's Disguise grants
+   * one too.
    */
   protected respinReasonKey: string | null = null;
   protected retries = 0;
 
-  // Injected rather than added to the constructor: four components extend this, one of them the
-  // rival battle, which has no retry mechanic and no reason to grow parameters for it.
+  // Injected rather than constructor-passed, so the four subclasses keep their signatures.
   private readonly modalQueue = inject(ModalQueueService);
   private readonly settings = inject(SettingsService);
   protected victoryOdds: WheelItem[] = [];
@@ -116,11 +114,9 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   /**
    * Extra winning slices from held X-Attacks: each grants the team's mean power.
    *
-   * The empty-team guard matters — dividing by zero produced NaN, and the loop that consumes this
-   * (`i < NaN` is false) then dropped the bonus silently rather than failing. The result is
-   * Rounding is **up**, made explicit here. The consuming loop used `i < meanPower` on a
-   * fractional value, which ran the extra iteration — so 2.4 gave 3 slices. That is preserved
-   * rather than "corrected", since it is a balance decision, not a defect.
+   * Two things are deliberate. The empty-team guard avoids a division by zero, whose NaN would make
+   * the consuming loop drop the bonus silently rather than fail. And rounding is **up**: 2.4 mean
+   * power gives 3 slices, which is a balance decision rather than an accident of arithmetic.
    */
   protected plusModifiers(): number {
     if (this.trainerTeam.length === 0) {
@@ -140,9 +136,8 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Removes the potion from the trainer's inventory, sets retries, then invokes
-   * the caller-supplied modal opener. The lambda is provided by the subclass so
-   * that gym/elite-four can use ModalQueueService while champion uses NgbModal directly.
+   * Spends a potion: removes it, sets the retries it grants, and opens the caller's "used an item"
+   * modal. Also the trigger for Ash-Greninja.
    */
   protected usePotion(potion: ItemItem, openItemUsedModal: () => void): void {
     const index = this.trainerItems.indexOf(potion);
@@ -162,14 +157,11 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Ash-Greninja: a hidden reward for a battle that went badly enough to need a potion.
+   * Ash-Greninja: a hidden reward for a battle that needed a potion.
    *
-   * Deliberately unannounced — no wheel slice, no hint, no stone. It fires straight off `usePotion`,
-   * so all three battle types get it, and the transformation queues behind the "used an item" modal
-   * rather than fighting it for the screen.
-   *
-   * Reuses the mega-evolution animation, including its opt-out: a player who has turned that off
-   * gets the form change without the cutscene, exactly as they would for a mega.
+   * Deliberately unannounced — no wheel slice, no hint, no stone. Fires off `usePotion`, so all
+   * three battle types get it, and queues behind the "used an item" modal. Reuses the
+   * mega-evolution animation and its skip setting.
    */
   private async transformAshGreninja(): Promise<void> {
     if (!this.trainerService.hasBaseGreninja() || !this.trainerService.transformAshGreninja()) {
@@ -193,30 +185,24 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   /**
    * Whether the Disguise has already absorbed a defeat in *this* battle.
    *
-   * A component field rather than a run modifier, because the limit is per battle: the container
-   * renders battle roulettes from an `@switch`, so leaving the battle state destroys this component
-   * and the next battle starts with a fresh, unspent disguise. Tracking it separately from the
-   * Pokémon's own form matters because a second Mimikyu caught mid-battle would otherwise be a
-   * second free retry in the same fight.
+   * A component field, not a run modifier: the container renders battle roulettes from an
+   * `@switch`, so each battle gets a fresh instance and a fresh disguise. Tracked separately from
+   * the Pokémon's own form, so a second Mimikyu caught mid-battle is not a second free retry.
    */
   private disguiseUsedThisBattle = false;
 
   /**
-   * Mimikyu's Disguise: a last-resort retry once the potions are gone.
-   *
-   * Three conditions, all required — an undisguised Mimikyu on the team, no potion left (checked by
-   * the caller, which reaches here only when `hasPotions()` came back empty), and the Disguise
-   * unspent in this battle.
+   * Mimikyu's Disguise: a last-resort retry once the potions are gone. Requires an undisguised
+   * Mimikyu on the team and the Disguise unspent this battle; the caller only reaches here when
+   * `hasPotions()` came back empty.
    */
   protected hasDisguise(): boolean {
     return !this.disguiseUsedThisBattle && this.trainerService.hasDisguisedMimikyu();
   }
 
   /**
-   * Busts the disguise and grants exactly one retry — the same thing a plain Potion grants.
-   *
-   * The flag is only set when the form change actually happened, so a bust that found nothing to
-   * change cannot silently spend this battle's use.
+   * Busts the disguise and grants one retry, as a plain Potion would. The flag is set only when the
+   * form actually changed, so a no-op bust cannot spend this battle's use.
    */
   protected useDisguise(openDisguiseModal: () => void): boolean {
     if (!this.trainerService.bustMimikyuDisguise()) {
@@ -247,10 +233,8 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected abstract calcVictoryOdds(): void;
 
   /**
-   * Builds the win/lose wheel.
-   *
-   * Every battle roulette had its own copy of this; gym and elite-four were the same sixty lines
-   * differing only in a translation key and how many losing slices to start with.
+   * Builds the win/lose wheel for every battle type, parameterised by `outcomeKeyPrefix` and
+   * `baseNoOdds`.
    *
    * Pass `opponentTypes` to fold type matchup in — that also populates the display fields above.
    * Omit it and the matchup state resets, which is what the battles that do not know their

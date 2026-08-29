@@ -15,7 +15,7 @@ import { GameStateService } from '../../../../services/game-state-service/game-s
 
 describe('GymBattleRouletteComponent', () => {
 
-  describe('plusModifiers (SEC-30b)', () => {
+  describe('plusModifiers', () => {
     it('returns 0 for an empty team instead of NaN', () => {
       (component as any).trainerTeam = [];
       (component as any).trainerItems = [{ name: 'x-attack' }];
@@ -25,7 +25,7 @@ describe('GymBattleRouletteComponent', () => {
       expect(result).toBe(0);
     });
 
-    it('rounds a fractional mean up, as the old loop did', () => {
+    it('rounds a fractional mean up', () => {
       (component as any).trainerTeam = [{ power: 2 }, { power: 3 }, { power: 3 }];  // mean 2.67
       (component as any).trainerItems = [{ name: 'x-attack' }];
 
@@ -283,8 +283,7 @@ describe('GymBattleRouletteComponent', () => {
       component.onItemSelected(0);
       fixture.detectChanges();
 
-      // The banner used to read `currentItem.text`, which only a potion ever set — so a disguise
-      // retry threw "Cannot read properties of undefined (reading 'text')" and broke the view.
+      // The banner must not read `currentItem`, which only a potion sets.
       const banner: HTMLElement = fixture.nativeElement.querySelector('.respin-reason');
       expect(banner.textContent).toContain('x1');
       expect((component as any).respinReasonKey).toBe('game.main.roulette.disguise.respin');

@@ -5,10 +5,8 @@ import { Observable, map } from 'rxjs';
 /**
  * The sounds the game can play.
  *
- * Callers used to mint an opaque handle per component, which meant two components asking for the
- * same asset got two different identities: `preventOverlap` was scoped to the *caller* rather than
- * the sound, so two components could talk over each other, and the handle map grew without bound
- * because every wheel instantiation added one and nothing removed it.
+ * Sounds are identified by name, not by a per-caller handle, so `preventOverlap` is scoped to the
+ * sound itself and the clip map is bounded by the size of this union.
  */
 export type SoundFxName =
   | 'click'

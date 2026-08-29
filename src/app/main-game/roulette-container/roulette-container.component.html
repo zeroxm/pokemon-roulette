@@ -223,7 +223,7 @@
   }
   @default {
     <!-- Every GameState should have an arm above. Reaching here means one was added without a
-         matching case, which used to blank the screen silently. -->
+         matching case; failing loudly beats blanking the screen. -->
     <p class="unhandled-state">{{ 'game.main.unhandledState' | translate }}</p>
   }
  }

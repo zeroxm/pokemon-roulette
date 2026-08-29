@@ -30,7 +30,7 @@ describe('SpinAnimation', () => {
     expect(frames.at(-1)).toBeCloseTo(Math.PI * 4, 5);
   });
 
-  it('stops delivering frames after cancel (SEC-12)', async () => {
+  it('stops delivering frames after cancel', async () => {
     animation.start(Math.PI * 4, 500);
     await new Promise(resolve => requestAnimationFrame(() => resolve(null)));
 

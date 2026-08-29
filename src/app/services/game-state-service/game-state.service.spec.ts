@@ -28,7 +28,7 @@ describe('GameStateService', () => {
       expect(service.finishCurrentState()).toBe('explore-cave');
     });
 
-    it('matches what pushing one at a time in reverse used to do', () => {
+    it('matches pushing one at a time in reverse order', () => {
       service.setNextState('go-fishing');
       service.setNextState('select-from-pokemon-list');
       const byHand = [service.finishCurrentState(), service.finishCurrentState()];

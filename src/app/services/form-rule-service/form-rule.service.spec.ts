@@ -31,7 +31,7 @@ describe('FormRuleService', () => {
   const tapStone = (team: PokemonItem[], stored: PokemonItem[] = []): boolean =>
     service.forceApply(`mega:${CHARIZARD}`, team, stored, heldStones());
 
-  describe('apply is idempotent (SEC-03)', () => {
+  describe('apply is idempotent', () => {
     it('a second apply cannot toggle a sticky form back', () => {
       const aegislash = mon(681);              // Aegislash Shield
       const team = [aegislash];
@@ -46,7 +46,7 @@ describe('FormRuleService', () => {
     });
   });
 
-  describe('revert sweeps storage (SEC-02)', () => {
+  describe('revert sweeps storage', () => {
     it('reverts a mega form that was moved to the PC mid-battle', () => {
       const team = [mon(CHARIZARD)];
       const stored: PokemonItem[] = [];
@@ -63,7 +63,7 @@ describe('FormRuleService', () => {
         .toBe(CHARIZARD);
     });
 
-    it('clears its bookkeeping even when it reverts nothing (SEC-05)', () => {
+    it('clears its bookkeeping even when it reverts nothing', () => {
       const team = [mon(CHARIZARD)];
       tapStone(team);
 
@@ -71,7 +71,6 @@ describe('FormRuleService', () => {
       team.length = 0;
       service.revertAll(team, []);
 
-      // A stale record here is what used to disable mega evolution for the rest of the run.
       const secondTeam = [mon(CHARIZARD)];
       expect(tapStone(secondTeam))
         .withContext('a later battle must still be able to mega-evolve')
@@ -109,7 +108,7 @@ describe('FormRuleService', () => {
   });
 
   describe('reverting a mega form', () => {
-    it('keeps the sprite the base form had already resolved (SEC-08)', () => {
+    it('keeps the sprite the base form had already resolved', () => {
       const resolved = { front_default: 'charizard.png', front_shiny: 'charizard-shiny.png' };
       const team = [mon(CHARIZARD, { sprite: resolved })];
 

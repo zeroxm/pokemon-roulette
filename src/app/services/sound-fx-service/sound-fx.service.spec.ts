@@ -15,7 +15,7 @@ describe('SoundFxService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('sound identity (CQ-04)', () => {
+  describe('sound identity', () => {
     it('treats the same sound as the same thing across callers', () => {
       // Two components asking for 'item-found' must share one clip, or preventOverlap is
       // scoped to the caller instead of the sound and they talk over each other.
@@ -25,7 +25,7 @@ describe('SoundFxService', () => {
       expect(first).toBe(second);
     });
 
-    it('does not accumulate a clip per request (SEC-20)', () => {
+    it('does not accumulate a clip per request', () => {
       for (let i = 0; i < 50; i++) {
         (service as any).clip('click');
       }
@@ -48,7 +48,7 @@ describe('SoundFxService', () => {
     });
   });
 
-  describe('queue does not stall forever (SEC-21)', () => {
+  describe('queue does not stall forever', () => {
     it('stops waiting for an ended event that never arrives', async () => {
       jasmine.clock().install();
 
