@@ -303,8 +303,32 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   handleTrainerSelected(): void {
+    this.seedMewtwoForTesting();
     this.finishCurrentState();
   }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // TEMPORARY — UAT aid for T-41 row 61. DELETE BEFORE MERGE.
+  // Ungated: this WILL affect a production build. Removing it is a row in the
+  // pre-push gate.
+  //
+  // Both Mewtwonites, not just the Pokémon: row 61 is specifically "holding two
+  // stones, does the tapped one decide the form", which needs both in the bag.
+  // ─────────────────────────────────────────────────────────────────────────
+  private seedMewtwoForTesting(): void {
+    const mewtwo = this.pokemonService.getPokemonById(150);
+    if (mewtwo) {
+      this.trainerService.commitTeamAndStorage(
+        this.trainerService.getTeam(),
+        [...this.trainerService.getStored(), structuredClone(mewtwo)],
+      );
+    }
+
+    for (const stone of ['mewtwonite-x', 'mewtwonite-y'] as const) {
+      this.trainerService.addToItems(structuredClone(this.itemService.getMegaStone(stone)));
+    }
+  }
+  // ───────────────────────── end temporary block ───────────────────────────
 
   capturePokemon(pokemon: PokemonItem): void {
     this.preparePokemonCapture(pokemon);

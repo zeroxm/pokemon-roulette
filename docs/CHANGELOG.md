@@ -27,25 +27,11 @@ spec covers.
 
 ---
 
-## No observable change — regression only
-
-These tasks must leave the game behaving **exactly** as before. Verify nothing broke.
-
-| # | Task | What changed under the hood | Regression check | ✓ |
-| --- | --- | --- | --- | --- |
-| N25 | T-31/T-32/T-33 | Defensive cleanups: a stored settings blob is now validated field by field, an unknown trainer generation falls back to a placeholder, and a few silent failure paths now warn. | **Corrupt your settings deliberately.** In devtools: `localStorage.setItem('pokemon-roulette-settings','{"muteAudio":null,"defaultGender":"banana"}')`, reload. The game must start normally with **audio unmuted** and gender set to **Always Choose** — not crash, not stick on a broken value. Then set `'{not json'` and reload: same result. | [ ] |
-
----
-
 ## T-41 — two bugs found in UAT
 
 | # | What to do | Expected | ✓ |
 | --- | --- | --- | --- |
-| 60 | Hold **both Charizardite X and Charizardite Y**, then tap **Y** in a battle. | Charizard becomes **Mega Charizard Y**. Repeat tapping **X** in a later battle: **Mega X**. Before this fix both stones produced X. | [ ] |
 | 61 | Do the same for any other two-stone species (**Mewtwo**). | The tapped stone decides the form. | [ ] |
-| 62 | Fill the item bag past six items, so the **second row** is populated. | Every slot shows **its own** sprite and its own tooltip. Previously the first slot of the second row showed the sprite of the last slot of the first row. | [ ] |
-| 63 | Leave the bag with exactly six items. | The seventh slot is **empty** — placeholder art, "Empty" tooltip. It used to borrow the sixth item's sprite, so an empty slot appeared to hold a potion. | [ ] |
-| 64 | Click items in the second row — a **rare candy** or a **mega stone** placed there. | The item that activates is the one you clicked, and its sprite matched what you saw. | [ ] |
 
 ---
 
@@ -117,6 +103,7 @@ Do not push until every box above is ticked **and**:
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
+| **Remove the T-41 Mewtwo seed** | `seedMewtwoForTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
@@ -137,5 +124,9 @@ Do not push until every box above is ticked **and**:
   campaign's own findings — those results would be meaningless.
 - **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
   off the map", a state was queued with no matching wheel — please report which action triggered it.
+- **Mewtwo and both Mewtwonites are seeded at the start of every run** while row 61 is outstanding —
+  Mewtwo in the storage PC, the stones in the item bag. Move Mewtwo onto the team and take it into a
+  battle. Not gated on `environment.production`, so it would reach a real build; the pre-push gate
+  above requires deleting it.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
