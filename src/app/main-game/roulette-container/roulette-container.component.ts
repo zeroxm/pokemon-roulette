@@ -13,7 +13,6 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
-import { environment } from '../../../environments/environment';
 import { ItemsService } from '../../services/items-service/items.service';
 import { EvolutionService } from '../../services/evolution-service/evolution.service';
 import { CommonModule } from '@angular/common';
@@ -304,30 +303,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   handleTrainerSelected(): void {
-    this.seedTestMimikyu();
     this.finishCurrentState();
-  }
-
-  /**
-   * TEMPORARY — UAT aid for T-40, remove before this branch merges.
-   *
-   * Mimikyu's Disguise is otherwise gated behind catching a Mimikyu at all, which makes the
-   * mechanic tedious to reach. This puts one on the team as the run begins.
-   *
-   * Guarded on `environment.production`, which `angular.json` swaps in only for the production
-   * configuration — so `npm start` seeds it and `npm run build` / `npm run deploy` never do. The
-   * guard is belt-and-braces, not a licence to leave this in: it is still a gameplay change and
-   * the pre-push gate lists removing it.
-   */
-  private seedTestMimikyu(): void {
-    if (environment.production) {
-      return;
-    }
-
-    const mimikyu = this.pokemonService.getPokemonById(778);
-    if (mimikyu) {
-      this.trainerService.addToTeam(structuredClone(mimikyu));
-    }
   }
 
   capturePokemon(pokemon: PokemonItem): void {
