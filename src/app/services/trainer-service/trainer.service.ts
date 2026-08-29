@@ -319,8 +319,10 @@ export class TrainerService implements OnDestroy {
   forceMegaActivation(baseId: number, stoneName?: MegaStoneItemName): void {
     this.megaBattleBaseId = baseId;
 
-    // A specific stone was tapped, so offer only that one; otherwise any held stone will do.
-    const heldItems = stoneName ? [stoneName, ...this.heldItemNames()] : this.heldItemNames();
+    // A specific stone was tapped, so offer *only* that one. The rule picks by scanning its own
+    // forms in order, not the list it is handed, so including the other stones let forms[0] win
+    // regardless of what was tapped — holding both Charizardite X and Y always produced Mega X.
+    const heldItems = stoneName && this.hasItem(stoneName) ? [stoneName] : this.heldItemNames();
     const changed = this.formRuleService.forceApply(
       `mega:${baseId}`, this.trainerTeam, this.storedPokemon, heldItems,
     );

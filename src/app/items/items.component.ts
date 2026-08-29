@@ -29,6 +29,9 @@ export class ItemsComponent implements OnInit, OnDestroy {
   }
 
   trainerItems!: ItemItem[];
+
+  /** Slot indices for the item grid. The bag renders a fixed twelve, filled or not. */
+  readonly slots = Array.from({ length: 12 }, (_, index) => index);
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
   @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
 

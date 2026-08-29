@@ -122,6 +122,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-38 | Toolchain upgrade: Angular 22, ng-bootstrap 21, ngx-translate 18, TS 6.0; `@angular-devkit/build-angular` removed — **0 vulnerabilities including dev deps** | post-campaign request | high | [x] |
 | T-39 | **UAT fix:** mega evolution fired on battle entry for merely holding the stone — a T-23 regression; `trigger` axis added to the rule table | UAT finding | high | [x] |
 | T-40 | **New behaviour:** Mimikyu's Disguise as a last-resort retry; `pokemon-forms-gigantamax.json` restored as a reference | UAT request | high | [x] |
+| T-41 | **UAT bugs:** mega X/Y always produced X (T-23 regression); item slot 6 rendered slot 5's sprite (pre-existing) | UAT findings | high | [x] |
 | T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
@@ -292,6 +293,33 @@ shiny, leaves power alone) and six at the battle level (retry granted, potions s
 no Mimikyu loses normally, no second rescue from the same Mimikyu, none from a new one, available
 again after a restart). 305 → 316. Six locales gained `pokemon.mimikyu-busted` and the modal copy;
 2,204 → 2,207 keys, parity verified.
+
+### T-41 — two bugs found by playing
+
+**Mega X/Y always produced X — my regression, from T-23.** The pre-campaign
+`resolveMegaStoneForBattle` gave the tapped stone priority (`if (this.megaBattleStoneName &&
+this.hasItem(...)) return it`). Migrating to the rule table replaced that with
+`heldItems = [stoneName, ...heldItemNames()]`, and the rule picks with
+`forms.find(form => heldItems.includes(form.stone))` — which scans **its own forms in order**, not
+the list it is handed. So with both stones in the bag, Charizard's `forms[0]` (Mega X) won whichever
+stone was tapped. Putting a value first in an array does not make it win a `find` over a different
+array; the comment above the line claimed "offer only that one" while the code offered all of them.
+Now it really does offer only the tapped stone, guarded by `hasItem` exactly as the old code was.
+
+Worth noting the animation was *right* the whole time — `resolveMegaEvolutionPokemonId` indexes by
+stone — so the modal showed Mega Y while the team got Mega X. Two code paths answering the same
+question, which is what T-24 set out to remove and did not finish.
+
+**Item slot 6 showed slot 5's sprite — pre-existing, present on `main`.** The bag was twelve
+hand-written copies of the same block and one of them read `getItemSprite(5)` for slot 6. At six
+slots per row that is the first slot of the second row, so an empty slot wore the previous item's
+sprite and a mega stone could appear as a potion — the tooltip and the click target were correct,
+only the image lied. The grid is now a single `@for` over a slot range, which makes that class of
+typo unrepresentable, and two tests assert every slot renders its own sprite. The `cursor-pointer`
+class on only the first three slots was preserved as `[class.cursor-pointer]="slot < 3"` rather than
+silently normalised: it looks like an oversight, but it is a visual change and not this task's call.
+
+Both fixes mutation-checked. 321 → 326.
 
 ## Coverage check
 

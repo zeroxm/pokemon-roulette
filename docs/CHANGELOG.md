@@ -37,13 +37,10 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 
 
-| N12 | T-21 | Mega-stone award ordering fix (`SEC-06`). | Win an important battle with **2+ mega-eligible Pokémon**, one holding **2+ unowned stones**. Pick the Pokémon — the **stone wheel must appear next**, titled "which stone". Previously the check-evolution wheel appeared first and the stone wheel surfaced later wearing the wrong title ("Who will evolve?"). | [ ] |
 
-| N13 | T-22 | Run-scoped game rules (evolution credits, exp-share, running shoes, stolen Pokémon) moved from the container into `GameStateService`, cleared by one reset. Transient container state is now wiped whenever a new run starts. | **The bug only shows on a SECOND run — use the in-game restart, not a page reload.** Play until you have some state (a few failed evolution rolls, a Team Rocket theft, an unspun mega-stone award), restart, then in the new run check: the first check-evolution roll is **not** already near-guaranteed; defeating Team Rocket does **not** hand you a Pokémon from the previous run; and the first multi-candidate evolution actually happens. | [ ] |
 | N14 | T-22 | Exp-share bonus release (`SEC-07`). | Trigger an evolution where the exp-share has **no second Pokémon** to evolve. Then trigger another evolution that **does** have one — the bonus second evolution must happen. Previously it was silently skipped every other time. | [ ] |
 | N15 | T-22 | Multitask labels are queued per spin. | Trigger a **Multitask** result, then during those bonus spins use an **Escape Rope**. The multitask labels ("Multitask x2", then "x1") must still appear on the multitask spins — the escape rope must not eat one. | [ ] |
 
-| N16 | T-23 | Every form change — mega, Aegislash/Ogerpon sticky forms, Palafin's Hero form — now runs through one `FormRuleService` instead of four separate code paths. `TrainerService` lost 140 lines. | **This touches every form change in the game.** Verify: Palafin becomes Hero on entering a battle and reverts after; Aegislash flips to Blade form for a battle and **stays** Blade; Ogerpon re-rolls a mask; and a mega evolution activates from a tapped stone and reverts after the fight. A **shiny** Pokémon must stay shiny through every one of those swaps. | [ ] |
 | N17 | T-23 | Three bugs made structurally impossible. | **(a)** Use a **Rare Candy during a battle** — Aegislash must still be in Blade form afterwards, not back in Shield. **(b)** Mega-evolve, then **drag that Pokémon into the PC** before the battle ends — it must revert to its base form, not stay mega forever. **(c)** After doing (b), earn another stone in the same run — mega evolution must **still work**. All three were broken before. | [ ] |
 
 | N18 | T-24 | Each mega form now names its own stone, replacing a second table joined by array position. Two unreachable Greninja entries were removed. Reverting a mega form keeps the sprite it already had. | **Mega evolution must work exactly as before.** Reach a mega stone, tap it in battle, and confirm the right Pokémon becomes the right mega form — then that it reverts afterwards **without the sprite blanking and reloading**. For a Pokémon with two stones (Charizard, Mewtwo, Raichu), confirm the stone you hold selects the matching form (X vs Y). | [ ] |
@@ -65,12 +62,24 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N27 | T-35 | Build budgets set to honest values; CI fails on a high-or-worse production advisory. **Superseded in part:** the Angular 21.2.7 → 21.2.22 patch this row described was overtaken by T-38's upgrade to Angular 22. | The framework check now lives in rows **30–35**, which exercise it properly — do it there, not twice. What is left here: the build reports no breached budget, and `npm audit` is clean. | [ ] |
 
-### Notes on N12 / N14
+### Notes on N14
 
 - **One asymmetry was preserved, not fixed.** The exp-share second evolution shows the evolution
   modal when the Pokémon has several possible evolutions but not when it has exactly one. That
   predates the campaign; it is now visible in one place rather than split across two methods, and is
   worth deciding on separately.
+
+---
+
+## T-41 — two bugs found in UAT
+
+| # | What to do | Expected | ✓ |
+| --- | --- | --- | --- |
+| 60 | Hold **both Charizardite X and Charizardite Y**, then tap **Y** in a battle. | Charizard becomes **Mega Charizard Y**. Repeat tapping **X** in a later battle: **Mega X**. Before this fix both stones produced X. | [ ] |
+| 61 | Do the same for any other two-stone species (**Mewtwo**). | The tapped stone decides the form. | [ ] |
+| 62 | Fill the item bag past six items, so the **second row** is populated. | Every slot shows **its own** sprite and its own tooltip. Previously the first slot of the second row showed the sprite of the last slot of the first row. | [ ] |
+| 63 | Leave the bag with exactly six items. | The seventh slot is **empty** — placeholder art, "Empty" tooltip. It used to borrow the sixth item's sprite, so an empty slot appeared to hold a potion. | [ ] |
+| 64 | Click items in the second row — a **rare candy** or a **mega stone** placed there. | The item that activates is the one you clicked, and its sprite matched what you saw. | [ ] |
 
 ---
 
@@ -138,7 +147,7 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **321/321** (baseline 230) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **326/326** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |

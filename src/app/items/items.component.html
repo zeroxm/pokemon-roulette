@@ -3,66 +3,20 @@
     <h2 class="title">{{ 'items.title' | translate }}</h2>
     <div class="item-section container">
         <div class="row gap-2">
-            <div class="item-container rounded-3 col-2 cursor-pointer"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(0)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(0)}}" (click)="useItem(trainerItems[0])">
-        </div>
-        <div class="item-container rounded-3 col-2 cursor-pointer"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(1)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(1)}}" (click)="useItem(trainerItems[1])">
-        </div>
-        <div class="item-container rounded-3 col-2 cursor-pointer"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow '">
-            <img [src]="getItemSprite(2)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(2)}}" (click)="useItem(trainerItems[2])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(3)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(3)}}" (click)="useItem(trainerItems[3])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(4)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(4)}}" (click)="useItem(trainerItems[4])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(5)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(5)}}" (click)="useItem(trainerItems[5])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(5)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(6)}}" (click)="useItem(trainerItems[6])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(7)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(7)}}" (click)="useItem(trainerItems[7])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(8)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(8)}}" (click)="useItem(trainerItems[8])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(9)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(9)}}" (click)="useItem(trainerItems[9])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(10)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(10)}}" (click)="useItem(trainerItems[10])">
-        </div>
-        <div class="item-container rounded-3 col-2"
-            [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
-            <img [src]="getItemSprite(11)" class="img-fluid" placement="bottom"
-                ngbTooltip="{{getItemText(11)}}" (click)="useItem(trainerItems[11])">
-        </div>
+            <!--
+              Twelve slots, six per row. This was twelve hand-written copies of the same block, and
+              one of them read getItemSprite(5) for slot 6 — so the first slot of the second row
+              always showed slot 5's sprite: an empty slot wearing a potion, a mega stone wearing
+              whatever sat before it. Driving the slots from a range makes that typo unrepresentable.
+            -->
+            @for (slot of slots; track slot) {
+                <div class="item-container rounded-3 col-2"
+                     [class.cursor-pointer]="slot < 3"
+                     [ngClass]="(darkMode | async) ? 'border' : 'black-border shadow'">
+                    <img [src]="getItemSprite(slot)" class="img-fluid" placement="bottom"
+                         ngbTooltip="{{getItemText(slot)}}" (click)="useItem(trainerItems[slot])">
+                </div>
+            }
         </div>
     </div>
 </div>
