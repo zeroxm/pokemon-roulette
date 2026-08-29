@@ -359,6 +359,16 @@ the compiler doing the same job.
 
 326 → 336.
 
+### Accepted during UAT — the exp-share evolution asymmetry
+
+`T-21` surfaced, but deliberately did not change, an inconsistency in the exp-share bonus evolution:
+the evolution modal is shown when the Pokémon has several possible evolutions, and skipped when it
+has exactly one. It predates the campaign; the refactor only made it visible in one place instead of
+split across two methods.
+
+Reviewed during UAT and **accepted as-is** — the behaviour is wanted, so there is nothing to fix and
+no finding left open. Recorded here only so a future reader does not "correct" it.
+
 ## Coverage check
 
 Every finding maps to exactly one task. Verified against the two reports:

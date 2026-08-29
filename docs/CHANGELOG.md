@@ -33,39 +33,7 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | # | Task | What changed under the hood | Regression check | ✓ |
 | --- | --- | --- | --- | --- |
-
-
-
-
-
-| N15 | T-22 | Multitask labels are queued per spin. | Trigger a **Multitask** result, then during those bonus spins use an **Escape Rope**. The multitask labels ("Multitask x2", then "x1") must still appear on the multitask spins — the escape rope must not eat one. | [ ] |
-
-
-| N18 | T-24 | Each mega form now names its own stone, replacing a second table joined by array position. Two unreachable Greninja entries were removed. Reverting a mega form keeps the sprite it already had. | **Mega evolution must work exactly as before.** Reach a mega stone, tap it in battle, and confirm the right Pokémon becomes the right mega form — then that it reverts afterwards **without the sprite blanking and reloading**. For a Pokémon with two stones (Charizard, Mewtwo, Raichu), confirm the stone you hold selects the matching form (X vs Y). | [ ] |
-
-| N19 | T-25 | Sounds are now identified by name rather than by a per-caller handle. Five parallel maps became one clip object; the eight handle fields at call sites are gone. | **Every sound must still play.** Spin a wheel (click ticks), find an item, open and close the storage PC (boot → login, then logout), and tap a mega stone (tap, then the mega-evolution sound). Toggle **mute** in settings and confirm sounds respect it. Then background the tab mid mega-evolution and return — the game must not be stuck waiting. | [ ] |
-
-| N20 | T-26 | Weighted selection and the spin animation were extracted from `WheelComponent`. Four wheel defects fixed with them. | **(a)** Spin, then **resize the window** — the wheel must stay visible, not go blank until the next spin. On mobile, scrolling collapses the URL bar and triggers this. **(b)** Spin the same wheel several times — the durations should **vary**, not be identical every time. **(c)** The label above the wheel must show a **real Pokémon/option name**, not a raw key. **(d)** Start a spin and let the result change the screen — no console errors, no ghost clicking sounds afterwards. | [ ] |
-
-| N21 | T-27 | Five roulettes that differed only in a title key and a field name (fishing, fossil, legendary, starter, cave) are now one component driven by a named pool. Their `*-by-generation.ts` data files are untouched. | **All five wheels must look and behave exactly as before.** Reach each one: the **starter** pick at the start of a run, **fishing**, **fossil**, a **legendary encounter**, and **exploring a cave**. Check the heading text is right for each, that the generation appears in brackets on all of them **except starters**, and that picking a Pokémon does what it always did. | [ ] |
-
-| N22 | T-28 | The win/lose odds calculation and the split-trainer routine, each duplicated across four battle roulettes, moved into the shared base and a pure helper. | **Battle difficulty must feel unchanged.** Fight a gym, an Elite Four member, the champion and a rival, and confirm the wheels look like they always did — the champion should still be visibly the hardest. Check the **type-advantage panel** on gym and Elite Four battles renders its icons. Then reach a **split trainer** (gen 5 or 8 gym, gen 8 Elite Four, gen 7 champion, gen 6 rival) and confirm the name, sprite and quote all belong to the *same* trainer. | [ ] |
-
-| N23 | T-29 | Every `<img>` now falls back to the local placeholder if it fails to load, and the one sprite-fetch subscriber handles errors instead of throwing. | **Simulate the outage.** In devtools, block `raw.githubusercontent.com` (Network request blocking) and reload. The game must stay **usable**: wheels spin, battles resolve, the team panel and Pokédex render — every missing image shows the placeholder rather than a broken-image icon, and the console shows no unhandled errors. Then unblock and confirm sprites return. | [ ] |
-
-| N24 | T-30 | Champion and rival battle modals now go through the modal queue like the others; dismissing any modal no longer logs an unhandled rejection. | Fight a **champion** and a **rival**. Their presentation modals must appear, and closing one by **clicking the backdrop or pressing Esc** must leave no error in the console. Use a potion during a champion fight and confirm the item modal appears in order. | [ ] |
 | N25 | T-31/T-32/T-33 | Defensive cleanups: a stored settings blob is now validated field by field, an unknown trainer generation falls back to a placeholder, and a few silent failure paths now warn. | **Corrupt your settings deliberately.** In devtools: `localStorage.setItem('pokemon-roulette-settings','{"muteAudio":null,"defaultGender":"banana"}')`, reload. The game must start normally with **audio unmuted** and gender set to **Always Choose** — not crash, not stick on a broken value. Then set `'{not json'` and reload: same result. | [ ] |
-
-| N26 | T-34 | `WheelItem.weight` is now optional and defaults to 1; the running-shoes re-spin reads the state it actually inspects. | **Wheel proportions must be unchanged.** Spin a wheel where one option is deliberately weighted — the **gym battle odds** wheel, where team power adds winning slices — and confirm the green/red proportions still reflect your team's strength. Then trigger a **Running Shoes** re-spin and confirm it grants exactly one extra spin, labelled as such. | [ ] |
-
-| N27 | T-35 | Build budgets set to honest values; CI fails on a high-or-worse production advisory. **Superseded in part:** the Angular 21.2.7 → 21.2.22 patch this row described was overtaken by T-38's upgrade to Angular 22. | The framework check now lives in rows **30–35**, which exercise it properly — do it there, not twice. What is left here: the build reports no breached budget, and `npm audit` is clean. | [ ] |
-
-### Notes on N14 (row cleared; the decision below is still open)
-
-- **One asymmetry was preserved, not fixed.** The exp-share second evolution shows the evolution
-  modal when the Pokémon has several possible evolutions but not when it has exactly one. That
-  predates the campaign; it is now visible in one place rather than split across two methods, and is
-  worth deciding on separately.
 
 ---
 
@@ -170,7 +138,6 @@ Do not push until every box above is ticked **and**:
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
-| **Remove the T-42 Greninja seed** | `seedGreninjaForTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
@@ -191,9 +158,5 @@ Do not push until every box above is ticked **and**:
   campaign's own findings — those results would be meaningless.
 - **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
   off the map", a state was queued with no matching wheel — please report which action triggered it.
-- **A Greninja is seeded into the storage PC at the start of every run** while T-42 is under test.
-  Move it onto the team, take it into a battle, and use a potion. Not gated on
-  `environment.production`, so it would reach a real build — the pre-push gate above requires
-  deleting it.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.

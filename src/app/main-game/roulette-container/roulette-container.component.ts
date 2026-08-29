@@ -303,25 +303,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   handleTrainerSelected(): void {
-    this.seedGreninjaForTesting();
     this.finishCurrentState();
   }
-
-  // ─────────────────────────────────────────────────────────────────────────
-  // TEMPORARY — UAT aid for T-42 (Ash-Greninja). DELETE BEFORE MERGE.
-  // Ungated: this WILL affect a production build. Removing it is a row in the
-  // pre-push gate.
-  // ─────────────────────────────────────────────────────────────────────────
-  private seedGreninjaForTesting(): void {
-    const greninja = this.pokemonService.getPokemonById(658);
-    if (greninja) {
-      this.trainerService.commitTeamAndStorage(
-        this.trainerService.getTeam(),
-        [...this.trainerService.getStored(), structuredClone(greninja)],
-      );
-    }
-  }
-  // ───────────────────────── end temporary block ───────────────────────────
 
   capturePokemon(pokemon: PokemonItem): void {
     this.preparePokemonCapture(pokemon);
