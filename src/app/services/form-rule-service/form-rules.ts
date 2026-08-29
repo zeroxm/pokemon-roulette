@@ -3,6 +3,7 @@ import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
 import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
 import { mimikyuForms } from '../trainer-service/mimikyu-forms';
+import { greninjaForms } from '../trainer-service/greninja-forms';
 
 /**
  * The three existing form tables, adapted into one rule list.
@@ -39,6 +40,17 @@ export const formRules: FormRule[] = [
   // battle; `temporary` so revertAll puts the disguise back on the way out.
   ...Object.entries(mimikyuForms).map(([baseIdText, forms]): FormRule => ({
     id: `disguise:${baseIdText}`,
+    forms,
+    scope: 'team+stored',
+    persistence: 'temporary',
+    trigger: 'manual',
+    selection: { kind: 'base-to-battle' },
+  })),
+
+  // Ash-Greninja: fires when a potion is used mid-battle, and needs no stone. `manual` because the
+  // potion is what triggers it; `temporary` so it reverts at the end of the fight like a mega does.
+  ...Object.entries(greninjaForms).map(([baseIdText, forms]): FormRule => ({
+    id: `ash-greninja:${baseIdText}`,
     forms,
     scope: 'team+stored',
     persistence: 'temporary',

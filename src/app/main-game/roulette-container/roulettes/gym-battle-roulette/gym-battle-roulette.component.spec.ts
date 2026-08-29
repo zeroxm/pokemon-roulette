@@ -91,6 +91,74 @@ describe('GymBattleRouletteComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  // ── Ash-Greninja: the hidden potion reward ────────────────────────────────
+
+  describe('Ash-Greninja', () => {
+    const GRENINJA = 658;
+    const ASH_GRENINJA = 10117;
+    const LOSE = 'game.main.roulette.gym.no';
+
+    const loseWithPotion = (): void => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+    };
+
+    beforeEach(() => {
+      spyOn(modalQueueService, 'open').and.returnValue(Promise.resolve({
+        componentInstance: {},
+      } as NgbModalRef));
+    });
+
+    it('transforms when a potion is used in the battle', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA, power: 3 }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+
+      expect(trainerService.getTeam()[0].pokemonId).toBe(ASH_GRENINJA);
+      expect(trainerService.getTeam()[0].power).toBe(5);
+    });
+
+    it('stays base while no potion has been used', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA }));
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('losing alone must not transform it')
+        .toBe(GRENINJA);
+    });
+
+    it('plays the mega animation with the right pair of ids', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: GRENINJA }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+      await Promise.resolve();
+
+      const opened = (modalQueueService.open as jasmine.Spy).calls.allArgs().map(args => args[0]);
+      expect(opened.some((c: any) => c?.name?.includes('MegaEvolutionAnimationModal')))
+        .withContext('the transformation reuses the mega cutscene')
+        .toBeTrue();
+    });
+
+    it('leaves other Pokemon alone when a potion is used', async () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: 1 }));
+      loseWithPotion();
+
+      component.onItemSelected(0);
+      await Promise.resolve();
+
+      expect(trainerService.getTeam()[0].pokemonId).toBe(1);
+    });
+  });
+
   // ── Mimikyu's Disguise: the last-resort retry ─────────────────────────────
 
   describe("Mimikyu's Disguise", () => {

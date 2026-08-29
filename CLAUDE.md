@@ -27,7 +27,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **316/316 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **336/336 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -120,8 +120,9 @@ Battle roulettes (gym / elite four / champion / rival) extend `BaseBattleRoulett
 owns `buildVictoryOdds` — the whole win/lose wheel, parameterised by `outcomeKeyPrefix` and
 `baseNoOdds` (the difficulty curve: gym 1, elite four 2, champion 3) — plus retries and X-Attack
 modifiers. The retry ladder on a lost spin is **potion → Mimikyu's Disguise → lose**; it lives in the
-base class so all three battle types share it, and the Disguise is limited to once per run by
-`runModifiers.disguiseUsed` rather than by the Pokémon's own state.
+base class so all three battle types share it, and the Disguise is limited to once per battle by a
+field on the component — the container's `@switch` destroys it between fights. Using a potion also
+triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in the base class too.
 
 ### Domain data
 
@@ -139,9 +140,12 @@ base class so all three battle types share it, and the Disguise is limited to on
   `manual` — holding the stone decides *which* mega form is available, never that one should happen.
   Applying it from `applyAll` made every eligible Pokémon transform on battle entry just for owning
   the stone, which is exactly the bug the axis prevents.
-  Mimikyu's Disguise is the other `manual` rule: a *defeat* fires it, not entering a battle. It is
-  `sticky`, so the busted form outlives the fight, and both of its forms carry the same `power` —
-  `carryOver` reads `power` from the target, so differing values would move the battle odds.
+  Two other rules are `manual`. **Mimikyu's Disguise** fires on a lost spin with no potions left, and
+  both its forms carry the same `power` — `carryOver` reads `power` from the target, so differing
+  values would move the battle odds, and a free retry must not double as a stat change.
+  **Ash-Greninja** fires when a potion is used mid-battle, needs no stone, and *does* raise power
+  3 → 5, because there the stat change is the reward. Both are `temporary`: they revert when the
+  fight ends, like a mega.
 - `GenerationService` — the selected generation drives nearly all content lookups.
 - `ItemsService` / `MegaStoneService` / `RareCandyService` — item catalogs and mid-game item interrupts (rare candy and mega stones bypass the wheel; both are gated on `wheelSpinning`).
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.

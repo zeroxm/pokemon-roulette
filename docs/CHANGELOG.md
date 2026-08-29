@@ -38,10 +38,8 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 
 
-| N14 | T-22 | Exp-share bonus release (`SEC-07`). | Trigger an evolution where the exp-share has **no second Pokémon** to evolve. Then trigger another evolution that **does** have one — the bonus second evolution must happen. Previously it was silently skipped every other time. | [ ] |
 | N15 | T-22 | Multitask labels are queued per spin. | Trigger a **Multitask** result, then during those bonus spins use an **Escape Rope**. The multitask labels ("Multitask x2", then "x1") must still appear on the multitask spins — the escape rope must not eat one. | [ ] |
 
-| N17 | T-23 | Three bugs made structurally impossible. | **(a)** Use a **Rare Candy during a battle** — Aegislash must still be in Blade form afterwards, not back in Shield. **(b)** Mega-evolve, then **drag that Pokémon into the PC** before the battle ends — it must revert to its base form, not stay mega forever. **(c)** After doing (b), earn another stone in the same run — mega evolution must **still work**. All three were broken before. | [ ] |
 
 | N18 | T-24 | Each mega form now names its own stone, replacing a second table joined by array position. Two unreachable Greninja entries were removed. Reverting a mega form keeps the sprite it already had. | **Mega evolution must work exactly as before.** Reach a mega stone, tap it in battle, and confirm the right Pokémon becomes the right mega form — then that it reverts afterwards **without the sprite blanking and reloading**. For a Pokémon with two stones (Charizard, Mewtwo, Raichu), confirm the stone you hold selects the matching form (X vs Y). | [ ] |
 
@@ -62,12 +60,33 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N27 | T-35 | Build budgets set to honest values; CI fails on a high-or-worse production advisory. **Superseded in part:** the Angular 21.2.7 → 21.2.22 patch this row described was overtaken by T-38's upgrade to Angular 22. | The framework check now lives in rows **30–35**, which exercise it properly — do it there, not twice. What is left here: the build reports no breached budget, and `npm audit` is clean. | [ ] |
 
-### Notes on N14
+### Notes on N14 (row cleared; the decision below is still open)
 
 - **One asymmetry was preserved, not fixed.** The exp-share second evolution shows the evolution
   modal when the Pokémon has several possible evolutions but not when it has exactly one. That
   predates the campaign; it is now visible in one place rather than split across two methods, and is
   worth deciding on separately.
+
+---
+
+## T-42 — new: Ash-Greninja
+
+A hidden transformation, requested during UAT. A **base-form Greninja on the team turns into
+Ash-Greninja the first time a potion is used in a battle.** No stone, no wheel slice, no warning —
+it is meant to be a surprise. It uses the mega-evolution cutscene, and reverts at the end of the
+fight like a mega does.
+
+| # | What to do | Expected | ✓ |
+| --- | --- | --- | --- |
+| 70 | Take a base **Greninja** into a battle and lose a spin **while holding a potion**. | The potion modal appears as usual, then the **mega-evolution animation** plays Greninja → Ash-Greninja. | [ ] |
+| 71 | Look at Greninja in the team panel afterwards. | It shows **Ash-Greninja** art, and its power has gone **3 → 5**. | [ ] |
+| 72 | Finish the battle, win or lose, then look again. | Back to base Greninja at power 3 — it is temporary, like a mega. | [ ] |
+| 73 | Use a **second** potion in the same battle. | Nothing further happens; no repeat animation. | [ ] |
+| 74 | Take Greninja into a **new** battle and use a potion again. | It transforms again. Every battle is a fresh chance. | [ ] |
+| 75 | Turn on **Skip Mega Evolution Animation** in settings, then repeat 70. | The form still changes; the cutscene is skipped — same opt-out as a mega. | [ ] |
+| 76 | Repeat in the **Elite Four** and against the **Champion**, in any region. | Works everywhere — it is deliberately not Kalos-only. | [ ] |
+| 77 | Use a potion with **no** Greninja on the team. | Nothing unusual: potion modal, retry, no animation. | [ ] |
+| 78 | Move Greninja to the **storage PC** mid-battle after it transforms, then end the battle. | It reverts to base form in the PC too. | [ ] |
 
 ---
 
@@ -147,11 +166,11 @@ Do not push until every box above is ticked **and**:
 | Check | Expected | ✓ |
 | --- | --- | --- |
 | `npm run build` | passes | [ ] |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | **326/326** (baseline 230) | [ ] |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | **336/336** (baseline 230) | [ ] |
 | `npm audit` (dev deps included, not just `--omit=dev`) | `found 0 vulnerabilities` | [ ] |
 | i18n parity script (see `CLAUDE.md`) | all five non-English locales report `ok` (2,207 keys) | [ ] |
 | `git log --oneline --graph` | one `--no-ff` merge per task, no stray commits | [ ] |
-| **Remove the N16/N17 storage seed** | `seedStorageForFormTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
+| **Remove the T-42 Greninja seed** | `seedGreninjaForTesting` deleted from `roulette-container.component.ts`, and its call in `handleTrainerSelected` | [ ] |
 | Both audit reports | empty and deleted | [ ] |
 | A full playthrough | start → 8 gyms → Elite Four → champion, no console errors | [ ] |
 
@@ -172,11 +191,9 @@ Do not push until every box above is ticked **and**:
   campaign's own findings — those results would be meaningless.
 - **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
   off the map", a state was queued with no matching wheel — please report which action triggered it.
-- **Six Pokémon are seeded into the storage PC at the start of every run** while N16/N17 are under
-  test — Aegislash, Ogerpon, Palafin, Charizard, Blastoise and Venusaur. Move whichever you need onto
-  the team. Unlike the earlier Mimikyu aid this one is **not gated on `environment.production`**, so
-  it would reach a real build: the pre-push gate above requires deleting it.
-  Mega stones are **not** seeded — Charizard, Blastoise and Venusaur still need one awarded after an
-  important battle before they can mega-evolve.
+- **A Greninja is seeded into the storage PC at the start of every run** while T-42 is under test.
+  Move it onto the team, take it into a battle, and use a potion. Not gated on
+  `environment.production`, so it would reach a real build — the pre-push gate above requires
+  deleting it.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.

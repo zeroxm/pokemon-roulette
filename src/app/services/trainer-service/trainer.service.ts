@@ -18,6 +18,9 @@ import { megaStoneNamesForBaseId, pokemonMegaForms } from './pokemon-mega-forms'
 /** Mimikyu's disguised form; the busted form lives in `mimikyu-forms`. */
 const MIMIKYU_ID = 778;
 
+/** Greninja's base form; the Ash form lives in `greninja-forms`. */
+const GRENINJA_ID = 658;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -347,6 +350,29 @@ export class TrainerService implements OnDestroy {
   bustMimikyuDisguise(): boolean {
     const changed = this.formRuleService.forceApply(
       `disguise:${MIMIKYU_ID}`, this.trainerTeam, this.storedPokemon, [],
+    );
+
+    if (changed) {
+      this.loadMissingSprites();
+      this.trainerTeamObservable.next(this.getTeam());
+    }
+    return changed;
+  }
+
+  /** True while a base-form Greninja is on the team — the only thing the Ash transformation fires on. */
+  hasBaseGreninja(): boolean {
+    return this.trainerTeam.some(pokemon => pokemon.pokemonId === GRENINJA_ID);
+  }
+
+  /**
+   * Turns a base Greninja into Ash-Greninja. No stone involved; the caller decides the trigger.
+   *
+   * Returns whether anything changed, so a caller cannot play a transformation animation for a
+   * transformation that did not happen.
+   */
+  transformAshGreninja(): boolean {
+    const changed = this.formRuleService.forceApply(
+      `ash-greninja:${GRENINJA_ID}`, this.trainerTeam, this.storedPokemon, [],
     );
 
     if (changed) {

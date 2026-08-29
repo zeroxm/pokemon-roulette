@@ -64,7 +64,7 @@ export class GymBattleRouletteComponent extends BaseBattleRouletteComponent {
         const potion = this.hasPotions();
         if (potion) {
           this.usePotion(potion, () => this.modalQueueService.open(this.itemUsedModal, { centered: true, size: 'md' }));
-        } else if (this.hasDisguise() && this.useDisguise(() => this.openDisguiseNotice(this.modalQueueService))) {
+        } else if (this.hasDisguise() && this.useDisguise(() => this.openDisguiseNotice())) {
           // Mimikyu took the hit: the retry is already granted, so the battle does not end here.
         } else {
           this.battleResultEvent.emit(false);

@@ -1,4 +1,4 @@
-import { Directive, OnInit, OnDestroy } from '@angular/core';
+import { Directive, OnInit, OnDestroy, inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -14,6 +14,12 @@ import { TypeMatchupService } from '../../../../services/type-matchup-service/ty
 import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { InfoModalComponent } from '../../modals/info-modal/info-modal.component';
+import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
+import { SettingsService } from '../../../../services/settings-service/settings.service';
+
+/** Greninja's base and Ash form ids, for the transformation animation. */
+const GRENINJA_BASE_ID = 658;
+const ASH_GRENINJA_ID = 10117;
 
 @Directive()
 export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
@@ -30,6 +36,11 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
    */
   protected respinReasonKey: string | null = null;
   protected retries = 0;
+
+  // Injected rather than added to the constructor: four components extend this, one of them the
+  // rival battle, which has no retry mechanic and no reason to grow parameters for it.
+  private readonly modalQueue = inject(ModalQueueService);
+  private readonly settings = inject(SettingsService);
   protected victoryOdds: WheelItem[] = [];
 
   /** Key prefix for this battle's outcome labels, e.g. `game.main.roulette.gym`. */
@@ -147,6 +158,36 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
       case 'hyper-potion': this.retries = 3; break;
     }
     openItemUsedModal();
+    void this.transformAshGreninja();
+  }
+
+  /**
+   * Ash-Greninja: a hidden reward for a battle that went badly enough to need a potion.
+   *
+   * Deliberately unannounced — no wheel slice, no hint, no stone. It fires straight off `usePotion`,
+   * so all three battle types get it, and the transformation queues behind the "used an item" modal
+   * rather than fighting it for the screen.
+   *
+   * Reuses the mega-evolution animation, including its opt-out: a player who has turned that off
+   * gets the form change without the cutscene, exactly as they would for a mega.
+   */
+  private async transformAshGreninja(): Promise<void> {
+    if (!this.trainerService.hasBaseGreninja() || !this.trainerService.transformAshGreninja()) {
+      return;
+    }
+
+    if (this.settings.currentSettings.skipMegaEvolutionAnimation) {
+      return;
+    }
+
+    const animation = await this.modalQueue.open(MegaEvolutionAnimationModalComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    animation.componentInstance.pokemonId = GRENINJA_BASE_ID;
+    animation.componentInstance.megaPokemonId = ASH_GRENINJA_ID;
   }
 
   /**
@@ -189,15 +230,9 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  /**
-   * The "your disguise broke" notice.
-   *
-   * Takes the queue service rather than injecting it, because the base class is also extended by
-   * the rival battle, which has no retry mechanic and no reason to gain a dependency. Kept here so
-   * the copy and wiring exist once instead of once per battle type.
-   */
-  protected openDisguiseNotice(modalQueueService: ModalQueueService): void {
-    void modalQueueService
+  /** The "your disguise broke" notice. Here rather than per battle type so the copy exists once. */
+  protected openDisguiseNotice(): void {
+    void this.modalQueue
       .open(InfoModalComponent, { centered: true, size: 'md' })
       .then(ref => {
         ref.componentInstance.title = this.translate.instant('game.main.roulette.disguise.title');

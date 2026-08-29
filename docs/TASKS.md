@@ -123,6 +123,7 @@ Every task below must leave both green. Re-run before each merge.
 | T-39 | **UAT fix:** mega evolution fired on battle entry for merely holding the stone — a T-23 regression; `trigger` axis added to the rule table | UAT finding | high | [x] |
 | T-40 | **New behaviour:** Mimikyu's Disguise as a last-resort retry; `pokemon-forms-gigantamax.json` restored as a reference | UAT request | high | [x] |
 | T-41 | **UAT bugs:** mega X/Y always produced X (T-23 regression); item slot 6 rendered slot 5's sprite (pre-existing) | UAT findings | high | [x] |
+| T-42 | **New behaviour:** Ash-Greninja — a base Greninja transforms when a potion is used mid-battle, no stone required | UAT request (N18) | high | [x] |
 | T-37 | **Yours:** run the UAT in `CHANGELOG.md`, then merge PR #42 and delete these two docs | `SEC-14` decision | — | [ ] |
 
 ### T-02 in detail
@@ -320,6 +321,43 @@ class on only the first three slots was preserved as `[class.cursor-pointer]="sl
 silently normalised: it looks like an oversight, but it is a visual change and not this task's call.
 
 Both fixes mutation-checked. 321 → 326.
+
+### T-42 — Ash-Greninja
+
+Asked for while reviewing N18. T-24 had removed two unreachable Greninja entries from the mega
+table; this brings one of them back on its own terms.
+
+**Why they were removed, and why that still holds.** Forms and stones were joined by array index, and
+Greninja had three forms against one stone — so `stoneIndex` was always 0 and both extra forms were
+dead, with a silent `?? forms[0]` hiding it. Battle Bond is an ability form, not a mega, so giving it
+an invented stone would have kept it in a table the mega-stone lookup walks. As a `FormRule` it needs
+no stone at all, which is what the rule table was for.
+
+**The mechanic.** Using a potion mid-battle transforms a base-form Greninja on the team. `manual`
+(the potion is the trigger, not entering a fight) and `temporary` (reverts at the end, like a mega).
+It hangs off `usePotion` in `BaseBattleRouletteComponent`, so all three battle types get it from one
+place, and the animation queues behind the "used an item" modal instead of fighting it for the
+screen. It honours `skipMegaEvolutionAnimation`, so the mega opt-out covers it too.
+
+`power` climbs 3 → 5, matching what the original entry declared. Deliberately unlike Mimikyu's
+Disguise, where both forms share a power so a free retry cannot double as a stat change: here the
+stat change *is* the reward. Note it does not re-roll the current wheel — same as a mega, which also
+leaves the odds it was summoned into alone.
+
+The i18n keys survived T-24 untouched, so all six locales already had `pokemon.greninja-ash`
+(fr *Amphinobi*, de *Quajutsu*) and nothing needed translating.
+
+Also folded in: `BaseBattleRouletteComponent` now injects `ModalQueueService` and `SettingsService`
+with `inject()` rather than through the constructor, which retires the awkward "pass the service as
+an argument" shape T-40 introduced for `openDisguiseNotice`. Four subclasses keep their constructors
+unchanged, including the rival battle, which has no retry mechanic.
+
+Ten tests — six on the rule, four on the battle trigger. Mutation-checked by renaming the rule id,
+which fails two. One mutation could not be run as intended: deleting the call to
+`transformAshGreninja` orphans the method and `noUnusedLocals` rejects the build outright, which is
+the compiler doing the same job.
+
+326 → 336.
 
 ## Coverage check
 

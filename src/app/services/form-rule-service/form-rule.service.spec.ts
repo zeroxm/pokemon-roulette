@@ -16,6 +16,8 @@ describe('FormRuleService', () => {
   const PALAFIN = 964;
   const PALAFIN_HERO = 10256;
   const MIMIKYU = 778;
+  const GRENINJA = 658;
+  const ASH_GRENINJA = 10117;
   const MIMIKYU_BUSTED = 10143;
 
   beforeEach(() => {
@@ -220,6 +222,63 @@ describe('FormRuleService', () => {
       expect(team[0].power)
         .withContext('a free retry must not double as a stat change')
         .toBe(before);
+    });
+  });
+
+  describe('Ash-Greninja', () => {
+    const transform = (team: PokemonItem[], stored: PokemonItem[] = []): boolean =>
+      service.forceApply(`ash-greninja:${GRENINJA}`, team, stored, []);
+
+    it('does not fire on entering a battle', () => {
+      const team = [mon(GRENINJA)];
+
+      service.applyAll(team, [], []);
+
+      expect(team[0].pokemonId)
+        .withContext('a potion is the trigger, not the start of a fight')
+        .toBe(GRENINJA);
+    });
+
+    it('needs no stone', () => {
+      const team = [mon(GRENINJA)];
+
+      expect(transform(team)).toBeTrue();
+      expect(team[0].pokemonId).toBe(ASH_GRENINJA);
+    });
+
+    it('reverts when the battle ends, like a mega', () => {
+      const team = [mon(GRENINJA)];
+      transform(team);
+
+      service.revertAll(team, []);
+
+      expect(team[0].pokemonId).toBe(GRENINJA);
+    });
+
+    it('raises power 3 -> 5, and gives it back on revert', () => {
+      const team = [mon(GRENINJA, { power: 3 })];
+
+      transform(team);
+      expect(team[0].power).withContext('the transformation is a real reward').toBe(5);
+
+      service.revertAll(team, []);
+      expect(team[0].power).toBe(3);
+    });
+
+    it('does nothing to a Greninja already transformed', () => {
+      const team = [mon(ASH_GRENINJA)];
+
+      expect(transform(team))
+        .withContext('the caller uses this to decide whether to play the animation')
+        .toBeFalse();
+    });
+
+    it('keeps the shiny flag', () => {
+      const team = [mon(GRENINJA, { shiny: true })];
+
+      transform(team);
+
+      expect(team[0].shiny).toBeTrue();
     });
   });
 
