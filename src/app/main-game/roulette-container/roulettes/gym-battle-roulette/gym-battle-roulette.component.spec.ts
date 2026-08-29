@@ -182,6 +182,32 @@ describe('GymBattleRouletteComponent', () => {
       expect(gameStateService.runModifiers.disguiseUsed).toBeFalse();
     });
 
+    it('renders the retry banner without a potion behind it', () => {
+      trainerService.addToTeam(makeTestPokemon({ pokemonId: MIMIKYU }));
+      loseWithNoPotions();
+
+      component.onItemSelected(0);
+      fixture.detectChanges();
+
+      // The banner used to read `currentItem.text`, which only a potion ever set — so a disguise
+      // retry threw "Cannot read properties of undefined (reading 'text')" and broke the view.
+      const banner: HTMLElement = fixture.nativeElement.querySelector('.respin-reason');
+      expect(banner.textContent).toContain('x1');
+      expect((component as any).respinReasonKey).toBe('game.main.roulette.disguise.respin');
+    });
+
+    it('renders the retry banner naming the potion when one was used', () => {
+      (component as any).victoryOdds = [{ text: LOSE, fillStyle: 'crimson', weight: 1 }];
+      (component as any).trainerItems = [POTION_ITEM];
+      (component as any).retries = 1;
+
+      component.onItemSelected(0);
+      fixture.detectChanges();
+
+      expect((component as any).respinReasonKey).toBe('items.potion.name');
+      expect(fixture.nativeElement.querySelector('.respin-reason').textContent).toContain('x1');
+    });
+
     it('loses normally when no Mimikyu is on the team', () => {
       trainerService.addToTeam(makeTestPokemon({ pokemonId: 1 }));
       const lost = spyOn(component.battleResultEvent, 'emit');

@@ -21,6 +21,14 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected trainerTeam!: PokemonItem[];
   protected trainerItems!: ItemItem[];
   protected currentItem!: ItemItem;
+  /**
+   * Translation key naming *why* the player gets another spin, shown beside the retry count.
+   *
+   * Separate from `currentItem` because a retry is no longer always an item — Mimikyu's Disguise
+   * grants one too. The templates used to read `currentItem.text` directly, which threw the moment
+   * anything other than a potion set `retries`.
+   */
+  protected respinReasonKey: string | null = null;
   protected retries = 0;
   protected victoryOdds: WheelItem[] = [];
 
@@ -128,6 +136,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected usePotion(potion: ItemItem, openItemUsedModal: () => void): void {
     const index = this.trainerItems.indexOf(potion);
     this.currentItem = potion;
+    this.respinReasonKey = potion.text;
     if (index !== -1) {
       this.trainerItems.splice(index, 1);
       this.trainerService.removeItem(potion);
@@ -165,6 +174,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     }
 
     this.gameStateService.runModifiers.disguiseUsed = true;
+    this.respinReasonKey = 'game.main.roulette.disguise.respin';
     this.retries = 1;
     openDisguiseModal();
     return true;

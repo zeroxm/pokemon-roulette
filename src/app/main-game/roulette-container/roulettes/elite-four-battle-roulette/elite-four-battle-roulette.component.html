@@ -1,5 +1,5 @@
 <h1 class="title">{{ 'game.main.roulette.elite.title' | translate }}</h1>
-<p class="respin-reason">{{ (retries > 0) ? (currentItem.text | translate)+" x"+retries : ""}}</p>
+<p class="respin-reason">{{ (retries > 0 && respinReasonKey) ? (respinReasonKey | translate)+" x"+retries : ""}}</p>
 @if (currentElite && currentElite.types?.length) {
     <div class="matchup-strip">
         <div class="matchup-icons-row">
