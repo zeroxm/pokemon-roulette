@@ -27,14 +27,6 @@ spec covers.
 
 ---
 
-## Verify — visible changes
-
-| # | Task | What to do | Expected | ✓ |
-| --- | --- | --- | --- | --- |
-| 6 | T-15 | Win an **Elite Four** battle with **no Pokémon able to evolve**. | The consolation modal says the *Elite Four member* gave you a Potion — not the gym-battle wording. A gym win in the same situation must still show the gym copy. | [ ] |
-
----
-
 ## No observable change — regression only
 
 These tasks must leave the game behaving **exactly** as before. Verify nothing broke.
@@ -42,13 +34,9 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 | # | Task | What changed under the hood | Regression check | ✓ |
 | --- | --- | --- | --- | --- |
 
-| N8 | T-17 | The six inline `ng-template` modals moved out of the container into four components under `roulette-container/modals/`. Evolve+trade merged (identical markup, two differing phrases); consolation-prize+item-activation merged likewise. The container's stylesheet — which was 100% modal styling — was deleted, its rules moving to a shared `modal-shared.css`. | **Every modal must look and behave exactly as before.** Open all six: a consolation prize (win a battle with nothing able to evolve), an item activating (Escape Rope), an evolution, a trade, the Team Rocket recovery notice, and the Team Rocket failure (Entei). Check for each: heading, sprite(s), message text, button label, and that the **Ok button closes only that modal** — any queued modal behind it must still appear. | [ ] |
 
-| N9 | T-18 | `GameStateService.setNextStates(...)` queues several states in play order; eight call sites that pushed backwards now read forwards. | **Game flow order must be identical.** Exercise each converted path: an evolution after a battle, a "catch two"/"catch three" result, a multitask double re-spin, Team Rocket stealing a Pokémon, and a second evolution via exp-share. In each, the wheels must appear in the same sequence as before. | [ ] |
 
-| N10 | T-19/T-20 | The consolation-prize switch became a `Record<EventSource, ConsolationPrize>` table; the four modal-then-continue blocks became one `showModalThenContinue` helper. Two sprite URLs were normalised from `refs/heads/master/...` to `master/...` to match their siblings. | **Every consolation prize must still be right.** Win each of these with **nothing able to evolve** and check the modal copy matches the event: gym battle, Elite Four, a trainer battle, the daycare (egg), a rival battle, Team Rocket, and Snorlax. Confirm the **sprite loads** in each — the two normalised URLs are the ones to watch (egg and the generic unknown item). Also verify "less explanations" still skips the evolution/trade modals, and that the Team Rocket failure modal still appears **even with that setting on**. | [ ] |
 
-| N11 | T-21 | Wheel selections now carry their own continuation. Three `GameState` members that rendered nothing (`evolve-pokemon`, `select-evolution`, `steal-pokemon`) and both mega-stone dispatchers are deleted. A `@default` arm was added to the state switch. | **Exercise every "pick one of these" wheel.** Choose who evolves (2+ candidates); pick which evolution (a branching line like Eevee); Team Rocket stealing (pick which Pokémon leaves); a trade (pick what you send); the exp-share second evolution; and the mega-stone award (pick the Pokémon, then pick the stone). Each must show the right heading, the right options, and do the right thing with your pick. | [ ] |
 | N12 | T-21 | Mega-stone award ordering fix (`SEC-06`). | Win an important battle with **2+ mega-eligible Pokémon**, one holding **2+ unowned stones**. Pick the Pokémon — the **stone wheel must appear next**, titled "which stone". Previously the check-evolution wheel appeared first and the stone wheel surfaced later wearing the wrong title ("Who will evolve?"). | [ ] |
 
 | N13 | T-22 | Run-scoped game rules (evolution credits, exp-share, running shoes, stolen Pokémon) moved from the container into `GameStateService`, cleared by one reset. Transient container state is now wiped whenever a new run starts. | **The bug only shows on a SECOND run — use the in-game restart, not a page reload.** Play until you have some state (a few failed evolution rolls, a Team Rocket theft, an unspun mega-stone award), restart, then in the new run check: the first check-evolution roll is **not** already near-guaranteed; defeating Team Rocket does **not** hand you a Pokémon from the previous run; and the first multi-candidate evolution actually happens. | [ ] |
@@ -75,56 +63,14 @@ These tasks must leave the game behaving **exactly** as before. Verify nothing b
 
 | N26 | T-34 | `WheelItem.weight` is now optional and defaults to 1; the running-shoes re-spin reads the state it actually inspects. | **Wheel proportions must be unchanged.** Spin a wheel where one option is deliberately weighted — the **gym battle odds** wheel, where team power adds winning slices — and confirm the green/red proportions still reflect your team's strength. Then trigger a **Running Shoes** re-spin and confirm it grants exactly one extra spin, labelled as such. | [ ] |
 
-| N27 | T-35 | Angular patched 21.2.7 → 21.2.22, clearing every advisory in shipped code. Build budgets set to honest values. CI now fails on a high-or-worse production advisory. | **This is a framework patch bump — exercise the app broadly.** A full run start to champion, all six languages, every modal, the storage PC, mega evolution, and the Pokédex. Watch the console for anything new. The tests cover a lot, but a framework bump is exactly the thing they cover least. | [ ] |
+| N27 | T-35 | Build budgets set to honest values; CI fails on a high-or-worse production advisory. **Superseded in part:** the Angular 21.2.7 → 21.2.22 patch this row described was overtaken by T-38's upgrade to Angular 22. | The framework check now lives in rows **30–35**, which exercise it properly — do it there, not twice. What is left here: the build reports no breached budget, and `npm audit` is clean. | [ ] |
 
-### Notes on N2
+### Notes on N12 / N14
 
-- **Test count intentionally drops 230 → 228.** Two `should create` scaffolds were deleted along with
-  their components. This is expected, not a regression.
-- **Existing players keep a stale `dark-mode` key** in localStorage. Nothing reads it; the cleanup was
-  removed deliberately since the game has been live long enough for the population to be negligible.
-  To simulate a returning player: `localStorage.setItem('dark-mode','true')`, reload, confirm the theme
-  is unaffected and the page renders normally.
-- **Watch for unstyled backgrounds.** The deleted CSS rules set the same colours as `theme-plain-dark`
-  / `theme-plain-light`, and only source order made them harmless. If any surface loses its background,
-  this is the change that did it.
-
-### Notes on N8
-
-- **CSS is the risk.** Angular scopes component styles, so markup moving into a child component
-  loses the parent's rules. All shared modal styling was moved to `modal-shared.css` and the three
-  identical panel classes (`.item-panel`, `.pokemon-switch-panel`, `.explain-panel`) collapsed into
-  one `.panel`. If a modal looks unstyled — wrong layout, missing message box border, sprites
-  stacked vertically — this is the change that did it.
-- **Closing changed mechanism.** The templates called the container's `closeModal()`, which ran
-  `dismissAll()` and tore down *every* open modal. Each component now closes only itself via
-  `NgbActiveModal`. This is the intended behaviour, but it is a real behavioural difference worth
-  watching where modals chain.
-- The Entei image's `alt` text was a hardcoded Portuguese in-joke; it now uses the existing
-  `pokemon.entei` key and is localised.
-
-### Notes on N11 / N12
-
-- **This is the deepest change so far.** Every selection wheel routes through a new mechanism. If a
-  wheel shows the wrong heading, wrong options, or your pick does nothing, this is the cause.
 - **One asymmetry was preserved, not fixed.** The exp-share second evolution shows the evolution
   modal when the Pokémon has several possible evolutions but not when it has exactly one. That
-  predates this change; it is now visible in one place rather than split across two methods, and is
+  predates the campaign; it is now visible in one place rather than split across two methods, and is
   worth deciding on separately.
-- **A `@default` arm now exists.** If you ever see "Something went off the map", a state was queued
-  with no matching wheel — please report which action triggered it.
-
-### Notes on N3
-
-- **The wheel is the risk area.** An overly broad edit initially deleted five `const totalWeight` lines
-  instead of the one dead one — four were load-bearing in `drawWheel`, `spinWheel`,
-  `getCurrentSegment` and `getRandomWeightedIndex`. The compiler caught it and only the dead line was
-  removed, but wheel *selection* is worth a real look during UAT: spin a large wheel repeatedly and
-  confirm the pointer lands on the segment that gets reported.
-- **`grantMegaStone` lost an unused `pokemon` parameter.** Mega stone awards after important battles
-  should still grant the right stone — worth confirming if a run reaches one.
-- **Spec fixes removed write-only variables**, several of which were `TestBed.inject(...)` results
-  assigned but never read. No test behaviour changed; count stays 228.
 
 ---
 
@@ -214,5 +160,7 @@ Do not push until every box above is ticked **and**:
 - **T-38 changes the framework itself.** Its rows are numbered 30+ but should be run *first*; if
   strings do not render or views do not repaint, stop and report that before working through the
   campaign's own findings — those results would be meaningless.
+- **A `@default` arm now exists on the container's state switch.** If you ever see "Something went
+  off the map", a state was queued with no matching wheel — please report which action triggered it.
 - Keep the browser console open throughout. Several findings (`SEC-09`, `SEC-24`) surface as unhandled
   errors rather than visible breakage.
