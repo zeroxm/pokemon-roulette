@@ -35,6 +35,7 @@ const OUTPUT_BY_ACTION: Record<AdventureActionName, string> = {
   findFossil: 'findFossilEvent',
   battleRival: 'battleRivalEvent',
   safariZone: 'safariZoneEvent',
+  friendSafari: 'friendSafariEvent',
   areaZero: 'areaZeroEvent',
 };
 
@@ -99,11 +100,21 @@ describe('MainAdventureRouletteComponent', () => {
       expect(paldea).not.toContain('safariZone');
     });
 
+    it('offers Friend Safari in Kalos only', () => {
+      const kalos = namesFor(6);
+
+      expect(kalos).toContain('friendSafari');
+      expect(kalos).not.toContain('safariZone');
+      expect(kalos).not.toContain('areaZero');
+      expect(namesFor(1)).not.toContain('friendSafari');
+    });
+
     it('offers neither in a region that has no special slice', () => {
       const sinnoh = namesFor(4);
 
       expect(sinnoh).not.toContain('safariZone');
       expect(sinnoh).not.toContain('areaZero');
+      expect(sinnoh).not.toContain('friendSafari');
       expect(sinnoh.length).toBe(ADVENTURE_ACTIONS.filter(a => !a.generations).length);
     });
   });

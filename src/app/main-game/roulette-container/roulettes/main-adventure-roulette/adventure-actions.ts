@@ -37,6 +37,7 @@ const ROWS = [
 
   // Region-only slices. Each belongs to exactly one generation, so no player sees both.
   { name: 'safariZone', text: 'game.main.roulette.adventure.actions.safariZone', fillStyle: 'olivedrab', weight: 1, generations: [1] },
+  { name: 'friendSafari', text: 'game.main.roulette.adventure.actions.friendSafari', fillStyle: 'mediumvioletred', weight: 1, generations: [6] },
   { name: 'areaZero', text: 'game.main.roulette.adventure.actions.areaZero', fillStyle: 'darkslateblue', weight: 1, generations: [9] },
 ] as const satisfies readonly AdventureActionRow[];
 

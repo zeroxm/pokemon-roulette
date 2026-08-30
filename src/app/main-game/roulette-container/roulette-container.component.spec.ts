@@ -21,6 +21,7 @@ import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
+import { friendSafariPokemon } from './roulettes/friend-safari-roulette/friend-safari-pokemon';
 
 import { RouletteContainerComponent } from './roulette-container.component';
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
@@ -157,6 +158,38 @@ describe('RouletteContainerComponent', () => {
 
     // Base national dex entry (26 = Raichu) must be marked won
     expect(pokedexService.currentPokedex.caught['26']?.won).toBeTrue();
+  });
+
+  describe('Friend Safari', () => {
+    it('queues the chosen type\'s pool, and catching one adds it to the team', () => {
+      component.friendSafariTypeSelected('dragon');
+
+      expect(component.currentGameState).toBe('select-from-pokemon-list');
+      expect(component.customWheelTitle).toBe('game.main.roulette.friendSafari.catch');
+      expect(component.auxPokemonList.length)
+        .withContext('the Dragon safari pool')
+        .toBe(friendSafariPokemon.dragon.length);
+      expect(component.auxPokemonList.map(p => p.pokemonId))
+        .toEqual(friendSafariPokemon.dragon);
+
+      const chosen = component.auxPokemonList[0];
+      component.continueWithPokemon(chosen);
+
+      expect(trainerService.getTeam().map(p => p.pokemonId)).toContain(chosen.pokemonId);
+    });
+
+    it('offers a different pool per type', () => {
+      component.friendSafariTypeSelected('steel');
+      const steel = component.auxPokemonList.map(p => p.pokemonId);
+
+      component.friendSafariTypeSelected('fairy');
+      const fairy = component.auxPokemonList.map(p => p.pokemonId);
+
+      expect(steel).not.toEqual(fairy);
+      // Mawile is documented in both, so the pools overlap without being equal.
+      expect(steel).toContain(303);
+      expect(fairy).toContain(303);
+    });
   });
 
   describe('champion win with a form still applied', () => {

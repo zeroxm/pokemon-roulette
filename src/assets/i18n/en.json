@@ -258,8 +258,13 @@
             "findFossil": "Find a Fossil",
             "battleRival": "Battle Rival",
             "safariZone": "Visit the Safari Zone",
+            "friendSafari": "Enter a Friend Safari",
             "areaZero": "Explore Area Zero"
           }
+        },
+        "friendSafari": {
+          "which": "Which Friend Safari?",
+          "catch": "Which Pokémon will you catch?"
         },
         "safariZone": {
           "which": "Which Safari Zone Pokémon?"
@@ -2836,5 +2841,25 @@
     "title": "Page Not Found",
     "message": "This page seems to have fled into the tall grass.",
     "hint": "Use the button to get back to your adventure."
+  },
+  "types": {
+    "normal": "Normal",
+    "fighting": "Fighting",
+    "flying": "Flying",
+    "poison": "Poison",
+    "ground": "Ground",
+    "rock": "Rock",
+    "bug": "Bug",
+    "ghost": "Ghost",
+    "steel": "Steel",
+    "fire": "Fire",
+    "water": "Water",
+    "grass": "Grass",
+    "electric": "Electric",
+    "psychic": "Psychic",
+    "ice": "Ice",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "fairy": "Fairy"
   }
 }

@@ -19,6 +19,7 @@ export type GameState =
   | 'trade-pokemon'
   | 'find-item'
   | 'safari-zone'
+  | 'friend-safari'
   | 'area-zero'
   | 'catch-paradox'
   | 'explore-cave'

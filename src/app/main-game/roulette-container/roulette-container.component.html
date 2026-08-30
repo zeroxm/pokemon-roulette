@@ -93,6 +93,7 @@
         (findFossilEvent)="findFossil()"
         (battleRivalEvent)="battleRival()"
         (safariZoneEvent)="safariZone()"
+        (friendSafariEvent)="friendSafari()"
         (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
@@ -131,6 +132,11 @@
     <app-find-item-roulette
         (itemSelectedEvent)="receiveItem($event)">
     </app-find-item-roulette>
+  }
+  @case ('friend-safari') {
+    <app-friend-safari-roulette
+        (typeSelectedEvent)="friendSafariTypeSelected($event)">
+    </app-friend-safari-roulette>
   }
   @case ('safari-zone') {
     <app-pokemon-pool-roulette

@@ -258,8 +258,13 @@
             "findFossil": "Trouver un fossile",
             "battleRival": "Combattre le rival",
             "safariZone": "Visiter le Parc Safari",
+            "friendSafari": "Entrer dans une Safari des Amis",
             "areaZero": "Explorer la Zone Zéro"
           }
+        },
+        "friendSafari": {
+          "which": "Quelle Safari des Amis ?",
+          "catch": "Quel Pokémon allez-vous capturer ?"
         },
         "safariZone": {
           "which": "Quel Pokémon du Parc Safari ?"
@@ -2836,5 +2841,25 @@
     "title": "Page Introuvable",
     "message": "Cette page semble s'être enfuie dans les hautes herbes.",
     "hint": "Utilisez le bouton pour reprendre votre aventure."
+  },
+  "types": {
+    "normal": "Normal",
+    "fighting": "Combat",
+    "flying": "Vol",
+    "poison": "Poison",
+    "ground": "Sol",
+    "rock": "Roche",
+    "bug": "Insecte",
+    "ghost": "Spectre",
+    "steel": "Acier",
+    "fire": "Feu",
+    "water": "Eau",
+    "grass": "Plante",
+    "electric": "Électrik",
+    "psychic": "Psy",
+    "ice": "Glace",
+    "dragon": "Dragon",
+    "dark": "Ténèbres",
+    "fairy": "Fée"
   }
 }
