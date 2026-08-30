@@ -701,6 +701,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.setRespinReason('');
 
     if (result) {
+      // Advance first. Leaving `champion-battle` is what reverts battle forms, and the win has to be
+      // recorded against the base Pokémon: a team member still mega-evolved here would be filed
+      // under its mega id, which has no Pokédex cell and so never shows the win.
+      this.gameStateService.advanceRound();
+      this.finishCurrentState();
+
       const rawIds = [
         ...this.trainerService.getTeam().map(p => p.pokemonId),
         ...this.trainerService.getStored().map(p => p.pokemonId)
@@ -710,8 +716,6 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
         return baseId !== null && baseId !== id ? [id, baseId] : [id];
       }))];
       this.pokedexService.markWon(wonIds);
-      this.gameStateService.advanceRound();
-      this.finishCurrentState();
     } else {
       this.gameStateService.setNextState('game-over');
       this.finishCurrentState();

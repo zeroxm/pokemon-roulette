@@ -484,4 +484,11 @@ export const evolutionChain : Record<number, number[]> = {
     10118:[10119],
     10119:[10120],
     10181:[10119],
+
+    // Alternate forms are looked up by their own id, so a captured form needs its own key even
+    // when its base is listed above. Each Pumpkaboo size keeps that size through the evolution.
+    10027:[10030],       // Pumpkaboo Small  -> Gourgeist Small
+    10028:[10031],       // Pumpkaboo Large  -> Gourgeist Large
+    10029:[10032],       // Pumpkaboo Super  -> Gourgeist Super
+    10247:[902, 10248],  // Basculin White-Striped -> Basculegion. Blue-Striped has no evolution.
 }

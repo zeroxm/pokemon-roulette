@@ -159,6 +159,45 @@ describe('RouletteContainerComponent', () => {
     expect(pokedexService.currentPokedex.caught['26']?.won).toBeTrue();
   });
 
+  describe('champion win with a form still applied', () => {
+    const CHARIZARD = 6;
+    const MEGA_CHARIZARD_X = 10034;
+
+    const giveStone = (name: string): void =>
+      trainerService.addToItems({
+        name, text: `items.${name}.name`, description: `items.${name}.description`,
+        sprite: `${name}.png`, fillStyle: 'purple', weight: 1,
+      } as any);
+
+    it('records the win against the base Pokémon, not the mega form', () => {
+      trainerService.addToTeam(pokemonService.getPokemonById(CHARIZARD)!);
+      giveStone('charizardite-x');
+      trainerService.forceMegaActivation(CHARIZARD, 'charizardite-x' as any);
+      expect(trainerService.getTeam()[0].pokemonId)
+        .withContext('the Pokémon must actually be mega-evolved when the champion falls')
+        .toBe(MEGA_CHARIZARD_X);
+
+      component.championBattleResult(true);
+
+      // Mega forms are absent from `pokemonForms`, so getBasePokemonId cannot map 10034 back to 6.
+      // The win is only correct because it is recorded after the state change reverts the form.
+      expect(pokedexService.currentPokedex.caught[String(CHARIZARD)]?.won)
+        .withContext('no golden box without this')
+        .toBeTrue();
+      expect(pokedexService.currentPokedex.caught[String(MEGA_CHARIZARD_X)]?.won)
+        .withContext('the mega id has no Pokédex cell, so a win filed there is invisible')
+        .toBeFalsy();
+    });
+
+    it('still records a win with nothing transformed', () => {
+      trainerService.addToTeam(pokemonService.getPokemonById(CHARIZARD)!);
+
+      component.championBattleResult(true);
+
+      expect(pokedexService.currentPokedex.caught[String(CHARIZARD)]?.won).toBeTrue();
+    });
+  });
+
   // ══════════════════════════════════════════════════════════════════════════
   // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
