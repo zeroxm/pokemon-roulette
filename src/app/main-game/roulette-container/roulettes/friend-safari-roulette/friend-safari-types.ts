@@ -2,29 +2,35 @@ import { PokemonType, pokemonTypeData } from '../../../../interfaces/pokemon-typ
 import { WheelItem } from '../../../../interfaces/wheel-item';
 
 /**
- * Wheel colour per type, using the series' own palette so a slice is recognisable before its label
- * is read. Kept here rather than on `PokemonTypeData`, which describes the API's numeric ids and has
- * no presentation concerns.
+ * Wheel colour per type: the series' palette taken down to 55% brightness, so a slice is
+ * recognisable before its label is read.
+ *
+ * The darkening is not decorative. `WheelComponent` draws slice labels in white, and the palette at
+ * full brightness leaves Electric and Ice around 0.8 luminance — barely legible. At this shade every
+ * type clears 4.5:1 against white.
+ *
+ * Kept here rather than on `PokemonTypeData`, which describes the API's numeric ids and has no
+ * presentation concerns.
  */
 const TYPE_COLOURS: Record<PokemonType, string> = {
-  normal: '#A8A77A',
-  fighting: '#C22E28',
-  flying: '#A98FF3',
-  poison: '#A33EA1',
-  ground: '#E2BF65',
-  rock: '#B6A136',
-  bug: '#A6B91A',
-  ghost: '#735797',
-  steel: '#B7B7CE',
-  fire: '#EE8130',
-  water: '#6390F0',
-  grass: '#7AC74C',
-  electric: '#F7D02C',
-  psychic: '#F95587',
-  ice: '#96D9D6',
-  dragon: '#6F35FC',
-  dark: '#705746',
-  fairy: '#D685AD',
+  normal: '#5C5C43',
+  fighting: '#6B1916',
+  flying: '#5D4F86',
+  poison: '#5A2259',
+  ground: '#7C6938',
+  rock: '#64591E',
+  bug: '#5B660E',
+  ghost: '#3F3053',
+  steel: '#656571',
+  fire: '#83471A',
+  water: '#364F84',
+  grass: '#436D2A',
+  electric: '#887218',
+  psychic: '#892F4A',
+  ice: '#537776',
+  dragon: '#3D1D8B',
+  dark: '#3E3027',
+  fairy: '#76495F',
 };
 
 /** A type slice, carrying the type it stands for so dispatch never depends on wheel order. */
