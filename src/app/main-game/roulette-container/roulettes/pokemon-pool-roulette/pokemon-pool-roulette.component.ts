@@ -48,8 +48,16 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
     this.generationSubscription?.unsubscribe();
   }
 
+  /**
+   * Emits the Pokémon as the Dex knows it, leaving any wheel-only boost behind.
+   *
+   * `rareBoost` widens a slice for this spin, but the boosted weight must not travel with the
+   * Pokémon: every wheel built from the team binds those objects directly, so a captured Chansey
+   * carrying weight 2 would keep a double-width slice on the evolution, trade and mega wheels.
+   */
   onItemSelected(index: number): void {
-    this.selectedPokemonEvent.emit(this.pokemon[index]);
+    const chosen = this.pokemon[index];
+    this.selectedPokemonEvent.emit(this.pokemonService.getPokemonById(chosen.pokemonId) ?? chosen);
   }
 
   /**

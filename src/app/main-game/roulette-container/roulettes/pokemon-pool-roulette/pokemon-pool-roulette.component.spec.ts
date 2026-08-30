@@ -61,6 +61,21 @@ describe('PokemonPoolRouletteComponent', () => {
       expect(dexChansey.weight).withContext('the boost must clone, not mutate').toBe(1);
     });
 
+    it('does not let the boost travel with the captured Pokémon', () => {
+      loadSafari(8);
+      const index = component.pokemon.findIndex(p => p.pokemonId === CHANSEY);
+      expect(component.pokemon[index].weight).withContext('boosted on the wheel').toBe(2);
+
+      let captured: PokemonItem | undefined;
+      component.selectedPokemonEvent.subscribe(p => (captured = p));
+      component.onItemSelected(index);
+
+      // Team-driven wheels bind their Pokémon straight into `[items]`, so a boosted weight here
+      // would give Chansey a double-width slice on the evolution, trade and mega wheels.
+      expect(captured?.pokemonId).toBe(CHANSEY);
+      expect(captured?.weight).withContext('the boost is for this spin only').toBe(1);
+    });
+
     it('leaves pools without a boost alone', () => {
       component.pool = 'cave';
       component.currentRound = 8;
