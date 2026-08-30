@@ -39,6 +39,9 @@ import { SelectFormRouletteComponent } from './roulettes/select-form-roulette/se
 import { TradePokemonRouletteComponent } from "./roulettes/trade-pokemon-roulette/trade-pokemon-roulette.component";
 import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-item-roulette.component";
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
+import { FriendSafariRouletteComponent } from './roulettes/friend-safari-roulette/friend-safari-roulette.component';
+import { friendSafariPokemon } from './roulettes/friend-safari-roulette/friend-safari-pokemon';
+import { PokemonType } from '../../interfaces/pokemon-type';
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
 import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
@@ -83,6 +86,7 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     FindItemRouletteComponent,
     ExploreCaveRouletteComponent,
     AreaZeroRoulette,
+    FriendSafariRouletteComponent,
     CatchParadoxRouletteComponent,
     SnorlaxRouletteComponent,
     RivalBattleRouletteComponent,
@@ -547,6 +551,27 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   findFossil(): void {
     this.gameStateService.setNextState('find-fossil');
+    this.finishCurrentState();
+  }
+
+  friendSafari(): void {
+    this.gameStateService.setNextState('friend-safari');
+    this.finishCurrentState();
+  }
+
+  /**
+   * Step two: the pool for the type the player landed on.
+   *
+   * Reuses the generic "pick one of these Pokémon" wheel rather than a second component, so the
+   * only thing Friend Safari adds is the type wheel itself.
+   */
+  friendSafariTypeSelected(type: PokemonType): void {
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.friendSafari.catch',
+      options: this.pokemonService.getPokemonByIdArray(friendSafariPokemon[type]),
+      onSelected: chosen => this.preparePokemonCapture(chosen),
+    });
+
     this.finishCurrentState();
   }
 

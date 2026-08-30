@@ -39,6 +39,7 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   @Output() battleRivalEvent = new EventEmitter<void>();
   @Output() areaZeroEvent = new EventEmitter<void>();
   @Output() safariZoneEvent = new EventEmitter<void>();
+  @Output() friendSafariEvent = new EventEmitter<void>();
 
   /**
    * Mutable on purpose: `WheelComponent`'s `items` input is `WheelItem[]`, and a readonly array
@@ -72,6 +73,7 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
     findFossil: () => this.findFossilEvent.emit(),
     battleRival: () => this.battleRivalEvent.emit(),
     safariZone: () => this.safariZoneEvent.emit(),
+    friendSafari: () => this.friendSafariEvent.emit(),
     areaZero: () => this.areaZeroEvent.emit(),
   };
 

@@ -258,8 +258,13 @@
             "findFossil": "Encontrar un fósil",
             "battleRival": "Combate contra el Rival",
             "safariZone": "Visitar la Zona Safari",
+            "friendSafari": "Entrar en una Safari Amigo",
             "areaZero": "Explorar el Área Cero"
           }
+        },
+        "friendSafari": {
+          "which": "¿Qué Safari Amigo?",
+          "catch": "¿Qué Pokémon vas a capturar?"
         },
         "safariZone": {
           "which": "¿Qué Pokémon de la Zona Safari?"
@@ -2836,5 +2841,25 @@
     "title": "Página No Encontrada",
     "message": "Parece que esta página huyó a la hierba alta.",
     "hint": "Usa el botón para volver a tu aventura."
+  },
+  "types": {
+    "normal": "Normal",
+    "fighting": "Lucha",
+    "flying": "Volador",
+    "poison": "Veneno",
+    "ground": "Tierra",
+    "rock": "Roca",
+    "bug": "Bicho",
+    "ghost": "Fantasma",
+    "steel": "Acero",
+    "fire": "Fuego",
+    "water": "Agua",
+    "grass": "Planta",
+    "electric": "Eléctrico",
+    "psychic": "Psíquico",
+    "ice": "Hielo",
+    "dragon": "Dragón",
+    "dark": "Siniestro",
+    "fairy": "Hada"
   }
 }
