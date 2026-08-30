@@ -4,7 +4,39 @@ import { BehaviorSubject } from 'rxjs';
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 
+import { EventEmitter } from '@angular/core';
+
 import { MainAdventureRouletteComponent } from './main-adventure-roulette.component';
+import { ADVENTURE_ACTIONS, AdventureActionName } from './adventure-actions';
+
+/**
+ * The output each slice is expected to fire.
+ *
+ * A `Record` over the derived name union, so a new slice cannot be added without deciding what it
+ * emits here too. Three names do not follow the `<name>Event` convention, which is exactly the kind
+ * of thing an index-based test could never have caught.
+ */
+const OUTPUT_BY_ACTION: Record<AdventureActionName, string> = {
+  catchPokemon: 'catchPokemonEvent',
+  battleTrainer: 'battleTrainerEvent',
+  buyPotions: 'buyPotionsEvent',
+  goStraight: 'doNothingEvent',
+  catchTwoPokemon: 'catchTwoPokemonEvent',
+  visitDaycare: 'visitDaycareEvent',
+  teamRocket: 'teamRocketEncounterEvent',
+  mysteriousEgg: 'mysteriousEggEvent',
+  legendaryEncounter: 'legendaryEncounterEvent',
+  tradePokemon: 'tradePokemonEvent',
+  findItem: 'findItemEvent',
+  exploreCave: 'exploreCaveEvent',
+  snorlaxEncounter: 'snorlaxEncounterEvent',
+  multitask: 'multitaskEvent',
+  goFishing: 'goFishingEvent',
+  findFossil: 'findFossilEvent',
+  battleRival: 'battleRivalEvent',
+  safariZone: 'safariZoneEvent',
+  areaZero: 'areaZeroEvent',
+};
 
 describe('MainAdventureRouletteComponent', () => {
   let component: MainAdventureRouletteComponent;
@@ -46,24 +78,65 @@ describe('MainAdventureRouletteComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should keep the base action list for non-gen-9 generations', () => {
-    expect(component.actions.length).toBe(17);
-    expect(component.actions.some(action => action.text === 'game.main.roulette.adventure.actions.areaZero')).toBeFalse();
+  describe('region-only slices', () => {
+    const namesFor = (generationId: number): string[] => {
+      generationSubject.next(createGeneration(generationId));
+      fixture.detectChanges();
+      return component.actions.map(action => action.name);
+    };
+
+    it('offers Safari Zone in Kanto and Area Zero nowhere else', () => {
+      const kanto = namesFor(1);
+
+      expect(kanto).toContain('safariZone');
+      expect(kanto).not.toContain('areaZero');
+    });
+
+    it('offers Area Zero in Paldea and Safari Zone nowhere else', () => {
+      const paldea = namesFor(9);
+
+      expect(paldea).toContain('areaZero');
+      expect(paldea).not.toContain('safariZone');
+    });
+
+    it('offers neither in a region that has no special slice', () => {
+      const sinnoh = namesFor(4);
+
+      expect(sinnoh).not.toContain('safariZone');
+      expect(sinnoh).not.toContain('areaZero');
+      expect(sinnoh.length).toBe(ADVENTURE_ACTIONS.filter(a => !a.generations).length);
+    });
   });
 
-  it('should append the Area Zero action for generation 9', () => {
-    generationSubject.next(createGeneration(9));
-    fixture.detectChanges();
+  describe('dispatch', () => {
+    // The reason this component stopped dispatching on wheel index: with two region-only slices,
+    // one index means different things in different regions. Every slice is checked in the region
+    // it actually appears in.
+    for (const action of ADVENTURE_ACTIONS) {
+      it(`fires only ${action.name}`, () => {
+        generationSubject.next(createGeneration(action.generations?.[0] ?? 4));
+        fixture.detectChanges();
 
-    expect(component.actions.length).toBe(18);
-    expect(component.actions[17].text).toBe('game.main.roulette.adventure.actions.areaZero');
+        const spies = new Map<AdventureActionName, jasmine.Spy>();
+        for (const name of Object.keys(OUTPUT_BY_ACTION) as AdventureActionName[]) {
+          const emitter = (component as unknown as Record<string, EventEmitter<unknown>>)[OUTPUT_BY_ACTION[name]];
+          spies.set(name, spyOn(emitter, 'emit'));
+        }
+
+        const index = component.actions.findIndex(candidate => candidate.name === action.name);
+        expect(index).withContext(`${action.name} is missing from its own region`).toBeGreaterThanOrEqual(0);
+
+        component.onItemSelected(index);
+
+        for (const [name, spy] of spies) {
+          if (name === action.name) {
+            expect(spy).withContext(`${name} should have fired`).toHaveBeenCalled();
+          } else {
+            expect(spy).withContext(`${name} fired for ${action.name}`).not.toHaveBeenCalled();
+          }
+        }
+      });
+    }
   });
 
-  it('should emit the Area Zero event from the gen-9-only slot', () => {
-    spyOn(component.areaZeroEvent, 'emit');
-
-    component.onItemSelected(17);
-
-    expect(component.areaZeroEvent.emit).toHaveBeenCalled();
-  });
 });

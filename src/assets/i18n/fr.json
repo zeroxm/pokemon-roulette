@@ -257,8 +257,12 @@
             "goFishing": "Pêcher",
             "findFossil": "Trouver un fossile",
             "battleRival": "Combattre le rival",
+            "safariZone": "Visiter le Parc Safari",
             "areaZero": "Explorer la Zone Zéro"
           }
+        },
+        "safariZone": {
+          "which": "Quel Pokémon du Parc Safari ?"
         },
         "areaZero": {
           "title": "Pokémon Paradoxe",

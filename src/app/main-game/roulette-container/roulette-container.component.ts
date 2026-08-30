@@ -550,6 +550,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  safariZone(): void {
+    this.gameStateService.setNextState('safari-zone');
+    this.finishCurrentState();
+  }
+
   areaZero(): void {
     this.gameStateService.setNextState('area-zero');
     this.finishCurrentState();

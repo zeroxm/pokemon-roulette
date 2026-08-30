@@ -27,7 +27,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **336/336 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **368/368 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -77,6 +77,14 @@ These were raised deliberately. The previous values (1 MB / 4 kB) were breached 
 exp-share, running shoes, a stolen Pokémon). They live there rather than on the container because
 the container is never destroyed, so a restart would otherwise leave them set.
 
+The **main adventure wheel** is data: `roulettes/main-adventure-roulette/adventure-actions.ts` holds
+every slice, and `AdventureActionName` is *derived* from that list. The component maps names to
+outputs through a `Record<AdventureActionName, () => void>`, so adding a slice is a compile error
+until it has a handler, which is a compile error until it has an `@Output`. Slices carry an optional
+`generations` array (Safari Zone is Kanto-only, Area Zero Paldea-only), and dispatch is by name,
+never by wheel index — a region-only slice makes one index mean different things in different
+regions. The other five index-switch roulettes are fine: none is generation-gated.
+
 `RouletteContainerComponent` subscribes to `currentState`; its template is one `@switch` over the
 state rendering exactly one roulette per state, with a `@default` arm so an unhandled state fails
 loudly instead of blanking the screen. Its handler methods are the transition table. It is ~1050
@@ -110,9 +118,12 @@ and releases the global `wheelSpinning` gate on any throw; that gate disables mo
 never latch it without a path that clears it.
 
 Per-generation content lives in sibling data files (`fish-by-generation.ts`,
-`gym-leaders-by-generation.ts`, …), keyed by generation id 1–9. **Five pool roulettes — fishing,
-fossil, legendary, starter, cave — are one `PokemonPoolRouletteComponent`** driven by
-`POKEMON_POOLS`; add a pool by adding a row, not a component. The other 26 roulettes are
+`gym-leaders-by-generation.ts`, …), keyed by generation id 1–9. **Six pool roulettes — fishing,
+fossil, legendary, starter, cave, safari — are one `PokemonPoolRouletteComponent`** driven by
+`POKEMON_POOLS`; add a pool by adding a row, not a component. A pool may declare `rareBoost` to
+widen named slices past a given round — Safari Zone's seven prizes double after the fourth gym.
+**That boost clones**: `getPokemonByIdArray` returns the shared National Dex objects, so assigning
+`weight` would change them on every wheel for the rest of the session. The other 26 roulettes are
 deliberately separate: they emit into different typed outputs and collapsing them would trade
 compile-time checking for runtime string matching.
 
@@ -157,7 +168,7 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
 
 Six locales in `src/assets/i18n/*.json` (en, pt, es, fr, de, it), loaded over HTTP by `TranslateHttpLoader`. User-facing strings are **never** literals — data files store dotted keys (`items.potion.name`, `game.main.roulette.fishing.title`) that templates resolve with the `translate` pipe. Adding a string means adding it to all six files.
 
-**All six files hold an identical key set** (2,207 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
+**All six files hold an identical key set** (2,210 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
 
 ```bash
 node -e "const p=(o,x='')=>Object.entries(o).flatMap(([k,v])=>typeof v==='object'&&v?p(v,x+k+'.'):[x+k]);const b=p(require('./src/assets/i18n/en.json')).sort();for(const l of ['pt','es','fr','de','it']){const o=p(require('./src/assets/i18n/'+l+'.json')).sort();console.log(l,b.filter(k=>!o.includes(k)).length||o.filter(k=>!b.includes(k)).length?'DIVERGENT':'ok')}"

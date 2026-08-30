@@ -257,8 +257,12 @@
             "goFishing": "Go Fishing",
             "findFossil": "Find a Fossil",
             "battleRival": "Battle Rival",
+            "safariZone": "Visit the Safari Zone",
             "areaZero": "Explore Area Zero"
           }
+        },
+        "safariZone": {
+          "which": "Which Safari Zone Pokémon?"
         },
         "areaZero": {
           "title": "Paradox Pokémon",

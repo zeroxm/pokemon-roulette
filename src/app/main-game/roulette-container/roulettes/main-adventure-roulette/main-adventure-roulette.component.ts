@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
-import { WheelItem } from '../../../../interfaces/wheel-item';
 import { EventSource } from '../../../EventSource';
+import { AdventureAction, AdventureActionName, adventureActionsFor } from './adventure-actions';
 import { GenerationService } from '../../../../services/generation-service/generation.service';
 import { Subscription } from 'rxjs';
 
@@ -38,41 +38,48 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   @Output() findFossilEvent = new EventEmitter<void>();
   @Output() battleRivalEvent = new EventEmitter<void>();
   @Output() areaZeroEvent = new EventEmitter<void>();
+  @Output() safariZoneEvent = new EventEmitter<void>();
 
-  private readonly baseActions: WheelItem[] = [
-    { text: 'game.main.roulette.adventure.actions.catchPokemon', fillStyle: 'crimson', weight: 3 },
-    { text: 'game.main.roulette.adventure.actions.battleTrainer', fillStyle: 'darkorange', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.buyPotions', fillStyle: 'darkgoldenrod', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.goStraight', fillStyle: 'green', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.catchTwoPokemon', fillStyle: 'darkcyan', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.visitDaycare', fillStyle: 'blue', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.teamRocket', fillStyle: 'purple', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.mysteriousEgg', fillStyle: 'deeppink', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.legendaryEncounter', fillStyle: 'crimson', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.tradePokemon', fillStyle: 'darkorange', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.findItem', fillStyle: 'darkgoldenrod', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.exploreCave', fillStyle: 'green', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.snorlaxEncounter', fillStyle: 'darkcyan', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.multitask', fillStyle: 'blue', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.goFishing', fillStyle: 'purple', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.findFossil', fillStyle: 'deeppink', weight: 1 },
-    { text: 'game.main.roulette.adventure.actions.battleRival', fillStyle: 'black', weight: 1 },
-  ];
+  /**
+   * Mutable on purpose: `WheelComponent`'s `items` input is `WheelItem[]`, and a readonly array
+   * will not bind to it under `strictTemplates`.
+   */
+  actions: AdventureAction[] = adventureActionsFor(1);
 
-  private readonly areaZeroAction: WheelItem = {
-    text: 'game.main.roulette.adventure.actions.areaZero',
-    fillStyle: 'darkslateblue',
-    weight: 1
+  /**
+   * What each slice does. Keyed by name rather than by wheel index, so a slice that only exists in
+   * some regions cannot change what a given index means elsewhere.
+   *
+   * `Record<AdventureActionName, …>` is exhaustive: adding a row to `ADVENTURE_ACTIONS` without a
+   * handler here is a compile error, and so is a handler for a row that no longer exists.
+   */
+  private readonly handlers: Record<AdventureActionName, () => void> = {
+    catchPokemon: () => this.catchPokemonEvent.emit(),
+    battleTrainer: () => this.battleTrainerEvent.emit('battle-trainer'),
+    buyPotions: () => this.buyPotionsEvent.emit(),
+    goStraight: () => this.doNothingEvent.emit(),
+    catchTwoPokemon: () => this.catchTwoPokemonEvent.emit(),
+    visitDaycare: () => this.visitDaycareEvent.emit('visit-daycare'),
+    teamRocket: () => this.teamRocketEncounterEvent.emit(),
+    mysteriousEgg: () => this.mysteriousEggEvent.emit(),
+    legendaryEncounter: () => this.legendaryEncounterEvent.emit(),
+    tradePokemon: () => this.tradePokemonEvent.emit(),
+    findItem: () => this.findItemEvent.emit(),
+    exploreCave: () => this.exploreCaveEvent.emit(),
+    snorlaxEncounter: () => this.snorlaxEncounterEvent.emit(),
+    multitask: () => this.multitaskEvent.emit(),
+    goFishing: () => this.goFishingEvent.emit(),
+    findFossil: () => this.findFossilEvent.emit(),
+    battleRival: () => this.battleRivalEvent.emit(),
+    safariZone: () => this.safariZoneEvent.emit(),
+    areaZero: () => this.areaZeroEvent.emit(),
   };
 
-  actions: WheelItem[] = [...this.baseActions];
   private generationSubscription: Subscription | null = null;
 
   ngOnInit(): void {
     this.generationSubscription = this.generationService.getGeneration().subscribe(generation => {
-      this.actions = generation.id === 9
-        ? [...this.baseActions, this.areaZeroAction]
-        : [...this.baseActions];
+      this.actions = adventureActionsFor(generation.id);
     });
   }
 
@@ -81,62 +88,6 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   }
 
   onItemSelected(index: number): void {
-    switch (index) {
-      case 0:
-        this.catchPokemonEvent.emit();
-        break;
-      case 1:
-        this.battleTrainerEvent.emit('battle-trainer');
-        break;
-      case 2:
-        this.buyPotionsEvent.emit();
-        break;
-      case 3:
-        this.doNothingEvent.emit();
-        break;
-      case 4:
-        this.catchTwoPokemonEvent.emit();
-        break;
-      case 5:
-        this.visitDaycareEvent.emit('visit-daycare');
-        break;
-      case 6:
-        this.teamRocketEncounterEvent.emit();
-        break;
-      case 7:
-        this.mysteriousEggEvent.emit();
-        break;
-      case 8:
-        this.legendaryEncounterEvent.emit();
-        break;
-      case 9:
-        this.tradePokemonEvent.emit();
-        break;
-      case 10:
-        this.findItemEvent.emit();
-        break;
-      case 11:
-        this.exploreCaveEvent.emit();
-        break;
-      case 12:
-        this.snorlaxEncounterEvent.emit();
-        break;
-      case 13:
-        this.multitaskEvent.emit();
-        break;
-      case 14:
-        this.goFishingEvent.emit();
-        break;
-      case 15:
-        this.findFossilEvent.emit();
-        break;
-      case 16:
-        this.battleRivalEvent.emit();
-        break;
-      case 17:
-        this.areaZeroEvent.emit();
-        break;
-    }
+    this.handlers[this.actions[index].name]();
   }
 }
-

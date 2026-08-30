@@ -257,8 +257,12 @@
             "goFishing": "Pescar",
             "findFossil": "Encontrar um Fóssil",
             "battleRival": "Batalha contra o Rival",
+            "safariZone": "Visitar a Zona Safári",
             "areaZero": "Explorar a Área Zero"
           }
+        },
+        "safariZone": {
+          "which": "Qual Pokémon da Zona Safári?"
         },
         "areaZero": {
           "title": "Pokémon Paradoxo",

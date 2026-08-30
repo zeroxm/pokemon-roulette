@@ -257,8 +257,12 @@
             "goFishing": "Pescar",
             "findFossil": "Encontrar un fósil",
             "battleRival": "Combate contra el Rival",
+            "safariZone": "Visitar la Zona Safari",
             "areaZero": "Explorar el Área Cero"
           }
+        },
+        "safariZone": {
+          "which": "¿Qué Pokémon de la Zona Safari?"
         },
         "areaZero": {
           "title": "Pokémon paradoja",
