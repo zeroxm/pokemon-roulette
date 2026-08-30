@@ -96,7 +96,15 @@
     "rock": "Badge Roche",
     "ice_galar": "Badge Glace",
     "dark": "Badge Ténèbres",
-    "dragon": "Badge Dragon"
+    "dragon": "Badge Dragon",
+    "bug_paldea": "Badge Insecte",
+    "grass_paldea": "Badge Plante",
+    "electric": "Badge Électrik",
+    "water_paldea": "Badge Eau",
+    "normal": "Badge Normal",
+    "ghost_paldea": "Badge Spectre",
+    "psychic_paldea": "Badge Psy",
+    "ice_paldea": "Badge Glace"
   },
   "credits": {
     "title": "Crédits et remerciements",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "Vous avez obtenu une Méga-Pierre!",
           "stoneDesc": "Touchez l'icône de Méga-Pierre pour activer la Méga-Évolution en combat!"
+        },
+        "eliteFourBattle": {
+          "potion": "Vous avez obtenu une Potion bonus!",
+          "potionDesc": "Après la bataille, le membre du Conseil 4 vous a donné une Potion."
         }
       },
       "roulette": {
@@ -245,8 +257,12 @@
             "goFishing": "Pêcher",
             "findFossil": "Trouver un fossile",
             "battleRival": "Combattre le rival",
+            "safariZone": "Visiter le Parc Safari",
             "areaZero": "Explorer la Zone Zéro"
           }
+        },
+        "safariZone": {
+          "which": "Quel Pokémon du Parc Safari ?"
         },
         "areaZero": {
           "title": "Pokémon Paradoxe",
@@ -289,7 +305,6 @@
             "title": "Que fais-tu avant le Conseil 4?",
             "victoryRoad": "Entre dans la Route Victoire!",
             "actions": {
-              "catchPokemon": "Attraper un Pokémon",
               "trainingArc": "Arc d'entraînement",
               "buyPotions": "Acheter des potions",
               "catchTwoPokemon": "Attraper deux Pokémon",
@@ -320,6 +335,11 @@
         },
         "fossil": {
           "which": "Quel Fossile?"
+        },
+        "disguise": {
+          "respin": "Déguisement",
+          "title": "Le déguisement de Mimiqui a volé en éclats !",
+          "message": "Mimiqui a encaissé le coup pour l'équipe ! Vous avez droit à une nouvelle chance !"
         },
         "gym": {
           "against": "Combat contre",
@@ -393,7 +413,11 @@
         "title": "Échange !",
         "received": "et reçu un(e)",
         "sent": "Vous avez envoyé"
-      }
+      },
+      "respin": {
+        "multitask": "Multitâche x{{count}}"
+      },
+      "unhandledState": "Quelque chose est sorti de la carte. Essayez de redémarrer le jeu."
     },
     "map": {
       "vermilion": "Vous êtes à Carmin-sur-Mer"
@@ -829,7 +853,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Permet a un Pokemon compatible de mega-evoluer en combat."
-    }
+    },
+    "empty": "Vide"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1731,7 @@
     "turtonator": "Boumata",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimiqui",
+    "mimikyu-busted": "Mimiqui (Démasqué)",
     "bruxish": "Denticrisse",
     "drampa": "Draïeul",
     "drampa-mega": "Drampa (Mega)",
@@ -2152,7 +2178,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Pokémon Inconnu"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2831,10 @@
       "off": "Normal"
     },
     "mega": "⚡ Méga Évolué"
+  },
+  "notFound": {
+    "title": "Page Introuvable",
+    "message": "Cette page semble s'être enfuie dans les hautes herbes.",
+    "hint": "Utilisez le bouton pour reprendre votre aventure."
   }
 }

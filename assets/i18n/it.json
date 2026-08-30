@@ -96,7 +96,15 @@
     "rock": "Medaglia Roccia",
     "ice_galar": "Medaglia Ghiaccio",
     "dark": "Medaglia Buio",
-    "dragon": "Medaglia Drago"
+    "dragon": "Medaglia Drago",
+    "bug_paldea": "Medaglia Insetto",
+    "grass_paldea": "Medaglia Erba",
+    "electric": "Medaglia Elettro",
+    "water_paldea": "Medaglia Acqua",
+    "normal": "Medaglia Normale",
+    "ghost_paldea": "Medaglia Spettro",
+    "psychic_paldea": "Medaglia Psico",
+    "ice_paldea": "Medaglia Ghiaccio"
   },
   "credits": {
     "title": "Crediti e Ringraziamenti",
@@ -177,6 +185,10 @@
         "megaStone": {
           "stone": "Hai ottenuto una Mega Pietra!",
           "stoneDesc": "Tocca l'icona della Mega Pietra per attivare la Mega Evoluzione in battaglia!"
+        },
+        "eliteFourBattle": {
+          "potion": "Hai ottenuto una Pozione Bonus!",
+          "potionDesc": "Dopo la lotta, il membro dei Superquattro ti ha dato una Pozione!"
         }
       },
       "roulette": {
@@ -245,8 +257,12 @@
             "goFishing": "Vai a pescare",
             "findFossil": "Trova un fossile",
             "battleRival": "Lotta contro il rivale",
+            "safariZone": "Visita la Zona Safari",
             "areaZero": "Esplora Area Zero"
           }
+        },
+        "safariZone": {
+          "which": "Quale Pokémon della Zona Safari?"
         },
         "areaZero": {
           "title": "Pokémon Paradosso",
@@ -289,7 +305,6 @@
             "title": "Cosa fai prima dei Superquattro?",
             "victoryRoad": "Entra nella Via Vittoria!",
             "actions": {
-              "catchPokemon": "Cattura un Pokémon",
               "trainingArc": "Allenamento intensivo",
               "buyPotions": "Compra Pozioni",
               "catchTwoPokemon": "Cattura due Pokémon",
@@ -320,6 +335,11 @@
         },
         "fossil": {
           "which": "Quale fossile?"
+        },
+        "disguise": {
+          "respin": "Travestimento",
+          "title": "Il travestimento di Mimikyu è andato in pezzi!",
+          "message": "Mimikyu ha incassato il colpo per la squadra! Hai un'altra possibilità!"
         },
         "gym": {
           "against": "Lotta contro",
@@ -393,7 +413,11 @@
         "title": "Scambio!",
         "received": "e hai ricevuto un",
         "sent": "Hai scambiato"
-      }
+      },
+      "respin": {
+        "multitask": "Multitasking x{{count}}"
+      },
+      "unhandledState": "Qualcosa è uscito dalla mappa. Prova a riavviare il gioco."
     },
     "map": {
       "vermilion": "You are in Vermilion City"
@@ -829,7 +853,8 @@
     "zygardite": {
       "name": "Zygardite",
       "description": "Permette a un Pokemon compatibile di megaevolversi in battaglia."
-    }
+    },
+    "empty": "Vuoto"
   },
   "trainer": {
     "storage": {
@@ -1706,6 +1731,7 @@
     "turtonator": "Turtonator",
     "togedemaru": "Togedemaru",
     "mimikyu": "Mimikyu",
+    "mimikyu-busted": "Mimikyu (Smascherato)",
     "bruxish": "Bruxish",
     "drampa": "Drampa",
     "drampa-mega": "Drampa (Mega)",
@@ -2152,7 +2178,8 @@
     "ogerpon-hearthflame-mask": "Ogerpon (Hearthflame Mask)",
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
-    "terapagos-stellar": "Terapagos (Stellar)"
+    "terapagos-stellar": "Terapagos (Stellar)",
+    "unknown": "Pokémon Sconosciuto"
   },
   "elite4": {
     "lorelei": {
@@ -2804,5 +2831,10 @@
       "off": "Normale"
     },
     "mega": "⚡ Mega Evoluto"
+  },
+  "notFound": {
+    "title": "Pagina Non Trovata",
+    "message": "Sembra che questa pagina sia fuggita nell'erba alta.",
+    "hint": "Usa il pulsante per tornare alla tua avventura."
   }
 }
