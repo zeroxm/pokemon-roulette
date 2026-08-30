@@ -3,6 +3,7 @@ import { fossilByGeneration } from '../fossil-roulette/fossil-by-generation';
 import { legendaryByGeneration } from '../legendary-roulette/legendaries-by-generation';
 import { starterByGeneration } from '../starter-roulette/starter-by-generation';
 import { cavePokemonByGeneration } from '../cave-pokemon-roulette/cave-pokemon-by-generation';
+import { safariZoneByGeneration, safariZonePrizeIds } from './safari-zone-by-generation';
 
 /**
  * A "pick a Pokémon from this region's set" wheel.
@@ -17,6 +18,16 @@ export interface PokemonPool {
   /** Whether the heading names the generation. Starters do not — the region is already implied. */
   readonly showGeneration: boolean;
   readonly idsByGeneration: Record<number, number[]>;
+  /**
+   * Slices that widen once the player is far enough into the run, so a late visit is worth more
+   * than an early one. Omitted by every pool that draws evenly.
+   */
+  readonly rareBoost?: {
+    readonly ids: readonly number[];
+    readonly weight: number;
+    /** Battles won, compared against the roulette's `currentRound`. */
+    readonly fromRound: number;
+  };
 }
 
 export const POKEMON_POOLS = {
@@ -44,6 +55,13 @@ export const POKEMON_POOLS = {
     titleKey: 'game.main.roulette.cave.which',
     showGeneration: true,
     idsByGeneration: cavePokemonByGeneration,
+  },
+  safari: {
+    titleKey: 'game.main.roulette.safariZone.which',
+    // Kanto is already implied — the slice that leads here exists nowhere else.
+    showGeneration: false,
+    idsByGeneration: safariZoneByGeneration,
+    rareBoost: { ids: safariZonePrizeIds, weight: 2, fromRound: 4 },
   },
 } as const satisfies Record<string, PokemonPool>;
 

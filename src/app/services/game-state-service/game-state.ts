@@ -18,6 +18,7 @@ export type GameState =
   | 'catch-legendary'
   | 'trade-pokemon'
   | 'find-item'
+  | 'safari-zone'
   | 'area-zero'
   | 'catch-paradox'
   | 'explore-cave'

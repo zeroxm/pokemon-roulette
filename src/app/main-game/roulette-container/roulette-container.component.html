@@ -92,6 +92,7 @@
         (goFishingEvent)="goFishing()"
         (findFossilEvent)="findFossil()"
         (battleRivalEvent)="battleRival()"
+        (safariZoneEvent)="safariZone()"
         (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
@@ -130,6 +131,13 @@
     <app-find-item-roulette
         (itemSelectedEvent)="receiveItem($event)">
     </app-find-item-roulette>
+  }
+  @case ('safari-zone') {
+    <app-pokemon-pool-roulette
+        pool="safari"
+        [currentRound]="leadersDefeatedAmount"
+        (selectedPokemonEvent)="capturePokemon($event)">
+    </app-pokemon-pool-roulette>
   }
   @case ('area-zero') {
     <app-area-zero-roulette

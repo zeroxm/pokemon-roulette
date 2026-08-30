@@ -257,8 +257,12 @@
             "goFishing": "Gehe angeln",
             "findFossil": "Finde ein Fossil",
             "battleRival": "Rivalen-Kampf",
+            "safariZone": "Besuche die Safari-Zone",
             "areaZero": "Erkunde Zone Null"
           }
+        },
+        "safariZone": {
+          "which": "Welches Pokémon der Safari-Zone?"
         },
         "areaZero": {
           "title": "Paradox-Pokémon",
