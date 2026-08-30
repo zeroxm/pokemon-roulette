@@ -258,8 +258,13 @@
             "findFossil": "Finde ein Fossil",
             "battleRival": "Rivalen-Kampf",
             "safariZone": "Besuche die Safari-Zone",
+            "friendSafari": "Betritt eine Freundes-Safari",
             "areaZero": "Erkunde Zone Null"
           }
+        },
+        "friendSafari": {
+          "which": "Welche Freundes-Safari?",
+          "catch": "Welches Pokémon fängst du?"
         },
         "safariZone": {
           "which": "Welches Pokémon der Safari-Zone?"
@@ -2836,5 +2841,25 @@
     "title": "Seite Nicht Gefunden",
     "message": "Diese Seite ist wohl ins hohe Gras geflohen.",
     "hint": "Nutze den Button, um zu deinem Abenteuer zurückzukehren."
+  },
+  "types": {
+    "normal": "Normal",
+    "fighting": "Kampf",
+    "flying": "Flug",
+    "poison": "Gift",
+    "ground": "Boden",
+    "rock": "Gestein",
+    "bug": "Käfer",
+    "ghost": "Geist",
+    "steel": "Stahl",
+    "fire": "Feuer",
+    "water": "Wasser",
+    "grass": "Pflanze",
+    "electric": "Elektro",
+    "psychic": "Psycho",
+    "ice": "Eis",
+    "dragon": "Drache",
+    "dark": "Unlicht",
+    "fairy": "Fee"
   }
 }

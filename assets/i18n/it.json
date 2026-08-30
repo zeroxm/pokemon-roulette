@@ -258,8 +258,13 @@
             "findFossil": "Trova un fossile",
             "battleRival": "Lotta contro il rivale",
             "safariZone": "Visita la Zona Safari",
+            "friendSafari": "Entra in un Safari degli Amici",
             "areaZero": "Esplora Area Zero"
           }
+        },
+        "friendSafari": {
+          "which": "Quale Safari degli Amici?",
+          "catch": "Quale Pokémon catturerai?"
         },
         "safariZone": {
           "which": "Quale Pokémon della Zona Safari?"
@@ -2836,5 +2841,25 @@
     "title": "Pagina Non Trovata",
     "message": "Sembra che questa pagina sia fuggita nell'erba alta.",
     "hint": "Usa il pulsante per tornare alla tua avventura."
+  },
+  "types": {
+    "normal": "Normale",
+    "fighting": "Lotta",
+    "flying": "Volante",
+    "poison": "Veleno",
+    "ground": "Terra",
+    "rock": "Roccia",
+    "bug": "Coleottero",
+    "ghost": "Spettro",
+    "steel": "Acciaio",
+    "fire": "Fuoco",
+    "water": "Acqua",
+    "grass": "Erba",
+    "electric": "Elettro",
+    "psychic": "Psico",
+    "ice": "Ghiaccio",
+    "dragon": "Drago",
+    "dark": "Buio",
+    "fairy": "Folletto"
   }
 }

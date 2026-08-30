@@ -258,8 +258,13 @@
             "findFossil": "Encontrar um Fóssil",
             "battleRival": "Batalha contra o Rival",
             "safariZone": "Visitar a Zona Safári",
+            "friendSafari": "Entrar em um Safári dos Amigos",
             "areaZero": "Explorar a Área Zero"
           }
+        },
+        "friendSafari": {
+          "which": "Qual Safári dos Amigos?",
+          "catch": "Qual Pokémon você vai capturar?"
         },
         "safariZone": {
           "which": "Qual Pokémon da Zona Safári?"
@@ -2836,5 +2841,25 @@
     "title": "Página Não Encontrada",
     "message": "Parece que esta página fugiu para o mato alto.",
     "hint": "Use o botão para voltar à sua aventura."
+  },
+  "types": {
+    "normal": "Normal",
+    "fighting": "Lutador",
+    "flying": "Voador",
+    "poison": "Venenoso",
+    "ground": "Terrestre",
+    "rock": "Pedra",
+    "bug": "Inseto",
+    "ghost": "Fantasma",
+    "steel": "Aço",
+    "fire": "Fogo",
+    "water": "Água",
+    "grass": "Planta",
+    "electric": "Elétrico",
+    "psychic": "Psíquico",
+    "ice": "Gelo",
+    "dragon": "Dragão",
+    "dark": "Sombrio",
+    "fairy": "Fada"
   }
 }
