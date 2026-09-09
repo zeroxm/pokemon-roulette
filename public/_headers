@@ -1,0 +1,18 @@
+# Cloudflare Pages only; ignored by GitHub Pages and by the nginx image, which
+# sets the same policy in deploy/nginx.conf.
+
+# index.html names the hashed assets, so a cached copy pins a returning player
+# to an old build forever. This one must always be revalidated.
+/index.html
+  Cache-Control: no-cache, must-revalidate
+
+# Fetched at runtime and not content-hashed, so the same applies.
+/assets/i18n/*
+  Cache-Control: no-cache, must-revalidate
+
+# Built assets carry a content hash, so a new build means a new filename and
+# these can be cached as long as anyone likes.
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
