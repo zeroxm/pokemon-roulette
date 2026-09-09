@@ -1,0 +1,9 @@
+# Cloudflare Pages only; ignored by GitHub Pages and by the nginx image.
+#
+# Client-side routes (/settings, /credits, /coffee) have no file behind them.
+# Pages serves a real asset when one matches and falls back to this otherwise,
+# so a reload or a shared link resolves to the app instead of a 404.
+#
+# 200, not 301: this is a rewrite. A redirect would change the URL in the bar
+# and lose the route the player asked for.
+/*    /index.html   200
