@@ -14,8 +14,8 @@ describe('PokedexDetailModalComponent', () => {
   let mockFormsService: jasmine.SpyObj<PokemonFormsService>;
   let mockActiveModal: jasmine.SpyObj<NgbActiveModal>;
 
-  const seenEntry: PokedexEntry = { won: false, sprite: null };
-  const shinyEntry: PokedexEntry = { won: true, sprite: null, shiny: true };
+  const seenEntry: PokedexEntry = { won: false };
+  const shinyEntry: PokedexEntry = { won: true, shiny: true };
 
   beforeEach(async () => {
     mockPokemonService = jasmine.createSpyObj('PokemonService', ['getPokemonById']);

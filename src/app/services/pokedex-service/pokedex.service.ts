@@ -2,20 +2,32 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { evolutionChain } from '../evolution-service/evolution-chain';
 import { pokemonForms } from '../pokemon-forms-service/pokemon-forms';
+import { SyncStateService } from '../sync-state-service/sync-state.service';
 
 export interface PokedexEntry {
   won: boolean;
-  sprite: string | null;
   shiny?: boolean;
   mega?: boolean;
   /**
-   * Times this Pokémon has been caught. Absent on entries written before catch
-   * counting existed; #53 introduces the writes and seeds those to 1.
+   * Times this Pokémon has been obtained.
    *
-   * A row exists because the Pokémon was obtained at least once, so 0 is never
-   * a meaningful value — the backend has a CHECK enforcing that.
+   * A row exists because it was obtained at least once, so the minimum is 1 and
+   * 0 is never meaningful — the backend has a CHECK enforcing that. Entries
+   * written before counting existed are seeded to 1 on load: visibly a floor
+   * rather than a fabrication.
    */
   count?: number;
+}
+
+/**
+ * Where a Pokémon's artwork comes from.
+ *
+ * Derived from the id rather than stored. It used to be a field on every entry,
+ * which made a full Pokédex about 110 KB of the same URL repeated a thousand
+ * times — and baked today's hot-linked host into every saved account.
+ */
+export function pokemonSpriteUrl(pokemonId: number): string {
+  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
 }
 
 export interface PokedexData {
@@ -26,12 +38,11 @@ export interface PokedexData {
 export class PokedexService {
   private readonly STORAGE_KEY = 'pokemon-roulette-pokedex';
   private readonly defaultPokedex: PokedexData = { caught: {} };
-  private readonly spriteCache = new Map<number, string>();
   private readonly reverseEvolutionChain = this.buildReverseEvolutionChain();
 
   private pokedexSubject$: BehaviorSubject<PokedexData>;
 
-  constructor() {
+  constructor(private syncState: SyncStateService) {
     this.pokedexSubject$ = new BehaviorSubject(this.getInitialPokedex());
   }
 
@@ -66,13 +77,44 @@ export class PokedexService {
     this.updatePokedex({ caught: updatedCaught });
   }
 
+  /**
+   * Registers a newly obtained Pokémon and counts it.
+   *
+   * Separate from markSeen because most registrations are *not* catches:
+   * evolving, re-registering to mark a shiny, and getting a stolen Pokémon back
+   * all pass through the Pokédex without being a new acquisition. Counting them
+   * would inflate every total.
+   */
+  recordCatch(pokemonId: number, shiny: boolean = false): void {
+    const updatedCaught: Record<string, PokedexEntry> = { ...this.currentPokedex.caught };
+    const key = String(pokemonId);
+
+    // Read the count *before* upserting: upsertSeenEntry seeds a new entry at
+    // 1, since a row only exists once a Pokémon was obtained. Adding to that
+    // would make every first catch a two.
+    const previous = updatedCaught[key]?.count ?? 0;
+
+    this.upsertSeenEntry(updatedCaught, pokemonId, shiny);
+
+    updatedCaught[key] = { ...updatedCaught[key], count: previous + 1 };
+
+    // Shiny propagation runs after the count, so related forms are registered
+    // without being counted.
+    if (shiny) {
+      for (const relatedId of this.getRelatedPokemonIds(pokemonId)) {
+        this.upsertSeenEntry(updatedCaught, relatedId, true);
+      }
+    }
+
+    this.updatePokedex({ caught: updatedCaught });
+  }
+
   markWon(pokemonIds: number[]): void {
     const current = this.currentPokedex;
     const updatedCaught = { ...current.caught };
     for (const pokemonId of pokemonIds) {
       const key = String(pokemonId);
-      const sprite = this.getSpriteUrl(pokemonId);
-      updatedCaught[key] = { ...updatedCaught[key], won: true, sprite: updatedCaught[key]?.sprite ?? sprite };
+      updatedCaught[key] = { ...updatedCaught[key], won: true };
     }
     this.updatePokedex({ caught: updatedCaught });
   }
@@ -88,27 +130,14 @@ export class PokedexService {
     }
 
     const updatedCaught = { ...current.caught };
-    updatedCaught[key] = {
-      won: existing?.won ?? false,
-      sprite: existing?.sprite ?? this.getSpriteUrl(pokemonId),
-      ...(existing?.shiny ? { shiny: true } : {}),
-      mega: true,
-    };
+    updatedCaught[key] = { ...existing, won: existing?.won ?? false, mega: true };
 
     this.updatePokedex({ caught: updatedCaught });
   }
 
-  private getSpriteUrl(pokemonId: number): string {
-    if (this.spriteCache.has(pokemonId)) {
-      return this.spriteCache.get(pokemonId)!;
-    }
-    const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-    this.spriteCache.set(pokemonId, url);
-    return url;
-  }
-
   private updatePokedex(data: PokedexData): void {
     this.savePokedexToStorage(data);
+    this.syncState.markDirty();
     this.pokedexSubject$.next(data);
   }
 
@@ -118,12 +147,47 @@ export class PokedexService {
       return this.defaultPokedex;
     }
 
-    const { data, changed } = this.normalizeShinyOnLoad(fromStorage);
-    if (changed) {
+    const upgraded = this.upgradeStoredEntries(fromStorage);
+    const { data, changed } = this.normalizeShinyOnLoad(upgraded.data);
+
+    if (changed || upgraded.changed) {
       this.savePokedexToStorage(data);
     }
 
     return data;
+  }
+
+  /**
+   * Brings an older stored blob up to the current shape.
+   *
+   * Two one-time changes, both idempotent: the per-entry `sprite` is dropped
+   * because it is derived from the id, and entries predating catch counting are
+   * seeded to 1.
+   *
+   * Seeding to 1 rather than 0 is deliberate. An entry exists because the
+   * Pokémon was obtained, so 1 is a floor rather than a fabrication — and a
+   * count of 0 beside a caught marker reads as a bug.
+   */
+  private upgradeStoredEntries(data: PokedexData): { data: PokedexData; changed: boolean } {
+    const upgraded: Record<string, PokedexEntry> = {};
+    let changed = false;
+
+    for (const [key, entry] of Object.entries(data.caught)) {
+      const legacy = entry as PokedexEntry & { sprite?: unknown };
+
+      if ('sprite' in legacy || legacy.count === undefined) {
+        changed = true;
+      }
+
+      upgraded[key] = {
+        won: entry.won,
+        ...(entry.shiny ? { shiny: true } : {}),
+        ...(entry.mega ? { mega: true } : {}),
+        count: typeof entry.count === 'number' && entry.count > 0 ? Math.floor(entry.count) : 1,
+      };
+    }
+
+    return { data: { caught: upgraded }, changed };
   }
 
   private upsertSeenEntry(caught: Record<string, PokedexEntry>, pokemonId: number, shiny: boolean): boolean {
@@ -132,15 +196,16 @@ export class PokedexService {
     const nextShiny = Boolean(existing?.shiny) || shiny;
     const nextEntry: PokedexEntry = {
       won: existing?.won ?? false,
-      sprite: existing?.sprite ?? this.getSpriteUrl(pokemonId),
       ...(nextShiny ? { shiny: true } : {}),
       ...(existing?.mega ? { mega: true } : {}),
+      // A row exists because the Pokémon was obtained, so the floor is 1 even
+      // for one registered without going through recordCatch.
+      count: existing?.count ?? 1,
     };
 
     const changed =
       !existing ||
       existing.won !== nextEntry.won ||
-      existing.sprite !== nextEntry.sprite ||
       Boolean(existing.shiny) !== Boolean(nextEntry.shiny);
 
     caught[key] = nextEntry;

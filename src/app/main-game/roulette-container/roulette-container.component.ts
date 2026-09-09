@@ -682,7 +682,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.pkmnIn = structuredClone(pokemon);
     this.pkmnOut = this.currentContextPokemon;
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
-    this.registerInPokedex(this.pkmnIn);
+    this.registerCatch(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
     void this.showModalThenContinue(() => this.openPokemonSwitchModal(
@@ -1007,7 +1007,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   private completePokemonCapture(pokemon: PokemonItem): void {
     this.currentContextPokemon = pokemon; // ensures setShininess can reference captured pokemon
     this.trainerService.addToTeam(pokemon);
-    this.registerInPokedex(pokemon);
+    this.registerCatch(pokemon);
 
     if (this.settingsService.currentSettings.skipShinyRolls) {
       const isShiny = Math.random() < (1 / 64);
@@ -1025,6 +1025,26 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
    */
   private registerInPokedex(pokemon: PokemonItem): void {
     this.pokedexService.markSeen(pokemon.pokemonId, pokemon.shiny);
+    const baseId = this.pokemonFormsService.getBasePokemonId(pokemon.pokemonId);
+    if (baseId !== null && baseId !== pokemon.pokemonId) {
+      this.pokedexService.markSeen(baseId, pokemon.shiny);
+    }
+  }
+
+  /**
+   * Registers a newly obtained Pokémon *and* counts it as a catch.
+   *
+   * Only two paths acquire a Pokémon: a capture and a trade. Everything else
+   * that touches the Pokédex — evolving, re-registering to mark a shiny,
+   * getting a stolen Pokémon back — goes through registerInPokedex and does not
+   * count, because none of them is a new acquisition.
+   *
+   * The base species is registered but NOT counted. An alt form registers its
+   * base so it appears in the grid; catching Mega Charizard X is one catch, not
+   * two.
+   */
+  private registerCatch(pokemon: PokemonItem): void {
+    this.pokedexService.recordCatch(pokemon.pokemonId, pokemon.shiny);
     const baseId = this.pokemonFormsService.getBasePokemonId(pokemon.pokemonId);
     if (baseId !== null && baseId !== pokemon.pokemonId) {
       this.pokedexService.markSeen(baseId, pokemon.shiny);

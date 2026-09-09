@@ -5,7 +5,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ThemeService } from '../../services/theme-service/theme.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
-import { PokedexEntry } from '../../services/pokedex-service/pokedex.service';
+import { PokedexEntry, pokemonSpriteUrl } from '../../services/pokedex-service/pokedex.service';
 import { ImageFallbackDirective } from '../../directives/image-fallback.directive';
 
 export interface PokedexEntryClickEvent {
@@ -53,7 +53,18 @@ export class PokedexEntryComponent implements OnInit {
   }
 
   get spriteUrl(): string | null {
-    return this.entry?.sprite ?? null;
+    // Derived from the id: the URL is no longer stored, because a thousand
+    // copies of the same host is most of what a saved Pokédex used to weigh.
+    return this.entry ? pokemonSpriteUrl(this.pokemonId) : null;
+  }
+
+  /** Times caught. Shown only once it is worth showing. */
+  get catchCount(): number {
+    return this.entry?.count ?? 0;
+  }
+
+  get showsCatchCount(): boolean {
+    return this.catchCount > 1;
   }
 
   onCellClick(): void {

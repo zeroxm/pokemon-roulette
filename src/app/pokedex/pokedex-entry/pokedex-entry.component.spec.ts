@@ -9,8 +9,8 @@ describe('PokedexEntryComponent', () => {
   let fixture: ComponentFixture<PokedexEntryComponent>;
   let pokemonServiceSpy: jasmine.SpyObj<PokemonService>;
 
-  const seenEntry: PokedexEntry = { won: false, sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png' };
-  const wonEntry: PokedexEntry = { won: true, sprite: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png' };
+  const seenEntry: PokedexEntry = { won: false };
+  const wonEntry: PokedexEntry = { won: true };
 
   beforeEach(async () => {
     localStorage.clear();
