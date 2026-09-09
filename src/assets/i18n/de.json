@@ -2827,6 +2827,11 @@
     },
     "caught": "Gefangen:"
   },
+  "badgeDex": {
+    "button": "Orden",
+    "title": "Ordensetui",
+    "progress": "{{earned}} von {{total}}"
+  },
   "detail": {
     "name": "Name",
     "types": "Typen",

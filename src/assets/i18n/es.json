@@ -2827,6 +2827,11 @@
     },
     "caught": "Capturados:"
   },
+  "badgeDex": {
+    "button": "Medallas",
+    "title": "Estuche de Medallas",
+    "progress": "{{earned}} de {{total}}"
+  },
   "detail": {
     "name": "Nombre",
     "types": "Tipos",

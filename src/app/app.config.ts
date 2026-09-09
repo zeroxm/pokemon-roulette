@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withXhr } from '@angular/common/http';
 import {
   bootstrapArrowRepeat,
+  bootstrapTrophy,
   bootstrapCheck,
   bootstrapClock,
   bootstrapController,
@@ -23,7 +24,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideIcons(
-      { bootstrapArrowRepeat,
+      {
+        bootstrapArrowRepeat,
+        bootstrapTrophy,
         bootstrapCheck,
         bootstrapClock,
         bootstrapController,

@@ -2827,6 +2827,11 @@
     },
     "caught": "Capturados:"
   },
+  "badgeDex": {
+    "button": "Insígnias",
+    "title": "Estojo de Insígnias",
+    "progress": "{{earned}} de {{total}}"
+  },
   "detail": {
     "name": "Nome",
     "types": "Tipos",

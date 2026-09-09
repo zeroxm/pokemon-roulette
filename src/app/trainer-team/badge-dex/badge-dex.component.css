@@ -1,0 +1,79 @@
+.badge-dex-total {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.region-case {
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+/* The region being played, so the case you are filling right now is findable. */
+.region-case.current-region {
+  outline: 2px solid rgba(255, 193, 7, 0.7);
+}
+
+.region-case.complete .region-count {
+  color: #2e9e4f;
+  font-weight: 700;
+}
+
+.region-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 0.15rem;
+}
+
+.region-name {
+  font-weight: 600;
+}
+
+.region-count {
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+/* A round that offers a choice reads as one slot holding alternatives. */
+.badge-round {
+  display: flex;
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border-radius: 0.35rem;
+}
+
+.badge-round.multi {
+  background: rgba(128, 128, 128, 0.18);
+}
+
+.badge-sprite {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  /* Unearned badges are present but drained, so the shape of what is left to
+     collect is visible without spoiling which badge it is. */
+  filter: grayscale(1);
+  opacity: 0.3;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.badge-sprite.earned {
+  filter: none;
+  opacity: 1;
+}
+
+@media (max-width: 576px) {
+  .badge-sprite {
+    width: 28px;
+    height: 28px;
+  }
+}
