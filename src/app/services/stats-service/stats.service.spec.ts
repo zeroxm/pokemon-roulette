@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { StatsService, PlayerStats } from './stats.service';
 import { championRegionKey, playedRegionKey } from './counter-keys';
+import { SyncStateService } from '../sync-state-service/sync-state.service';
 
 describe('StatsService', () => {
   let service: StatsService;
@@ -163,20 +164,17 @@ describe('StatsService', () => {
     });
   });
 
-  describe('the synced flag', () => {
-    it('is false once anything changes locally', () => {
-      service.markSynced();
-      expect(service.isSynced).toBeTrue();
+  describe('sync state', () => {
+    it('marks local state dirty once a counter changes', () => {
+      const syncState = TestBed.inject(SyncStateService);
+      syncState.markSynced();
+      expect(syncState.isSynced).toBeTrue();
 
       service.increment('spins_total');
 
-      expect(service.isSynced)
+      expect(syncState.isSynced)
         .withContext('local state is ahead of the server again, and signing out would discard it')
         .toBeFalse();
-    });
-
-    it('is false before anything has ever synced', () => {
-      expect(service.isSynced).toBeFalse();
     });
   });
 });
