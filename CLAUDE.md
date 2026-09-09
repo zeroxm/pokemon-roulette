@@ -170,6 +170,12 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.
 - `SoundFxService` — `playSoundFx('click')`; sounds are named by a `SoundFxName` union, not by per-caller handles. Honors the mute setting.
 - `SettingsService` / `ThemeService` — persisted to `localStorage` (`pokemon-roulette-settings`, `pokemon-roulette-theme`).
+- `StatsService` — lifetime counters, persisted to `pokemon-roulette-stats`. **The counter names are
+  the wire format**: they are exactly the keys the backend accepts, so a blob syncs without
+  translation, and adding one means adding it to the backend's allowlist too (backend first, or the
+  key is skipped until it deploys). Counters are **grow-only** — a non-positive increment is ignored
+  rather than applied. It deliberately does *not* count distinct caught, shinies or megas: those are
+  derived from `PokedexService`, and duplicating them would create two versions of one truth.
 - `PokedexService`, `BadgesService`, `EvolutionService`, `TypeMatchupService`, `AnalyticsService` (GA id in `src/environments/`).
 
 ### i18n
