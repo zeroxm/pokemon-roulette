@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { SoundFxService } from '../services/sound-fx-service/sound-fx.service';
+import { StatsService } from '../services/stats-service/stats.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -60,7 +61,8 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     private translateService: TranslateService,
     private soundFxService: SoundFxService,
     private modalService: NgbModal,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private statsService: StatsService
   ) {
     this.darkMode = this.themeService.isDark$;
     this.canvasHeight = 0;
@@ -319,6 +321,11 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (this.spinning || !this.isReady) {
       return;
     }
+
+    // Counted here rather than at thirty call sites: every roulette in the
+    // game renders this component, so one line covers all of them. After the
+    // guard, so a rejected spin is not counted.
+    this.statsService.increment('spins_total');
 
     this.spinning = true;
     this.gameStateService.setWheelSpinning(this.spinning);

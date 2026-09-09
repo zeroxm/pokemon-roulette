@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angul
 import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { PokemonService } from '../../../../services/pokemon-service/pokemon.service';
+import { StatsService } from '../../../../services/stats-service/stats.service';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 
 @Component({
@@ -13,7 +14,7 @@ import { PokemonItem } from '../../../../interfaces/pokemon-item';
 })
 export class MysteriousEggRouletteComponent {
 
-  constructor(pokemonService: PokemonService) {
+  constructor(pokemonService: PokemonService, private statsService: StatsService) {
     this.nationalDexPokemon = pokemonService.getAllPokemon();
   }
 
@@ -22,6 +23,9 @@ export class MysteriousEggRouletteComponent {
   @Output() selectedPokemonEvent = new EventEmitter<PokemonItem>();
 
   onItemSelected(index: number): void {
+    // Picking from the egg wheel *is* the hatch.
+    this.statsService.increment('eggs_hatched');
+
     const selectedPokemon = this.nationalDexPokemon[index];
     this.selectedPokemonEvent.emit(selectedPokemon);
   }
