@@ -1,0 +1,51 @@
+<button type="button" class="btn"
+  [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+  (click)="openBadgeDex()">
+  <ng-icon name="bootstrapTrophy"></ng-icon>
+  {{ 'badgeDex.button' | translate }}
+</button>
+
+<ng-template #badgeDexModal let-modal>
+  <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    <h4 class="modal-title">
+      {{ 'badgeDex.title' | translate }}
+      <small class="badge-dex-total">
+        {{ 'badgeDex.progress' | translate: { earned: earnedCount, total: totalBadges } }}
+      </small>
+    </h4>
+    <button type="button" class="btn-close"
+      [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
+      (click)="closeModal()" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    @for (region of cases; track region.generationId) {
+      <section class="region-case"
+               [class.current-region]="region.generationId === currentGenerationId"
+               [class.complete]="isRegionComplete(region)">
+
+        <header class="region-header">
+          <span class="region-name">{{ region.region }}</span>
+          <span class="region-count">{{ earnedInRegion(region) }}/{{ region.rounds.length }}</span>
+        </header>
+
+        <div class="badge-row">
+          @for (round of region.rounds; track $index) {
+            <div class="badge-round" [class.multi]="round.badges.length > 1">
+              @for (badge of round.badges; track badge.name) {
+                <img [src]="badge.sprite"
+                     appImageFallback
+                     loading="lazy"
+                     class="badge-sprite"
+                     [class.earned]="hasBadge(badge)"
+                     placement="bottom"
+                     [ngbTooltip]="hasBadge(badge) ? (badge.name | translate) : '???'"
+                     [alt]="hasBadge(badge) ? (badge.name | translate) : '???'">
+              }
+            </div>
+          }
+        </div>
+      </section>
+    }
+  </div>
+</ng-template>

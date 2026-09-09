@@ -2827,6 +2827,11 @@
     },
     "caught": "Catturati:"
   },
+  "badgeDex": {
+    "button": "Medaglie",
+    "title": "Custodia Medaglie",
+    "progress": "{{earned}} su {{total}}"
+  },
   "detail": {
     "name": "Nome",
     "types": "Tipi",

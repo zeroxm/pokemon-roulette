@@ -2827,6 +2827,11 @@
     },
     "caught": "Caught:"
   },
+  "badgeDex": {
+    "button": "Badges",
+    "title": "Badge Case",
+    "progress": "{{earned}} of {{total}}"
+  },
   "detail": {
     "name": "Name",
     "types": "Types",
