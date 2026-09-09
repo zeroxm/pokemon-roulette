@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { PokedexService, PokedexData } from './pokedex.service';
+import { PokedexService, PokedexData, pokemonSpriteUrl } from './pokedex.service';
 
 describe('PokedexService', () => {
   let service: PokedexService;
@@ -50,7 +50,7 @@ describe('PokedexService', () => {
 
   // DATA-03: Constructor reads from localStorage
   it('should restore state from localStorage on construction', () => {
-    const saved: PokedexData = { caught: { '4': { won: false, sprite: 'https://example.com/4.png' } } };
+    const saved: PokedexData = { caught: { '4': { won: false } } };
     localStorage.setItem('pokemon-roulette-pokedex', JSON.stringify(saved));
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({});
@@ -79,33 +79,12 @@ describe('PokedexService', () => {
   });
 
   // DATA-05: Sprite URL stored on markSeen
-  it('should store the deterministic sprite URL when markSeen is called', () => {
-    service.markSeen(1);
-    expect(service.currentPokedex.caught['1'].sprite).toBe(
+  it('derives the deterministic sprite URL from the id', () => {
+    expect(pokemonSpriteUrl(1)).toBe(
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png'
     );
   });
 
-  // DATA-05: markWon on unseen also stores sprite
-  it('should store sprite URL when markWon is called for unseen Pokémon', () => {
-    service.markWon([7]);
-    expect(service.currentPokedex.caught['7'].sprite).toBe(
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png'
-    );
-  });
-
-  // DATA-06: In-memory cache populated after markSeen
-  it('should populate spriteCache after markSeen', () => {
-    service.markSeen(4);
-    expect((service as any)['spriteCache'].has(4)).toBeTrue();
-  });
-
-  // DATA-06: Idempotent cache (no duplicate entries)
-  it('should not duplicate spriteCache entry when markSeen called twice', () => {
-    service.markSeen(4);
-    service.markSeen(4);
-    expect((service as any)['spriteCache'].size).toBe(1);
-  });
 
   // SHINY-01: shiny flag persistence
   it('should set shiny:true on entry when markSeen called with shiny=true — SHINY-01', () => {
@@ -152,9 +131,9 @@ describe('PokedexService', () => {
   it('should normalize shiny on load for existing related entries only and persist the migration — SHINY-03', () => {
     const saved: PokedexData = {
       caught: {
-        '25': { won: false, sprite: 'https://example.com/25.png', shiny: true },
-        '26': { won: false, sprite: 'https://example.com/26.png' },
-        '172': { won: false, sprite: 'https://example.com/172.png' },
+        '25': { won: false, shiny: true },
+        '26': { won: false },
+        '172': { won: false },
       },
     };
 
@@ -208,7 +187,6 @@ describe('PokedexService', () => {
     const entry = service.currentPokedex.caught['1'];
     expect(entry.shiny).toBeTrue();
     expect(entry.won).toBeTrue();   // must be preserved — not reset by markSeen
-    expect(entry.sprite).toBeTruthy(); // sprite must not be cleared
   });
 
   // Explicit false param: markSeen(id, false) must not revert an already-shiny entry
@@ -243,5 +221,109 @@ describe('PokedexService', () => {
       expect(emitCount).toBe(1);
       done();
     }, 0);
+  });
+});
+
+describe('PokedexService catch counting', () => {
+  let service: PokedexService;
+
+  const load = (caught: unknown): PokedexService => {
+    localStorage.setItem('pokemon-roulette-pokedex', JSON.stringify({ caught }));
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    return TestBed.inject(PokedexService);
+  };
+
+  const stored = (): Record<string, Record<string, unknown>> =>
+    JSON.parse(localStorage.getItem('pokemon-roulette-pokedex')!).caught;
+
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(PokedexService);
+  });
+
+  afterAll(() => localStorage.clear());
+
+  it('starts a newly caught Pokémon at one', () => {
+    service.recordCatch(25);
+
+    expect(service.currentPokedex.caught['25'].count)
+      .withContext('an entry exists because it was obtained, so zero is never valid')
+      .toBe(1);
+  });
+
+  it('accumulates', () => {
+    service.recordCatch(25);
+    service.recordCatch(25);
+    service.recordCatch(25);
+
+    expect(service.currentPokedex.caught['25'].count).toBe(3);
+  });
+
+  // Evolving, marking a shiny and getting a stolen Pokémon back all register
+  // without acquiring anything.
+  it('does not count a registration that is not a catch', () => {
+    service.recordCatch(25);
+    service.markSeen(25);
+
+    expect(service.currentPokedex.caught['25'].count).toBe(1);
+  });
+
+  it('does not count the relatives a shiny propagates to', () => {
+    service.recordCatch(1, true); // Bulbasaur, shiny
+
+    expect(service.currentPokedex.caught['1'].count).toBe(1);
+    expect(service.currentPokedex.caught['2'].count)
+      .withContext('Ivysaur was marked shiny by propagation, not caught')
+      .toBe(1);
+    expect(service.currentPokedex.caught['2'].shiny).toBeTrue();
+  });
+
+  it('keeps the count when a Pokémon wins the game', () => {
+    service.recordCatch(25);
+    service.recordCatch(25);
+    service.markWon([25]);
+
+    expect(service.currentPokedex.caught['25'].count).toBe(2);
+    expect(service.currentPokedex.caught['25'].won).toBeTrue();
+  });
+
+  describe('upgrading an older stored Pokédex', () => {
+    it('seeds an entry that predates counting to one', () => {
+      const upgraded = load({ 25: { won: true, sprite: 'https://example.invalid/25.png' } });
+
+      expect(upgraded.currentPokedex.caught['25'].count)
+        .withContext('a floor, not a fabrication — zero beside a caught marker reads as a bug')
+        .toBe(1);
+    });
+
+    it('drops the stored sprite', () => {
+      load({ 25: { won: true, sprite: 'https://example.invalid/25.png' } });
+
+      expect('sprite' in stored()['25'])
+        .withContext('a thousand copies of one host was most of what a saved Pokédex weighed')
+        .toBeFalse();
+    });
+
+    it('preserves what the entry already meant', () => {
+      const upgraded = load({ 6: { won: true, sprite: 'x', shiny: true, mega: true } });
+      const entry = upgraded.currentPokedex.caught['6'];
+
+      expect(entry.won).toBeTrue();
+      expect(entry.shiny).toBeTrue();
+      expect(entry.mega).toBeTrue();
+    });
+
+    it('leaves an already-upgraded blob alone', () => {
+      const upgraded = load({ 25: { won: false, count: 7 } });
+
+      expect(upgraded.currentPokedex.caught['25'].count).toBe(7);
+    });
+  });
+
+  it('derives the sprite url from the id', () => {
+    expect(pokemonSpriteUrl(25)).toContain('/25.png');
   });
 });

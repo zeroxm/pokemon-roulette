@@ -86,3 +86,19 @@
   display: block;
   image-rendering: pixelated;
 }
+
+/* Times caught, shown only past one — a "×1" on every cell would be noise. */
+.catch-count-badge {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  z-index: 2;
+  padding: 0 3px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.6rem;
+  line-height: 1.2;
+  font-weight: 600;
+  pointer-events: none;
+}

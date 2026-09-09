@@ -10,6 +10,10 @@
 
   <span class="number-badge">{{ formatPokemonNumber(pokemonId) }}</span>
 
+  @if (showsCatchCount) {
+    <span class="catch-count-badge">&times;{{ catchCount }}</span>
+  }
+
   <div class="pokedex-cell-inner">
 
     <!-- Front face: shown when unseen -->
