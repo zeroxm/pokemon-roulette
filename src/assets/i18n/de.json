@@ -2832,6 +2832,231 @@
     "title": "Ordensetui",
     "progress": "{{earned}} von {{total}}"
   },
+  "achievementsScreen": {
+    "button": "Erfolge",
+    "title": "Erfolge",
+    "unlocked": "Erfolg freigeschaltet",
+    "hidden": "Noch ein Geheimnis.",
+    "group": {
+      "collection": "Sammlung",
+      "shiny": "Schillernd",
+      "champion": "Champion",
+      "rival": "Rivale",
+      "forms": "Formen",
+      "encounters": "Begegnungen",
+      "badges": "Orden",
+      "grind": "Ausdauer"
+    },
+    "total": {
+      "caught": "Gefangen",
+      "shiny": "Schillernde",
+      "badges": "Orden",
+      "runs": "Siege",
+      "spins": "Drehungen"
+    }
+  },
+  "achievements": {
+    "i_choose_you": {
+      "name": "Ich wähle dich",
+      "description": "Fange dein erstes Pokémon."
+    },
+    "pokedex_lv_1": {
+      "name": "Pokédex Lv 1",
+      "description": "Fange 10 verschiedene Pokémon."
+    },
+    "pokedex_lv_2": {
+      "name": "Pokédex Lv 2",
+      "description": "Fange 50 verschiedene Pokémon."
+    },
+    "pokedex_lv_3": {
+      "name": "Pokédex Lv 3",
+      "description": "Fange 100 verschiedene Pokémon."
+    },
+    "pokedex_lv_4": {
+      "name": "Pokédex Lv 4",
+      "description": "Fange 250 verschiedene Pokémon."
+    },
+    "pokedex_lv_5": {
+      "name": "Pokédex Lv 5",
+      "description": "Fange 500 verschiedene Pokémon."
+    },
+    "gotta_catch_em_all_national": {
+      "name": "Schnapp sie dir... alle?!",
+      "description": "Vervollständige den National-Pokédex."
+    },
+    "gotta_catch_em_all_regional": {
+      "name": "Schnapp sie dir alle!",
+      "description": "Vervollständige den Pokédex einer Region."
+    },
+    "i_choose_you_and_you": {
+      "name": "Ich wähle dich, und dich, und dich...",
+      "description": "Fange alle Starter aus allen neun Regionen."
+    },
+    "paleontologist": {
+      "name": "Paläontologe",
+      "description": "Belebe alle Fossil-Pokémon wieder."
+    },
+    "myth_buster": {
+      "name": "Mythenjäger",
+      "description": "Fange alle legendären Pokémon einer Region."
+    },
+    "oh_shiny": {
+      "name": "Oh, schillernd!",
+      "description": "Finde dein erstes schillerndes Pokémon."
+    },
+    "shiny_hunter_1": {
+      "name": "Schillerjäger I",
+      "description": "Finde 5 schillernde Pokémon."
+    },
+    "shiny_hunter_2": {
+      "name": "Schillerjäger II",
+      "description": "Finde 10 schillernde Pokémon."
+    },
+    "shiny_hunter_3": {
+      "name": "Schillerjäger III",
+      "description": "Finde 25 schillernde Pokémon."
+    },
+    "never_tell_me_the_odds": {
+      "name": "Nenn mir nie die Chancen!",
+      "description": "Finde ein schillerndes legendäres Pokémon."
+    },
+    "champion": {
+      "name": "Champion",
+      "description": "Gewinne deinen ersten Durchlauf."
+    },
+    "regional_champion": {
+      "name": "Regionaler Champion",
+      "description": "Werde Champion in 3 Regionen."
+    },
+    "world_champion": {
+      "name": "Weltmeister",
+      "description": "Werde Champion in allen neun Regionen."
+    },
+    "full_house": {
+      "name": "Volles Haus",
+      "description": "Gewinne mit einem vollen Team aus sechs."
+    },
+    "pokemon_stadium": {
+      "name": "Pokémon Stadium",
+      "description": "Gewinne mit drei Pokémon oder weniger im Team."
+    },
+    "smell_ya_later": {
+      "name": "Man sieht sich!",
+      "description": "Gewinne einen Kampf gegen den Rivalen."
+    },
+    "notch_above": {
+      "name": "Eine Stufe über der Konkurrenz",
+      "description": "Gewinne 5 Kämpfe gegen den Rivalen."
+    },
+    "fruitful_battle": {
+      "name": "Ein fruchtbarer Kampf",
+      "description": "Gewinne 10 Kämpfe gegen den Rivalen."
+    },
+    "evolved_beyond_1": {
+      "name": "Jenseits der Entwicklung I",
+      "description": "Lasse zum ersten Mal ein Pokémon mega-entwickeln."
+    },
+    "evolved_beyond_2": {
+      "name": "Jenseits der Entwicklung II",
+      "description": "Lasse 10 verschiedene Pokémon mega-entwickeln."
+    },
+    "its_a_disguise": {
+      "name": "Es ist ein Kostüm!",
+      "description": "Zerstöre Mimigmas Kostümspuk."
+    },
+    "bond_phenomenon": {
+      "name": "Bund-Phänomen",
+      "description": "Löse die Ash-Quajutsu-Verwandlung aus."
+    },
+    "shapeshifter": {
+      "name": "Gestaltwandler",
+      "description": "Löse eine bleibende Formänderung aus."
+    },
+    "super_rod": {
+      "name": "Superangel",
+      "description": "Fange 10 Pokémon beim Angeln."
+    },
+    "super_nerd": {
+      "name": "Superfreak",
+      "description": "Belebe 10 Fossil-Pokémon wieder."
+    },
+    "prepare_for_trouble": {
+      "name": "Macht euch bereit für Ärger",
+      "description": "Besiege Team Rocket."
+    },
+    "make_it_double": {
+      "name": "Und macht es doppelt",
+      "description": "Besiege Team Rocket, während es dein gestohlenes Pokémon hat."
+    },
+    "mystery_gift": {
+      "name": "Geheimgeschenk",
+      "description": "Lasse ein geheimnisvolles Ei schlüpfen."
+    },
+    "used_the_pokeflute": {
+      "name": "Pokéflöte benutzt",
+      "description": "Fange oder besiege Relaxo."
+    },
+    "five_hundred_steps": {
+      "name": "500 Schritte",
+      "description": "Besuche die Safari-Zone."
+    },
+    "friend_code": {
+      "name": "Freundescode",
+      "description": "Besuche die Freundes-Safari."
+    },
+    "the_great_crater": {
+      "name": "Der Große Krater",
+      "description": "Besuche die Zone Null."
+    },
+    "a_fair_trade": {
+      "name": "Ein Fairer Tausch",
+      "description": "Schließe einen Tausch ab."
+    },
+    "champ_in_the_making": {
+      "name": "He! Ein künftiger Champion!",
+      "description": "Verdiene deinen ersten Orden."
+    },
+    "off_to_victory_road": {
+      "name": "Auf zur Siegesstraße",
+      "description": "Verdiene alle acht Orden einer Region."
+    },
+    "badger_badger_badger": {
+      "name": "Orden, Orden, Orden...",
+      "description": "Verdiene alle Orden aus drei Regionen."
+    },
+    "the_very_best": {
+      "name": "Der Allerbeste, wie keiner zuvor",
+      "description": "Verdiene alle Orden im Spiel."
+    },
+    "youngster": {
+      "name": "Knirps",
+      "description": "Schließe 10 Durchläufe ab."
+    },
+    "bug_catcher": {
+      "name": "Käfersammler",
+      "description": "Schließe 25 Durchläufe ab."
+    },
+    "ace_trainer": {
+      "name": "Ass-Trainer",
+      "description": "Schließe 50 Durchläufe ab."
+    },
+    "veteran": {
+      "name": "Veteran",
+      "description": "Schließe 100 Durchläufe ab."
+    },
+    "wheel_of_fortune": {
+      "name": "Glücksrad",
+      "description": "Drehe das Rad 1.000 Mal."
+    },
+    "whos_that_pokemon": {
+      "name": "Wer ist dieses Pokémon?",
+      "description": "Fange dasselbe Pokémon 50 Mal."
+    },
+    "world_tour": {
+      "name": "Welttournee",
+      "description": "Spiele einen Durchlauf in allen neun Regionen."
+    }
+  },
   "detail": {
     "name": "Name",
     "types": "Typen",

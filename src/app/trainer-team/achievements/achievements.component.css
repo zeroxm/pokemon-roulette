@@ -1,0 +1,124 @@
+.achievements-count {
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.lifetime-totals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.lifetime-total {
+  flex: 1 1 5.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.25rem;
+  border-radius: 0.5rem;
+  background: rgba(128, 128, 128, 0.16);
+}
+
+.lifetime-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lifetime-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+  text-align: center;
+}
+
+.achievement-group-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.achievement-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0.45rem;
+  border-radius: 0.4rem;
+}
+
+.achievement-row.unlocked {
+  background: rgba(245, 197, 24, 0.14);
+}
+
+.achievement-row.concealed .achievement-name,
+.achievement-row.concealed .achievement-description {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.achievement-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.achievement-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.achievement-description {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.achievement-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  width: 7.5rem;
+  justify-content: flex-end;
+}
+
+.achievement-tick {
+  color: #f5c518;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.progress-track {
+  flex: 1 1 auto;
+  height: 0.4rem;
+  border-radius: 0.2rem;
+  background: rgba(128, 128, 128, 0.3);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #f5c518;
+  transition: width 0.3s ease;
+}
+
+.progress-numbers {
+  font-size: 0.62rem;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill { transition: none; }
+}
+
+@media (max-width: 576px) {
+  .achievement-progress { width: 5.5rem; }
+  .progress-numbers { display: none; }
+}

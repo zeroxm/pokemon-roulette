@@ -2832,6 +2832,231 @@
     "title": "Estuche de Medallas",
     "progress": "{{earned}} de {{total}}"
   },
+  "achievementsScreen": {
+    "button": "Logros",
+    "title": "Logros",
+    "unlocked": "Logro desbloqueado",
+    "hidden": "Un secreto, por ahora.",
+    "group": {
+      "collection": "Colección",
+      "shiny": "Shiny",
+      "champion": "Campeón",
+      "rival": "Rival",
+      "forms": "Formas",
+      "encounters": "Encuentros",
+      "badges": "Medallas",
+      "grind": "Dedicación"
+    },
+    "total": {
+      "caught": "Capturados",
+      "shiny": "Shinies",
+      "badges": "Medallas",
+      "runs": "Partidas ganadas",
+      "spins": "Giros"
+    }
+  },
+  "achievements": {
+    "i_choose_you": {
+      "name": "¡Yo te elijo!",
+      "description": "Captura tu primer Pokémon."
+    },
+    "pokedex_lv_1": {
+      "name": "Pokédex Nv 1",
+      "description": "Captura 10 Pokémon diferentes."
+    },
+    "pokedex_lv_2": {
+      "name": "Pokédex Nv 2",
+      "description": "Captura 50 Pokémon diferentes."
+    },
+    "pokedex_lv_3": {
+      "name": "Pokédex Nv 3",
+      "description": "Captura 100 Pokémon diferentes."
+    },
+    "pokedex_lv_4": {
+      "name": "Pokédex Nv 4",
+      "description": "Captura 250 Pokémon diferentes."
+    },
+    "pokedex_lv_5": {
+      "name": "Pokédex Nv 5",
+      "description": "Captura 500 Pokémon diferentes."
+    },
+    "gotta_catch_em_all_national": {
+      "name": "¡Hazte con... todos!",
+      "description": "Completa la Pokédex Nacional."
+    },
+    "gotta_catch_em_all_regional": {
+      "name": "¡Hazte con todos!",
+      "description": "Completa la Pokédex de una región."
+    },
+    "i_choose_you_and_you": {
+      "name": "Te elijo a ti, y a ti, y a ti...",
+      "description": "Captura todos los iniciales de las nueve regiones."
+    },
+    "paleontologist": {
+      "name": "Paleontólogo",
+      "description": "Revive todos los Pokémon fósiles."
+    },
+    "myth_buster": {
+      "name": "Cazador de Mitos",
+      "description": "Captura todos los Pokémon legendarios de una región."
+    },
+    "oh_shiny": {
+      "name": "¡Oh, brillante!",
+      "description": "Encuentra tu primer Pokémon variocolor."
+    },
+    "shiny_hunter_1": {
+      "name": "Cazador de Variocolor I",
+      "description": "Encuentra 5 Pokémon variocolor."
+    },
+    "shiny_hunter_2": {
+      "name": "Cazador de Variocolor II",
+      "description": "Encuentra 10 Pokémon variocolor."
+    },
+    "shiny_hunter_3": {
+      "name": "Cazador de Variocolor III",
+      "description": "Encuentra 25 Pokémon variocolor."
+    },
+    "never_tell_me_the_odds": {
+      "name": "¡No me hables de probabilidades!",
+      "description": "Encuentra un Pokémon legendario variocolor."
+    },
+    "champion": {
+      "name": "Campeón",
+      "description": "Gana tu primera partida."
+    },
+    "regional_champion": {
+      "name": "Campeón Regional",
+      "description": "Conviértete en campeón de 3 regiones."
+    },
+    "world_champion": {
+      "name": "Campeón Mundial",
+      "description": "Conviértete en campeón de las nueve regiones."
+    },
+    "full_house": {
+      "name": "Equipo Completo",
+      "description": "Gana con un equipo completo de seis."
+    },
+    "pokemon_stadium": {
+      "name": "Pokémon Stadium",
+      "description": "Gana con tres Pokémon o menos en el equipo."
+    },
+    "smell_ya_later": {
+      "name": "¡Nos vemos, primo!",
+      "description": "Gana un combate contra el rival."
+    },
+    "notch_above": {
+      "name": "Un escalón por encima",
+      "description": "Gana 5 combates contra el rival."
+    },
+    "fruitful_battle": {
+      "name": "Un combate fructífero",
+      "description": "Gana 10 combates contra el rival."
+    },
+    "evolved_beyond_1": {
+      "name": "Más Allá de la Evolución I",
+      "description": "Megaevoluciona un Pokémon por primera vez."
+    },
+    "evolved_beyond_2": {
+      "name": "Más Allá de la Evolución II",
+      "description": "Megaevoluciona 10 Pokémon diferentes."
+    },
+    "its_a_disguise": {
+      "name": "¡Es un Disfraz!",
+      "description": "Rompe el Disfraz de Mimikyu."
+    },
+    "bond_phenomenon": {
+      "name": "Fenómeno del Vínculo",
+      "description": "Activa la transformación Ash-Greninja."
+    },
+    "shapeshifter": {
+      "name": "Cambiaformas",
+      "description": "Activa un cambio de forma permanente."
+    },
+    "super_rod": {
+      "name": "Supercaña",
+      "description": "Captura 10 Pokémon pescando."
+    },
+    "super_nerd": {
+      "name": "Supernerd",
+      "description": "Revive 10 Pokémon fósiles."
+    },
+    "prepare_for_trouble": {
+      "name": "Prepárate para los Problemas",
+      "description": "Derrota al Team Rocket."
+    },
+    "make_it_double": {
+      "name": "Que sean Dos",
+      "description": "Derrota al Team Rocket mientras tienen tu Pokémon robado."
+    },
+    "mystery_gift": {
+      "name": "Regalo Misterioso",
+      "description": "Incuba un huevo misterioso."
+    },
+    "used_the_pokeflute": {
+      "name": "Usó la Pokéflauta",
+      "description": "Captura o derrota a Snorlax."
+    },
+    "five_hundred_steps": {
+      "name": "500 Pasos",
+      "description": "Visita la Zona Safari."
+    },
+    "friend_code": {
+      "name": "Código de Amigo",
+      "description": "Visita la Zona Safari Amigo."
+    },
+    "the_great_crater": {
+      "name": "El Gran Cráter",
+      "description": "Visita el Área Cero."
+    },
+    "a_fair_trade": {
+      "name": "Un Intercambio Justo",
+      "description": "Completa un intercambio."
+    },
+    "champ_in_the_making": {
+      "name": "¡Eh! ¡Futuro campeón!",
+      "description": "Consigue tu primera medalla."
+    },
+    "off_to_victory_road": {
+      "name": "Rumbo a la Calle Victoria",
+      "description": "Consigue las ocho medallas de una región."
+    },
+    "badger_badger_badger": {
+      "name": "Medalla, Medalla, Medalla...",
+      "description": "Consigue todas las medallas de tres regiones."
+    },
+    "the_very_best": {
+      "name": "El mejor de todos, como nadie más",
+      "description": "Consigue todas las medallas del juego."
+    },
+    "youngster": {
+      "name": "Joven",
+      "description": "Completa 10 partidas."
+    },
+    "bug_catcher": {
+      "name": "Cazabichos",
+      "description": "Completa 25 partidas."
+    },
+    "ace_trainer": {
+      "name": "Entrenador Guay",
+      "description": "Completa 50 partidas."
+    },
+    "veteran": {
+      "name": "Veterano",
+      "description": "Completa 100 partidas."
+    },
+    "wheel_of_fortune": {
+      "name": "Rueda de la Fortuna",
+      "description": "Gira la ruleta 1.000 veces."
+    },
+    "whos_that_pokemon": {
+      "name": "¿Quién es ese Pokémon?",
+      "description": "Captura el mismo Pokémon 50 veces."
+    },
+    "world_tour": {
+      "name": "Gira Mundial",
+      "description": "Juega una partida en las nueve regiones."
+    }
+  },
   "detail": {
     "name": "Nombre",
     "types": "Tipos",

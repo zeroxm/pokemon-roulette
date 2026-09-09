@@ -196,6 +196,10 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
   `TrainerService.trainerBadges` is the *current run* and dies with it. Badge ids are the
   translation key minus the `badges.` prefix — all 77 are unique, and the prefix is an i18n
   namespace the backend's id pattern rejects.
+- `AchievementToastComponent` — announces an unlock. Mounted in `app.component.html` **outside the
+  router outlet**, so it survives navigation. Deliberately not a modal: it fires mid-run when result
+  modals are already queued, and it is `pointer-events: none` so it can never swallow a click meant
+  for the wheel. Several unlocks queue rather than stack.
 - `AchievementService` + `achievement-catalog.ts` — the frozen 50. Every achievement is *derivable*,
   but unlocks are **stored anyway, for notification state**: without a record of what has been
   announced, signing in on a new device fires fifty toasts. A stored unlock is **never removed**,
