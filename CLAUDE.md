@@ -170,6 +170,18 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
 - `ModalQueueService` — serializes `NgbModal` opens so chained result modals don't stomp each other. Prefer it over `NgbModal` directly for anything the game flow triggers.
 - `SoundFxService` — `playSoundFx('click')`; sounds are named by a `SoundFxName` union, not by per-caller handles. Honors the mute setting.
 - `SettingsService` / `ThemeService` — persisted to `localStorage` (`pokemon-roulette-settings`, `pokemon-roulette-theme`).
+- `SyncStateService` — one flag: has local progress reached the account? Owned separately because
+  three collections sync, and a flag inside one of them would report "saved" while another had
+  unsaved changes. **Signing out clears local data**, so this is what lets the UI warn first.
+- `BadgeDexService` — every badge ever earned, across runs (`pokemon-roulette-badge-dex`).
+  `TrainerService.trainerBadges` is the *current run* and dies with it. Badge ids are the
+  translation key minus the `badges.` prefix — all 77 are unique, and the prefix is an i18n
+  namespace the backend's id pattern rejects.
+- `AchievementService` + `achievement-catalog.ts` — the frozen 50. Every achievement is *derivable*,
+  but unlocks are **stored anyway, for notification state**: without a record of what has been
+  announced, signing in on a new device fires fifty toasts. A stored unlock is **never removed**,
+  even if a retuned threshold means it no longer derives. Adding one is adding a row — and adding it
+  to the backend allowlist first.
 - `StatsService` — lifetime counters, persisted to `pokemon-roulette-stats`. **The counter names are
   the wire format**: they are exactly the keys the backend accepts, so a blob syncs without
   translation, and adding one means adding it to the backend's allowlist too (backend first, or the

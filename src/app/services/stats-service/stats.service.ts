@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { SyncStateService } from '../sync-state-service/sync-state.service';
 import {
   CounterKey,
   GenerationId,
@@ -31,11 +32,10 @@ export type PlayerStats = Readonly<Partial<Record<CounterKey, number>>>;
 @Injectable({ providedIn: 'root' })
 export class StatsService {
   private readonly STORAGE_KEY = 'pokemon-roulette-stats';
-  private readonly SYNCED_KEY = 'pokemon-roulette-stats-synced';
 
   private statsSubject$: BehaviorSubject<PlayerStats>;
 
-  constructor() {
+  constructor(private syncState: SyncStateService) {
     this.statsSubject$ = new BehaviorSubject(this.getInitialStats());
   }
 
@@ -99,27 +99,11 @@ export class StatsService {
     this.update(next as PlayerStats);
   }
 
-  /**
-   * Whether every local change has reached the server.
-   *
-   * Signing out clears local data, so this is what lets the UI warn before
-   * discarding progress that was never saved to an account. It is also how the
-   * sync client knows there is anything to push.
-   */
-  get isSynced(): boolean {
-    return localStorage.getItem(this.SYNCED_KEY) === 'true';
-  }
-
-  /** Called by the sync client after a successful push. */
-  markSynced(): void {
-    this.setSynced(true);
-  }
-
   private update(stats: PlayerStats): void {
     const pruned = this.withoutZeros(stats);
     this.saveToStorage(pruned);
-    // Any change means local state is ahead of the server again.
-    this.setSynced(false);
+    // Local state is ahead of the server again.
+    this.syncState.markDirty();
     this.statsSubject$.next(pruned);
   }
 
@@ -161,14 +145,6 @@ export class StatsService {
     }
 
     return stats as PlayerStats;
-  }
-
-  private setSynced(synced: boolean): void {
-    try {
-      localStorage.setItem(this.SYNCED_KEY, String(synced));
-    } catch (error) {
-      console.error('Failed to record sync state:', error);
-    }
   }
 
   private saveToStorage(stats: PlayerStats): void {

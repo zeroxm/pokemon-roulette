@@ -8,6 +8,14 @@ export interface PokedexEntry {
   sprite: string | null;
   shiny?: boolean;
   mega?: boolean;
+  /**
+   * Times this Pokémon has been caught. Absent on entries written before catch
+   * counting existed; #53 introduces the writes and seeds those to 1.
+   *
+   * A row exists because the Pokémon was obtained at least once, so 0 is never
+   * a meaningful value — the backend has a CHECK enforcing that.
+   */
+  count?: number;
 }
 
 export interface PokedexData {
