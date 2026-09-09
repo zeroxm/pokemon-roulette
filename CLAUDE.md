@@ -23,6 +23,7 @@ npm test                                         # Karma/Jasmine, watch mode
 npm test -- --watch=false --browsers=ChromeHeadless   # what CI runs
 npm test -- --include='**/wheel.component.spec.ts'    # single spec file
 npm run deploy                                   # gh-pages, base-href /pokemon-roulette/
+docker build -t pokemon-roulette-web .           # container build, base-href /
 ```
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
@@ -62,6 +63,24 @@ Removing either is a real behaviour change, not cleanup.
 Configured in `angular.json`: initial bundle **1.55 MB warn / 2 MB error**; per-component stylesheet **9 kB warn / 12 kB error**.
 
 These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The new thresholds sit just above current reality — initial bundle **1.50 MB**, and `mega-evolution-animation-modal.component.css` at **8.52 kB** — so growth still trips them.
+
+## Two deployments, on purpose
+
+The game is served from **both** URLs during the accounts rollout, and the two builds differ in one
+setting:
+
+| Where | Build | Base href |
+|---|---|---|
+| `zeroxm.github.io/pokemon-roulette/` | `npm run deploy` → gh-pages | `/pokemon-roulette/` |
+| `pokemon-roulette.zeroxm.com.br` | `Dockerfile` → nginx on automaton, behind Traefik | `/` |
+
+**Do not "clean up" the gh-pages build.** It is still serving every current player, and it stays
+until UAT passes and the migration shim replaces it — see the release order in
+[backend #1](https://github.com/zeroxm/pokemon-roulette-backend/issues/1) and #59/#60.
+
+**Never add a `CNAME` file to this repo.** GitHub Pages would then 301 the old URL to the custom
+domain, and that redirect happens before any JavaScript runs — which is the one thing that makes
+reading the old origin's `localStorage` impossible, and with it every existing player's Pokédex.
 
 ## Architecture
 
