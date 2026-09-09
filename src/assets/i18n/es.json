@@ -3057,6 +3057,29 @@
       "description": "Juega una partida en las nueve regiones."
     }
   },
+  "account": {
+    "title": "Cuenta",
+    "checking": "Comprobando…",
+    "optional": "La cuenta es opcional. El juego funciona sin ella — iniciar sesión solo mantiene tu colección sincronizada entre dispositivos.",
+    "signIn": "Iniciar sesión",
+    "createAccount": "Crear cuenta",
+    "email": "Correo",
+    "password": "Contraseña",
+    "passwordHint": "Al menos {{min}} caracteres.",
+    "noResetWarning": "No hay recuperación de contraseña. Si la olvidas, la cuenta y todo lo que contiene se pierden para siempre. Apúntala.",
+    "signedInAs": "Sesión iniciada como",
+    "signOut": "Cerrar sesión",
+    "signOutEverywhere": "Cerrar sesión en todos los dispositivos",
+    "signOutExplains": "Cerrar sesión elimina tu colección de este dispositivo. Permanece en tu cuenta y vuelve cuando inicies sesión.",
+    "unsyncedWarning": "Parte del progreso aún no ha llegado a tu cuenta. Si cierras sesión ahora, se perderá.",
+    "delete": "Eliminar cuenta",
+    "deleteConfirm": "Eliminar permanentemente",
+    "cancel": "Cancelar",
+    "deleteWarning": "Esto elimina tu cuenta y todo su contenido, de forma permanente. Escribe tu contraseña para confirmar.",
+    "error": {
+      "generic": "No ha funcionado. Inténtalo de nuevo."
+    }
+  },
   "detail": {
     "name": "Nombre",
     "types": "Tipos",

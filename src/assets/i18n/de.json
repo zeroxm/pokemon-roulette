@@ -3057,6 +3057,29 @@
       "description": "Spiele einen Durchlauf in allen neun Regionen."
     }
   },
+  "account": {
+    "title": "Konto",
+    "checking": "Wird geprüft…",
+    "optional": "Ein Konto ist optional. Das Spiel funktioniert auch ohne — die Anmeldung hält nur deine Sammlung auf allen Geräten gleich.",
+    "signIn": "Anmelden",
+    "createAccount": "Konto erstellen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordHint": "Mindestens {{min}} Zeichen.",
+    "noResetWarning": "Es gibt keine Passwortwiederherstellung. Wenn du dieses Passwort vergisst, sind das Konto und alles darin endgültig verloren. Schreib es auf.",
+    "signedInAs": "Angemeldet als",
+    "signOut": "Abmelden",
+    "signOutEverywhere": "Überall abmelden",
+    "signOutExplains": "Beim Abmelden wird deine Sammlung von diesem Gerät entfernt. Sie bleibt in deinem Konto und kehrt bei der nächsten Anmeldung zurück.",
+    "unsyncedWarning": "Ein Teil des Fortschritts hat dein Konto noch nicht erreicht. Wenn du dich jetzt abmeldest, geht er verloren.",
+    "delete": "Konto löschen",
+    "deleteConfirm": "Endgültig löschen",
+    "cancel": "Abbrechen",
+    "deleteWarning": "Damit werden dein Konto und alle Inhalte endgültig gelöscht. Gib zur Bestätigung dein Passwort ein.",
+    "error": {
+      "generic": "Das hat nicht geklappt. Bitte versuche es erneut."
+    }
+  },
   "detail": {
     "name": "Name",
     "types": "Typen",

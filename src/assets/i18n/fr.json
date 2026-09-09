@@ -3057,6 +3057,29 @@
       "description": "Jouez une partie dans les neuf régions."
     }
   },
+  "account": {
+    "title": "Compte",
+    "checking": "Vérification…",
+    "optional": "Le compte est facultatif. Le jeu fonctionne sans — se connecter sert uniquement à synchroniser votre collection entre appareils.",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "passwordHint": "Au moins {{min}} caractères.",
+    "noResetWarning": "Il n'y a aucune réinitialisation de mot de passe. Si vous l'oubliez, le compte et tout son contenu sont perdus définitivement. Notez-le.",
+    "signedInAs": "Connecté en tant que",
+    "signOut": "Se déconnecter",
+    "signOutEverywhere": "Se déconnecter partout",
+    "signOutExplains": "La déconnexion retire votre collection de cet appareil. Elle reste sur votre compte et revient à la reconnexion.",
+    "unsyncedWarning": "Une partie de la progression n'a pas encore atteint votre compte. Si vous vous déconnectez maintenant, elle sera perdue.",
+    "delete": "Supprimer le compte",
+    "deleteConfirm": "Supprimer définitivement",
+    "cancel": "Annuler",
+    "deleteWarning": "Ceci supprime votre compte et tout son contenu, définitivement. Saisissez votre mot de passe pour confirmer.",
+    "error": {
+      "generic": "Cela n'a pas fonctionné. Veuillez réessayer."
+    }
+  },
   "detail": {
     "name": "Nom",
     "types": "Types",
