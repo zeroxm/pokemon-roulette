@@ -7,6 +7,8 @@ import { PokemonService } from '../../../../services/pokemon-service/pokemon.ser
 import { GenerationItem } from '../../../../interfaces/generation-item';
 import { PokemonItem } from '../../../../interfaces/pokemon-item';
 import { POKEMON_POOLS, PokemonPool, PokemonPoolId } from './pokemon-pools';
+import { StatsService } from '../../../../services/stats-service/stats.service';
+import { CounterKey } from '../../../../services/stats-service/counter-keys';
 
 /** Spins a wheel of Pokémon drawn from one named pool for the current generation. */
 @Component({
@@ -30,7 +32,19 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
   constructor(
     private generationService: GenerationService,
     private pokemonService: PokemonService,
+    private statsService: StatsService,
   ) { }
+
+  /**
+   * Pools whose selection is itself the catch, and the counter each feeds.
+   *
+   * Only these two: the legendary pool leads to a capture *attempt* that can
+   * fail, and the rest have no achievement behind them.
+   */
+  private static readonly COUNTED_POOLS: Partial<Record<PokemonPoolId, CounterKey>> = {
+    fish: 'fishing_catches',
+    fossil: 'fossil_catches',
+  };
 
   get poolDefinition(): PokemonPool {
     return POKEMON_POOLS[this.pool];
@@ -56,6 +70,11 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
    * carrying weight 2 would keep a double-width slice on the evolution, trade and mega wheels.
    */
   onItemSelected(index: number): void {
+    const counter = PokemonPoolRouletteComponent.COUNTED_POOLS[this.pool];
+    if (counter) {
+      this.statsService.increment(counter);
+    }
+
     const chosen = this.pokemon[index];
     this.selectedPokemonEvent.emit(this.pokemonService.getPokemonById(chosen.pokemonId) ?? chosen);
   }

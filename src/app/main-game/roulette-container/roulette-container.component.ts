@@ -3,6 +3,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { GenerationRouletteComponent } from "./roulettes/generation-roulette/generation-roulette.component";
 import { GameStateService } from '../../services/game-state-service/game-state.service';
+import { StatsService } from '../../services/stats-service/stats.service';
+import { GenerationId } from '../../services/stats-service/counter-keys';
+import { GenerationService } from '../../services/generation-service/generation.service';
 import { GameState } from '../../services/game-state-service/game-state';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
@@ -121,7 +124,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private settingsService: SettingsService,
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService,
-      private megaStoneService: MegaStoneService) {
+      private megaStoneService: MegaStoneService,
+      private statsService: StatsService,
+      private generationService: GenerationService) {
     }
 
     ngOnInit(): void {
@@ -555,6 +560,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   friendSafari(): void {
+    this.statsService.increment('friend_safari_visits');
     this.gameStateService.setNextState('friend-safari');
     this.finishCurrentState();
   }
@@ -576,11 +582,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   safariZone(): void {
+    this.statsService.increment('safari_zone_visits');
     this.gameStateService.setNextState('safari-zone');
     this.finishCurrentState();
   }
 
   areaZero(): void {
+    this.statsService.increment('area_zero_visits');
     this.gameStateService.setNextState('area-zero');
     this.finishCurrentState();
   }
@@ -602,6 +610,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   rivalBattleResult(result: boolean): void {
     if (result) {
+      this.statsService.increment('rival_battles_won');
       this.chooseWhoWillEvolve('battle-rival');
     } else {
       this.doNothing();
@@ -633,7 +642,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   teamRocketDefeated(): void {
+    this.statsService.increment('team_rocket_defeats');
+
     if (this.run.stolenPokemon) {
+      // Beating them while they hold your Pokémon is the rescue -- a strict
+      // subset of defeating them, which is why both counters move here.
+      this.statsService.increment('team_rocket_rescues');
+
       const pokemonName = this.translateService.instant(this.run.stolenPokemon.text);
 
       this.trainerService.addToTeam(this.run.stolenPokemon);
@@ -663,6 +678,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   performTrade(pokemon: PokemonItem): void {
+    this.statsService.increment('trades_completed');
     this.pkmnIn = structuredClone(pokemon);
     this.pkmnOut = this.currentContextPokemon;
     this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
@@ -731,6 +747,15 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.setRespinReason('');
 
     if (result) {
+      // Read the team size before anything else runs. "Full House" and
+      // "Pokémon Stadium" are about the size when the champion wheel *spun*,
+      // and depositing to the PC beforehand is allowed -- so this is the
+      // moment that counts, not the end of the run.
+      this.statsService.recordChampion(
+        this.generationService.getCurrentGeneration().id as GenerationId,
+        this.trainerService.getTeam().length,
+      );
+
       // Advance first. Leaving `champion-battle` is what reverts battle forms, and the win has to be
       // recorded against the base Pokémon: a team member still mega-evolved here would be filed
       // under its mega id, which has no Pokédex cell and so never shows the win.

@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { GenerationItem } from '../../interfaces/generation-item';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { StatsService } from '../stats-service/stats.service';
+import { GenerationId } from '../stats-service/counter-keys';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenerationService {
 
-  constructor() {
+  constructor(private statsService: StatsService) {
   }
 
   private generations: GenerationItem[] = [
@@ -28,8 +30,17 @@ export class GenerationService {
     return this.generations;
   }
 
+  /** `index` is a position in the list, not a generation id. */
   setGeneration(index: number): void {
-    this.generation.next(this.generations[index]);
+    const generation = this.generations[index];
+    if (!generation) {
+      return;
+    }
+
+    this.generation.next(generation);
+    // Choosing a region is what starts a run there. The id, not the index --
+    // they differ by one, and played_region:0 is not a thing.
+    this.statsService.recordRunStarted(generation.id as GenerationId);
   }
 
   getGeneration(): Observable<GenerationItem> {

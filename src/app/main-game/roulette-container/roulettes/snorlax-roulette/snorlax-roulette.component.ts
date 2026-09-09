@@ -3,6 +3,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { WheelItem } from '../../../../interfaces/wheel-item';
 import { EventSource } from '../../../EventSource';
+import { StatsService } from '../../../../services/stats-service/stats.service';
 
 @Component({
   selector: 'app-snorlax-roulette',
@@ -12,6 +13,8 @@ import { EventSource } from '../../../EventSource';
   styleUrl: './snorlax-roulette.component.css'
 })
 export class SnorlaxRouletteComponent implements OnInit {
+
+  constructor(private statsService: StatsService) { }
 
   @Input() currentRound!: number;
   @Output() runAwayEvent = new EventEmitter<void>();
@@ -34,9 +37,12 @@ export class SnorlaxRouletteComponent implements OnInit {
         this.runAwayEvent.emit();
         break;
       case 1:
+        // "Used the Pokéflute" is either outcome -- running away is not.
+        this.statsService.increment('snorlax_resolved');
         this.catchSnorlaxEvent.emit();
         break;
       case 2:
+        this.statsService.increment('snorlax_resolved');
         this.defeatSnorlaxEvent.emit('snorlax-encounter');
         break;
     }

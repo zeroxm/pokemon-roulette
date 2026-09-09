@@ -13,6 +13,8 @@ import { GenerationService } from '../generation-service/generation.service';
 import { GameState } from '../game-state-service/game-state';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { FormRuleService } from '../form-rule-service/form-rule.service';
+import { StatsService } from '../stats-service/stats.service';
+import { BadgeDexService } from '../badge-dex-service/badge-dex.service';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from './pokemon-mega-forms';
 
 /** Mimikyu's disguised form; the busted form lives in `mimikyu-forms`. */
@@ -43,7 +45,9 @@ export class TrainerService implements OnDestroy {
     private itemSpriteService: ItemSpriteService,
     private pokemonService: PokemonService,
     private gameStateService: GameStateService,
-    private formRuleService: FormRuleService) {
+    private formRuleService: FormRuleService,
+    private statsService: StatsService,
+    private badgeDexService: BadgeDexService) {
     this.gameStateSubscription = this.gameStateService.currentState.subscribe((gameState) => {
       this.syncBattleForms(gameState);
     });
@@ -351,6 +355,7 @@ export class TrainerService implements OnDestroy {
 
     if (changed) {
       this.loadMissingSprites();
+      this.statsService.increment('mimikyu_disguises_busted');
       this.trainerTeamObservable.next(this.getTeam());
     }
     return changed;
@@ -374,6 +379,7 @@ export class TrainerService implements OnDestroy {
 
     if (changed) {
       this.loadMissingSprites();
+      this.statsService.increment('ash_greninja_transformations');
       this.trainerTeamObservable.next(this.getTeam());
     }
     return changed;
@@ -395,6 +401,9 @@ export class TrainerService implements OnDestroy {
     this.badgesService.getBadge(this.generationService.getCurrentGeneration(), fromRound, fromLeader).subscribe(badge => {
       if (badge === undefined) return;
       this.trainerBadges.push(badge);
+      // One point for every badge the game awards: the run's badges die with
+      // it, the badge dex is the lifetime trophy case.
+      this.badgeDexService.record(badge);
       this.trainerBadgesObservable.next(this.trainerBadges);
     })
   }

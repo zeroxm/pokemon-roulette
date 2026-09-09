@@ -4,6 +4,7 @@ import { ItemName } from '../items-service/item-names';
 import { FormRule } from './form-rule';
 import { MegaForm } from '../trainer-service/pokemon-mega-forms';
 import { formRules } from './form-rules';
+import { StatsService } from '../stats-service/stats.service';
 
 /** What a fired rule replaced, so it can be put back. */
 interface AppliedForm {
@@ -30,6 +31,8 @@ export class FormRuleService {
   /** Non-empty only while battle forms are applied; also the idempotency guard. */
   private applied: AppliedForm[] = [];
   private formsApplied = false;
+
+  constructor(private statsService: StatsService) { }
 
   /**
    * Applies every `battle-start` rule whose conditions are met. A no-op if forms are already
@@ -155,6 +158,15 @@ export class FormRuleService {
         changed = true;
       }
     }
+
+    // Every form change funnels through here, which is the point of the rule
+    // table — one place to observe rather than a call beside each mechanic.
+    // A sticky rule cannot re-fire once applied, so `changed` alone is the
+    // signal.
+    if (changed && rule.persistence === 'sticky') {
+      this.statsService.increment('sticky_forms_triggered');
+    }
+
     return changed;
   }
 

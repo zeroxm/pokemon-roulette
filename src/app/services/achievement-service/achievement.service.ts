@@ -50,7 +50,18 @@ export class AchievementService {
       this.statsService.stats$,
       this.badgeDexService.earned$,
     ]).subscribe(([pokedex, , badges]) => {
-      this.evaluate(pokedex, badges, announce);
+      // Guarded because this runs synchronously from the middle of the game
+      // loop: StatsService.increment emits, which lands here, and a progress
+      // function throwing on unexpected data would unwind back into whatever
+      // was spinning a wheel. A broken achievement must not break a run.
+      //
+      // Subscriber errors are a separate matter and RxJS already isolates
+      // those; this covers the evaluation itself.
+      try {
+        this.evaluate(pokedex, badges, announce);
+      } catch (error) {
+        console.error('Failed to evaluate achievements:', error);
+      }
       announce = true;
     });
   }
