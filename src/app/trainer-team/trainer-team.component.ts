@@ -10,6 +10,7 @@ import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 import { PokedexComponent } from "./pokedex/pokedex.component";
 import { BadgeDexComponent } from "./badge-dex/badge-dex.component";
+import { AchievementsComponent } from "./achievements/achievements.component";
 import {TranslatePipe} from '@ngx-translate/core';
 import { ItemItem } from '../interfaces/item-item';
 import { ImageFallbackDirective } from '../directives/image-fallback.directive';
@@ -20,7 +21,7 @@ import { ImageFallbackDirective } from '../directives/image-fallback.directive';
     ImageFallbackDirective,CommonModule,
     NgbTooltipModule,
     BadgesComponent,
-    StoragePcComponent, TranslatePipe, PokedexComponent, BadgeDexComponent],
+    StoragePcComponent, TranslatePipe, PokedexComponent, BadgeDexComponent, AchievementsComponent],
   templateUrl: './trainer-team.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trainer-team.component.css']

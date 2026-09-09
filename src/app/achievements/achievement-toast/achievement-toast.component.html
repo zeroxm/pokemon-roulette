@@ -1,0 +1,8 @@
+@if (current) {
+  <div class="achievement-toast-layer">
+    <button type="button" class="achievement-toast" (click)="dismiss()">
+      <span class="achievement-toast-label">{{ 'achievementsScreen.unlocked' | translate }}</span>
+      <span class="achievement-toast-name">{{ nameKey(current) | translate }}</span>
+    </button>
+  </div>
+}

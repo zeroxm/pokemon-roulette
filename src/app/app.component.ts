@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { ThemeService } from './services/theme-service/theme.service';
+import { AchievementToastComponent } from './achievements/achievement-toast/achievement-toast.component';
 
 const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'pt'] as const;
 const DEFAULT_LANGUAGE = 'en';
@@ -10,7 +11,7 @@ const DEFAULT_LANGUAGE = 'en';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AchievementToastComponent],
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',

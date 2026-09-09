@@ -1,0 +1,59 @@
+/* The layer spans the top of the screen but must never intercept a pointer:
+   a banner that swallows a click over the wheel stops the player spinning. */
+.achievement-toast-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1080;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.6rem;
+  pointer-events: none;
+}
+
+/* The card itself is clickable, so an impatient player can dismiss it. */
+.achievement-toast {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  max-width: min(92vw, 26rem);
+  padding: 0.45rem 1.1rem;
+  border: 2px solid #f5c518;
+  border-radius: 0.6rem;
+  background: rgba(24, 24, 24, 0.94);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  animation: achievement-toast-in 220ms ease-out;
+}
+
+.achievement-toast-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #f5c518;
+}
+
+.achievement-toast-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@keyframes achievement-toast-in {
+  from { opacity: 0; transform: translateY(-0.6rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Respect a player who has asked the system for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .achievement-toast { animation: none; }
+}
+
+@media (max-width: 576px) {
+  .achievement-toast { padding: 0.35rem 0.8rem; }
+  .achievement-toast-name { font-size: 0.85rem; }
+}

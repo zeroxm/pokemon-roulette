@@ -2832,6 +2832,231 @@
     "title": "Badge Case",
     "progress": "{{earned}} of {{total}}"
   },
+  "achievementsScreen": {
+    "button": "Achievements",
+    "title": "Achievements",
+    "unlocked": "Achievement unlocked",
+    "hidden": "A secret, for now.",
+    "group": {
+      "collection": "Collection",
+      "shiny": "Shiny",
+      "champion": "Champion",
+      "rival": "Rival",
+      "forms": "Forms",
+      "encounters": "Encounters",
+      "badges": "Badges",
+      "grind": "Dedication"
+    },
+    "total": {
+      "caught": "Caught",
+      "shiny": "Shinies",
+      "badges": "Badges",
+      "runs": "Runs won",
+      "spins": "Spins"
+    }
+  },
+  "achievements": {
+    "i_choose_you": {
+      "name": "I choose you",
+      "description": "Catch your first Pokémon."
+    },
+    "pokedex_lv_1": {
+      "name": "Pokédex Lv 1",
+      "description": "Catch 10 different Pokémon."
+    },
+    "pokedex_lv_2": {
+      "name": "Pokédex Lv 2",
+      "description": "Catch 50 different Pokémon."
+    },
+    "pokedex_lv_3": {
+      "name": "Pokédex Lv 3",
+      "description": "Catch 100 different Pokémon."
+    },
+    "pokedex_lv_4": {
+      "name": "Pokédex Lv 4",
+      "description": "Catch 250 different Pokémon."
+    },
+    "pokedex_lv_5": {
+      "name": "Pokédex Lv 5",
+      "description": "Catch 500 different Pokémon."
+    },
+    "gotta_catch_em_all_national": {
+      "name": "Gotta catch 'em... all?!",
+      "description": "Complete the National Pokédex."
+    },
+    "gotta_catch_em_all_regional": {
+      "name": "Gotta catch 'em all!",
+      "description": "Complete one region's Pokédex."
+    },
+    "i_choose_you_and_you": {
+      "name": "I choose you, and you, and you...",
+      "description": "Catch every starter from all nine regions."
+    },
+    "paleontologist": {
+      "name": "Paleontologist",
+      "description": "Revive every fossil Pokémon."
+    },
+    "myth_buster": {
+      "name": "Myth Buster",
+      "description": "Catch every legendary Pokémon of one region."
+    },
+    "oh_shiny": {
+      "name": "Oh, shiny!",
+      "description": "Find your first shiny Pokémon."
+    },
+    "shiny_hunter_1": {
+      "name": "Shiny Hunter I",
+      "description": "Find 5 shiny Pokémon."
+    },
+    "shiny_hunter_2": {
+      "name": "Shiny Hunter II",
+      "description": "Find 10 shiny Pokémon."
+    },
+    "shiny_hunter_3": {
+      "name": "Shiny Hunter III",
+      "description": "Find 25 shiny Pokémon."
+    },
+    "never_tell_me_the_odds": {
+      "name": "Never tell me the odds!",
+      "description": "Find a shiny legendary Pokémon."
+    },
+    "champion": {
+      "name": "Champion",
+      "description": "Win your first run."
+    },
+    "regional_champion": {
+      "name": "Regional Champion",
+      "description": "Become champion in 3 regions."
+    },
+    "world_champion": {
+      "name": "World Champion",
+      "description": "Become champion in all nine regions."
+    },
+    "full_house": {
+      "name": "Full House",
+      "description": "Win with a full team of six."
+    },
+    "pokemon_stadium": {
+      "name": "Pokémon Stadium",
+      "description": "Win with three Pokémon or fewer on your team."
+    },
+    "smell_ya_later": {
+      "name": "Smell ya later!",
+      "description": "Win a rival battle."
+    },
+    "notch_above": {
+      "name": "A notch above the competition",
+      "description": "Win 5 rival battles."
+    },
+    "fruitful_battle": {
+      "name": "A fruitful battle",
+      "description": "Win 10 rival battles."
+    },
+    "evolved_beyond_1": {
+      "name": "Evolved Beyond I",
+      "description": "Mega evolve a Pokémon for the first time."
+    },
+    "evolved_beyond_2": {
+      "name": "Evolved Beyond II",
+      "description": "Mega evolve 10 different Pokémon."
+    },
+    "its_a_disguise": {
+      "name": "It's a Disguise!",
+      "description": "Break Mimikyu's Disguise."
+    },
+    "bond_phenomenon": {
+      "name": "Bond Phenomenon",
+      "description": "Trigger the Ash-Greninja transformation."
+    },
+    "shapeshifter": {
+      "name": "Shapeshifter",
+      "description": "Trigger a form change that sticks."
+    },
+    "super_rod": {
+      "name": "Super Rod",
+      "description": "Catch 10 Pokémon while fishing."
+    },
+    "super_nerd": {
+      "name": "Super Nerd",
+      "description": "Revive 10 fossil Pokémon."
+    },
+    "prepare_for_trouble": {
+      "name": "Prepare for Trouble",
+      "description": "Defeat Team Rocket."
+    },
+    "make_it_double": {
+      "name": "Make it Double",
+      "description": "Defeat Team Rocket while they hold your stolen Pokémon."
+    },
+    "mystery_gift": {
+      "name": "Mystery Gift",
+      "description": "Hatch a mysterious egg."
+    },
+    "used_the_pokeflute": {
+      "name": "Used the Pokéflute",
+      "description": "Catch or defeat Snorlax."
+    },
+    "five_hundred_steps": {
+      "name": "500 Steps",
+      "description": "Visit the Safari Zone."
+    },
+    "friend_code": {
+      "name": "Friend Code",
+      "description": "Visit the Friend Safari."
+    },
+    "the_great_crater": {
+      "name": "The Great Crater",
+      "description": "Visit Area Zero."
+    },
+    "a_fair_trade": {
+      "name": "A Fair Trade",
+      "description": "Complete a trade."
+    },
+    "champ_in_the_making": {
+      "name": "Yo! Champ in the making!",
+      "description": "Earn your first badge."
+    },
+    "off_to_victory_road": {
+      "name": "Off to the Victory Road",
+      "description": "Earn all eight badges of one region."
+    },
+    "badger_badger_badger": {
+      "name": "Badger, Badger, Badger...",
+      "description": "Earn all the badges of three regions."
+    },
+    "the_very_best": {
+      "name": "The very best, like no one ever was",
+      "description": "Earn every badge in the game."
+    },
+    "youngster": {
+      "name": "Youngster",
+      "description": "Complete 10 runs."
+    },
+    "bug_catcher": {
+      "name": "Bug Catcher",
+      "description": "Complete 25 runs."
+    },
+    "ace_trainer": {
+      "name": "Ace Trainer",
+      "description": "Complete 50 runs."
+    },
+    "veteran": {
+      "name": "Veteran",
+      "description": "Complete 100 runs."
+    },
+    "wheel_of_fortune": {
+      "name": "Wheel of Fortune",
+      "description": "Spin the wheel 1,000 times."
+    },
+    "whos_that_pokemon": {
+      "name": "Who's that Pokémon?",
+      "description": "Catch the same Pokémon 50 times."
+    },
+    "world_tour": {
+      "name": "World Tour",
+      "description": "Play a run in all nine regions."
+    }
+  },
   "detail": {
     "name": "Name",
     "types": "Types",
