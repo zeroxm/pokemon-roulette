@@ -1,0 +1,47 @@
+<button type="button" class="btn"
+  [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
+  (click)="open()">
+  <ng-icon name="bootstrapPhone"></ng-icon>
+  {{ 'rotomPhone.button' | translate }}
+</button>
+
+<ng-template #phoneModal let-modal>
+  <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    <h4 class="modal-title">{{ 'rotomPhone.title' | translate }}</h4>
+    <button type="button" class="btn-close"
+      [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
+      (click)="closeModal()" aria-label="Close"></button>
+  </div>
+
+  <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    <ul class="nav nav-tabs mb-3 phone-apps">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="app === 'pokedex'" (click)="app = 'pokedex'">
+          <ng-icon name="bootstrapBook"></ng-icon> {{ 'pokedex.title' | translate }}
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="app === 'badges'" (click)="app = 'badges'">
+          <ng-icon name="bootstrapTrophy"></ng-icon> {{ 'badgeDex.title' | translate }}
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="app === 'achievements'" (click)="app = 'achievements'">
+          <ng-icon name="bootstrapAward"></ng-icon> {{ 'achievementsScreen.title' | translate }}
+        </button>
+      </li>
+    </ul>
+
+    <!-- @if rather than hiding with CSS: each panel subscribes to a service
+         and builds a grid of up to 1,025 entries, and three of those mounted
+         at once for the sake of an instant tab switch is not a good trade on
+         a phone. -->
+    @if (app === 'pokedex') {
+      <app-pokedex></app-pokedex>
+    } @else if (app === 'badges') {
+      <app-badge-dex></app-badge-dex>
+    } @else {
+      <app-achievements></app-achievements>
+    }
+  </div>
+</ng-template>

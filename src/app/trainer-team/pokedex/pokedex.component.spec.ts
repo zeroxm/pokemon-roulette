@@ -8,6 +8,7 @@ import { PokedexComponent } from './pokedex.component';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
+import { PokemonItem } from '../../interfaces/pokemon-item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokedexDetailModalComponent } from '../../pokedex/pokedex-detail-modal/pokedex-detail-modal.component';
 
@@ -31,9 +32,14 @@ describe('PokedexComponent', () => {
     generationServiceSpy.getCurrentGeneration.and.returnValue(
       { id: 1, text: 'Gen 1', region: 'Kanto', fillStyle: 'darkred', weight: 1 }
     );
-    pokemonServiceSpy = jasmine.createSpyObj('PokemonService', [], {
-      nationalDexPokemon: [{ pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 }]
+    const bulbasaur: PokemonItem = { pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green', sprite: null, shiny: false, power: 1, weight: 1 };
+    // getPokemonById is needed now that the grid actually renders: this panel
+    // used to live inside an ng-template that a spec never instantiated, so
+    // its children were never built and the gap in this mock never showed.
+    pokemonServiceSpy = jasmine.createSpyObj('PokemonService', ['getPokemonById'], {
+      nationalDexPokemon: [bulbasaur]
     });
+    pokemonServiceSpy.getPokemonById.and.returnValue(bulbasaur);
     await TestBed.configureTestingModule({
       imports: [PokedexComponent],
       providers: [
@@ -71,14 +77,6 @@ describe('PokedexComponent', () => {
   it('caughtCount is 0 or more and not greater than totalCount', () => {
     expect(component.caughtCount).toBeGreaterThanOrEqual(0);
     expect(component.caughtCount).toBeLessThanOrEqual(component.totalCount);
-  });
-
-  it('openPokedex calls NgbModal.open with size lg', () => {
-    component.openPokedex();
-    expect(modalServiceSpy.open).toHaveBeenCalledWith(
-      jasmine.anything(),
-      jasmine.objectContaining({ size: 'lg' })
-    );
   });
 
   it('darkMode field is assigned after ngOnInit', () => {

@@ -2820,7 +2820,6 @@
   },
   "pokedex": {
     "title": "Pokédex",
-    "button": "Pokédex",
     "tab": {
       "local": "Pokédex {{region}}",
       "national": "Pokédex Nacional"
@@ -2828,12 +2827,10 @@
     "caught": "Capturados:"
   },
   "badgeDex": {
-    "button": "Insígnias",
     "title": "Estojo de Insígnias",
     "progress": "{{earned}} de {{total}}"
   },
   "achievementsScreen": {
-    "button": "Conquistas",
     "title": "Conquistas",
     "unlocked": "Conquista desbloqueada",
     "group": {
@@ -3134,5 +3131,9 @@
   "migration": {
     "transferred": "Seu progresso chegou — {{count}} Pokémon estão de volta na sua Pokédex.",
     "dismiss": "Fechar"
+  },
+  "rotomPhone": {
+    "button": "Rotom Phone",
+    "title": "Rotom Phone"
   }
 }

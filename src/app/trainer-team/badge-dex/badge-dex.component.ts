@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -32,7 +31,7 @@ interface RegionCase {
  */
 @Component({
   selector: 'app-badge-dex',
-  imports: [CommonModule, NgIconsModule, NgbTooltipModule, TranslatePipe, ImageFallbackDirective],
+  imports: [CommonModule, NgbTooltipModule, TranslatePipe, ImageFallbackDirective],
   templateUrl: './badge-dex.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './badge-dex.component.css',
@@ -41,14 +40,10 @@ export class BadgeDexComponent implements OnInit, OnDestroy {
 
   constructor(
     private themeService: ThemeService,
-    private modalService: NgbModal,
     private badgeDexService: BadgeDexService,
     private generationService: GenerationService,
   ) {}
 
-  // static: true, or the first click finds an undefined ref — same reason as
-  // the Pokédex modal next to it.
-  @ViewChild('badgeDexModal', { static: true }) badgeDexModal!: TemplateRef<unknown>;
 
   darkMode!: Observable<boolean>;
   earned: ReadonlySet<string> = new Set();
@@ -99,13 +94,7 @@ export class BadgeDexComponent implements OnInit, OnDestroy {
     return region.rounds.filter(round => round.badges.some(badge => this.hasBadge(badge))).length;
   }
 
-  openBadgeDex(): void {
-    this.modalService.open(this.badgeDexModal, { centered: true, size: 'lg', scrollable: true });
-  }
 
-  closeModal(): void {
-    this.modalService.dismissAll();
-  }
 
   private buildCases(): RegionCase[] {
     return this.generationService.getGenerationList().map(generation => ({

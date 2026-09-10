@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,7 +15,7 @@ import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
 
 @Component({
   selector: 'app-pokedex',
-  imports: [CommonModule, NgIconsModule, TranslatePipe, PokedexEntryComponent],
+  imports: [CommonModule, TranslatePipe, PokedexEntryComponent],
   templateUrl: './pokedex.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pokedex.component.css'
@@ -31,8 +30,6 @@ export class PokedexComponent implements OnInit, OnDestroy {
     private pokemonService: PokemonService
   ) {}
 
-  // Omitting static: true causes openPokedex() to fail with undefined ref on first click
-  @ViewChild('pokedexModal', { static: true }) pokedexModal!: TemplateRef<any>;
 
   darkMode!: Observable<boolean>;
   pokedexData: PokedexData | undefined;
@@ -61,17 +58,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  openPokedex(): void {
-    this.activeTab = 'local';  // per D-03: Local Dex active by default on open
-    this.modalService.open(this.pokedexModal, {
-      centered: true,
-      size: 'lg'
-    });
-  }
 
-  closeModal(): void {
-    this.modalService.dismissAll();
-  }
 
   onEntryClicked(event: PokedexEntryClickEvent): void {
     const modalRef = this.modalService.open(PokedexDetailModalComponent, {

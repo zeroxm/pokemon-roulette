@@ -2820,7 +2820,6 @@
   },
   "pokedex": {
     "title": "Pokédex",
-    "button": "Pokédex",
     "tab": {
       "local": "Pokédex {{region}}",
       "national": "Pokédex Nazionale"
@@ -2828,12 +2827,10 @@
     "caught": "Catturati:"
   },
   "badgeDex": {
-    "button": "Medaglie",
     "title": "Custodia Medaglie",
     "progress": "{{earned}} su {{total}}"
   },
   "achievementsScreen": {
-    "button": "Obiettivi",
     "title": "Obiettivi",
     "unlocked": "Obiettivo sbloccato",
     "group": {
@@ -3134,5 +3131,9 @@
   "migration": {
     "transferred": "I tuoi progressi sono arrivati: {{count}} Pokémon sono di nuovo nel tuo Pokédex.",
     "dismiss": "Chiudi"
+  },
+  "rotomPhone": {
+    "button": "Rotom Phone",
+    "title": "Rotom Phone"
   }
 }

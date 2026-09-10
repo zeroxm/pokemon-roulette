@@ -1,63 +1,41 @@
-<button type="button" class="btn"
-  [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
-  (click)="openAchievements()">
-  <ng-icon name="bootstrapAward"></ng-icon>
-  {{ 'achievementsScreen.button' | translate }}
-</button>
+<section class="lifetime-totals">
+  @for (total of totals; track total.labelKey) {
+    <div class="lifetime-total">
+      <span class="lifetime-value">{{ total.value }}</span>
+      <span class="lifetime-label">{{ total.labelKey | translate }}</span>
+    </div>
+  }
+</section>
 
-<ng-template #achievementsModal let-modal>
-  <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
-    <h4 class="modal-title">
-      {{ 'achievementsScreen.title' | translate }}
-      <small class="achievements-count">{{ unlockedCount }} / {{ total }}</small>
-    </h4>
-    <button type="button" class="btn-close"
-      [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
-      (click)="closeModal()" aria-label="Close"></button>
-  </div>
+@for (group of groups; track group.group) {
+  <section class="achievement-group">
+    <h5 class="achievement-group-title">{{ groupLabelKey(group.group) | translate }}</h5>
 
-  <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
+    @for (achievement of group.achievements; track achievement.id) {
+      <div class="achievement-row" [class.unlocked]="isUnlocked(achievement)">
 
-    <section class="lifetime-totals">
-      @for (total of totals; track total.labelKey) {
-        <div class="lifetime-total">
-          <span class="lifetime-value">{{ total.value }}</span>
-          <span class="lifetime-label">{{ total.labelKey | translate }}</span>
+        <div class="achievement-text">
+          <span class="achievement-name">{{ nameKey(achievement) | translate }}</span>
+          <span class="achievement-description">{{ descriptionKey(achievement) | translate }}</span>
         </div>
-      }
-    </section>
 
-    @for (group of groups; track group.group) {
-      <section class="achievement-group">
-        <h5 class="achievement-group-title">{{ groupLabelKey(group.group) | translate }}</h5>
-
-        @for (achievement of group.achievements; track achievement.id) {
-          <div class="achievement-row" [class.unlocked]="isUnlocked(achievement)">
-
-            <div class="achievement-text">
-              <span class="achievement-name">{{ nameKey(achievement) | translate }}</span>
-              <span class="achievement-description">{{ descriptionKey(achievement) | translate }}</span>
+        <div class="achievement-progress">
+          @if (isUnlocked(achievement)) {
+            <span class="achievement-tick" aria-hidden="true">&check;</span>
+          } @else {
+            <div class="progress-track"
+                 role="progressbar"
+                 [attr.aria-valuenow]="percentFor(achievement)"
+                 aria-valuemin="0"
+                 aria-valuemax="100">
+              <div class="progress-fill" [style.width.%]="percentFor(achievement)"></div>
             </div>
-
-            <div class="achievement-progress">
-              @if (isUnlocked(achievement)) {
-                <span class="achievement-tick" aria-hidden="true">&check;</span>
-              } @else {
-                <div class="progress-track"
-                     role="progressbar"
-                     [attr.aria-valuenow]="percentFor(achievement)"
-                     aria-valuemin="0"
-                     aria-valuemax="100">
-                  <div class="progress-fill" [style.width.%]="percentFor(achievement)"></div>
-                </div>
-                <span class="progress-numbers">
-                  {{ progressFor(achievement).current }}/{{ progressFor(achievement).target }}
-                </span>
-              }
-            </div>
-          </div>
-        }
-      </section>
+            <span class="progress-numbers">
+              {{ progressFor(achievement).current }}/{{ progressFor(achievement).target }}
+            </span>
+          }
+        </div>
+      </div>
     }
-  </div>
-</ng-template>
+  </section>
+}
