@@ -258,7 +258,7 @@
             "findFossil": "Trova un fossile",
             "battleRival": "Lotta contro il rivale",
             "safariZone": "Visita la Zona Safari",
-            "friendSafari": "Entra in un Safari degli Amici",
+            "friendSafari": "Safari degli Amici",
             "areaZero": "Esplora Area Zero"
           }
         },
@@ -2836,7 +2836,6 @@
     "button": "Obiettivi",
     "title": "Obiettivi",
     "unlocked": "Obiettivo sbloccato",
-    "hidden": "Un segreto, per ora.",
     "group": {
       "collection": "Collezione",
       "shiny": "Shiny",
@@ -3076,7 +3075,13 @@
     "cancel": "Annulla",
     "deleteWarning": "Questo elimina il tuo account e tutto il suo contenuto, definitivamente. Inserisci la password per confermare.",
     "error": {
-      "generic": "Non ha funzionato. Riprova."
+      "generic": "Non ha funzionato. Riprova.",
+      "credentials": "Questa email e questa password non corrispondono a nessun account.",
+      "emailTaken": "Esiste già un account con questa email. Accedi invece.",
+      "rateLimited": "Troppi tentativi. Aspetta un momento e riprova.",
+      "invalid": "Controlla quello che hai scritto e riprova.",
+      "server": "Qualcosa è andato storto da parte nostra. Riprova.",
+      "offline": "Impossibile raggiungere il server. Controlla la connessione e riprova."
     },
     "sync": {
       "off": "Nessuna sincronizzazione.",

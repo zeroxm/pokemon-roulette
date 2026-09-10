@@ -258,12 +258,12 @@
             "findFossil": "Trouver un fossile",
             "battleRival": "Combattre le rival",
             "safariZone": "Visiter le Parc Safari",
-            "friendSafari": "Entrer dans une Safari des Amis",
+            "friendSafari": "Safari des Amis",
             "areaZero": "Explorer la Zone Zéro"
           }
         },
         "friendSafari": {
-          "which": "Quelle Safari des Amis ?",
+          "which": "Quel Safari des Amis ?",
           "catch": "Quel Pokémon allez-vous capturer ?"
         },
         "safariZone": {
@@ -2836,7 +2836,6 @@
     "button": "Succès",
     "title": "Succès",
     "unlocked": "Succès débloqué",
-    "hidden": "Un secret, pour l’instant.",
     "group": {
       "collection": "Collection",
       "shiny": "Chromatiques",
@@ -3076,7 +3075,13 @@
     "cancel": "Annuler",
     "deleteWarning": "Ceci supprime votre compte et tout son contenu, définitivement. Saisissez votre mot de passe pour confirmer.",
     "error": {
-      "generic": "Cela n'a pas fonctionné. Veuillez réessayer."
+      "generic": "Cela n'a pas fonctionné. Veuillez réessayer.",
+      "credentials": "Cet e-mail et ce mot de passe ne correspondent à aucun compte.",
+      "emailTaken": "Un compte existe déjà avec cet e-mail. Connectez-vous.",
+      "rateLimited": "Trop de tentatives. Patientez un instant et réessayez.",
+      "invalid": "Vérifiez ce que vous avez saisi et réessayez.",
+      "server": "Un problème est survenu de notre côté. Réessayez.",
+      "offline": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez."
     },
     "sync": {
       "off": "Pas de synchronisation.",

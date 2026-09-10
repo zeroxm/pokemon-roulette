@@ -258,12 +258,12 @@
             "findFossil": "Encontrar un fósil",
             "battleRival": "Combate contra el Rival",
             "safariZone": "Visitar la Zona Safari",
-            "friendSafari": "Entrar en una Safari Amigo",
+            "friendSafari": "Safari Amistad",
             "areaZero": "Explorar el Área Cero"
           }
         },
         "friendSafari": {
-          "which": "¿Qué Safari Amigo?",
+          "which": "¿Qué Safari Amistad?",
           "catch": "¿Qué Pokémon vas a capturar?"
         },
         "safariZone": {
@@ -2836,7 +2836,6 @@
     "button": "Logros",
     "title": "Logros",
     "unlocked": "Logro desbloqueado",
-    "hidden": "Un secreto, por ahora.",
     "group": {
       "collection": "Colección",
       "shiny": "Shiny",
@@ -3002,7 +3001,7 @@
     },
     "friend_code": {
       "name": "Código de Amigo",
-      "description": "Visita la Zona Safari Amigo."
+      "description": "Visita el Safari Amistad."
     },
     "the_great_crater": {
       "name": "El Gran Cráter",
@@ -3076,7 +3075,13 @@
     "cancel": "Cancelar",
     "deleteWarning": "Esto elimina tu cuenta y todo su contenido, de forma permanente. Escribe tu contraseña para confirmar.",
     "error": {
-      "generic": "No ha funcionado. Inténtalo de nuevo."
+      "generic": "No ha funcionado. Inténtalo de nuevo.",
+      "credentials": "Ese correo y contraseña no coinciden con ninguna cuenta.",
+      "emailTaken": "Ya existe una cuenta con ese correo. Inicia sesión.",
+      "rateLimited": "Demasiados intentos. Espera un momento e inténtalo de nuevo.",
+      "invalid": "Revisa lo que escribiste e inténtalo de nuevo.",
+      "server": "Algo salió mal de nuestro lado. Inténtalo de nuevo.",
+      "offline": "No se pudo contactar con el servidor. Comprueba tu conexión e inténtalo de nuevo."
     },
     "sync": {
       "off": "Sin sincronizar.",

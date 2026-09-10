@@ -258,7 +258,7 @@
             "findFossil": "Finde ein Fossil",
             "battleRival": "Rivalen-Kampf",
             "safariZone": "Besuche die Safari-Zone",
-            "friendSafari": "Betritt eine Freundes-Safari",
+            "friendSafari": "Freundes-Safari",
             "areaZero": "Erkunde Zone Null"
           }
         },
@@ -2836,7 +2836,6 @@
     "button": "Erfolge",
     "title": "Erfolge",
     "unlocked": "Erfolg freigeschaltet",
-    "hidden": "Noch ein Geheimnis.",
     "group": {
       "collection": "Sammlung",
       "shiny": "Schillernd",
@@ -3076,7 +3075,13 @@
     "cancel": "Abbrechen",
     "deleteWarning": "Damit werden dein Konto und alle Inhalte endgültig gelöscht. Gib zur Bestätigung dein Passwort ein.",
     "error": {
-      "generic": "Das hat nicht geklappt. Bitte versuche es erneut."
+      "generic": "Das hat nicht geklappt. Bitte versuche es erneut.",
+      "credentials": "Diese E-Mail und dieses Passwort gehören zu keinem Konto.",
+      "emailTaken": "Es gibt bereits ein Konto mit dieser E-Mail. Melde dich stattdessen an.",
+      "rateLimited": "Zu viele Versuche. Warte einen Moment und versuche es erneut.",
+      "invalid": "Überprüfe deine Eingaben und versuche es erneut.",
+      "server": "Bei uns ist etwas schiefgelaufen. Versuche es erneut.",
+      "offline": "Der Server war nicht erreichbar. Prüfe deine Verbindung und versuche es erneut."
     },
     "sync": {
       "off": "Keine Synchronisierung.",

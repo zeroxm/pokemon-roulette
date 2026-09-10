@@ -258,7 +258,7 @@
             "findFossil": "Find a Fossil",
             "battleRival": "Battle Rival",
             "safariZone": "Visit the Safari Zone",
-            "friendSafari": "Enter a Friend Safari",
+            "friendSafari": "Friend Safari",
             "areaZero": "Explore Area Zero"
           }
         },
@@ -2836,7 +2836,6 @@
     "button": "Achievements",
     "title": "Achievements",
     "unlocked": "Achievement unlocked",
-    "hidden": "A secret, for now.",
     "group": {
       "collection": "Collection",
       "shiny": "Shiny",
@@ -3076,7 +3075,13 @@
     "cancel": "Cancel",
     "deleteWarning": "This deletes your account and everything in it, permanently. Enter your password to confirm.",
     "error": {
-      "generic": "That did not work. Please try again."
+      "generic": "That did not work. Please try again.",
+      "credentials": "That email and password do not match an account.",
+      "emailTaken": "An account with that email already exists. Sign in instead.",
+      "rateLimited": "Too many attempts. Please wait a moment and try again.",
+      "invalid": "Please check what you typed and try again.",
+      "server": "Something went wrong on our end. Please try again.",
+      "offline": "Could not reach the server. Check your connection and try again."
     },
     "sync": {
       "off": "Not syncing.",

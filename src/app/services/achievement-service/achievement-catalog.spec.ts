@@ -73,13 +73,4 @@ describe('the achievement catalog', () => {
     expect(progress.current).toBe(2);
   });
 
-  it('hides the achievements a player may never be able to earn', () => {
-    // Region-locked encounters: a player who only ever visits Johto cannot
-    // reach these, and three permanently locked rows read as broken.
-    for (const id of ['five_hundred_steps', 'friend_code', 'the_great_crater']) {
-      expect(ACHIEVEMENTS.find(a => a.id === id)!.hidden)
-        .withContext(`${id} is region-locked and should be hidden`)
-        .toBeTrue();
-    }
-  });
 });

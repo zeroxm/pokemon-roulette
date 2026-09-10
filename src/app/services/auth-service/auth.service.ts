@@ -14,6 +14,22 @@ interface ApiErrorEnvelope {
 }
 
 /**
+ * API error codes this build can say something better than English about.
+ *
+ * `invalid_request` is deliberately generic here. The server sends a precise
+ * message for it -- which password rule was broken, say -- but the client
+ * checks those rules itself before submitting and says so in the player's own
+ * language, so reaching this is already an edge case.
+ */
+const ERROR_KEYS: Readonly<Record<string, string>> = {
+  unauthorized: 'account.error.credentials',
+  conflict: 'account.error.emailTaken',
+  rate_limited: 'account.error.rateLimited',
+  invalid_request: 'account.error.invalid',
+  internal: 'account.error.server',
+};
+
+/**
  * Accounts, and whether there is one.
  *
  * **The game works with no account, forever.** Nothing here may gate play: a
@@ -101,11 +117,39 @@ export class AuthService {
   }
 
   /**
-   * The message to show a player for a failed request.
+   * The translation key for a failed request, or `null` to show the server's
+   * own words.
    *
-   * Returns exactly what the API said. The signup and login endpoints answer
-   * "wrong password" and "no such account" identically **on purpose**, and a
-   * client that guesses a more specific message undoes that on the front end.
+   * Translating by **code** rather than by message is what lets this be
+   * localised at all. Showing the server's text verbatim was deliberate --
+   * login answers "wrong password" and "no such account" identically, and a
+   * client that guesses a more specific message undoes that -- but verbatim
+   * also meant English, in a game that ships in six languages. Mapping the
+   * code preserves the ambiguity exactly, because the *code* is identical in
+   * both cases too.
+   *
+   * A code this build does not recognise falls through to the server's text.
+   * The API deploys on its own schedule, and an English sentence that is
+   * precise beats a translated one that is wrong.
+   */
+  static errorKeyFor(error: unknown): string | null {
+    if (!(error instanceof HttpErrorResponse)) {
+      return null;
+    }
+
+    // No status at all is the network being unreachable, which the server
+    // never got to have an opinion about.
+    if (error.status === 0) {
+      return 'account.error.offline';
+    }
+
+    const code = (error.error as ApiErrorEnvelope | null)?.error?.code;
+    return code && Object.hasOwn(ERROR_KEYS, code) ? ERROR_KEYS[code] : null;
+  }
+
+  /**
+   * The message to show a player for a failed request, when no translation
+   * applies. Returns exactly what the API said.
    */
   static messageFor(error: unknown, fallback: string): string {
     if (error instanceof HttpErrorResponse) {
