@@ -1,21 +1,22 @@
-# Moving the game to Cloudflare Pages
+# Deploying the game to Cloudflare Pages
 
-The game currently runs on **automaton**, behind Traefik and the Cloudflare tunnel. This is how to
-move it to Cloudflare Pages, and how to keep deploying once it is there.
+`pokemon-roulette.zeroxm.com.br` is served by **Cloudflare Pages**, by Direct Upload — Cloudflare
+has no access to the repository. The interim copy on automaton is gone; the **API stays on
+automaton**, because it is not a static site and Pages cannot host it.
 
-Nothing here is urgent. Automaton works, and the two differ mainly in who is responsible for uptime.
+**To deploy, this is the whole loop:**
 
-| | automaton (today) | Cloudflare Pages |
-|---|---|---|
-| Cost | free | free |
-| Uptime | your server | Cloudflare's |
-| CDN | none — every request crosses the tunnel | global |
-| Deploy | `scripts/deploy.sh` from the skill | `scripts/deploy-cloudflare.sh` |
-| Repo access | none | none, with Direct Upload |
+```bash
+source ~/.config/pokemon-roulette/cloudflare.env
+./scripts/deploy-cloudflare.sh
+```
+
+The rest of this file is the setup that is already done, kept because it is how to rebuild this
+from nothing.
 
 ---
 
-## One-time setup
+## One-time setup (done)
 
 ### 1. An API token
 
@@ -46,13 +47,16 @@ source ~/.config/pokemon-roulette/cloudflare.env
 ./scripts/deploy-cloudflare.sh
 ```
 
-That publishes to `pokemon-roulette.pages.dev`. **Open it and check the game works there** — the
-whole point of doing this before the DNS change is that automaton keeps serving players while you
-look.
+That publishes to a `*.pages.dev` URL. **Open it and check the game works there** — the point of
+doing this before the DNS change is that the old deployment keeps serving players while you look.
+
+One limit to know about: **`*.pages.dev` cannot test anything account-shaped.** The API's CORS
+allowlist holds only the real hostname, and the session cookie is scoped to `.zeroxm.com.br`, which
+`pages.dev` is not part of. Preview URLs are for looking at the game, not for signing in.
 
 ---
 
-## The cutover
+## The cutover (done)
 
 Only after the `.pages.dev` URL is verified.
 
@@ -78,20 +82,15 @@ static site and Pages cannot host it.
 ssh automaton 'cd ~/apps/pokemon-roulette-web && docker compose down'
 ```
 
-Keep the directory. Bringing it back is `docker compose up -d`, which is the rollback if Pages
-disappoints.
+Done, and the stack directory and images were removed with it — Pages is now the only host for this
+hostname, so a stopped container with a live Traefik host rule was a surprise waiting to happen.
+Rebuilding it is `docker build` plus the deploy skill, not `docker compose up`.
 
 ---
 
-## Deploying after that
+## What the deploy script does
 
-```bash
-source ~/.config/pokemon-roulette/cloudflare.env
-./scripts/deploy-cloudflare.sh
-```
-
-That is the whole loop. The script builds, checks two things that would otherwise fail silently, and
-publishes.
+The script builds, checks two things that would otherwise fail silently, and publishes.
 
 **What it checks, and why those two:**
 
