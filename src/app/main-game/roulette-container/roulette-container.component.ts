@@ -56,7 +56,7 @@ import { EndGameComponent } from "../end-game/end-game.component";
 import { GameOverComponent } from "../game-over/game-over.component";
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
-import { MegaStoneService } from '../../services/mega-stone-service/mega-stone.service';
+import { MegaStoneActivation, MegaStoneService } from '../../services/mega-stone-service/mega-stone.service';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 import { MegaEvolutionAnimationModalComponent } from './roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 import { SelectFromItemListRouletteComponent } from './roulettes/select-from-item-list-roulette/select-from-item-list-roulette.component';
@@ -159,8 +159,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.handleRareCandyEvolution(rareCandy);
     });
 
-    this.megaStoneSubscription = this.megaStoneService.megaStoneTrigger$.subscribe((megaStone) => {
-      this.handleMegaStoneActivation(megaStone);
+    this.megaStoneSubscription = this.megaStoneService.megaStoneTrigger$.subscribe((activation) => {
+      this.handleMegaStoneActivation(activation);
     });
   }
 
@@ -847,7 +847,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
 
-  private handleMegaStoneActivation(megaStone: ItemItem): void {
+  private handleMegaStoneActivation({ stone: megaStone, pokemon }: MegaStoneActivation): void {
     if (!this.isBattleState(this.currentGameState)) {
       return;
     }
@@ -867,8 +867,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const matchingPokemon = this.getPokemonMatchingMegaStone(megaStone.name);
-    if (matchingPokemon.length === 0) {
+    // The team member the player actually tapped, when there was one. Falling
+    // back to the first match is only for a stone tapped in the bag, where
+    // nothing was pointed at.
+    const target = pokemon ?? this.getPokemonMatchingMegaStone(megaStone.name)[0];
+    if (!target) {
       return;
     }
 
@@ -882,7 +885,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       ]);
     }
 
-    this.activateMegaEvolutionForPokemon(matchingPokemon[0].pokemonId, megaStone.name);
+    this.activateMegaEvolutionForPokemon(target, megaStone.name);
   }
 
   private getPokemonMatchingMegaStone(stoneName: MegaStoneItemName): PokemonItem[] {
@@ -903,9 +906,10 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     return matching;
   }
 
-  private activateMegaEvolutionForPokemon(basePokemonId: number, stoneName?: MegaStoneItemName): void {
+  private activateMegaEvolutionForPokemon(target: PokemonItem, stoneName?: MegaStoneItemName): void {
+    const basePokemonId = target.pokemonId;
     this.trainerService.setMegaBattlePokemon(basePokemonId);
-    this.trainerService.forceMegaActivation(basePokemonId, stoneName);
+    this.trainerService.forceMegaActivation(target, stoneName);
     this.pokedexService.markMega(basePokemonId);
     void this.showMegaEvolutionAnimation(basePokemonId, stoneName);
   }

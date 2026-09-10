@@ -205,7 +205,7 @@ describe('RouletteContainerComponent', () => {
     it('records the win against the base Pokémon, not the mega form', () => {
       trainerService.addToTeam(pokemonService.getPokemonById(CHARIZARD)!);
       giveStone('charizardite-x');
-      trainerService.forceMegaActivation(CHARIZARD, 'charizardite-x' as any);
+      trainerService.forceMegaActivation(trainerService.getTeam()[0], 'charizardite-x' as any);
       expect(trainerService.getTeam()[0].pokemonId)
         .withContext('the Pokémon must actually be mega-evolved when the champion falls')
         .toBe(MEGA_CHARIZARD_X);

@@ -321,14 +321,17 @@ export class TrainerService implements OnDestroy {
   }
 
   /** Applies mega evolution immediately for the selected base Pokémon during a battle. */
-  forceMegaActivation(baseId: number, stoneName?: MegaStoneItemName): void {
+  forceMegaActivation(target: PokemonItem, stoneName?: MegaStoneItemName): void {
+    const baseId = target.pokemonId;
     this.megaBattleBaseId = baseId;
 
     // Offer *only* the tapped stone. The rule scans its own forms in order rather than the list it
     // is handed, so passing the others would let forms[0] win whichever stone the player tapped.
     const heldItems = stoneName && this.hasItem(stoneName) ? [stoneName] : this.heldItemNames();
+    // The tapped Pokémon, by identity. Passing only the species mega evolved
+    // every copy of it on the team.
     const changed = this.formRuleService.forceApply(
-      `mega:${baseId}`, this.trainerTeam, this.storedPokemon, heldItems,
+      `mega:${baseId}`, this.trainerTeam, this.storedPokemon, heldItems, target,
     );
 
     if (changed) {
