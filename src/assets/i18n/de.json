@@ -3123,5 +3123,9 @@
     "dragon": "Drache",
     "dark": "Unlicht",
     "fairy": "Fee"
+  },
+  "migration": {
+    "transferred": "Dein Fortschritt ist angekommen — {{count}} Pokémon sind zurück in deinem Pokédex.",
+    "dismiss": "Schließen"
   }
 }

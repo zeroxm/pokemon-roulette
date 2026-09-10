@@ -3123,5 +3123,9 @@
     "dragon": "Dragão",
     "dark": "Sombrio",
     "fairy": "Fada"
+  },
+  "migration": {
+    "transferred": "Seu progresso chegou — {{count}} Pokémon estão de volta na sua Pokédex.",
+    "dismiss": "Fechar"
   }
 }

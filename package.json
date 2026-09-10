@@ -37,6 +37,7 @@
     "@angular/compiler-cli": "^22.1.4",
     "@types/jasmine": "~6.0.0",
     "angular-cli-ghpages": "^3.0.2",
+    "esbuild": "0.28.2",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~6.1.0",
     "karma": "~6.4.4",

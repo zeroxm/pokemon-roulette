@@ -3123,5 +3123,9 @@
     "dragon": "Dragon",
     "dark": "Ténèbres",
     "fairy": "Fée"
+  },
+  "migration": {
+    "transferred": "Votre progression est arrivée — {{count}} Pokémon sont de retour dans votre Pokédex.",
+    "dismiss": "Fermer"
   }
 }

@@ -1,0 +1,12 @@
+
+.transfer-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  background: #198754;
+  color: #fff;
+  text-align: center;
+}
