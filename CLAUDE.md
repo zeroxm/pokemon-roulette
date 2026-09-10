@@ -62,9 +62,13 @@ Removing either is a real behaviour change, not cleanup.
 
 Configured in `angular.json`: initial bundle **1.6 MB warn / 2 MB error**; per-component stylesheet **9 kB warn / 12 kB error**.
 
-These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. These were raised deliberately, and the initial warning has now been raised a **second** time, 1.55 MB → 1.6 MB, when the progress-handoff importer went 1.38 kB over. That raise is recorded rather than quiet, because raising a budget to fit what you just wrote is how budgets stop meaning anything. The bar it has to clear: the addition is small, measured (**0.81 kB transfer**), and load-bearing — it is what carries an existing player's Pokédex across the domain move. A `ReactiveFormsModule` import for two text fields tripped the same budget earlier and was **removed rather than accommodated**, which is the normal answer.
+These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The initial budget is now **2 MB warn / 2.5 MB error**, set by André: this is a game, its content grows, and a threshold that has to be renegotiated every few features is a threshold nobody reads. The error was moved up with the warning — leaving it at 2 MB would have made the build fail at exactly the point it was supposed to start warning, which is a wall, not a budget.
 
-There is real headroom available before raising it a third time: `dom-to-image-more` is CommonJS, used only by the end-game share button, and is in the initial bundle. Lazy-loading it would free far more than any of these increments. Do that before raising this number again. Per-component CSS still has room: the largest, `mega-evolution-animation-modal.component.css`, is **8.52 kB** against a 9 kB warning.
+The number to watch is **transfer size**, currently ~243 kB gzipped for a 1.55 MB bundle. That is what a player on a phone actually waits for.
+
+Real headroom is available whenever it is wanted: `dom-to-image-more` is CommonJS, used only by the end-game share button, and sits in the initial bundle. Lazy-loading it would free more than every increment so far combined.
+
+Per-component CSS still has room: the largest, `mega-evolution-animation-modal.component.css`, is **8.52 kB** against a 9 kB warning.
 
 ## Two deployments, on purpose
 
