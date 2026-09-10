@@ -99,6 +99,19 @@ export class StatsService {
     this.update(next as PlayerStats);
   }
 
+  /** Replaces the counters with merged state. See PokedexService.adopt. */
+  adopt(counters: Record<string, number>): void {
+    const stats: Record<string, number> = {};
+    for (const [key, value] of Object.entries(counters)) {
+      if (isCounterKey(key) && Number.isFinite(value) && value > 0) {
+        stats[key] = Math.floor(value);
+      }
+    }
+
+    this.saveToStorage(stats as PlayerStats);
+    this.statsSubject$.next(stats as PlayerStats);
+  }
+
   private update(stats: PlayerStats): void {
     const pruned = this.withoutZeros(stats);
     this.saveToStorage(pruned);

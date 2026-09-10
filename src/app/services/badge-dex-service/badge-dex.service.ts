@@ -49,6 +49,13 @@ export class BadgeDexService {
     this.earnedSubject$.next(next);
   }
 
+  /** Replaces the trophy case with merged state. See PokedexService.adopt. */
+  adopt(badgeIds: readonly string[]): void {
+    const next = new Set(badgeIds.filter(id => ALL_BADGE_IDS.has(id)));
+    this.save(next);
+    this.earnedSubject$.next(next);
+  }
+
   private save(badges: ReadonlySet<string>): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify([...badges].sort()));

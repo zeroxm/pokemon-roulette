@@ -3,6 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { ThemeService } from './services/theme-service/theme.service';
+import { AuthService } from './services/auth-service/auth.service';
+import { SyncService } from './services/sync-service/sync.service';
 import { AchievementToastComponent } from './achievements/achievement-toast/achievement-toast.component';
 
 const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'pt'] as const;
@@ -25,6 +27,8 @@ export class AppComponent {
     // Eagerly instantiate ThemeService so the stored theme is applied on startup,
     // before any settings panel is opened.
     _theme: ThemeService,
+    authService: AuthService,
+    syncService: SyncService,
   ) {
     // The stored value is interpolated into the loader's fetch URL
     // (./assets/i18n/${lang}.json), so it must be checked against the supported
@@ -37,6 +41,11 @@ export class AppComponent {
       ? stored
       : DEFAULT_LANGUAGE;
     this.translate.use(savedLanguage);
+
+    // One request on startup to find out whether there is an account, then the
+    // sync client picks it up. A signed-out player never causes another.
+    syncService.start();
+    authService.refresh().subscribe();
 
     if (environment.production && environment.googleAnalyticsId) {
       this.loadGoogleAnalytics(environment.googleAnalyticsId);

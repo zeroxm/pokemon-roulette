@@ -3071,14 +3071,23 @@
     "signOut": "Sign out",
     "signOutEverywhere": "Sign out everywhere",
     "signOutExplains": "Signing out removes your collection from this device. It stays on your account, and comes back when you sign in.",
-    "unsyncedWarning": "Some progress has not reached your account yet. Sign out and it will be lost.",
     "delete": "Delete account",
     "deleteConfirm": "Delete permanently",
     "cancel": "Cancel",
     "deleteWarning": "This deletes your account and everything in it, permanently. Enter your password to confirm.",
     "error": {
       "generic": "That did not work. Please try again."
-    }
+    },
+    "sync": {
+      "off": "Not syncing.",
+      "syncing": "Saving to your account…",
+      "synced": "Everything is saved to your account.",
+      "pending": "Some progress has not reached your account yet.",
+      "offline": "Offline. Your progress is safe here and will be saved when you reconnect.",
+      "retry": "Try now"
+    },
+    "signOutUnsyncedWarning": "Some progress has not reached your account yet, and signing out clears this device. That progress will be lost.",
+    "signOutAnyway": "Sign out anyway"
   },
   "detail": {
     "name": "Name",

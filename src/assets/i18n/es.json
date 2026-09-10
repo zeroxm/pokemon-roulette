@@ -3071,14 +3071,23 @@
     "signOut": "Cerrar sesión",
     "signOutEverywhere": "Cerrar sesión en todos los dispositivos",
     "signOutExplains": "Cerrar sesión elimina tu colección de este dispositivo. Permanece en tu cuenta y vuelve cuando inicies sesión.",
-    "unsyncedWarning": "Parte del progreso aún no ha llegado a tu cuenta. Si cierras sesión ahora, se perderá.",
     "delete": "Eliminar cuenta",
     "deleteConfirm": "Eliminar permanentemente",
     "cancel": "Cancelar",
     "deleteWarning": "Esto elimina tu cuenta y todo su contenido, de forma permanente. Escribe tu contraseña para confirmar.",
     "error": {
       "generic": "No ha funcionado. Inténtalo de nuevo."
-    }
+    },
+    "sync": {
+      "off": "Sin sincronizar.",
+      "syncing": "Guardando en tu cuenta…",
+      "synced": "Todo está guardado en tu cuenta.",
+      "pending": "Parte de tu progreso aún no ha llegado a tu cuenta.",
+      "offline": "Sin conexión. Tu progreso está a salvo aquí y se guardará cuando vuelvas a conectarte.",
+      "retry": "Intentar ahora"
+    },
+    "signOutUnsyncedWarning": "Parte de tu progreso aún no ha llegado a tu cuenta, y cerrar sesión borra este dispositivo. Ese progreso se perderá.",
+    "signOutAnyway": "Cerrar sesión de todos modos"
   },
   "detail": {
     "name": "Nombre",

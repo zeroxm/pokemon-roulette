@@ -3071,14 +3071,23 @@
     "signOut": "Se déconnecter",
     "signOutEverywhere": "Se déconnecter partout",
     "signOutExplains": "La déconnexion retire votre collection de cet appareil. Elle reste sur votre compte et revient à la reconnexion.",
-    "unsyncedWarning": "Une partie de la progression n'a pas encore atteint votre compte. Si vous vous déconnectez maintenant, elle sera perdue.",
     "delete": "Supprimer le compte",
     "deleteConfirm": "Supprimer définitivement",
     "cancel": "Annuler",
     "deleteWarning": "Ceci supprime votre compte et tout son contenu, définitivement. Saisissez votre mot de passe pour confirmer.",
     "error": {
       "generic": "Cela n'a pas fonctionné. Veuillez réessayer."
-    }
+    },
+    "sync": {
+      "off": "Pas de synchronisation.",
+      "syncing": "Enregistrement sur votre compte…",
+      "synced": "Tout est enregistré sur votre compte.",
+      "pending": "Une partie de votre progression n'a pas encore atteint votre compte.",
+      "offline": "Hors ligne. Votre progression est en sécurité ici et sera enregistrée à la reconnexion.",
+      "retry": "Réessayer maintenant"
+    },
+    "signOutUnsyncedWarning": "Une partie de votre progression n'a pas encore atteint votre compte, et la déconnexion efface cet appareil. Cette progression sera perdue.",
+    "signOutAnyway": "Se déconnecter quand même"
   },
   "detail": {
     "name": "Nom",

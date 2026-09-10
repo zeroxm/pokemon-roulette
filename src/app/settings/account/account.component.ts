@@ -5,6 +5,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { AuthService, AuthUser } from '../../services/auth-service/auth.service';
 import { SyncStateService } from '../../services/sync-state-service/sync-state.service';
+import { SyncService, SyncStatus } from '../../services/sync-service/sync.service';
 
 /** Matches the backend, which rejects anything shorter. */
 const MIN_PASSWORD_LENGTH = 12;
@@ -37,6 +38,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private syncState: SyncStateService,
+    private syncService: SyncService,
     private translate: TranslateService,
   ) {}
 
@@ -48,6 +50,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   busy = false;
   error = '';
   confirmingDelete = false;
+  confirmingSignOut = false;
+  syncStatus: SyncStatus = 'off';
 
   // Two text fields and a password confirmation. A forms module for this would
   // be 4.5 kB of framework to validate an email and count characters — enough
@@ -62,11 +66,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(this.authService.user$.subscribe(user => (this.user = user)));
     this.subscriptions.add(this.authService.checked$.subscribe(checked => (this.checked = checked)));
-
-    // Asked here rather than at app start: a player who never opens Settings
-    // never causes a request, and the answer is only needed on this screen
-    // until the sync client lands.
-    this.subscriptions.add(this.authService.refresh().subscribe());
+    this.subscriptions.add(this.syncService.status$.subscribe(status => (this.syncStatus = status)));
   }
 
   ngOnDestroy(): void {
@@ -114,12 +114,37 @@ export class AccountComponent implements OnInit, OnDestroy {
     });
   }
 
+  retrySync(): void {
+    this.syncService.syncNow();
+  }
+
+  /**
+   * Signing out wipes this device.
+   *
+   * Unsynced progress is therefore destroyed by it, so that case asks first —
+   * "you have progress not yet saved to your account" is a sentence a player
+   * needs to read before, not after.
+   */
   signOut(): void {
-    this.run(this.authService.logout(), 'account.error.generic');
+    if (this.hasUnsyncedProgress && !this.confirmingSignOut) {
+      this.confirmingSignOut = true;
+      return;
+    }
+
+    this.run(this.authService.logout(), 'account.error.generic', () => this.wipe());
   }
 
   signOutEverywhere(): void {
-    this.run(this.authService.logoutEverywhere(), 'account.error.generic');
+    if (this.hasUnsyncedProgress && !this.confirmingSignOut) {
+      this.confirmingSignOut = true;
+      return;
+    }
+
+    this.run(this.authService.logoutEverywhere(), 'account.error.generic', () => this.wipe());
+  }
+
+  cancelSignOut(): void {
+    this.confirmingSignOut = false;
   }
 
   deleteAccount(): void {
@@ -130,7 +155,12 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.run(this.authService.deleteAccount(this.deletePassword), 'account.error.generic', () => {
       this.deletePassword = '';
       this.confirmingDelete = false;
+      this.wipe();
     });
+  }
+
+  private wipe(): void {
+    this.syncService.clearLocalDataAndReload();
   }
 
   /**

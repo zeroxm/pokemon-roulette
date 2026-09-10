@@ -3071,14 +3071,23 @@
     "signOut": "Sair",
     "signOutEverywhere": "Sair de todos os dispositivos",
     "signOutExplains": "Sair remove sua coleção deste dispositivo. Ela continua na sua conta e volta quando você entrar novamente.",
-    "unsyncedWarning": "Parte do progresso ainda não chegou à sua conta. Se você sair agora, será perdido.",
     "delete": "Excluir conta",
     "deleteConfirm": "Excluir permanentemente",
     "cancel": "Cancelar",
     "deleteWarning": "Isso exclui sua conta e tudo nela, permanentemente. Digite sua senha para confirmar.",
     "error": {
       "generic": "Não funcionou. Tente novamente."
-    }
+    },
+    "sync": {
+      "off": "Sem sincronização.",
+      "syncing": "Salvando na sua conta…",
+      "synced": "Tudo está salvo na sua conta.",
+      "pending": "Parte do seu progresso ainda não chegou à sua conta.",
+      "offline": "Sem conexão. Seu progresso está seguro aqui e será salvo quando você reconectar.",
+      "retry": "Tentar agora"
+    },
+    "signOutUnsyncedWarning": "Parte do seu progresso ainda não chegou à sua conta, e sair apaga este dispositivo. Esse progresso será perdido.",
+    "signOutAnyway": "Sair mesmo assim"
   },
   "detail": {
     "name": "Nome",

@@ -9,20 +9,41 @@
       {{ 'account.signedInAs' | translate }} <strong>{{ user.email }}</strong>
     </p>
 
-    @if (hasUnsyncedProgress) {
-      <p class="account-warning">{{ 'account.unsyncedWarning' | translate }}</p>
-    }
+    <p class="account-note account-sync" [class.account-sync-offline]="syncStatus === 'offline'">
+      {{ 'account.sync.' + syncStatus | translate }}
+      @if (syncStatus === 'offline' || syncStatus === 'pending') {
+        <button type="button" class="btn btn-link btn-sm account-retry" (click)="retrySync()">
+          {{ 'account.sync.retry' | translate }}
+        </button>
+      }
+    </p>
 
-    <div class="account-actions">
-      <button type="button" class="btn btn-outline-secondary btn-sm"
-              [disabled]="busy" (click)="signOut()">
-        {{ 'account.signOut' | translate }}
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn-sm"
-              [disabled]="busy" (click)="signOutEverywhere()">
-        {{ 'account.signOutEverywhere' | translate }}
-      </button>
-    </div>
+    @if (confirmingSignOut) {
+      <div class="account-form">
+        <p class="account-warning">{{ 'account.signOutUnsyncedWarning' | translate }}</p>
+        <div class="account-actions">
+          <button type="button" class="btn btn-danger btn-sm"
+                  [disabled]="busy" (click)="signOut()">
+            {{ 'account.signOutAnyway' | translate }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm"
+                  [disabled]="busy" (click)="cancelSignOut()">
+            {{ 'account.cancel' | translate }}
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="account-actions">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                [disabled]="busy" (click)="signOut()">
+          {{ 'account.signOut' | translate }}
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                [disabled]="busy" (click)="signOutEverywhere()">
+          {{ 'account.signOutEverywhere' | translate }}
+        </button>
+      </div>
+    }
 
     <p class="account-note">{{ 'account.signOutExplains' | translate }}</p>
 

@@ -4,17 +4,27 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideTranslateService } from '@ngx-translate/core';
 
 import { AccountComponent } from './account.component';
+import { AuthService } from '../../services/auth-service/auth.service';
+import { SyncService } from '../../services/sync-service/sync.service';
+import { SyncStateService } from '../../services/sync-state-service/sync-state.service';
 import { environment } from '../../../environments/environment';
 
 describe('AccountComponent', () => {
   let fixture: ComponentFixture<AccountComponent>;
   let component: AccountComponent;
   let http: HttpTestingController;
+  let wipe: jasmine.Spy;
 
   const base = `${environment.apiBaseUrl}/v1`;
 
-  /** The "who am I" the component asks on load; answered signed-out by default. */
+  /**
+   * The "who am I" the app asks on startup; answered signed-out by default.
+   *
+   * Asked by the app root rather than by this component, so the spec plays the
+   * root's part.
+   */
   const answerWhoAmI = (user: unknown = null) => {
+    TestBed.inject(AuthService).refresh().subscribe();
     const request = http.expectOne(`${base}/auth/me`);
     if (user) {
       request.flush(user);
@@ -34,6 +44,11 @@ describe('AccountComponent', () => {
     }).compileComponents();
 
     http = TestBed.inject(HttpTestingController);
+
+    // Signing out and deleting both wipe this device and reload the page,
+    // which would take the test runner with them.
+    wipe = spyOn(TestBed.inject(SyncService), 'clearLocalDataAndReload');
+
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -151,5 +166,35 @@ describe('AccountComponent', () => {
 
     expect(component.user).toBeNull();
     expect(component.confirmingDelete).toBeFalse();
+    expect(wipe).toHaveBeenCalled();
+  });
+
+  describe('signing out', () => {
+
+    it('asks first when progress has not reached the account', () => {
+      // Signing out clears this device, so unsynced progress dies with it.
+      answerWhoAmI({ id: 'abc', email: 'ash@pallet.town' });
+      TestBed.inject(SyncStateService).markDirty();
+
+      component.signOut();
+
+      http.expectNone(`${base}/auth/logout`);
+      expect(component.confirmingSignOut).toBeTrue();
+
+      component.signOut();
+      http.expectOne(`${base}/auth/logout`).flush(null);
+      expect(wipe).toHaveBeenCalled();
+    });
+
+    it('does not ask when everything is saved', () => {
+      answerWhoAmI({ id: 'abc', email: 'ash@pallet.town' });
+      TestBed.inject(SyncStateService).markSynced();
+
+      component.signOut();
+
+      expect(component.confirmingSignOut).toBeFalse();
+      http.expectOne(`${base}/auth/logout`).flush(null);
+      expect(wipe).toHaveBeenCalled();
+    });
   });
 });
