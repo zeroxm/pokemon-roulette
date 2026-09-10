@@ -3057,6 +3057,29 @@
       "description": "Play a run in all nine regions."
     }
   },
+  "account": {
+    "title": "Account",
+    "checking": "Checking…",
+    "optional": "An account is optional. The game works without one — signing in only keeps your collection in step across devices.",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least {{min}} characters.",
+    "noResetWarning": "There is no password reset. If you forget this password, the account and everything in it are gone for good. Write it down.",
+    "signedInAs": "Signed in as",
+    "signOut": "Sign out",
+    "signOutEverywhere": "Sign out everywhere",
+    "signOutExplains": "Signing out removes your collection from this device. It stays on your account, and comes back when you sign in.",
+    "unsyncedWarning": "Some progress has not reached your account yet. Sign out and it will be lost.",
+    "delete": "Delete account",
+    "deleteConfirm": "Delete permanently",
+    "cancel": "Cancel",
+    "deleteWarning": "This deletes your account and everything in it, permanently. Enter your password to confirm.",
+    "error": {
+      "generic": "That did not work. Please try again."
+    }
+  },
   "detail": {
     "name": "Name",
     "types": "Types",

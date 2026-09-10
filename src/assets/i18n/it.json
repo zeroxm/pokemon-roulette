@@ -3057,6 +3057,29 @@
       "description": "Gioca una partita in tutte e nove le regioni."
     }
   },
+  "account": {
+    "title": "Account",
+    "checking": "Verifica in corso…",
+    "optional": "L'account è facoltativo. Il gioco funziona anche senza — accedere serve solo a mantenere la collezione allineata tra dispositivi.",
+    "signIn": "Accedi",
+    "createAccount": "Crea account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "Almeno {{min}} caratteri.",
+    "noResetWarning": "Non esiste il recupero della password. Se la dimentichi, l'account e tutto il suo contenuto sono persi per sempre. Annotala.",
+    "signedInAs": "Connesso come",
+    "signOut": "Esci",
+    "signOutEverywhere": "Esci da tutti i dispositivi",
+    "signOutExplains": "Uscendo, la tua collezione viene rimossa da questo dispositivo. Resta nel tuo account e torna quando accedi di nuovo.",
+    "unsyncedWarning": "Parte dei progressi non ha ancora raggiunto il tuo account. Se esci ora, andranno persi.",
+    "delete": "Elimina account",
+    "deleteConfirm": "Elimina definitivamente",
+    "cancel": "Annulla",
+    "deleteWarning": "Questo elimina il tuo account e tutto il suo contenuto, definitivamente. Inserisci la password per confermare.",
+    "error": {
+      "generic": "Non ha funzionato. Riprova."
+    }
+  },
   "detail": {
     "name": "Nome",
     "types": "Tipi",

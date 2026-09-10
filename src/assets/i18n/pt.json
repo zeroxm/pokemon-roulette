@@ -3057,6 +3057,29 @@
       "description": "Jogue uma run nas nove regiões."
     }
   },
+  "account": {
+    "title": "Conta",
+    "checking": "Verificando…",
+    "optional": "A conta é opcional. O jogo funciona sem ela — entrar apenas mantém sua coleção sincronizada entre dispositivos.",
+    "signIn": "Entrar",
+    "createAccount": "Criar conta",
+    "email": "E-mail",
+    "password": "Senha",
+    "passwordHint": "Pelo menos {{min}} caracteres.",
+    "noResetWarning": "Não existe recuperação de senha. Se você esquecer esta senha, a conta e tudo nela são perdidos para sempre. Anote-a.",
+    "signedInAs": "Conectado como",
+    "signOut": "Sair",
+    "signOutEverywhere": "Sair de todos os dispositivos",
+    "signOutExplains": "Sair remove sua coleção deste dispositivo. Ela continua na sua conta e volta quando você entrar novamente.",
+    "unsyncedWarning": "Parte do progresso ainda não chegou à sua conta. Se você sair agora, será perdido.",
+    "delete": "Excluir conta",
+    "deleteConfirm": "Excluir permanentemente",
+    "cancel": "Cancelar",
+    "deleteWarning": "Isso exclui sua conta e tudo nela, permanentemente. Digite sua senha para confirmar.",
+    "error": {
+      "generic": "Não funcionou. Tente novamente."
+    }
+  },
   "detail": {
     "name": "Nome",
     "types": "Tipos",
