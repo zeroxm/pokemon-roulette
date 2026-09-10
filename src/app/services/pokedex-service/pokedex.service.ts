@@ -135,6 +135,19 @@ export class PokedexService {
     this.updatePokedex({ caught: updatedCaught });
   }
 
+  /**
+   * Replaces the Pokédex with state the sync client has already merged.
+   *
+   * Does **not** mark anything dirty: what is being written is, by
+   * construction, a superset of both what was local and what the server holds.
+   * Marking it dirty would make the very act of syncing schedule another sync.
+   */
+  adopt(caught: Record<string, PokedexEntry>): void {
+    const data: PokedexData = { caught };
+    this.savePokedexToStorage(data);
+    this.pokedexSubject$.next(data);
+  }
+
   private updatePokedex(data: PokedexData): void {
     this.savePokedexToStorage(data);
     this.syncState.markDirty();

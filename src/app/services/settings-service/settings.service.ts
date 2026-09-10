@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { SyncStateService } from '../sync-state-service/sync-state.service';
 
 export interface GameSettings {
   muteAudio: boolean;
@@ -25,7 +26,7 @@ export class SettingsService {
 
   private settingsSubject$: BehaviorSubject<GameSettings>;
 
-  constructor() {
+  constructor(private syncState: SyncStateService) {
     this.settingsSubject$ = new BehaviorSubject(this.getInitialSettings());
   }
 
@@ -74,8 +75,22 @@ export class SettingsService {
     this.updateSettings(this.defaultSettings);
   }
 
+  /**
+   * Replaces settings with merged state. See PokedexService.adopt.
+   *
+   * Settings are the one last-write-wins collection, so unlike the others this
+   * can overwrite a local value — with the server's, which by definition
+   * reached it later.
+   */
+  adopt(settings: Partial<GameSettings>): void {
+    const validated = this.validate(settings);
+    this.saveSettingsToStorage(validated);
+    this.settingsSubject$.next(validated);
+  }
+
   private updateSettings(newSettings: GameSettings): void {
     this.saveSettingsToStorage(newSettings);
+    this.syncState.markDirty();
     this.settingsSubject$.next(newSettings);
   }
 
@@ -90,7 +105,10 @@ export class SettingsService {
    * validation is decided, which a loop would have silently skipped.
    */
   private getInitialSettings(): GameSettings {
-    const stored = this.getSettingsFromStorage() ?? {};
+    return this.validate(this.getSettingsFromStorage() ?? {});
+  }
+
+  private validate(stored: Partial<GameSettings>): GameSettings {
     const defaults = this.defaultSettings;
     const bool = (value: unknown, fallback: boolean): boolean =>
       typeof value === 'boolean' ? value : fallback;

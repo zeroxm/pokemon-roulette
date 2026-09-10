@@ -156,6 +156,28 @@ export class AchievementService {
     };
   }
 
+  /**
+   * Replaces the unlock record with merged state.
+   *
+   * **The sync client must call this before adopting the collections.** Every
+   * collection emission re-runs `evaluate`, so adopting another device's
+   * Pokédex first would announce fifty achievements at once for things earned
+   * months ago on that device — the exact toast storm the stored record exists
+   * to prevent.
+   */
+  adopt(unlocks: AchievementUnlocks): void {
+    const known = new Set(ACHIEVEMENTS.map(achievement => achievement.id));
+    const filtered: Record<string, string> = {};
+    for (const [id, at] of Object.entries(unlocks)) {
+      if (known.has(id)) {
+        filtered[id] = at;
+      }
+    }
+
+    this.save(filtered);
+    this.unlockedSubject$.next(filtered);
+  }
+
   private save(unlocks: AchievementUnlocks): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(unlocks));

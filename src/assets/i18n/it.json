@@ -3071,14 +3071,23 @@
     "signOut": "Esci",
     "signOutEverywhere": "Esci da tutti i dispositivi",
     "signOutExplains": "Uscendo, la tua collezione viene rimossa da questo dispositivo. Resta nel tuo account e torna quando accedi di nuovo.",
-    "unsyncedWarning": "Parte dei progressi non ha ancora raggiunto il tuo account. Se esci ora, andranno persi.",
     "delete": "Elimina account",
     "deleteConfirm": "Elimina definitivamente",
     "cancel": "Annulla",
     "deleteWarning": "Questo elimina il tuo account e tutto il suo contenuto, definitivamente. Inserisci la password per confermare.",
     "error": {
       "generic": "Non ha funzionato. Riprova."
-    }
+    },
+    "sync": {
+      "off": "Nessuna sincronizzazione.",
+      "syncing": "Salvataggio sul tuo account…",
+      "synced": "Tutto è salvato sul tuo account.",
+      "pending": "Una parte dei tuoi progressi non ha ancora raggiunto il tuo account.",
+      "offline": "Offline. I tuoi progressi sono al sicuro qui e verranno salvati quando tornerai online.",
+      "retry": "Riprova ora"
+    },
+    "signOutUnsyncedWarning": "Una parte dei tuoi progressi non ha ancora raggiunto il tuo account, e disconnettersi cancella questo dispositivo. Quei progressi andranno persi.",
+    "signOutAnyway": "Disconnetti comunque"
   },
   "detail": {
     "name": "Nome",

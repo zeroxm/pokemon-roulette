@@ -61,3 +61,20 @@
   align-self: flex-start;
   margin-top: 0.35rem;
 }
+
+.account-sync {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.account-sync-offline {
+  font-style: italic;
+}
+
+.account-retry {
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
