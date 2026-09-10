@@ -180,6 +180,26 @@ describe('SyncService', () => {
     expect(status()).toBe('off');
   }));
 
+  it('keeps preferences but no collections when the player signs out', () => {
+    // The shared-device reasoning that justifies wiping a Pokédex does not
+    // reach a theme: nobody is contaminated by inheriting dark mode, and
+    // wiping it signed a Brazilian player out into an English, light game.
+    localStorage.setItem('pokemon-roulette-settings', '{"muteAudio":true}');
+    localStorage.setItem('pokemon-roulette-theme', 'plain-dark');
+    localStorage.setItem('language', 'pt');
+    localStorage.setItem('pokemon-roulette-pokedex', '{"caught":{"25":{"won":true}}}');
+    localStorage.setItem('pokemon-roulette-stats', '{"spins_total":9}');
+    localStorage.setItem('pokemon-roulette-badge-dex', '["boulder"]');
+    localStorage.setItem('pokemon-roulette-achievements', '{"i_choose_you":"2026-01-01T00:00:00Z"}');
+    localStorage.setItem('pokemon-roulette-synced', 'true');
+
+    sync.clearLocalData();
+
+    expect(Object.keys(localStorage).sort()).toEqual([
+      'language', 'pokemon-roulette-settings', 'pokemon-roulette-theme',
+    ]);
+  });
+
   const status = (): SyncStatus => {
     let current: SyncStatus = 'off';
     sync.status$.subscribe(value => (current = value)).unsubscribe();

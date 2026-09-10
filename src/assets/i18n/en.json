@@ -3087,7 +3087,9 @@
       "retry": "Try now"
     },
     "signOutUnsyncedWarning": "Some progress has not reached your account yet, and signing out clears this device. That progress will be lost.",
-    "signOutAnyway": "Sign out anyway"
+    "signOutAnyway": "Sign out anyway",
+    "confirmPassword": "Confirm password",
+    "passwordMismatch": "The two passwords do not match."
   },
   "detail": {
     "name": "Name",

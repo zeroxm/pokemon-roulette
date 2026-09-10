@@ -1,0 +1,32 @@
+/*
+ * Bootstrap's `.form-switch` assumes the input comes first inside a
+ * `.form-check` and pulls it 2.5em to the left to sit in that padding. These
+ * rows put the label first instead, so the negative margin drags the switch
+ * back over the end of the label text.
+ *
+ * Invisible in English, where every label is short. In German at 375px it ate
+ * the last word: "Mega-Entwicklungsanimation überspringen" was clipped
+ * mid-word by its own switch.
+ */
+.form-switch.d-flex {
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-switch.d-flex .form-check-input {
+  margin-left: 0;
+  flex: none;
+}
+
+.form-switch.d-flex .form-check-label {
+  /* min-width lets a long label wrap instead of forcing the row wider. */
+  flex: 1;
+  min-width: 0;
+}
+
+/* The gender radios are a different Bootstrap structure, and the longest
+   label ("Immer Mädchen") ends up flush against its control. Not a collision,
+   but nothing should touch. */
+.form-check .form-check-label {
+  padding-left: 0.35rem;
+}

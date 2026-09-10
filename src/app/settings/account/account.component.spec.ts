@@ -118,9 +118,78 @@ describe('AccountComponent', () => {
     component.setMode('signup');
     component.email = 'new@pallet.town';
     component.password = 'a-long-enough-password';
+    component.passwordConfirmation = 'a-long-enough-password';
     component.submit();
 
     http.expectOne(`${base}/auth/signup`).flush({ id: 'abc', email: 'new@pallet.town' });
+  });
+
+  describe('signing up', () => {
+
+    it('will not submit until the password is typed twice and matches', () => {
+      // There is no password reset, so a typo in a single field would be an
+      // account nobody can ever open.
+      answerWhoAmI();
+
+      component.setMode('signup');
+      component.email = 'new@pallet.town';
+      component.password = 'a-long-enough-password';
+      component.passwordConfirmation = 'a-long-enough-passwrod';
+      component.submit();
+
+      http.expectNone(`${base}/auth/signup`);
+      expect(component.confirmationValid).toBeFalse();
+
+      component.passwordConfirmation = 'a-long-enough-password';
+      component.submit();
+      http.expectOne(`${base}/auth/signup`).flush({ id: 'abc', email: 'new@pallet.town' });
+    });
+
+    it('does not ask for a confirmation when signing in', () => {
+      answerWhoAmI();
+
+      component.email = 'ash@pallet.town';
+      component.password = 'a-long-enough-password';
+
+      expect(component.confirmationValid).toBeTrue();
+      expect(component.canSubmit).toBeTrue();
+    });
+
+    it('accepts eight characters, as the server now does', () => {
+      answerWhoAmI();
+
+      component.email = 'new@pallet.town';
+      component.password = '12345678';
+
+      expect(component.passwordValid).toBeTrue();
+
+      component.password = '1234567';
+      expect(component.passwordValid).toBeFalse();
+    });
+
+    it('offers to sign in when the address is already registered', () => {
+      answerWhoAmI();
+
+      component.setMode('signup');
+      component.email = 'ash@pallet.town';
+      component.password = 'a-long-enough-password';
+      component.passwordConfirmation = 'a-long-enough-password';
+      component.submit();
+
+      http.expectOne(`${base}/auth/signup`).flush(
+        { error: { code: 'conflict', message: 'An account with that email already exists. Sign in instead.' } },
+        { status: 409, statusText: 'Conflict' },
+      );
+      fixture.detectChanges();
+
+      expect(component.emailTaken).toBeTrue();
+
+      // The button keeps what was typed rather than making them start again.
+      component.switchToSignIn();
+      expect(component.mode).toBe('signin');
+      expect(component.email).toBe('ash@pallet.town');
+      expect(component.password).toBe('a-long-enough-password');
+    });
   });
 
   // Rewording here would undo the server's deliberate refusal to say which of

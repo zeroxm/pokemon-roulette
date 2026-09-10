@@ -3087,7 +3087,9 @@
       "retry": "Riprova ora"
     },
     "signOutUnsyncedWarning": "Una parte dei tuoi progressi non ha ancora raggiunto il tuo account, e disconnettersi cancella questo dispositivo. Quei progressi andranno persi.",
-    "signOutAnyway": "Disconnetti comunque"
+    "signOutAnyway": "Disconnetti comunque",
+    "confirmPassword": "Conferma password",
+    "passwordMismatch": "Le due password non coincidono."
   },
   "detail": {
     "name": "Nome",
