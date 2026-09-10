@@ -28,7 +28,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way — **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **524/524 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **525/525 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 

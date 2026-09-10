@@ -283,7 +283,7 @@ describe('TrainerService', () => {
     });
 
     it('gives Mega Y when Charizardite Y is the stone tapped', () => {
-      service.forceMegaActivation(CHARIZARD, 'charizardite-y' as any);
+      service.forceMegaActivation(service.trainerTeam[0], 'charizardite-y' as any);
 
       expect(service.trainerTeam[0].pokemonId)
         .withContext('holding X as well must not override the stone the player tapped')
@@ -291,13 +291,28 @@ describe('TrainerService', () => {
     });
 
     it('gives Mega X when Charizardite X is the stone tapped', () => {
-      service.forceMegaActivation(CHARIZARD, 'charizardite-x' as any);
+      service.forceMegaActivation(service.trainerTeam[0], 'charizardite-x' as any);
 
       expect(service.trainerTeam[0].pokemonId).toBe(MEGA_X);
     });
 
+    it('mega evolves only the Pokémon that was tapped, not every copy of it', () => {
+      // Reported from a real run: two Kangaskhan on the team, tap one stone,
+      // both transformed. The rule matches on species, so every member of the
+      // collection matched -- right for a rule that fires on battle start,
+      // wrong for one the player triggers by pointing at something.
+      service.trainerTeam = [structuredClone(charizard), structuredClone(charizard)];
+
+      service.forceMegaActivation(service.trainerTeam[1], 'charizardite-x' as any);
+
+      expect(service.trainerTeam[1].pokemonId).toBe(MEGA_X);
+      expect(service.trainerTeam[0].pokemonId)
+        .withContext('the other one was never pointed at')
+        .toBe(CHARIZARD);
+    });
+
     it('falls back to any held stone when none was named', () => {
-      service.forceMegaActivation(CHARIZARD);
+      service.forceMegaActivation(service.trainerTeam[0]);
 
       expect([MEGA_X, MEGA_Y]).toContain(service.trainerTeam[0].pokemonId);
     });

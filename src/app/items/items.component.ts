@@ -8,6 +8,7 @@ import { TrainerService } from '../services/trainer-service/trainer.service';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import { isMegaStoneItemName } from '../services/items-service/item-names';
 import { ImageFallbackDirective } from '../directives/image-fallback.directive';
+import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.service';
 
 @Component({
   selector: 'app-items',
@@ -33,7 +34,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   /** Slot indices for the item grid. The bag renders a fixed twelve, filled or not. */
   readonly slots = Array.from({ length: 12 }, (_, index) => index);
   @Output() rareCandyInterrupt = new EventEmitter<ItemItem>();
-  @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
+  @Output() megaStoneInterrupt = new EventEmitter<MegaStoneActivation>();
 
   darkMode!: Observable<boolean>;
   private itemsSubscription!: Subscription;
@@ -53,7 +54,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
       if (item.name === 'rare-candy') {
         this.rareCandyInterrupt.emit(item);
       } else if (isMegaStoneItemName(item.name)) {
-        this.megaStoneInterrupt.emit(item);
+        this.megaStoneInterrupt.emit({ stone: item });
       }
     }
   }

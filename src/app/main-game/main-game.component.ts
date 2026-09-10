@@ -17,7 +17,7 @@ import { LanguageSelectorComponent } from './language-selector/language-selector
 import { RouletteContainerComponent } from './roulette-container/roulette-container.component';
 import { SettingsButtonComponent } from '../settings-button/settings-button.component';
 import { RareCandyService } from '../services/rare-candy-service/rare-candy.service';
-import { MegaStoneService } from '../services/mega-stone-service/mega-stone.service';
+import { MegaStoneActivation, MegaStoneService } from '../services/mega-stone-service/mega-stone.service';
 
 @Component({
   selector: 'app-main-game',
@@ -77,12 +77,12 @@ export class MainGameComponent implements OnInit {
     this.rareCandyService.triggerRareCandyEvolution(rareCandy);
   }
 
-  megaStoneInterrupt(megaStone: ItemItem): void {
+  megaStoneInterrupt(activation: MegaStoneActivation): void {
     if (this.wheelSpinning) {
       return;
     }
 
-    this.megaStoneService.triggerMegaStoneActivation(megaStone);
+    this.megaStoneService.triggerMegaStoneActivation(activation);
   }
 
   resetGame(): void {

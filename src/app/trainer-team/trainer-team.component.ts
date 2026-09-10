@@ -12,8 +12,8 @@ import { PokedexComponent } from "./pokedex/pokedex.component";
 import { BadgeDexComponent } from "./badge-dex/badge-dex.component";
 import { AchievementsComponent } from "./achievements/achievements.component";
 import {TranslatePipe} from '@ngx-translate/core';
-import { ItemItem } from '../interfaces/item-item';
 import { ImageFallbackDirective } from '../directives/image-fallback.directive';
+import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.service';
 
 @Component({
   selector: 'app-trainer-team',
@@ -36,7 +36,7 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
   trainerBadges!: Badge[];
 
   darkMode!: Observable<boolean>;
-  @Output() megaStoneInterrupt = new EventEmitter<ItemItem>();
+  @Output() megaStoneInterrupt = new EventEmitter<MegaStoneActivation>();
 
   private trainerSubscription!: Subscription;
   private teamSubscription!: Subscription;
@@ -86,7 +86,7 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.megaStoneInterrupt.emit(megaStone);
+    this.megaStoneInterrupt.emit({ stone: megaStone, pokemon });
   }
 
   private getHeldMegaStoneItem(pokemon: PokemonItem | undefined) {

@@ -109,15 +109,29 @@ export class FormRuleService {
     return reverted;
   }
 
-  /** Applies one rule immediately — used when a stone is tapped mid-battle. */
-  forceApply(ruleId: string, team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
+  /**
+   * Applies one rule immediately — used when a stone is tapped mid-battle.
+   *
+   * `target` limits it to a single Pokémon, by identity. Without it, a player
+   * carrying two Kangaskhan and tapping one stone mega evolved **both**: the
+   * rule matches on species, and every member of the collection that matches
+   * is transformed. That is right for a rule that fires on battle start and
+   * wrong for one a player triggers by pointing at something.
+   */
+  forceApply(
+    ruleId: string,
+    team: PokemonItem[],
+    stored: PokemonItem[],
+    heldItems: readonly ItemName[],
+    target?: PokemonItem,
+  ): boolean {
     const rule = this.rulesById.get(ruleId);
     if (!rule) {
       return false;
     }
     // A forced application still has to be undone at battle end.
     this.formsApplied = true;
-    return this.applyRule(rule, team, stored, heldItems);
+    return this.applyRule(rule, team, stored, heldItems, target);
   }
 
   /** True when any collection currently holds a non-base form of the given rule. */
@@ -140,12 +154,19 @@ export class FormRuleService {
 
   private applyRule(
     rule: FormRule, team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[],
+    only?: PokemonItem,
   ): boolean {
     let changed = false;
 
     for (const collection of this.collectionsFor(rule, team, stored)) {
       for (let i = 0; i < collection.length; i++) {
         const current = collection[i];
+        // Identity, not species: two of the same Pokémon are the same species
+        // and the same stone, and only one of them was pointed at.
+        if (only && current !== only) {
+          continue;
+        }
+
         const target = this.pickTarget(rule, current, heldItems);
         if (!target || target.pokemonId === current.pokemonId) {
           continue;
