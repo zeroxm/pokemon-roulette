@@ -73,22 +73,6 @@ describe('AchievementsComponent', () => {
     expect(component.percentFor(smell)).toBe(100);
   });
 
-  it('conceals a hidden achievement until it is earned', () => {
-    const stadium = ACHIEVEMENTS.find(a => a.id === 'pokemon_stadium')!;
-    expect(component.isConcealed(stadium)).toBeTrue();
-
-    TestBed.inject(StatsService).recordChampion(1, 3);
-    fixture.detectChanges();
-
-    expect(component.isConcealed(stadium))
-      .withContext('once earned there is nothing left to hide')
-      .toBeFalse();
-  });
-
-  it('does not conceal an ordinary locked achievement', () => {
-    expect(component.isConcealed(ACHIEVEMENTS.find(a => a.id === 'veteran')!)).toBeFalse();
-  });
-
   it('reports lifetime totals', () => {
     TestBed.inject(StatsService).increment('spins_total', 430);
     fixture.detectChanges();

@@ -95,15 +95,6 @@ export class AchievementsComponent implements OnInit, OnDestroy {
     return achievement.id in this.unlocks;
   }
 
-  /**
-   * Hidden achievements stay nameless until earned, so there is something to
-   * discover — and so the three region-locked ones do not read as broken to
-   * someone who never visits those regions.
-   */
-  isConcealed(achievement: Achievement): boolean {
-    return achievement.hidden === true && !this.isUnlocked(achievement);
-  }
-
   nameKey(achievement: Achievement): string {
     return achievementNameKey(achievement.id);
   }

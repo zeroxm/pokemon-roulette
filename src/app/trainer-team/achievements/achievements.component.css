@@ -55,12 +55,6 @@
   background: rgba(245, 197, 24, 0.14);
 }
 
-.achievement-row.concealed .achievement-name,
-.achievement-row.concealed .achievement-description {
-  opacity: 0.5;
-  font-style: italic;
-}
-
 .achievement-text {
   display: flex;
   flex-direction: column;

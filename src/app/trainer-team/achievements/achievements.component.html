@@ -32,25 +32,11 @@
         <h5 class="achievement-group-title">{{ groupLabelKey(group.group) | translate }}</h5>
 
         @for (achievement of group.achievements; track achievement.id) {
-          <div class="achievement-row"
-               [class.unlocked]="isUnlocked(achievement)"
-               [class.concealed]="isConcealed(achievement)">
+          <div class="achievement-row" [class.unlocked]="isUnlocked(achievement)">
 
             <div class="achievement-text">
-              <span class="achievement-name">
-                @if (isConcealed(achievement)) {
-                  ???
-                } @else {
-                  {{ nameKey(achievement) | translate }}
-                }
-              </span>
-              <span class="achievement-description">
-                @if (isConcealed(achievement)) {
-                  {{ 'achievementsScreen.hidden' | translate }}
-                } @else {
-                  {{ descriptionKey(achievement) | translate }}
-                }
-              </span>
+              <span class="achievement-name">{{ nameKey(achievement) | translate }}</span>
+              <span class="achievement-description">{{ descriptionKey(achievement) | translate }}</span>
             </div>
 
             <div class="achievement-progress">
@@ -64,11 +50,9 @@
                      aria-valuemax="100">
                   <div class="progress-fill" [style.width.%]="percentFor(achievement)"></div>
                 </div>
-                @if (!isConcealed(achievement)) {
-                  <span class="progress-numbers">
-                    {{ progressFor(achievement).current }}/{{ progressFor(achievement).target }}
-                  </span>
-                }
+                <span class="progress-numbers">
+                  {{ progressFor(achievement).current }}/{{ progressFor(achievement).target }}
+                </span>
               }
             </div>
           </div>

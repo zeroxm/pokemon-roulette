@@ -194,21 +194,57 @@ describe('AccountComponent', () => {
 
   // Rewording here would undo the server's deliberate refusal to say which of
   // the two things was wrong.
-  it('shows the server\'s own message on failure', () => {
-    answerWhoAmI();
+  describe('error messages', () => {
 
-    component.email = 'ash@pallet.town';
-    component.password = 'pikachu-i-choose-you';
-    component.submit();
+    const failLogin = (body: object, status: number) => {
+      component.email = 'ash@pallet.town';
+      component.password = 'pikachu-i-choose-you';
+      component.submit();
+      http.expectOne(`${base}/auth/login`).flush(body, { status, statusText: 'Error' });
+      fixture.detectChanges();
+    };
 
-    http.expectOne(`${base}/auth/login`).flush(
-      { error: { code: 'unauthorized', message: 'That email and password do not match an account.' } },
-      { status: 401, statusText: 'Unauthorized' },
-    );
-    fixture.detectChanges();
+    it('translates a failure this build recognises', () => {
+      // Keyed on the error *code*, never on the server's text, which is
+      // English only. Five of the six locales would otherwise read English.
+      answerWhoAmI();
 
-    expect(component.error).toBe('That email and password do not match an account.');
-    expect(component.busy).toBeFalse();
+      failLogin({ error: { code: 'unauthorized', message: 'That email and password do not match an account.' } }, 401);
+
+      expect(component.error).toBe('account.error.credentials');
+      expect(component.busy).toBeFalse();
+    });
+
+    it('gives a wrong password and an unknown account the same message', () => {
+      // The API refuses to distinguish them. Translating by code keeps that
+      // true, because the code is identical in both cases.
+      answerWhoAmI();
+
+      failLogin({ error: { code: 'unauthorized', message: 'That email and password do not match an account.' } }, 401);
+      const wrongPassword = component.error;
+
+      failLogin({ error: { code: 'unauthorized', message: 'That email and password do not match an account.' } }, 401);
+
+      expect(component.error).toBe(wrongPassword);
+    });
+
+    it('falls back to the server\'s own words for a code it has never met', () => {
+      // The API deploys on its own schedule. An English sentence that is
+      // precise beats a translated one that is wrong.
+      answerWhoAmI();
+
+      failLogin({ error: { code: 'teapot', message: 'Something specific and new.' } }, 418);
+
+      expect(component.error).toBe('Something specific and new.');
+    });
+
+    it('says the server was unreachable rather than blaming the player', () => {
+      answerWhoAmI();
+
+      failLogin(new ProgressEvent('error'), 0);
+
+      expect(component.error).toBe('account.error.offline');
+    });
   });
 
   it('needs a password before it will delete anything', () => {

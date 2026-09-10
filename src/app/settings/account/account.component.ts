@@ -189,11 +189,12 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Runs a request, showing whatever the server said on failure.
+   * Runs a request, showing a translated message for any failure this build
+   * recognises and the server's own words for anything else.
    *
-   * Deliberately not translated and not reworded: signup and login answer
-   * "wrong password" and "no account" identically on purpose, and inventing a
-   * more specific message here would undo that.
+   * The translation is keyed on the API's error *code*, never on its text.
+   * Signup and login answer "wrong password" and "no account" identically on
+   * purpose, and their codes match too, so this cannot undo that.
    */
   private run<T>(request: Observable<T>, fallbackKey: string, onSuccess?: () => void): void {
     this.busy = true;
@@ -206,7 +207,12 @@ export class AccountComponent implements OnInit, OnDestroy {
       },
       error: (failure: unknown) => {
         this.busy = false;
-        this.error = AuthService.messageFor(failure, this.translate.instant(fallbackKey) as string);
+
+        const key = AuthService.errorKeyFor(failure);
+        this.error = key
+          ? (this.translate.instant(key) as string)
+          : AuthService.messageFor(failure, this.translate.instant(fallbackKey) as string);
+
         // The server's message says "Sign in instead"; this is the button
         // that does it, rather than making them find the tab and retype.
         this.emailTaken = failure instanceof HttpErrorResponse && failure.status === 409;

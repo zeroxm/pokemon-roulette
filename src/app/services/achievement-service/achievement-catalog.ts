@@ -43,13 +43,6 @@ export type AchievementGroup =
 export interface Achievement {
   readonly id: string;
   readonly group: AchievementGroup;
-  /**
-   * Hidden until earned, so there is something to discover rather than a
-   * checklist to grind. Also used for the three region-locked encounters, which
-   * a player who never visits that region can never earn — a permanently
-   * locked visible row reads as broken.
-   */
-  readonly hidden?: boolean;
   readonly progress: (context: AchievementContext) => Progress;
 }
 
@@ -162,7 +155,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   { id: 'regional_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 3 }) },
   { id: 'world_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 9 }) },
   { id: 'full_house', group: 'champion', progress: counter('champion_with_six', 1) },
-  { id: 'pokemon_stadium', group: 'champion', hidden: true, progress: counter('champion_with_three_or_fewer', 1) },
+  { id: 'pokemon_stadium', group: 'champion', progress: counter('champion_with_three_or_fewer', 1) },
 
   // Rival.
   { id: 'smell_ya_later', group: 'rival', progress: counter('rival_battles_won', 1) },
@@ -186,9 +179,9 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   // Region-locked: Kanto, Kalos and Paldea only. Hidden, because a player who
   // never visits those regions would otherwise stare at three rows they cannot
   // earn and reasonably conclude something is broken.
-  { id: 'five_hundred_steps', group: 'encounters', hidden: true, progress: counter('safari_zone_visits', 1) },
-  { id: 'friend_code', group: 'encounters', hidden: true, progress: counter('friend_safari_visits', 1) },
-  { id: 'the_great_crater', group: 'encounters', hidden: true, progress: counter('area_zero_visits', 1) },
+  { id: 'five_hundred_steps', group: 'encounters', progress: counter('safari_zone_visits', 1) },
+  { id: 'friend_code', group: 'encounters', progress: counter('friend_safari_visits', 1) },
+  { id: 'the_great_crater', group: 'encounters', progress: counter('area_zero_visits', 1) },
   { id: 'a_fair_trade', group: 'encounters', progress: counter('trades_completed', 1) },
 
   // Badge dex.
