@@ -78,3 +78,7 @@
   border: 0;
   vertical-align: baseline;
 }
+
+.account-mismatch {
+  color: #dc3545;
+}

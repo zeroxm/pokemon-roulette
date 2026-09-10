@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
@@ -8,7 +9,7 @@ import { SyncStateService } from '../../services/sync-state-service/sync-state.s
 import { SyncService, SyncStatus } from '../../services/sync-service/sync.service';
 
 /** Matches the backend, which rejects anything shorter. */
-const MIN_PASSWORD_LENGTH = 12;
+const MIN_PASSWORD_LENGTH = 8;
 
 /**
  * Permissive on purpose, like the server's own check: this rejects nonsense
@@ -58,8 +59,15 @@ export class AccountComponent implements OnInit, OnDestroy {
   // to breach the bundle budget on its own.
   email = '';
   password = '';
+  // Signup only. There is no password reset, so a typo in the one field would
+  // be an account nobody can ever open -- which is the whole reason to ask
+  // twice. Signing in does not need it: getting it wrong there just fails.
+  passwordConfirmation = '';
   deletePassword = '';
   touched = false;
+
+  /** Set when signup was refused because the address is already registered. */
+  emailTaken = false;
 
   private readonly subscriptions = new Subscription();
 
@@ -81,6 +89,17 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.mode = mode;
     this.error = '';
     this.touched = false;
+    this.emailTaken = false;
+    this.passwordConfirmation = '';
+  }
+
+  /** Offered when signup reports the address is taken; keeps what was typed. */
+  switchToSignIn(): void {
+    const email = this.email;
+    const password = this.password;
+    this.setMode('signin');
+    this.email = email;
+    this.password = password;
   }
 
   get emailValid(): boolean {
@@ -91,12 +110,17 @@ export class AccountComponent implements OnInit, OnDestroy {
     return this.password.length >= MIN_PASSWORD_LENGTH;
   }
 
+  get confirmationValid(): boolean {
+    return this.mode === 'signin' || this.passwordConfirmation === this.password;
+  }
+
   get canSubmit(): boolean {
-    return this.emailValid && this.passwordValid && !this.busy;
+    return this.emailValid && this.passwordValid && this.confirmationValid && !this.busy;
   }
 
   submit(): void {
     this.touched = true;
+    this.emailTaken = false;
 
     if (!this.canSubmit) {
       return;
@@ -110,6 +134,7 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.run(request, 'account.error.generic', () => {
       this.email = '';
       this.password = '';
+      this.passwordConfirmation = '';
       this.touched = false;
     });
   }
@@ -182,6 +207,9 @@ export class AccountComponent implements OnInit, OnDestroy {
       error: (failure: unknown) => {
         this.busy = false;
         this.error = AuthService.messageFor(failure, this.translate.instant(fallbackKey) as string);
+        // The server's message says "Sign in instead"; this is the button
+        // that does it, rather than making them find the tab and retype.
+        this.emailTaken = failure instanceof HttpErrorResponse && failure.status === 409;
       },
     });
   }

@@ -12,6 +12,21 @@ import { AchievementService } from '../achievement-service/achievement.service';
 import { SettingsService } from '../settings-service/settings.service';
 import { SyncSnapshot, mergeSnapshots, parseSyncSnapshot } from './sync-snapshot';
 
+/**
+ * Preferences, which survive signing out. Everything else is a collection and
+ * is wiped.
+ *
+ * An allowlist rather than a denylist on purpose: a new *collection* added to
+ * storage and forgotten about must default to being wiped, because leaving it
+ * behind is the failure that cannot be undone. A new preference forgotten
+ * about is merely reset.
+ */
+const KEPT_ON_SIGN_OUT: ReadonlySet<string> = new Set([
+  'pokemon-roulette-settings',
+  'pokemon-roulette-theme',
+  'language',
+]);
+
 /** What the account screen shows. Nothing more intrusive than this exists. */
 export type SyncStatus = 'off' | 'syncing' | 'synced' | 'pending' | 'offline';
 
@@ -99,26 +114,39 @@ export class SyncService {
   }
 
   /**
-   * Erases every collection from this device.
+   * Erases every collection from this device, and keeps the preferences.
    *
-   * Signing out wipes local data, which is the opposite of the usual default
+   * Signing out wipes collections, which is the opposite of the usual default
    * and is deliberate: this game gets played on shared devices, and leaving a
-   * collection behind means the next person silently merges their progress
-   * into someone else's. Grow-only data cannot be separated back out
-   * afterwards, so the contamination would be permanent.
+   * Pokédex behind means the next person silently merges their progress into
+   * someone else's. Grow-only data cannot be separated back out afterwards,
+   * so the contamination would be permanent.
+   *
+   * **Preferences are not collections and are kept.** Nobody is harmed by
+   * inheriting a dark theme, and wiping them meant a Brazilian player in dark
+   * mode signed out into an English, light game every time. The line is
+   * whether the data is *about the player* or about this browser.
    *
    * Reloading afterwards rather than resetting each service in place: every
    * service holds its state in memory, and a missed one would resurrect the
    * previous player's Pokédex the next time it wrote to storage.
    */
   clearLocalDataAndReload(): void {
+    this.clearLocalData();
+    window.location.reload();
+  }
+
+  /** The wipe itself, without the reload, so it can be tested. */
+  clearLocalData(): void {
     try {
-      localStorage.clear();
+      for (const key of Object.keys(localStorage)) {
+        if (!KEPT_ON_SIGN_OUT.has(key)) {
+          localStorage.removeItem(key);
+        }
+      }
     } catch (error) {
       console.error('Failed to clear local data on sign out:', error);
     }
-
-    window.location.reload();
   }
 
   private schedule(delayMs: number): void {

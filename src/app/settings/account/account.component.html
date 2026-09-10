@@ -110,9 +110,25 @@
       </small>
 
       @if (mode === 'signup') {
+        <label class="account-label" for="account-password-confirm">
+          {{ 'account.confirmPassword' | translate }}
+        </label>
+        <input id="account-password-confirm" class="form-control form-control-sm"
+               type="password" autocomplete="new-password"
+               [class.is-invalid]="touched && !confirmationValid"
+               [value]="passwordConfirmation"
+               (input)="passwordConfirmation = $any($event.target).value"
+               (keyup.enter)="submit()">
+        @if (touched && !confirmationValid) {
+          <small class="account-hint account-mismatch">
+            {{ 'account.passwordMismatch' | translate }}
+          </small>
+        }
+
         <!-- Stated at the point of signup, not buried. There is no SMTP, so a
              forgotten password is an unrecoverable account, and someone could
-             lose a 900-Pokémon Pokédex to it. -->
+             lose a 900-Pokémon Pokédex to it. That is also why the password is
+             asked for twice: a typo here is an account nobody can open. -->
         <p class="account-warning">{{ 'account.noResetWarning' | translate }}</p>
       }
 
@@ -127,6 +143,13 @@
   }
 
   @if (error) {
-    <p class="account-error" role="alert">{{ error }}</p>
+    <p class="account-error" role="alert">
+      {{ error }}
+      @if (emailTaken) {
+        <button type="button" class="btn btn-link btn-sm account-retry" (click)="switchToSignIn()">
+          {{ 'account.signIn' | translate }}
+        </button>
+      }
+    </p>
   }
 </section>

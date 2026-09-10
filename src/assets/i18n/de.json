@@ -3087,7 +3087,9 @@
       "retry": "Jetzt versuchen"
     },
     "signOutUnsyncedWarning": "Ein Teil deines Fortschritts hat dein Konto noch nicht erreicht, und das Abmelden löscht dieses Gerät. Dieser Fortschritt geht verloren.",
-    "signOutAnyway": "Trotzdem abmelden"
+    "signOutAnyway": "Trotzdem abmelden",
+    "confirmPassword": "Passwort bestätigen",
+    "passwordMismatch": "Die beiden Passwörter stimmen nicht überein."
   },
   "detail": {
     "name": "Name",

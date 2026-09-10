@@ -3087,7 +3087,9 @@
       "retry": "Réessayer maintenant"
     },
     "signOutUnsyncedWarning": "Une partie de votre progression n'a pas encore atteint votre compte, et la déconnexion efface cet appareil. Cette progression sera perdue.",
-    "signOutAnyway": "Se déconnecter quand même"
+    "signOutAnyway": "Se déconnecter quand même",
+    "confirmPassword": "Confirmer le mot de passe",
+    "passwordMismatch": "Les deux mots de passe ne correspondent pas."
   },
   "detail": {
     "name": "Nom",
