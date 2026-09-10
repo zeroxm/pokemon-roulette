@@ -8,9 +8,7 @@ import { BadgesComponent } from "./badges/badges.component";
 import { Badge } from '../interfaces/badge';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
-import { PokedexComponent } from "./pokedex/pokedex.component";
-import { BadgeDexComponent } from "./badge-dex/badge-dex.component";
-import { AchievementsComponent } from "./achievements/achievements.component";
+import { RotomPhoneComponent } from "./rotom-phone/rotom-phone.component";
 import {TranslatePipe} from '@ngx-translate/core';
 import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.service';
@@ -21,7 +19,10 @@ import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.s
     ImageFallbackDirective,CommonModule,
     NgbTooltipModule,
     BadgesComponent,
-    StoragePcComponent, TranslatePipe, PokedexComponent, BadgeDexComponent, AchievementsComponent],
+    StoragePcComponent,
+    RotomPhoneComponent,
+    TranslatePipe,
+  ],
   templateUrl: './trainer-team.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./trainer-team.component.css']

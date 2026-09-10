@@ -1,7 +1,5 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgIconsModule } from '@ng-icons/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -38,7 +36,7 @@ interface LifetimeTotal {
  */
 @Component({
   selector: 'app-achievements',
-  imports: [CommonModule, NgIconsModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './achievements.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './achievements.component.css',
@@ -47,14 +45,12 @@ export class AchievementsComponent implements OnInit, OnDestroy {
 
   constructor(
     private themeService: ThemeService,
-    private modalService: NgbModal,
     private achievementService: AchievementService,
     private statsService: StatsService,
     private pokedexService: PokedexService,
     private badgeDexService: BadgeDexService,
   ) {}
 
-  @ViewChild('achievementsModal', { static: true }) achievementsModal!: TemplateRef<unknown>;
 
   darkMode!: Observable<boolean>;
 
@@ -120,13 +116,7 @@ export class AchievementsComponent implements OnInit, OnDestroy {
     return `achievementsScreen.group.${group}`;
   }
 
-  openAchievements(): void {
-    this.modalService.open(this.achievementsModal, { centered: true, size: 'lg', scrollable: true });
-  }
 
-  closeModal(): void {
-    this.modalService.dismissAll();
-  }
 
   private buildTotals(): LifetimeTotal[] {
     const caught = this.pokedexService.currentPokedex.caught;
