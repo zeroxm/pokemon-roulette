@@ -1,11 +1,13 @@
-import { Component, Renderer2, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { environment } from '../environments/environment';
 import { ThemeService } from './services/theme-service/theme.service';
 import { AuthService } from './services/auth-service/auth.service';
 import { SyncService } from './services/sync-service/sync.service';
 import { AchievementToastComponent } from './achievements/achievement-toast/achievement-toast.component';
+import { HANDOFF_RESULT } from './migration/handoff-result';
+import { ImportResult } from './migration/import-handoff';
 
 const SUPPORTED_LANGUAGES = ['en', 'es', 'fr', 'de', 'it', 'pt'] as const;
 const DEFAULT_LANGUAGE = 'en';
@@ -13,13 +15,16 @@ const DEFAULT_LANGUAGE = 'en';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AchievementToastComponent],
+  imports: [RouterOutlet, AchievementToastComponent, TranslatePipe],
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'pokemon-roulette';
+
+  /** Set only when a player has just arrived from the old address. */
+  transferred: ImportResult | null;
 
   constructor(
     private translate: TranslateService,
@@ -29,7 +34,10 @@ export class AppComponent {
     _theme: ThemeService,
     authService: AuthService,
     syncService: SyncService,
+    @Inject(HANDOFF_RESULT) handoff: ImportResult | null,
   ) {
+    this.transferred = handoff;
+
     // The stored value is interpolated into the loader's fetch URL
     // (./assets/i18n/${lang}.json), so it must be checked against the supported
     // set rather than trusted — a crafted value would redirect that request.

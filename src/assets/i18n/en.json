@@ -3123,5 +3123,9 @@
     "dragon": "Dragon",
     "dark": "Dark",
     "fairy": "Fairy"
+  },
+  "migration": {
+    "transferred": "Your progress arrived — {{count}} Pokémon are back in your Pokédex.",
+    "dismiss": "Dismiss"
   }
 }

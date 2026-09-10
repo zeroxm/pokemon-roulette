@@ -3123,5 +3123,9 @@
     "dragon": "Drago",
     "dark": "Buio",
     "fairy": "Folletto"
+  },
+  "migration": {
+    "transferred": "I tuoi progressi sono arrivati: {{count}} Pokémon sono di nuovo nel tuo Pokédex.",
+    "dismiss": "Chiudi"
   }
 }
