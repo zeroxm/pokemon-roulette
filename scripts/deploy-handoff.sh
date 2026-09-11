@@ -47,6 +47,9 @@ fi
 cp handoff/index.html handoff/404.html
 
 echo "==> publishing handoff/ to gh-pages"
-npx --yes angular-cli-ghpages --dir=handoff --no-silent
+# The locally pinned copy, not `npx --yes`: this is the one command whose
+# failure mode is "every existing player loses the route to their collection",
+# so it should not depend on a fetch from the network at the moment it runs.
+npx angular-cli-ghpages --dir=handoff --no-silent
 
 echo "==> done. https://zeroxm.github.io/pokemon-roulette/"
