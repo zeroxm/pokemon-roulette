@@ -41,14 +41,14 @@ describe('AchievementToastComponent', () => {
   });
 
   it('announces an achievement', () => {
-    stats.increment('runs_completed');
+    stats.increment('runs_won');
     fixture.detectChanges();
 
     expect(component.current?.id).toBe('champion');
   });
 
   it('clears itself after a while', fakeAsync(() => {
-    stats.increment('runs_completed');
+    stats.increment('runs_won');
     expect(component.current).not.toBeNull();
 
     tick(5000);
@@ -61,7 +61,7 @@ describe('AchievementToastComponent', () => {
     // Three at once: first rival win, first run, and the 10-run tier is not
     // reached, so use two counters that each unlock immediately.
     stats.increment('rival_battles_won');
-    stats.increment('runs_completed');
+    stats.increment('runs_won');
 
     const first = component.current;
     expect(first).not.toBeNull();
@@ -77,7 +77,7 @@ describe('AchievementToastComponent', () => {
   }));
 
   it('can be dismissed by the player', () => {
-    stats.increment('runs_completed');
+    stats.increment('runs_won');
     expect(component.current).not.toBeNull();
 
     component.dismiss();

@@ -2841,7 +2841,7 @@
       "forms": "Formas",
       "encounters": "Encontros",
       "badges": "Insígnias",
-      "grind": "Dedicação"
+      "dedication": "Dedicação"
     },
     "total": {
       "caught": "Capturados",
@@ -2856,23 +2856,23 @@
       "name": "Eu escolho você",
       "description": "Capture seu primeiro Pokémon."
     },
-    "pokedex_lv_1": {
+    "pokedex_1_percent": {
       "name": "Pokédex 1%",
       "description": "Capture 10 Pokémon diferentes."
     },
-    "pokedex_lv_2": {
+    "pokedex_5_percent": {
       "name": "Pokédex 5%",
       "description": "Capture 50 Pokémon diferentes."
     },
-    "pokedex_lv_3": {
+    "pokedex_10_percent": {
       "name": "Pokédex 10%",
       "description": "Capture 100 Pokémon diferentes."
     },
-    "pokedex_lv_4": {
+    "pokedex_25_percent": {
       "name": "Pokédex 25%",
       "description": "Capture 250 Pokémon diferentes."
     },
-    "pokedex_lv_5": {
+    "pokedex_50_percent": {
       "name": "Pokédex 50%",
       "description": "Capture 500 Pokémon diferentes."
     },

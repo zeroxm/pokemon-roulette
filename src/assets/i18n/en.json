@@ -2841,7 +2841,7 @@
       "forms": "Forms",
       "encounters": "Encounters",
       "badges": "Badges",
-      "grind": "Dedication"
+      "dedication": "Dedication"
     },
     "total": {
       "caught": "Caught",
@@ -2856,23 +2856,23 @@
       "name": "I choose you",
       "description": "Catch your first Pokémon."
     },
-    "pokedex_lv_1": {
+    "pokedex_1_percent": {
       "name": "Pokédex 1%",
       "description": "Catch 10 different Pokémon."
     },
-    "pokedex_lv_2": {
+    "pokedex_5_percent": {
       "name": "Pokédex 5%",
       "description": "Catch 50 different Pokémon."
     },
-    "pokedex_lv_3": {
+    "pokedex_10_percent": {
       "name": "Pokédex 10%",
       "description": "Catch 100 different Pokémon."
     },
-    "pokedex_lv_4": {
+    "pokedex_25_percent": {
       "name": "Pokédex 25%",
       "description": "Catch 250 different Pokémon."
     },
-    "pokedex_lv_5": {
+    "pokedex_50_percent": {
       "name": "Pokédex 50%",
       "description": "Catch 500 different Pokémon."
     },

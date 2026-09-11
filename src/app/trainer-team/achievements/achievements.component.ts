@@ -134,14 +134,14 @@ export class AchievementsComponent implements OnInit, OnDestroy {
       { labelKey: 'achievementsScreen.total.caught', value: collection.species },
       { labelKey: 'achievementsScreen.total.shiny', value: collection.shinies },
       { labelKey: 'achievementsScreen.total.badges', value: this.badgeDexService.earned.size },
-      { labelKey: 'achievementsScreen.total.runs', value: this.statsService.get('runs_completed') },
+      { labelKey: 'achievementsScreen.total.runs', value: this.statsService.get('runs_won') },
       { labelKey: 'achievementsScreen.total.spins', value: this.statsService.get('spins_total') },
     ];
   }
 
   private groupAchievements(): GroupedAchievements[] {
     const order: AchievementGroup[] = [
-      'collection', 'shiny', 'champion', 'rival', 'forms', 'encounters', 'badges', 'grind',
+      'collection', 'shiny', 'champion', 'rival', 'forms', 'encounters', 'badges', 'dedication',
     ];
 
     return order.map(group => ({

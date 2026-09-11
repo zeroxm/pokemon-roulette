@@ -2841,7 +2841,7 @@
       "forms": "Formas",
       "encounters": "Encuentros",
       "badges": "Medallas",
-      "grind": "Dedicación"
+      "dedication": "Dedicación"
     },
     "total": {
       "caught": "Capturados",
@@ -2856,23 +2856,23 @@
       "name": "¡Yo te elijo!",
       "description": "Captura tu primer Pokémon."
     },
-    "pokedex_lv_1": {
+    "pokedex_1_percent": {
       "name": "Pokédex 1%",
       "description": "Captura 10 Pokémon diferentes."
     },
-    "pokedex_lv_2": {
+    "pokedex_5_percent": {
       "name": "Pokédex 5%",
       "description": "Captura 50 Pokémon diferentes."
     },
-    "pokedex_lv_3": {
+    "pokedex_10_percent": {
       "name": "Pokédex 10%",
       "description": "Captura 100 Pokémon diferentes."
     },
-    "pokedex_lv_4": {
+    "pokedex_25_percent": {
       "name": "Pokédex 25%",
       "description": "Captura 250 Pokémon diferentes."
     },
-    "pokedex_lv_5": {
+    "pokedex_50_percent": {
       "name": "Pokédex 50%",
       "description": "Captura 500 Pokémon diferentes."
     },

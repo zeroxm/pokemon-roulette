@@ -483,8 +483,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.finishCurrentState();
 
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
   }
 
@@ -737,8 +736,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
   }
 
@@ -772,9 +770,20 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       }))];
       this.pokedexService.markWon(wonIds);
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
+  }
+
+  /**
+   * Every route to the game-over screen goes through here.
+   *
+   * There are three of them, and counting the run at each call site is how a
+   * fourth gets added without one. A lost run is still a completed run.
+   */
+  private endRunInDefeat(): void {
+    this.statsService.recordRunEnded();
+    this.gameStateService.setNextState('game-over');
+    this.finishCurrentState();
   }
 
   private queueCheckEvolutionAfterImportantBattle(source: EventSource): void {

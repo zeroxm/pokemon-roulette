@@ -12,7 +12,12 @@
  * sync after the backend learns it.
  */
 export const FIXED_COUNTER_KEYS = [
+  // A run that reached an end state. **Both endings count** -- beating the
+  // champion and reaching the game-over screen. Only wins counted before,
+  // which made "Complete 100 runs" mean "win 100 runs" and turned the
+  // Dedication achievements into something far harsher than they read.
   'runs_completed',
+  'runs_won',
   'spins_total',
   'rival_battles_won',
   'champion_with_six',

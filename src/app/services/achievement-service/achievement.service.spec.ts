@@ -57,7 +57,7 @@ describe('AchievementService', () => {
     let progress: ReadonlyMap<string, { current: number; target: number }> = new Map();
     inject().progress$.subscribe(value => (progress = value));
 
-    expect(progress.get('pokedex_lv_1')?.current).toBe(3);
+    expect(progress.get('pokedex_1_percent')?.current).toBe(3);
   });
 
   it('announces what is earned afterwards', () => {
@@ -66,7 +66,7 @@ describe('AchievementService', () => {
     const announced: Achievement[] = [];
     service.newlyUnlocked$.subscribe(batch => announced.push(...batch));
 
-    TestBed.inject(StatsService).increment('runs_completed');
+    TestBed.inject(StatsService).increment('runs_won');
 
     expect(announced.map(a => a.id)).toContain('champion');
   });
@@ -78,8 +78,8 @@ describe('AchievementService', () => {
     const announced: Achievement[] = [];
     service.newlyUnlocked$.subscribe(batch => announced.push(...batch));
 
-    stats.increment('runs_completed');
-    stats.increment('runs_completed');
+    stats.increment('runs_won');
+    stats.increment('runs_won');
 
     expect(announced.filter(a => a.id === 'champion').length)
       .withContext('a second run must not re-announce the first-champion achievement')
@@ -98,10 +98,10 @@ describe('AchievementService', () => {
   it('keeps an unlock that no longer derives', () => {
     localStorage.setItem(
       'pokemon-roulette-achievements',
-      JSON.stringify({ pokedex_lv_5: '2026-01-01T00:00:00.000Z' }),
+      JSON.stringify({ pokedex_50_percent: '2026-01-01T00:00:00.000Z' }),
     );
 
-    expect(inject().isUnlocked('pokedex_lv_5'))
+    expect(inject().isUnlocked('pokedex_50_percent'))
       .withContext('the Pokédex is empty, yet the player earned this before')
       .toBeTrue();
   });
@@ -128,14 +128,14 @@ describe('AchievementService', () => {
     inject().progress$.subscribe(p => (progress = p));
 
     expect(progress.size).toBe(50);
-    expect(progress.get('pokedex_lv_1')).toEqual({ current: 2, target: 10 });
+    expect(progress.get('pokedex_1_percent')).toEqual({ current: 2, target: 10 });
   });
 
   it('marks local state dirty when something unlocks', () => {
     const service = inject();
     TestBed.inject(SyncStateService).markSynced();
 
-    TestBed.inject(StatsService).increment('runs_completed');
+    TestBed.inject(StatsService).increment('runs_won');
 
     expect(service.isUnlocked('champion')).toBeTrue();
     expect(TestBed.inject(SyncStateService).isSynced)

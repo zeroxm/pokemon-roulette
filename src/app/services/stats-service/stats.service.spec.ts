@@ -177,4 +177,20 @@ describe('StatsService', () => {
         .toBeFalse();
     });
   });
+
+  // Reported in UAT: eleven runs played across eight regions, runs_completed
+  // stuck at 1. Only a championship counted, so "Complete 100 runs" quietly
+  // meant "win 100 runs".
+  it('counts a lost run as a completed one, and a win as both', () => {
+    service.recordRunEnded();
+    service.recordRunEnded();
+
+    expect(service.get('runs_completed')).toBe(2);
+    expect(service.get('runs_won')).withContext('losing is not winning').toBe(0);
+
+    service.recordChampion(1, 6);
+
+    expect(service.get('runs_completed')).toBe(3);
+    expect(service.get('runs_won')).toBe(1);
+  });
 });

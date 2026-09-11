@@ -2841,7 +2841,7 @@
       "forms": "Formen",
       "encounters": "Begegnungen",
       "badges": "Orden",
-      "grind": "Ausdauer"
+      "dedication": "Ausdauer"
     },
     "total": {
       "caught": "Gefangen",
@@ -2856,23 +2856,23 @@
       "name": "Ich wähle dich",
       "description": "Fange dein erstes Pokémon."
     },
-    "pokedex_lv_1": {
+    "pokedex_1_percent": {
       "name": "Pokédex 1%",
       "description": "Fange 10 verschiedene Pokémon."
     },
-    "pokedex_lv_2": {
+    "pokedex_5_percent": {
       "name": "Pokédex 5%",
       "description": "Fange 50 verschiedene Pokémon."
     },
-    "pokedex_lv_3": {
+    "pokedex_10_percent": {
       "name": "Pokédex 10%",
       "description": "Fange 100 verschiedene Pokémon."
     },
-    "pokedex_lv_4": {
+    "pokedex_25_percent": {
       "name": "Pokédex 25%",
       "description": "Fange 250 verschiedene Pokémon."
     },
-    "pokedex_lv_5": {
+    "pokedex_50_percent": {
       "name": "Pokédex 50%",
       "description": "Fange 500 verschiedene Pokémon."
     },

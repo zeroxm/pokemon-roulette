@@ -2841,7 +2841,7 @@
       "forms": "Forme",
       "encounters": "Incontri",
       "badges": "Medaglie",
-      "grind": "Dedizione"
+      "dedication": "Dedizione"
     },
     "total": {
       "caught": "Catturati",
@@ -2856,23 +2856,23 @@
       "name": "Scelgo te",
       "description": "Cattura il tuo primo Pokémon."
     },
-    "pokedex_lv_1": {
+    "pokedex_1_percent": {
       "name": "Pokédex 1%",
       "description": "Cattura 10 Pokémon diversi."
     },
-    "pokedex_lv_2": {
+    "pokedex_5_percent": {
       "name": "Pokédex 5%",
       "description": "Cattura 50 Pokémon diversi."
     },
-    "pokedex_lv_3": {
+    "pokedex_10_percent": {
       "name": "Pokédex 10%",
       "description": "Cattura 100 Pokémon diversi."
     },
-    "pokedex_lv_4": {
+    "pokedex_25_percent": {
       "name": "Pokédex 25%",
       "description": "Cattura 250 Pokémon diversi."
     },
-    "pokedex_lv_5": {
+    "pokedex_50_percent": {
       "name": "Pokédex 50%",
       "description": "Cattura 500 Pokémon diversi."
     },

@@ -79,6 +79,17 @@ export class StatsService {
    * the end — depositing to the PC beforehand is allowed, and that moment is
    * what the "Pokémon Stadium" and "Full House" achievements are about.
    */
+  /**
+   * A run ended without a championship.
+   *
+   * Counts towards `runs_completed` exactly as a win does: reaching an ending
+   * is the thing the Dedication achievements are about, and most runs end
+   * this way.
+   */
+  recordRunEnded(): void {
+    this.increment('runs_completed');
+  }
+
   recordChampion(generation: GenerationId, teamSizeAtChampionBattle: number): void {
     const next: Record<string, number> = { ...this.currentStats };
 
@@ -87,6 +98,7 @@ export class StatsService {
     };
 
     bump('runs_completed');
+    bump('runs_won');
     bump(championRegionKey(generation));
 
     if (teamSizeAtChampionBattle >= 6) {
