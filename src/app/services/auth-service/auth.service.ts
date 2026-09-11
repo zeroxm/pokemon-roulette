@@ -37,7 +37,7 @@ const ERROR_KEYS: Readonly<Record<string, string>> = {
  * dismiss before continuing.
  *
  * The session lives in an `HttpOnly` cookie, which JavaScript cannot read by
- * design — that is the whole reason the game moved to a sibling hostname. So
+ * design: that is the whole reason the game moved to a sibling hostname. So
  * "am I signed in" is answered by asking the server, not by inspecting storage.
  */
 @Injectable({ providedIn: 'root' })
@@ -69,7 +69,7 @@ export class AuthService {
   /**
    * Asks the server who the caller is.
    *
-   * Any failure — no session, API down, no network — resolves to "signed out".
+   * Any failure, no session, API down, no network, resolves to "signed out".
    * A player with no account must never see an error for a question they did
    * not ask.
    */

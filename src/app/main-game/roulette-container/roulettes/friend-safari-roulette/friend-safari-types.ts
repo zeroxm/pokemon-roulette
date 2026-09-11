@@ -6,7 +6,7 @@ import { WheelItem } from '../../../../interfaces/wheel-item';
  * recognisable before its label is read.
  *
  * The darkening is not decorative. `WheelComponent` draws slice labels in white, and the palette at
- * full brightness leaves Electric and Ice around 0.8 luminance — barely legible. At this shade every
+ * full brightness leaves Electric and Ice around 0.8 luminance: barely legible. At this shade every
  * type clears 4.5:1 against white.
  *
  * Kept here rather than on `PokemonTypeData`, which describes the API's numeric ids and has no

@@ -57,7 +57,7 @@ describe('handoff payload', () => {
     const encoded = encodeHandoff(storage(complete));
 
     // Four bits per Pokémon rather than JSON. The same data as JSON is ~40 KB,
-    // which base64 inflates past 50 KB — inside what browsers accept, but not
+    // which base64 inflates past 50 KB: inside what browsers accept, but not
     // by a margin worth betting a collection on.
     expect(encoded.length).toBeLessThan(1200);
     expect(Object.keys(decodeHandoff(encoded)!.pokedex).length).toBe(1025);

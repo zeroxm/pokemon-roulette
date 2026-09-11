@@ -22,14 +22,14 @@ interface PhoneAppEntry {
  * One button for everything the player has collected.
  *
  * The Pokédex, the trophy case and the achievements were three buttons in a
- * row that only ever grew, next to the PC. They are the same kind of thing —
- * a record of what you have done — so they sit behind one door, and the row
+ * row that only ever grew, next to the PC. They are the same kind of thing,
+ * a record of what you have done, so they sit behind one door, and the row
  * is the two it should always have been: storage on the left, this on the
  * right.
  *
  * Named for the Rotom Phone, which in Sword and Shield is exactly this: one
  * device holding the Pokédex and everything adjacent to it. The dropdown is
- * the device's app list, and picking one opens it directly — a tab strip
+ * the device's app list, and picking one opens it directly: a tab strip
  * inside the window made you open the wrong app first and then correct it.
  */
 @Component({
@@ -51,7 +51,7 @@ export class RotomPhoneComponent {
     this.darkMode = this.themeService.isDark$;
   }
 
-  // static: true, or the first click finds an undefined ref — the same reason
+  // static: true, or the first click finds an undefined ref: the same reason
   // the three panels this replaced each said so.
   @ViewChild('phoneModal', { static: true }) phoneModal!: TemplateRef<unknown>;
 

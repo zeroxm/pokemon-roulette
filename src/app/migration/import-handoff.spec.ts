@@ -48,7 +48,7 @@ describe('importHandoff', () => {
     expect(pokedex()['150'].won).toBeTrue();
   });
 
-  it('is safe to run twice — a bookmark reopened months later changes nothing', () => {
+  it('is safe to run twice: a bookmark reopened months later changes nothing', () => {
     const hash = fragment({ '1': { won: true }, '4': { won: true } });
 
     importHandoff(storage, at(hash), history);

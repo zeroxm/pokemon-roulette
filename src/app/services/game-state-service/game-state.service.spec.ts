@@ -84,7 +84,7 @@ describe('GameStateService', () => {
 
   it('should pop states in LIFO order when multiple setNextState calls are made', () => {
     service.setNextState('go-fishing');         // pushed 2nd
-    service.setNextState('select-from-pokemon-list'); // pushed 3rd — now on top
+    service.setNextState('select-from-pokemon-list'); // pushed 3rd: now on top
 
     const emitted: string[] = [];
     service.currentState.subscribe(state => emitted.push(state));

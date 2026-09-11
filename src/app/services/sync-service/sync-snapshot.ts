@@ -29,7 +29,7 @@ export interface SyncSnapshot {
   counters: Record<string, number>;
   /**
    * `null` for a player who has never changed one, and `Partial` because the
-   * server stores settings as an opaque blob it does not validate — a payload
+   * server stores settings as an opaque blob it does not validate: a payload
    * written by another build may be missing a field this one expects.
    * `SettingsService.adopt` fills the gaps from defaults.
    */
@@ -45,7 +45,7 @@ export const EMPTY_SNAPSHOT: SyncSnapshot = {
 };
 
 /**
- * Unions two snapshots. **No rule here may ever decrease a value** — that is
+ * Unions two snapshots. **No rule here may ever decrease a value**: that is
  * the single property that makes syncing safe without locks or vector clocks.
  *
  * `incoming` is the *newer* side, and the only thing that means is which
@@ -133,7 +133,7 @@ function mergeCounters(
  *
  * Tolerant on purpose. The game deploys on every push to `main` and the API
  * does not, so a response carrying a field this build has never heard of is
- * the normal case rather than an error — and refusing to parse one would
+ * the normal case rather than an error, and refusing to parse one would
  * strand a player's collection on the server.
  */
 export function parseSyncSnapshot(body: unknown): SyncSnapshot {

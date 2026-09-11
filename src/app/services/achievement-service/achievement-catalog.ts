@@ -15,7 +15,7 @@ import { ALL_BADGE_IDS, GENERATIONS_WITH_BADGES, badgeRoundsForGeneration } from
  */
 export interface AchievementContext {
   readonly stats: PlayerStats;
-  /** Pokémon ids with a Pokédex entry — obtained at least once. */
+  /** Pokémon ids with a Pokédex entry: obtained at least once. */
   readonly caught: ReadonlySet<number>;
   readonly shinyIds: ReadonlySet<number>;
   readonly megaCount: number;
@@ -67,7 +67,7 @@ const owned = (ids: readonly number[], context: AchievementContext): number =>
 const allOf = (ids: readonly number[]) =>
   (context: AchievementContext): Progress => ({ current: owned(ids, context), target: ids.length });
 
-/** The best progress across regions — the region you are closest to finishing. */
+/** The best progress across regions: the region you are closest to finishing. */
 const bestRegion = (idsByGeneration: Record<number, number[]>) =>
   (context: AchievementContext): Progress => {
     let best: Progress = { current: 0, target: 1 };
@@ -93,7 +93,7 @@ const LEGENDARY_IDS: readonly number[] = GENERATION_IDS.flatMap(g => legendaryBy
 
 const everySpecies: readonly number[] = GENERATION_IDS.flatMap(g => pokedexByGeneration[g] ?? []);
 
-/** Regions where every gym has been beaten — one badge from each of its rounds. */
+/** Regions where every gym has been beaten: one badge from each of its rounds. */
 const regionsFullyBadged = (context: AchievementContext): number =>
   GENERATIONS_WITH_BADGES.reduce((total, generation) => {
     const rounds = badgeRoundsForGeneration(generation);
@@ -101,7 +101,7 @@ const regionsFullyBadged = (context: AchievementContext): number =>
     return complete ? total + 1 : total;
   }, 0);
 
-/** Regions with at least one counter above zero — championed, or played. */
+/** Regions with at least one counter above zero: championed, or played. */
 const regionsWhere = (key: (generation: GenerationId) => CounterKey) =>
   (context: AchievementContext): number =>
     GENERATION_IDS.reduce((total, g) => ((context.stats[key(g)] ?? 0) > 0 ? total + 1 : total), 0);
@@ -114,7 +114,7 @@ const playedRegions = regionsWhere(playedRegionKey);
 /**
  * The frozen catalog: https://github.com/zeroxm/pokemon-roulette/issues/50
  *
- * Ids are frozen — the backend validates against exactly this list, and
+ * Ids are frozen: the backend validates against exactly this list, and
  * renaming one after players hold it means a data migration on live accounts.
  * Name and description translation keys are derived from the id
  * (`achievements.<id>.name`), so they cannot drift out of step with it.
@@ -123,7 +123,7 @@ const playedRegions = regionsWhere(playedRegionKey);
  * and the backend must deploy first.
  */
 export const ACHIEVEMENTS: readonly Achievement[] = [
-  // Collection — derived from the Pokédex.
+  // Collection: derived from the Pokédex.
   { id: 'i_choose_you', group: 'collection', progress: distinctCaught(1) },
   { id: 'pokedex_1_percent', group: 'collection', progress: distinctCaught(10) },
   { id: 'pokedex_5_percent', group: 'collection', progress: distinctCaught(50) },
@@ -136,7 +136,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   { id: 'paleontologist', group: 'collection', progress: allOf(GENERATION_IDS.flatMap(g => fossilByGeneration[g] ?? [])) },
   { id: 'myth_buster', group: 'collection', progress: bestRegion(legendaryByGeneration) },
 
-  // Shiny — also derived from the Pokédex.
+  // Shiny: also derived from the Pokédex.
   { id: 'oh_shiny', group: 'shiny', progress: shinies(1) },
   { id: 'shiny_hunter_1', group: 'shiny', progress: shinies(5) },
   { id: 'shiny_hunter_2', group: 'shiny', progress: shinies(10) },

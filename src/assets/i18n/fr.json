@@ -2437,7 +2437,7 @@
       "name": "Blanche",
       "quote1": "Les Pokémon sont trop mignons!",
       "quote2": "Tu veux te battre?",
-      "quote3": "Je te préviens — je suis douée, hein!"
+      "quote3": "Je te préviens, je suis douée, hein !"
     },
     "morty": {
       "name": "Mortimer",
@@ -2458,7 +2458,7 @@
     "pryce": {
       "name": "Frédo",
       "quote1": "J'entraîne des Pokémon depuis bien avant ta naissance. Je ne perds pas facilement.",
-      "quote2": "Moi, Pryce — le Dresseur de l'Hiver — je vais te montrer ma puissance!"
+      "quote2": "Moi, Pryce, le Dresseur de l'Hiver, je vais te montrer ma puissance !"
     },
     "clair": {
       "name": "Sandra",
@@ -2591,7 +2591,7 @@
     "viola": {
       "name": "Violette",
       "quote1": "Fantastique! Simplement fantastique! Un excellent sujet pour ma caméra!",
-      "quote2": "Mes objectifs sont toujours tournés vers la victoire — je ne laisserai personne gâcher cette prise!"
+      "quote2": "Mes objectifs sont toujours tournés vers la victoire : je ne laisserai personne gâcher cette prise !"
     },
     "grant": {
       "name": "Lino",
@@ -2645,7 +2645,7 @@
     },
     "olivia": {
       "name": "Alyxia",
-      "quote1": "Et maintenant tu devras affronter le grand défi kahuna — moi!",
+      "quote1": "Et maintenant tu devras affronter le grand défi kahuna : moi !",
       "quote2": "Prépare-toi au combat Pokémon le plus difficile auquel tu aies jamais fait face à Akala!"
     },
     "sophocles-acerola": {
@@ -2705,7 +2705,7 @@
     "raihan": {
       "name": "Roy",
       "quote1": "Tu vises à vaincre Tarak... As-tu une idée de la hauteur de cet obstacle?",
-      "quote2": "Comme son plus grand rival, je pense que moi — Roy — vais devoir te le montrer!"
+      "quote2": "Comme son plus grand rival, je pense que moi, Roy, vais devoir te le montrer !"
     },
     "katy": {
       "name": "Katy",
@@ -3072,7 +3072,7 @@
   "account": {
     "title": "Compte",
     "checking": "Vérification…",
-    "optional": "Le compte est facultatif. Le jeu fonctionne sans — se connecter sert uniquement à synchroniser votre collection entre appareils.",
+    "optional": "Le compte est facultatif. Le jeu fonctionne sans. Se connecter sert uniquement à synchroniser votre collection entre appareils.",
     "signIn": "Se connecter",
     "createAccount": "Créer un compte",
     "email": "E-mail",
@@ -3146,7 +3146,7 @@
     "fairy": "Fée"
   },
   "migration": {
-    "transferred": "Votre progression est arrivée — {{count}} Pokémon sont de retour dans votre Pokédex.",
+    "transferred": "Votre progression est arrivée : {{count}} Pokémon sont de retour dans votre Pokédex.",
     "dismiss": "Fermer"
   },
   "rotomPhone": {

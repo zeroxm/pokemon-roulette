@@ -110,7 +110,7 @@ export class FormRuleService {
   }
 
   /**
-   * Applies one rule immediately — used when a stone is tapped mid-battle.
+   * Applies one rule immediately: used when a stone is tapped mid-battle.
    *
    * `target` limits it to a single Pokémon, by identity. Without it, a player
    * carrying two Kangaskhan and tapping one stone mega evolved **both**: the
@@ -181,7 +181,7 @@ export class FormRuleService {
     }
 
     // Every form change funnels through here, which is the point of the rule
-    // table — one place to observe rather than a call beside each mechanic.
+    // table: one place to observe rather than a call beside each mechanic.
     // A sticky rule cannot re-fire once applied, so `changed` alone is the
     // signal.
     if (changed && rule.persistence === 'sticky') {
@@ -197,7 +197,7 @@ export class FormRuleService {
    * Per-Pokémon state is carried across rather than taken from the table form, so anything earned
    * during the battle survives the change back.
    *
-   * The sprite is dropped only when the target form does not name one — the usual case, where the
+   * The sprite is dropped only when the target form does not name one: the usual case, where the
    * runtime fetches the artwork. A form that hard-links its own sprite keeps it, because PokéAPI has
    * no official artwork for some forms (Mimikyu busted) and the fetch yields nothing.
    */
@@ -209,7 +209,7 @@ export class FormRuleService {
   }
 
   /**
-   * Restores a recorded form. Unlike `carryOver` the sprite is kept — its artwork was resolved
+   * Restores a recorded form. Unlike `carryOver` the sprite is kept: its artwork was resolved
    * before the battle, so dropping it would refetch an image the app already has.
    */
   private restore(target: PokemonItem, replacing: PokemonItem): PokemonItem {

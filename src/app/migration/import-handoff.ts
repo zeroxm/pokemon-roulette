@@ -26,7 +26,7 @@ export interface ImportResult {
  * Pokédex was empty.
  *
  * Returns `null` when there is nothing to do, which is the overwhelmingly
- * common case — every ordinary page load takes this path.
+ * common case: every ordinary page load takes this path.
  */
 export function importHandoff(
   storage: Storage = localStorage,

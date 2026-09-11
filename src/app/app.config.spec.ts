@@ -6,7 +6,7 @@ import { appConfig } from './app.config';
 
 /**
  * The translation loader is wired entirely through DI, so nothing else in the suite
- * touches it — a misconfigured loader resolves to an empty translation set instead of
+ * touches it: a misconfigured loader resolves to an empty translation set instead of
  * throwing, and every template then renders its raw key with the app otherwise working.
  * That is exactly how the ngx-translate 17 -> 18 config change slipped past all 299
  * other specs. These tests assert the wiring by the request it actually issues.

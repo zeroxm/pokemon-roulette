@@ -216,7 +216,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
+   * Clears everything scoped to a single run that is *not* a run modifier: selection requests,
    * wheel contents, and the Pokémon being acted on.
    *
    * Driven by the `game-start` emission rather than by the restart handlers, so both restart entry
@@ -276,7 +276,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Shows an explanatory modal, then advances the state machine — whether the player
+   * Shows an explanatory modal, then advances the state machine: whether the player
    * acknowledged it or dismissed it. Skipped entirely under the "less explanations" setting.
    */
   private async showModalThenContinue(open: () => Promise<NgbModalRef>): Promise<void> {
@@ -341,7 +341,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (this.auxPokemonList.length === 0) {
       // `Record<EventSource, …>` makes a missing row a compile error. The nullish check covers
       // values arriving from template outputs, where a stale build could yield an unmapped
-      // literal — doing nothing beats throwing mid-game.
+      // literal: doing nothing beats throwing mid-game.
       const prize = CONSOLATION_PRIZES[eventSource];
 
       if (!prize || prize.action === 'none') {
@@ -455,7 +455,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (this.auxPokemonList.length === 0) {
-      // Nothing else could evolve, so the bonus was never spent — release it, or the next
+      // Nothing else could evolve, so the bonus was never spent: release it, or the next
       // evolution silently loses its exp-share bonus to the re-entrancy guard.
       this.run.expShareUsed = false;
       this.run.expSharePokemon = null;
@@ -1009,7 +1009,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 0) {
       // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
-      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // cannot resolve, so the two can disagree. Without this the else branch below would queue
       // a wheel with no segments.
       this.finishCurrentState();
       return;
@@ -1080,8 +1080,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
    * Registers a newly obtained Pokémon *and* counts it as a catch.
    *
    * Only two paths acquire a Pokémon: a capture and a trade. Everything else
-   * that touches the Pokédex — evolving, re-registering to mark a shiny,
-   * getting a stolen Pokémon back — goes through registerInPokedex and does not
+   * that touches the Pokédex, evolving, re-registering to mark a shiny,
+   * getting a stolen Pokémon back, goes through registerInPokedex and does not
    * count, because none of them is a new acquisition.
    *
    * The base species is registered but NOT counted. An alt form registers its
@@ -1127,7 +1127,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 0) {
       // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
-      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // cannot resolve, so the two can disagree. Without this the else branch below would queue
       // a wheel with no segments.
       this.finishCurrentState();
       return;

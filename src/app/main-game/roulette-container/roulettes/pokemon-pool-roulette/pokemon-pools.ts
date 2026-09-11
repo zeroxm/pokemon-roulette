@@ -16,7 +16,7 @@ import { thriftyMegamartByGeneration, thriftyMegamartFeaturedIds } from './thrif
 export interface PokemonPool {
   /** Translation key for the heading. */
   readonly titleKey: string;
-  /** Whether the heading names the generation. Starters do not — the region is already implied. */
+  /** Whether the heading names the generation. Starters do not: the region is already implied. */
   readonly showGeneration: boolean;
   readonly idsByGeneration: Record<number, number[]>;
   /**
@@ -62,14 +62,14 @@ export const POKEMON_POOLS = {
   },
   safari: {
     titleKey: 'game.main.roulette.safariZone.which',
-    // Kanto is already implied — the slice that leads here exists nowhere else.
+    // Kanto is already implied: the slice that leads here exists nowhere else.
     showGeneration: false,
     idsByGeneration: safariZoneByGeneration,
     rareBoost: { ids: safariZonePrizeIds, weight: 2, fromRound: 4 },
   },
   megamart: {
     titleKey: 'game.main.roulette.thriftyMegamart.which',
-    // Alola is already implied — the slice that leads here exists nowhere else.
+    // Alola is already implied: the slice that leads here exists nowhere else.
     showGeneration: false,
     idsByGeneration: thriftyMegamartByGeneration,
     rareBoost: { ids: thriftyMegamartFeaturedIds, weight: 3 },

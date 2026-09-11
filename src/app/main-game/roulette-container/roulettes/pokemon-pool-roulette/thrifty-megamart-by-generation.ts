@@ -6,7 +6,7 @@
  * to break Mimikyu's Disguise, and until now there was no way to obtain a
  * Mimikyu at all, so the achievement was unreachable rather than hard.
  *
- * Only generation 7 has one, so this is deliberately a one-key table — the
+ * Only generation 7 has one, so this is deliberately a one-key table: the
  * slice that leads here is itself gated to Alola.
  */
 export const thriftyMegamartByGeneration: Record<number, number[]> = {

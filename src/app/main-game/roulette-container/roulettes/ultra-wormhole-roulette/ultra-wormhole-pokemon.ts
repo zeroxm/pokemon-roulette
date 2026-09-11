@@ -2,8 +2,8 @@
  * What waits on the other side of each Ultra Wormhole.
  *
  * From Ultra Sun and Ultra Moon, cross-checked against Serebii and Bulbapedia.
- * **The colours are places, not types** — blue is a waterfall, red a cliff,
- * green a plains, yellow a cave — which is why red holds both Articuno and
+ * **The colours are places, not types**, blue is a waterfall, red a cliff,
+ * green a plains, yellow a cave, which is why red holds both Articuno and
  * Cresselia, and blue both Kyogre and Azelf. Grouping them by type would look
  * tidier and would be wrong.
  *
@@ -18,8 +18,8 @@
  *    non-legendaries; a wormhole here is meant to be worth the slice.
  *
  * The white wormhole holds the Ultra Beasts. The games only offer the first
- * seven this way — Stakataka and Blacephalon are story encounters on Mahalo
- * Trail — but they are here too, so the set is the one a player expects.
+ * seven this way, Stakataka and Blacephalon are story encounters on Mahalo
+ * Trail, but they are here too, so the set is the one a player expects.
  */
 export type WormholeColour = 'white' | 'red' | 'blue' | 'green' | 'yellow';
 

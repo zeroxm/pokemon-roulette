@@ -16,7 +16,7 @@ export class CheckEvolutionRouletteComponent implements OnInit {
   evolveOdds: WheelItem[] = [];
 
   @Input() evolutionCredits!: number;
-  /** Which battle queued this roll — decides the consolation prize when nothing can evolve. */
+  /** Which battle queued this roll: decides the consolation prize when nothing can evolve. */
   @Input() eventSource: EventSource = 'gym-battle';
   @Output() evolvePokemonEvent = new EventEmitter<EventSource>();
   @Output() evolutionCreditsChange = new EventEmitter<number>();

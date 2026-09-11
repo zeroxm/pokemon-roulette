@@ -59,7 +59,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   syncStatus: SyncStatus = 'off';
 
   // Two text fields and a password confirmation. A forms module for this would
-  // be 4.5 kB of framework to validate an email and count characters — enough
+  // be 4.5 kB of framework to validate an email and count characters: enough
   // to breach the bundle budget on its own.
   email = '';
   password = '';
@@ -150,7 +150,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   /**
    * Signing out wipes this device.
    *
-   * Unsynced progress is therefore destroyed by it, so that case asks first —
+   * Unsynced progress is therefore destroyed by it, so that case asks first:
    * "you have progress not yet saved to your account" is a sentence a player
    * needs to read before, not after.
    */

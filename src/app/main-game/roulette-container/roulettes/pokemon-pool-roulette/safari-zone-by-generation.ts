@@ -1,7 +1,7 @@
 /**
  * The Kanto Safari Zone catch pool.
  *
- * Red/Blue/Yellow and FireRed/LeafGreen encounters, minus the water ones — Psyduck, Poliwag,
+ * Red/Blue/Yellow and FireRed/LeafGreen encounters, minus the water ones: Psyduck, Poliwag,
  * Slowpoke, Krabby, Goldeen, Magikarp and their evolutions overlap too heavily with the generation
  * 1 fishing wheel to be worth a second appearance here.
  *
@@ -36,7 +36,7 @@ export const safariZoneByGeneration: Record<number, number[]> = {
 };
 
 /**
- * The Safari Zone's headline catches — the reason to walk in.
+ * The Safari Zone's headline catches: the reason to walk in.
  *
  * Three of them (Kangaskhan, Scyther, Pinsir) have mega forms, and Dratini is the start of a
  * pseudo-legendary line, so landing on one late in a run is worth more than an early Nidoran.

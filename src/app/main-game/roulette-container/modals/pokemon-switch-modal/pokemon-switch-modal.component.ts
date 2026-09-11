@@ -22,9 +22,9 @@ export class PokemonSwitchModalComponent {
   @Input({ required: true }) titleKey!: string;
   @Input({ required: true }) from!: PokemonItem;
   @Input({ required: true }) to!: PokemonItem;
-  /** Key opening the sentence — "Your" (evolve) or "You sent" (trade). */
+  /** Key opening the sentence: "Your" (evolve) or "You sent" (trade). */
   @Input({ required: true }) leadKey!: string;
-  /** Key joining the two Pokémon — "evolved into" or "and received a". */
+  /** Key joining the two Pokémon: "evolved into" or "and received a". */
   @Input({ required: true }) joinKey!: string;
 
   constructor(public activeModal: NgbActiveModal) {}

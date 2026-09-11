@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
 import { ThemeService } from './theme.service';
 
-describe('ThemeService — backgroundImage', () => {
+describe('ThemeService: backgroundImage', () => {
   afterEach(() => {
     document.body.style.backgroundImage = '';
     document.body.className = '';

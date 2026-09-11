@@ -2645,7 +2645,7 @@
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "E Agora você vai encarar o grande desafio kahuna — eu!",
+      "quote1": "E agora você vai encarar o grande desafio kahuna: eu!",
       "quote2": "Prepare-se para a batalha Pokémon mais difícil que você já enfrentou em Akala!"
     },
     "sophocles-acerola": {
@@ -2705,7 +2705,7 @@
     "raihan": {
       "name": "Raihan",
       "quote1": "Você está mirando em derrotar o Leon... Você faz alguma ideia de quão alto é esse obstáculo?",
-      "quote2": "Como o maior rival dele, acho que eu — Raihan — vou ter que mostrar a você!"
+      "quote2": "Como o maior rival dele, acho que eu, Raihan, vou ter que mostrar a você!"
     },
     "katy": {
       "name": "Katy",
@@ -3072,7 +3072,7 @@
   "account": {
     "title": "Conta",
     "checking": "Verificando…",
-    "optional": "A conta é opcional. O jogo funciona sem ela — entrar apenas mantém sua coleção sincronizada entre dispositivos.",
+    "optional": "A conta é opcional. O jogo funciona sem ela. Entrar apenas mantém sua coleção sincronizada entre dispositivos.",
     "signIn": "Entrar",
     "createAccount": "Criar conta",
     "email": "E-mail",
@@ -3146,7 +3146,7 @@
     "fairy": "Fada"
   },
   "migration": {
-    "transferred": "Seu progresso chegou — {{count}} Pokémon estão de volta na sua Pokédex.",
+    "transferred": "Seu progresso chegou: {{count}} Pokémon estão de volta na sua Pokédex.",
     "dismiss": "Fechar"
   },
   "rotomPhone": {

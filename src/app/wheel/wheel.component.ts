@@ -109,7 +109,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     // Apply the new size to the elements *before* drawing. Change detection would otherwise write
-    // the width/height bindings afterwards, and assigning canvas.width resets the drawing context —
+    // the width/height bindings afterwards, and assigning canvas.width resets the drawing context:
     // wiping everything just painted and leaving the wheel blank until the next spin.
     this.wheelCanvas.width = this.wheelWidth;
     this.wheelCanvas.height = this.canvasHeight;
@@ -140,7 +140,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Recomputes canvas size and font size. Must run *after* `items` is populated — the font-size
+   * Recomputes canvas size and font size. Must run *after* `items` is populated: the font-size
    * clamps below depend on the item count, and the constructor runs before any input is bound.
    */
   private updateWheelDimensions(): void {
@@ -168,7 +168,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     const arcSize = (2 * Math.PI) / (totalWeight);
     this.wheelCtx.clearRect(0, 0, this.wheelCanvas.width, this.wheelCanvas.height);
 
-    // Border ring first — behind segments (WHEEL-02)
+    // Border ring first: behind segments (WHEEL-02)
     this.drawBorderRing(centerX, centerY, radius);
 
     let startAngle = rotation;
@@ -199,7 +199,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
       startAngle = endAngle;
     }
 
-    // Pokéball on top — last draw call (WHEEL-01)
+    // Pokéball on top: last draw call (WHEEL-01)
     const pbRadius = window.innerWidth <= this.mobileBreakpoint ? radius * 0.15 : radius * 0.10;
     this.drawPokeball(centerX, centerY, pbRadius);
   }
@@ -401,7 +401,7 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     this.gameStateService.setWheelSpinning(false);
   }
 
-  /** Label of the segment under the pointer. Already translated — do not pipe it again. */
+  /** Label of the segment under the pointer. Already translated: do not pipe it again. */
   private getCurrentSegment(): string {
     const totalWeight = this.getTotalWeights();
 

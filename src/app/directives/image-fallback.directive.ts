@@ -7,7 +7,7 @@ export const IMAGE_FALLBACK_SRC = './place-holder-pixel.png';
  * Swaps in a local placeholder when an image fails to load.
  *
  * Nearly every sprite in the game is hot-linked from `raw.githubusercontent.com`, which is a
- * source-fetch endpoint with unauthenticated per-IP rate limits rather than a CDN — and the URLs
+ * source-fetch endpoint with unauthenticated per-IP rate limits rather than a CDN, and the URLs
  * point at a moving branch. A user behind a shared NAT, offline, or hitting the repo after a
  * restructure would otherwise see broken-image icons across the whole UI.
  *

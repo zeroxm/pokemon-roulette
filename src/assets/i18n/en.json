@@ -2645,7 +2645,7 @@
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "Now you face the grand trial of the kahuna—me!",
+      "quote1": "Now you face the grand trial of the kahuna: me!",
       "quote2": "Get ready for your hardest Pokémon battle yet on Akala!"
     },
     "sophocles-acerola": {
@@ -2705,7 +2705,7 @@
     "raihan": {
       "name": "Raihan",
       "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
-      "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
+      "quote2": "As his greatest rival, I guess that I, Raihan, will have to show you!"
     },
     "katy": {
       "name": "Katy",
@@ -3072,7 +3072,7 @@
   "account": {
     "title": "Account",
     "checking": "Checking…",
-    "optional": "An account is optional. The game works without one — signing in only keeps your collection in step across devices.",
+    "optional": "An account is optional. The game works without one. Signing in only keeps your collection in step across devices.",
     "signIn": "Sign in",
     "createAccount": "Create account",
     "email": "Email",
@@ -3146,7 +3146,7 @@
     "fairy": "Fairy"
   },
   "migration": {
-    "transferred": "Your progress arrived — {{count}} Pokémon are back in your Pokédex.",
+    "transferred": "Your progress arrived: {{count}} Pokémon are back in your Pokédex.",
     "dismiss": "Dismiss"
   },
   "rotomPhone": {

@@ -23,7 +23,7 @@ interface RegionCase {
 }
 
 /**
- * The lifetime badge collection — a trophy case, not a Pokédex.
+ * The lifetime badge collection: a trophy case, not a Pokédex.
  *
  * Grouped by region and by gym rather than laid out as a flat grid: 77 badges
  * across nine regions have real structure, and "which gyms have I beaten in

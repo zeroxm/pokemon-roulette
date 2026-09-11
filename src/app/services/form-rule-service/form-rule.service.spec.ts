@@ -67,7 +67,7 @@ describe('FormRuleService', () => {
       const team = [mon(CHARIZARD)];
       tapStone(team);
 
-      // Simulate the Pokémon vanishing entirely — revert finds nothing to do.
+      // Simulate the Pokémon vanishing entirely: revert finds nothing to do.
       team.length = 0;
       service.revertAll(team, []);
 

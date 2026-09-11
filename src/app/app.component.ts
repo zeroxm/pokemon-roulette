@@ -40,7 +40,7 @@ export class AppComponent {
 
     // The stored value is interpolated into the loader's fetch URL
     // (./assets/i18n/${lang}.json), so it must be checked against the supported
-    // set rather than trusted — a crafted value would redirect that request.
+    // set rather than trusted: a crafted value would redirect that request.
     this.translate.addLangs([...SUPPORTED_LANGUAGES]);
     this.translate.setFallbackLang(DEFAULT_LANGUAGE);
 

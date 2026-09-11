@@ -14,7 +14,7 @@ describe('weighted-random', () => {
     });
   });
 
-  describe('pickWeightedIndex — exact boundaries', () => {
+  describe('pickWeightedIndex: exact boundaries', () => {
     // These were only reachable statistically while selection lived inside the component.
     it('returns the first item when random lands at 0', () => {
       expect(pickWeightedIndex(equalWeights(4), () => 0)).toBe(0);
@@ -48,7 +48,7 @@ describe('weighted-random', () => {
     });
   });
 
-  describe('pickWeightedIndex — distribution', () => {
+  describe('pickWeightedIndex: distribution', () => {
     it('is fair across equal weights', () => {
       const runs = 10000;
       const items = equalWeights(8);

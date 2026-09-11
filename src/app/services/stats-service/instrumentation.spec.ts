@@ -8,7 +8,7 @@ import { PokemonPoolId } from '../../main-game/roulette-container/roulettes/poke
 
 /**
  * The counters only mean anything if the game actually moves them. These cover
- * the points where a wheel result becomes a statistic — the rest of the game
+ * the points where a wheel result becomes a statistic: the rest of the game
  * loop is exercised by the container's own spec.
  */
 describe('stats instrumentation', () => {

@@ -3072,7 +3072,7 @@
   "account": {
     "title": "Konto",
     "checking": "Wird geprüft…",
-    "optional": "Ein Konto ist optional. Das Spiel funktioniert auch ohne — die Anmeldung hält nur deine Sammlung auf allen Geräten gleich.",
+    "optional": "Ein Konto ist optional. Das Spiel funktioniert auch ohne. Die Anmeldung hält nur deine Sammlung auf allen Geräten gleich.",
     "signIn": "Anmelden",
     "createAccount": "Konto erstellen",
     "email": "E-Mail",
@@ -3146,7 +3146,7 @@
     "fairy": "Fee"
   },
   "migration": {
-    "transferred": "Dein Fortschritt ist angekommen — {{count}} Pokémon sind zurück in deinem Pokédex.",
+    "transferred": "Dein Fortschritt ist angekommen: {{count}} Pokémon sind zurück in deinem Pokédex.",
     "dismiss": "Schließen"
   },
   "rotomPhone": {

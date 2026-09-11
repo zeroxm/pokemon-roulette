@@ -16,7 +16,7 @@ export type FormSelection =
   /**
    * The form whose own `stone` the trainer holds; the rule does nothing without one.
    *
-   * `baseId` is carried explicitly because the base Pokémon is not among `forms` — the forms are
+   * `baseId` is carried explicitly because the base Pokémon is not among `forms`: the forms are
    * what it becomes, not what it is.
    */
   | { kind: 'item-gated'; baseId: number };
@@ -37,7 +37,7 @@ export type FormTrigger =
  * One form-changing mechanic, described as data.
  *
  * Mega, sticky and temporary battle forms were three separate code paths that all ended in the
- * same swap — clone the target, carry `shiny` across, drop the sprite, write it back. They differ
+ * same swap: clone the target, carry `shiny` across, drop the sprite, write it back. They differ
  * only along the four axes below, so they are now rows in one table rather than three near-copies
  * of the same loop.
  */

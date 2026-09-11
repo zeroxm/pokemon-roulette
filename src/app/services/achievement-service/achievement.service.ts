@@ -40,7 +40,7 @@ export type AchievementUnlocks = Readonly<Record<string, string>>;
  * toasts at once.
  *
  * That storage is also why a stored unlock is never taken away. Retuning a
- * threshold can leave one that no longer derives — and having something you
+ * threshold can leave one that no longer derives, and having something you
  * earned removed by a tuning change is the worse outcome.
  */
 @Injectable({ providedIn: 'root' })
@@ -199,7 +199,7 @@ export class AchievementService {
    * **The sync client must call this before adopting the collections.** Every
    * collection emission re-runs `evaluate`, so adopting another device's
    * Pokédex first would announce fifty achievements at once for things earned
-   * months ago on that device — the exact toast storm the stored record exists
+   * months ago on that device: the exact toast storm the stored record exists
    * to prevent.
    */
   adopt(unlocks: AchievementUnlocks): void {

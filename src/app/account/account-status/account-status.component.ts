@@ -10,7 +10,7 @@ import { AuthService, AuthUser } from '../../services/auth-service/auth.service'
  * Who is signed in, and the way to the account screen.
  *
  * One line, shown wherever a player might wonder where their collection is
- * going — above the team, and on the settings screen the account used to
+ * going: above the team, and on the settings screen the account used to
  * live on. It is the same component in both places so the answer cannot
  * differ between them.
  *

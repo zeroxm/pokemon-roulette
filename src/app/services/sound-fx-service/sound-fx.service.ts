@@ -132,7 +132,7 @@ export class SoundFxService {
    * Plays sounds one after another, each waiting on the previous one's `ended` event.
    *
    * The wait is bounded: a backgrounded tab can suspend the AudioContext so `onended` never
-   * fires, which would otherwise stall the queue — and with it whatever game flow is awaiting it —
+   * fires, which would otherwise stall the queue, and with it whatever game flow is awaiting it,
    * indefinitely.
    */
   async playSoundFxQueue(items: QueuedSoundFxItem[]): Promise<void> {

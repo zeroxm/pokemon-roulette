@@ -7,7 +7,7 @@
  * that silently never moves.
  *
  * Adding a counter means adding it here *and* to the backend's allowlist.
- * The backend must ship first, or the new key is skipped until it does —
+ * The backend must ship first, or the new key is skipped until it does:
  * skipped, not lost: the client sends absolute state, so it lands on the next
  * sync after the backend learns it.
  */

@@ -49,7 +49,7 @@ describe('PokemonFromGenerationRouletteComponent', () => {
 
     fixture = TestBed.createComponent(PokemonFromGenerationRouletteComponent);
     component = fixture.componentInstance;
-    component.currentRound = 5; // no power filter — test all pokemon
+    component.currentRound = 5; // no power filter: test all pokemon
     fixture.detectChanges();
   });
 

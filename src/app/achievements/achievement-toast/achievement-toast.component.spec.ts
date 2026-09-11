@@ -20,7 +20,7 @@ describe('AchievementToastComponent', () => {
     }).compileComponents();
 
     // Instantiated before the component so its first, silent evaluation has
-    // already happened — otherwise the toast would announce a fresh account's
+    // already happened: otherwise the toast would announce a fresh account's
     // starting state.
     TestBed.inject(AchievementService);
     stats = TestBed.inject(StatsService);

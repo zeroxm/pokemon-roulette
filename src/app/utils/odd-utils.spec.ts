@@ -19,7 +19,7 @@ describe('interleaveOdds utility', () => {
   }
 
   /**
-   * True when every value is within 1 of every other value —
+   * True when every value is within 1 of every other value:
    * the Bresenham-style "evenly spread" property.
    */
   function isEvenlySpread(values: number[]): boolean {
@@ -40,7 +40,7 @@ describe('interleaveOdds utility', () => {
   /**
    * Asserts the three distribution invariants:
    * 1. All input items appear in the output (counts preserved).
-   * 2. The minority group is evenly spread — consecutive gaps between its
+   * 2. The minority group is evenly spread: consecutive gaps between its
    *    items in the result differ by at most 1 (Bresenham / ±1 spacing).
    */
   function assertDistributionInvariants(yesCount: number, noCount: number): void {

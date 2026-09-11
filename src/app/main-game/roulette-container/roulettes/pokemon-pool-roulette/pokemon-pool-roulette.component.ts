@@ -84,7 +84,7 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
    *
    * Builds new objects rather than assigning `weight`: `getPokemonByIdArray` hands back the shared
    * National Dex entries, so writing to them would leave Chansey at the boosted weight everywhere
-   * for the rest of the session — other wheels included.
+   * for the rest of the session: other wheels included.
    */
   private applyRareBoost(pokemon: PokemonItem[]): PokemonItem[] {
     const boost = this.poolDefinition.rareBoost;

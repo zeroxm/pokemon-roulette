@@ -15,7 +15,7 @@ export function totalWeight(items: readonly Weighted[]): number {
 /**
  * Picks an index with probability proportional to `weight`.
  *
- * Returns **-1** when there is nothing to pick from — callers must check. The trailing
+ * Returns **-1** when there is nothing to pick from: callers must check. The trailing
  * `length - 1` is a floating-point backstop for a `random` that lands fractionally past the
  * accumulated total; on an empty array that expression is -1, which is why the guard is here
  * rather than left for the caller to discover at `items[-1]`.
