@@ -87,7 +87,7 @@
   image-rendering: pixelated;
 }
 
-/* Times caught, shown only past one — a "×1" on every cell would be noise. */
+/* Times caught, shown only past one: a "×1" on every cell would be noise. */
 .catch-count-badge {
   position: absolute;
   right: 2px;

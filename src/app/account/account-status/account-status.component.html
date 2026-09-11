@@ -1,0 +1,9 @@
+@if (checked) {
+  <a class="account-status" routerLink="/account">
+    @if (user) {
+      {{ 'account.signedInAs' | translate }} <strong>{{ user.email }}</strong>
+    } @else {
+      {{ 'account.statusSignedOut' | translate }}
+    }
+  </a>
+}

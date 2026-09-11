@@ -17,6 +17,7 @@ import {
   bootstrapShare,
 } from '@ng-icons/bootstrap-icons';
 import { provideIcons } from '@ng-icons/core';
+import { StatsService } from '../../services/stats-service/stats.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
@@ -57,6 +58,11 @@ describe('RouletteContainerComponent', () => {
     })
     .compileComponents();
 
+    // Before the component is built, not after. Services read their slice of
+    // localStorage in their constructors, so clearing it later leaves the
+    // previous test's counters alive in memory while the storage looks empty.
+    localStorage.clear();
+
     fixture = TestBed.createComponent(RouletteContainerComponent);
     component = fixture.componentInstance;
     pokemonService = TestBed.inject(PokemonService);
@@ -66,7 +72,6 @@ describe('RouletteContainerComponent', () => {
     modalQueueService = TestBed.inject(ModalQueueService);
     gameStateService.resetGameState();
     trainerService.resetTeam();
-    localStorage.clear();
     fixture.detectChanges();
   });
 
@@ -96,7 +101,7 @@ describe('RouletteContainerComponent', () => {
     expect(trainerService.getTeam()[0].pokemonId).toBe(1);
   });
 
-  it('should register base national dex ID in Pokédex when alt form is selected — ALT-FORM-01', () => {
+  it('should register base national dex ID in Pokédex when alt form is selected: ALT-FORM-01', () => {
     const raichu = pokemonService.getPokemonById(26);
     expect(raichu).toBeDefined();
     component.capturePokemon(raichu!);
@@ -112,7 +117,7 @@ describe('RouletteContainerComponent', () => {
   });
 
   // ALT-FORM-02: shiny alt form propagates shiny flag to base national dex entry
-  it('should propagate shiny flag to base national dex entry when shiny alt form captured — ALT-FORM-02', () => {
+  it('should propagate shiny flag to base national dex entry when shiny alt form captured: ALT-FORM-02', () => {
     const raichu = pokemonService.getPokemonById(26);
     expect(raichu).toBeDefined();
     const shinyRaichu = { ...raichu!, shiny: true };
@@ -128,7 +133,7 @@ describe('RouletteContainerComponent', () => {
   });
 
   // SHINY-03: shiny flag must be persisted to Pokédex after shiny roulette
-  it('should update Pokédex entry with shiny: true after setShininess(true) — SHINY-03', () => {
+  it('should update Pokédex entry with shiny: true after setShininess(true): SHINY-03', () => {
     const bulbasaur = pokemonService.getPokemonById(1);
     expect(bulbasaur).toBeDefined();
 
@@ -141,14 +146,14 @@ describe('RouletteContainerComponent', () => {
     expect(pokedexService.currentPokedex.caught['1']?.shiny).toBeTrue();
   });
 
-  it('should mark base national dex ID as won after Champion win with alt-form on team — ALTW-01', () => {
+  it('should mark base national dex ID as won after Champion win with alt-form on team: ALTW-01', () => {
     const raichu = pokemonService.getPokemonById(26);
     expect(raichu).toBeDefined();
 
     // Capture Raichu → triggers form selection
     component.capturePokemon(raichu!);
 
-    // Select Alolan Raichu form (pokemonId 10100) — adds alt-form to team
+    // Select Alolan Raichu form (pokemonId 10100): adds alt-form to team
     const alolanRaichu = component.pokemonForms.find(f => f.pokemonId === 10100);
     expect(alolanRaichu).toBeDefined();
     component.selectPokemonForm(alolanRaichu!);
@@ -232,7 +237,7 @@ describe('RouletteContainerComponent', () => {
   });
 
   // ══════════════════════════════════════════════════════════════════════════
-  // TEST-02: chooseWhoWillEvolve — 8 zero-evolvable branches
+  // TEST-02: chooseWhoWillEvolve: 8 zero-evolvable branches
   // ══════════════════════════════════════════════════════════════════════════
 
   describe('restart clears run state', () => {
@@ -358,7 +363,7 @@ describe('RouletteContainerComponent', () => {
     });
   });
 
-  describe('chooseWhoWillEvolve — zero evolvable pokemon', () => {
+  describe('chooseWhoWillEvolve: zero evolvable pokemon', () => {
     let openedModals: ItemModalComponent[];
 
     beforeEach(() => {
@@ -371,9 +376,9 @@ describe('RouletteContainerComponent', () => {
       });
     });
 
-    // Asserts the observable outcome — which prize the player actually sees and which
-    // follow-up runs — rather than merely which method got called.
-    // Expected keys are spelled out rather than read back from CONSOLATION_PRIZES — comparing the
+    // Asserts the observable outcome, which prize the player actually sees and which
+    // follow-up runs, rather than merely which method got called.
+    // Expected keys are spelled out rather than read back from CONSOLATION_PRIZES: comparing the
     // table against itself would pass even if a row were wired to the wrong copy.
     const cases: Array<{
       source: EventSource;
@@ -437,7 +442,7 @@ describe('RouletteContainerComponent', () => {
     });
   });
 
-  describe('chooseWhoWillEvolve — single evolvable pokemon', () => {
+  describe('chooseWhoWillEvolve: single evolvable pokemon', () => {
     it('length === 1 → evolvePokemon called with the pokemon', () => {
       const caterpie: any = {
         pokemonId: 10, text: 'pokemon.caterpie', fillStyle: 'green',
@@ -454,7 +459,7 @@ describe('RouletteContainerComponent', () => {
     });
   });
 
-  describe('chooseWhoWillEvolve — multiple evolvable pokemon', () => {
+  describe('chooseWhoWillEvolve: multiple evolvable pokemon', () => {
     it('length > 1 → current state becomes select-from-pokemon-list', () => {
       const poke1: any = {
         pokemonId: 1, text: 'pokemon.bulbasaur', fillStyle: 'green',
@@ -588,6 +593,37 @@ describe('RouletteContainerComponent', () => {
 
       expect(component.chooseWhoWillEvolve).not.toHaveBeenCalled();
       expect(trainerService.removeItem).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Soft Reset', () => {
+
+    // Shininess is rolled several steps after the pick, by which point nothing
+    // else knows the Pokémon came off the starter wheel.
+    it('counts a shiny starter, and not a shiny caught any other way', () => {
+      const stats = TestBed.inject(StatsService);
+      const bulbasaur = pokemonService.getPokemonById(1)!;
+
+      component.captureStarter(structuredClone(bulbasaur));
+      component.setShininess(true);
+
+      expect(stats.get('shiny_starters')).toBe(1);
+
+      component.capturePokemon(structuredClone(bulbasaur));
+      component.setShininess(true);
+
+      expect(stats.get('shiny_starters'))
+        .withContext('a shiny from any other wheel is not a soft reset')
+        .toBe(1);
+    });
+
+    it('does not count a starter that turned out ordinary', () => {
+      const stats = TestBed.inject(StatsService);
+
+      component.captureStarter(structuredClone(pokemonService.getPokemonById(4)!));
+      component.setShininess(false);
+
+      expect(stats.get('shiny_starters')).toBe(0);
     });
   });
 });

@@ -4,7 +4,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
  * Game rules that span a whole run rather than a single state.
  *
  * They live here beside `currentRound` rather than on `RouletteContainerComponent`, which is never
- * destroyed — so one reset clears all of them on restart.
+ * destroyed, so one reset clears all of them on restart.
  */
 export interface RunModifiers {
   /** Guaranteed-evolution counter, incremented on each failed check-evolution roll. */

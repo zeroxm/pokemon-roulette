@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ThemeService } from '../../services/theme-service/theme.service';
-import { AchievementService, AchievementUnlocks } from '../../services/achievement-service/achievement.service';
+import { AchievementService, AchievementUnlocks, CollectionCounts } from '../../services/achievement-service/achievement.service';
 import {
   ACHIEVEMENTS,
   Achievement,
@@ -14,7 +14,7 @@ import {
   achievementNameKey,
 } from '../../services/achievement-service/achievement-catalog';
 import { StatsService } from '../../services/stats-service/stats.service';
-import { PokedexService } from '../../services/pokedex-service/pokedex.service';
+import { championshipsWon } from '../../services/stats-service/counter-keys';
 import { BadgeDexService } from '../../services/badge-dex-service/badge-dex.service';
 
 interface GroupedAchievements {
@@ -47,7 +47,6 @@ export class AchievementsComponent implements OnInit, OnDestroy {
     private themeService: ThemeService,
     private achievementService: AchievementService,
     private statsService: StatsService,
-    private pokedexService: PokedexService,
     private badgeDexService: BadgeDexService,
   ) {}
 
@@ -61,6 +60,8 @@ export class AchievementsComponent implements OnInit, OnDestroy {
   unlocks: AchievementUnlocks = {};
   totals: readonly LifetimeTotal[] = [];
 
+  private collection: CollectionCounts = { species: 0, shinies: 0 };
+
   private readonly subscriptions = new Subscription();
 
   ngOnInit(): void {
@@ -73,6 +74,11 @@ export class AchievementsComponent implements OnInit, OnDestroy {
       this.achievementService.unlocked$.subscribe(unlocks => (this.unlocks = unlocks)),
     );
 
+    // Collection first, so the totals rebuilt below already see it: both come
+    // from BehaviorSubjects and emit their current value on subscribe.
+    this.subscriptions.add(
+      this.achievementService.collection$.subscribe(collection => (this.collection = collection)),
+    );
     // Totals are recomputed whenever anything they read changes.
     this.subscriptions.add(
       this.achievementService.progress$.subscribe(() => (this.totals = this.buildTotals())),
@@ -119,21 +125,24 @@ export class AchievementsComponent implements OnInit, OnDestroy {
 
 
   private buildTotals(): LifetimeTotal[] {
-    const caught = this.pokedexService.currentPokedex.caught;
-    const entries = Object.values(caught);
+    // From the service rather than counted here. This screen counted Pokédex
+    // entries itself and so showed "4 Caught" beside achievements reading
+    // "3/10" for the same collection -- alternate forms are entries but not
+    // species, and only one of the two counts knew that.
+    const collection = this.collection;
 
     return [
-      { labelKey: 'achievementsScreen.total.caught', value: entries.length },
-      { labelKey: 'achievementsScreen.total.shiny', value: entries.filter(e => e.shiny).length },
+      { labelKey: 'achievementsScreen.total.caught', value: collection.species },
+      { labelKey: 'achievementsScreen.total.shiny', value: collection.shinies },
       { labelKey: 'achievementsScreen.total.badges', value: this.badgeDexService.earned.size },
-      { labelKey: 'achievementsScreen.total.runs', value: this.statsService.get('runs_completed') },
+      { labelKey: 'achievementsScreen.total.runs', value: championshipsWon(this.statsService.currentStats) },
       { labelKey: 'achievementsScreen.total.spins', value: this.statsService.get('spins_total') },
     ];
   }
 
   private groupAchievements(): GroupedAchievements[] {
     const order: AchievementGroup[] = [
-      'collection', 'shiny', 'champion', 'rival', 'forms', 'encounters', 'badges', 'grind',
+      'collection', 'shiny', 'champion', 'rival', 'forms', 'encounters', 'badges', 'dedication',
     ];
 
     return order.map(group => ({

@@ -62,7 +62,7 @@ describe('WheelComponent', () => {
       const gameState = TestBed.inject(GameStateService);
       const setSpinning = spyOn(gameState, 'setWheelSpinning');
 
-      // Ready, but every weight is zero — total weight 0 would divide by zero.
+      // Ready, but every weight is zero: total weight 0 would divide by zero.
       const zeroWeighted = [
         { text: 'a', weight: 0, fillStyle: 'red' },
         { text: 'b', weight: 0, fillStyle: 'blue' }
@@ -79,7 +79,7 @@ describe('WheelComponent', () => {
 
     it('clamps font size once a large item set is bound', () => {
       // The clamp lives in updateWheelDimensions, which the constructor runs before any input
-      // is bound — so it only takes effect if something re-runs it after `items` arrives.
+      // is bound, so it only takes effect if something re-runs it after `items` arrives.
       const many = Array.from({ length: 45 }, (_, i) => ({ text: `${i}`, weight: 1, fillStyle: 'red' }));
       component.items = many;
       (component as any).updateWheelDimensions();

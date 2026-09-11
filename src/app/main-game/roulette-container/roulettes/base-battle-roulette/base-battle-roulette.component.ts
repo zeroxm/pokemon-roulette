@@ -30,7 +30,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   /**
    * Translation key naming *why* the player gets another spin, shown beside the retry count.
    *
-   * Separate from `currentItem` because a retry is not always an item — Mimikyu's Disguise grants
+   * Separate from `currentItem` because a retry is not always an item: Mimikyu's Disguise grants
    * one too.
    */
   protected respinReasonKey: string | null = null;
@@ -45,7 +45,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   protected abstract readonly outcomeKeyPrefix: string;
   /**
    * Losing slices every battle of this kind starts with, before round progression.
-   * Gym 1, Elite Four 2, Champion 3 — the difficulty curve, in one place.
+   * Gym 1, Elite Four 2, Champion 3: the difficulty curve, in one place.
    */
   protected abstract readonly baseNoOdds: number;
 
@@ -159,7 +159,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   /**
    * Ash-Greninja: a hidden reward for a battle that needed a potion.
    *
-   * Deliberately unannounced — no wheel slice, no hint, no stone. Fires off `usePotion`, so all
+   * Deliberately unannounced: no wheel slice, no hint, no stone. Fires off `usePotion`, so all
    * three battle types get it, and queues behind the "used an item" modal. Reuses the
    * mega-evolution animation and its skip setting.
    */
@@ -236,7 +236,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
    * Builds the win/lose wheel for every battle type, parameterised by `outcomeKeyPrefix` and
    * `baseNoOdds`.
    *
-   * Pass `opponentTypes` to fold type matchup in — that also populates the display fields above.
+   * Pass `opponentTypes` to fold type matchup in: that also populates the display fields above.
    * Omit it and the matchup state resets, which is what the battles that do not know their
    * opponent's types want.
    */

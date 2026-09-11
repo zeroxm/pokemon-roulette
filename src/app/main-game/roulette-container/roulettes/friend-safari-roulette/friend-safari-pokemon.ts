@@ -7,7 +7,7 @@ import { PokemonType } from '../../../../interfaces/pokemon-type';
  * and Bulbapedia. A real safari holds three of these; the wheel offers the whole pool for the type,
  * so every documented encounter is reachable.
  *
- * Five species appear in two pools — Sneasel, Venomoth, Fletchinder, Dedenne and Mawile — which is
+ * Five species appear in two pools, Sneasel, Venomoth, Fletchinder, Dedenne and Mawile, which is
  * faithful to the games rather than an oversight.
  */
 export const friendSafariPokemon: Record<PokemonType, number[]> = {

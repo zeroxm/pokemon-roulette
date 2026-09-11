@@ -259,7 +259,9 @@
             "battleRival": "Combate contra el Rival",
             "safariZone": "Visitar la Zona Safari",
             "friendSafari": "Safari Amistad",
-            "areaZero": "Explorar el Área Cero"
+            "areaZero": "Explorar el Área Cero",
+            "thriftyMegamart": "Súper Ultraganga",
+            "ultraWormhole": "Ultraumbral"
           }
         },
         "friendSafari": {
@@ -380,8 +382,8 @@
           "outcome": "Resultado",
           "actions": {
             "runAway": "Snorlax runs away",
-            "catch": "Catch Snorlax",
-            "defeat": "Defeat Snorlax"
+            "catch": "Capturar a Snorlax",
+            "defeat": "Derrotar a Snorlax"
           }
         },
         "teamrocket": {
@@ -412,6 +414,20 @@
           "who": "¿Quién recibirá una Mega Piedra?",
           "whichStone": "¿Qué Mega Piedra se entregará?",
           "whoMega": "¿Quién mega-evoluciona en esta batalla?"
+        },
+        "thriftyMegamart": {
+          "which": "¿Qué acecha entre los pasillos?"
+        },
+        "ultraWormhole": {
+          "which": "¿Por cuál umbral has caído?",
+          "catch": "¿Qué espera al otro lado?",
+          "colours": {
+            "white": "Blanco",
+            "red": "Rojo",
+            "blue": "Azul",
+            "green": "Verde",
+            "yellow": "Amarillo"
+          }
         }
       },
       "trade": {
@@ -2629,7 +2645,7 @@
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "¡Ahora vas a enfrentar el gran desafío del kahuna—yo!",
+      "quote1": "¡Ahora vas a enfrentar el gran desafío del kahuna: yo!",
       "quote2": "¡Prepárate para tu batalla Pokémon más difícil en Akala!"
     },
     "sophocles-acerola": {
@@ -2689,7 +2705,7 @@
     "raihan": {
       "name": "Raihan",
       "quote1": "¿Tú apuntas a derrotar a Leon... tienes alguna idea de lo alto que es ese obstáculo?",
-      "quote2": "Como su mayor rival, supongo que yo — Raihan — tendré que mostrártelo!"
+      "quote2": "¡Como su mayor rival, supongo que yo, Raihan, tendré que mostrártelo!"
     },
     "katy": {
       "name": "Katy",
@@ -2841,7 +2857,7 @@
       "forms": "Formas",
       "encounters": "Encuentros",
       "badges": "Medallas",
-      "grind": "Dedicación"
+      "dedication": "Dedicación"
     },
     "total": {
       "caught": "Capturados",
@@ -2856,28 +2872,28 @@
       "name": "¡Yo te elijo!",
       "description": "Captura tu primer Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Nv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Captura 10 Pokémon diferentes."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Nv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Captura 50 Pokémon diferentes."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Nv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Captura 100 Pokémon diferentes."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Nv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Captura 250 Pokémon diferentes."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Nv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Captura 500 Pokémon diferentes."
     },
     "gotta_catch_em_all_national": {
-      "name": "¡Hazte con... todos!",
+      "name": "¡Hazte con... todos?!",
       "description": "Completa la Pokédex Nacional."
     },
     "gotta_catch_em_all_regional": {
@@ -2899,6 +2915,10 @@
     "oh_shiny": {
       "name": "¡Oh, brillante!",
       "description": "Encuentra tu primer Pokémon variocolor."
+    },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Captura un inicial variocolor."
     },
     "shiny_hunter_1": {
       "name": "Cazador de Variocolor I",
@@ -2929,7 +2949,7 @@
       "description": "Conviértete en campeón de las nueve regiones."
     },
     "full_house": {
-      "name": "Equipo Completo",
+      "name": "Full House",
       "description": "Gana con un equipo completo de seis."
     },
     "pokemon_stadium": {
@@ -2961,7 +2981,7 @@
       "description": "Rompe el Disfraz de Mimikyu."
     },
     "bond_phenomenon": {
-      "name": "Fenómeno del Vínculo",
+      "name": "¡VamoZ!",
       "description": "Activa la transformación Ash-Greninja."
     },
     "shapeshifter": {
@@ -2973,7 +2993,7 @@
       "description": "Captura 10 Pokémon pescando."
     },
     "super_nerd": {
-      "name": "Supernerd",
+      "name": "Súper Necio",
       "description": "Revive 10 Pokémon fósiles."
     },
     "prepare_for_trouble": {
@@ -2989,7 +3009,7 @@
       "description": "Incuba un huevo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Usó la Pokéflauta",
+      "name": "Pokéflauta",
       "description": "Captura o derrota a Snorlax."
     },
     "five_hundred_steps": {
@@ -3017,11 +3037,11 @@
       "description": "Consigue las ocho medallas de una región."
     },
     "badger_badger_badger": {
-      "name": "Medalla, Medalla, Medalla...",
+      "name": "Medalla, medalla, medalla...",
       "description": "Consigue todas las medallas de tres regiones."
     },
     "the_very_best": {
-      "name": "El mejor de todos, como nadie más",
+      "name": "El mejor que habrá jamás",
       "description": "Consigue todas las medallas del juego."
     },
     "youngster": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Cuenta",
     "checking": "Comprobando…",
-    "optional": "La cuenta es opcional. El juego funciona sin ella — iniciar sesión solo mantiene tu colección sincronizada entre dispositivos.",
+    "optional": "La cuenta es opcional. El juego funciona sin ella. Iniciar sesión solo mantiene tu colección sincronizada entre dispositivos.",
     "signIn": "Iniciar sesión",
     "createAccount": "Crear cuenta",
     "email": "Correo",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Parte de tu progreso aún no ha llegado a tu cuenta, y cerrar sesión borra este dispositivo. Ese progreso se perderá.",
     "signOutAnyway": "Cerrar sesión de todos modos",
     "confirmPassword": "Confirmar contraseña",
-    "passwordMismatch": "Las dos contraseñas no coinciden."
+    "passwordMismatch": "Las dos contraseñas no coinciden.",
+    "statusSignedOut": "Haz clic aquí para iniciar sesión"
   },
   "detail": {
     "name": "Nombre",

@@ -1,12 +1,14 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIconsModule } from '@ng-icons/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { AuthService, AuthUser } from '../../services/auth-service/auth.service';
-import { SyncStateService } from '../../services/sync-state-service/sync-state.service';
-import { SyncService, SyncStatus } from '../../services/sync-service/sync.service';
+import { MainGameButtonComponent } from '../main-game-button/main-game-button.component';
+import { AuthService, AuthUser } from '../services/auth-service/auth.service';
+import { SyncStateService } from '../services/sync-state-service/sync-state.service';
+import { SyncService, SyncStatus } from '../services/sync-service/sync.service';
 
 /** Matches the backend, which rejects anything shorter. */
 const MIN_PASSWORD_LENGTH = 8;
@@ -21,7 +23,9 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Mode = 'signin' | 'signup';
 
 /**
- * Account management, in Settings rather than in the game.
+ * Account management, on a screen of its own.
+
+ *
  *
  * **An account is optional and always will be.** Nothing here gates play,
  * nothing nags, and a signed-out player's experience is exactly what it was
@@ -29,7 +33,7 @@ type Mode = 'signin' | 'signup';
  */
 @Component({
   selector: 'app-account',
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, NgIconsModule, TranslatePipe, MainGameButtonComponent],
   templateUrl: './account.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './account.component.css',
@@ -55,7 +59,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   syncStatus: SyncStatus = 'off';
 
   // Two text fields and a password confirmation. A forms module for this would
-  // be 4.5 kB of framework to validate an email and count characters — enough
+  // be 4.5 kB of framework to validate an email and count characters: enough
   // to breach the bundle budget on its own.
   email = '';
   password = '';
@@ -146,7 +150,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   /**
    * Signing out wipes this device.
    *
-   * Unsynced progress is therefore destroyed by it, so that case asks first —
+   * Unsynced progress is therefore destroyed by it, so that case asks first:
    * "you have progress not yet saved to your account" is a sentence a player
    * needs to read before, not after.
    */

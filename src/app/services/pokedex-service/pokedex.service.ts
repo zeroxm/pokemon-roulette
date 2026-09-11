@@ -12,7 +12,7 @@ export interface PokedexEntry {
    * Times this Pokémon has been obtained.
    *
    * A row exists because it was obtained at least once, so the minimum is 1 and
-   * 0 is never meaningful — the backend has a CHECK enforcing that. Entries
+   * 0 is never meaningful: the backend has a CHECK enforcing that. Entries
    * written before counting existed are seeded to 1 on load: visibly a floor
    * rather than a fabrication.
    */
@@ -24,7 +24,7 @@ export interface PokedexEntry {
  *
  * Derived from the id rather than stored. It used to be a field on every entry,
  * which made a full Pokédex about 110 KB of the same URL repeated a thousand
- * times — and baked today's hot-linked host into every saved account.
+ * times, and baked today's hot-linked host into every saved account.
  */
 export function pokemonSpriteUrl(pokemonId: number): string {
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
@@ -178,7 +178,7 @@ export class PokedexService {
    * seeded to 1.
    *
    * Seeding to 1 rather than 0 is deliberate. An entry exists because the
-   * Pokémon was obtained, so 1 is a floor rather than a fabrication — and a
+   * Pokémon was obtained, so 1 is a floor rather than a fabrication, and a
    * count of 0 beside a caught marker reads as a bug.
    */
   private upgradeStoredEntries(data: PokedexData): { data: PokedexData; changed: boolean } {

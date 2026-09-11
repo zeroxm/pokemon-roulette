@@ -1,5 +1,5 @@
 import { PlayerStats } from '../stats-service/stats.service';
-import { CounterKey, GENERATION_IDS, GenerationId, championRegionKey, playedRegionKey } from '../stats-service/counter-keys';
+import { CounterKey, GENERATION_IDS, GenerationId, championRegionKey, championshipsWon, playedRegionKey } from '../stats-service/counter-keys';
 import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
 import { starterByGeneration } from '../../main-game/roulette-container/roulettes/starter-roulette/starter-by-generation';
 import { fossilByGeneration } from '../../main-game/roulette-container/roulettes/fossil-roulette/fossil-by-generation';
@@ -15,7 +15,7 @@ import { ALL_BADGE_IDS, GENERATIONS_WITH_BADGES, badgeRoundsForGeneration } from
  */
 export interface AchievementContext {
   readonly stats: PlayerStats;
-  /** Pokémon ids with a Pokédex entry — obtained at least once. */
+  /** Pokémon ids with a Pokédex entry: obtained at least once. */
   readonly caught: ReadonlySet<number>;
   readonly shinyIds: ReadonlySet<number>;
   readonly megaCount: number;
@@ -38,7 +38,7 @@ export type AchievementGroup =
   | 'forms'
   | 'encounters'
   | 'badges'
-  | 'grind';
+  | 'dedication';
 
 export interface Achievement {
   readonly id: string;
@@ -67,7 +67,7 @@ const owned = (ids: readonly number[], context: AchievementContext): number =>
 const allOf = (ids: readonly number[]) =>
   (context: AchievementContext): Progress => ({ current: owned(ids, context), target: ids.length });
 
-/** The best progress across regions — the region you are closest to finishing. */
+/** The best progress across regions: the region you are closest to finishing. */
 const bestRegion = (idsByGeneration: Record<number, number[]>) =>
   (context: AchievementContext): Progress => {
     let best: Progress = { current: 0, target: 1 };
@@ -93,7 +93,7 @@ const LEGENDARY_IDS: readonly number[] = GENERATION_IDS.flatMap(g => legendaryBy
 
 const everySpecies: readonly number[] = GENERATION_IDS.flatMap(g => pokedexByGeneration[g] ?? []);
 
-/** Regions where every gym has been beaten — one badge from each of its rounds. */
+/** Regions where every gym has been beaten: one badge from each of its rounds. */
 const regionsFullyBadged = (context: AchievementContext): number =>
   GENERATIONS_WITH_BADGES.reduce((total, generation) => {
     const rounds = badgeRoundsForGeneration(generation);
@@ -101,7 +101,7 @@ const regionsFullyBadged = (context: AchievementContext): number =>
     return complete ? total + 1 : total;
   }, 0);
 
-/** Regions with at least one counter above zero — championed, or played. */
+/** Regions with at least one counter above zero: championed, or played. */
 const regionsWhere = (key: (generation: GenerationId) => CounterKey) =>
   (context: AchievementContext): number =>
     GENERATION_IDS.reduce((total, g) => ((context.stats[key(g)] ?? 0) > 0 ? total + 1 : total), 0);
@@ -114,7 +114,7 @@ const playedRegions = regionsWhere(playedRegionKey);
 /**
  * The frozen catalog: https://github.com/zeroxm/pokemon-roulette/issues/50
  *
- * Ids are frozen — the backend validates against exactly this list, and
+ * Ids are frozen: the backend validates against exactly this list, and
  * renaming one after players hold it means a data migration on live accounts.
  * Name and description translation keys are derived from the id
  * (`achievements.<id>.name`), so they cannot drift out of step with it.
@@ -123,24 +123,25 @@ const playedRegions = regionsWhere(playedRegionKey);
  * and the backend must deploy first.
  */
 export const ACHIEVEMENTS: readonly Achievement[] = [
-  // Collection — derived from the Pokédex.
+  // Collection: derived from the Pokédex.
   { id: 'i_choose_you', group: 'collection', progress: distinctCaught(1) },
-  { id: 'pokedex_lv_1', group: 'collection', progress: distinctCaught(10) },
-  { id: 'pokedex_lv_2', group: 'collection', progress: distinctCaught(50) },
-  { id: 'pokedex_lv_3', group: 'collection', progress: distinctCaught(100) },
-  { id: 'pokedex_lv_4', group: 'collection', progress: distinctCaught(250) },
-  { id: 'pokedex_lv_5', group: 'collection', progress: distinctCaught(500) },
+  { id: 'pokedex_1_percent', group: 'collection', progress: distinctCaught(10) },
+  { id: 'pokedex_5_percent', group: 'collection', progress: distinctCaught(50) },
+  { id: 'pokedex_10_percent', group: 'collection', progress: distinctCaught(100) },
+  { id: 'pokedex_25_percent', group: 'collection', progress: distinctCaught(250) },
+  { id: 'pokedex_50_percent', group: 'collection', progress: distinctCaught(500) },
   { id: 'gotta_catch_em_all_national', group: 'collection', progress: allOf(everySpecies) },
   { id: 'gotta_catch_em_all_regional', group: 'collection', progress: bestRegion(pokedexByGeneration) },
   { id: 'i_choose_you_and_you', group: 'collection', progress: allOf(GENERATION_IDS.flatMap(g => starterByGeneration[g] ?? [])) },
   { id: 'paleontologist', group: 'collection', progress: allOf(GENERATION_IDS.flatMap(g => fossilByGeneration[g] ?? [])) },
   { id: 'myth_buster', group: 'collection', progress: bestRegion(legendaryByGeneration) },
 
-  // Shiny — also derived from the Pokédex.
+  // Shiny: also derived from the Pokédex.
   { id: 'oh_shiny', group: 'shiny', progress: shinies(1) },
   { id: 'shiny_hunter_1', group: 'shiny', progress: shinies(5) },
   { id: 'shiny_hunter_2', group: 'shiny', progress: shinies(10) },
   { id: 'shiny_hunter_3', group: 'shiny', progress: shinies(25) },
+  { id: 'soft_reset', group: 'shiny', progress: counter('shiny_starters', 1) },
   {
     id: 'never_tell_me_the_odds',
     group: 'shiny',
@@ -151,7 +152,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   },
 
   // Champion.
-  { id: 'champion', group: 'champion', progress: counter('runs_completed', 1) },
+  { id: 'champion', group: 'champion', progress: c => ({ current: championshipsWon(c.stats), target: 1 }) },
   { id: 'regional_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 3 }) },
   { id: 'world_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 9 }) },
   { id: 'full_house', group: 'champion', progress: counter('champion_with_six', 1) },
@@ -191,13 +192,13 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   { id: 'the_very_best', group: 'badges', progress: c => ({ current: c.badges.size, target: ALL_BADGE_IDS.size }) },
 
   // Grind.
-  { id: 'youngster', group: 'grind', progress: counter('runs_completed', 10) },
-  { id: 'bug_catcher', group: 'grind', progress: counter('runs_completed', 25) },
-  { id: 'ace_trainer', group: 'grind', progress: counter('runs_completed', 50) },
-  { id: 'veteran', group: 'grind', progress: counter('runs_completed', 100) },
-  { id: 'wheel_of_fortune', group: 'grind', progress: counter('spins_total', 1000) },
-  { id: 'whos_that_pokemon', group: 'grind', progress: c => ({ current: c.highestCatchCount, target: 50 }) },
-  { id: 'world_tour', group: 'grind', progress: c => ({ current: playedRegions(c), target: 9 }) },
+  { id: 'youngster', group: 'dedication', progress: counter('runs_completed', 10) },
+  { id: 'bug_catcher', group: 'dedication', progress: counter('runs_completed', 25) },
+  { id: 'ace_trainer', group: 'dedication', progress: counter('runs_completed', 50) },
+  { id: 'veteran', group: 'dedication', progress: counter('runs_completed', 100) },
+  { id: 'wheel_of_fortune', group: 'dedication', progress: counter('spins_total', 1000) },
+  { id: 'whos_that_pokemon', group: 'dedication', progress: c => ({ current: c.highestCatchCount, target: 50 }) },
+  { id: 'world_tour', group: 'dedication', progress: c => ({ current: playedRegions(c), target: 9 }) },
 ];
 
 export type AchievementId = typeof ACHIEVEMENTS[number]['id'];

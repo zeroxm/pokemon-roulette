@@ -7,7 +7,7 @@ import { ImageFallbackDirective } from '../../../../directives/image-fallback.di
  * "Here is an item" modal: heading, sprite, description.
  *
  * Covers both the consolation prizes awarded when nothing can evolve and the
- * notice shown when a held item activates — identical markup, different copy.
+ * notice shown when a held item activates: identical markup, different copy.
  */
 @Component({
   selector: 'app-item-modal',

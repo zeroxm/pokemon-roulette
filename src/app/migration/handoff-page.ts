@@ -4,8 +4,8 @@ import { LegacyEntry, encodeHandoff } from './handoff-payload';
  * The page that permanently replaces the game at `zeroxm.github.io/pokemon-roulette/`.
  *
  * It has one job: read what this origin's `localStorage` holds and hand it to
- * the new address in a URL fragment. It is plain DOM on purpose — no Angular,
- * no framework — because it must keep working, unattended, for players who
+ * the new address in a URL fragment. It is plain DOM on purpose, no Angular,
+ * no framework, because it must keep working, unattended, for players who
  * come back years from now, and every dependency is something that can rot.
  *
  * **This page is permanent.** Deleting it, or adding a `CNAME` to the repo
@@ -48,7 +48,7 @@ export function start(): void {
   if (skip) {
     skip.href = NEW_ORIGIN;
     // Never trap anyone behind the button. Some players will not want to, and
-    // the data stays here either way — transferring is not a one-time offer.
+    // the data stays here either way: transferring is not a one-time offer.
     skip.hidden = count === 0;
   }
 }

@@ -1,6 +1,6 @@
 # pokemon-roulette
 
-A game involving Pokémon and Roulettes — a randomised run driven by spinning wheels. Pick a region,
+A game involving Pokémon and Roulettes: a randomised run driven by spinning wheels. Pick a region,
 spin for what happens next, and try to reach the Champion with whatever the wheels give you.
 
 **Play it here: [zeroxm.github.io/pokemon-roulette](https://zeroxm.github.io/pokemon-roulette/)**
@@ -17,7 +17,7 @@ npm start
 
 `npm start` serves on `0.0.0.0:4200` and reloads on save. Open <http://localhost:4200/>.
 
-> Use `npm ci` rather than `npm install` for a first checkout — it installs exactly what
+> Use `npm ci` rather than `npm install` for a first checkout: it installs exactly what
 > `package-lock.json` pins, which is what CI uses.
 
 ## Commands
@@ -28,7 +28,7 @@ npm start
 | `npm run build` | Production build into `dist/pokemon-roulette` |
 | `npm run watch` | Development build, rebuilding on change |
 | `npm test` | Karma/Jasmine in watch mode |
-| `npm test -- --watch=false --browsers=ChromeHeadless` | One-shot run — what CI does |
+| `npm test -- --watch=false --browsers=ChromeHeadless` | One-shot run: what CI does |
 | `npm run deploy` | Publish to GitHub Pages |
 
 Prefer the npm scripts over bare `ng` commands: they carry flags the project needs, such as the
@@ -66,7 +66,7 @@ of problem, so an unused import or variable is a **build error** rather than a w
 
 ### Translations must stay in step
 
-User-facing strings are never literals — they are dotted keys resolved by the `translate` pipe, and
+User-facing strings are never literals: they are dotted keys resolved by the `translate` pipe, and
 all six locale files in `src/assets/i18n/` hold an identical key set. A key present in one file and
 missing from another ships as raw text like `badges.bug_paldea` to that language's players. After
 any i18n change:
@@ -85,12 +85,12 @@ npm run deploy
 
 This builds for production and pushes to the `gh-pages` branch via `angular-cli-ghpages`. GitHub
 Pages then takes roughly a minute to publish, so the live site keeps serving the previous build for
-a short while — check the deployment finished rather than assuming, for example by confirming the
+a short while: check the deployment finished rather than assuming, for example by confirming the
 `main-*.js` filename on the live page matches the one in `dist/pokemon-roulette/browser/`.
 
 ## Working on the code
 
 `CLAUDE.md` at the repo root is the architecture guide: the game-state stack, how roulettes and the
 adventure wheel are put together, the services, and the conventions this codebase actually follows.
-Read it before adding a feature — several things that look like free choices (adding a wheel slice,
+Read it before adding a feature: several things that look like free choices (adding a wheel slice,
 a form-changing mechanic, a Pokémon pool) have an established, compiler-checked way of being done.

@@ -1,0 +1,16 @@
+.account-status {
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  text-decoration: none;
+  opacity: 0.85;
+  /* Inherit, not the link colour: against the dark trainer box Bootstrap's
+     default rendered orange-red, which reads as a warning rather than as a
+     neutral statement of who is signed in. */
+  color: inherit;
+}
+
+.account-status:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

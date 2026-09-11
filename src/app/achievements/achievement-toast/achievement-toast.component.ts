@@ -22,7 +22,7 @@ const TERSE_DURATION_MS = 2000;
  *
  * Deliberately **not** a modal. It fires mid-run, usually right after a catch
  * or a gym win when result modals are already queued, and a modal here would
- * stomp one of those — which is the exact problem ModalQueueService exists to
+ * stomp one of those, which is the exact problem ModalQueueService exists to
  * prevent. It is also `pointer-events: none`, because a banner that swallows a
  * click over the wheel would stop the player spinning.
  *

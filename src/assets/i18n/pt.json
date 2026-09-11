@@ -259,7 +259,9 @@
             "battleRival": "Batalha contra o Rival",
             "safariZone": "Visitar a Zona Safári",
             "friendSafari": "Friend Safari",
-            "areaZero": "Explorar a Área Zero"
+            "areaZero": "Explorar a Área Zero",
+            "thriftyMegamart": "Mercado Megabarato",
+            "ultraWormhole": "Ultrafenda Espacial"
           }
         },
         "friendSafari": {
@@ -412,6 +414,20 @@
           "who": "Quem vai receber uma Mega Pedra?",
           "whichStone": "Qual Mega Pedra será concedida?",
           "whoMega": "Quem mega-evolui nesta batalha?"
+        },
+        "thriftyMegamart": {
+          "which": "O que está à espreita nos corredores?"
+        },
+        "ultraWormhole": {
+          "which": "Por qual fenda você caiu?",
+          "catch": "O que está esperando do outro lado?",
+          "colours": {
+            "white": "Branca",
+            "red": "Vermelha",
+            "blue": "Azul",
+            "green": "Verde",
+            "yellow": "Amarela"
+          }
         }
       },
       "trade": {
@@ -2629,7 +2645,7 @@
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "E Agora você vai encarar o grande desafio kahuna — eu!",
+      "quote1": "E agora você vai encarar o grande desafio kahuna: eu!",
       "quote2": "Prepare-se para a batalha Pokémon mais difícil que você já enfrentou em Akala!"
     },
     "sophocles-acerola": {
@@ -2689,7 +2705,7 @@
     "raihan": {
       "name": "Raihan",
       "quote1": "Você está mirando em derrotar o Leon... Você faz alguma ideia de quão alto é esse obstáculo?",
-      "quote2": "Como o maior rival dele, acho que eu — Raihan — vou ter que mostrar a você!"
+      "quote2": "Como o maior rival dele, acho que eu, Raihan, vou ter que mostrar a você!"
     },
     "katy": {
       "name": "Katy",
@@ -2841,7 +2857,7 @@
       "forms": "Formas",
       "encounters": "Encontros",
       "badges": "Insígnias",
-      "grind": "Dedicação"
+      "dedication": "Dedicação"
     },
     "total": {
       "caught": "Capturados",
@@ -2856,24 +2872,24 @@
       "name": "Eu escolho você",
       "description": "Capture seu primeiro Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Nv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Capture 10 Pokémon diferentes."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Nv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Capture 50 Pokémon diferentes."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Nv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Capture 100 Pokémon diferentes."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Nv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Capture 250 Pokémon diferentes."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Nv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Capture 500 Pokémon diferentes."
     },
     "gotta_catch_em_all_national": {
@@ -2881,7 +2897,7 @@
       "description": "Complete a Pokédex Nacional."
     },
     "gotta_catch_em_all_regional": {
-      "name": "Temos que pegar todos!",
+      "name": "Temos que pegar!",
       "description": "Complete a Pokédex de uma região."
     },
     "i_choose_you_and_you": {
@@ -2900,6 +2916,10 @@
       "name": "Ooh, shiny!",
       "description": "Encontre seu primeiro Pokémon shiny."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Capture um inicial shiny."
+    },
     "shiny_hunter_1": {
       "name": "Caçador de Shiny I",
       "description": "Encontre 5 Pokémon shiny."
@@ -2913,7 +2933,7 @@
       "description": "Encontre 25 Pokémon shiny."
     },
     "never_tell_me_the_odds": {
-      "name": "Nunca me fale as chances!",
+      "name": "Nunca me diga as chances!",
       "description": "Encontre um Pokémon lendário shiny."
     },
     "champion": {
@@ -2929,7 +2949,7 @@
       "description": "Torne-se campeão nas nove regiões."
     },
     "full_house": {
-      "name": "Casa Cheia",
+      "name": "Full House",
       "description": "Vença com um time completo de seis."
     },
     "pokemon_stadium": {
@@ -2961,7 +2981,7 @@
       "description": "Quebre o Disfarce de Mimikyu."
     },
     "bond_phenomenon": {
-      "name": "Fenômeno do Vínculo",
+      "name": "E com Z!",
       "description": "Ative a transformação Ash-Greninja."
     },
     "shapeshifter": {
@@ -2969,11 +2989,11 @@
       "description": "Ative uma mudança de forma permanente."
     },
     "super_rod": {
-      "name": "Super Vara",
+      "name": "Supervara",
       "description": "Capture 10 Pokémon pescando."
     },
     "super_nerd": {
-      "name": "Super Nerd",
+      "name": "Supernerd",
       "description": "Reviva 10 Pokémon fósseis."
     },
     "prepare_for_trouble": {
@@ -2989,7 +3009,7 @@
       "description": "Choque um ovo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Usou a Pokéflauta",
+      "name": "Pokéflauta",
       "description": "Capture ou derrote Snorlax."
     },
     "five_hundred_steps": {
@@ -3017,11 +3037,11 @@
       "description": "Conquiste as oito insígnias de uma região."
     },
     "badger_badger_badger": {
-      "name": "Insígnia, Insígnia, Insígnia...",
+      "name": "Medalha, medalha, medalha...",
       "description": "Conquiste todas as insígnias de três regiões."
     },
     "the_very_best": {
-      "name": "O melhor de todos, como ninguém jamais foi",
+      "name": "Ninguém nunca foi igual",
       "description": "Conquiste todas as insígnias do jogo."
     },
     "youngster": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Conta",
     "checking": "Verificando…",
-    "optional": "A conta é opcional. O jogo funciona sem ela — entrar apenas mantém sua coleção sincronizada entre dispositivos.",
+    "optional": "A conta é opcional. O jogo funciona sem ela. Entrar apenas mantém sua coleção sincronizada entre dispositivos.",
     "signIn": "Entrar",
     "createAccount": "Criar conta",
     "email": "E-mail",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Parte do seu progresso ainda não chegou à sua conta, e sair apaga este dispositivo. Esse progresso será perdido.",
     "signOutAnyway": "Sair mesmo assim",
     "confirmPassword": "Confirmar senha",
-    "passwordMismatch": "As duas senhas não coincidem."
+    "passwordMismatch": "As duas senhas não coincidem.",
+    "statusSignedOut": "Clique aqui para entrar"
   },
   "detail": {
     "name": "Nome",
@@ -3129,7 +3150,7 @@
     "fairy": "Fada"
   },
   "migration": {
-    "transferred": "Seu progresso chegou — {{count}} Pokémon estão de volta na sua Pokédex.",
+    "transferred": "Seu progresso chegou: {{count}} Pokémon estão de volta na sua Pokédex.",
     "dismiss": "Fechar"
   },
   "rotomPhone": {

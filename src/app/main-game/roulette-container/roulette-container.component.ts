@@ -44,9 +44,11 @@ import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-i
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
 import { FriendSafariRouletteComponent } from './roulettes/friend-safari-roulette/friend-safari-roulette.component';
 import { friendSafariPokemon } from './roulettes/friend-safari-roulette/friend-safari-pokemon';
+import { ULTRA_WORMHOLE_POKEMON, WormholeColour } from './roulettes/ultra-wormhole-roulette/ultra-wormhole-pokemon';
+import { UltraWormholeRouletteComponent } from './roulettes/ultra-wormhole-roulette/ultra-wormhole-roulette.component';
 import { PokemonType } from '../../interfaces/pokemon-type';
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
-import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
+import { CatchChanceRouletteComponent } from "./roulettes/catch-chance-roulette/catch-chance-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
@@ -90,7 +92,8 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     ExploreCaveRouletteComponent,
     AreaZeroRoulette,
     FriendSafariRouletteComponent,
-    CatchParadoxRouletteComponent,
+    CatchChanceRouletteComponent,
+    UltraWormholeRouletteComponent,
     SnorlaxRouletteComponent,
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
@@ -109,6 +112,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     private destroyRef = inject(DestroyRef);
     private rareCandySubscription?: Subscription;
     private megaStoneSubscription?: Subscription;
+    /** Whether the capture being resolved came off the starter wheel. */
+    private capturingStarter = false;
 
     constructor(
       private evolutionService: EvolutionService,
@@ -213,7 +218,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Clears everything scoped to a single run that is *not* a run modifier — selection requests,
+   * Clears everything scoped to a single run that is *not* a run modifier: selection requests,
    * wheel contents, and the Pokémon being acted on.
    *
    * Driven by the `game-start` emission rather than by the restart handlers, so both restart entry
@@ -273,7 +278,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Shows an explanatory modal, then advances the state machine — whether the player
+   * Shows an explanatory modal, then advances the state machine: whether the player
    * acknowledged it or dismissed it. Skipped entirely under the "less explanations" setting.
    */
   private async showModalThenContinue(open: () => Promise<NgbModalRef>): Promise<void> {
@@ -317,11 +322,30 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.preparePokemonCapture(pokemon);
   }
 
+  /**
+   * The starter, which is the same capture with one thing remembered.
+   *
+   * Shininess is rolled several steps later and by then nothing knows where
+   * the Pokémon came from, so "Soft Reset" needs the origin carried forward.
+   */
+  captureStarter(pokemon: PokemonItem): void {
+    this.capturingStarter = true;
+    this.capturePokemon(pokemon);
+  }
+
   setShininess(shiny: boolean): void {
     if (shiny) {
       this.trainerService.makeShiny();
       this.registerInPokedex({ ...this.currentContextPokemon, shiny: true });
+
+      if (this.capturingStarter) {
+        this.statsService.increment('shiny_starters');
+      }
     }
+
+    // Cleared either way: the next capture is not a starter, and a flag left
+    // set would credit the wrong Pokémon.
+    this.capturingStarter = false;
     this.finishCurrentState();
   }
 
@@ -338,7 +362,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     if (this.auxPokemonList.length === 0) {
       // `Record<EventSource, …>` makes a missing row a compile error. The nullish check covers
       // values arriving from template outputs, where a stale build could yield an unmapped
-      // literal — doing nothing beats throwing mid-game.
+      // literal: doing nothing beats throwing mid-game.
       const prize = CONSOLATION_PRIZES[eventSource];
 
       if (!prize || prize.action === 'none') {
@@ -452,7 +476,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     if (this.auxPokemonList.length === 0) {
-      // Nothing else could evolve, so the bonus was never spent — release it, or the next
+      // Nothing else could evolve, so the bonus was never spent: release it, or the next
       // evolution silently loses its exp-share bonus to the re-entrancy guard.
       this.run.expShareUsed = false;
       this.run.expSharePokemon = null;
@@ -483,8 +507,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.finishCurrentState();
 
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
   }
 
@@ -587,19 +610,48 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  ultraWormhole(): void {
+    this.gameStateService.setNextState('ultra-wormhole');
+    this.finishCurrentState();
+  }
+
+  /**
+   * Step two: the Pokémon on the other side of the wormhole the player fell
+   * through.
+   *
+   * Reuses the generic "pick one of these Pokémon" wheel and then the shared
+   * catch chance, so the only thing the Ultra Wormhole adds is the colour
+   * wheel. Everything behind it is legendary, which is why it goes through a
+   * catch chance at all rather than handing one over.
+   */
+  ultraWormholeColourSelected(colour: WormholeColour): void {
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.ultraWormhole.catch',
+      options: this.pokemonService.getPokemonByIdArray([...ULTRA_WORMHOLE_POKEMON[colour]]),
+      onSelected: chosen => this.offerCaptureChance(chosen),
+    });
+
+    this.finishCurrentState();
+  }
+
+  thriftyMegamart(): void {
+    this.gameStateService.setNextState('thrifty-megamart');
+    this.finishCurrentState();
+  }
+
   areaZero(): void {
     this.statsService.increment('area_zero_visits');
     this.gameStateService.setNextState('area-zero');
     this.finishCurrentState();
   }
 
-  paradoxCaptureChance(pokemon: PokemonItem): void {
+  offerCaptureChance(pokemon: PokemonItem): void {
     this.currentContextPokemon = structuredClone(pokemon);
-    this.gameStateService.setNextState('catch-paradox');
+    this.gameStateService.setNextState('catch-chance');
     this.finishCurrentState();
   }
 
-  paradoxCaptureSuccess(): void {
+  captureChanceSucceeded(): void {
     this.preparePokemonCapture(this.currentContextPokemon);
   }
 
@@ -737,8 +789,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
   }
 
@@ -772,9 +823,20 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       }))];
       this.pokedexService.markWon(wonIds);
     } else {
-      this.gameStateService.setNextState('game-over');
-      this.finishCurrentState();
+      this.endRunInDefeat();
     }
+  }
+
+  /**
+   * Every route to the game-over screen goes through here.
+   *
+   * There are three of them, and counting the run at each call site is how a
+   * fourth gets added without one. A lost run is still a completed run.
+   */
+  private endRunInDefeat(): void {
+    this.statsService.recordRunEnded();
+    this.gameStateService.setNextState('game-over');
+    this.finishCurrentState();
   }
 
   private queueCheckEvolutionAfterImportantBattle(source: EventSource): void {
@@ -968,7 +1030,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 0) {
       // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
-      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // cannot resolve, so the two can disagree. Without this the else branch below would queue
       // a wheel with no segments.
       this.finishCurrentState();
       return;
@@ -1039,8 +1101,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
    * Registers a newly obtained Pokémon *and* counts it as a catch.
    *
    * Only two paths acquire a Pokémon: a capture and a trade. Everything else
-   * that touches the Pokédex — evolving, re-registering to mark a shiny,
-   * getting a stolen Pokémon back — goes through registerInPokedex and does not
+   * that touches the Pokédex, evolving, re-registering to mark a shiny,
+   * getting a stolen Pokémon back, goes through registerInPokedex and does not
    * count, because none of them is a new acquisition.
    *
    * The base species is registered but NOT counted. An alt form registers its
@@ -1086,7 +1148,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (pokemonEvolutions.length === 0) {
       // canEvolve() only checks the chain key exists, while getEvolutions() drops targets it
-      // cannot resolve — so the two can disagree. Without this the else branch below would queue
+      // cannot resolve, so the two can disagree. Without this the else branch below would queue
       // a wheel with no segments.
       this.finishCurrentState();
       return;

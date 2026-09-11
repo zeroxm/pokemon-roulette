@@ -3,8 +3,8 @@ import { GymLeader } from '../interfaces/gym-leader';
 /**
  * Picks one trainer out of an entry that covers several.
  *
- * A few slots hold two trainers behind one name — the Unova gym pair, the Kalos rival who depends
- * on the player's gender — stored as a slash-separated translated name plus parallel arrays. All
+ * A few slots hold two trainers behind one name, the Unova gym pair, the Kalos rival who depends
+ * on the player's gender, stored as a slash-separated translated name plus parallel arrays. All
  * four battle roulettes rebuilt that the same way.
  *
  * `sprite` is genuinely `string | string[]`, so its array check is real. `quotes` and `types` are

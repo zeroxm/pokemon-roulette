@@ -53,7 +53,7 @@ describe('AchievementsComponent', () => {
   });
 
   it('marks an achievement unlocked', () => {
-    TestBed.inject(StatsService).increment('runs_completed');
+    TestBed.inject(StatsService).increment('champion_region:1');
     fixture.detectChanges();
 
     const champion = ACHIEVEMENTS.find(a => a.id === 'champion')!;

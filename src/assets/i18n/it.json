@@ -259,7 +259,9 @@
             "battleRival": "Lotta contro il rivale",
             "safariZone": "Visita la Zona Safari",
             "friendSafari": "Safari degli Amici",
-            "areaZero": "Esplora Area Zero"
+            "areaZero": "Esplora Area Zero",
+            "thriftyMegamart": "Supermarket Affaroni",
+            "ultraWormhole": "Ultravarco"
           }
         },
         "friendSafari": {
@@ -412,6 +414,20 @@
           "who": "Chi riceverà una Mega Pietra?",
           "whichStone": "Quale Mega Pietra verrà assegnata?",
           "whoMega": "Chi mega-evolve in questa battaglia?"
+        },
+        "thriftyMegamart": {
+          "which": "Cosa si aggira tra gli scaffali?"
+        },
+        "ultraWormhole": {
+          "which": "In quale varco sei caduto?",
+          "catch": "Cosa aspetta dall'altra parte?",
+          "colours": {
+            "white": "Bianco",
+            "red": "Rosso",
+            "blue": "Blu",
+            "green": "Verde",
+            "yellow": "Giallo"
+          }
         }
       },
       "trade": {
@@ -2841,7 +2857,7 @@
       "forms": "Forme",
       "encounters": "Incontri",
       "badges": "Medaglie",
-      "grind": "Dedizione"
+      "dedication": "Dedizione"
     },
     "total": {
       "caught": "Catturati",
@@ -2856,24 +2872,24 @@
       "name": "Scelgo te",
       "description": "Cattura il tuo primo Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Lv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Cattura 10 Pokémon diversi."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Lv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Cattura 50 Pokémon diversi."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Lv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Cattura 100 Pokémon diversi."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Lv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Cattura 250 Pokémon diversi."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Lv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Cattura 500 Pokémon diversi."
     },
     "gotta_catch_em_all_national": {
@@ -2899,6 +2915,10 @@
     "oh_shiny": {
       "name": "Oh, shiny!",
       "description": "Trova il tuo primo Pokémon shiny."
+    },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Cattura uno starter cromatico."
     },
     "shiny_hunter_1": {
       "name": "Cacciatore di Shiny I",
@@ -2929,7 +2949,7 @@
       "description": "Diventa campione in tutte e nove le regioni."
     },
     "full_house": {
-      "name": "Squadra al Completo",
+      "name": "Full House",
       "description": "Vinci con una squadra completa di sei."
     },
     "pokemon_stadium": {
@@ -2937,7 +2957,7 @@
       "description": "Vinci con tre Pokémon o meno in squadra."
     },
     "smell_ya_later": {
-      "name": "Ci si vede!",
+      "name": "Ci vediamo, sfigato!",
       "description": "Vinci una lotta contro il rivale."
     },
     "notch_above": {
@@ -2961,7 +2981,7 @@
       "description": "Rompi il Costume di Mimikyu."
     },
     "bond_phenomenon": {
-      "name": "Fenomeno del Legame",
+      "name": "ForZa!",
       "description": "Attiva la trasformazione Ash-Greninja."
     },
     "shapeshifter": {
@@ -2969,11 +2989,11 @@
       "description": "Attiva un cambio di forma permanente."
     },
     "super_rod": {
-      "name": "Supercanna",
+      "name": "Super Amo",
       "description": "Cattura 10 Pokémon pescando."
     },
     "super_nerd": {
-      "name": "Super Nerd",
+      "name": "Cervellone",
       "description": "Rianima 10 Pokémon fossili."
     },
     "prepare_for_trouble": {
@@ -2989,7 +3009,7 @@
       "description": "Fai schiudere un uovo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Ha usato il Pokéflauto",
+      "name": "Pokéflauto",
       "description": "Cattura o sconfiggi Snorlax."
     },
     "five_hundred_steps": {
@@ -3017,11 +3037,11 @@
       "description": "Ottieni tutte e otto le medaglie di una regione."
     },
     "badger_badger_badger": {
-      "name": "Medaglia, Medaglia, Medaglia...",
+      "name": "Medaglia, medaglia, medaglia...",
       "description": "Ottieni tutte le medaglie di tre regioni."
     },
     "the_very_best": {
-      "name": "Il migliore, come nessuno mai",
+      "name": "Come nessuno è riuscito mai",
       "description": "Ottieni tutte le medaglie del gioco."
     },
     "youngster": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Account",
     "checking": "Verifica in corso…",
-    "optional": "L'account è facoltativo. Il gioco funziona anche senza — accedere serve solo a mantenere la collezione allineata tra dispositivi.",
+    "optional": "L'account è facoltativo. Il gioco funziona anche senza: accedere serve solo a mantenere la collezione allineata tra dispositivi.",
     "signIn": "Accedi",
     "createAccount": "Crea account",
     "email": "Email",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Una parte dei tuoi progressi non ha ancora raggiunto il tuo account, e disconnettersi cancella questo dispositivo. Quei progressi andranno persi.",
     "signOutAnyway": "Disconnetti comunque",
     "confirmPassword": "Conferma password",
-    "passwordMismatch": "Le due password non coincidono."
+    "passwordMismatch": "Le due password non coincidono.",
+    "statusSignedOut": "Clicca qui per accedere"
   },
   "detail": {
     "name": "Nome",

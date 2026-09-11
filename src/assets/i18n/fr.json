@@ -259,7 +259,9 @@
             "battleRival": "Combattre le rival",
             "safariZone": "Visiter le Parc Safari",
             "friendSafari": "Safari des Amis",
-            "areaZero": "Explorer la Zone Zéro"
+            "areaZero": "Explorer la Zone Zéro",
+            "thriftyMegamart": "Bradley Prix",
+            "ultraWormhole": "Ultra-Brèche"
           }
         },
         "friendSafari": {
@@ -412,6 +414,20 @@
           "who": "Qui recevra une Méga-Pierre?",
           "whichStone": "Quelle Méga-Pierre sera attribuée ?",
           "whoMega": "Qui méga-évolue dans ce combat ?"
+        },
+        "thriftyMegamart": {
+          "which": "Qu'est-ce qui rôde dans les rayons ?"
+        },
+        "ultraWormhole": {
+          "which": "Dans quelle brèche êtes-vous tombé ?",
+          "catch": "Qu'est-ce qui attend de l'autre côté ?",
+          "colours": {
+            "white": "Blanche",
+            "red": "Rouge",
+            "blue": "Bleue",
+            "green": "Verte",
+            "yellow": "Jaune"
+          }
         }
       },
       "trade": {
@@ -2421,7 +2437,7 @@
       "name": "Blanche",
       "quote1": "Les Pokémon sont trop mignons!",
       "quote2": "Tu veux te battre?",
-      "quote3": "Je te préviens — je suis douée, hein!"
+      "quote3": "Je te préviens, je suis douée, hein !"
     },
     "morty": {
       "name": "Mortimer",
@@ -2442,7 +2458,7 @@
     "pryce": {
       "name": "Frédo",
       "quote1": "J'entraîne des Pokémon depuis bien avant ta naissance. Je ne perds pas facilement.",
-      "quote2": "Moi, Pryce — le Dresseur de l'Hiver — je vais te montrer ma puissance!"
+      "quote2": "Moi, Pryce, le Dresseur de l'Hiver, je vais te montrer ma puissance !"
     },
     "clair": {
       "name": "Sandra",
@@ -2575,7 +2591,7 @@
     "viola": {
       "name": "Violette",
       "quote1": "Fantastique! Simplement fantastique! Un excellent sujet pour ma caméra!",
-      "quote2": "Mes objectifs sont toujours tournés vers la victoire — je ne laisserai personne gâcher cette prise!"
+      "quote2": "Mes objectifs sont toujours tournés vers la victoire : je ne laisserai personne gâcher cette prise !"
     },
     "grant": {
       "name": "Lino",
@@ -2629,7 +2645,7 @@
     },
     "olivia": {
       "name": "Alyxia",
-      "quote1": "Et maintenant tu devras affronter le grand défi kahuna — moi!",
+      "quote1": "Et maintenant tu devras affronter le grand défi kahuna : moi !",
       "quote2": "Prépare-toi au combat Pokémon le plus difficile auquel tu aies jamais fait face à Akala!"
     },
     "sophocles-acerola": {
@@ -2689,7 +2705,7 @@
     "raihan": {
       "name": "Roy",
       "quote1": "Tu vises à vaincre Tarak... As-tu une idée de la hauteur de cet obstacle?",
-      "quote2": "Comme son plus grand rival, je pense que moi — Roy — vais devoir te le montrer!"
+      "quote2": "Comme son plus grand rival, je pense que moi, Roy, vais devoir te le montrer !"
     },
     "katy": {
       "name": "Katy",
@@ -2841,7 +2857,7 @@
       "forms": "Formes",
       "encounters": "Rencontres",
       "badges": "Badges",
-      "grind": "Persévérance"
+      "dedication": "Persévérance"
     },
     "total": {
       "caught": "Capturés",
@@ -2856,24 +2872,24 @@
       "name": "Je te choisis",
       "description": "Capturez votre premier Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Niv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Capturez 10 Pokémon différents."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Niv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Capturez 50 Pokémon différents."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Niv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Capturez 100 Pokémon différents."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Niv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Capturez 250 Pokémon différents."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Niv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Capturez 500 Pokémon différents."
     },
     "gotta_catch_em_all_national": {
@@ -2899,6 +2915,10 @@
     "oh_shiny": {
       "name": "Oh, chromatique !",
       "description": "Trouvez votre premier Pokémon chromatique."
+    },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Capturez un starter chromatique."
     },
     "shiny_hunter_1": {
       "name": "Chasseur de Chromatiques I",
@@ -2929,7 +2949,7 @@
       "description": "Devenez champion des neuf régions."
     },
     "full_house": {
-      "name": "Équipe Complète",
+      "name": "Full House",
       "description": "Gagnez avec une équipe complète de six."
     },
     "pokemon_stadium": {
@@ -2961,7 +2981,7 @@
       "description": "Brisez le Déguisement de Mimiqui."
     },
     "bond_phenomenon": {
-      "name": "Phénomène de Lien",
+      "name": "AllonZ-y !",
       "description": "Déclenchez la transformation Sacha-Amphinobi."
     },
     "shapeshifter": {
@@ -2969,11 +2989,11 @@
       "description": "Déclenchez un changement de forme permanent."
     },
     "super_rod": {
-      "name": "Super Canne",
+      "name": "Méga Canne",
       "description": "Capturez 10 Pokémon à la pêche."
     },
     "super_nerd": {
-      "name": "Super Intello",
+      "name": "Intello",
       "description": "Ressuscitez 10 Pokémon fossiles."
     },
     "prepare_for_trouble": {
@@ -2989,7 +3009,7 @@
       "description": "Faites éclore un œuf mystérieux."
     },
     "used_the_pokeflute": {
-      "name": "A utilisé la Pokéflûte",
+      "name": "Poké Flûte",
       "description": "Capturez ou battez Ronflex."
     },
     "five_hundred_steps": {
@@ -3017,11 +3037,11 @@
       "description": "Obtenez les huit badges d'une région."
     },
     "badger_badger_badger": {
-      "name": "Badge, Badge, Badge...",
+      "name": "Médaille, médaille, médaille...",
       "description": "Obtenez tous les badges de trois régions."
     },
     "the_very_best": {
-      "name": "Le meilleur dresseur, comme nul autre",
+      "name": "Un jour je serai le meilleur dresseur",
       "description": "Obtenez tous les badges du jeu."
     },
     "youngster": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Compte",
     "checking": "Vérification…",
-    "optional": "Le compte est facultatif. Le jeu fonctionne sans — se connecter sert uniquement à synchroniser votre collection entre appareils.",
+    "optional": "Le compte est facultatif. Le jeu fonctionne sans. Se connecter sert uniquement à synchroniser votre collection entre appareils.",
     "signIn": "Se connecter",
     "createAccount": "Créer un compte",
     "email": "E-mail",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Une partie de votre progression n'a pas encore atteint votre compte, et la déconnexion efface cet appareil. Cette progression sera perdue.",
     "signOutAnyway": "Se déconnecter quand même",
     "confirmPassword": "Confirmer le mot de passe",
-    "passwordMismatch": "Les deux mots de passe ne correspondent pas."
+    "passwordMismatch": "Les deux mots de passe ne correspondent pas.",
+    "statusSignedOut": "Cliquez ici pour vous connecter"
   },
   "detail": {
     "name": "Nom",
@@ -3129,7 +3150,7 @@
     "fairy": "Fée"
   },
   "migration": {
-    "transferred": "Votre progression est arrivée — {{count}} Pokémon sont de retour dans votre Pokédex.",
+    "transferred": "Votre progression est arrivée : {{count}} Pokémon sont de retour dans votre Pokédex.",
     "dismiss": "Fermer"
   },
   "rotomPhone": {

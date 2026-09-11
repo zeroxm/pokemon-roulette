@@ -5,9 +5,9 @@ import { PokemonType } from '../../../../interfaces/pokemon-type';
 import { FRIEND_SAFARI_TYPES, FriendSafariTypeItem } from './friend-safari-types';
 
 /**
- * Step one of the Friend Safari: which type of safari the player found.
+ * Step one of the Friend Safari, which type of safari the player found.
  *
- * The catch itself needs no component — the container queues the type's pool through
+ * The catch itself needs no component: the container queues the type's pool through
  * `requestPokemonSelection`, which is the existing "pick one of these Pokémon" wheel.
  */
 @Component({

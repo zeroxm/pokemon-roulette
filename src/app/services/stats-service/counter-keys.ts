@@ -7,12 +7,19 @@
  * that silently never moves.
  *
  * Adding a counter means adding it here *and* to the backend's allowlist.
- * The backend must ship first, or the new key is skipped until it does —
+ * The backend must ship first, or the new key is skipped until it does:
  * skipped, not lost: the client sends absolute state, so it lands on the next
  * sync after the backend learns it.
  */
 export const FIXED_COUNTER_KEYS = [
+  // A run that reached an end state. **Both endings count** -- beating the
+  // champion and reaching the game-over screen. Only wins counted before,
+  // which made "Complete 100 runs" mean "win 100 runs" and turned the
+  // Dedication achievements into something far harsher than they read.
   'runs_completed',
+  // Shinies that came off the starter wheel. The one shiny a player can
+  // realistically chase, because it is the only wheel they meet every run.
+  'shiny_starters',
   'spins_total',
   'rival_battles_won',
   'champion_with_six',
@@ -59,6 +66,19 @@ export function championRegionKey(generation: GenerationId): RegionCounterKey {
 
 export function playedRegionKey(generation: GenerationId): RegionCounterKey {
   return `played_region:${generation}`;
+}
+
+/**
+ * How many runs have been won, summed from the per-region championships.
+ *
+ * Derived rather than counted separately. A `runs_won` counter existed for
+ * one day and was removed: every championship was already recorded against
+ * its region, so the counter was a second copy of the same fact, and it
+ * started at zero for anyone who had won before it was added. A player with
+ * the Champion achievement saw "Runs won: 0" next to it.
+ */
+export function championshipsWon(stats: Readonly<Partial<Record<CounterKey, number>>>): number {
+  return GENERATION_IDS.reduce((total, g) => total + (stats[championRegionKey(g)] ?? 0), 0);
 }
 
 const FIXED = new Set<string>(FIXED_COUNTER_KEYS);

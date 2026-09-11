@@ -1,0 +1,5 @@
+<h1 class="title">{{ 'game.main.roulette.ultraWormhole.which' | translate }}</h1>
+<app-wheel  #wheel
+            [items]="colours"
+            (selectedItemEvent)="onItemSelected($event)">
+</app-wheel>

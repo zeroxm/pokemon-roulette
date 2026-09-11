@@ -49,7 +49,7 @@ export class ThemeService {
     this.theme$ = this._theme$.asObservable().pipe(distinctUntilChanged());
     this.isDark$ = this.theme$.pipe(map(t => t !== 'plain-light'));
 
-    // Apply immediately — also handles THEME-05 migration (writes default to storage)
+    // Apply immediately: also handles THEME-05 migration (writes default to storage)
     this.setTheme(initial);
   }
 

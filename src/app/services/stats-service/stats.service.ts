@@ -26,7 +26,7 @@ export type PlayerStats = Readonly<Partial<Record<CounterKey, number>>>;
  * would create two versions of the same truth that could disagree. Achievements
  * read both.
  *
- * Nothing here is ever reset, and nothing decreases — the same grow-only
+ * Nothing here is ever reset, and nothing decreases: the same grow-only
  * property the backend relies on to merge two devices without losing progress.
  */
 @Injectable({ providedIn: 'root' })
@@ -76,9 +76,20 @@ export class StatsService {
    * Records a completed run, in one call, because the facts arrive together.
    *
    * `teamSizeAtChampionBattle` is the size when the champion wheel spun, not at
-   * the end — depositing to the PC beforehand is allowed, and that moment is
+   * the end: depositing to the PC beforehand is allowed, and that moment is
    * what the "Pokémon Stadium" and "Full House" achievements are about.
    */
+  /**
+   * A run ended without a championship.
+   *
+   * Counts towards `runs_completed` exactly as a win does: reaching an ending
+   * is the thing the Dedication achievements are about, and most runs end
+   * this way.
+   */
+  recordRunEnded(): void {
+    this.increment('runs_completed');
+  }
+
   recordChampion(generation: GenerationId, teamSizeAtChampionBattle: number): void {
     const next: Record<string, number> = { ...this.currentStats };
 

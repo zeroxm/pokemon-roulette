@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { StatsService, PlayerStats } from './stats.service';
 import { championRegionKey, playedRegionKey } from './counter-keys';
 import { SyncStateService } from '../sync-state-service/sync-state.service';
+import { championshipsWon } from './counter-keys';
 
 describe('StatsService', () => {
   let service: StatsService;
@@ -176,5 +177,21 @@ describe('StatsService', () => {
         .withContext('local state is ahead of the server again, and signing out would discard it')
         .toBeFalse();
     });
+  });
+
+  // Reported in UAT: eleven runs played across eight regions, runs_completed
+  // stuck at 1. Only a championship counted, so "Complete 100 runs" quietly
+  // meant "win 100 runs".
+  it('counts a lost run as a completed one, and a win as both', () => {
+    service.recordRunEnded();
+    service.recordRunEnded();
+
+    expect(service.get('runs_completed')).toBe(2);
+    expect(championshipsWon(service.currentStats)).withContext('losing is not winning').toBe(0);
+
+    service.recordChampion(1, 6);
+
+    expect(service.get('runs_completed')).toBe(3);
+    expect(championshipsWon(service.currentStats)).toBe(1);
   });
 });

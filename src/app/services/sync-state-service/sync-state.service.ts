@@ -4,8 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 /**
  * Whether local progress has reached the player's account.
  *
- * Owned by its own service because three collections are synced — counters,
- * badges and achievement unlocks — and a flag living inside one of them would
+ * Owned by its own service because three collections are synced, counters,
+ * badges and achievement unlocks, and a flag living inside one of them would
  * quietly report "saved" while another had unsaved changes.
  *
  * It matters because **signing out clears local data**. This is what lets the

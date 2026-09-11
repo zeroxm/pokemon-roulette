@@ -41,7 +41,7 @@ const MAX_RETRY_MS = 5 * 60 * 1000;
  *
  * **There is no queue of mutations, and that is the design, not an omission.**
  * The client sends *absolute state*: the whole collection, every time. So a
- * request that failed needs no record of what it contained — the next push
+ * request that failed needs no record of what it contained: the next push
  * carries the same ground truth plus whatever happened since. One boolean
  * (`SyncStateService`) replaces a durable outbox, retries are free because a
  * repeat is a no-op, and there is nothing to deduplicate and nothing to sweep.
@@ -86,7 +86,7 @@ export class SyncService {
    * Signing in pushes immediately, which is also how an anonymous player's
    * collection reaches a brand new account: their local state is posted as an
    * ordinary sync and unioned in. **Signing up is not a special case and must
-   * not get its own code path** — everything is grow-only, so "import my local
+   * not get its own code path**: everything is grow-only, so "import my local
    * data" and "sync" are the same operation.
    */
   start(): void {
@@ -203,7 +203,7 @@ export class SyncService {
    * Applies the server's answer, re-merged with whatever is local right now.
    *
    * The re-merge is not belt-and-braces. A push takes real time, and anything
-   * caught during it is in local state but not in the response — adopting the
+   * caught during it is in local state but not in the response: adopting the
    * response alone would drop it, and the player would watch a Pokémon they
    * just caught disappear. Merging is cheap and makes that window harmless.
    */
@@ -228,7 +228,7 @@ export class SyncService {
     const status = error instanceof HttpErrorResponse ? error.status : 0;
 
     // A session that ended mid-play. Stop syncing and let the account screen
-    // reflect it — but **keep local data**: only an explicit sign-out wipes,
+    // reflect it, but **keep local data**: only an explicit sign-out wipes,
     // and a player whose cookie expired has not asked to lose anything.
     if (status === 401) {
       this.cancel();

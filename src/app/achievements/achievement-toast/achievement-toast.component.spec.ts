@@ -20,7 +20,7 @@ describe('AchievementToastComponent', () => {
     }).compileComponents();
 
     // Instantiated before the component so its first, silent evaluation has
-    // already happened — otherwise the toast would announce a fresh account's
+    // already happened: otherwise the toast would announce a fresh account's
     // starting state.
     TestBed.inject(AchievementService);
     stats = TestBed.inject(StatsService);
@@ -41,14 +41,14 @@ describe('AchievementToastComponent', () => {
   });
 
   it('announces an achievement', () => {
-    stats.increment('runs_completed');
+    stats.increment('champion_region:1');
     fixture.detectChanges();
 
     expect(component.current?.id).toBe('champion');
   });
 
   it('clears itself after a while', fakeAsync(() => {
-    stats.increment('runs_completed');
+    stats.increment('champion_region:1');
     expect(component.current).not.toBeNull();
 
     tick(5000);
@@ -61,7 +61,7 @@ describe('AchievementToastComponent', () => {
     // Three at once: first rival win, first run, and the 10-run tier is not
     // reached, so use two counters that each unlock immediately.
     stats.increment('rival_battles_won');
-    stats.increment('runs_completed');
+    stats.increment('champion_region:1');
 
     const first = component.current;
     expect(first).not.toBeNull();
@@ -77,7 +77,7 @@ describe('AchievementToastComponent', () => {
   }));
 
   it('can be dismissed by the player', () => {
-    stats.increment('runs_completed');
+    stats.increment('champion_region:1');
     expect(component.current).not.toBeNull();
 
     component.dismiss();

@@ -259,7 +259,9 @@
             "battleRival": "Rivalen-Kampf",
             "safariZone": "Besuche die Safari-Zone",
             "friendSafari": "Freundes-Safari",
-            "areaZero": "Erkunde Zone Null"
+            "areaZero": "Erkunde Zone Null",
+            "thriftyMegamart": "Schnäppchenparadies",
+            "ultraWormhole": "Ultrapforte"
           }
         },
         "friendSafari": {
@@ -412,6 +414,20 @@
           "who": "Wer erhält einen Mega-Stein?",
           "whichStone": "Welcher Mega-Stein wird vergeben?",
           "whoMega": "Wer mega-entwickelt sich in diesem Kampf?"
+        },
+        "thriftyMegamart": {
+          "which": "Was lauert in den Regalreihen?"
+        },
+        "ultraWormhole": {
+          "which": "Durch welche Pforte bist du gefallen?",
+          "catch": "Was wartet auf der anderen Seite?",
+          "colours": {
+            "white": "Weiß",
+            "red": "Rot",
+            "blue": "Blau",
+            "green": "Grün",
+            "yellow": "Gelb"
+          }
         }
       },
       "trade": {
@@ -2841,7 +2857,7 @@
       "forms": "Formen",
       "encounters": "Begegnungen",
       "badges": "Orden",
-      "grind": "Ausdauer"
+      "dedication": "Ausdauer"
     },
     "total": {
       "caught": "Gefangen",
@@ -2856,32 +2872,32 @@
       "name": "Ich wähle dich",
       "description": "Fange dein erstes Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Lv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Fange 10 verschiedene Pokémon."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Lv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Fange 50 verschiedene Pokémon."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Lv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Fange 100 verschiedene Pokémon."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Lv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Fange 250 verschiedene Pokémon."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Lv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Fange 500 verschiedene Pokémon."
     },
     "gotta_catch_em_all_national": {
-      "name": "Schnapp sie dir... alle?!",
+      "name": "Schnapp' sie dir... alle?!",
       "description": "Vervollständige den National-Pokédex."
     },
     "gotta_catch_em_all_regional": {
-      "name": "Schnapp sie dir alle!",
+      "name": "Schnapp' sie dir alle!",
       "description": "Vervollständige den Pokédex einer Region."
     },
     "i_choose_you_and_you": {
@@ -2900,6 +2916,10 @@
       "name": "Oh, schillernd!",
       "description": "Finde dein erstes schillerndes Pokémon."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Fange ein schillerndes Starter-Pokémon."
+    },
     "shiny_hunter_1": {
       "name": "Schillerjäger I",
       "description": "Finde 5 schillernde Pokémon."
@@ -2913,7 +2933,7 @@
       "description": "Finde 25 schillernde Pokémon."
     },
     "never_tell_me_the_odds": {
-      "name": "Nenn mir nie die Chancen!",
+      "name": "Sag mir nie, wie die Chancen stehen!",
       "description": "Finde ein schillerndes legendäres Pokémon."
     },
     "champion": {
@@ -2929,7 +2949,7 @@
       "description": "Werde Champion in allen neun Regionen."
     },
     "full_house": {
-      "name": "Volles Haus",
+      "name": "Full House",
       "description": "Gewinne mit einem vollen Team aus sechs."
     },
     "pokemon_stadium": {
@@ -2937,7 +2957,7 @@
       "description": "Gewinne mit drei Pokémon oder weniger im Team."
     },
     "smell_ya_later": {
-      "name": "Man sieht sich!",
+      "name": "Bis später, Loser!",
       "description": "Gewinne einen Kampf gegen den Rivalen."
     },
     "notch_above": {
@@ -2961,7 +2981,7 @@
       "description": "Zerstöre Mimigmas Kostümspuk."
     },
     "bond_phenomenon": {
-      "name": "Bund-Phänomen",
+      "name": "Auf geht'Z!",
       "description": "Löse die Ash-Quajutsu-Verwandlung aus."
     },
     "shapeshifter": {
@@ -2973,7 +2993,7 @@
       "description": "Fange 10 Pokémon beim Angeln."
     },
     "super_nerd": {
-      "name": "Superfreak",
+      "name": "Streber",
       "description": "Belebe 10 Fossil-Pokémon wieder."
     },
     "prepare_for_trouble": {
@@ -2989,7 +3009,7 @@
       "description": "Lasse ein geheimnisvolles Ei schlüpfen."
     },
     "used_the_pokeflute": {
-      "name": "Pokéflöte benutzt",
+      "name": "Pokéflöte",
       "description": "Fange oder besiege Relaxo."
     },
     "five_hundred_steps": {
@@ -3021,7 +3041,7 @@
       "description": "Verdiene alle Orden aus drei Regionen."
     },
     "the_very_best": {
-      "name": "Der Allerbeste, wie keiner zuvor",
+      "name": "Der Allerbeste, wie keiner vor mir war",
       "description": "Verdiene alle Orden im Spiel."
     },
     "youngster": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Konto",
     "checking": "Wird geprüft…",
-    "optional": "Ein Konto ist optional. Das Spiel funktioniert auch ohne — die Anmeldung hält nur deine Sammlung auf allen Geräten gleich.",
+    "optional": "Ein Konto ist optional. Das Spiel funktioniert auch ohne. Die Anmeldung hält nur deine Sammlung auf allen Geräten gleich.",
     "signIn": "Anmelden",
     "createAccount": "Konto erstellen",
     "email": "E-Mail",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Ein Teil deines Fortschritts hat dein Konto noch nicht erreicht, und das Abmelden löscht dieses Gerät. Dieser Fortschritt geht verloren.",
     "signOutAnyway": "Trotzdem abmelden",
     "confirmPassword": "Passwort bestätigen",
-    "passwordMismatch": "Die beiden Passwörter stimmen nicht überein."
+    "passwordMismatch": "Die beiden Passwörter stimmen nicht überein.",
+    "statusSignedOut": "Hier klicken zum Anmelden"
   },
   "detail": {
     "name": "Name",
@@ -3129,7 +3150,7 @@
     "fairy": "Fee"
   },
   "migration": {
-    "transferred": "Dein Fortschritt ist angekommen — {{count}} Pokémon sind zurück in deinem Pokédex.",
+    "transferred": "Dein Fortschritt ist angekommen: {{count}} Pokémon sind zurück in deinem Pokédex.",
     "dismiss": "Schließen"
   },
   "rotomPhone": {

@@ -9,6 +9,7 @@ import { Badge } from '../interfaces/badge';
 import { TrainerService } from '../services/trainer-service/trainer.service';
 import { StoragePcComponent } from "./storage-pc/storage-pc.component";
 import { RotomPhoneComponent } from "./rotom-phone/rotom-phone.component";
+import { AccountStatusComponent } from "../account/account-status/account-status.component";
 import {TranslatePipe} from '@ngx-translate/core';
 import { ImageFallbackDirective } from '../directives/image-fallback.directive';
 import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.service';
@@ -21,6 +22,7 @@ import { MegaStoneActivation } from '../services/mega-stone-service/mega-stone.s
     BadgesComponent,
     StoragePcComponent,
     RotomPhoneComponent,
+    AccountStatusComponent,
     TranslatePipe,
   ],
   templateUrl: './trainer-team.component.html',

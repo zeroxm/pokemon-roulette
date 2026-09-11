@@ -1,27 +1,12 @@
-/*
- * The tab strip is the phone's home screen, and all three apps have to be
- * visible at 375px.
- *
- * A horizontally scrolling strip was the first attempt and it hid
- * "Achievements" off the right edge with nothing to say it was there — on a
- * phone that is the same as not shipping it. Wrapping to a second row is
- * uglier and keeps every app findable, which is the trade worth making.
- */
-.phone-apps {
-  flex-wrap: wrap;
+/* The button sits in a flex row beside the PC button and has to stretch with
+   it; ngbDropdown's wrapper would otherwise shrink to its content. */
+.rotom-phone,
+.rotom-phone > .btn {
+  width: 100%;
 }
 
-.phone-apps .nav-link {
+.rotom-phone-app {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  white-space: nowrap;
-}
-
-/* The icons are decoration next to a label that already says the word. They
-   are the first thing to go when the row is tight. */
-@media (max-width: 460px) {
-  .phone-apps .nav-link ng-icon {
-    display: none;
-  }
+  gap: 0.5rem;
 }

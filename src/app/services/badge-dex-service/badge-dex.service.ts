@@ -8,7 +8,7 @@ import { SyncStateService } from '../sync-state-service/sync-state.service';
  * Every badge the player has ever earned, across every run.
  *
  * `TrainerService.trainerBadges` is the badges of the *current* run and dies
- * with it. This is the lifetime record — the trophy case — and it is one of the
+ * with it. This is the lifetime record, the trophy case, and it is one of the
  * three collections that sync.
  *
  * Grow-only: badges are only ever added.
@@ -88,7 +88,7 @@ export class BadgeDexService {
 /**
  * The stored id for a badge.
  *
- * Badges have no id of their own — only a translation key like
+ * Badges have no id of their own: only a translation key like
  * `badges.bug_paldea`, which is unique across all 77 of them. The `badges.`
  * prefix is stripped because it is an i18n namespace, not part of the
  * identity, and because the backend's id pattern rejects the dot.
@@ -107,7 +107,7 @@ export function badgeIdsForGeneration(generation: number): string[] {
 /**
  * The badges for each round of a generation, kept grouped.
  *
- * Four rounds offer a choice — Alola's Z-crystals, for instance — so beating
+ * Four rounds offer a choice, Alola's Z-crystals, for instance, so beating
  * all eight gyms of a region means holding one badge from each round, not
  * every badge the region defines.
  */

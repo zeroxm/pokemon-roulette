@@ -79,7 +79,7 @@ export class SettingsService {
    * Replaces settings with merged state. See PokedexService.adopt.
    *
    * Settings are the one last-write-wins collection, so unlike the others this
-   * can overwrite a local value — with the server's, which by definition
+   * can overwrite a local value: with the server's, which by definition
    * reached it later.
    */
   adopt(settings: Partial<GameSettings>): void {

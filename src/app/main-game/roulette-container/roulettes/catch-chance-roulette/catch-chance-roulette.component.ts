@@ -2,14 +2,21 @@ import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy
 import { WheelComponent } from '../../../../wheel/wheel.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
+/**
+ * The better of the game's two catch chances: a third before the fourth gym,
+ * two thirds after it, against the legendary wheel's quarter and half.
+ *
+ * Shared by Area Zero and the Ultra Wormhole, which is why it is not named
+ * for either. Both hand over something rare and ask the same question.
+ */
 @Component({
-  selector: 'app-catch-paradox-roulette',
+  selector: 'app-catch-chance-roulette',
   imports: [WheelComponent, TranslatePipe],
-  templateUrl: './catch-paradox-roulette.component.html',
+  templateUrl: './catch-chance-roulette.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './catch-paradox-roulette.component.css'
+  styleUrl: './catch-chance-roulette.component.css'
 })
-export class CatchParadoxRouletteComponent implements OnInit {
+export class CatchChanceRouletteComponent implements OnInit {
 
   catchRate = [
     { text: 'game.main.roulette.legendary.yes', fillStyle: 'green', weight: 1 },
@@ -26,14 +33,14 @@ export class CatchParadoxRouletteComponent implements OnInit {
   }
 
   @Input() currentRound: number = 0;
-  @Output() catchParadoxEvent = new EventEmitter<void>();
-  @Output() nothingHappensEvent = new EventEmitter<void>();
+  @Output() caughtEvent = new EventEmitter<void>();
+  @Output() escapedEvent = new EventEmitter<void>();
 
   onItemSelected(index: number): void {
     if (this.catchRate[index].text === 'game.main.roulette.legendary.yes') {
-      this.catchParadoxEvent.emit();
+      this.caughtEvent.emit();
     } else {
-      this.nothingHappensEvent.emit();
+      this.escapedEvent.emit();
     }
   }
 }

@@ -324,7 +324,7 @@ describe('GymBattleRouletteComponent', () => {
     expect(odds.filter((o: WheelItem) => o.text === 'game.main.roulette.gym.no').length).toBe(1);
   });
 
-  it('should add yes slices proportional to team power — power 2 gives 3 yes', () => {
+  it('should add yes slices proportional to team power: power 2 gives 3 yes', () => {
     trainerService.addToTeam(makeTestPokemon({ power: 2 }));
     component.currentLeader = { name: 'Brock', sprite: '', quotes: [] } as GymLeader;
     component.currentRound = 0;
@@ -336,7 +336,7 @@ describe('GymBattleRouletteComponent', () => {
     expect(odds.filter((o: WheelItem) => o.text === 'game.main.roulette.gym.no').length).toBe(1);
   });
 
-  it('should add extra no slices proportional to current round — round 2 gives 3 no', () => {
+  it('should add extra no slices proportional to current round: round 2 gives 3 no', () => {
     component.currentLeader = { name: 'Brock', sprite: '', quotes: [] } as GymLeader;
     component.currentRound = 2;
     (component as any).calcVictoryOdds();

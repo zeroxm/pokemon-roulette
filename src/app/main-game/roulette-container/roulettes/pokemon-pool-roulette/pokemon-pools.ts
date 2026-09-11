@@ -4,6 +4,7 @@ import { legendaryByGeneration } from '../legendary-roulette/legendaries-by-gene
 import { starterByGeneration } from '../starter-roulette/starter-by-generation';
 import { cavePokemonByGeneration } from '../cave-pokemon-roulette/cave-pokemon-by-generation';
 import { safariZoneByGeneration, safariZonePrizeIds } from './safari-zone-by-generation';
+import { thriftyMegamartByGeneration, thriftyMegamartFeaturedIds } from './thrifty-megamart-by-generation';
 
 /**
  * A "pick a Pokémon from this region's set" wheel.
@@ -15,18 +16,21 @@ import { safariZoneByGeneration, safariZonePrizeIds } from './safari-zone-by-gen
 export interface PokemonPool {
   /** Translation key for the heading. */
   readonly titleKey: string;
-  /** Whether the heading names the generation. Starters do not — the region is already implied. */
+  /** Whether the heading names the generation. Starters do not: the region is already implied. */
   readonly showGeneration: boolean;
   readonly idsByGeneration: Record<number, number[]>;
   /**
-   * Slices that widen once the player is far enough into the run, so a late visit is worth more
-   * than an early one. Omitted by every pool that draws evenly.
+   * Slices wider than the rest. Omitted by every pool that draws evenly.
+   *
+   * Two uses, which is why the round gate is optional: the Safari Zone widens its prizes only
+   * late, so a late visit is worth more than an early one, while the Thrifty Megamart simply
+   * favours Mimikyu at every point in a run.
    */
   readonly rareBoost?: {
     readonly ids: readonly number[];
     readonly weight: number;
-    /** Battles won, compared against the roulette's `currentRound`. */
-    readonly fromRound: number;
+    /** Battles won, compared against the roulette's `currentRound`. Absent means always. */
+    readonly fromRound?: number;
   };
 }
 
@@ -58,10 +62,17 @@ export const POKEMON_POOLS = {
   },
   safari: {
     titleKey: 'game.main.roulette.safariZone.which',
-    // Kanto is already implied — the slice that leads here exists nowhere else.
+    // Kanto is already implied: the slice that leads here exists nowhere else.
     showGeneration: false,
     idsByGeneration: safariZoneByGeneration,
     rareBoost: { ids: safariZonePrizeIds, weight: 2, fromRound: 4 },
+  },
+  megamart: {
+    titleKey: 'game.main.roulette.thriftyMegamart.which',
+    // Alola is already implied: the slice that leads here exists nowhere else.
+    showGeneration: false,
+    idsByGeneration: thriftyMegamartByGeneration,
+    rareBoost: { ids: thriftyMegamartFeaturedIds, weight: 3 },
   },
 } as const satisfies Record<string, PokemonPool>;
 

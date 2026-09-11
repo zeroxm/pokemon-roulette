@@ -84,7 +84,7 @@ export class PokedexComponent implements OnInit, OnDestroy {
   get caughtCount(): number {
     const data = this.pokedexData;
     if (!data) return 0;
-    // pokedexData.caught[id] with numeric id NEVER matches — always returns undefined
+    // pokedexData.caught[id] with numeric id NEVER matches: always returns undefined
     return this.activeIds.filter(id => !!data.caught[String(id)]).length;
   }
 

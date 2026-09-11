@@ -87,30 +87,30 @@ describe('PokedexService', () => {
 
 
   // SHINY-01: shiny flag persistence
-  it('should set shiny:true on entry when markSeen called with shiny=true — SHINY-01', () => {
+  it('should set shiny:true on entry when markSeen called with shiny=true: SHINY-01', () => {
     service.markSeen(25, true);
     expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
   });
 
-  it('should upgrade existing non-shiny entry to shiny when markSeen called with shiny=true — SHINY-01', () => {
+  it('should upgrade existing non-shiny entry to shiny when markSeen called with shiny=true, SHINY-01', () => {
     service.markSeen(25);
     service.markSeen(25, true);
     expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
   });
 
-  it('should not revert shiny flag once set — shiny=true is permanent — SHINY-01', () => {
+  it('should not revert shiny flag once set, shiny=true is permanent: SHINY-01', () => {
     service.markSeen(25, true);
     service.markSeen(25, false);
     expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
   });
 
-  it('should preserve shiny flag after markWon is called — SHINY-01', () => {
+  it('should preserve shiny flag after markWon is called: SHINY-01', () => {
     service.markSeen(25, true);
     service.markWon([25]);
     expect(service.currentPokedex.caught['25'].shiny).toBeTrue();
   });
 
-  it('should propagate shiny to full family and forms when markSeen is called with shiny=true — SHINY-02', () => {
+  it('should propagate shiny to full family and forms when markSeen is called with shiny=true: SHINY-02', () => {
     service.markSeen(25, true);
 
     expect(service.currentPokedex.caught['172'].shiny).toBeTrue();
@@ -119,7 +119,7 @@ describe('PokedexService', () => {
     expect(service.currentPokedex.caught['10100'].shiny).toBeTrue();
   });
 
-  it('should propagate shiny from a form id to base and the whole family — SHINY-02', () => {
+  it('should propagate shiny from a form id to base and the whole family: SHINY-02', () => {
     service.markSeen(10100, true);
 
     expect(service.currentPokedex.caught['172'].shiny).toBeTrue();
@@ -128,7 +128,7 @@ describe('PokedexService', () => {
     expect(service.currentPokedex.caught['10100'].shiny).toBeTrue();
   });
 
-  it('should normalize shiny on load for existing related entries only and persist the migration — SHINY-03', () => {
+  it('should normalize shiny on load for existing related entries only and persist the migration: SHINY-03', () => {
     const saved: PokedexData = {
       caught: {
         '25': { won: false, shiny: true },
@@ -177,7 +177,7 @@ describe('PokedexService', () => {
   // ── Additional shiny edge cases ────────────────────────────────────────
 
   // Re-catch edge case: pokemon was already won; shiny upgrade must preserve won flag
-  it('should preserve won:true when upgrading existing won entry to shiny — SHINY-EDGE-01', () => {
+  it('should preserve won:true when upgrading existing won entry to shiny: SHINY-EDGE-01', () => {
     service.markSeen(1);
     service.markWon([1]);
 
@@ -186,11 +186,11 @@ describe('PokedexService', () => {
 
     const entry = service.currentPokedex.caught['1'];
     expect(entry.shiny).toBeTrue();
-    expect(entry.won).toBeTrue();   // must be preserved — not reset by markSeen
+    expect(entry.won).toBeTrue();   // must be preserved: not reset by markSeen
   });
 
   // Explicit false param: markSeen(id, false) must not revert an already-shiny entry
-  it('should not revert shiny when markSeen is called with explicit shiny=false on shiny entry — SHINY-EDGE-02', () => {
+  it('should not revert shiny when markSeen is called with explicit shiny=false on shiny entry: SHINY-EDGE-02', () => {
     service.markSeen(7, true);
     expect(service.currentPokedex.caught['7'].shiny).toBeTrue();
 
@@ -201,7 +201,7 @@ describe('PokedexService', () => {
   });
 
   // No-op re-catch: identical data must not trigger a pokedex$ emission
-  it('should not emit a new pokedex$ value when markSeen is called with unchanged data — SHINY-EDGE-03', (done) => {
+  it('should not emit a new pokedex$ value when markSeen is called with unchanged data: SHINY-EDGE-03', (done) => {
     // First call creates the entry and emits
     service.markSeen(50);
 
@@ -295,7 +295,7 @@ describe('PokedexService catch counting', () => {
       const upgraded = load({ 25: { won: true, sprite: 'https://example.invalid/25.png' } });
 
       expect(upgraded.currentPokedex.caught['25'].count)
-        .withContext('a floor, not a fabrication — zero beside a caught marker reads as a bug')
+        .withContext('a floor, not a fabrication: zero beside a caught marker reads as a bug')
         .toBe(1);
     });
 

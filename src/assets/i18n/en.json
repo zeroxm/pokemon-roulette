@@ -259,7 +259,9 @@
             "battleRival": "Battle Rival",
             "safariZone": "Visit the Safari Zone",
             "friendSafari": "Friend Safari",
-            "areaZero": "Explore Area Zero"
+            "areaZero": "Explore Area Zero",
+            "thriftyMegamart": "Thrifty Megamart",
+            "ultraWormhole": "Ultra Wormhole"
           }
         },
         "friendSafari": {
@@ -412,6 +414,20 @@
           "who": "Who will receive a Mega Stone?",
           "whichStone": "Which Mega Stone will be awarded?",
           "whoMega": "Who mega-evolves this battle?"
+        },
+        "thriftyMegamart": {
+          "which": "What is lurking in the aisles?"
+        },
+        "ultraWormhole": {
+          "which": "Which wormhole did you fall through?",
+          "catch": "What is waiting on the other side?",
+          "colours": {
+            "white": "White",
+            "red": "Red",
+            "blue": "Blue",
+            "green": "Green",
+            "yellow": "Yellow"
+          }
         }
       },
       "trade": {
@@ -2629,7 +2645,7 @@
     },
     "olivia": {
       "name": "Olivia",
-      "quote1": "Now you face the grand trial of the kahuna—me!",
+      "quote1": "Now you face the grand trial of the kahuna: me!",
       "quote2": "Get ready for your hardest Pokémon battle yet on Akala!"
     },
     "sophocles-acerola": {
@@ -2689,7 +2705,7 @@
     "raihan": {
       "name": "Raihan",
       "quote1": "You aim to defeat Leon... Do you have any idea just how high a hurdle that is?",
-      "quote2": "As his greatest rival, I guess that I—Raihan—will have to show you!"
+      "quote2": "As his greatest rival, I guess that I, Raihan, will have to show you!"
     },
     "katy": {
       "name": "Katy",
@@ -2841,7 +2857,7 @@
       "forms": "Forms",
       "encounters": "Encounters",
       "badges": "Badges",
-      "grind": "Dedication"
+      "dedication": "Dedication"
     },
     "total": {
       "caught": "Caught",
@@ -2856,24 +2872,24 @@
       "name": "I choose you",
       "description": "Catch your first Pokémon."
     },
-    "pokedex_lv_1": {
-      "name": "Pokédex Lv 1",
+    "pokedex_1_percent": {
+      "name": "Pokédex 1%",
       "description": "Catch 10 different Pokémon."
     },
-    "pokedex_lv_2": {
-      "name": "Pokédex Lv 2",
+    "pokedex_5_percent": {
+      "name": "Pokédex 5%",
       "description": "Catch 50 different Pokémon."
     },
-    "pokedex_lv_3": {
-      "name": "Pokédex Lv 3",
+    "pokedex_10_percent": {
+      "name": "Pokédex 10%",
       "description": "Catch 100 different Pokémon."
     },
-    "pokedex_lv_4": {
-      "name": "Pokédex Lv 4",
+    "pokedex_25_percent": {
+      "name": "Pokédex 25%",
       "description": "Catch 250 different Pokémon."
     },
-    "pokedex_lv_5": {
-      "name": "Pokédex Lv 5",
+    "pokedex_50_percent": {
+      "name": "Pokédex 50%",
       "description": "Catch 500 different Pokémon."
     },
     "gotta_catch_em_all_national": {
@@ -2899,6 +2915,10 @@
     "oh_shiny": {
       "name": "Oh, shiny!",
       "description": "Find your first shiny Pokémon."
+    },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Catch a shiny starter."
     },
     "shiny_hunter_1": {
       "name": "Shiny Hunter I",
@@ -2961,7 +2981,7 @@
       "description": "Break Mimikyu's Disguise."
     },
     "bond_phenomenon": {
-      "name": "Bond Phenomenon",
+      "name": "So let'Z go!",
       "description": "Trigger the Ash-Greninja transformation."
     },
     "shapeshifter": {
@@ -2989,7 +3009,7 @@
       "description": "Hatch a mysterious egg."
     },
     "used_the_pokeflute": {
-      "name": "Used the Pokéflute",
+      "name": "Poké Flute",
       "description": "Catch or defeat Snorlax."
     },
     "five_hundred_steps": {
@@ -3017,7 +3037,7 @@
       "description": "Earn all eight badges of one region."
     },
     "badger_badger_badger": {
-      "name": "Badger, Badger, Badger...",
+      "name": "Badger, badger, badger...",
       "description": "Earn all the badges of three regions."
     },
     "the_very_best": {
@@ -3056,7 +3076,7 @@
   "account": {
     "title": "Account",
     "checking": "Checking…",
-    "optional": "An account is optional. The game works without one — signing in only keeps your collection in step across devices.",
+    "optional": "An account is optional. The game works without one. Signing in only keeps your collection in step across devices.",
     "signIn": "Sign in",
     "createAccount": "Create account",
     "email": "Email",
@@ -3091,7 +3111,8 @@
     "signOutUnsyncedWarning": "Some progress has not reached your account yet, and signing out clears this device. That progress will be lost.",
     "signOutAnyway": "Sign out anyway",
     "confirmPassword": "Confirm password",
-    "passwordMismatch": "The two passwords do not match."
+    "passwordMismatch": "The two passwords do not match.",
+    "statusSignedOut": "Click here to sign in"
   },
   "detail": {
     "name": "Name",
@@ -3129,7 +3150,7 @@
     "fairy": "Fairy"
   },
   "migration": {
-    "transferred": "Your progress arrived — {{count}} Pokémon are back in your Pokédex.",
+    "transferred": "Your progress arrived: {{count}} Pokémon are back in your Pokédex.",
     "dismiss": "Dismiss"
   },
   "rotomPhone": {

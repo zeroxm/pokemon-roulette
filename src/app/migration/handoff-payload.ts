@@ -4,7 +4,7 @@
  * `localStorage` is scoped to an origin, so a player's Pokédex at
  * `zeroxm.github.io` is invisible from `pokemon-roulette.zeroxm.com.br`. The
  * only way across is first-party JavaScript on the old origin putting the data
- * in a URL fragment — fragments are never sent to a server, so nothing lands
+ * in a URL fragment: fragments are never sent to a server, so nothing lands
  * in anybody's access log.
  *
  * **This module is the single definition of that format**, imported by both
@@ -27,7 +27,7 @@ export interface LegacyEntry {
   won?: boolean;
   shiny?: boolean;
   mega?: boolean;
-  /** A ~90-character URL, dropped on the way across — it is derived from the id. */
+  /** A ~90-character URL, dropped on the way across: it is derived from the id. */
   sprite?: string | null;
 }
 
@@ -47,7 +47,7 @@ export interface HandoffPayload extends LegacyStorage {
  * Packs a collection into a fragment-safe string.
  *
  * The dense range is four bits per Pokémon rather than JSON. A full Pokédex as
- * JSON is roughly 40 KB, which base64 inflates to 55 KB — inside what browsers
+ * JSON is roughly 40 KB, which base64 inflates to 55 KB: inside what browsers
  * accept, but not by a margin worth betting a player's collection on. Four bits
  * across 1025 ids is **513 bytes**, about 700 base64 characters, which no limit
  * anywhere is going to argue with.
@@ -68,7 +68,7 @@ export function encodeHandoff(source: LegacyStorage): string {
       | (entry?.mega ? MEGA : 0);
 
     // Alternate forms live at ids like 10034, far outside the dense range, and
-    // the game genuinely stores them — `registerInPokedex` writes the form id
+    // the game genuinely stores them: `registerInPokedex` writes the form id
     // as well as the base species. A fixed-width array alone would drop every
     // mega and every Ogerpon mask a player owns, silently, which is the exact
     // failure this whole migration exists to avoid.
@@ -99,7 +99,7 @@ export function encodeHandoff(source: LegacyStorage): string {
  *
  * Returns `null` for anything it cannot make sense of. A player arriving with
  * a truncated or hand-edited fragment must land in a working game with their
- * existing data untouched, not on an error — they have no idea what a fragment
+ * existing data untouched, not on an error: they have no idea what a fragment
  * is, and nothing they did caused it.
  */
 export function decodeHandoff(encoded: string): HandoffPayload | null {

@@ -140,4 +140,25 @@ describe('PokemonPoolRouletteComponent', () => {
       expect(Object.keys(POKEMON_POOLS[pool].idsByGeneration).length).withContext(pool).toBeGreaterThan(0);
     }
   });
+
+  // The Megamart exists so Mimikyu can be obtained at all -- "It's a Disguise!"
+  // was unreachable rather than hard. A flat quarter chance would have made it
+  // a grind against a wheel, so Mimikyu is three times as wide, from the start
+  // rather than from a later round as the Safari Zone's prizes are.
+  describe('the Thrifty Megamart', () => {
+    const MIMIKYU = 778;
+    const GASTLY = 92;
+
+    it('gives Mimikyu three times the width, at any point in a run', () => {
+      generationService.setGeneration(6); // Alola is the seventh entry, index 6
+      component.pool = 'megamart';
+      component.currentRound = 0;
+      fixture.detectChanges();
+
+      const weightOf = (id: number) => component.pokemon.find(p => p.pokemonId === id)?.weight;
+
+      expect(weightOf(MIMIKYU)).toBe(3);
+      expect(weightOf(GASTLY) ?? 1).toBe(1);
+    });
+  });
 });

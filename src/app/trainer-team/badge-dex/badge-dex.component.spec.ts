@@ -66,7 +66,7 @@ describe('BadgeDexComponent', () => {
     expect(component.earnedInRegion(kanto)).toBe(1);
   });
 
-  // A round offering a choice is satisfied by any one of its badges — you can
+  // A round offering a choice is satisfied by any one of its badges: you can
   // only win one per run, and beating the gym is what counts.
   it('counts a round complete with any one of its alternatives', () => {
     const alola = component.cases.find(region => region.generationId === 7)!;

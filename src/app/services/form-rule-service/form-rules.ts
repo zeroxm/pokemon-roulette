@@ -8,11 +8,11 @@ import { greninjaForms } from '../trainer-service/greninja-forms';
 /**
  * The three existing form tables, adapted into one rule list.
  *
- * Adapted rather than rewritten so the data itself is untouched by this migration — the tables
+ * Adapted rather than rewritten so the data itself is untouched by this migration: the tables
  * remain the single source of truth for which forms exist, and only their shape is normalised.
  */
 export const formRules: FormRule[] = [
-  // Palafin: base ↔ Hero, reverts after the battle, and must sweep the PC too — a Hero-form
+  // Palafin: base ↔ Hero, reverts after the battle, and must sweep the PC too: a Hero-form
   // Palafin left in storage would otherwise never change back.
   ...Object.entries(palafinForms)
     .filter(([, forms]) => forms.length >= 2)

@@ -9,7 +9,7 @@ import { PokemonItem } from "../../interfaces/pokemon-item";
  *   different value would silently shift the win/lose odds the moment the disguise broke. The
  *   disguise buys a retry, not a stat change.
  * - **The busted form names its own artwork.** Every other form table leaves `sprite: null` and lets
- *   the runtime fetch it from PokéAPI, but PokéAPI has no official artwork for 10143 — that field is
+ *   the runtime fetch it from PokéAPI, but PokéAPI has no official artwork for 10143: that field is
  *   literally `null` in the API response, so the fetch "succeeded" and produced no image. These are
  *   the HOME sprites, which do exist, hard-linked like the National Dex entries.
  */

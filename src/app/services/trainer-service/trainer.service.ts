@@ -85,7 +85,7 @@ export class TrainerService implements OnDestroy {
   }
 
   getTrainerSprite(generation: number, gender: string): string {
-    // Unreachable today — GenerationService only produces 1-9, which the data covers. Guards
+    // Unreachable today: GenerationService only produces 1-9, which the data covers. Guards
     // against a future generation reaching one table and not the other.
     const sprite = this.trainerSpriteData[generation]?.[gender];
 
@@ -340,7 +340,7 @@ export class TrainerService implements OnDestroy {
     }
   }
 
-  /** True while an undisguised Mimikyu is on the team — the only thing Disguise can fire on. */
+  /** True while an undisguised Mimikyu is on the team: the only thing Disguise can fire on. */
   hasDisguisedMimikyu(): boolean {
     return this.trainerTeam.some(pokemon => pokemon.pokemonId === MIMIKYU_ID);
   }
@@ -364,7 +364,7 @@ export class TrainerService implements OnDestroy {
     return changed;
   }
 
-  /** True while a base-form Greninja is on the team — the only thing the Ash transformation fires on. */
+  /** True while a base-form Greninja is on the team: the only thing the Ash transformation fires on. */
   hasBaseGreninja(): boolean {
     return this.trainerTeam.some(pokemon => pokemon.pokemonId === GRENINJA_ID);
   }
@@ -443,7 +443,7 @@ export class TrainerService implements OnDestroy {
   /**
    * Fetches artwork for a Pokémon that has none.
    *
-   * This is the only subscriber to getPokemonSprites in the app, and it had no error callback —
+   * This is the only subscriber to getPokemonSprites in the app, and it had no error callback:
    * so once the service exhausted its three retries, the error surfaced as an unhandled rejection.
    * A failure is not exceptional here (offline, rate-limited, PokéAPI down); the UI already falls
    * back to a placeholder, so it is logged and left alone.
