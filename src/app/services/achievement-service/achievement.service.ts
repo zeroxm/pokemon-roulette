@@ -4,7 +4,28 @@ import { PokedexData, PokedexService } from '../pokedex-service/pokedex.service'
 import { StatsService } from '../stats-service/stats.service';
 import { BadgeDexService } from '../badge-dex-service/badge-dex.service';
 import { SyncStateService } from '../sync-state-service/sync-state.service';
+import { nationalDexPokemon } from '../pokemon-service/national-dex-pokemon';
 import { ACHIEVEMENTS, Achievement, AchievementContext, Progress } from './achievement-catalog';
+
+/**
+ * The species the Pokédex screen counts.
+ *
+ * Alternate forms are stored in the Pokédex under their own ids -- Mega
+ * Charizard X is 10034 alongside Charizard's 6 -- and they are not National
+ * Dex species. Counting them made the achievements disagree with the Pokédex
+ * screen the player is looking at: three species registered, "4/10" on the
+ * collection achievements. The same list the Pokédex counts is the only
+ * answer that can stay in step with it.
+ */
+const NATIONAL_DEX_IDS: ReadonlySet<number> = new Set(
+  nationalDexPokemon.map(pokemon => pokemon.pokemonId),
+);
+
+/** The collection as the Pokédex screen counts it: species, not entries. */
+export interface CollectionCounts {
+  readonly species: number;
+  readonly shinies: number;
+}
 
 /** When each achievement was earned, keyed by id. ISO 8601, UTC. */
 export type AchievementUnlocks = Readonly<Record<string, string>>;
@@ -29,6 +50,7 @@ export class AchievementService {
   private unlockedSubject$: BehaviorSubject<AchievementUnlocks>;
   private newlyUnlockedSubject$ = new Subject<Achievement[]>();
   private progressSubject$ = new BehaviorSubject<ReadonlyMap<string, Progress>>(new Map());
+  private collectionSubject$ = new BehaviorSubject<CollectionCounts>({ species: 0, shinies: 0 });
 
   constructor(
     private pokedexService: PokedexService,
@@ -80,6 +102,18 @@ export class AchievementService {
   }
 
   /** Current progress for every achievement, for the achievements screen. */
+  /**
+   * How much of the collection exists, counted once.
+   *
+   * The achievements screen used to count Pokédex entries itself, which is
+   * how it came to show "4 Caught" next to achievements reading "3/10" for
+   * the same collection: two counts of one thing drift the moment either
+   * learns something, and this one learned to skip alternate forms.
+   */
+  get collection$(): Observable<CollectionCounts> {
+    return this.collectionSubject$.asObservable();
+  }
+
   get progress$(): Observable<ReadonlyMap<string, Progress>> {
     return this.progressSubject$.asObservable();
   }
@@ -90,6 +124,7 @@ export class AchievementService {
 
   private evaluate(pokedex: PokedexData, badges: ReadonlySet<string>, announce: boolean): void {
     const context = this.buildContext(pokedex, badges);
+    this.collectionSubject$.next({ species: context.caught.size, shinies: context.shinyIds.size });
 
     const progress = new Map<string, Progress>();
     const earned: Achievement[] = [];
@@ -136,9 +171,11 @@ export class AchievementService {
         continue;
       }
 
-      caught.add(id);
-      if (entry.shiny) {
-        shinyIds.add(id);
+      if (NATIONAL_DEX_IDS.has(id)) {
+        caught.add(id);
+        if (entry.shiny) {
+          shinyIds.add(id);
+        }
       }
       if (entry.mega) {
         megaCount++;

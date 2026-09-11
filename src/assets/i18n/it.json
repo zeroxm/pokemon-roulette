@@ -2857,23 +2857,23 @@
       "description": "Cattura il tuo primo Pokémon."
     },
     "pokedex_lv_1": {
-      "name": "Pokédex Lv 1",
+      "name": "Pokédex 1%",
       "description": "Cattura 10 Pokémon diversi."
     },
     "pokedex_lv_2": {
-      "name": "Pokédex Lv 2",
+      "name": "Pokédex 5%",
       "description": "Cattura 50 Pokémon diversi."
     },
     "pokedex_lv_3": {
-      "name": "Pokédex Lv 3",
+      "name": "Pokédex 10%",
       "description": "Cattura 100 Pokémon diversi."
     },
     "pokedex_lv_4": {
-      "name": "Pokédex Lv 4",
+      "name": "Pokédex 25%",
       "description": "Cattura 250 Pokémon diversi."
     },
     "pokedex_lv_5": {
-      "name": "Pokédex Lv 5",
+      "name": "Pokédex 50%",
       "description": "Cattura 500 Pokémon diversi."
     },
     "gotta_catch_em_all_national": {

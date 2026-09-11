@@ -2857,23 +2857,23 @@
       "description": "Capturez votre premier Pokémon."
     },
     "pokedex_lv_1": {
-      "name": "Pokédex Niv 1",
+      "name": "Pokédex 1%",
       "description": "Capturez 10 Pokémon différents."
     },
     "pokedex_lv_2": {
-      "name": "Pokédex Niv 2",
+      "name": "Pokédex 5%",
       "description": "Capturez 50 Pokémon différents."
     },
     "pokedex_lv_3": {
-      "name": "Pokédex Niv 3",
+      "name": "Pokédex 10%",
       "description": "Capturez 100 Pokémon différents."
     },
     "pokedex_lv_4": {
-      "name": "Pokédex Niv 4",
+      "name": "Pokédex 25%",
       "description": "Capturez 250 Pokémon différents."
     },
     "pokedex_lv_5": {
-      "name": "Pokédex Niv 5",
+      "name": "Pokédex 50%",
       "description": "Capturez 500 Pokémon différents."
     },
     "gotta_catch_em_all_national": {

@@ -42,6 +42,24 @@ describe('AchievementService', () => {
     expect(announced).withContext('but not announced').toEqual([]);
   });
 
+  // Found in UAT: three species registered, "4/10" on the collection
+  // achievements. Alternate forms are stored under their own ids -- Mega
+  // Charizard X is 10034 next to Charizard's 6 -- and counting them made the
+  // achievements disagree with the Pokédex screen right beside them.
+  it('counts species, not the alternate forms stored alongside them', () => {
+    withPokedex({
+      1: { won: true },
+      4: { won: true },
+      10034: { won: true, mega: true },
+      25: { won: false },
+    });
+
+    let progress: ReadonlyMap<string, { current: number; target: number }> = new Map();
+    inject().progress$.subscribe(value => (progress = value));
+
+    expect(progress.get('pokedex_lv_1')?.current).toBe(3);
+  });
+
   it('announces what is earned afterwards', () => {
     const service = inject();
 
