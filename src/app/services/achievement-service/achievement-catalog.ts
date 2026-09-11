@@ -1,5 +1,5 @@
 import { PlayerStats } from '../stats-service/stats.service';
-import { CounterKey, GENERATION_IDS, GenerationId, championRegionKey, playedRegionKey } from '../stats-service/counter-keys';
+import { CounterKey, GENERATION_IDS, GenerationId, championRegionKey, championshipsWon, playedRegionKey } from '../stats-service/counter-keys';
 import { pokedexByGeneration } from '../../pokedex/pokedex-by-generation';
 import { starterByGeneration } from '../../main-game/roulette-container/roulettes/starter-roulette/starter-by-generation';
 import { fossilByGeneration } from '../../main-game/roulette-container/roulettes/fossil-roulette/fossil-by-generation';
@@ -152,7 +152,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   },
 
   // Champion.
-  { id: 'champion', group: 'champion', progress: counter('runs_won', 1) },
+  { id: 'champion', group: 'champion', progress: c => ({ current: championshipsWon(c.stats), target: 1 }) },
   { id: 'regional_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 3 }) },
   { id: 'world_champion', group: 'champion', progress: c => ({ current: championedRegions(c), target: 9 }) },
   { id: 'full_house', group: 'champion', progress: counter('champion_with_six', 1) },

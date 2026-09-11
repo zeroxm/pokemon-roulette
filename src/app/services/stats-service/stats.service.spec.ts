@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { StatsService, PlayerStats } from './stats.service';
 import { championRegionKey, playedRegionKey } from './counter-keys';
 import { SyncStateService } from '../sync-state-service/sync-state.service';
+import { championshipsWon } from './counter-keys';
 
 describe('StatsService', () => {
   let service: StatsService;
@@ -186,11 +187,11 @@ describe('StatsService', () => {
     service.recordRunEnded();
 
     expect(service.get('runs_completed')).toBe(2);
-    expect(service.get('runs_won')).withContext('losing is not winning').toBe(0);
+    expect(championshipsWon(service.currentStats)).withContext('losing is not winning').toBe(0);
 
     service.recordChampion(1, 6);
 
     expect(service.get('runs_completed')).toBe(3);
-    expect(service.get('runs_won')).toBe(1);
+    expect(championshipsWon(service.currentStats)).toBe(1);
   });
 });

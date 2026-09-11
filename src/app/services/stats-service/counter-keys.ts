@@ -17,7 +17,6 @@ export const FIXED_COUNTER_KEYS = [
   // which made "Complete 100 runs" mean "win 100 runs" and turned the
   // Dedication achievements into something far harsher than they read.
   'runs_completed',
-  'runs_won',
   // Shinies that came off the starter wheel. The one shiny a player can
   // realistically chase, because it is the only wheel they meet every run.
   'shiny_starters',
@@ -67,6 +66,19 @@ export function championRegionKey(generation: GenerationId): RegionCounterKey {
 
 export function playedRegionKey(generation: GenerationId): RegionCounterKey {
   return `played_region:${generation}`;
+}
+
+/**
+ * How many runs have been won, summed from the per-region championships.
+ *
+ * Derived rather than counted separately. A `runs_won` counter existed for
+ * one day and was removed: every championship was already recorded against
+ * its region, so the counter was a second copy of the same fact, and it
+ * started at zero for anyone who had won before it was added. A player with
+ * the Champion achievement saw "Runs won: 0" next to it.
+ */
+export function championshipsWon(stats: Readonly<Partial<Record<CounterKey, number>>>): number {
+  return GENERATION_IDS.reduce((total, g) => total + (stats[championRegionKey(g)] ?? 0), 0);
 }
 
 const FIXED = new Set<string>(FIXED_COUNTER_KEYS);

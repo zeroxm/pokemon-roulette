@@ -98,7 +98,6 @@ export class StatsService {
     };
 
     bump('runs_completed');
-    bump('runs_won');
     bump(championRegionKey(generation));
 
     if (teamSizeAtChampionBattle >= 6) {

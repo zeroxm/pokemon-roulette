@@ -66,7 +66,7 @@ describe('AchievementService', () => {
     const announced: Achievement[] = [];
     service.newlyUnlocked$.subscribe(batch => announced.push(...batch));
 
-    TestBed.inject(StatsService).increment('runs_won');
+    TestBed.inject(StatsService).increment('champion_region:1');
 
     expect(announced.map(a => a.id)).toContain('champion');
   });
@@ -78,8 +78,8 @@ describe('AchievementService', () => {
     const announced: Achievement[] = [];
     service.newlyUnlocked$.subscribe(batch => announced.push(...batch));
 
-    stats.increment('runs_won');
-    stats.increment('runs_won');
+    stats.increment('champion_region:1');
+    stats.increment('champion_region:1');
 
     expect(announced.filter(a => a.id === 'champion').length)
       .withContext('a second run must not re-announce the first-champion achievement')
@@ -135,7 +135,7 @@ describe('AchievementService', () => {
     const service = inject();
     TestBed.inject(SyncStateService).markSynced();
 
-    TestBed.inject(StatsService).increment('runs_won');
+    TestBed.inject(StatsService).increment('champion_region:1');
 
     expect(service.isUnlocked('champion')).toBeTrue();
     expect(TestBed.inject(SyncStateService).isSynced)

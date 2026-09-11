@@ -14,6 +14,7 @@ import {
   achievementNameKey,
 } from '../../services/achievement-service/achievement-catalog';
 import { StatsService } from '../../services/stats-service/stats.service';
+import { championshipsWon } from '../../services/stats-service/counter-keys';
 import { BadgeDexService } from '../../services/badge-dex-service/badge-dex.service';
 
 interface GroupedAchievements {
@@ -134,7 +135,7 @@ export class AchievementsComponent implements OnInit, OnDestroy {
       { labelKey: 'achievementsScreen.total.caught', value: collection.species },
       { labelKey: 'achievementsScreen.total.shiny', value: collection.shinies },
       { labelKey: 'achievementsScreen.total.badges', value: this.badgeDexService.earned.size },
-      { labelKey: 'achievementsScreen.total.runs', value: this.statsService.get('runs_won') },
+      { labelKey: 'achievementsScreen.total.runs', value: championshipsWon(this.statsService.currentStats) },
       { labelKey: 'achievementsScreen.total.spins', value: this.statsService.get('spins_total') },
     ];
   }
