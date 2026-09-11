@@ -18,7 +18,7 @@ cd "$(dirname "$0")/.."
 : "${CLOUDFLARE_ACCOUNT_ID:?set CLOUDFLARE_ACCOUNT_ID (Cloudflare dashboard -> Workers & Pages -> Account ID)}"
 
 if [[ -n $(git status --porcelain) ]]; then
-  echo "warning: working tree is dirty — deploying files that are not committed" >&2
+  echo "warning: working tree is dirty: deploying files that are not committed" >&2
 fi
 
 COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo unknown)

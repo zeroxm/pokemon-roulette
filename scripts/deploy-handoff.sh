@@ -28,7 +28,7 @@ node_modules/.bin/esbuild src/app/migration/handoff-page.ts \
 # The page is inert without its script: it would tell a player their progress
 # is being checked, forever, and offer them a link that carries nothing.
 grep -q 'migrate=' handoff/handoff.js || {
-  echo "error: the bundled script does not build a migrate link — refusing to publish." >&2
+  echo "error: the bundled script does not build a migrate link: refusing to publish." >&2
   exit 1
 }
 
