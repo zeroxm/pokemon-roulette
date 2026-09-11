@@ -259,7 +259,8 @@
             "battleRival": "Combattre le rival",
             "safariZone": "Visiter le Parc Safari",
             "friendSafari": "Safari des Amis",
-            "areaZero": "Explorer la Zone Zéro"
+            "areaZero": "Explorer la Zone Zéro",
+            "thriftyMegamart": "Supermarché Bonaffaire"
           }
         },
         "friendSafari": {
@@ -412,6 +413,9 @@
           "who": "Qui recevra une Méga-Pierre?",
           "whichStone": "Quelle Méga-Pierre sera attribuée ?",
           "whoMega": "Qui méga-évolue dans ce combat ?"
+        },
+        "thriftyMegamart": {
+          "which": "Qu'est-ce qui rôde dans les rayons ?"
         }
       },
       "trade": {

@@ -20,6 +20,7 @@ export type GameState =
   | 'find-item'
   | 'safari-zone'
   | 'friend-safari'
+  | 'thrifty-megamart'
   | 'area-zero'
   | 'catch-paradox'
   | 'explore-cave'

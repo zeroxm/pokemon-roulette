@@ -259,7 +259,8 @@
             "battleRival": "Lotta contro il rivale",
             "safariZone": "Visita la Zona Safari",
             "friendSafari": "Safari degli Amici",
-            "areaZero": "Esplora Area Zero"
+            "areaZero": "Esplora Area Zero",
+            "thriftyMegamart": "Megamarket Risparmio"
           }
         },
         "friendSafari": {
@@ -412,6 +413,9 @@
           "who": "Chi riceverà una Mega Pietra?",
           "whichStone": "Quale Mega Pietra verrà assegnata?",
           "whoMega": "Chi mega-evolve in questa battaglia?"
+        },
+        "thriftyMegamart": {
+          "which": "Cosa si aggira tra gli scaffali?"
         }
       },
       "trade": {

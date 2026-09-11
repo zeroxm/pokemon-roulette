@@ -586,6 +586,11 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  thriftyMegamart(): void {
+    this.gameStateService.setNextState('thrifty-megamart');
+    this.finishCurrentState();
+  }
+
   areaZero(): void {
     this.statsService.increment('area_zero_visits');
     this.gameStateService.setNextState('area-zero');

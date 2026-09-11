@@ -36,6 +36,7 @@ const OUTPUT_BY_ACTION: Record<AdventureActionName, string> = {
   battleRival: 'battleRivalEvent',
   safariZone: 'safariZoneEvent',
   friendSafari: 'friendSafariEvent',
+  thriftyMegamart: 'thriftyMegamartEvent',
   areaZero: 'areaZeroEvent',
 };
 
@@ -98,6 +99,12 @@ describe('MainAdventureRouletteComponent', () => {
 
       expect(paldea).toContain('areaZero');
       expect(paldea).not.toContain('safariZone');
+    });
+
+    it('offers the Thrifty Megamart in Alola only', () => {
+      expect(namesFor(7)).toContain('thriftyMegamart');
+      expect(namesFor(1)).not.toContain('thriftyMegamart');
+      expect(namesFor(9)).not.toContain('thriftyMegamart');
     });
 
     it('offers Friend Safari in Kalos only', () => {

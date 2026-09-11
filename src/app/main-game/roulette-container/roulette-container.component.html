@@ -94,6 +94,7 @@
         (battleRivalEvent)="battleRival()"
         (safariZoneEvent)="safariZone()"
         (friendSafariEvent)="friendSafari()"
+        (thriftyMegamartEvent)="thriftyMegamart()"
         (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
@@ -141,6 +142,13 @@
   @case ('safari-zone') {
     <app-pokemon-pool-roulette
         pool="safari"
+        [currentRound]="leadersDefeatedAmount"
+        (selectedPokemonEvent)="capturePokemon($event)">
+    </app-pokemon-pool-roulette>
+  }
+  @case ('thrifty-megamart') {
+    <app-pokemon-pool-roulette
+        pool="megamart"
         [currentRound]="leadersDefeatedAmount"
         (selectedPokemonEvent)="capturePokemon($event)">
     </app-pokemon-pool-roulette>

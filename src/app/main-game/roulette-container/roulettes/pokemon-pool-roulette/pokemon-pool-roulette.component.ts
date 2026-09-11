@@ -80,7 +80,7 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Widens this pool's rare slices once the player is far enough in.
+   * Widens this pool's rare slices, from the round the pool asks for or from the start.
    *
    * Builds new objects rather than assigning `weight`: `getPokemonByIdArray` hands back the shared
    * National Dex entries, so writing to them would leave Chansey at the boosted weight everywhere
@@ -89,7 +89,7 @@ export class PokemonPoolRouletteComponent implements OnInit, OnDestroy {
   private applyRareBoost(pokemon: PokemonItem[]): PokemonItem[] {
     const boost = this.poolDefinition.rareBoost;
 
-    if (!boost || this.currentRound < boost.fromRound) {
+    if (!boost || this.currentRound < (boost.fromRound ?? 0)) {
       return pokemon;
     }
 
