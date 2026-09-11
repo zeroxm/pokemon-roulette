@@ -1,172 +1,199 @@
 <div class="row">
-  <div class="col-12 col-sm-2">
-    <div class="row py-4">
-      <div class="col-6 col-sm-12 mb-2">
-        <app-main-game-button></app-main-game-button>
+    <div class="col-12 col-sm-2">
+      <div class="row py-4">
+            <div class="col-6 col-sm-12 mb-2">
+                <app-main-game-button></app-main-game-button>
+            </div>
       </div>
     </div>
-  </div>
-  <div class="col-12 col-sm-9">
-    <!-- Centred within a narrow column, as the settings screen is: these are
-         short form fields and a full-width row of them reads as a spreadsheet. -->
-    <div class="container d-flex justify-content-center">
-      <div class="account-page">
-      <section class="account">
-        <h3 class="account-heading">{{ 'account.title' | translate }}</h3>
-
-        @if (!checked) {
-          <p class="account-note">{{ 'account.checking' | translate }}</p>
-        } @else if (user) {
-
-          <p class="account-signed-in">
-            {{ 'account.signedInAs' | translate }} <strong>{{ user.email }}</strong>
-          </p>
-
-          <p class="account-note account-sync" [class.account-sync-offline]="syncStatus === 'offline'">
-            {{ 'account.sync.' + syncStatus | translate }}
-            @if (syncStatus === 'offline' || syncStatus === 'pending') {
-              <button type="button" class="btn btn-link btn-sm account-retry" (click)="retrySync()">
-                {{ 'account.sync.retry' | translate }}
-              </button>
-            }
-          </p>
-
-          @if (confirmingSignOut) {
-            <div class="account-form">
-              <p class="account-warning">{{ 'account.signOutUnsyncedWarning' | translate }}</p>
-              <div class="account-actions">
-                <button type="button" class="btn btn-danger btn-sm"
-                        [disabled]="busy" (click)="signOut()">
-                  {{ 'account.signOutAnyway' | translate }}
-                </button>
-                <button type="button" class="btn btn-outline-secondary btn-sm"
-                        [disabled]="busy" (click)="cancelSignOut()">
-                  {{ 'account.cancel' | translate }}
-                </button>
-              </div>
+    <div class="col-12 col-sm-9">
+        <div class="container text-center">
+            <div class="mt-2 mb-4">
+                <h3>
+                    <ng-icon name="bootstrapPeopleFill"></ng-icon> {{ 'account.title' | translate }} <ng-icon name="bootstrapPeopleFill"></ng-icon>
+                </h3>
             </div>
-          } @else {
-            <div class="account-actions">
-              <button type="button" class="btn btn-outline-secondary btn-sm"
-                      [disabled]="busy" (click)="signOut()">
-                {{ 'account.signOut' | translate }}
-              </button>
-              <button type="button" class="btn btn-outline-secondary btn-sm"
-                      [disabled]="busy" (click)="signOutEverywhere()">
-                {{ 'account.signOutEverywhere' | translate }}
-              </button>
+            <div class="d-flex justify-content-center">
+                <div class="row g-3 account-panel">
+
+                    @if (!checked) {
+                        <div class="col-12">
+                            <p class="account-note mb-0">{{ 'account.checking' | translate }}</p>
+                        </div>
+                    } @else if (user) {
+
+                        <div class="col-12">
+                            <p class="account-signed-in mb-1">
+                                {{ 'account.signedInAs' | translate }} <strong>{{ user.email }}</strong>
+                            </p>
+                            <p class="account-note mb-0" [class.account-sync-offline]="syncStatus === 'offline'">
+                                {{ 'account.sync.' + syncStatus | translate }}
+                                @if (syncStatus === 'offline' || syncStatus === 'pending') {
+                                    <button type="button" class="btn btn-link btn-sm account-inline-link" (click)="retrySync()">
+                                        {{ 'account.sync.retry' | translate }}
+                                    </button>
+                                }
+                            </p>
+                        </div>
+
+                        <div class="col-12"><hr class="my-1"></div>
+
+                        @if (confirmingSignOut) {
+                            <div class="col-12">
+                                <p class="account-warning">{{ 'account.signOutUnsyncedWarning' | translate }}</p>
+                                <div class="account-actions">
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            [disabled]="busy" (click)="signOut()">
+                                        {{ 'account.signOutAnyway' | translate }}
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            [disabled]="busy" (click)="cancelSignOut()">
+                                        {{ 'account.cancel' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        } @else {
+                            <div class="col-12">
+                                <div class="account-actions">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            [disabled]="busy" (click)="signOut()">
+                                        {{ 'account.signOut' | translate }}
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            [disabled]="busy" (click)="signOutEverywhere()">
+                                        {{ 'account.signOutEverywhere' | translate }}
+                                    </button>
+                                </div>
+                                <p class="account-note mb-0 mt-2">{{ 'account.signOutExplains' | translate }}</p>
+                            </div>
+                        }
+
+                        <div class="col-12"><hr class="my-1"></div>
+
+                        @if (!confirmingDelete) {
+                            <div class="col-12">
+                                <button type="button" class="btn btn-outline-danger btn-sm"
+                                        [disabled]="busy" (click)="confirmingDelete = true">
+                                    {{ 'account.delete' | translate }}
+                                </button>
+                            </div>
+                        } @else {
+                            <div class="col-12 account-form">
+                                <p class="account-warning">{{ 'account.deleteWarning' | translate }}</p>
+                                <label class="account-label" for="delete-password">{{ 'account.password' | translate }}</label>
+                                <input id="delete-password" class="form-control form-control-sm"
+                                       type="password" autocomplete="current-password"
+                                       [value]="deletePassword" (input)="deletePassword = $any($event.target).value">
+                                <div class="account-actions">
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            [disabled]="busy || !deletePassword" (click)="deleteAccount()">
+                                        {{ 'account.deleteConfirm' | translate }}
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                                            [disabled]="busy" (click)="confirmingDelete = false">
+                                        {{ 'account.cancel' | translate }}
+                                    </button>
+                                </div>
+                            </div>
+                        }
+
+                    } @else {
+
+                        <div class="col-12">
+                            <p class="account-note mb-0">{{ 'account.optional' | translate }}</p>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="btn-group w-100" role="group">
+                                <button type="button" class="btn btn-sm"
+                                        [class.btn-primary]="mode === 'signin'"
+                                        [class.btn-outline-secondary]="mode !== 'signin'"
+                                        (click)="setMode('signin')">
+                                    {{ 'account.signIn' | translate }}
+                                </button>
+                                <button type="button" class="btn btn-sm"
+                                        [class.btn-primary]="mode === 'signup'"
+                                        [class.btn-outline-secondary]="mode !== 'signup'"
+                                        (click)="setMode('signup')">
+                                    {{ 'account.createAccount' | translate }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-12 account-form">
+                            <label class="account-label" for="account-email">{{ 'account.email' | translate }}</label>
+                            <input id="account-email" class="form-control form-control-sm"
+                                   type="email" autocomplete="email"
+                                   [class.is-invalid]="touched && !emailValid"
+                                   [value]="email" (input)="email = $any($event.target).value">
+                        </div>
+
+                        <div class="col-12 account-form">
+                            <label class="account-label" for="account-password">{{ 'account.password' | translate }}</label>
+                            <input id="account-password" class="form-control form-control-sm"
+                                   type="password"
+                                   [attr.autocomplete]="mode === 'signup' ? 'new-password' : 'current-password'"
+                                   [class.is-invalid]="touched && !passwordValid"
+                                   [value]="password" (input)="password = $any($event.target).value"
+                                   (keyup.enter)="submit()">
+                            <small class="account-hint">
+                                {{ 'account.passwordHint' | translate: { min: minPasswordLength } }}
+                            </small>
+                        </div>
+
+                        @if (mode === 'signup') {
+                            <div class="col-12 account-form">
+                                <label class="account-label" for="account-password-confirm">
+                                    {{ 'account.confirmPassword' | translate }}
+                                </label>
+                                <input id="account-password-confirm" class="form-control form-control-sm"
+                                       type="password" autocomplete="new-password"
+                                       [class.is-invalid]="touched && !confirmationValid"
+                                       [value]="passwordConfirmation"
+                                       (input)="passwordConfirmation = $any($event.target).value"
+                                       (keyup.enter)="submit()">
+                                @if (touched && !confirmationValid) {
+                                    <small class="account-hint account-mismatch">
+                                        {{ 'account.passwordMismatch' | translate }}
+                                    </small>
+                                }
+                            </div>
+
+                            <!-- Stated at the point of signup, not buried. There is no SMTP, so a
+                                 forgotten password is an unrecoverable account, and someone could
+                                 lose a 900-Pokémon Pokédex to it. That is also why the password is
+                                 asked for twice: a typo here is an account nobody can open. -->
+                            <div class="col-12">
+                                <p class="account-warning mb-0">{{ 'account.noResetWarning' | translate }}</p>
+                            </div>
+                        }
+
+                        <div class="col-12">
+                            <button type="button" class="btn btn-primary w-100" [disabled]="busy" (click)="submit()">
+                                @if (mode === 'signup') {
+                                    {{ 'account.createAccount' | translate }}
+                                } @else {
+                                    {{ 'account.signIn' | translate }}
+                                }
+                            </button>
+                        </div>
+                    }
+
+                    @if (error) {
+                        <div class="col-12">
+                            <p class="account-error mb-0" role="alert">
+                                {{ error }}
+                                @if (emailTaken) {
+                                    <button type="button" class="btn btn-link btn-sm account-inline-link" (click)="switchToSignIn()">
+                                        {{ 'account.signIn' | translate }}
+                                    </button>
+                                }
+                            </p>
+                        </div>
+                    }
+
+                </div>
             </div>
-          }
-
-          <p class="account-note">{{ 'account.signOutExplains' | translate }}</p>
-
-          @if (!confirmingDelete) {
-            <button type="button" class="btn btn-outline-danger btn-sm account-delete"
-                    [disabled]="busy" (click)="confirmingDelete = true">
-              {{ 'account.delete' | translate }}
-            </button>
-          } @else {
-            <div class="account-form">
-              <p class="account-warning">{{ 'account.deleteWarning' | translate }}</p>
-              <label class="account-label" for="delete-password">{{ 'account.password' | translate }}</label>
-              <input id="delete-password" class="form-control form-control-sm"
-                     type="password" autocomplete="current-password"
-                     [value]="deletePassword" (input)="deletePassword = $any($event.target).value">
-              <div class="account-actions">
-                <button type="button" class="btn btn-danger btn-sm"
-                        [disabled]="busy || !deletePassword" (click)="deleteAccount()">
-                  {{ 'account.deleteConfirm' | translate }}
-                </button>
-                <button type="button" class="btn btn-outline-secondary btn-sm"
-                        [disabled]="busy" (click)="confirmingDelete = false">
-                  {{ 'account.cancel' | translate }}
-                </button>
-              </div>
-            </div>
-          }
-
-        } @else {
-
-          <p class="account-note">{{ 'account.optional' | translate }}</p>
-
-          <div class="account-tabs">
-            <button type="button" class="btn btn-sm"
-                    [class.btn-primary]="mode === 'signin'"
-                    [class.btn-outline-secondary]="mode !== 'signin'"
-                    (click)="setMode('signin')">
-              {{ 'account.signIn' | translate }}
-            </button>
-            <button type="button" class="btn btn-sm"
-                    [class.btn-primary]="mode === 'signup'"
-                    [class.btn-outline-secondary]="mode !== 'signup'"
-                    (click)="setMode('signup')">
-              {{ 'account.createAccount' | translate }}
-            </button>
-          </div>
-
-          <div class="account-form">
-            <label class="account-label" for="account-email">{{ 'account.email' | translate }}</label>
-            <input id="account-email" class="form-control form-control-sm"
-                   type="email" autocomplete="email"
-                   [class.is-invalid]="touched && !emailValid"
-                   [value]="email" (input)="email = $any($event.target).value">
-
-            <label class="account-label" for="account-password">{{ 'account.password' | translate }}</label>
-            <input id="account-password" class="form-control form-control-sm"
-                   type="password"
-                   [attr.autocomplete]="mode === 'signup' ? 'new-password' : 'current-password'"
-                   [class.is-invalid]="touched && !passwordValid"
-                   [value]="password" (input)="password = $any($event.target).value"
-                   (keyup.enter)="submit()">
-            <small class="account-hint">
-              {{ 'account.passwordHint' | translate: { min: minPasswordLength } }}
-            </small>
-
-            @if (mode === 'signup') {
-              <label class="account-label" for="account-password-confirm">
-                {{ 'account.confirmPassword' | translate }}
-              </label>
-              <input id="account-password-confirm" class="form-control form-control-sm"
-                     type="password" autocomplete="new-password"
-                     [class.is-invalid]="touched && !confirmationValid"
-                     [value]="passwordConfirmation"
-                     (input)="passwordConfirmation = $any($event.target).value"
-                     (keyup.enter)="submit()">
-              @if (touched && !confirmationValid) {
-                <small class="account-hint account-mismatch">
-                  {{ 'account.passwordMismatch' | translate }}
-                </small>
-              }
-
-              <!-- Stated at the point of signup, not buried. There is no SMTP, so a
-                   forgotten password is an unrecoverable account, and someone could
-                   lose a 900-Pokémon Pokédex to it. That is also why the password is
-                   asked for twice: a typo here is an account nobody can open. -->
-              <p class="account-warning">{{ 'account.noResetWarning' | translate }}</p>
-            }
-
-            <button type="button" class="btn btn-primary btn-sm" [disabled]="busy" (click)="submit()">
-              @if (mode === 'signup') {
-                {{ 'account.createAccount' | translate }}
-              } @else {
-                {{ 'account.signIn' | translate }}
-              }
-            </button>
-          </div>
-        }
-
-        @if (error) {
-          <p class="account-error" role="alert">
-            {{ error }}
-            @if (emailTaken) {
-              <button type="button" class="btn btn-link btn-sm account-retry" (click)="switchToSignIn()">
-                {{ 'account.signIn' | translate }}
-              </button>
-            }
-          </p>
-        }
-      </section>
-      </div>
+        </div>
     </div>
-  </div>
 </div>

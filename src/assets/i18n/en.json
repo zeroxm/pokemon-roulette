@@ -3108,7 +3108,7 @@
     "signOutAnyway": "Sign out anyway",
     "confirmPassword": "Confirm password",
     "passwordMismatch": "The two passwords do not match.",
-    "statusSignedOut": "Not signed in — your collection stays on this device."
+    "statusSignedOut": "Click here to sign in"
   },
   "detail": {
     "name": "Name",

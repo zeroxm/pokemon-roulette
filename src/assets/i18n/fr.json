@@ -3108,7 +3108,7 @@
     "signOutAnyway": "Se déconnecter quand même",
     "confirmPassword": "Confirmer le mot de passe",
     "passwordMismatch": "Les deux mots de passe ne correspondent pas.",
-    "statusSignedOut": "Non connecté — votre collection reste sur cet appareil."
+    "statusSignedOut": "Cliquez ici pour vous connecter"
   },
   "detail": {
     "name": "Nom",

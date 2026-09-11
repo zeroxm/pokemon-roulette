@@ -1,79 +1,58 @@
-.account {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  max-width: 26rem;
+/*
+ * Laid out like the settings screen next door: a centred column of full-width
+ * rows. Both are short lists of controls, and two screens reached from the
+ * same place should not be arranged differently.
+ */
+.account-panel {
+  width: 100%;
+  max-width: 500px;
+  text-align: left;
 }
 
-.account-heading {
-  font-size: 1rem;
-  margin: 0;
+.account-signed-in {
+  font-size: 0.95rem;
 }
 
 .account-note,
 .account-hint {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   opacity: 0.75;
-  margin: 0;
-}
-
-/* Consequences a player needs to read before acting, not after. */
-.account-warning {
-  font-size: 0.72rem;
-  margin: 0;
-  padding: 0.35rem 0.5rem;
-  border-left: 3px solid #f5c518;
-  background: rgba(245, 197, 24, 0.12);
-}
-
-.account-error {
-  font-size: 0.75rem;
-  margin: 0;
-  padding: 0.35rem 0.5rem;
-  border-left: 3px solid #dc3545;
-  background: rgba(220, 53, 69, 0.12);
-}
-
-.account-tabs,
-.account-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-}
-
-.account-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.account-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-.account-signed-in {
-  font-size: 0.85rem;
-  margin: 0;
-}
-
-.account-delete {
-  align-self: flex-start;
-  margin-top: 0.35rem;
-}
-
-.account-sync {
-  display: flex;
-  align-items: baseline;
-  gap: 0.35rem;
-  flex-wrap: wrap;
 }
 
 .account-sync-offline {
   font-style: italic;
 }
 
-.account-retry {
+/* Consequences a player needs to read before acting, not after. */
+.account-warning {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.6rem;
+  border-left: 3px solid #f5c518;
+  background: rgba(245, 197, 24, 0.12);
+}
+
+.account-error {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.6rem;
+  border-left: 3px solid #dc3545;
+  background: rgba(220, 53, 69, 0.12);
+}
+
+.account-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.account-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+/* Sits inside a sentence, so it must not carry a button's padding. */
+.account-inline-link {
   padding: 0;
   border: 0;
   vertical-align: baseline;
@@ -81,10 +60,4 @@
 
 .account-mismatch {
   color: #dc3545;
-}
-
-.account-page {
-  width: 100%;
-  max-width: 32rem;
-  padding-top: 1.5rem;
 }

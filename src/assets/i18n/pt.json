@@ -3108,7 +3108,7 @@
     "signOutAnyway": "Sair mesmo assim",
     "confirmPassword": "Confirmar senha",
     "passwordMismatch": "As duas senhas não coincidem.",
-    "statusSignedOut": "Você não está conectado — sua coleção fica só neste dispositivo."
+    "statusSignedOut": "Clique aqui para entrar"
   },
   "detail": {
     "name": "Nome",

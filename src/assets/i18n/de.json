@@ -3108,7 +3108,7 @@
     "signOutAnyway": "Trotzdem abmelden",
     "confirmPassword": "Passwort bestätigen",
     "passwordMismatch": "Die beiden Passwörter stimmen nicht überein.",
-    "statusSignedOut": "Nicht angemeldet — deine Sammlung bleibt auf diesem Gerät."
+    "statusSignedOut": "Hier klicken zum Anmelden"
   },
   "detail": {
     "name": "Name",

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIconsModule } from '@ng-icons/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -32,7 +33,7 @@ type Mode = 'signin' | 'signup';
  */
 @Component({
   selector: 'app-account',
-  imports: [CommonModule, TranslatePipe, MainGameButtonComponent],
+  imports: [CommonModule, NgIconsModule, TranslatePipe, MainGameButtonComponent],
   templateUrl: './account.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './account.component.css',

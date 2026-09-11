@@ -3108,7 +3108,7 @@
     "signOutAnyway": "Cerrar sesión de todos modos",
     "confirmPassword": "Confirmar contraseña",
     "passwordMismatch": "Las dos contraseñas no coinciden.",
-    "statusSignedOut": "No has iniciado sesión: tu colección se queda en este dispositivo."
+    "statusSignedOut": "Haz clic aquí para iniciar sesión"
   },
   "detail": {
     "name": "Nombre",
