@@ -71,12 +71,12 @@ Per-component CSS still has room: the largest, `mega-evolution-animation-modal.c
 
 ## Two deployments, on purpose
 
-The game is served from **both** URLs during the accounts rollout, and the two builds differ in one
-setting:
+The game is at `pokemon-roulette.zeroxm.com.br`. The old address still answers, with the handoff
+page rather than the game:
 
 | Where | Build | Base href |
 |---|---|---|
-| `zeroxm.github.io/pokemon-roulette/` | the old build, frozen; `scripts/deploy-handoff.sh` replaces it at cutover | `/pokemon-roulette/` |
+| `zeroxm.github.io/pokemon-roulette/` | the handoff page, published 2026-09-11 by `scripts/deploy-handoff.sh`. **Permanent**: players return after months, and it is their only route to a collection built before the move | `/pokemon-roulette/` |
 | `pokemon-roulette.zeroxm.com.br` | `scripts/deploy-cloudflare.sh` → Cloudflare Pages | `/` |
 
 **There is deliberately no `npm run deploy`.** It published the game to
