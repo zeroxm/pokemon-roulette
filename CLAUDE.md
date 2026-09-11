@@ -22,7 +22,6 @@ npm run build                                    # production build -> dist/poke
 npm test                                         # Karma/Jasmine, watch mode
 npm test -- --watch=false --browsers=ChromeHeadless   # what CI runs
 npm test -- --include='**/wheel.component.spec.ts'    # single spec file
-npm run deploy                                   # gh-pages, base-href /pokemon-roulette/
 ./scripts/deploy-cloudflare.sh                   # Cloudflare Pages, base-href / (needs cloudflare.env)
 ```
 
@@ -77,8 +76,16 @@ setting:
 
 | Where | Build | Base href |
 |---|---|---|
-| `zeroxm.github.io/pokemon-roulette/` | `npm run deploy` → gh-pages | `/pokemon-roulette/` |
+| `zeroxm.github.io/pokemon-roulette/` | the old build, frozen; `scripts/deploy-handoff.sh` replaces it at cutover | `/pokemon-roulette/` |
 | `pokemon-roulette.zeroxm.com.br` | `scripts/deploy-cloudflare.sh` → Cloudflare Pages | `/` |
+
+**There is deliberately no `npm run deploy`.** It published the game to
+gh-pages, and after the cutover that is the one command that would silently
+destroy the handoff page, taking with it every un-migrated player's only route
+to their collection. The script and its `angular.json` target were removed
+rather than documented, because a documented hazard is still one keystroke
+away. `scripts/deploy-handoff.sh` is the only thing that writes to gh-pages
+now, and it refuses to run without `--yes-replace-the-live-game`.
 
 **Do not "clean up" the gh-pages build.** It is still serving every current player, and it stays
 until UAT passes and the migration shim replaces it: see the release order in
