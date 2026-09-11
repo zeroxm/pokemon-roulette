@@ -37,6 +37,7 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
   @Output() goFishingEvent = new EventEmitter<void>();
   @Output() findFossilEvent = new EventEmitter<void>();
   @Output() battleRivalEvent = new EventEmitter<void>();
+  @Output() ultraWormholeEvent = new EventEmitter<void>();
   @Output() thriftyMegamartEvent = new EventEmitter<void>();
   @Output() areaZeroEvent = new EventEmitter<void>();
   @Output() safariZoneEvent = new EventEmitter<void>();
@@ -75,6 +76,7 @@ export class MainAdventureRouletteComponent implements OnInit, OnDestroy {
     battleRival: () => this.battleRivalEvent.emit(),
     safariZone: () => this.safariZoneEvent.emit(),
     friendSafari: () => this.friendSafariEvent.emit(),
+    ultraWormhole: () => this.ultraWormholeEvent.emit(),
     thriftyMegamart: () => this.thriftyMegamartEvent.emit(),
     areaZero: () => this.areaZeroEvent.emit(),
   };

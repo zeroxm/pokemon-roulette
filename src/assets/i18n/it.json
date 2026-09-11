@@ -260,7 +260,8 @@
             "safariZone": "Visita la Zona Safari",
             "friendSafari": "Safari degli Amici",
             "areaZero": "Esplora Area Zero",
-            "thriftyMegamart": "Supermarket Affaroni"
+            "thriftyMegamart": "Supermarket Affaroni",
+            "ultraWormhole": "Ultravarco"
           }
         },
         "friendSafari": {
@@ -416,6 +417,17 @@
         },
         "thriftyMegamart": {
           "which": "Cosa si aggira tra gli scaffali?"
+        },
+        "ultraWormhole": {
+          "which": "In quale varco sei caduto?",
+          "catch": "Cosa aspetta dall'altra parte?",
+          "colours": {
+            "white": "Bianco",
+            "red": "Rosso",
+            "blue": "Blu",
+            "green": "Verde",
+            "yellow": "Giallo"
+          }
         }
       },
       "trade": {

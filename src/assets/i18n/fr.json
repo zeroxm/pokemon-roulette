@@ -260,7 +260,8 @@
             "safariZone": "Visiter le Parc Safari",
             "friendSafari": "Safari des Amis",
             "areaZero": "Explorer la Zone Zéro",
-            "thriftyMegamart": "Bradley Prix"
+            "thriftyMegamart": "Bradley Prix",
+            "ultraWormhole": "Ultra-Brèche"
           }
         },
         "friendSafari": {
@@ -416,6 +417,17 @@
         },
         "thriftyMegamart": {
           "which": "Qu'est-ce qui rôde dans les rayons ?"
+        },
+        "ultraWormhole": {
+          "which": "Dans quelle brèche êtes-vous tombé ?",
+          "catch": "Qu'est-ce qui attend de l'autre côté ?",
+          "colours": {
+            "white": "Blanche",
+            "red": "Rouge",
+            "blue": "Bleue",
+            "green": "Verte",
+            "yellow": "Jaune"
+          }
         }
       },
       "trade": {

@@ -36,6 +36,7 @@ const OUTPUT_BY_ACTION: Record<AdventureActionName, string> = {
   battleRival: 'battleRivalEvent',
   safariZone: 'safariZoneEvent',
   friendSafari: 'friendSafariEvent',
+  ultraWormhole: 'ultraWormholeEvent',
   thriftyMegamart: 'thriftyMegamartEvent',
   areaZero: 'areaZeroEvent',
 };
@@ -99,6 +100,12 @@ describe('MainAdventureRouletteComponent', () => {
 
       expect(paldea).toContain('areaZero');
       expect(paldea).not.toContain('safariZone');
+    });
+
+    it('offers the Ultra Wormhole in Alola only', () => {
+      expect(namesFor(7)).toContain('ultraWormhole');
+      expect(namesFor(1)).not.toContain('ultraWormhole');
+      expect(namesFor(9)).not.toContain('ultraWormhole');
     });
 
     it('offers the Thrifty Megamart in Alola only', () => {

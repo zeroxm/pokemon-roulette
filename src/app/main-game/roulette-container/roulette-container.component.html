@@ -94,6 +94,7 @@
         (battleRivalEvent)="battleRival()"
         (safariZoneEvent)="safariZone()"
         (friendSafariEvent)="friendSafari()"
+        (ultraWormholeEvent)="ultraWormhole()"
         (thriftyMegamartEvent)="thriftyMegamart()"
         (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
@@ -146,6 +147,11 @@
         (selectedPokemonEvent)="capturePokemon($event)">
     </app-pokemon-pool-roulette>
   }
+  @case ('ultra-wormhole') {
+    <app-ultra-wormhole-roulette
+        (colourSelectedEvent)="ultraWormholeColourSelected($event)">
+    </app-ultra-wormhole-roulette>
+  }
   @case ('thrifty-megamart') {
     <app-pokemon-pool-roulette
         pool="megamart"
@@ -155,15 +161,15 @@
   }
   @case ('area-zero') {
     <app-area-zero-roulette
-        (selectedPokemonEvent)="paradoxCaptureChance($event)">
+        (selectedPokemonEvent)="offerCaptureChance($event)">
     </app-area-zero-roulette>
   }
-  @case ('catch-paradox') {
-    <app-catch-paradox-roulette
+  @case ('catch-chance') {
+    <app-catch-chance-roulette
         [currentRound]="leadersDefeatedAmount"
-        (catchParadoxEvent)="paradoxCaptureSuccess()"
-        (nothingHappensEvent)="doNothing()">
-    </app-catch-paradox-roulette>
+        (caughtEvent)="captureChanceSucceeded()"
+        (escapedEvent)="doNothing()">
+    </app-catch-chance-roulette>
   }
   @case ('explore-cave') {
     <app-explore-cave-roulette

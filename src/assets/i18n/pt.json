@@ -260,7 +260,8 @@
             "safariZone": "Visitar a Zona Safári",
             "friendSafari": "Friend Safari",
             "areaZero": "Explorar a Área Zero",
-            "thriftyMegamart": "Mercado Megabarato"
+            "thriftyMegamart": "Mercado Megabarato",
+            "ultraWormhole": "Ultrafenda Espacial"
           }
         },
         "friendSafari": {
@@ -416,6 +417,17 @@
         },
         "thriftyMegamart": {
           "which": "O que está à espreita nos corredores?"
+        },
+        "ultraWormhole": {
+          "which": "Por qual fenda você caiu?",
+          "catch": "O que está esperando do outro lado?",
+          "colours": {
+            "white": "Branca",
+            "red": "Vermelha",
+            "blue": "Azul",
+            "green": "Verde",
+            "yellow": "Amarela"
+          }
         }
       },
       "trade": {

@@ -260,7 +260,8 @@
             "safariZone": "Visit the Safari Zone",
             "friendSafari": "Friend Safari",
             "areaZero": "Explore Area Zero",
-            "thriftyMegamart": "Thrifty Megamart"
+            "thriftyMegamart": "Thrifty Megamart",
+            "ultraWormhole": "Ultra Wormhole"
           }
         },
         "friendSafari": {
@@ -416,6 +417,17 @@
         },
         "thriftyMegamart": {
           "which": "What is lurking in the aisles?"
+        },
+        "ultraWormhole": {
+          "which": "Which wormhole did you fall through?",
+          "catch": "What is waiting on the other side?",
+          "colours": {
+            "white": "White",
+            "red": "Red",
+            "blue": "Blue",
+            "green": "Green",
+            "yellow": "Yellow"
+          }
         }
       },
       "trade": {

@@ -44,9 +44,11 @@ import { FindItemRouletteComponent } from "./roulettes/find-item-roulette/find-i
 import { ExploreCaveRouletteComponent } from "./roulettes/explore-cave-roulette/explore-cave-roulette.component";
 import { FriendSafariRouletteComponent } from './roulettes/friend-safari-roulette/friend-safari-roulette.component';
 import { friendSafariPokemon } from './roulettes/friend-safari-roulette/friend-safari-pokemon';
+import { ULTRA_WORMHOLE_POKEMON, WormholeColour } from './roulettes/ultra-wormhole-roulette/ultra-wormhole-pokemon';
+import { UltraWormholeRouletteComponent } from './roulettes/ultra-wormhole-roulette/ultra-wormhole-roulette.component';
 import { PokemonType } from '../../interfaces/pokemon-type';
 import { AreaZeroRoulette } from "./roulettes/area-zero-roulette/area-zero-roulette";
-import { CatchParadoxRouletteComponent } from "./roulettes/catch-paradox-roulette/catch-paradox-roulette.component";
+import { CatchChanceRouletteComponent } from "./roulettes/catch-chance-roulette/catch-chance-roulette.component";
 import { SnorlaxRouletteComponent } from "./roulettes/snorlax-roulette/snorlax-roulette.component";
 import { RivalBattleRouletteComponent } from "./roulettes/rival-battle-roulette/rival-battle-roulette.component";
 import { EliteFourPrepRouletteComponent } from "./roulettes/elite-four-prep-roulette/elite-four-prep-roulette.component";
@@ -90,7 +92,8 @@ import { TeamRocketFailsModalComponent } from './modals/team-rocket-fails-modal/
     ExploreCaveRouletteComponent,
     AreaZeroRoulette,
     FriendSafariRouletteComponent,
-    CatchParadoxRouletteComponent,
+    CatchChanceRouletteComponent,
+    UltraWormholeRouletteComponent,
     SnorlaxRouletteComponent,
     RivalBattleRouletteComponent,
     EliteFourPrepRouletteComponent,
@@ -586,6 +589,30 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  ultraWormhole(): void {
+    this.gameStateService.setNextState('ultra-wormhole');
+    this.finishCurrentState();
+  }
+
+  /**
+   * Step two: the Pokémon on the other side of the wormhole the player fell
+   * through.
+   *
+   * Reuses the generic "pick one of these Pokémon" wheel and then the shared
+   * catch chance, so the only thing the Ultra Wormhole adds is the colour
+   * wheel. Everything behind it is legendary, which is why it goes through a
+   * catch chance at all rather than handing one over.
+   */
+  ultraWormholeColourSelected(colour: WormholeColour): void {
+    this.requestPokemonSelection({
+      title: 'game.main.roulette.ultraWormhole.catch',
+      options: this.pokemonService.getPokemonByIdArray([...ULTRA_WORMHOLE_POKEMON[colour]]),
+      onSelected: chosen => this.offerCaptureChance(chosen),
+    });
+
+    this.finishCurrentState();
+  }
+
   thriftyMegamart(): void {
     this.gameStateService.setNextState('thrifty-megamart');
     this.finishCurrentState();
@@ -597,13 +624,13 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
-  paradoxCaptureChance(pokemon: PokemonItem): void {
+  offerCaptureChance(pokemon: PokemonItem): void {
     this.currentContextPokemon = structuredClone(pokemon);
-    this.gameStateService.setNextState('catch-paradox');
+    this.gameStateService.setNextState('catch-chance');
     this.finishCurrentState();
   }
 
-  paradoxCaptureSuccess(): void {
+  captureChanceSucceeded(): void {
     this.preparePokemonCapture(this.currentContextPokemon);
   }
 

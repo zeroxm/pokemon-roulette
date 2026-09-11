@@ -260,7 +260,8 @@
             "safariZone": "Besuche die Safari-Zone",
             "friendSafari": "Freundes-Safari",
             "areaZero": "Erkunde Zone Null",
-            "thriftyMegamart": "Schnäppchenparadies"
+            "thriftyMegamart": "Schnäppchenparadies",
+            "ultraWormhole": "Ultrapforte"
           }
         },
         "friendSafari": {
@@ -416,6 +417,17 @@
         },
         "thriftyMegamart": {
           "which": "Was lauert in den Regalreihen?"
+        },
+        "ultraWormhole": {
+          "which": "Durch welche Pforte bist du gefallen?",
+          "catch": "Was wartet auf der anderen Seite?",
+          "colours": {
+            "white": "Weiß",
+            "red": "Rot",
+            "blue": "Blau",
+            "green": "Grün",
+            "yellow": "Gelb"
+          }
         }
       },
       "trade": {
