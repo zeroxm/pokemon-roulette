@@ -18,6 +18,9 @@ export const FIXED_COUNTER_KEYS = [
   // Dedication achievements into something far harsher than they read.
   'runs_completed',
   'runs_won',
+  // Shinies that came off the starter wheel. The one shiny a player can
+  // realistically chase, because it is the only wheel they meet every run.
+  'shiny_starters',
   'spins_total',
   'rival_battles_won',
   'champion_with_six',

@@ -141,6 +141,7 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   { id: 'shiny_hunter_1', group: 'shiny', progress: shinies(5) },
   { id: 'shiny_hunter_2', group: 'shiny', progress: shinies(10) },
   { id: 'shiny_hunter_3', group: 'shiny', progress: shinies(25) },
+  { id: 'soft_reset', group: 'shiny', progress: counter('shiny_starters', 1) },
   {
     id: 'never_tell_me_the_odds',
     group: 'shiny',

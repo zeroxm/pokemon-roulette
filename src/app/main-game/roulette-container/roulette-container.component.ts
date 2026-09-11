@@ -112,6 +112,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     private destroyRef = inject(DestroyRef);
     private rareCandySubscription?: Subscription;
     private megaStoneSubscription?: Subscription;
+    /** Whether the capture being resolved came off the starter wheel. */
+    private capturingStarter = false;
 
     constructor(
       private evolutionService: EvolutionService,
@@ -320,11 +322,30 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.preparePokemonCapture(pokemon);
   }
 
+  /**
+   * The starter, which is the same capture with one thing remembered.
+   *
+   * Shininess is rolled several steps later and by then nothing knows where
+   * the Pokémon came from, so "Soft Reset" needs the origin carried forward.
+   */
+  captureStarter(pokemon: PokemonItem): void {
+    this.capturingStarter = true;
+    this.capturePokemon(pokemon);
+  }
+
   setShininess(shiny: boolean): void {
     if (shiny) {
       this.trainerService.makeShiny();
       this.registerInPokedex({ ...this.currentContextPokemon, shiny: true });
+
+      if (this.capturingStarter) {
+        this.statsService.increment('shiny_starters');
+      }
     }
+
+    // Cleared either way: the next capture is not a starter, and a flag left
+    // set would credit the wrong Pokémon.
+    this.capturingStarter = false;
     this.finishCurrentState();
   }
 

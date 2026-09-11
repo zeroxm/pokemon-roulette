@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AchievementService } from './achievement.service';
-import { Achievement } from './achievement-catalog';
+import { ACHIEVEMENTS, Achievement } from './achievement-catalog';
 import { StatsService } from '../stats-service/stats.service';
 import { SyncStateService } from '../sync-state-service/sync-state.service';
 
@@ -127,7 +127,7 @@ describe('AchievementService', () => {
     let progress: ReadonlyMap<string, { current: number; target: number }> = new Map();
     inject().progress$.subscribe(p => (progress = p));
 
-    expect(progress.size).toBe(50);
+    expect(progress.size).toBe(ACHIEVEMENTS.length);
     expect(progress.get('pokedex_1_percent')).toEqual({ current: 2, target: 10 });
   });
 

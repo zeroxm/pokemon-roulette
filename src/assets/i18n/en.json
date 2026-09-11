@@ -2916,6 +2916,10 @@
       "name": "Oh, shiny!",
       "description": "Find your first shiny Pokémon."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Catch a shiny starter."
+    },
     "shiny_hunter_1": {
       "name": "Shiny Hunter I",
       "description": "Find 5 shiny Pokémon."
@@ -3005,7 +3009,7 @@
       "description": "Hatch a mysterious egg."
     },
     "used_the_pokeflute": {
-      "name": "Used the Pokéflute",
+      "name": "Poké Flute",
       "description": "Catch or defeat Snorlax."
     },
     "five_hundred_steps": {

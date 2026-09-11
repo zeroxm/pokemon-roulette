@@ -17,6 +17,7 @@ import {
   bootstrapShare,
 } from '@ng-icons/bootstrap-icons';
 import { provideIcons } from '@ng-icons/core';
+import { StatsService } from '../../services/stats-service/stats.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { GameStateService } from '../../services/game-state-service/game-state.service';
@@ -57,6 +58,11 @@ describe('RouletteContainerComponent', () => {
     })
     .compileComponents();
 
+    // Before the component is built, not after. Services read their slice of
+    // localStorage in their constructors, so clearing it later leaves the
+    // previous test's counters alive in memory while the storage looks empty.
+    localStorage.clear();
+
     fixture = TestBed.createComponent(RouletteContainerComponent);
     component = fixture.componentInstance;
     pokemonService = TestBed.inject(PokemonService);
@@ -66,7 +72,6 @@ describe('RouletteContainerComponent', () => {
     modalQueueService = TestBed.inject(ModalQueueService);
     gameStateService.resetGameState();
     trainerService.resetTeam();
-    localStorage.clear();
     fixture.detectChanges();
   });
 
@@ -588,6 +593,37 @@ describe('RouletteContainerComponent', () => {
 
       expect(component.chooseWhoWillEvolve).not.toHaveBeenCalled();
       expect(trainerService.removeItem).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Soft Reset', () => {
+
+    // Shininess is rolled several steps after the pick, by which point nothing
+    // else knows the Pokémon came off the starter wheel.
+    it('counts a shiny starter, and not a shiny caught any other way', () => {
+      const stats = TestBed.inject(StatsService);
+      const bulbasaur = pokemonService.getPokemonById(1)!;
+
+      component.captureStarter(structuredClone(bulbasaur));
+      component.setShininess(true);
+
+      expect(stats.get('shiny_starters')).toBe(1);
+
+      component.capturePokemon(structuredClone(bulbasaur));
+      component.setShininess(true);
+
+      expect(stats.get('shiny_starters'))
+        .withContext('a shiny from any other wheel is not a soft reset')
+        .toBe(1);
+    });
+
+    it('does not count a starter that turned out ordinary', () => {
+      const stats = TestBed.inject(StatsService);
+
+      component.captureStarter(structuredClone(pokemonService.getPokemonById(4)!));
+      component.setShininess(false);
+
+      expect(stats.get('shiny_starters')).toBe(0);
     });
   });
 });

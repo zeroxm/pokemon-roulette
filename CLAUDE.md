@@ -28,7 +28,7 @@ npm run deploy                                   # gh-pages, base-href /pokemon-
 
 CI (`.github/workflows/node.js.yml`) runs `npm ci`, `npm audit --omit=dev --audit-level=high`, `npm run build`, and the headless test command on every push/PR to `main`. The audit gate is scoped to production dependencies, but the tree is currently clean either way: **`npm audit` reports 0 vulnerabilities with dev dependencies included**. Keep it that way: the last 7 all arrived through a single package (see *Toolchain* below). There is no lint step; `noUnusedLocals`/`noUnusedParameters` cover that class of problem.
 
-**Green baseline:** build passes, **535/535 tests pass**. Any change must leave both green.
+**Green baseline:** build passes, **537/537 tests pass**. Any change must leave both green.
 
 ### Local environment gotchas
 
@@ -206,7 +206,7 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
   router outlet**, so it survives navigation. Deliberately not a modal: it fires mid-run when result
   modals are already queued, and it is `pointer-events: none` so it can never swallow a click meant
   for the wheel. Several unlocks queue rather than stack.
-- `AchievementService` + `achievement-catalog.ts`: the frozen 50. Every achievement is *derivable*,
+- `AchievementService` + `achievement-catalog.ts`: the catalog, 51 of them. Every achievement is *derivable*,
   but unlocks are **stored anyway, for notification state**: without a record of what has been
   announced, signing in on a new device fires fifty toasts. A stored unlock is **never removed**,
   even if a retuned threshold means it no longer derives. Adding one is adding a row, and adding it
@@ -223,7 +223,7 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
 
 Six locales in `src/assets/i18n/*.json` (en, pt, es, fr, de, it), loaded over HTTP by `TranslateHttpLoader`. User-facing strings are **never** literals: data files store dotted keys (`items.potion.name`, `game.main.roulette.fishing.title`) that templates resolve with the `translate` pipe. Adding a string means adding it to all six files.
 
-**All six files hold an identical key set** (2,396 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
+**All six files hold an identical key set** (2,398 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
 
 ```bash
 node -e "const p=(o,x='')=>Object.entries(o).flatMap(([k,v])=>typeof v==='object'&&v?p(v,x+k+'.'):[x+k]);const b=p(require('./src/assets/i18n/en.json')).sort();for(const l of ['pt','es','fr','de','it']){const o=p(require('./src/assets/i18n/'+l+'.json')).sort();console.log(l,b.filter(k=>!o.includes(k)).length||o.filter(k=>!b.includes(k)).length?'DIVERGENT':'ok')}"

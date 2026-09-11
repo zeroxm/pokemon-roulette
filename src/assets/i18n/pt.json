@@ -2897,7 +2897,7 @@
       "description": "Complete a Pokédex Nacional."
     },
     "gotta_catch_em_all_regional": {
-      "name": "Temos que pegar todos!",
+      "name": "Temos que pegar!",
       "description": "Complete a Pokédex de uma região."
     },
     "i_choose_you_and_you": {
@@ -2916,6 +2916,10 @@
       "name": "Ooh, shiny!",
       "description": "Encontre seu primeiro Pokémon shiny."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Capture um inicial shiny."
+    },
     "shiny_hunter_1": {
       "name": "Caçador de Shiny I",
       "description": "Encontre 5 Pokémon shiny."
@@ -2929,7 +2933,7 @@
       "description": "Encontre 25 Pokémon shiny."
     },
     "never_tell_me_the_odds": {
-      "name": "Nunca me fale as chances!",
+      "name": "Nunca me diga as chances!",
       "description": "Encontre um Pokémon lendário shiny."
     },
     "champion": {
@@ -2945,7 +2949,7 @@
       "description": "Torne-se campeão nas nove regiões."
     },
     "full_house": {
-      "name": "Casa Cheia",
+      "name": "Full House",
       "description": "Vença com um time completo de seis."
     },
     "pokemon_stadium": {
@@ -3005,7 +3009,7 @@
       "description": "Choque um ovo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Usou a Pokéflauta",
+      "name": "Pokéflauta",
       "description": "Capture ou derrote Snorlax."
     },
     "five_hundred_steps": {

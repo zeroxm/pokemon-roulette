@@ -382,8 +382,8 @@
           "outcome": "Resultado",
           "actions": {
             "runAway": "Snorlax runs away",
-            "catch": "Catch Snorlax",
-            "defeat": "Defeat Snorlax"
+            "catch": "Capturar a Snorlax",
+            "defeat": "Derrotar a Snorlax"
           }
         },
         "teamrocket": {
@@ -2893,7 +2893,7 @@
       "description": "Captura 500 Pokémon diferentes."
     },
     "gotta_catch_em_all_national": {
-      "name": "¡Hazte con... todos!",
+      "name": "¡Hazte con... todos?!",
       "description": "Completa la Pokédex Nacional."
     },
     "gotta_catch_em_all_regional": {
@@ -2915,6 +2915,10 @@
     "oh_shiny": {
       "name": "¡Oh, brillante!",
       "description": "Encuentra tu primer Pokémon variocolor."
+    },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Captura un inicial variocolor."
     },
     "shiny_hunter_1": {
       "name": "Cazador de Variocolor I",
@@ -2945,7 +2949,7 @@
       "description": "Conviértete en campeón de las nueve regiones."
     },
     "full_house": {
-      "name": "Equipo Completo",
+      "name": "Full House",
       "description": "Gana con un equipo completo de seis."
     },
     "pokemon_stadium": {
@@ -3005,7 +3009,7 @@
       "description": "Incuba un huevo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Usó la Pokéflauta",
+      "name": "Pokéflauta",
       "description": "Captura o derrota a Snorlax."
     },
     "five_hundred_steps": {

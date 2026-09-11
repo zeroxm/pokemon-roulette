@@ -2916,6 +2916,10 @@
       "name": "Oh, shiny!",
       "description": "Trova il tuo primo Pokémon shiny."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Cattura uno starter cromatico."
+    },
     "shiny_hunter_1": {
       "name": "Cacciatore di Shiny I",
       "description": "Trova 5 Pokémon shiny."
@@ -2945,7 +2949,7 @@
       "description": "Diventa campione in tutte e nove le regioni."
     },
     "full_house": {
-      "name": "Squadra al Completo",
+      "name": "Full House",
       "description": "Vinci con una squadra completa di sei."
     },
     "pokemon_stadium": {
@@ -2953,7 +2957,7 @@
       "description": "Vinci con tre Pokémon o meno in squadra."
     },
     "smell_ya_later": {
-      "name": "Ci si vede!",
+      "name": "Ci vediamo, sfigato!",
       "description": "Vinci una lotta contro il rivale."
     },
     "notch_above": {
@@ -3005,7 +3009,7 @@
       "description": "Fai schiudere un uovo misterioso."
     },
     "used_the_pokeflute": {
-      "name": "Ha usato il Pokéflauto",
+      "name": "Pokéflauto",
       "description": "Cattura o sconfiggi Snorlax."
     },
     "five_hundred_steps": {

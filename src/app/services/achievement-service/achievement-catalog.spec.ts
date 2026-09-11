@@ -10,10 +10,10 @@ describe('the achievement catalog', () => {
     highestCatchCount: 0,
   };
 
-  it('holds the frozen fifty', () => {
+  it('holds the whole catalog', () => {
     expect(ACHIEVEMENTS.length)
-      .withContext('the catalog is frozen; adding one needs the backend allowlist updated first')
-      .toBe(50);
+      .withContext('adding one needs the backend allowlist updated first, or the unlock is skipped on sync')
+      .toBe(51);
   });
 
   it('has no duplicate ids', () => {

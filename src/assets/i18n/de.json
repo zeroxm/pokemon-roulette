@@ -2893,11 +2893,11 @@
       "description": "Fange 500 verschiedene Pokémon."
     },
     "gotta_catch_em_all_national": {
-      "name": "Schnapp sie dir... alle?!",
+      "name": "Schnapp' sie dir... alle?!",
       "description": "Vervollständige den National-Pokédex."
     },
     "gotta_catch_em_all_regional": {
-      "name": "Schnapp sie dir alle!",
+      "name": "Schnapp' sie dir alle!",
       "description": "Vervollständige den Pokédex einer Region."
     },
     "i_choose_you_and_you": {
@@ -2916,6 +2916,10 @@
       "name": "Oh, schillernd!",
       "description": "Finde dein erstes schillerndes Pokémon."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Fange ein schillerndes Starter-Pokémon."
+    },
     "shiny_hunter_1": {
       "name": "Schillerjäger I",
       "description": "Finde 5 schillernde Pokémon."
@@ -2929,7 +2933,7 @@
       "description": "Finde 25 schillernde Pokémon."
     },
     "never_tell_me_the_odds": {
-      "name": "Nenn mir nie die Chancen!",
+      "name": "Sag mir nie, wie die Chancen stehen!",
       "description": "Finde ein schillerndes legendäres Pokémon."
     },
     "champion": {
@@ -2945,7 +2949,7 @@
       "description": "Werde Champion in allen neun Regionen."
     },
     "full_house": {
-      "name": "Volles Haus",
+      "name": "Full House",
       "description": "Gewinne mit einem vollen Team aus sechs."
     },
     "pokemon_stadium": {
@@ -2953,7 +2957,7 @@
       "description": "Gewinne mit drei Pokémon oder weniger im Team."
     },
     "smell_ya_later": {
-      "name": "Man sieht sich!",
+      "name": "Bis später, Loser!",
       "description": "Gewinne einen Kampf gegen den Rivalen."
     },
     "notch_above": {
@@ -3005,7 +3009,7 @@
       "description": "Lasse ein geheimnisvolles Ei schlüpfen."
     },
     "used_the_pokeflute": {
-      "name": "Pokéflöte benutzt",
+      "name": "Pokéflöte",
       "description": "Fange oder besiege Relaxo."
     },
     "five_hundred_steps": {

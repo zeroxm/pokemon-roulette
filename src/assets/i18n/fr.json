@@ -2916,6 +2916,10 @@
       "name": "Oh, chromatique !",
       "description": "Trouvez votre premier Pokémon chromatique."
     },
+    "soft_reset": {
+      "name": "Soft Reset",
+      "description": "Capturez un starter chromatique."
+    },
     "shiny_hunter_1": {
       "name": "Chasseur de Chromatiques I",
       "description": "Trouvez 5 Pokémon chromatiques."
@@ -2945,7 +2949,7 @@
       "description": "Devenez champion des neuf régions."
     },
     "full_house": {
-      "name": "Équipe Complète",
+      "name": "Full House",
       "description": "Gagnez avec une équipe complète de six."
     },
     "pokemon_stadium": {
@@ -3005,7 +3009,7 @@
       "description": "Faites éclore un œuf mystérieux."
     },
     "used_the_pokeflute": {
-      "name": "A utilisé la Pokéflûte",
+      "name": "Poké Flûte",
       "description": "Capturez ou battez Ronflex."
     },
     "five_hundred_steps": {
