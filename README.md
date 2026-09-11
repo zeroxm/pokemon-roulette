@@ -3,7 +3,12 @@
 A game involving Pokémon and Roulettes: a randomised run driven by spinning wheels. Pick a region,
 spin for what happens next, and try to reach the Champion with whatever the wheels give you.
 
-**Play it here: [zeroxm.github.io/pokemon-roulette](https://zeroxm.github.io/pokemon-roulette/)**
+**Play it here: [pokemon-roulette.zeroxm.com.br](https://pokemon-roulette.zeroxm.com.br/)**
+
+Moved from `zeroxm.github.io/pokemon-roulette/` on 2026-09-11. That address now
+serves a page that carries an existing player's Pokédex across, because
+`localStorage` belongs to an origin and does not follow a domain change on its
+own.
 
 Angular 22, standalone components, Bootstrap 5 + ng-bootstrap, `@ngx-translate` for six languages,
 deployed to GitHub Pages.
