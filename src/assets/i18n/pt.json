@@ -3107,7 +3107,8 @@
     "signOutUnsyncedWarning": "Parte do seu progresso ainda não chegou à sua conta, e sair apaga este dispositivo. Esse progresso será perdido.",
     "signOutAnyway": "Sair mesmo assim",
     "confirmPassword": "Confirmar senha",
-    "passwordMismatch": "As duas senhas não coincidem."
+    "passwordMismatch": "As duas senhas não coincidem.",
+    "statusSignedOut": "Você não está conectado — sua coleção fica só neste dispositivo."
   },
   "detail": {
     "name": "Nome",

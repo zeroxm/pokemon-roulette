@@ -223,7 +223,7 @@ triggers **Ash-Greninja** off the same method, which is why `usePotion` lives in
 
 Six locales in `src/assets/i18n/*.json` (en, pt, es, fr, de, it), loaded over HTTP by `TranslateHttpLoader`. User-facing strings are **never** literals — data files store dotted keys (`items.potion.name`, `game.main.roulette.fishing.title`) that templates resolve with the `translate` pipe. Adding a string means adding it to all six files.
 
-**All six files hold an identical key set** (2,395 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
+**All six files hold an identical key set** (2,396 keys). ngx-translate renders the raw key on a miss, so a key present in code but absent from a locale ships as literal `badges.bug_paldea` text to users. Verify parity after any i18n change:
 
 ```bash
 node -e "const p=(o,x='')=>Object.entries(o).flatMap(([k,v])=>typeof v==='object'&&v?p(v,x+k+'.'):[x+k]);const b=p(require('./src/assets/i18n/en.json')).sort();for(const l of ['pt','es','fr','de','it']){const o=p(require('./src/assets/i18n/'+l+'.json')).sort();console.log(l,b.filter(k=>!o.includes(k)).length||o.filter(k=>!b.includes(k)).length?'DIVERGENT':'ok')}"

@@ -7,7 +7,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { SettingsService, GameSettings } from '../services/settings-service/settings.service';
-import { AccountComponent } from './account/account.component';
+import { AccountStatusComponent } from '../account/account-status/account-status.component';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +18,7 @@ import { AccountComponent } from './account/account.component';
     MainGameButtonComponent,
     NgIconsModule,
     CommonModule,
-    AccountComponent
+    AccountStatusComponent
 ],
   templateUrl: './settings.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,

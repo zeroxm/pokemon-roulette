@@ -82,3 +82,9 @@
 .account-mismatch {
   color: #dc3545;
 }
+
+.account-page {
+  width: 100%;
+  max-width: 32rem;
+  padding-top: 1.5rem;
+}

@@ -3107,7 +3107,8 @@
     "signOutUnsyncedWarning": "Parte de tu progreso aún no ha llegado a tu cuenta, y cerrar sesión borra este dispositivo. Ese progreso se perderá.",
     "signOutAnyway": "Cerrar sesión de todos modos",
     "confirmPassword": "Confirmar contraseña",
-    "passwordMismatch": "Las dos contraseñas no coinciden."
+    "passwordMismatch": "Las dos contraseñas no coinciden.",
+    "statusSignedOut": "No has iniciado sesión: tu colección se queda en este dispositivo."
   },
   "detail": {
     "name": "Nombre",

@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideTranslateService } from '@ngx-translate/core';
+import { provideIcons } from '@ng-icons/core';
+import { bootstrapController } from '@ng-icons/bootstrap-icons';
 
 import { AccountComponent } from './account.component';
-import { AuthService } from '../../services/auth-service/auth.service';
-import { SyncService } from '../../services/sync-service/sync.service';
-import { SyncStateService } from '../../services/sync-state-service/sync-state.service';
-import { environment } from '../../../environments/environment';
+import { AuthService } from '../services/auth-service/auth.service';
+import { SyncService } from '../services/sync-service/sync.service';
+import { SyncStateService } from '../services/sync-state-service/sync-state.service';
+import { environment } from '../../environments/environment';
 
 describe('AccountComponent', () => {
   let fixture: ComponentFixture<AccountComponent>;
@@ -40,7 +42,13 @@ describe('AccountComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [AccountComponent],
-      providers: [provideHttpClient(), provideHttpClientTesting(), provideTranslateService()],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideTranslateService(),
+        // The page shell's Main Game button; the app provides icons globally.
+        provideIcons({ bootstrapController }),
+      ],
     }).compileComponents();
 
     http = TestBed.inject(HttpTestingController);

@@ -4,9 +4,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { AuthService, AuthUser } from '../../services/auth-service/auth.service';
-import { SyncStateService } from '../../services/sync-state-service/sync-state.service';
-import { SyncService, SyncStatus } from '../../services/sync-service/sync.service';
+import { MainGameButtonComponent } from '../main-game-button/main-game-button.component';
+import { AuthService, AuthUser } from '../services/auth-service/auth.service';
+import { SyncStateService } from '../services/sync-state-service/sync-state.service';
+import { SyncService, SyncStatus } from '../services/sync-service/sync.service';
 
 /** Matches the backend, which rejects anything shorter. */
 const MIN_PASSWORD_LENGTH = 8;
@@ -21,7 +22,9 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Mode = 'signin' | 'signup';
 
 /**
- * Account management, in Settings rather than in the game.
+ * Account management, on a screen of its own.
+
+ *
  *
  * **An account is optional and always will be.** Nothing here gates play,
  * nothing nags, and a signed-out player's experience is exactly what it was
@@ -29,7 +32,7 @@ type Mode = 'signin' | 'signup';
  */
 @Component({
   selector: 'app-account',
-  imports: [CommonModule, TranslatePipe],
+  imports: [CommonModule, TranslatePipe, MainGameButtonComponent],
   templateUrl: './account.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './account.component.css',

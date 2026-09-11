@@ -3107,7 +3107,8 @@
     "signOutUnsyncedWarning": "Una parte dei tuoi progressi non ha ancora raggiunto il tuo account, e disconnettersi cancella questo dispositivo. Quei progressi andranno persi.",
     "signOutAnyway": "Disconnetti comunque",
     "confirmPassword": "Conferma password",
-    "passwordMismatch": "Le due password non coincidono."
+    "passwordMismatch": "Le due password non coincidono.",
+    "statusSignedOut": "Non hai effettuato l’accesso: la tua collezione resta su questo dispositivo."
   },
   "detail": {
     "name": "Nome",

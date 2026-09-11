@@ -3107,7 +3107,8 @@
     "signOutUnsyncedWarning": "Some progress has not reached your account yet, and signing out clears this device. That progress will be lost.",
     "signOutAnyway": "Sign out anyway",
     "confirmPassword": "Confirm password",
-    "passwordMismatch": "The two passwords do not match."
+    "passwordMismatch": "The two passwords do not match.",
+    "statusSignedOut": "Not signed in — your collection stays on this device."
   },
   "detail": {
     "name": "Name",
