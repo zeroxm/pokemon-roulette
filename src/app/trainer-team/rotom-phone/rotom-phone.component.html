@@ -1,47 +1,43 @@
-<button type="button" class="btn"
-  [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'"
-  (click)="open()">
-  <ng-icon name="bootstrapPhone"></ng-icon>
-  {{ 'rotomPhone.button' | translate }}
-</button>
+<!-- The button sits near the bottom of the page on a phone, where a menu that
+     only ever opens downward runs off the screen; the second placement lets it
+     flip up. `container="body"` keeps it out of the team panel's clipping. -->
+<div ngbDropdown class="d-inline-block rotom-phone"
+     container="body" placement="bottom-start top-start">
+  <button type="button" class="btn" ngbDropdownToggle
+    [ngClass]="(darkMode | async) ? 'btn-outline-light' : 'btn-outline-dark'">
+    <ng-icon name="bootstrapPhone"></ng-icon>
+    {{ 'rotomPhone.button' | translate }}
+  </button>
+
+  <div ngbDropdownMenu [class.dropdown-menu-dark]="darkMode | async">
+    @for (app of apps; track app.id) {
+      <button type="button" ngbDropdownItem class="rotom-phone-app" (click)="openApp(app)">
+        <ng-icon [name]="app.icon"></ng-icon>
+        {{ app.titleKey | translate }}
+      </button>
+    }
+  </div>
+</div>
 
 <ng-template #phoneModal let-modal>
   <div class="modal-header" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
-    <h4 class="modal-title">{{ 'rotomPhone.title' | translate }}</h4>
+    <h4 class="modal-title">
+      <ng-icon [name]="open.icon"></ng-icon>
+      {{ open.titleKey | translate }}
+    </h4>
     <button type="button" class="btn-close"
       [ngClass]="(darkMode | async) ? 'btn-close-white' : ''"
       (click)="closeModal()" aria-label="Close"></button>
   </div>
 
   <div class="modal-body" [ngClass]="(darkMode | async) ? 'bg-dark text-white' : ''">
-    <ul class="nav nav-tabs mb-3 phone-apps">
-      <li class="nav-item">
-        <button class="nav-link" [class.active]="app === 'pokedex'" (click)="app = 'pokedex'">
-          <ng-icon name="bootstrapBook"></ng-icon> {{ 'pokedex.title' | translate }}
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" [class.active]="app === 'badges'" (click)="app = 'badges'">
-          <ng-icon name="bootstrapTrophy"></ng-icon> {{ 'badgeDex.title' | translate }}
-        </button>
-      </li>
-      <li class="nav-item">
-        <button class="nav-link" [class.active]="app === 'achievements'" (click)="app = 'achievements'">
-          <ng-icon name="bootstrapAward"></ng-icon> {{ 'achievementsScreen.title' | translate }}
-        </button>
-      </li>
-    </ul>
-
-    <!-- @if rather than hiding with CSS: each panel subscribes to a service
-         and builds a grid of up to 1,025 entries, and three of those mounted
-         at once for the sake of an instant tab switch is not a good trade on
-         a phone. -->
-    @if (app === 'pokedex') {
-      <app-pokedex></app-pokedex>
-    } @else if (app === 'badges') {
-      <app-badge-dex></app-badge-dex>
-    } @else {
-      <app-achievements></app-achievements>
+    <!-- Only the chosen panel is built. Each subscribes to a service and the
+         Pokédex lays out up to 1,025 entries; there is no reason to mount the
+         other two for a window showing one. -->
+    @switch (open.id) {
+      @case ('pokedex') { <app-pokedex></app-pokedex> }
+      @case ('badges') { <app-badge-dex></app-badge-dex> }
+      @default { <app-achievements></app-achievements> }
     }
   </div>
 </ng-template>
