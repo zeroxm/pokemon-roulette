@@ -2989,11 +2989,11 @@
       "description": "Attiva un cambio di forma permanente."
     },
     "super_rod": {
-      "name": "Supercanna",
+      "name": "Super Amo",
       "description": "Cattura 10 Pokémon pescando."
     },
     "super_nerd": {
-      "name": "Super Nerd",
+      "name": "Cervellone",
       "description": "Rianima 10 Pokémon fossili."
     },
     "prepare_for_trouble": {
@@ -3037,11 +3037,11 @@
       "description": "Ottieni tutte e otto le medaglie di una regione."
     },
     "badger_badger_badger": {
-      "name": "Medaglia, Medaglia, Medaglia...",
+      "name": "Medaglia, medaglia, medaglia...",
       "description": "Ottieni tutte le medaglie di tre regioni."
     },
     "the_very_best": {
-      "name": "Il migliore, come nessuno mai",
+      "name": "Come nessuno è riuscito mai",
       "description": "Ottieni tutte le medaglie del gioco."
     },
     "youngster": {

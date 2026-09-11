@@ -2989,11 +2989,11 @@
       "description": "Ative uma mudança de forma permanente."
     },
     "super_rod": {
-      "name": "Super Vara",
+      "name": "Supervara",
       "description": "Capture 10 Pokémon pescando."
     },
     "super_nerd": {
-      "name": "Super Nerd",
+      "name": "Supernerd",
       "description": "Reviva 10 Pokémon fósseis."
     },
     "prepare_for_trouble": {
@@ -3037,11 +3037,11 @@
       "description": "Conquiste as oito insígnias de uma região."
     },
     "badger_badger_badger": {
-      "name": "Insígnia, Insígnia, Insígnia...",
+      "name": "Medalha, medalha, medalha...",
       "description": "Conquiste todas as insígnias de três regiões."
     },
     "the_very_best": {
-      "name": "O melhor de todos, como ninguém jamais foi",
+      "name": "Ninguém nunca foi igual",
       "description": "Conquiste todas as insígnias do jogo."
     },
     "youngster": {

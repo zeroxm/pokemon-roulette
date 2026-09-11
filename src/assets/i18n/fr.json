@@ -2989,11 +2989,11 @@
       "description": "Déclenchez un changement de forme permanent."
     },
     "super_rod": {
-      "name": "Super Canne",
+      "name": "Méga Canne",
       "description": "Capturez 10 Pokémon à la pêche."
     },
     "super_nerd": {
-      "name": "Super Intello",
+      "name": "Intello",
       "description": "Ressuscitez 10 Pokémon fossiles."
     },
     "prepare_for_trouble": {
@@ -3037,11 +3037,11 @@
       "description": "Obtenez les huit badges d'une région."
     },
     "badger_badger_badger": {
-      "name": "Badge, Badge, Badge...",
+      "name": "Médaille, médaille, médaille...",
       "description": "Obtenez tous les badges de trois régions."
     },
     "the_very_best": {
-      "name": "Le meilleur dresseur, comme nul autre",
+      "name": "Un jour je serai le meilleur dresseur",
       "description": "Obtenez tous les badges du jeu."
     },
     "youngster": {
