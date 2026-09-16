@@ -399,7 +399,7 @@
           },
           "teamrocket": "Equipe Rocket!",
           "title": "Resultado",
-          "trouble": "Prepare-se para encrenca!",
+          "trouble": "Preparem-se para encrenca!",
           "outcomes": {
             "steal": "Roubam um Pokémon",
             "runAway": "Você foge",
@@ -2997,11 +2997,11 @@
       "description": "Reviva 10 Pokémon fósseis."
     },
     "prepare_for_trouble": {
-      "name": "Preparem-se para Encrenca",
+      "name": "Preparem-se para encrenca",
       "description": "Derrote a Equipe Rocket."
     },
     "make_it_double": {
-      "name": "E façam em Dobro",
+      "name": "Encrenca em dobro",
       "description": "Derrote a Equipe Rocket enquanto eles têm seu Pokémon roubado."
     },
     "mystery_gift": {

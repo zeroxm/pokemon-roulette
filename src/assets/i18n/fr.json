@@ -2997,11 +2997,11 @@
       "description": "Ressuscitez 10 Pokémon fossiles."
     },
     "prepare_for_trouble": {
-      "name": "Préparez-vous à des Ennuis",
+      "name": "Nous sommes de retour",
       "description": "Battez la Team Rocket."
     },
     "make_it_double": {
-      "name": "Et Même à Deux",
+      "name": "Pour vous jouer un mauvais tour",
       "description": "Battez la Team Rocket alors qu'elle détient votre Pokémon volé."
     },
     "mystery_gift": {

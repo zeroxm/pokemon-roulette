@@ -86,9 +86,19 @@ export class StoragePcComponent implements OnInit, OnDestroy {
         this.storedPokemon = this.trainerService.getStored();
         void this.soundFxService.playSoundFx('pc-turning-on', 0.30);
 
+        // `scrollable: true` is load-bearing, not polish. The stored grid grows with the
+        // box, and without it the dialog outgrew the viewport: centred, so the team grid
+        // ended up above the scroll origin where it cannot be reached, and the Log out
+        // button ended up below the fold. With a static backdrop and no keyboard that
+        // left no way out of the modal at all, which players reported as a freeze.
+        // Scrollable pins the footer and scrolls the body instead.
+        //
+        // The static backdrop and `keyboard: false` stay: logging out of the PC is the
+        // deliberate way to close it, and it is what plays the logout sound.
         this.modalService.open(this.pcStorageModal, {
           centered: true,
           size: 'lg',
+          scrollable: true,
           backdrop: 'static',
           keyboard: false
         });

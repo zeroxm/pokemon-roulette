@@ -15,7 +15,13 @@
   border: solid 1px #ccc;
   min-height: 60px;
   border-radius: 4px;
-  overflow: hidden;
+  /* Bounded and scrollable. It was `overflow: hidden` with no max-height, so a full box
+     grew the grid without limit and pushed the team grid out of reach. Capping it keeps
+     both grids on screen, which is what makes dragging between them possible at all;
+     the CDK drop list auto-scrolls this container during a drag. */
+  max-height: 38vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .pokemon-storage-card {
