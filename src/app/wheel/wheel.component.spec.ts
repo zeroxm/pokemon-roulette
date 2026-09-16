@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgZone } from '@angular/core';
 
 import { WheelComponent } from './wheel.component';
+import { SpinAnimation } from './spin-animation';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameStateService } from '../services/game-state-service/game-state.service';
 
@@ -90,6 +92,60 @@ describe('WheelComponent', () => {
     it('returns -1 from weighted selection when there is nothing to pick', () => {
       (component as any).translatedItems = [];
       expect(component.getRandomWeightedIndex()).toBe(-1);
+    });
+  });
+
+  describe('zone discipline', () => {
+    // The frame loop repaints a canvas, which Angular has no part in. zone.js patches
+    // `requestAnimationFrame`, so leaving the loop in the zone ticked the whole
+    // application on every frame of every spin. See issue #83.
+    const items = [
+      { text: 'a', weight: 1, fillStyle: 'red' },
+      { text: 'b', weight: 1, fillStyle: 'blue' }
+    ];
+
+    beforeEach(() => {
+      component.items = items;
+      (component as any).translatedItems = items;
+    });
+
+    it('starts the frame loop outside the zone', () => {
+      let startedInsideZone: boolean | null = null;
+      spyOn(SpinAnimation.prototype, 'start').and.callFake(() => {
+        startedInsideZone = NgZone.isInAngularZone();
+      });
+
+      // Explicitly inside the zone: a TestBed spec body is not, so calling straight
+      // through would pass whether or not the component wrapped anything.
+      TestBed.inject(NgZone).run(() => component.spinWheel());
+
+      expect(startedInsideZone).toBeFalse();
+    });
+
+    it('re-enters the zone to emit the result', () => {
+      let emittedInsideZone: boolean | null = null;
+      component.selectedItemEvent.subscribe(() => {
+        emittedInsideZone = NgZone.isInAngularZone();
+      });
+
+      // As the frame loop would call it: from outside.
+      TestBed.inject(NgZone).runOutsideAngular(() => (component as any).onSpinFinished());
+
+      expect(emittedInsideZone).toBeTrue();
+    });
+
+    it('releases the global gate inside the zone when a frame throws', () => {
+      const setSpinning = spyOn(TestBed.inject(GameStateService), 'setWheelSpinning');
+      let releasedInsideZone: boolean | null = null;
+      setSpinning.and.callFake(() => {
+        releasedInsideZone = NgZone.isInAngularZone();
+      });
+      spyOn(component as any, 'drawWheel').and.throwError('canvas gone');
+
+      TestBed.inject(NgZone).runOutsideAngular(() => (component as any).onSpinFrame(0));
+
+      expect(setSpinning).toHaveBeenCalledWith(false);
+      expect(releasedInsideZone).toBeTrue();
     });
   });
 });

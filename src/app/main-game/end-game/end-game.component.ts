@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { GenerationService } from '../../services/generation-service/generation.service';
 import { TrainerService } from '../../services/trainer-service/trainer.service';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,8 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
     private generationService: GenerationService,
     private trainerService: TrainerService,
     private themeService: ThemeService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private zone: NgZone
   ) { }
 
   darkMode!: boolean;
@@ -65,12 +66,23 @@ export class EndGameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     const container = this.fireworksContainer.nativeElement;
-    this.fireworks = new Fireworks(container, {
-      autoresize: false,
-      particles: 120
-    });
 
-    this.fireworks.start();
+    // Outside the Angular zone, and this is the whole fix for the win-screen freeze.
+    // zone.js patches `requestAnimationFrame`, which is what fireworks-js drives itself
+    // with, so started in the zone it ran a full application-wide change detection pass
+    // 60 times a second for as long as the player sat here. Opening the achievements
+    // panel on top of that added ~121 impure `translate` pipes and ~440 method calls to
+    // every one of those passes, and the tab locked up.
+    //
+    // Nothing in here touches Angular state, so there is nothing to re-enter the zone for.
+    this.zone.runOutsideAngular(() => {
+      this.fireworks = new Fireworks(container, {
+        autoresize: false,
+        particles: 120
+      });
+
+      this.fireworks.start();
+    });
   }
 
   ngOnDestroy(): void {

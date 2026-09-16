@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy, Output, SimpleChanges, ViewChild, ChangeDetectionStrategy, NgZone } from '@angular/core';
 import { pickWeightedIndex, totalWeight, weightOf } from '../utils/weighted-random';
 import { SpinAnimation } from './spin-animation';
 import { WheelItem } from '../interfaces/wheel-item';
@@ -62,7 +62,8 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
     private soundFxService: SoundFxService,
     private modalService: NgbModal,
     private changeDetectorRef: ChangeDetectorRef,
-    private statsService: StatsService
+    private statsService: StatsService,
+    private zone: NgZone
   ) {
     this.darkMode = this.themeService.isDark$;
     this.canvasHeight = 0;
@@ -363,7 +364,13 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
       const offset = Math.random() * winningSegmentSize;
       this.finalRotation = this.totalRotations * 2 * Math.PI + (2 * Math.PI - winningAngle + offset);
 
-      this.animation.start(this.finalRotation, this.duration);
+      // Outside the zone: zone.js patches `requestAnimationFrame`, so in the zone every
+      // frame of every spin ticked the whole application. The frame callback repaints a
+      // canvas and nothing else, so it does not need Angular; the two places that *do*
+      // change Angular state, the segment label and the finish, re-enter explicitly.
+      this.zone.runOutsideAngular(() => {
+        this.animation.start(this.finalRotation, this.duration);
+      });
     } catch (error) {
       // Never leave the global gate latched: it disables the whole UI.
       console.error('Wheel spin aborted:', error);
@@ -386,19 +393,27 @@ export class WheelComponent implements AfterViewInit, OnChanges, OnDestroy {
       if (segment !== this.currentSegment) {
         this.currentSegment = segment;
         void this.soundFxService.playSoundFx('click', 1.0, { preventOverlap: true });
+        // The label is the one binding this loop feeds, and the loop runs outside the
+        // zone, so repaint it by hand. Only on a change: that is a few dozen times per
+        // spin rather than sixty a second, and it is this view rather than the whole app.
+        this.changeDetectorRef.detectChanges();
       }
     } catch (error) {
       // A throw mid-animation would otherwise leave the global gate latched.
       console.error('Wheel animation aborted:', error);
       this.animation.cancel();
-      this.abortSpin();
+      // Back into the zone: releasing the gate re-enables the rest of the UI.
+      this.zone.run(() => this.abortSpin());
     }
   }
 
   private onSpinFinished(): void {
-    this.spinning = false;
-    this.selectedItemEvent.emit(this.winningNumber);
-    this.gameStateService.setWheelSpinning(false);
+    // Back into the zone: this emits the result the whole game loop hangs off.
+    this.zone.run(() => {
+      this.spinning = false;
+      this.selectedItemEvent.emit(this.winningNumber);
+      this.gameStateService.setWheelSpinning(false);
+    });
   }
 
   /** Label of the segment under the pointer. Already translated: do not pipe it again. */
