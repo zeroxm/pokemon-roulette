@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { FormRuleService } from '../form-rule-service/form-rule.service';
+import { ItemsService } from '../items-service/items.service';
 import { GameState } from '../game-state-service/game-state';
 import { of } from 'rxjs';
 
@@ -27,6 +28,18 @@ describe('TrainerService', () => {
     text: 'pokemon.palafin-hero',
     pokemonId: 10256,
     fillStyle: 'darkblue',
+    sprite: null,
+    shiny: false,
+    power: 5,
+    weight: 1,
+  };
+
+  const zygarde10: PokemonItem = {
+    text: 'pokemon.zygarde-10',
+    pokemonId: 10181,
+    fillStyle: 'green',
+    type1: 'dragon',
+    type2: 'ground',
     sprite: null,
     shiny: false,
     power: 5,
@@ -146,6 +159,98 @@ describe('TrainerService', () => {
       emitGameState('check-evolution');
 
       expect(service.trainerTeam[0].pokemonId).toBe(964);
+    });
+  });
+
+  describe('Zygarde ladder', () => {
+    it('climbs one rung per battle and keeps it afterwards', () => {
+      service.trainerTeam = [structuredClone(zygarde10)];
+
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(718);
+      expect(service.trainerTeam[0].power).toBe(6);
+
+      // Sticky, so leaving the fight must not walk it back down.
+      emitGameState('adventure-continues');
+      expect(service.trainerTeam[0].pokemonId).toBe(718);
+      expect(service.trainerTeam[0].power).toBe(6);
+
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10120);
+      expect(service.trainerTeam[0].power).toBe(7);
+    });
+
+    it('stops at Complete instead of wrapping back to 10%', () => {
+      service.trainerTeam = [structuredClone(zygarde10)];
+
+      for (let battle = 0; battle < 5; battle++) {
+        emitGameState('gym-battle');
+        emitGameState('adventure-continues');
+      }
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10120);
+      expect(service.trainerTeam[0].power).toBe(7);
+    });
+
+    it('climbs only once when a Rare Candy interrupts the battle', () => {
+      service.trainerTeam = [structuredClone(zygarde10)];
+
+      emitGameState('gym-battle');
+      gameStateService.repeatCurrentState();
+      emitGameState('select-from-pokemon-list');
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(718);
+    });
+
+    it('carries shiny up the ladder', () => {
+      const shiny = structuredClone(zygarde10);
+      shiny.shiny = true;
+      service.trainerTeam = [shiny];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(718);
+      expect(service.trainerTeam[0].shiny).toBeTrue();
+    });
+
+    it('climbs a Zygarde sitting in the PC too', () => {
+      service.trainerTeam = [structuredClone(bulbasaur)];
+      service.storedPokemon = [structuredClone(zygarde10)];
+
+      emitGameState('gym-battle');
+
+      expect(service.storedPokemon[0].pokemonId).toBe(718);
+    });
+
+    it('can still Mega Evolve from Complete, and reverts to Complete rather than to 10%', () => {
+      // The whole point of the ladder wiring: `pokemonMegaForms` is keyed on 10120, which was
+      // unreachable before, so Mega Zygarde was dead code.
+      service.trainerTeam = [structuredClone(zygarde10)];
+      emitGameState('gym-battle');
+      emitGameState('adventure-continues');
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10120);
+
+      service.addToItems(structuredClone(TestBed.inject(ItemsService).getMegaStone('zygardite')));
+      service.forceMegaActivation(service.trainerTeam[0], 'zygardite');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10301);
+      expect(service.trainerTeam[0].power).toBe(8);
+
+      emitGameState('adventure-continues');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10120);
+      expect(service.trainerTeam[0].power).toBe(7);
+    });
+
+    it('leaves other Pokemon alone', () => {
+      service.trainerTeam = [structuredClone(bulbasaur)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(1);
+      expect(service.trainerTeam[0].power).toBe(1);
     });
   });
 

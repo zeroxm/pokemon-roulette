@@ -228,6 +228,10 @@ export class FormRuleService {
       case 'base-to-battle':
         return index === 0 ? rule.forms[1] ?? null : null;
 
+      case 'ladder':
+        // Stops rather than wrapping, and a Pokémon not on the ladder is left alone.
+        return index === -1 ? null : rule.forms[index + 1] ?? null;
+
       case 'random-other': {
         if (index === -1) {
           return null;

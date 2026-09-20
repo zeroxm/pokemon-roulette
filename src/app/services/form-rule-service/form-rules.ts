@@ -2,6 +2,7 @@ import { FormRule } from './form-rule';
 import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
 import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
+import { zygardeLadderForms } from '../trainer-service/zygarde-forms';
 import { mimikyuForms } from '../trainer-service/mimikyu-forms';
 import { greninjaForms } from '../trainer-service/greninja-forms';
 
@@ -57,6 +58,18 @@ export const formRules: FormRule[] = [
     trigger: 'manual',
     selection: { kind: 'base-to-battle' },
   })),
+
+  // Zygarde's cells gather as it fights: one rung per battle, kept for the rest of the run.
+  // `sticky` because it never reverts, `ladder` because it stops at Complete rather than wrapping
+  // back to 10%. `team+stored` so a Zygarde parked in the PC does not fall behind the ladder.
+  {
+    id: 'ladder:718',
+    forms: zygardeLadderForms,
+    scope: 'team+stored',
+    persistence: 'sticky',
+    trigger: 'battle-start',
+    selection: { kind: 'ladder' },
+  },
 
   // Mega evolution: the player taps a stone mid-battle, so this rule is `manual` and never fires
   // from `applyAll`. Holding the stone selects *which* mega form; it is not permission to apply one.
