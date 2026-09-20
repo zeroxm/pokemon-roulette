@@ -169,8 +169,12 @@
 
 .sprite-stage {
   position: relative;
-  width: 260px;
-  height: 260px;
+  /* Tracks the viewport the same way the pane does. The pane is `min(560px, 76vh)` and the settle
+     scale is a fixed multiplier, so a fixed stage would overflow a short screen: at 260px the
+     settled Pokemon is 507px, which does not fit a 76vh pane below about a 670px viewport.
+     Keeping both viewport-relative holds the "nearly fills the pane" ratio at every size. */
+  width: min(260px, 34vh);
+  height: min(260px, 34vh);
   z-index: 2;
 }
 
@@ -240,9 +244,12 @@
   100% { transform: scale(1.48) translateY(0);   filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
 }
 
+/* Rests at very nearly the full pane: 1.95 of a stage that is 46% of the pane height puts the
+   Pokemon at about 90% of it, so the held frame reads as "this thing is now enormous" rather
+   than "this thing got a bit bigger". */
 .settle .sprite-gmax {
   opacity: 1;
-  transform: scale(1.48);
+  transform: scale(1.95);
   filter: brightness(1) drop-shadow(0 0 18px var(--gmax-red-soft));
   transition: transform 0.8s ease-out, filter 0.8s ease-out;
 }
@@ -294,5 +301,5 @@
 
 @media (max-width: 680px) {
   .gmax-container { height: min(420px, 68vh); }
-  .sprite-stage { width: 200px; height: 200px; }
+  .sprite-stage { width: min(200px, 30vh); height: min(200px, 30vh); }
 }
