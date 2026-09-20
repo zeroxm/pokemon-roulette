@@ -89,6 +89,18 @@ export class GameStateService {
     return nextState;
   }
 
+  /**
+   * The state `finishCurrentState` would emit next, without emitting it.
+   *
+   * Exists so a listener can tell a battle that has *ended* from one the player is about to
+   * return to. Tapping a Rare Candy mid-fight pushes the battle back on the stack and detours
+   * through a selection state, and without this peek that detour is indistinguishable from
+   * walking out of the fight.
+   */
+  peekNextState(): GameState | null {
+    return this.stateStack[this.stateStack.length - 1] ?? null;
+  }
+
   advanceRound(): void {
     this.currentRound.next(this.currentRound.value + 1);
   }
