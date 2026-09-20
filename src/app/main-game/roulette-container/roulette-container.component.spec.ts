@@ -528,6 +528,51 @@ describe('RouletteContainerComponent', () => {
       shiny: false, power: 1, weight: 1,
     });
 
+    // Trading used to bypass the form question entirely: it called the trainer service directly
+    // rather than going through the capture path, so a traded Rattata was always Kantonian and a
+    // traded Zygarde skipped the forced 10% its ladder depends on.
+    //
+    // `performTrade` swaps by reference identity, so the outgoing Pokemon has to be the actual
+    // team member rather than an equal-looking copy.
+    const withTeamMember = (id: number): any => {
+      trainerService.addToTeam(makePokemon(id));
+      const member = trainerService.getTeam()[0];
+      (component as any).currentContextPokemon = member;
+      return member;
+    };
+
+    it('offers the form wheel for a traded multi-form Pokemon', () => {
+      withTeamMember(1);
+
+      component.performTrade(makePokemon(19));   // Rattata: Kantonian or Alolan
+
+      expect(component.currentGameState).toBe('select-form');
+      expect((component as any).pokemonForms.length).toBeGreaterThan(1);
+    });
+
+    it('forces a traded Zygarde to 10%, like catching one', () => {
+      withTeamMember(1);
+
+      component.performTrade(makePokemon(718));
+
+      expect(trainerService.getTeam().some(p => p.pokemonId === 10181))
+        .withContext('a traded Zygarde must start on the first rung too')
+        .toBeTrue();
+    });
+
+    it('still trades away the right Pokemon after a form detour', () => {
+      withTeamMember(1);
+
+      component.performTrade(makePokemon(19));
+      // The form spin reuses currentContextPokemon; the outgoing one must survive it.
+      component.selectPokemonForm({ pokemonId: 10091, text: 'pokemon.rattata-alola',
+        fillStyle: 'purple', type1: 'dark', type2: 'normal' } as any);
+
+      expect((component as any).pkmnOut.pokemonId).toBe(1);
+      expect((component as any).pkmnIn.pokemonId).toBe(10091);
+      expect(trainerService.getTeam().some(p => p.pokemonId === 1)).toBeFalse();
+    });
+
     it('with single-member team → sets currentContextPokemon to that pokemon', () => {
       const bulbasaur = makePokemon(1);
       trainerService.addToTeam(bulbasaur);

@@ -197,6 +197,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   auxItemList: ItemItem[] = [];
   auxPokemonList: PokemonItem[] = [];
   pokemonForms: PokemonForm[] = [];
+  /** What to do with a Pokémon once its form is settled. Mirrors `PendingSelection`. */
+  private pendingFormChoice: ((chosen: PokemonItem) => void) | null = null;
   currentContextPokemon!: PokemonItem;
   currentGameState!: GameState;
   customWheelTitle = '';
@@ -469,7 +471,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   selectPokemonForm(pokemonForm: PokemonForm): void {
     this.currentContextPokemon = this.pokemonFormsService.applyFormToPokemon(this.currentContextPokemon, pokemonForm);
-    this.completePokemonCapture(this.currentContextPokemon);
+
+    // Defaults to a capture so a form spin reached any other way still finishes rather than
+    // stranding the player on the wheel.
+    const onChosen = this.pendingFormChoice ?? (chosen => this.completePokemonCapture(chosen));
+    this.pendingFormChoice = null;
+    onChosen(this.currentContextPokemon);
   }
 
   secondEvolution(): void {
@@ -750,10 +757,18 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   performTrade(pokemon: PokemonItem): void {
+    // Read before `chooseForm` runs: it reuses `currentContextPokemon` as the subject of the
+    // form spin, and right now that field is holding the Pokémon being traded *away*. Closing
+    // over it here is what lets the trade survive a detour through the form wheel.
+    const tradedAway = this.currentContextPokemon;
+    this.chooseForm(pokemon, received => this.completeTrade(tradedAway, received));
+  }
+
+  private completeTrade(tradedAway: PokemonItem, received: PokemonItem): void {
     this.statsService.increment('trades_completed');
-    this.pkmnIn = structuredClone(pokemon);
-    this.pkmnOut = this.currentContextPokemon;
-    this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
+    this.pkmnIn = structuredClone(received);
+    this.pkmnOut = tradedAway;
+    this.trainerService.performTrade(tradedAway, this.pkmnIn);
     this.registerCatch(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
@@ -1137,29 +1152,42 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private preparePokemonCapture(pokemon: PokemonItem): void {
+  /**
+   * Settles which form a Pokémon arrives in, then hands it on.
+   *
+   * Carries its own continuation for the same reason `PendingSelection` does: choosing a form
+   * may need a spin, so the caller cannot simply read a return value, and every way of acquiring
+   * a Pokémon has to end somewhere different. Before this, only the catch path asked about
+   * forms, so a *traded* Alolan-capable species always arrived in its Kantonian form and a
+   * traded Zygarde skipped the forced 10% start that its ladder depends on.
+   */
+  private chooseForm(pokemon: PokemonItem, onChosen: (chosen: PokemonItem) => void): void {
     // Some species arrive in one fixed form and are never offered the wheel. Zygarde always
     // starts at 10% because its forms are a ladder it climbs by fighting: see `zygarde-forms.ts`.
     const forcedForm = this.pokemonFormsService.getForcedCatchForm(pokemon);
     if (forcedForm) {
-      this.completePokemonCapture(this.pokemonFormsService.applyFormToPokemon(pokemon, forcedForm));
+      onChosen(this.pokemonFormsService.applyFormToPokemon(pokemon, forcedForm));
       return;
     }
 
-    if (this.pokemonFormsService.hasForms(pokemon)) {
-      const pokemonForms = this.pokemonFormsService.getPokemonForms(pokemon);
-      
-      if (pokemonForms.length > 1) {
-        this.currentContextPokemon = structuredClone(pokemon);
-        this.pokemonForms = pokemonForms;
-        this.gameStateService.setNextState('select-form');
-        this.finishCurrentState();
-        return;
-      }
-      
+    const pokemonForms = this.pokemonFormsService.hasForms(pokemon)
+      ? this.pokemonFormsService.getPokemonForms(pokemon)
+      : [];
+
+    if (pokemonForms.length > 1) {
+      this.currentContextPokemon = structuredClone(pokemon);
+      this.pokemonForms = pokemonForms;
+      this.pendingFormChoice = onChosen;
+      this.gameStateService.setNextState('select-form');
+      this.finishCurrentState();
+      return;
     }
-    this.completePokemonCapture(pokemon);
-    return;
+
+    onChosen(pokemon);
+  }
+
+  private preparePokemonCapture(pokemon: PokemonItem): void {
+    this.chooseForm(pokemon, chosen => this.completePokemonCapture(chosen));
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {
