@@ -67,17 +67,4 @@ export interface FormRule {
   /** Whether entering a battle applies this rule, or the player has to trigger it. */
   readonly trigger: FormTrigger;
   readonly selection: FormSelection;
-  /**
-   * Regions this rule exists in. Absent means every region.
-   *
-   * In data rather than in code, mirroring `AdventureAction.generations`, which is already how
-   * Safari Zone is Kanto-only and Area Zero is Paldea-only. Gigantamax is Galar-only.
-   */
-  readonly generations?: readonly number[];
-  /**
-   * `lead` limits the rule to the first team slot. Absent means every matching Pokémon.
-   *
-   * Only one Pokémon Dynamaxes per battle, and the game picks the lead.
-   */
-  readonly appliesTo?: 'lead';
 }

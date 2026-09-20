@@ -40,6 +40,7 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
 
   darkMode!: Observable<boolean>;
   @Output() megaStoneInterrupt = new EventEmitter<MegaStoneActivation>();
+  @Output() dynamaxInterrupt = new EventEmitter<void>();
 
   private trainerSubscription!: Subscription;
   private teamSubscription!: Subscription;
@@ -93,6 +94,21 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
 
   getMegaStoneFillStyle(pokemon: PokemonItem | undefined): string {
     return this.getHeldMegaStoneItem(pokemon)?.fillStyle ?? 'rgba(255, 255, 255, 0.9)';
+  }
+
+  /**
+   * Whether to offer the Dynamax Band on this slot.
+   *
+   * Slot 0 only: Dynamax is always the lead, so an affordance on any other slot would promise a
+   * choice the mechanic does not have. Choosing who leads is the decision, and it is made in the
+   * PC before the fight.
+   */
+  canDynamax(index: number, pokemon: PokemonItem | undefined): boolean {
+    return index === 0 && !!pokemon && this.trainerService.canActivateMax();
+  }
+
+  triggerDynamaxInterrupt(): void {
+    this.dynamaxInterrupt.emit();
   }
 
   triggerMegaStoneInterrupt(pokemon: PokemonItem | undefined): void {

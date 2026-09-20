@@ -70,6 +70,13 @@ export class TrainerService implements OnDestroy {
   private lastAddedPokemon: PokemonItem | null = null;
   private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
   /**
+   * The most recent state seen, so the Dynamax Band knows whether a battle is happening now.
+   *
+   * The interlude check used to read this too. It asks `GameStateService` directly since #89:
+   * comparing state names could not tell the next Elite Four battle from the current one.
+   */
+  private currentGameState: GameState | null = null;
+  /**
    * The lead's Max state for the current battle. Null outside battles, and outside Galar.
    *
    * Deliberately here rather than a flag on the `PokemonItem`. The item is `structuredClone`d into
@@ -185,24 +192,26 @@ export class TrainerService implements OnDestroy {
   }
 
   private syncBattleForms(gameState: GameState): void {
+    this.currentGameState = gameState;
+
     if (this.isBattleInterlude(gameState)) {
       return;
     }
 
     const entering = this.battleStates.has(gameState);
-    const generationId = this.generationService.getCurrentGeneration().id;
-    // Read before the rules run: afterwards the lead may already be a Gigantamax form.
-    const leadBefore = entering ? this.trainerTeam[0] : undefined;
 
     const changed = entering
-      ? this.formRuleService.applyAll(
-          this.trainerTeam, this.storedPokemon, this.heldItemNames(), generationId)
+      ? this.formRuleService.applyAll(this.trainerTeam, this.storedPokemon, this.heldItemNames())
       : this.formRuleService.revertAll(this.trainerTeam, this.storedPokemon);
 
-    // Plain Dynamax changes no form at all, so this has to be able to move on its own.
-    const maxChanged = this.syncMaxState(entering, generationId, leadBefore);
+    // Dynamax lasts one battle, like a mega. Leaving clears it whether or not a form reverted:
+    // a plain Dynamax changes no form, so `changed` alone would miss it.
+    const maxCleared = !entering && this.maxState !== null;
+    if (!entering) {
+      this.maxState = null;
+    }
 
-    if (!changed && !maxChanged) {
+    if (!changed && !maxCleared) {
       return;
     }
 
@@ -214,36 +223,51 @@ export class TrainerService implements OnDestroy {
   }
 
   /**
-   * Decides whether the lead is Dynamaxed or Gigantamaxed for this fight.
+   * Dynamaxes the lead for this battle, on the player tapping the Dynamax Band.
    *
-   * Every Pokemon can Dynamax, which is why this is a flag rather than a form rule: there is no
-   * target form to swap to, and a rule with no forms would be a rule that lies. Gigantamax *is* a
-   * form rule, and already fired in `applyAll` above; this only records which of the two happened.
+   * Manual rather than automatic, and on the lead rather than a free choice, which together are
+   * what give the player something to decide: the decision is made in the PC, by choosing who
+   * leads, and then taken in the fight.
    *
-   * Returns whether anything moved, so a plain Dynamax still re-renders the team.
+   * Every Pokemon can Dynamax, which is why the flag is the mechanic and the form rule is only
+   * the extra. A species with a Gigantamax form swaps sprite through `gmax:<id>`; everything else
+   * just gets bigger and keeps its own.
+   *
+   * Returns whether it happened, so the caller knows whether to play the cinematic.
    */
-  private syncMaxState(
-    entering: boolean, generationId: number, leadBefore: PokemonItem | undefined,
-  ): boolean {
-    if (!entering) {
-      const had = this.maxState !== null;
-      this.maxState = null;
-      return had;
-    }
-
-    if (generationId !== GALAR_GENERATION_ID || !leadBefore) {
+  activateMax(): boolean {
+    // Same gate the button reads, checked again here rather than trusted. The tap arrives through
+    // a Subject, so it can land a beat after the battle it was meant for has ended.
+    if (!this.canActivateMax()) {
       return false;
     }
 
-    this.maxState = {
-      pokemon: this.trainerTeam[0],
-      // The form it was in *before* transforming. `pokemon` is already the Gigantamax by now, and
-      // a Gigantamax id is in no form table, so resolving a species from it lands on nothing and
-      // the Pokedex gets a phantom entry for a form nobody caught.
-      fromId: leadBefore.pokemonId,
-      gigantamax: gigantamaxForms[leadBefore.pokemonId] !== undefined,
-    };
+    const lead = this.trainerTeam[0];
+
+    // Read before the rule runs: afterwards the lead may already be a Gigantamax form, and a
+    // Gigantamax id belongs to no species, so resolving one from it lands on nothing and the
+    // Pokedex gets a phantom entry for a form nobody caught.
+    const fromId = lead.pokemonId;
+    const gigantamax = gigantamaxForms[fromId] !== undefined;
+
+    if (gigantamax) {
+      this.formRuleService.forceApply(
+        `gmax:${fromId}`, this.trainerTeam, this.storedPokemon, this.heldItemNames(), lead);
+    }
+
+    this.maxState = { pokemon: this.trainerTeam[0], fromId, gigantamax };
+    this.loadMissingSprites();
+    this.trainerTeamObservable.next(this.getTeam());
     return true;
+  }
+
+  /** Whether the lead can still Dynamax: Galar, in a battle, and not already Maxed. */
+  canActivateMax(): boolean {
+    return this.maxState === null
+      && this.trainerTeam.length > 0
+      && this.generationService.getCurrentGeneration().id === GALAR_GENERATION_ID
+      && this.currentGameState !== null
+      && this.battleStates.has(this.currentGameState);
   }
 
   /** The lead's Max state for this battle, or null. Read by the battle odds and the team panel. */

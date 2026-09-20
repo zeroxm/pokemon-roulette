@@ -315,75 +315,55 @@ describe('TrainerService', () => {
     const inGalar = () => TestBed.inject(GenerationService).setGeneration(GALAR_INDEX);
     const inKanto = () => TestBed.inject(GenerationService).setGeneration(KANTO_INDEX);
 
-    it('Gigantamaxes a capable lead on entering a battle', () => {
-      inGalar();
-      service.trainerTeam = [structuredClone(duraludon)];
-
+    /** What tapping the Dynamax Band does: enter a fight, then activate. */
+    const tapTheBand = (team: PokemonItem[]): boolean => {
+      service.trainerTeam = team.map(p => structuredClone(p));
       emitGameState('gym-battle');
+      return service.activateMax();
+    };
 
+    it('Gigantamaxes a capable lead', () => {
+      inGalar();
+
+      expect(tapTheBand([duraludon])).toBeTrue();
       expect(service.trainerTeam[0].pokemonId).toBe(10225);
       expect(service.getMaxState()?.gigantamax).toBeTrue();
     });
 
-    it('reverts the Gigantamax when the battle ends', () => {
+    it('does nothing until the player asks', () => {
       inGalar();
       service.trainerTeam = [structuredClone(duraludon)];
 
       emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('reverts when the battle ends', () => {
+      inGalar();
+      tapTheBand([duraludon]);
+
       emitGameState('adventure-continues');
 
       expect(service.trainerTeam[0].pokemonId).toBe(884);
       expect(service.getMaxState()).toBeNull();
     });
 
-    it('Gigantamax does not change power: the odds bonus is the whole buff', () => {
+    it('does not change power: the odds bonus is the whole buff', () => {
       inGalar();
-      service.trainerTeam = [structuredClone(duraludon)];
-
-      emitGameState('gym-battle');
+      tapTheBand([duraludon]);
 
       expect(service.trainerTeam[0].power).toBe(duraludon.power);
     });
 
     it('gives Low Key Toxtricity its own Gigantamax, not the Amped one', () => {
       inGalar();
-      service.trainerTeam = [structuredClone(toxtricityLowKey)];
 
-      emitGameState('gym-battle');
+      tapTheBand([toxtricityLowKey]);
 
       expect(service.trainerTeam[0].pokemonId).toBe(10228);
       expect(service.trainerTeam[0].text).toBe('pokemon.toxtricity-low-key-gmax');
-    });
-
-    it('only the lead transforms', () => {
-      inGalar();
-      service.trainerTeam = [structuredClone(bulbasaur), structuredClone(duraludon)];
-
-      emitGameState('gym-battle');
-
-      expect(service.trainerTeam[1].pokemonId).toBe(884);
-      expect(service.getMaxState()?.gigantamax).toBeFalse();
-    });
-
-    it('a lead with no Gigantamax form still Dynamaxes', () => {
-      inGalar();
-      service.trainerTeam = [structuredClone(bulbasaur)];
-
-      emitGameState('gym-battle');
-
-      expect(service.trainerTeam[0].pokemonId).toBe(1);
-      expect(service.getMaxState()?.gigantamax).toBeFalse();
-      expect(service.getMaxState()?.pokemon).toBe(service.trainerTeam[0]);
-    });
-
-    it('does nothing outside Galar', () => {
-      inKanto();
-      service.trainerTeam = [structuredClone(duraludon)];
-
-      emitGameState('gym-battle');
-
-      expect(service.trainerTeam[0].pokemonId).toBe(884);
-      expect(service.getMaxState()).toBeNull();
     });
 
     it('remembers the form it transformed FROM, not the Gigantamax it became', () => {
@@ -391,22 +371,87 @@ describe('TrainerService', () => {
       // the Gigantamax form id, which belongs to no species, so the entry lands on a phantom key
       // and Toxtricity Amped and Low Key count as two species instead of one.
       inGalar();
-      service.trainerTeam = [structuredClone(toxtricityLowKey)];
 
-      emitGameState('gym-battle');
+      tapTheBand([toxtricityLowKey]);
 
       expect(service.getMaxState()?.fromId).toBe(10184);
-      expect(service.trainerTeam[0].pokemonId).toBe(10228);
     });
 
-    it('does not Gigantamax a Pokemon sitting in the PC', () => {
+    it('only the lead transforms', () => {
       inGalar();
-      service.trainerTeam = [structuredClone(bulbasaur)];
-      service.storedPokemon = [structuredClone(duraludon)];
 
-      emitGameState('gym-battle');
+      tapTheBand([bulbasaur, duraludon]);
 
-      expect(service.storedPokemon[0].pokemonId).toBe(884);
+      expect(service.trainerTeam[1].pokemonId).toBe(884);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+    });
+
+    it('a lead with no Gigantamax form still Dynamaxes', () => {
+      inGalar();
+
+      expect(tapTheBand([bulbasaur])).toBeTrue();
+      expect(service.trainerTeam[0].pokemonId).toBe(1);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+      expect(service.getMaxState()?.pokemon).toBe(service.trainerTeam[0]);
+    });
+
+    it('refuses a second activation in the same battle', () => {
+      inGalar();
+      tapTheBand([duraludon]);
+
+      expect(service.activateMax()).toBeFalse();
+    });
+
+    it('does nothing outside Galar', () => {
+      inKanto();
+
+      expect(tapTheBand([duraludon])).toBeFalse();
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('does nothing outside a battle', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+      emitGameState('adventure-continues');
+
+      expect(service.activateMax()).toBeFalse();
+    });
+
+    describe('canActivateMax, which is what shows the band', () => {
+      it('is true for a Galar lead in a battle', () => {
+        inGalar();
+        service.trainerTeam = [structuredClone(duraludon)];
+        emitGameState('gym-battle');
+
+        expect(service.canActivateMax()).toBeTrue();
+      });
+
+      it('is false once already Maxed', () => {
+        inGalar();
+        tapTheBand([duraludon]);
+
+        expect(service.canActivateMax()).toBeFalse();
+      });
+
+      it('is false outside a battle, and outside Galar', () => {
+        inGalar();
+        service.trainerTeam = [structuredClone(duraludon)];
+        emitGameState('adventure-continues');
+        expect(service.canActivateMax()).toBeFalse();
+
+        inKanto();
+        emitGameState('gym-battle');
+        expect(service.canActivateMax()).toBeFalse();
+      });
+
+      it('is false with an empty team', () => {
+        inGalar();
+        service.trainerTeam = [];
+        emitGameState('gym-battle');
+
+        expect(service.canActivateMax()).toBeFalse();
+      });
     });
   });
 

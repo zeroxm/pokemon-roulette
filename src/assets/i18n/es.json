@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitarea x{{count}}"
       },
-      "unhandledState": "Algo se salió del mapa. Intenta reiniciar el juego."
+      "unhandledState": "Algo se salió del mapa. Intenta reiniciar el juego.",
+      "dynamax": {
+        "band": "Maxibrazalete"
+      }
     },
     "map": {
       "vermilion": "Estás en Ciudad Carmín"

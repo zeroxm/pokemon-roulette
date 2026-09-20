@@ -41,10 +41,7 @@ export class FormRuleService {
    * `manual` rules are skipped: holding a mega stone decides *which* form is available, not that
    * one should happen.
    */
-  applyAll(
-    team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[],
-    generationId?: number,
-  ): boolean {
+  applyAll(team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
     if (this.formsApplied) {
       return false;
     }
@@ -52,26 +49,12 @@ export class FormRuleService {
 
     let changed = false;
     for (const rule of this.rules) {
-      if (rule.trigger !== 'battle-start' || !this.appliesInGeneration(rule, generationId)) {
+      if (rule.trigger !== 'battle-start') {
         continue;
       }
       changed = this.applyRule(rule, team, stored, heldItems) || changed;
     }
     return changed;
-  }
-
-  /**
-   * Whether a region-locked rule is in its region.
-   *
-   * An absent `generations` means everywhere, so every rule written before Gigantamax keeps
-   * firing untouched. An absent `generationId` means the caller did not say, and a region-locked
-   * rule stays out rather than firing in the wrong region.
-   */
-  private appliesInGeneration(rule: FormRule, generationId: number | undefined): boolean {
-    if (!rule.generations) {
-      return true;
-    }
-    return generationId !== undefined && rule.generations.includes(generationId);
   }
 
   /**
@@ -176,13 +159,7 @@ export class FormRuleService {
     let changed = false;
 
     for (const collection of this.collectionsFor(rule, team, stored)) {
-      // `lead` rules only ever look at the first team slot. The PC is skipped entirely: a
-      // Pokémon in storage is not in the fight, so it has no lead to be.
-      const lastIndex = rule.appliesTo === 'lead'
-        ? Math.min(collection.length, collection === team ? 1 : 0)
-        : collection.length;
-
-      for (let i = 0; i < lastIndex; i++) {
+      for (let i = 0; i < collection.length; i++) {
         const current = collection[i];
         // Identity, not species: two of the same Pokémon are the same species
         // and the same stone, and only one of them was pointed at.

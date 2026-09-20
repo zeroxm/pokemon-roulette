@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitâche x{{count}}"
       },
-      "unhandledState": "Quelque chose est sorti de la carte. Essayez de redémarrer le jeu."
+      "unhandledState": "Quelque chose est sorti de la carte. Essayez de redémarrer le jeu.",
+      "dynamax": {
+        "band": "Poignet Dynamax"
+      }
     },
     "map": {
       "vermilion": "Vous êtes à Carmin-sur-Mer"

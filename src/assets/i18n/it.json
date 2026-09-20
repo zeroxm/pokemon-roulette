@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitasking x{{count}}"
       },
-      "unhandledState": "Qualcosa è uscito dalla mappa. Prova a riavviare il gioco."
+      "unhandledState": "Qualcosa è uscito dalla mappa. Prova a riavviare il gioco.",
+      "dynamax": {
+        "band": "Polsino Dynamax"
+      }
     },
     "map": {
       "vermilion": "You are in Vermilion City"

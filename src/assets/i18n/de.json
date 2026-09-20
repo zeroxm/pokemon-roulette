@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitasking x{{count}}"
       },
-      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu."
+      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu.",
+      "dynamax": {
+        "band": "Dyna-Band"
+      }
     },
     "map": {
       "vermilion": "Du bist in Orania City"

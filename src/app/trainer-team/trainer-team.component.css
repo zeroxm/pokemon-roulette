@@ -55,6 +55,34 @@
   cursor: pointer;
 }
 
+/* Bottom LEFT, opposite the mega stone. They cannot both appear today (Galar has no stones), but
+   putting them in the same corner would make that a layout bug the day anything changes. */
+.dynamax-band-button {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.dynamax-band-overlay {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 3px rgba(220, 0, 60, 0.9));
+}
+
+.dynamax-band-button:focus-visible {
+  outline: 2px solid #4d90fe;
+  outline-offset: 1px;
+  border-radius: 999px;
+}
+
 .mega-stone-overlay-button:focus-visible {
   outline: 2px solid #4d90fe;
   outline-offset: 1px;
@@ -84,7 +112,7 @@
 }
 
 .pokemon-container img.dynamaxed {
-  filter: drop-shadow(0 0 6px rgba(220, 0, 60, 0.85));
+  filter: drop-shadow(0 0 12px rgba(220, 0, 60, 0.95)) drop-shadow(0 0 4px rgba(255, 120, 160, 0.9));
   transition: filter 0.4s ease-out;
   position: relative;
   z-index: 2;

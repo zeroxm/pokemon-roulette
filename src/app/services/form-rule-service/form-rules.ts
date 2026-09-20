@@ -72,9 +72,9 @@ export const formRules: FormRule[] = [
     selection: { kind: 'ladder' },
   },
 
-  // Gigantamax: Galar's replacement for mega evolution, so it is `battle-start` rather than
-  // `manual`. No stone to tap and no choice to make: the lead transforms on entering a fight, and
-  // reverts when it ends like every other temporary form.
+  // Gigantamax: Galar's replacement for mega evolution, and `manual` for the same reason mega is.
+  // The player taps the Dynamax Band on their lead; the rule says what that becomes, never that it
+  // should happen. `TrainerService.activateMax` owns the when, including the Galar-only check.
   //
   // Keyed on the *current* form id, which is what makes Toxtricity Amped and Low Key (and both
   // Urshifu styles) reach their own Gigantamax with no special case here.
@@ -83,9 +83,7 @@ export const formRules: FormRule[] = [
     forms: [gmax],
     scope: 'team',
     persistence: 'temporary',
-    trigger: 'battle-start',
-    generations: [8],
-    appliesTo: 'lead',
+    trigger: 'manual',
     selection: { kind: 'to-form', fromId: Number(fromIdText) },
   })),
 

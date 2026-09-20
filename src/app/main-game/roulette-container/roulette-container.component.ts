@@ -59,6 +59,8 @@ import { GameOverComponent } from "../game-over/game-over.component";
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { MegaStoneActivation, MegaStoneService } from '../../services/mega-stone-service/mega-stone.service';
+import { DynamaxService } from '../../services/dynamax-service/dynamax.service';
+import { GigantamaxAnimationModalComponent } from './roulettes/gigantamax-animation-modal/gigantamax-animation-modal.component';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 import { MegaEvolutionAnimationModalComponent } from './roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 import { SelectFromItemListRouletteComponent } from './roulettes/select-from-item-list-roulette/select-from-item-list-roulette.component';
@@ -112,6 +114,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     private destroyRef = inject(DestroyRef);
     private rareCandySubscription?: Subscription;
     private megaStoneSubscription?: Subscription;
+  private dynamaxSubscription?: Subscription;
     /** Whether the capture being resolved came off the starter wheel. */
     private capturingStarter = false;
 
@@ -130,6 +133,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService,
       private megaStoneService: MegaStoneService,
+      private dynamaxService: DynamaxService,
       private statsService: StatsService,
       private generationService: GenerationService) {
     }
@@ -167,11 +171,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.megaStoneSubscription = this.megaStoneService.megaStoneTrigger$.subscribe((activation) => {
       this.handleMegaStoneActivation(activation);
     });
+
+    this.dynamaxSubscription = this.dynamaxService.dynamaxTrigger$.subscribe(() => {
+      this.handleDynamaxActivation();
+    });
   }
 
   ngOnDestroy(): void {
     this.rareCandySubscription?.unsubscribe();
     this.megaStoneSubscription?.unsubscribe();
+    this.dynamaxSubscription?.unsubscribe();
   }
 
   handleRareCandyEvolution(rareCandy: ItemItem): void {
@@ -965,6 +974,51 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     this.activateMegaEvolutionForPokemon(target, megaStone.name);
+  }
+
+  /**
+   * The player tapped the Dynamax Band on their lead.
+   *
+   * `activateMax` owns every rule about whether it may happen (Galar, in a battle, not already
+   * Maxed), so there is nothing to re-check here: a false return simply means nothing happened.
+   *
+   * Unlike mega, the cinematic plays for *every* Pokemon. A species with no Gigantamax form has
+   * no sprite change to show, but it still swells, and that is the whole point of Dynamax.
+   */
+  private handleDynamaxActivation(): void {
+    if (!this.trainerService.activateMax()) {
+      return;
+    }
+
+    const maxState = this.trainerService.getMaxState();
+    if (!maxState) {
+      return;
+    }
+
+    if (maxState.gigantamax) {
+      // From the pre-transform id, so Toxtricity Amped and Low Key record as one species.
+      this.pokedexService.markGmax(
+        this.pokemonFormsService.getBasePokemonId(maxState.fromId) ?? maxState.fromId,
+      );
+    }
+
+    void this.soundFxService.playSoundFx('mega-evolution', 0.30);
+    void this.showMaxAnimation(maxState.fromId, maxState.pokemon.pokemonId);
+  }
+
+  private async showMaxAnimation(fromPokemonId: number, maxPokemonId: number): Promise<void> {
+    if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
+      return;
+    }
+
+    const animation = await this.modalQueueService.open(GigantamaxAnimationModalComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    animation.componentInstance.pokemonId = fromPokemonId;
+    animation.componentInstance.gmaxPokemonId = maxPokemonId;
   }
 
   private getPokemonMatchingMegaStone(stoneName: MegaStoneItemName): PokemonItem[] {

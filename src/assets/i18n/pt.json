@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitarefa x{{count}}"
       },
-      "unhandledState": "Algo saiu do mapa. Tente reiniciar o jogo."
+      "unhandledState": "Algo saiu do mapa. Tente reiniciar o jogo.",
+      "dynamax": {
+        "band": "Bracelete Dynamax"
+      }
     },
     "map": {
       "vermilion": "Você está em Cidade de Vermilion"

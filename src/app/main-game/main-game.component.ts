@@ -18,6 +18,7 @@ import { RouletteContainerComponent } from './roulette-container/roulette-contai
 import { SettingsButtonComponent } from '../settings-button/settings-button.component';
 import { RareCandyService } from '../services/rare-candy-service/rare-candy.service';
 import { MegaStoneActivation, MegaStoneService } from '../services/mega-stone-service/mega-stone.service';
+import { DynamaxService } from '../services/dynamax-service/dynamax.service';
 
 @Component({
   selector: 'app-main-game',
@@ -46,7 +47,8 @@ export class MainGameComponent implements OnInit {
     private modalService: NgbModal,
     private analyticsService: AnalyticsService,
     private rareCandyService: RareCandyService,
-    private megaStoneService: MegaStoneService) {
+    private megaStoneService: MegaStoneService,
+    private dynamaxService: DynamaxService) {
       this.darkMode = this.themeService.isDark$;
   }
 
@@ -83,6 +85,15 @@ export class MainGameComponent implements OnInit {
     }
 
     this.megaStoneService.triggerMegaStoneActivation(activation);
+  }
+
+  /** Same gate as the mega stone: no interrupts while the wheel is mid-spin. */
+  dynamaxInterrupt(): void {
+    if (this.wheelSpinning) {
+      return;
+    }
+
+    this.dynamaxService.triggerDynamax();
   }
 
   resetGame(): void {

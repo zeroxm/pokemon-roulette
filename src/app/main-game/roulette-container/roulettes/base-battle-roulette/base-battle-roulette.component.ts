@@ -15,10 +15,7 @@ import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { InfoModalComponent } from '../../modals/info-modal/info-modal.component';
 import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
-import { GigantamaxAnimationModalComponent } from '../gigantamax-animation-modal/gigantamax-animation-modal.component';
 import { SettingsService } from '../../../../services/settings-service/settings.service';
-import { PokedexService } from '../../../../services/pokedex-service/pokedex.service';
-import { PokemonFormsService } from '../../../../services/pokemon-forms-service/pokemon-forms.service';
 
 /** Greninja's base and Ash form ids, for the transformation animation. */
 const GRENINJA_BASE_ID = 658;
@@ -42,8 +39,6 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   // Injected rather than constructor-passed, so the four subclasses keep their signatures.
   private readonly modalQueue = inject(ModalQueueService);
   private readonly settings = inject(SettingsService);
-  private readonly pokedexService = inject(PokedexService);
-  private readonly pokemonFormsService = inject(PokemonFormsService);
   protected victoryOdds: WheelItem[] = [];
 
   /** Key prefix for this battle's outcome labels, e.g. `game.main.roulette.gym`. */
@@ -105,9 +100,6 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
       this.onGameStateChange(state);
     });
 
-    // The team subscription above already fired once for the replayed BehaviorSubject value, so
-    // `applyAll` has run and the lead is already in its Gigantamax form by the time we get here.
-    void this.showGigantamaxAnimation();
   }
 
   ngOnDestroy(): void {
@@ -211,46 +203,6 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     animation.componentInstance.pokemonId = GRENINJA_BASE_ID;
     animation.componentInstance.megaPokemonId = ASH_GRENINJA_ID;
   }
-
-  /**
-   * Galar's cinematic, on entering a fight with a Gigantamax-capable lead.
-   *
-   * Nothing to trigger and nothing to hold: unlike a mega there is no stone, so this is purely a
-   * reaction to the form rule that already fired. A plain Dynamax gets no cinematic, only the
-   * bigger sprite in the team panel: one every single battle would wear out fast.
-   *
-   * Reuses `skipMegaEvolutionAnimation` rather than adding a second toggle, following
-   * Ash-Greninja. A separate setting for the same class of cinematic is a settings-screen tax.
-   */
-  private async showGigantamaxAnimation(): Promise<void> {
-    const maxState = this.trainerService.getMaxState();
-    if (!maxState?.gigantamax || this.gigantamaxAnimationShown) {
-      return;
-    }
-    this.gigantamaxAnimationShown = true;
-
-    // From the pre-transform id: Toxtricity Amped and Low Key then record against one species
-    // rather than two, which is how the achievements count them.
-    this.pokedexService.markGmax(
-      this.pokemonFormsService.getBasePokemonId(maxState.fromId) ?? maxState.fromId,
-    );
-
-    if (this.settings.currentSettings.skipMegaEvolutionAnimation) {
-      return;
-    }
-
-    const animation = await this.modalQueue.open(GigantamaxAnimationModalComponent, {
-      centered: true,
-      size: 'lg',
-      backdrop: 'static',
-      keyboard: false,
-    });
-    animation.componentInstance.pokemonId = maxState.pokemon.pokemonId;
-    animation.componentInstance.gmaxPokemonId = maxState.pokemon.pokemonId;
-  }
-
-  /** One cinematic per battle. The container's @switch gives each fight a fresh instance. */
-  private gigantamaxAnimationShown = false;
 
   /**
    * Whether the Disguise has already absorbed a defeat in *this* battle.

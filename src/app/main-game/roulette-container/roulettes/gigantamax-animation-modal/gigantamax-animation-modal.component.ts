@@ -14,7 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
  * Like the mega modal, this uses no translatable copy: it is visuals only, so a new locale needs
  * nothing here.
  */
-type AnimationPhase = 'prelude' | 'charge' | 'beam' | 'swell' | 'reveal' | 'settle';
+type AnimationPhase = 'prelude' | 'charge' | 'cover' | 'vanish' | 'reveal' | 'settle';
 
 interface EnergyMote {
   readonly id: number;
@@ -41,24 +41,35 @@ export class GigantamaxAnimationModalComponent implements OnInit, OnDestroy {
   readonly artworkBaseUrl =
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork';
 
+  /** Local, unlike the sprites: it is part of the cinematic rather than Pokemon data. */
+  readonly pokeballUrl = './PokeballDynamax.webp';
+
   currentPhase: AnimationPhase = 'prelude';
   motes: EnergyMote[] = [];
 
   private readonly timers: number[] = [];
 
   /**
-   * Slower than the mega cinematic on purpose: the beat here is a swell, and a swell that finishes
-   * quickly reads as a jump cut.
+   * The beats, in order: the Pokemon as it is, energy gathering under it, the ball dropping over
+   * it, the ball bursting away to leave a silhouette, and the silhouette swelling back into
+   * colour at size.
+   *
+   * The sprite swap and the darkening both happen *behind* the ball during `cover`, which is what
+   * the ball is for. A species with no Gigantamax form swaps to itself, so the same beats play for
+   * a plain Dynamax and only the growing is the payoff.
+   *
+   * Slower than the mega cinematic on purpose: the beat here is a swell, and a swell that
+   * finishes quickly reads as a jump cut.
    */
   private readonly timeline: Array<{ phase: AnimationPhase; atMs: number }> = [
     { phase: 'prelude', atMs: 0 },
-    { phase: 'charge', atMs: 380 },
-    { phase: 'beam', atMs: 1100 },
-    { phase: 'swell', atMs: 1780 },
-    { phase: 'reveal', atMs: 2600 },
-    { phase: 'settle', atMs: 3400 }
+    { phase: 'charge', atMs: 420 },
+    { phase: 'cover', atMs: 1150 },
+    { phase: 'vanish', atMs: 2050 },
+    { phase: 'reveal', atMs: 2560 },
+    { phase: 'settle', atMs: 3700 }
   ];
-  private readonly animationCloseMs = 4480;
+  private readonly animationCloseMs = 4820;
 
   constructor(public activeModal: NgbActiveModal) {}
 

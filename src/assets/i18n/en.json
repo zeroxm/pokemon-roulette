@@ -438,7 +438,10 @@
       "respin": {
         "multitask": "Multitask x{{count}}"
       },
-      "unhandledState": "Something went off the map. Try restarting the game."
+      "unhandledState": "Something went off the map. Try restarting the game.",
+      "dynamax": {
+        "band": "Dynamax Band"
+      }
     },
     "map": {
       "vermilion": "You are in Vermilion City"
