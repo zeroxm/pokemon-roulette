@@ -40,6 +40,7 @@ const ROWS = [
   { name: 'friendSafari', text: 'game.main.roulette.adventure.actions.friendSafari', fillStyle: 'mediumvioletred', weight: 1, generations: [6] },
   { name: 'ultraWormhole', text: 'game.main.roulette.adventure.actions.ultraWormhole', fillStyle: 'rebeccapurple', weight: 1, generations: [7] },
   { name: 'thriftyMegamart', text: 'game.main.roulette.adventure.actions.thriftyMegamart', fillStyle: 'indigo', weight: 1, generations: [7] },
+  { name: 'maxRaidBattle', text: 'game.main.roulette.adventure.actions.maxRaidBattle', fillStyle: 'crimson', weight: 1, generations: [8] },
   { name: 'areaZero', text: 'game.main.roulette.adventure.actions.areaZero', fillStyle: 'darkslateblue', weight: 1, generations: [9] },
 ] as const satisfies readonly AdventureActionRow[];
 

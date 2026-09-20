@@ -22,6 +22,7 @@ export type GameState =
   | 'friend-safari'
   | 'ultra-wormhole'
   | 'thrifty-megamart'
+  | 'max-raid-battle'
   | 'area-zero'
   | 'catch-chance'
   | 'explore-cave'

@@ -261,7 +261,8 @@
             "friendSafari": "Safari Amistad",
             "areaZero": "Explorar el Área Cero",
             "thriftyMegamart": "Súper Ultraganga",
-            "ultraWormhole": "Ultraumbral"
+            "ultraWormhole": "Ultraumbral",
+            "maxRaidBattle": "Incursión Dinamax"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Verde",
             "yellow": "Amarillo"
           }
+        },
+        "maxRaid": {
+          "which": "¿Qué Pokémon hay en la guarida?"
         }
       },
       "trade": {

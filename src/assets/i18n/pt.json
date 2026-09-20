@@ -261,7 +261,8 @@
             "friendSafari": "Friend Safari",
             "areaZero": "Explorar a Área Zero",
             "thriftyMegamart": "Mercado Megabarato",
-            "ultraWormhole": "Ultrafenda Espacial"
+            "ultraWormhole": "Ultrafenda Espacial",
+            "maxRaidBattle": "Batalha Max Raid"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Verde",
             "yellow": "Amarela"
           }
+        },
+        "maxRaid": {
+          "which": "Qual Pokémon está no covil?"
         }
       },
       "trade": {

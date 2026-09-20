@@ -261,7 +261,8 @@
             "friendSafari": "Friend Safari",
             "areaZero": "Explore Area Zero",
             "thriftyMegamart": "Thrifty Megamart",
-            "ultraWormhole": "Ultra Wormhole"
+            "ultraWormhole": "Ultra Wormhole",
+            "maxRaidBattle": "Max Raid Battle"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Green",
             "yellow": "Yellow"
           }
+        },
+        "maxRaid": {
+          "which": "Which Pokémon is in the den?"
         }
       },
       "trade": {

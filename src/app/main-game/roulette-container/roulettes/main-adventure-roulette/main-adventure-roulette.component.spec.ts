@@ -38,6 +38,7 @@ const OUTPUT_BY_ACTION: Record<AdventureActionName, string> = {
   friendSafari: 'friendSafariEvent',
   ultraWormhole: 'ultraWormholeEvent',
   thriftyMegamart: 'thriftyMegamartEvent',
+  maxRaidBattle: 'maxRaidBattleEvent',
   areaZero: 'areaZeroEvent',
 };
 

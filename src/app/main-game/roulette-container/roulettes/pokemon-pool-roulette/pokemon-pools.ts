@@ -5,6 +5,7 @@ import { starterByGeneration } from '../starter-roulette/starter-by-generation';
 import { cavePokemonByGeneration } from '../cave-pokemon-roulette/cave-pokemon-by-generation';
 import { safariZoneByGeneration, safariZonePrizeIds } from './safari-zone-by-generation';
 import { thriftyMegamartByGeneration, thriftyMegamartFeaturedIds } from './thrifty-megamart-by-generation';
+import { maxRaidByGeneration } from './max-raid-by-generation';
 
 /**
  * A "pick a Pokémon from this region's set" wheel.
@@ -73,6 +74,12 @@ export const POKEMON_POOLS = {
     showGeneration: false,
     idsByGeneration: thriftyMegamartByGeneration,
     rareBoost: { ids: thriftyMegamartFeaturedIds, weight: 3 },
+  },
+  maxRaid: {
+    titleKey: 'game.main.roulette.maxRaid.which',
+    // Galar is already implied: the slice that leads here exists nowhere else.
+    showGeneration: false,
+    idsByGeneration: maxRaidByGeneration,
   },
 } as const satisfies Record<string, PokemonPool>;
 

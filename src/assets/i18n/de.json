@@ -261,7 +261,8 @@
             "friendSafari": "Freundes-Safari",
             "areaZero": "Erkunde Zone Null",
             "thriftyMegamart": "Schnäppchenparadies",
-            "ultraWormhole": "Ultrapforte"
+            "ultraWormhole": "Ultrapforte",
+            "maxRaidBattle": "Dyna-Raid"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Grün",
             "yellow": "Gelb"
           }
+        },
+        "maxRaid": {
+          "which": "Welches Pokémon ist im Nest?"
         }
       },
       "trade": {

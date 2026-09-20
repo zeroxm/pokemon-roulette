@@ -261,7 +261,8 @@
             "friendSafari": "Safari degli Amici",
             "areaZero": "Esplora Area Zero",
             "thriftyMegamart": "Supermarket Affaroni",
-            "ultraWormhole": "Ultravarco"
+            "ultraWormhole": "Ultravarco",
+            "maxRaidBattle": "Raid Dynamax"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Verde",
             "yellow": "Giallo"
           }
+        },
+        "maxRaid": {
+          "which": "Quale Pokémon c’è nella tana?"
         }
       },
       "trade": {

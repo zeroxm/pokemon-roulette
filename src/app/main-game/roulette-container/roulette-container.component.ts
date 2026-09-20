@@ -648,6 +648,17 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  /**
+   * A Galar raid den: the one place the pre-generation-8 Gigantamax species can be met.
+   *
+   * Gives a pre-evolution rather than the Gigantamax-capable form itself, so the raid is a lead
+   * to follow rather than a prize handed over. See `max-raid-by-generation.ts`.
+   */
+  maxRaidBattle(): void {
+    this.gameStateService.setNextState('max-raid-battle');
+    this.finishCurrentState();
+  }
+
   areaZero(): void {
     this.statsService.increment('area_zero_visits');
     this.gameStateService.setNextState('area-zero');
