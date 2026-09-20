@@ -65,8 +65,6 @@ export class TrainerService implements OnDestroy {
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
   private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
-  /** The state before the one being handled, so a battle detour can be told from a battle ending. */
-  private previousState: GameState | null = null;
   private megaBattleBaseId: number | null = null;
 
   trainerItems: ItemItem[] = [
@@ -175,10 +173,7 @@ export class TrainerService implements OnDestroy {
   }
 
   private syncBattleForms(gameState: GameState): void {
-    const previous = this.previousState;
-    this.previousState = gameState;
-
-    if (this.isBattleInterlude(previous, gameState)) {
+    if (this.isBattleInterlude(gameState)) {
       return;
     }
 
@@ -201,21 +196,28 @@ export class TrainerService implements OnDestroy {
    * A detour the player comes straight back from, rather than the end of a battle.
    *
    * A Rare Candy is tappable mid-fight. Using one pushes the battle back onto the stack and
-   * routes through `select-from-pokemon-list`, so the emissions read `gym-battle` ->
-   * `select-from-pokemon-list` -> `gym-battle`. Treating the middle one as "battle over" reverted
-   * every temporary form and cleared the guards: an active mega silently vanished and re-armed for
-   * a second use, and Aegislash toggled back to Shield. A ladder rule would climb two rungs for
-   * one fight.
+   * routes through the evolution states, so the emissions read `gym-battle` ->
+   * `select-from-pokemon-list` -> ... -> `gym-battle`. Treating those as "battle over" reverts
+   * every temporary form and clears the guards: an active mega silently vanishes and re-arms for
+   * a second use, and Aegislash toggles back to Shield.
    *
-   * Both halves of the test are load-bearing. Without the `previous` check, walking *into* a
-   * battle from `adventure-continues` would also peek at a battle state and wrongly skip the
-   * revert that ends the previous fight.
+   * Keyed on `repeatCurrentState` having been called, not on the next queued state matching the
+   * one just left. That earlier version looked equivalent and was not: **the Elite Four queues
+   * four battles that all carry the name `elite-four-battle`**, so moving from the first to the
+   * second looked exactly like coming back to the first, and every temporary form survived from
+   * one Elite Four member to the next. Gyms were unaffected only because `adventure-continues`
+   * sits between them.
+   *
+   * Asking the state machine also covers a detour more than one state deep, which the comparison
+   * could never do: it only ever saw the first hop out of the battle.
    */
-  private isBattleInterlude(previous: GameState | null, current: GameState): boolean {
-    if (previous === null || !this.battleStates.has(previous) || this.battleStates.has(current)) {
+  private isBattleInterlude(current: GameState): boolean {
+    if (this.battleStates.has(current)) {
       return false;
     }
-    return this.gameStateService.peekNextState() === previous;
+
+    const resuming = this.gameStateService.resumingState;
+    return resuming !== null && this.battleStates.has(resuming);
   }
 
   private heldItemNames(): ItemName[] {

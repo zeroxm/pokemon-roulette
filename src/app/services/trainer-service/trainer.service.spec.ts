@@ -128,6 +128,49 @@ describe('TrainerService', () => {
       expect(service.trainerTeam[0].pokemonId).toBe(10256);
     });
 
+    // The Elite Four queues four battles all named `elite-four-battle`, with nothing between
+    // them, so the post-win `check-evolution` hop looks identical to a Rare Candy detour unless
+    // the resumption is tracked explicitly. Gyms never showed this because `adventure-continues`
+    // sits between them.
+    it('reverts between consecutive Elite Four battles', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('elite-four-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10256);
+
+      // Exactly what winning an Elite Four member does: queue the next fight, then step through
+      // check-evolution on the way to it.
+      gameStateService.setNextState('elite-four-battle');
+      emitGameState('check-evolution');
+
+      expect(service.trainerTeam[0].pokemonId)
+        .withContext('the next Elite Four member is a new battle, not the same one resumed')
+        .toBe(964);
+    });
+
+    it('re-applies forms on entering the next Elite Four battle', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('elite-four-battle');
+      gameStateService.setNextState('elite-four-battle');
+      emitGameState('check-evolution');
+
+      emitGameState('elite-four-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10256);
+    });
+
+    it('survives a detour that is more than one state deep', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('gym-battle');
+
+      gameStateService.repeatCurrentState();
+      emitGameState('select-from-pokemon-list');
+      emitGameState('check-evolution');
+
+      expect(service.trainerTeam[0].pokemonId)
+        .withContext('the rare candy flow is several states long, not one')
+        .toBe(10256);
+    });
+
     it('still reverts when the battle genuinely ends', () => {
       service.trainerTeam = [structuredClone(palafinZero)];
       emitGameState('gym-battle');
