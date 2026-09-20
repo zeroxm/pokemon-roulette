@@ -23,16 +23,16 @@ describe('GymBattleRouletteComponent', () => {
       expect((component as any).maxModifier()).toBe(0);
     });
 
-    it('is 2 for a Dynamax', () => {
+    it('is 1 for a Dynamax', () => {
       spyOn(trainerService, 'getMaxState').and.returnValue(
         { pokemon: { pokemonId: 1 } as PokemonItem, fromId: 1, gigantamax: false });
-      expect((component as any).maxModifier()).toBe(2);
+      expect((component as any).maxModifier()).toBe(1);
     });
 
-    it('is 3 for a Gigantamax', () => {
+    it('is 2 for a Gigantamax', () => {
       spyOn(trainerService, 'getMaxState').and.returnValue(
         { pokemon: { pokemonId: 884 } as PokemonItem, fromId: 884, gigantamax: true });
-      expect((component as any).maxModifier()).toBe(3);
+      expect((component as any).maxModifier()).toBe(2);
     });
 
     it('adds its slices to the victory odds', () => {
@@ -48,7 +48,7 @@ describe('GymBattleRouletteComponent', () => {
       const withGigantamax = ((component as any).buildVictoryOdds() as WheelItem[])
         .filter(item => item.fillStyle === 'green').length;
 
-      expect(withGigantamax - withoutMax).toBe(3);
+      expect(withGigantamax - withoutMax).toBe(2);
     });
   });
 

@@ -128,10 +128,14 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
    * power gives 3 slices, which is a balance decision rather than an accident of arithmetic.
    */
   /**
-   * Galar's Dynamax bonus: +2 winning slices, or +3 when the lead Gigantamaxed.
+   * Galar's Dynamax bonus: +1 winning slice, or +2 when the lead Gigantamaxed.
    *
    * The extra slices are the whole buff. A Gigantamax deliberately does not raise `power`, so the
    * only thing separating it from a plain Dynamax is this, and it is visible on the wheel.
+   *
+   * Kept small on purpose. Every other region has to *find* a mega stone, while this fires for
+   * free on every battle of a Galar run, so the same number that reads as a fair trade once a run
+   * reads as a permanent handicap removal across thirteen fights.
    *
    * Rival battles get nothing without a special case here: `battle-rival` is not a battle state as
    * far as form rules are concerned, so no Max state is ever set during one.
@@ -141,7 +145,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     if (!maxState) {
       return 0;
     }
-    return maxState.gigantamax ? 3 : 2;
+    return maxState.gigantamax ? 2 : 1;
   }
 
   protected plusModifiers(): number {

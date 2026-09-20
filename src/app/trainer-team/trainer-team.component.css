@@ -74,18 +74,18 @@
     transform: scale(1);
   }
 }
-/* Dynamax: the Pokemon is simply bigger, which is the whole visual for a species with no
-   Gigantamax form. Scaled from the bottom so it grows upward out of its slot rather than
-   drifting off centre, and the container has to stop clipping for that to read. */
+/* Dynamax in the team panel: the red aura only, deliberately without the size change.
+   Six slots sit tight against each other, so a lead scaled up crowds its neighbour and shifts the
+   whole row's rhythm for a detail that is already legible from the glow alone. The growing is
+   still the star of the Gigantamax cinematic, where there is room for it. */
 .pokemon-container {
+  /* So the glow is not clipped at the slot edge. */
   overflow: visible;
 }
 
 .pokemon-container img.dynamaxed {
-  transform: scale(1.35);
-  transform-origin: bottom center;
   filter: drop-shadow(0 0 6px rgba(220, 0, 60, 0.85));
-  transition: transform 0.4s ease-out, filter 0.4s ease-out;
+  transition: filter 0.4s ease-out;
   position: relative;
   z-index: 2;
 }
