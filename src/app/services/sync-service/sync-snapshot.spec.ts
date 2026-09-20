@@ -16,8 +16,8 @@ const settings: GameSettings = {
 describe('mergeSnapshots', () => {
 
   it('unions two disjoint Pokédexes', () => {
-    const desktop = snapshot({ pokedex: { '6': { won: true, shiny: false, mega: false, count: 2 } } });
-    const phone = snapshot({ pokedex: { '25': { won: false, shiny: true, mega: false, count: 1 } } });
+    const desktop = snapshot({ pokedex: { '6': { won: true, shiny: false, mega: false, gmax: false, count: 2 } } });
+    const phone = snapshot({ pokedex: { '25': { won: false, shiny: true, mega: false, gmax: false, count: 1 } } });
 
     const merged = mergeSnapshots(desktop, phone);
 
@@ -27,11 +27,11 @@ describe('mergeSnapshots', () => {
   });
 
   it('never lets a false clear a true', () => {
-    const withShiny = snapshot({ pokedex: { '6': { won: true, shiny: true, mega: true, count: 5 } } });
-    const withoutShiny = snapshot({ pokedex: { '6': { won: false, shiny: false, mega: false, count: 1 } } });
+    const withShiny = snapshot({ pokedex: { '6': { won: true, shiny: true, mega: true, gmax: false, count: 5 } } });
+    const withoutShiny = snapshot({ pokedex: { '6': { won: false, shiny: false, mega: false, gmax: false, count: 1 } } });
 
     for (const merged of [mergeSnapshots(withShiny, withoutShiny), mergeSnapshots(withoutShiny, withShiny)]) {
-      expect(merged.pokedex['6']).toEqual({ won: true, shiny: true, mega: true, count: 5 });
+      expect(merged.pokedex['6']).toEqual({ won: true, shiny: true, mega: true, gmax: false, count: 5 });
     }
   });
 
@@ -70,7 +70,7 @@ describe('mergeSnapshots', () => {
     // The hardest case and the one that matters: neither device saw the other,
     // and the order they reconnect in must not change the outcome.
     const shared = snapshot({
-      pokedex: { '1': { won: true, shiny: false, mega: false, count: 1 } },
+      pokedex: { '1': { won: true, shiny: false, mega: false, gmax: false, count: 1 } },
       badges: ['boulder'],
       counters: { spins_total: 10 },
       achievements: { first_steps: '2026-01-01T00:00:00Z' },
@@ -78,8 +78,8 @@ describe('mergeSnapshots', () => {
 
     const desktop = snapshot({
       pokedex: {
-        '1': { won: true, shiny: true, mega: false, count: 3 },
-        '4': { won: true, shiny: false, mega: false, count: 1 },
+        '1': { won: true, shiny: true, mega: false, gmax: false, count: 3 },
+        '4': { won: true, shiny: false, mega: false, gmax: false, count: 1 },
       },
       badges: ['boulder', 'cascade'],
       counters: { spins_total: 40, runs_completed: 1 },
@@ -88,8 +88,8 @@ describe('mergeSnapshots', () => {
 
     const phone = snapshot({
       pokedex: {
-        '1': { won: true, shiny: false, mega: true, count: 8 },
-        '7': { won: false, shiny: false, mega: false, count: 2 },
+        '1': { won: true, shiny: false, mega: true, gmax: false, count: 8 },
+        '7': { won: false, shiny: false, mega: false, gmax: false, count: 2 },
       },
       badges: ['boulder', 'thunder'],
       counters: { spins_total: 25, eggs_hatched: 4 },
@@ -100,7 +100,7 @@ describe('mergeSnapshots', () => {
     const phoneFirst = mergeSnapshots(mergeSnapshots(shared, phone), desktop);
 
     expect(desktopFirst).toEqual(phoneFirst);
-    expect(desktopFirst.pokedex['1']).toEqual({ won: true, shiny: true, mega: true, count: 8 });
+    expect(desktopFirst.pokedex['1']).toEqual({ won: true, shiny: true, mega: true, gmax: false, count: 8 });
     expect(desktopFirst.badges).toEqual(['boulder', 'cascade', 'thunder']);
     expect(desktopFirst.counters).toEqual({ spins_total: 40, runs_completed: 1, eggs_hatched: 4 });
     expect(desktopFirst.achievements['first_steps']).toBe('2025-12-01T00:00:00Z');
@@ -118,14 +118,14 @@ describe('parseSyncSnapshot', () => {
   it('reads a well-formed response', () => {
     const parsed = parseSyncSnapshot({
       schema_version: 1,
-      pokedex: { '6': { won: true, shiny: true, mega: false, count: 11 } },
+      pokedex: { '6': { won: true, shiny: true, mega: false, gmax: false, count: 11 } },
       badges: ['boulder'],
       achievements: { oh_shiny: '2026-03-01T12:00:00Z' },
       counters: { runs_completed: 12 },
       settings: { muteAudio: true },
     });
 
-    expect(parsed.pokedex['6']).toEqual({ won: true, shiny: true, mega: false, count: 11 });
+    expect(parsed.pokedex['6']).toEqual({ won: true, shiny: true, mega: false, gmax: false, count: 11 });
     expect(parsed.badges).toEqual(['boulder']);
     expect(parsed.counters).toEqual({ runs_completed: 12 });
     expect(parsed.settings).toEqual({ muteAudio: true } as unknown as GameSettings);

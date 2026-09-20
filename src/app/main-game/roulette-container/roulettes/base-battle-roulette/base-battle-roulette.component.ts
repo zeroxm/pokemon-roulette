@@ -15,7 +15,10 @@ import { interleaveOdds } from '../../../../utils/odd-utils';
 import { ModalQueueService } from '../../../../services/modal-queue-service/modal-queue.service';
 import { InfoModalComponent } from '../../modals/info-modal/info-modal.component';
 import { MegaEvolutionAnimationModalComponent } from '../mega-evolution-animation-modal/mega-evolution-animation-modal.component';
+import { GigantamaxAnimationModalComponent } from '../gigantamax-animation-modal/gigantamax-animation-modal.component';
 import { SettingsService } from '../../../../services/settings-service/settings.service';
+import { PokedexService } from '../../../../services/pokedex-service/pokedex.service';
+import { PokemonFormsService } from '../../../../services/pokemon-forms-service/pokemon-forms.service';
 
 /** Greninja's base and Ash form ids, for the transformation animation. */
 const GRENINJA_BASE_ID = 658;
@@ -39,6 +42,8 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
   // Injected rather than constructor-passed, so the four subclasses keep their signatures.
   private readonly modalQueue = inject(ModalQueueService);
   private readonly settings = inject(SettingsService);
+  private readonly pokedexService = inject(PokedexService);
+  private readonly pokemonFormsService = inject(PokemonFormsService);
   protected victoryOdds: WheelItem[] = [];
 
   /** Key prefix for this battle's outcome labels, e.g. `game.main.roulette.gym`. */
@@ -99,6 +104,10 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       this.onGameStateChange(state);
     });
+
+    // The team subscription above already fired once for the replayed BehaviorSubject value, so
+    // `applyAll` has run and the lead is already in its Gigantamax form by the time we get here.
+    void this.showGigantamaxAnimation();
   }
 
   ngOnDestroy(): void {
@@ -118,6 +127,23 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
    * the consuming loop drop the bonus silently rather than fail. And rounding is **up**: 2.4 mean
    * power gives 3 slices, which is a balance decision rather than an accident of arithmetic.
    */
+  /**
+   * Galar's Dynamax bonus: +2 winning slices, or +3 when the lead Gigantamaxed.
+   *
+   * The extra slices are the whole buff. A Gigantamax deliberately does not raise `power`, so the
+   * only thing separating it from a plain Dynamax is this, and it is visible on the wheel.
+   *
+   * Rival battles get nothing without a special case here: `battle-rival` is not a battle state as
+   * far as form rules are concerned, so no Max state is ever set during one.
+   */
+  protected maxModifier(): number {
+    const maxState = this.trainerService.getMaxState();
+    if (!maxState) {
+      return 0;
+    }
+    return maxState.gigantamax ? 3 : 2;
+  }
+
   protected plusModifiers(): number {
     if (this.trainerTeam.length === 0) {
       return 0;
@@ -181,6 +207,46 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     animation.componentInstance.pokemonId = GRENINJA_BASE_ID;
     animation.componentInstance.megaPokemonId = ASH_GRENINJA_ID;
   }
+
+  /**
+   * Galar's cinematic, on entering a fight with a Gigantamax-capable lead.
+   *
+   * Nothing to trigger and nothing to hold: unlike a mega there is no stone, so this is purely a
+   * reaction to the form rule that already fired. A plain Dynamax gets no cinematic, only the
+   * bigger sprite in the team panel: one every single battle would wear out fast.
+   *
+   * Reuses `skipMegaEvolutionAnimation` rather than adding a second toggle, following
+   * Ash-Greninja. A separate setting for the same class of cinematic is a settings-screen tax.
+   */
+  private async showGigantamaxAnimation(): Promise<void> {
+    const maxState = this.trainerService.getMaxState();
+    if (!maxState?.gigantamax || this.gigantamaxAnimationShown) {
+      return;
+    }
+    this.gigantamaxAnimationShown = true;
+
+    // From the pre-transform id: Toxtricity Amped and Low Key then record against one species
+    // rather than two, which is how the achievements count them.
+    this.pokedexService.markGmax(
+      this.pokemonFormsService.getBasePokemonId(maxState.fromId) ?? maxState.fromId,
+    );
+
+    if (this.settings.currentSettings.skipMegaEvolutionAnimation) {
+      return;
+    }
+
+    const animation = await this.modalQueue.open(GigantamaxAnimationModalComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    animation.componentInstance.pokemonId = maxState.pokemon.pokemonId;
+    animation.componentInstance.gmaxPokemonId = maxState.pokemon.pokemonId;
+  }
+
+  /** One cinematic per battle. The container's @switch gives each fight a fresh instance. */
+  private gigantamaxAnimationShown = false;
 
   /**
    * Whether the Disguise has already absorbed a defeat in *this* battle.
@@ -255,6 +321,11 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
 
     const powerModifier = this.plusModifiers();
     for (let i = 0; i < powerModifier; i++) {
+      yesOdds.push(win());
+    }
+
+    const maxModifier = this.maxModifier();
+    for (let i = 0; i < maxModifier; i++) {
       yesOdds.push(win());
     }
 

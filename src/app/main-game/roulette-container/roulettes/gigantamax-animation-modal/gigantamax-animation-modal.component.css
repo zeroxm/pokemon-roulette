@@ -1,0 +1,258 @@
+/* Galar red, not the mega palette's purple: the two cinematics must read apart at a glance. */
+:host {
+  --gmax-red: rgba(232, 40, 76, 1);
+  --gmax-red-soft: rgba(232, 40, 76, 0.55);
+  --gmax-pink: rgba(255, 120, 160, 1);
+  --gmax-deep: rgba(96, 8, 32, 1);
+}
+
+.gmax-container {
+  position: relative;
+  min-height: 380px;
+  overflow: hidden;
+  background: #000;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gmax-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, var(--gmax-deep) 0%, #000 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+.charge .gmax-backdrop,
+.beam .gmax-backdrop,
+.swell .gmax-backdrop,
+.reveal .gmax-backdrop { opacity: 1; }
+
+.settle .gmax-backdrop { opacity: 0.6; }
+
+/* The energy comes up out of the ground, so the floor is lit before anything else happens. */
+.gmax-floor-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -60px;
+  width: 340px;
+  height: 120px;
+  transform: translateX(-50%) scaleY(0.3);
+  background: radial-gradient(ellipse at center, var(--gmax-red) 0%, transparent 70%);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+.charge .gmax-floor-glow {
+  opacity: 0.9;
+  transform: translateX(-50%) scaleY(1);
+  transition: opacity 0.5s ease-out, transform 0.7s ease-out;
+}
+
+.beam .gmax-floor-glow,
+.swell .gmax-floor-glow,
+.reveal .gmax-floor-glow { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+
+.settle .gmax-floor-glow { opacity: 0.4; }
+
+.energy-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.energy-mote {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--mote-size);
+  height: var(--mote-size);
+  margin-left: var(--mote-x);
+  border-radius: 50%;
+  background: var(--gmax-pink);
+  box-shadow: 0 0 10px var(--gmax-red);
+  opacity: 0;
+}
+
+.charge .energy-mote,
+.beam .energy-mote,
+.swell .energy-mote {
+  animation: moteRise var(--mote-duration) linear var(--mote-delay) infinite;
+}
+
+@keyframes moteRise {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  15%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-360px) scale(1.1); }
+}
+
+.beam-stack {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.beam-column {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 90px;
+  height: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(to top, var(--gmax-red) 0%, var(--gmax-pink) 60%, transparent 100%);
+  filter: blur(3px);
+  opacity: 0;
+}
+
+.beam .beam-column {
+  height: 100%;
+  opacity: 0.95;
+  transition: height 0.45s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease-out;
+}
+
+.swell .beam-column { height: 100%; opacity: 0.5; transition: opacity 0.5s ease-out; }
+.reveal .beam-column,
+.settle .beam-column { opacity: 0; transition: opacity 0.5s ease-out; }
+
+.beam-flare {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 60px 30px var(--gmax-red);
+  opacity: 0;
+}
+
+.swell .beam-flare {
+  animation: flareBurst 0.7s ease-out forwards;
+}
+
+@keyframes flareBurst {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  40%  { opacity: 1; transform: translate(-50%, -50%) scale(2.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4); }
+}
+
+.beam-ring {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border: 3px solid var(--gmax-pink);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.swell .beam-ring { animation: ringExpand 0.9s ease-out forwards; }
+
+@keyframes ringExpand {
+  0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(0.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.4); }
+}
+
+.sprite-stage {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  z-index: 2;
+}
+
+.sprite-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* The swell is the whole point: a Gigantamax is the Pokemon becoming enormous, so the base sprite
+   grows well past the frame before the Gigantamax form takes its place at full size. */
+.sprite-base {
+  opacity: 1;
+  transform: scale(0.75);
+  transition: transform 0.6s ease-in, opacity 0.4s ease-in;
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+.charge .sprite-base { transform: scale(0.8); filter: drop-shadow(0 0 12px var(--gmax-red-soft)); }
+.beam .sprite-base { transform: scale(0.95); filter: drop-shadow(0 0 22px var(--gmax-red)); }
+.swell .sprite-base { transform: scale(1.9); opacity: 0.25; filter: drop-shadow(0 0 40px var(--gmax-red)); }
+.reveal .sprite-base,
+.settle .sprite-base { opacity: 0; transform: scale(2.2); }
+
+.sprite-gmax {
+  opacity: 0;
+  transform: scale(2.4);
+}
+
+.reveal .sprite-gmax {
+  opacity: 1;
+  transform: scale(1.35);
+  filter: drop-shadow(0 0 26px var(--gmax-red));
+  transition: opacity 0.35s ease-out, transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.settle .sprite-gmax {
+  opacity: 1;
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 16px var(--gmax-red-soft));
+  transition: transform 0.6s ease-out, filter 0.6s ease-out;
+}
+
+/* Drawn rather than an image: a new PNG would be another hot-linked asset and another thing to
+   ship, and the motif is two circles. */
+.gmax-glyph {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 46px;
+  height: 46px;
+  opacity: 0;
+  z-index: 3;
+}
+
+.reveal .gmax-glyph,
+.settle .gmax-glyph {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.glyph-core,
+.glyph-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.glyph-core {
+  background: radial-gradient(circle at 50% 40%, var(--gmax-pink) 0%, var(--gmax-red) 60%, transparent 75%);
+}
+
+.glyph-ring {
+  border: 2px solid var(--gmax-pink);
+  animation: glyphPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes glyphPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50%      { transform: scale(1.25); opacity: 0.3; }
+}
+
+@media (max-width: 680px) {
+  .gmax-container { min-height: 320px; }
+  .sprite-stage { width: 200px; height: 200px; }
+}

@@ -13,7 +13,7 @@ import { PokemonPoolRouletteComponent } from './roulettes/pokemon-pool-roulette/
 import { PendingSelection } from './selection/pending-selection';
 import { RunModifiers } from '../../services/game-state-service/run-modifiers';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TrainerService } from '../../services/trainer-service/trainer.service';
+import { TrainerService, GALAR_GENERATION_ID } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
@@ -848,7 +848,23 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     return this.trainerService.getMegaStoneEligiblePokemon();
   }
 
+  /**
+   * Galar replaces mega evolution with Dynamax and Gigantamax, so no stone exists there.
+   *
+   * Checked at acquisition and again at activation. Acquisition is the real choke point, since
+   * `grantMegaStone` is only reachable through here and the find-item wheel excludes stones, so
+   * no stone can exist in a Galar run at all. The second check is cheap and states the intent
+   * where a reader of `handleMegaStoneActivation` will see it.
+   */
+  private get megaEvolutionAvailable(): boolean {
+    return this.generationService.getCurrentGeneration().id !== GALAR_GENERATION_ID;
+  }
+
   private awardMegaStoneAfterImportantBattle(): void {
+    if (!this.megaEvolutionAvailable) {
+      return;
+    }
+
     const candidates = this.getMegaCandidates();
 
     if (candidates.length === 0) {
@@ -910,6 +926,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
 
   private handleMegaStoneActivation({ stone: megaStone, pokemon }: MegaStoneActivation): void {
+    if (!this.megaEvolutionAvailable) { return; }
     if (!this.isBattleState(this.currentGameState)) {
       return;
     }

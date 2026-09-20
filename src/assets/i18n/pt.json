@@ -2200,7 +2200,42 @@
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
     "terapagos-stellar": "Terapagos (Stellar)",
-    "unknown": "Pokémon Desconhecido"
+    "unknown": "Pokémon Desconhecido",
+    "venusaur-gmax": "Venusauro (Gigantamax)",
+    "charizard-gmax": "Charizard (Gigantamax)",
+    "blastoise-gmax": "Blastoise (Gigantamax)",
+    "butterfree-gmax": "Butterfree (Gigantamax)",
+    "pikachu-gmax": "Pikachu (Gigantamax)",
+    "meowth-gmax": "Meowth (Gigantamax)",
+    "machamp-gmax": "Machamp (Gigantamax)",
+    "gengar-gmax": "Gengar (Gigantamax)",
+    "kingler-gmax": "Kingler (Gigantamax)",
+    "lapras-gmax": "Lapras (Gigantamax)",
+    "eevee-gmax": "Eevee (Gigantamax)",
+    "snorlax-gmax": "Snorlax (Gigantamax)",
+    "garbodor-gmax": "Garbodor (Gigantamax)",
+    "melmetal-gmax": "Melmetal (Gigantamax)",
+    "rillaboom-gmax": "Rillaboom (Gigantamax)",
+    "cinderace-gmax": "Cinderace (Gigantamax)",
+    "inteleon-gmax": "Inteleon (Gigantamax)",
+    "corviknight-gmax": "Corviknight (Gigantamax)",
+    "orbeetle-gmax": "Orbeetle (Gigantamax)",
+    "drednaw-gmax": "Drednaw (Gigantamax)",
+    "coalossal-gmax": "Coalossal (Gigantamax)",
+    "flapple-gmax": "Flapple (Gigantamax)",
+    "appletun-gmax": "Appletun (Gigantamax)",
+    "sandaconda-gmax": "Sandaconda (Gigantamax)",
+    "toxtricity-amped-gmax": "Toxtricity (Amped Gigantamax)",
+    "centiskorch-gmax": "Centiskorch (Gigantamax)",
+    "hatterene-gmax": "Hatterene (Gigantamax)",
+    "grimmsnarl-gmax": "Grimmsnarl (Gigantamax)",
+    "alcremie-gmax": "Alcremie (Gigantamax)",
+    "copperajah-gmax": "Copperajah (Gigantamax)",
+    "duraludon-gmax": "Duraludon (Gigantamax)",
+    "eternatus-eternamax": "Eternatus (Eternamax)",
+    "urshifu-single-strike-gmax": "Urshifu (Single Strike Gigantamax)",
+    "toxtricity-low-key-gmax": "Toxtricity (Low Key Gigantamax)",
+    "urshifu-rapid-strike-gmax": "Urshifu (Rapid Strike Gigantamax)"
   },
   "elite4": {
     "lorelei": {
@@ -3071,6 +3106,22 @@
     "world_tour": {
       "name": "Turnê Mundial",
       "description": "Jogue uma run nas nove regiões."
+    },
+    "evolved_beyond_3": {
+      "name": "Além da Evolução",
+      "description": "Mega evolua 25 Pokémon diferentes."
+    },
+    "gigantamax_1": {
+      "name": "Tamanho é Documento",
+      "description": "Gigantamaxe um Pokémon."
+    },
+    "gigantamax_2": {
+      "name": "Quanto Maiores São",
+      "description": "Gigantamaxe 5 Pokémon diferentes."
+    },
+    "gigantamax_3": {
+      "name": "Campeão de Galar",
+      "description": "Gigantamaxe 10 Pokémon diferentes."
     }
   },
   "account": {

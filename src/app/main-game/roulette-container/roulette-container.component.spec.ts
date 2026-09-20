@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GenerationService } from '../../services/generation-service/generation.service';
 import { EventSource } from '../EventSource';
 import { CONSOLATION_PRIZES } from './consolation/consolation-prizes';
 import { ItemModalComponent } from './modals/item-modal/item-modal.component';
@@ -558,6 +559,40 @@ describe('RouletteContainerComponent', () => {
   // ══════════════════════════════════════════════════════════════════════════
   // TEST-02: handleRareCandyEvolution
   // ══════════════════════════════════════════════════════════════════════════
+
+  describe('Galar replaces mega evolution', () => {
+    const GALAR_INDEX = 7;
+    const KANTO_INDEX = 0;
+
+    it('awards no mega stone in Galar', () => {
+      TestBed.inject(GenerationService).setGeneration(GALAR_INDEX);
+      const candidates = spyOn(component as any, 'getMegaCandidates');
+
+      (component as any).awardMegaStoneAfterImportantBattle();
+
+      // Stopped before it even looks: this is the one choke point for stone acquisition.
+      expect(candidates).not.toHaveBeenCalled();
+    });
+
+    it('still awards one everywhere else', () => {
+      TestBed.inject(GenerationService).setGeneration(KANTO_INDEX);
+      const candidates = spyOn(component as any, 'getMegaCandidates').and.returnValue([]);
+
+      (component as any).awardMegaStoneAfterImportantBattle();
+
+      expect(candidates).toHaveBeenCalled();
+    });
+
+    it('ignores a mega stone tapped in Galar', () => {
+      TestBed.inject(GenerationService).setGeneration(GALAR_INDEX);
+      const activate = spyOn(component as any, 'activateMegaEvolutionForPokemon');
+      (component as any).currentGameState = 'gym-battle';
+
+      (component as any).handleMegaStoneActivation({ stone: { name: 'venusaurite' } });
+
+      expect(activate).not.toHaveBeenCalled();
+    });
+  });
 
   describe('handleRareCandyEvolution', () => {
     const RARE_CANDY: any = {

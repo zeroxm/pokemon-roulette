@@ -23,6 +23,7 @@
                               @if (trainerTeam[i]?.sprite) {
                                    <img [src]="getSprite(trainerTeam[i])"
                                         class="img-fluid"
+                                        [class.dynamaxed]="isMaxed(trainerTeam[i])"
                                         placement="bottom"
                                         ngbTooltip="{{ trainerTeam[i].text | translate }}">
 

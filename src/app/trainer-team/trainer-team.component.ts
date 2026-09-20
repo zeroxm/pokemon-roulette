@@ -64,6 +64,18 @@ export class TrainerTeamComponent implements OnInit, OnDestroy {
     this.badgesSubscription?.unsubscribe();
   }
 
+  /**
+   * Whether this Pokemon is the one Dynamaxed for the current battle.
+   *
+   * Reference identity, not species: two of the same Pokemon on a team are the same species, and
+   * only the lead is Dynamaxed. A Gigantamax already looks different because its sprite changed,
+   * so this is what makes a *plain* Dynamax visible at all.
+   */
+  isMaxed(pokemon: PokemonItem | undefined): boolean {
+    const maxState = this.trainerService.getMaxState();
+    return !!pokemon && !!maxState && maxState.pokemon === pokemon;
+  }
+
   getSprite(pokemon: PokemonItem): string {
     if (pokemon.shiny) {
       return pokemon.sprite?.front_shiny || 'place-holder-pixel.png';

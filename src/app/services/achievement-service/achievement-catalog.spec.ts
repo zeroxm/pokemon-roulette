@@ -6,6 +6,7 @@ describe('the achievement catalog', () => {
     caught: new Set(),
     shinyIds: new Set(),
     megaCount: 0,
+    gmaxCount: 0,
     badges: new Set(),
     highestCatchCount: 0,
   };
@@ -13,7 +14,7 @@ describe('the achievement catalog', () => {
   it('holds the whole catalog', () => {
     expect(ACHIEVEMENTS.length)
       .withContext('adding one needs the backend allowlist updated first, or the unlock is skipped on sync')
-      .toBe(51);
+      .toBe(55);
   });
 
   it('has no duplicate ids', () => {

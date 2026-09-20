@@ -3,6 +3,7 @@ import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
 import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
 import { zygardeLadderForms } from '../trainer-service/zygarde-forms';
+import { gigantamaxForms } from '../trainer-service/gigantamax-forms';
 import { mimikyuForms } from '../trainer-service/mimikyu-forms';
 import { greninjaForms } from '../trainer-service/greninja-forms';
 
@@ -70,6 +71,23 @@ export const formRules: FormRule[] = [
     trigger: 'battle-start',
     selection: { kind: 'ladder' },
   },
+
+  // Gigantamax: Galar's replacement for mega evolution, so it is `battle-start` rather than
+  // `manual`. No stone to tap and no choice to make: the lead transforms on entering a fight, and
+  // reverts when it ends like every other temporary form.
+  //
+  // Keyed on the *current* form id, which is what makes Toxtricity Amped and Low Key (and both
+  // Urshifu styles) reach their own Gigantamax with no special case here.
+  ...Object.entries(gigantamaxForms).map(([fromIdText, gmax]): FormRule => ({
+    id: `gmax:${fromIdText}`,
+    forms: [gmax],
+    scope: 'team',
+    persistence: 'temporary',
+    trigger: 'battle-start',
+    generations: [8],
+    appliesTo: 'lead',
+    selection: { kind: 'to-form', fromId: Number(fromIdText) },
+  })),
 
   // Mega evolution: the player taps a stone mid-battle, so this rule is `manual` and never fires
   // from `applyAll`. Holding the stone selects *which* mega form; it is not permission to apply one.

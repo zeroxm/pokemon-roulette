@@ -6,6 +6,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { FormRuleService } from '../form-rule-service/form-rule.service';
 import { ItemsService } from '../items-service/items.service';
+import { GenerationService } from '../generation-service/generation.service';
 import { GameState } from '../game-state-service/game-state';
 import { of } from 'rxjs';
 
@@ -294,6 +295,118 @@ describe('TrainerService', () => {
 
       expect(service.trainerTeam[0].pokemonId).toBe(1);
       expect(service.trainerTeam[0].power).toBe(1);
+    });
+  });
+
+  describe('Galar: Dynamax and Gigantamax', () => {
+    // setGeneration takes a list index, not an id; Galar is id 8 at index 7.
+    const GALAR_INDEX = 7;
+    const KANTO_INDEX = 0;
+
+    const duraludon: PokemonItem = {
+      text: 'pokemon.duraludon', pokemonId: 884, fillStyle: 'white',
+      type1: 'steel', type2: 'dragon', sprite: null, shiny: false, power: 3, weight: 1,
+    };
+    const toxtricityLowKey: PokemonItem = {
+      text: 'pokemon.toxtricity-low-key', pokemonId: 10184, fillStyle: 'purple',
+      type1: 'electric', type2: 'poison', sprite: null, shiny: false, power: 3, weight: 1,
+    };
+
+    const inGalar = () => TestBed.inject(GenerationService).setGeneration(GALAR_INDEX);
+    const inKanto = () => TestBed.inject(GenerationService).setGeneration(KANTO_INDEX);
+
+    it('Gigantamaxes a capable lead on entering a battle', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10225);
+      expect(service.getMaxState()?.gigantamax).toBeTrue();
+    });
+
+    it('reverts the Gigantamax when the battle ends', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+      emitGameState('adventure-continues');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('Gigantamax does not change power: the odds bonus is the whole buff', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].power).toBe(duraludon.power);
+    });
+
+    it('gives Low Key Toxtricity its own Gigantamax, not the Amped one', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(toxtricityLowKey)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10228);
+      expect(service.trainerTeam[0].text).toBe('pokemon.toxtricity-low-key-gmax');
+    });
+
+    it('only the lead transforms', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(bulbasaur), structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[1].pokemonId).toBe(884);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+    });
+
+    it('a lead with no Gigantamax form still Dynamaxes', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(bulbasaur)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(1);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+      expect(service.getMaxState()?.pokemon).toBe(service.trainerTeam[0]);
+    });
+
+    it('does nothing outside Galar', () => {
+      inKanto();
+      service.trainerTeam = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('remembers the form it transformed FROM, not the Gigantamax it became', () => {
+      // The Pokedex is marked from this. Reading it off the transformed Pokemon instead records
+      // the Gigantamax form id, which belongs to no species, so the entry lands on a phantom key
+      // and Toxtricity Amped and Low Key count as two species instead of one.
+      inGalar();
+      service.trainerTeam = [structuredClone(toxtricityLowKey)];
+
+      emitGameState('gym-battle');
+
+      expect(service.getMaxState()?.fromId).toBe(10184);
+      expect(service.trainerTeam[0].pokemonId).toBe(10228);
+    });
+
+    it('does not Gigantamax a Pokemon sitting in the PC', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(bulbasaur)];
+      service.storedPokemon = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.storedPokemon[0].pokemonId).toBe(884);
     });
   });
 

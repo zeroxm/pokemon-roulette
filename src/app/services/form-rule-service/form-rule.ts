@@ -21,6 +21,13 @@ export type FormSelection =
    */
   | { kind: 'ladder' }
   /**
+   * One named form becomes one other form.
+   *
+   * `fromId` is carried here rather than read from `forms` for the same reason `item-gated` does
+   * it: the source is not among `forms`, because `forms` is what it becomes.
+   */
+  | { kind: 'to-form'; fromId: number }
+  /**
    * The form whose own `stone` the trainer holds; the rule does nothing without one.
    *
    * `baseId` is carried explicitly because the base Pokémon is not among `forms`: the forms are
@@ -60,4 +67,17 @@ export interface FormRule {
   /** Whether entering a battle applies this rule, or the player has to trigger it. */
   readonly trigger: FormTrigger;
   readonly selection: FormSelection;
+  /**
+   * Regions this rule exists in. Absent means every region.
+   *
+   * In data rather than in code, mirroring `AdventureAction.generations`, which is already how
+   * Safari Zone is Kanto-only and Area Zero is Paldea-only. Gigantamax is Galar-only.
+   */
+  readonly generations?: readonly number[];
+  /**
+   * `lead` limits the rule to the first team slot. Absent means every matching Pokémon.
+   *
+   * Only one Pokémon Dynamaxes per battle, and the game picks the lead.
+   */
+  readonly appliesTo?: 'lead';
 }

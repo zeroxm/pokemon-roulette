@@ -74,3 +74,18 @@
     transform: scale(1);
   }
 }
+/* Dynamax: the Pokemon is simply bigger, which is the whole visual for a species with no
+   Gigantamax form. Scaled from the bottom so it grows upward out of its slot rather than
+   drifting off centre, and the container has to stop clipping for that to read. */
+.pokemon-container {
+  overflow: visible;
+}
+
+.pokemon-container img.dynamaxed {
+  transform: scale(1.35);
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 6px rgba(220, 0, 60, 0.85));
+  transition: transform 0.4s ease-out, filter 0.4s ease-out;
+  position: relative;
+  z-index: 2;
+}
