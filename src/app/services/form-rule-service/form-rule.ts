@@ -44,6 +44,13 @@ export type FormSelection =
 export type FormTrigger =
   /** Fires automatically when a battle starts. */
   | 'battle-start'
+  /**
+   * Fires after a battle is won, not on entering one.
+   *
+   * The distinction matters for anything that is a *reward*: firing at the start hands it over
+   * for turning up, and a ladder rung earned that way is spent before the player has seen it.
+   */
+  | 'battle-won'
   /** Fires only when the player asks for it, through `forceApply`. Never from `applyAll`. */
   | 'manual';
 

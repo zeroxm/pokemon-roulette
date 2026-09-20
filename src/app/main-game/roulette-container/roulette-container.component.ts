@@ -518,6 +518,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
+      // A won battle is what moves a form ladder, Zygarde's included.
+      this.trainerService.advanceFormLaddersAfterWin();
       this.queueCheckEvolutionAfterImportantBattle('gym-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
@@ -820,6 +822,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (result) {
       this.gameStateService.advanceRound();
+      // A won battle is what moves a form ladder, Zygarde's included.
+      this.trainerService.advanceFormLaddersAfterWin();
       this.queueCheckEvolutionAfterImportantBattle('elite-four-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();

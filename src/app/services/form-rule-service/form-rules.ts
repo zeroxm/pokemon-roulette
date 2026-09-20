@@ -60,7 +60,13 @@ export const formRules: FormRule[] = [
     selection: { kind: 'base-to-battle' },
   })),
 
-  // Zygarde's cells gather as it fights: one rung per battle, kept for the rest of the run.
+  // Zygarde's cells gather as it fights: one rung per battle *won*, kept for the rest of the run.
+  //
+  // `battle-won` rather than `battle-start`, which is what it was first written as and was wrong:
+  // firing on entry meant the 10% form existed for exactly one screen, because the state stack
+  // puts a gym battle immediately after the adventure wheel that produced the Zygarde. A rung is
+  // a reward, so it is paid on the win.
+  //
   // `sticky` because it never reverts, `ladder` because it stops at Complete rather than wrapping
   // back to 10%. `team+stored` so a Zygarde parked in the PC does not fall behind the ladder.
   {
@@ -68,7 +74,7 @@ export const formRules: FormRule[] = [
     forms: zygardeLadderForms,
     scope: 'team+stored',
     persistence: 'sticky',
-    trigger: 'battle-start',
+    trigger: 'battle-won',
     selection: { kind: 'ladder' },
   },
 

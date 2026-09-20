@@ -207,19 +207,32 @@ describe('TrainerService', () => {
   });
 
   describe('Zygarde ladder', () => {
-    it('climbs one rung per battle and keeps it afterwards', () => {
+    // A rung is paid for *winning*, not for turning up. Entering a battle used to be enough,
+    // which meant the 10% form survived exactly one screen: the state stack puts a gym battle
+    // straight after the adventure wheel that produced the Zygarde.
+    const winABattle = (): void => {
+      emitGameState('gym-battle');
+      service.advanceFormLaddersAfterWin();
+      emitGameState('adventure-continues');
+    };
+
+    it('does not climb merely for entering a battle', () => {
       service.trainerTeam = [structuredClone(zygarde10)];
 
       emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10181);
+      expect(service.trainerTeam[0].power).toBe(5);
+    });
+
+    it('climbs one rung per win and keeps it afterwards', () => {
+      service.trainerTeam = [structuredClone(zygarde10)];
+
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(718);
       expect(service.trainerTeam[0].power).toBe(6);
 
-      // Sticky, so leaving the fight must not walk it back down.
-      emitGameState('adventure-continues');
-      expect(service.trainerTeam[0].pokemonId).toBe(718);
-      expect(service.trainerTeam[0].power).toBe(6);
-
-      emitGameState('gym-battle');
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
       expect(service.trainerTeam[0].power).toBe(7);
     });
@@ -228,23 +241,11 @@ describe('TrainerService', () => {
       service.trainerTeam = [structuredClone(zygarde10)];
 
       for (let battle = 0; battle < 5; battle++) {
-        emitGameState('gym-battle');
-        emitGameState('adventure-continues');
+        winABattle();
       }
 
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
       expect(service.trainerTeam[0].power).toBe(7);
-    });
-
-    it('climbs only once when a Rare Candy interrupts the battle', () => {
-      service.trainerTeam = [structuredClone(zygarde10)];
-
-      emitGameState('gym-battle');
-      gameStateService.repeatCurrentState();
-      emitGameState('select-from-pokemon-list');
-      emitGameState('gym-battle');
-
-      expect(service.trainerTeam[0].pokemonId).toBe(718);
     });
 
     it('carries shiny up the ladder', () => {
@@ -252,7 +253,7 @@ describe('TrainerService', () => {
       shiny.shiny = true;
       service.trainerTeam = [shiny];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.trainerTeam[0].pokemonId).toBe(718);
       expect(service.trainerTeam[0].shiny).toBeTrue();
@@ -262,7 +263,7 @@ describe('TrainerService', () => {
       service.trainerTeam = [structuredClone(bulbasaur)];
       service.storedPokemon = [structuredClone(zygarde10)];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.storedPokemon[0].pokemonId).toBe(718);
     });
@@ -271,12 +272,12 @@ describe('TrainerService', () => {
       // The whole point of the ladder wiring: `pokemonMegaForms` is keyed on 10120, which was
       // unreachable before, so Mega Zygarde was dead code.
       service.trainerTeam = [structuredClone(zygarde10)];
-      emitGameState('gym-battle');
-      emitGameState('adventure-continues');
-      emitGameState('gym-battle');
+      winABattle();
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
 
       service.addToItems(structuredClone(TestBed.inject(ItemsService).getMegaStone('zygardite')));
+      emitGameState('gym-battle');
       service.forceMegaActivation(service.trainerTeam[0], 'zygardite');
 
       expect(service.trainerTeam[0].pokemonId).toBe(10301);
@@ -291,7 +292,7 @@ describe('TrainerService', () => {
     it('leaves other Pokemon alone', () => {
       service.trainerTeam = [structuredClone(bulbasaur)];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.trainerTeam[0].pokemonId).toBe(1);
       expect(service.trainerTeam[0].power).toBe(1);

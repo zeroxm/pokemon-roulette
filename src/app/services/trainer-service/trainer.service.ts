@@ -261,6 +261,22 @@ export class TrainerService implements OnDestroy {
     return true;
   }
 
+  /**
+   * Moves every form ladder one rung, on a battle being won.
+   *
+   * Called from the win branch rather than on entering a fight: a rung is a reward for the
+   * victory. Fired on gym and Elite Four wins; the champion win ends the run on the next line, so
+   * advancing there would change nothing the player could see.
+   */
+  advanceFormLaddersAfterWin(): void {
+    if (!this.formRuleService.applyWon(this.trainerTeam, this.storedPokemon, this.heldItemNames())) {
+      return;
+    }
+
+    this.loadMissingSprites();
+    this.trainerTeamObservable.next(this.getTeam());
+  }
+
   /** Whether the lead can still Dynamax: Galar, in a battle, and not already Maxed. */
   canActivateMax(): boolean {
     return this.maxState === null
