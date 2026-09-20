@@ -14,7 +14,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
  * Like the mega modal, this uses no translatable copy: it is visuals only, so a new locale needs
  * nothing here.
  */
-type AnimationPhase = 'prelude' | 'charge' | 'cover' | 'vanish' | 'reveal' | 'settle';
+type AnimationPhase = 'prelude' | 'cover' | 'darken' | 'vanish' | 'charge' | 'reveal' | 'settle';
 
 interface EnergyMote {
   readonly id: number;
@@ -50,26 +50,36 @@ export class GigantamaxAnimationModalComponent implements OnInit, OnDestroy {
   private readonly timers: number[] = [];
 
   /**
-   * The beats, in order: the Pokemon as it is, energy gathering under it, the ball dropping over
-   * it, the ball bursting away to leave a silhouette, and the silhouette swelling back into
-   * colour at size.
+   * The beats, in order:
    *
-   * The sprite swap and the darkening both happen *behind* the ball during `cover`, which is what
-   * the ball is for. A species with no Gigantamax form swaps to itself, so the same beats play for
-   * a plain Dynamax and only the growing is the payoff.
+   * 1. `prelude`  the Pokemon as the player brought it, in colour
+   * 2. `cover`    the ball drops over it, still in colour underneath
+   * 3. `darken`   behind the ball, the sprite swaps and drains to a silhouette
+   * 4. `vanish`   the ball bursts away, leaving that silhouette
+   * 5. `charge`   only now does the energy gather around it
+   * 6. `reveal`   the swell, in three growing steps, colour returning as it goes
+   * 7. `settle`   rests at its final size
    *
-   * Slower than the mega cinematic on purpose: the beat here is a swell, and a swell that
-   * finishes quickly reads as a jump cut.
+   * `darken` is its own beat rather than folded into `cover` so the drain cannot start while the
+   * ball is still falling: the ball has to be fully over the Pokemon before anything changes
+   * under it, or the player sees the swap happen.
+   *
+   * The energy deliberately follows the burst rather than preceding it. Gathering power *before*
+   * the ball arrives makes the ball look like the consequence; gathering after makes it the cause.
+   *
+   * Slower than the mega cinematic on purpose, and slower again than the first version of this
+   * one: the beat is a swell, and a swell that finishes quickly reads as a jump cut.
    */
   private readonly timeline: Array<{ phase: AnimationPhase; atMs: number }> = [
     { phase: 'prelude', atMs: 0 },
-    { phase: 'charge', atMs: 420 },
-    { phase: 'cover', atMs: 1150 },
-    { phase: 'vanish', atMs: 2050 },
-    { phase: 'reveal', atMs: 2560 },
-    { phase: 'settle', atMs: 3700 }
+    { phase: 'cover', atMs: 620 },
+    { phase: 'darken', atMs: 1320 },
+    { phase: 'vanish', atMs: 1860 },
+    { phase: 'charge', atMs: 2380 },
+    { phase: 'reveal', atMs: 3180 },
+    { phase: 'settle', atMs: 5180 }
   ];
-  private readonly animationCloseMs = 4820;
+  private readonly animationCloseMs = 6360;
 
   constructor(public activeModal: NgbActiveModal) {}
 

@@ -1002,7 +1002,9 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       );
     }
 
-    void this.soundFxService.playSoundFx('mega-evolution', 0.30);
+    // Deliberately silent. The mega evolution sting is written for a shell cracking open and
+    // lands wrong over a ball dropping and a Pokemon swelling; a wrong sound is worse than none.
+    // Waiting on a Dynamax cue of its own.
     void this.showMaxAnimation(maxState.fromId, maxState.pokemon.pokemonId);
   }
 

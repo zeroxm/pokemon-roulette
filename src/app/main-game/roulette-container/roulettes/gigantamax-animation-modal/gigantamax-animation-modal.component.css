@@ -25,9 +25,10 @@
   transition: opacity 0.6s ease-out;
 }
 
-.charge .gmax-backdrop,
 .cover .gmax-backdrop,
+.darken .gmax-backdrop,
 .vanish .gmax-backdrop,
+.charge .gmax-backdrop,
 .reveal .gmax-backdrop { opacity: 1; }
 
 .settle .gmax-backdrop { opacity: 0.6; }
@@ -51,8 +52,6 @@
   transition: opacity 0.5s ease-out, transform 0.7s ease-out;
 }
 
-.cover .gmax-floor-glow,
-.vanish .gmax-floor-glow,
 .reveal .gmax-floor-glow { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
 
 .settle .gmax-floor-glow { opacity: 0.4; }
@@ -77,8 +76,7 @@
 }
 
 .charge .energy-mote,
-.cover .energy-mote,
-.vanish .energy-mote {
+.reveal .energy-mote {
   animation: moteRise var(--mote-duration) linear var(--mote-delay) infinite;
 }
 
@@ -111,14 +109,13 @@
   opacity: 0;
 }
 
-.cover .beam-column {
+.charge .beam-column {
   height: 100%;
   opacity: 0.95;
   transition: height 0.45s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease-out;
 }
 
-.vanish .beam-column { height: 100%; opacity: 0.5; transition: opacity 0.5s ease-out; }
-.reveal .beam-column,
+.reveal .beam-column { height: 100%; opacity: 0.4; transition: opacity 0.6s ease-out; }
 .settle .beam-column { opacity: 0; transition: opacity 0.5s ease-out; }
 
 .beam-flare {
@@ -134,7 +131,7 @@
   opacity: 0;
 }
 
-.vanish .beam-flare {
+.reveal .beam-flare {
   animation: flareBurst 0.7s ease-out forwards;
 }
 
@@ -156,7 +153,7 @@
   opacity: 0;
 }
 
-.vanish .beam-ring { animation: ringExpand 0.9s ease-out forwards; }
+.reveal .beam-ring { animation: ringExpand 0.9s ease-out forwards; }
 
 @keyframes ringExpand {
   0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(0.2); }
@@ -178,62 +175,72 @@
   object-fit: contain;
 }
 
-/* The Pokemon as the player brought it. Visible until the ball covers it, then gone: the swap
-   happens behind the ball, which is the entire reason the ball is here. */
+/* The Pokemon as the player brought it, in colour, right up until the ball is fully over it.
+   `prelude` and `cover` only: nothing may change underneath while the ball is still falling, or
+   the player watches the swap happen. */
 .sprite-base {
   opacity: 1;
   transform: scale(0.75);
   transition: transform 0.6s ease-in, opacity 0.2s ease-in, filter 0.4s ease-out;
 }
 
-.charge .sprite-base { transform: scale(0.82); filter: drop-shadow(0 0 12px var(--gmax-red-soft)); }
-.cover .sprite-base,
+.cover .sprite-base { transform: scale(0.82); filter: drop-shadow(0 0 10px var(--gmax-red-soft)); }
+
+.darken .sprite-base,
 .vanish .sprite-base,
+.charge .sprite-base,
 .reveal .sprite-base,
 .settle .sprite-base { opacity: 0; }
 
-/* Starts as a silhouette at the size the base sprite was, so the ball lifting reveals a shape
-   rather than a jump, and the colour arrives with the growing rather than before it. */
+/* The silhouette. Appears at `darken`, behind a ball that is already fully over the Pokemon, at
+   the same size the base sprite was so the ball lifting reveals a shape rather than a jump. */
 .sprite-gmax {
   opacity: 0;
-  transform: scale(0.75);
+  transform: scale(0.82);
   filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red));
 }
 
-.cover .sprite-gmax,
-.vanish .sprite-gmax {
-  opacity: 1;
-}
+.darken .sprite-gmax,
+.vanish .sprite-gmax,
+.charge .sprite-gmax { opacity: 1; }
 
-.vanish .sprite-gmax {
-  transform: scale(0.82);
-  transition: transform 0.4s ease-out;
-}
+.darken .sprite-gmax { transition: filter 0.45s ease-in; }
 
-/* The payoff. Overshoots hard and snaps back, with the colour flooding in behind it: a Dynamax
-   that eases politely into place does not read as a Pokemon becoming enormous. */
+/* The payoff: three growing steps, each one tucking down before it springs up, with the colour
+   draining back in as it goes. It never brightens past its own artwork, so the last step lands on
+   the Pokemon as it really looks rather than on a washed-out version of it. */
 .reveal .sprite-gmax {
   opacity: 1;
-  animation: gmaxSwell 1.1s cubic-bezier(0.16, 1.4, 0.3, 1) forwards;
+  animation: gmaxSwell 1.9s cubic-bezier(0.22, 1.2, 0.35, 1) forwards;
 }
 
 @keyframes gmaxSwell {
-  0%   { transform: scale(0.82) translateY(0);    filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red)); }
-  18%  { transform: scale(0.7)  translateY(6px);  filter: brightness(0.06) drop-shadow(0 0 22px var(--gmax-red)); }
-  46%  { transform: scale(1.85) translateY(-10px); filter: brightness(2.6) drop-shadow(0 0 60px var(--gmax-pink)); }
-  62%  { transform: scale(1.32) translateY(0);    filter: brightness(1.5) drop-shadow(0 0 44px var(--gmax-red)); }
-  78%  { transform: scale(1.62) translateY(-4px); filter: brightness(1.1) drop-shadow(0 0 34px var(--gmax-red)); }
-  100% { transform: scale(1.45) translateY(0);    filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
+  0%   { transform: scale(0.82) translateY(0);   filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red)); }
+
+  /* first step */
+  7%   { transform: scale(0.70) translateY(8px); filter: brightness(0.08) drop-shadow(0 0 20px var(--gmax-red)); }
+  22%  { transform: scale(1.06) translateY(-6px); filter: brightness(0.34) drop-shadow(0 0 34px var(--gmax-red)); }
+
+  /* second step */
+  31%  { transform: scale(0.96) translateY(5px); filter: brightness(0.38) drop-shadow(0 0 30px var(--gmax-red)); }
+  49%  { transform: scale(1.30) translateY(-8px); filter: brightness(0.66) drop-shadow(0 0 44px var(--gmax-pink)); }
+
+  /* third step */
+  59%  { transform: scale(1.19) translateY(6px); filter: brightness(0.72) drop-shadow(0 0 40px var(--gmax-red)); }
+  82%  { transform: scale(1.52) translateY(-9px); filter: brightness(0.94) drop-shadow(0 0 52px var(--gmax-pink)); }
+
+  92%  { transform: scale(1.43) translateY(2px); filter: brightness(1) drop-shadow(0 0 34px var(--gmax-red)); }
+  100% { transform: scale(1.48) translateY(0);   filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
 }
 
 .settle .sprite-gmax {
   opacity: 1;
-  transform: scale(1.4);
+  transform: scale(1.48);
   filter: brightness(1) drop-shadow(0 0 18px var(--gmax-red-soft));
-  transition: transform 0.7s ease-out, filter 0.7s ease-out;
+  transition: transform 0.8s ease-out, filter 0.8s ease-out;
 }
 
-/* Drops from above, lands over the Pokemon, then bursts away upward. */
+/* Drops from above, holds while the sprite drains underneath, then bursts away. */
 .pokeball {
   position: absolute;
   inset: 0;
@@ -247,7 +254,7 @@
 
 .cover .pokeball {
   opacity: 1;
-  animation: pokeballDrop 0.55s cubic-bezier(0.3, 1.5, 0.4, 1) forwards;
+  animation: pokeballDrop 0.6s cubic-bezier(0.3, 1.5, 0.4, 1) forwards;
 }
 
 @keyframes pokeballDrop {
@@ -256,9 +263,16 @@
   100% { opacity: 1; transform: translateY(0)     scale(1)    rotate(0deg); }
 }
 
+/* Held in place. Without this it snaps back to its off-screen start, because the `.cover` rule
+   stops applying the moment the phase class changes. */
+.darken .pokeball {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .vanish .pokeball {
   opacity: 0;
-  animation: pokeballBurst 0.5s ease-in forwards;
+  animation: pokeballBurst 0.55s ease-in forwards;
 }
 
 @keyframes pokeballBurst {
@@ -267,48 +281,9 @@
   100% { opacity: 0; transform: scale(2.6) rotate(-14deg); filter: brightness(4); }
 }
 
+.charge .pokeball,
 .reveal .pokeball,
 .settle .pokeball { opacity: 0; }
-
-/* Drawn rather than an image: a new PNG would be another hot-linked asset and another thing to
-   ship, and the motif is two circles. */
-.gmax-glyph {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 46px;
-  height: 46px;
-  opacity: 0;
-  z-index: 3;
-}
-
-.reveal .gmax-glyph,
-.settle .gmax-glyph {
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
-}
-
-.glyph-core,
-.glyph-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-}
-
-.glyph-core {
-  background: radial-gradient(circle at 50% 40%, var(--gmax-pink) 0%, var(--gmax-red) 60%, transparent 75%);
-}
-
-.glyph-ring {
-  border: 2px solid var(--gmax-pink);
-  animation: glyphPulse 1.6s ease-in-out infinite;
-}
-
-@keyframes glyphPulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50%      { transform: scale(1.25); opacity: 0.3; }
-}
 
 @media (max-width: 680px) {
   .gmax-container { min-height: 320px; }
