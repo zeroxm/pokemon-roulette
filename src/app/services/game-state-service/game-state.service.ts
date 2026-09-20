@@ -16,6 +16,8 @@ const ELITE_FOUR_COUNT = 4;
 export class GameStateService {
 
   private stateStack: GameState[] = [];
+  /** Set while a `repeatCurrentState` is outstanding: the player is coming back to this one. */
+  private resuming: GameState | null = null;
   private state = new BehaviorSubject<GameState>('game-start');
   currentState = this.state.asObservable();
 
@@ -85,20 +87,25 @@ export class GameStateService {
     const poppedState = this.stateStack.pop();
     const nextState = poppedState ?? 'game-over';
 
+    // Arriving back at the repeated state ends the resumption.
+    if (this.resuming !== null && nextState === this.resuming) {
+      this.resuming = null;
+    }
+
     this.state.next(nextState);
     return nextState;
   }
 
   /**
-   * The state `finishCurrentState` would emit next, without emitting it.
+   * The state a `repeatCurrentState` is waiting to come back to, or null.
    *
-   * Exists so a listener can tell a battle that has *ended* from one the player is about to
-   * return to. Tapping a Rare Candy mid-fight pushes the battle back on the stack and detours
-   * through a selection state, and without this peek that detour is indistinguishable from
-   * walking out of the fight.
+   * Exists so a listener can tell a battle that has *ended* from one the player is mid-way
+   * through. Peeking at the stack is not enough: the Elite Four queues four battles that all
+   * carry the same name, so "the next state matches the one I just left" is true both for a
+   * genuine detour and for simply moving on to the next fight.
    */
-  peekNextState(): GameState | null {
-    return this.stateStack[this.stateStack.length - 1] ?? null;
+  get resumingState(): GameState | null {
+    return this.resuming;
   }
 
   advanceRound(): void {
@@ -106,6 +113,7 @@ export class GameStateService {
   }
 
   repeatCurrentState(): void {
+    this.resuming = this.state.value;
     this.stateStack.push(this.state.value);
   }
 
@@ -114,6 +122,7 @@ export class GameStateService {
   }
 
   resetGameState(): void {
+    this.resuming = null;
     Object.assign(this.runModifiers, initialRunModifiers());
     this.initializeStates();
     this.setNextState('game-start');
