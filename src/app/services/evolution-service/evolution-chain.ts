@@ -346,7 +346,9 @@ export const evolutionChain : Record<number, number[]> = {
     710:[711],
     712:[713, 10243],
     714:[715],
-    718:[10120],
+    // Zygarde is deliberately absent. Its forms are a ladder climbed by fighting
+    // (`zygarde-forms.ts`), not an evolution: leaving it here gave the evolution system a
+    // second path between the same forms that skipped rungs and carried the wrong power.
     722:[723],
     723:[724, 10244],
     725:[726],
@@ -481,9 +483,6 @@ export const evolutionChain : Record<number, number[]> = {
     999:[1000],
     1011:[1019],
     1012:[1013],
-    10118:[10119],
-    10119:[10120],
-    10181:[10119],
 
     // Alternate forms are looked up by their own id, so a captured form needs its own key even
     // when its base is listed above. Each Pumpkaboo size keeps that size through the evolution.

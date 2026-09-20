@@ -1054,6 +1054,14 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   private preparePokemonCapture(pokemon: PokemonItem): void {
+    // Some species arrive in one fixed form and are never offered the wheel. Zygarde always
+    // starts at 10% because its forms are a ladder it climbs by fighting: see `zygarde-forms.ts`.
+    const forcedForm = this.pokemonFormsService.getForcedCatchForm(pokemon);
+    if (forcedForm) {
+      this.completePokemonCapture(this.pokemonFormsService.applyFormToPokemon(pokemon, forcedForm));
+      return;
+    }
+
     if (this.pokemonFormsService.hasForms(pokemon)) {
       const pokemonForms = this.pokemonFormsService.getPokemonForms(pokemon);
       
