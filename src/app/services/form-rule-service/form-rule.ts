@@ -14,6 +14,13 @@ export type FormSelection =
   /** Any form other than the current one. */
   | { kind: 'random-other' }
   /**
+   * One step along an ordered list, stopping at the end.
+   *
+   * Distinct from `cycle`, which wraps: a ladder is progress, and wrapping would turn it into a
+   * toggle that walks a Pokémon back down to its weakest form.
+   */
+  | { kind: 'ladder' }
+  /**
    * The form whose own `stone` the trainer holds; the rule does nothing without one.
    *
    * `baseId` is carried explicitly because the base Pokémon is not among `forms`: the forms are
