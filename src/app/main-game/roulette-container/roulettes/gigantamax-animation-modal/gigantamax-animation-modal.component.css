@@ -226,22 +226,26 @@
 }
 
 @keyframes gmaxSwell {
-  0%   { transform: scale(0.82) translateY(0);   filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red)); }
+  /* Starts at 0.82, the silhouette size held through `vanish` and `charge`, and ends at 1.95,
+     exactly where `.settle` rests. Both ends have to match their neighbour or the size jumps at
+     the seam. The third step overshoots to 2.00 and recoils, so the biggest moment belongs to
+     the swell rather than to the phase that is only supposed to hold it. */
+  0%   { transform: scale(0.82) translateY(0);    filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red)); }
 
   /* first step */
-  7%   { transform: scale(0.70) translateY(8px); filter: brightness(0.08) drop-shadow(0 0 20px var(--gmax-red)); }
-  22%  { transform: scale(1.06) translateY(-6px); filter: brightness(0.34) drop-shadow(0 0 34px var(--gmax-red)); }
+  7%   { transform: scale(0.70) translateY(8px);  filter: brightness(0.08) drop-shadow(0 0 20px var(--gmax-red)); }
+  22%  { transform: scale(1.15) translateY(-6px); filter: brightness(0.34) drop-shadow(0 0 34px var(--gmax-red)); }
 
   /* second step */
-  31%  { transform: scale(0.96) translateY(5px); filter: brightness(0.38) drop-shadow(0 0 30px var(--gmax-red)); }
-  49%  { transform: scale(1.30) translateY(-8px); filter: brightness(0.66) drop-shadow(0 0 44px var(--gmax-pink)); }
+  31%  { transform: scale(1.04) translateY(5px);  filter: brightness(0.38) drop-shadow(0 0 30px var(--gmax-red)); }
+  49%  { transform: scale(1.52) translateY(-8px); filter: brightness(0.66) drop-shadow(0 0 44px var(--gmax-pink)); }
 
   /* third step */
-  59%  { transform: scale(1.19) translateY(6px); filter: brightness(0.72) drop-shadow(0 0 40px var(--gmax-red)); }
-  82%  { transform: scale(1.52) translateY(-9px); filter: brightness(0.94) drop-shadow(0 0 52px var(--gmax-pink)); }
+  59%  { transform: scale(1.40) translateY(6px);  filter: brightness(0.72) drop-shadow(0 0 40px var(--gmax-red)); }
+  82%  { transform: scale(2.00) translateY(-9px); filter: brightness(0.94) drop-shadow(0 0 56px var(--gmax-pink)); }
 
-  92%  { transform: scale(1.43) translateY(2px); filter: brightness(1) drop-shadow(0 0 34px var(--gmax-red)); }
-  100% { transform: scale(1.48) translateY(0);   filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
+  92%  { transform: scale(1.88) translateY(2px);  filter: brightness(1) drop-shadow(0 0 38px var(--gmax-red)); }
+  100% { transform: scale(1.95) translateY(0);    filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
 }
 
 /* Rests at very nearly the full pane: 1.95 of a stage that is 46% of the pane height puts the
