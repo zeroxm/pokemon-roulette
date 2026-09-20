@@ -65,6 +65,8 @@ export class TrainerService implements OnDestroy {
   private trainerTeamObservable = new BehaviorSubject<PokemonItem[]>(this.trainerTeam);
   private lastAddedPokemon: PokemonItem | null = null;
   private readonly battleStates = new Set<GameState>(['gym-battle', 'elite-four-battle', 'champion-battle']);
+  /** The state before the one being handled, so a battle detour can be told from a battle ending. */
+  private previousState: GameState | null = null;
   private megaBattleBaseId: number | null = null;
 
   trainerItems: ItemItem[] = [
@@ -173,6 +175,13 @@ export class TrainerService implements OnDestroy {
   }
 
   private syncBattleForms(gameState: GameState): void {
+    const previous = this.previousState;
+    this.previousState = gameState;
+
+    if (this.isBattleInterlude(previous, gameState)) {
+      return;
+    }
+
     const changed = this.battleStates.has(gameState)
       ? this.formRuleService.applyAll(this.trainerTeam, this.storedPokemon, this.heldItemNames())
       : this.formRuleService.revertAll(this.trainerTeam, this.storedPokemon);
@@ -186,6 +195,27 @@ export class TrainerService implements OnDestroy {
     }
     this.loadMissingSprites();
     this.trainerTeamObservable.next(this.getTeam());
+  }
+
+  /**
+   * A detour the player comes straight back from, rather than the end of a battle.
+   *
+   * A Rare Candy is tappable mid-fight. Using one pushes the battle back onto the stack and
+   * routes through `select-from-pokemon-list`, so the emissions read `gym-battle` ->
+   * `select-from-pokemon-list` -> `gym-battle`. Treating the middle one as "battle over" reverted
+   * every temporary form and cleared the guards: an active mega silently vanished and re-armed for
+   * a second use, and Aegislash toggled back to Shield. A ladder rule would climb two rungs for
+   * one fight.
+   *
+   * Both halves of the test are load-bearing. Without the `previous` check, walking *into* a
+   * battle from `adventure-continues` would also peek at a battle state and wrongly skip the
+   * revert that ends the previous fight.
+   */
+  private isBattleInterlude(previous: GameState | null, current: GameState): boolean {
+    if (previous === null || !this.battleStates.has(previous) || this.battleStates.has(current)) {
+      return false;
+    }
+    return this.gameStateService.peekNextState() === previous;
   }
 
   private heldItemNames(): ItemName[] {

@@ -4,6 +4,7 @@ import { TrainerService } from './trainer.service';
 import { HttpClient } from '@angular/common/http';
 import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../game-state-service/game-state.service';
+import { FormRuleService } from '../form-rule-service/form-rule.service';
 import { GameState } from '../game-state-service/game-state';
 import { of } from 'rxjs';
 
@@ -89,6 +90,63 @@ describe('TrainerService', () => {
     expect(service.trainerTeam[0].pokemonId).toBe(964);
     expect(service.trainerTeam[0].power).toBe(2);
     expect(service.trainerTeam[1].pokemonId).toBe(1);
+  });
+
+  describe('mid-battle interludes', () => {
+    // A Rare Candy is tappable during a fight. Using one pushes the battle back onto the stack
+    // and detours through a selection state, so the emissions read
+    // gym-battle -> select-from-pokemon-list -> gym-battle. The middle one is not the battle
+    // ending, and treating it as one reverted every temporary form. See issue #85.
+    const detourFromBattle = (): void => {
+      gameStateService.repeatCurrentState();
+      emitGameState('select-from-pokemon-list');
+    };
+
+    it('keeps battle forms through a detour the player returns from', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('gym-battle');
+      expect(service.trainerTeam[0].pokemonId).toBe(10256);
+
+      detourFromBattle();
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10256);
+      expect(service.trainerTeam[0].power).toBe(5);
+    });
+
+    it('does not re-apply forms on returning to the same battle', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('gym-battle');
+      detourFromBattle();
+
+      const applyAll = spyOn(TestBed.inject(FormRuleService), 'applyAll').and.callThrough();
+      emitGameState('gym-battle');
+
+      // It is called, and returns false: `formsApplied` was never cleared, because the
+      // interlude skipped the revert.
+      expect(applyAll).toHaveBeenCalledTimes(1);
+      expect(applyAll.calls.mostRecent().returnValue).toBeFalse();
+      expect(service.trainerTeam[0].pokemonId).toBe(10256);
+    });
+
+    it('still reverts when the battle genuinely ends', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('gym-battle');
+
+      emitGameState('adventure-continues');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(964);
+    });
+
+    it('reverts when the next state is a different battle', () => {
+      service.trainerTeam = [structuredClone(palafinZero)];
+      emitGameState('gym-battle');
+
+      // Queued next is the Elite Four, not the fight just left: that is a real battle end.
+      gameStateService.setNextState('elite-four-battle');
+      emitGameState('check-evolution');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(964);
+    });
   });
 
   it('should preserve shiny flag when applying temporary battle form', () => {
