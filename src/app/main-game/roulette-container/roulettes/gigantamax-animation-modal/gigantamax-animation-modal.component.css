@@ -8,7 +8,14 @@
 
 .gmax-container {
   position: relative;
-  min-height: 380px;
+  /* Room for the swell to land. The stage is 260px and the last step reaches scale(1.48), so the
+     Pokemon is 385px at its biggest: at the old 380px the payoff was clipped almost exactly at
+     the top and bottom, which is the one frame that most needed to be seen.
+
+     `height` with a `min()` rather than `min-height`, because this modal is centred and not
+     scrollable: a min-height would beat any viewport cap and spill a fixed-height dialog off a
+     short screen, which is exactly how the PC modal trapped people. */
+  height: min(560px, 76vh);
   overflow: hidden;
   background: #000;
   border-radius: 0.5rem;
@@ -286,6 +293,6 @@
 .settle .pokeball { opacity: 0; }
 
 @media (max-width: 680px) {
-  .gmax-container { min-height: 320px; }
+  .gmax-container { height: min(420px, 68vh); }
   .sprite-stage { width: 200px; height: 200px; }
 }
