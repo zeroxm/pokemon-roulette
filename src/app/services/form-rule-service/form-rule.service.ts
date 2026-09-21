@@ -58,6 +58,23 @@ export class FormRuleService {
   }
 
   /**
+   * Runs every `battle-won` rule. Called once per victory, not on entering a fight.
+   *
+   * No idempotency guard, unlike `applyAll`: that one exists because entering a battle can be
+   * signalled more than once, while a win is a single event with a single caller per battle type.
+   */
+  applyWon(team: PokemonItem[], stored: PokemonItem[], heldItems: readonly ItemName[]): boolean {
+    let changed = false;
+    for (const rule of this.rules) {
+      if (rule.trigger !== 'battle-won') {
+        continue;
+      }
+      changed = this.applyRule(rule, team, stored, heldItems) || changed;
+    }
+    return changed;
+  }
+
+  /**
    * Undoes every `temporary` rule, wherever the Pokémon now sits.
    *
    * `base-to-battle` reverts unconditionally: a battle-only form is battle-only whether or not this
@@ -239,6 +256,10 @@ export class FormRuleService {
         const others = rule.forms.filter(form => form.pokemonId !== current.pokemonId);
         return others.length ? others[Math.floor(Math.random() * others.length)] : null;
       }
+
+      case 'to-form':
+        // Like `item-gated`, the source is not among `forms`.
+        return current.pokemonId === rule.selection.fromId ? rule.forms[0] ?? null : null;
 
       case 'item-gated': {
         // Gated rules key off the *base* Pokémon, which is not among `forms`.

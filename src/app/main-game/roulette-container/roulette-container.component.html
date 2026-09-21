@@ -96,6 +96,7 @@
         (friendSafariEvent)="friendSafari()"
         (ultraWormholeEvent)="ultraWormhole()"
         (thriftyMegamartEvent)="thriftyMegamart()"
+        (maxRaidBattleEvent)="maxRaidBattle()"
         (areaZeroEvent)="areaZero()">
     </app-main-adventure-roulette>
   }
@@ -151,6 +152,13 @@
     <app-ultra-wormhole-roulette
         (colourSelectedEvent)="ultraWormholeColourSelected($event)">
     </app-ultra-wormhole-roulette>
+  }
+  @case ('max-raid-battle') {
+    <app-pokemon-pool-roulette
+        pool="maxRaid"
+        [currentRound]="leadersDefeatedAmount"
+        (selectedPokemonEvent)="capturePokemon($event)">
+    </app-pokemon-pool-roulette>
   }
   @case ('thrifty-megamart') {
     <app-pokemon-pool-roulette

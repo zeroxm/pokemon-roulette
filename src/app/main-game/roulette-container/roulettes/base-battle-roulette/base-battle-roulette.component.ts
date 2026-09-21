@@ -99,6 +99,7 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
     this.gameSubscription = this.gameStateService.currentState.subscribe(state => {
       this.onGameStateChange(state);
     });
+
   }
 
   ngOnDestroy(): void {
@@ -118,6 +119,27 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
    * the consuming loop drop the bonus silently rather than fail. And rounding is **up**: 2.4 mean
    * power gives 3 slices, which is a balance decision rather than an accident of arithmetic.
    */
+  /**
+   * Galar's Dynamax bonus: +1 winning slice, or +2 when the lead Gigantamaxed.
+   *
+   * The extra slices are the whole buff. A Gigantamax deliberately does not raise `power`, so the
+   * only thing separating it from a plain Dynamax is this, and it is visible on the wheel.
+   *
+   * Kept small on purpose. Every other region has to *find* a mega stone, while this fires for
+   * free on every battle of a Galar run, so the same number that reads as a fair trade once a run
+   * reads as a permanent handicap removal across thirteen fights.
+   *
+   * Rival battles get nothing without a special case here: `battle-rival` is not a battle state as
+   * far as form rules are concerned, so no Max state is ever set during one.
+   */
+  protected maxModifier(): number {
+    const maxState = this.trainerService.getMaxState();
+    if (!maxState) {
+      return 0;
+    }
+    return maxState.gigantamax ? 2 : 1;
+  }
+
   protected plusModifiers(): number {
     if (this.trainerTeam.length === 0) {
       return 0;
@@ -255,6 +277,11 @@ export abstract class BaseBattleRouletteComponent implements OnInit, OnDestroy {
 
     const powerModifier = this.plusModifiers();
     for (let i = 0; i < powerModifier; i++) {
+      yesOdds.push(win());
+    }
+
+    const maxModifier = this.maxModifier();
+    for (let i = 0; i < maxModifier; i++) {
       yesOdds.push(win());
     }
 

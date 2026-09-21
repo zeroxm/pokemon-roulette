@@ -19,6 +19,8 @@ export interface AchievementContext {
   readonly caught: ReadonlySet<number>;
   readonly shinyIds: ReadonlySet<number>;
   readonly megaCount: number;
+  /** Distinct species Gigantamaxed at least once. Counted apart from megas: Galar replaces them. */
+  readonly gmaxCount: number;
   readonly badges: ReadonlySet<string>;
   /** The most times any single Pokémon has been caught. */
   readonly highestCatchCount: number;
@@ -166,6 +168,13 @@ export const ACHIEVEMENTS: readonly Achievement[] = [
   // Forms.
   { id: 'evolved_beyond_1', group: 'forms', progress: c => ({ current: c.megaCount, target: 1 }) },
   { id: 'evolved_beyond_2', group: 'forms', progress: c => ({ current: c.megaCount, target: 10 }) },
+  // 92 species can mega evolve, so 25 is about a quarter of them.
+  { id: 'evolved_beyond_3', group: 'forms', progress: c => ({ current: c.megaCount, target: 25 }) },
+  // Gigantamax tops out at 10 rather than mirroring mega's 1/10/25: only 19 of the 33 Gigantamax
+  // species can actually be obtained in a Galar run, and Galar runs are the only place it happens.
+  { id: 'gigantamax_1', group: 'forms', progress: c => ({ current: c.gmaxCount, target: 1 }) },
+  { id: 'gigantamax_2', group: 'forms', progress: c => ({ current: c.gmaxCount, target: 5 }) },
+  { id: 'gigantamax_3', group: 'forms', progress: c => ({ current: c.gmaxCount, target: 10 }) },
   { id: 'its_a_disguise', group: 'forms', progress: counter('mimikyu_disguises_busted', 1) },
   { id: 'bond_phenomenon', group: 'forms', progress: counter('ash_greninja_transformations', 1) },
   { id: 'shapeshifter', group: 'forms', progress: counter('sticky_forms_triggered', 1) },

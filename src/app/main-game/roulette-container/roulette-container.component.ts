@@ -13,7 +13,7 @@ import { PokemonPoolRouletteComponent } from './roulettes/pokemon-pool-roulette/
 import { PendingSelection } from './selection/pending-selection';
 import { RunModifiers } from '../../services/game-state-service/run-modifiers';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TrainerService } from '../../services/trainer-service/trainer.service';
+import { TrainerService, GALAR_GENERATION_ID } from '../../services/trainer-service/trainer.service';
 import { PokedexService } from '../../services/pokedex-service/pokedex.service';
 import { PokemonService } from '../../services/pokemon-service/pokemon.service';
 import { ItemsService } from '../../services/items-service/items.service';
@@ -59,6 +59,8 @@ import { GameOverComponent } from "../game-over/game-over.component";
 import { ModalQueueService } from '../../services/modal-queue-service/modal-queue.service';
 import { PokemonFormsService } from '../../services/pokemon-forms-service/pokemon-forms.service';
 import { MegaStoneActivation, MegaStoneService } from '../../services/mega-stone-service/mega-stone.service';
+import { DynamaxService } from '../../services/dynamax-service/dynamax.service';
+import { GigantamaxAnimationModalComponent } from './roulettes/gigantamax-animation-modal/gigantamax-animation-modal.component';
 import { megaStoneNamesForBaseId, pokemonMegaForms } from '../../services/trainer-service/pokemon-mega-forms';
 import { MegaEvolutionAnimationModalComponent } from './roulettes/mega-evolution-animation-modal/mega-evolution-animation-modal.component';
 import { SelectFromItemListRouletteComponent } from './roulettes/select-from-item-list-roulette/select-from-item-list-roulette.component';
@@ -112,6 +114,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     private destroyRef = inject(DestroyRef);
     private rareCandySubscription?: Subscription;
     private megaStoneSubscription?: Subscription;
+  private dynamaxSubscription?: Subscription;
     /** Whether the capture being resolved came off the starter wheel. */
     private capturingStarter = false;
 
@@ -130,6 +133,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       private pokemonFormsService: PokemonFormsService,
       private rareCandyService: RareCandyService,
       private megaStoneService: MegaStoneService,
+      private dynamaxService: DynamaxService,
       private statsService: StatsService,
       private generationService: GenerationService) {
     }
@@ -167,11 +171,16 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.megaStoneSubscription = this.megaStoneService.megaStoneTrigger$.subscribe((activation) => {
       this.handleMegaStoneActivation(activation);
     });
+
+    this.dynamaxSubscription = this.dynamaxService.dynamaxTrigger$.subscribe(() => {
+      this.handleDynamaxActivation();
+    });
   }
 
   ngOnDestroy(): void {
     this.rareCandySubscription?.unsubscribe();
     this.megaStoneSubscription?.unsubscribe();
+    this.dynamaxSubscription?.unsubscribe();
   }
 
   handleRareCandyEvolution(rareCandy: ItemItem): void {
@@ -188,6 +197,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   auxItemList: ItemItem[] = [];
   auxPokemonList: PokemonItem[] = [];
   pokemonForms: PokemonForm[] = [];
+  /** What to do with a Pokémon once its form is settled. Mirrors `PendingSelection`. */
+  private pendingFormChoice: ((chosen: PokemonItem) => void) | null = null;
   currentContextPokemon!: PokemonItem;
   currentGameState!: GameState;
   customWheelTitle = '';
@@ -460,7 +471,12 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
   selectPokemonForm(pokemonForm: PokemonForm): void {
     this.currentContextPokemon = this.pokemonFormsService.applyFormToPokemon(this.currentContextPokemon, pokemonForm);
-    this.completePokemonCapture(this.currentContextPokemon);
+
+    // Defaults to a capture so a form spin reached any other way still finishes rather than
+    // stranding the player on the wheel.
+    const onChosen = this.pendingFormChoice ?? (chosen => this.completePokemonCapture(chosen));
+    this.pendingFormChoice = null;
+    onChosen(this.currentContextPokemon);
   }
 
   secondEvolution(): void {
@@ -502,6 +518,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
       this.playItemFoundAudio();
       this.trainerService.addBadge(this.leadersDefeatedAmount, this.fromLeader);
       this.gameStateService.advanceRound();
+      // A won battle is what moves a form ladder, Zygarde's included.
+      this.trainerService.advanceFormLaddersAfterWin();
       this.queueCheckEvolutionAfterImportantBattle('gym-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
@@ -639,6 +657,17 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     this.finishCurrentState();
   }
 
+  /**
+   * A Galar raid den: the one place the pre-generation-8 Gigantamax species can be met.
+   *
+   * Gives a pre-evolution rather than the Gigantamax-capable form itself, so the raid is a lead
+   * to follow rather than a prize handed over. See `max-raid-by-generation.ts`.
+   */
+  maxRaidBattle(): void {
+    this.gameStateService.setNextState('max-raid-battle');
+    this.finishCurrentState();
+  }
+
   areaZero(): void {
     this.statsService.increment('area_zero_visits');
     this.gameStateService.setNextState('area-zero');
@@ -730,10 +759,18 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
   }
 
   performTrade(pokemon: PokemonItem): void {
+    // Read before `chooseForm` runs: it reuses `currentContextPokemon` as the subject of the
+    // form spin, and right now that field is holding the Pokémon being traded *away*. Closing
+    // over it here is what lets the trade survive a detour through the form wheel.
+    const tradedAway = this.currentContextPokemon;
+    this.chooseForm(pokemon, received => this.completeTrade(tradedAway, received));
+  }
+
+  private completeTrade(tradedAway: PokemonItem, received: PokemonItem): void {
     this.statsService.increment('trades_completed');
-    this.pkmnIn = structuredClone(pokemon);
-    this.pkmnOut = this.currentContextPokemon;
-    this.trainerService.performTrade(this.currentContextPokemon, this.pkmnIn);
+    this.pkmnIn = structuredClone(received);
+    this.pkmnOut = tradedAway;
+    this.trainerService.performTrade(tradedAway, this.pkmnIn);
     this.registerCatch(this.pkmnIn);
     this.auxPokemonList = [];
     this.playItemFoundAudio();
@@ -785,6 +822,8 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
     if (result) {
       this.gameStateService.advanceRound();
+      // A won battle is what moves a form ladder, Zygarde's included.
+      this.trainerService.advanceFormLaddersAfterWin();
       this.queueCheckEvolutionAfterImportantBattle('elite-four-battle');
       this.awardMegaStoneAfterImportantBattle();
       this.finishCurrentState();
@@ -848,7 +887,23 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     return this.trainerService.getMegaStoneEligiblePokemon();
   }
 
+  /**
+   * Galar replaces mega evolution with Dynamax and Gigantamax, so no stone exists there.
+   *
+   * Checked at acquisition and again at activation. Acquisition is the real choke point, since
+   * `grantMegaStone` is only reachable through here and the find-item wheel excludes stones, so
+   * no stone can exist in a Galar run at all. The second check is cheap and states the intent
+   * where a reader of `handleMegaStoneActivation` will see it.
+   */
+  private get megaEvolutionAvailable(): boolean {
+    return this.generationService.getCurrentGeneration().id !== GALAR_GENERATION_ID;
+  }
+
   private awardMegaStoneAfterImportantBattle(): void {
+    if (!this.megaEvolutionAvailable) {
+      return;
+    }
+
     const candidates = this.getMegaCandidates();
 
     if (candidates.length === 0) {
@@ -910,6 +965,7 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
 
 
   private handleMegaStoneActivation({ stone: megaStone, pokemon }: MegaStoneActivation): void {
+    if (!this.megaEvolutionAvailable) { return; }
     if (!this.isBattleState(this.currentGameState)) {
       return;
     }
@@ -948,6 +1004,53 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
 
     this.activateMegaEvolutionForPokemon(target, megaStone.name);
+  }
+
+  /**
+   * The player tapped the Dynamax Band on their lead.
+   *
+   * `activateMax` owns every rule about whether it may happen (Galar, in a battle, not already
+   * Maxed), so there is nothing to re-check here: a false return simply means nothing happened.
+   *
+   * Unlike mega, the cinematic plays for *every* Pokemon. A species with no Gigantamax form has
+   * no sprite change to show, but it still swells, and that is the whole point of Dynamax.
+   */
+  private handleDynamaxActivation(): void {
+    if (!this.trainerService.activateMax()) {
+      return;
+    }
+
+    const maxState = this.trainerService.getMaxState();
+    if (!maxState) {
+      return;
+    }
+
+    if (maxState.gigantamax) {
+      // From the pre-transform id, so Toxtricity Amped and Low Key record as one species.
+      this.pokedexService.markGmax(
+        this.pokemonFormsService.getBasePokemonId(maxState.fromId) ?? maxState.fromId,
+      );
+    }
+
+    // Deliberately silent. The mega evolution sting is written for a shell cracking open and
+    // lands wrong over a ball dropping and a Pokemon swelling; a wrong sound is worse than none.
+    // Waiting on a Dynamax cue of its own.
+    void this.showMaxAnimation(maxState.fromId, maxState.pokemon.pokemonId);
+  }
+
+  private async showMaxAnimation(fromPokemonId: number, maxPokemonId: number): Promise<void> {
+    if (this.settingsService.currentSettings.skipMegaEvolutionAnimation) {
+      return;
+    }
+
+    const animation = await this.modalQueueService.open(GigantamaxAnimationModalComponent, {
+      centered: true,
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+    });
+    animation.componentInstance.pokemonId = fromPokemonId;
+    animation.componentInstance.gmaxPokemonId = maxPokemonId;
   }
 
   private getPokemonMatchingMegaStone(stoneName: MegaStoneItemName): PokemonItem[] {
@@ -1053,29 +1156,42 @@ export class RouletteContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private preparePokemonCapture(pokemon: PokemonItem): void {
+  /**
+   * Settles which form a Pokémon arrives in, then hands it on.
+   *
+   * Carries its own continuation for the same reason `PendingSelection` does: choosing a form
+   * may need a spin, so the caller cannot simply read a return value, and every way of acquiring
+   * a Pokémon has to end somewhere different. Before this, only the catch path asked about
+   * forms, so a *traded* Alolan-capable species always arrived in its Kantonian form and a
+   * traded Zygarde skipped the forced 10% start that its ladder depends on.
+   */
+  private chooseForm(pokemon: PokemonItem, onChosen: (chosen: PokemonItem) => void): void {
     // Some species arrive in one fixed form and are never offered the wheel. Zygarde always
     // starts at 10% because its forms are a ladder it climbs by fighting: see `zygarde-forms.ts`.
     const forcedForm = this.pokemonFormsService.getForcedCatchForm(pokemon);
     if (forcedForm) {
-      this.completePokemonCapture(this.pokemonFormsService.applyFormToPokemon(pokemon, forcedForm));
+      onChosen(this.pokemonFormsService.applyFormToPokemon(pokemon, forcedForm));
       return;
     }
 
-    if (this.pokemonFormsService.hasForms(pokemon)) {
-      const pokemonForms = this.pokemonFormsService.getPokemonForms(pokemon);
-      
-      if (pokemonForms.length > 1) {
-        this.currentContextPokemon = structuredClone(pokemon);
-        this.pokemonForms = pokemonForms;
-        this.gameStateService.setNextState('select-form');
-        this.finishCurrentState();
-        return;
-      }
-      
+    const pokemonForms = this.pokemonFormsService.hasForms(pokemon)
+      ? this.pokemonFormsService.getPokemonForms(pokemon)
+      : [];
+
+    if (pokemonForms.length > 1) {
+      this.currentContextPokemon = structuredClone(pokemon);
+      this.pokemonForms = pokemonForms;
+      this.pendingFormChoice = onChosen;
+      this.gameStateService.setNextState('select-form');
+      this.finishCurrentState();
+      return;
     }
-    this.completePokemonCapture(pokemon);
-    return;
+
+    onChosen(pokemon);
+  }
+
+  private preparePokemonCapture(pokemon: PokemonItem): void {
+    this.chooseForm(pokemon, chosen => this.completePokemonCapture(chosen));
   }
 
   private completePokemonCapture(pokemon: PokemonItem): void {

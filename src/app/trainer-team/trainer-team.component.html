@@ -23,8 +23,23 @@
                               @if (trainerTeam[i]?.sprite) {
                                    <img [src]="getSprite(trainerTeam[i])"
                                         class="img-fluid"
+                                        [class.dynamaxed]="isMaxed(trainerTeam[i])"
                                         placement="bottom"
                                         ngbTooltip="{{ trainerTeam[i].text | translate }}">
+
+                                   @if (canDynamax(i, trainerTeam[i])) {
+                                        <button
+                                             type="button"
+                                             class="dynamax-band-button"
+                                             (click)="triggerDynamaxInterrupt()"
+                                             placement="bottom"
+                                             ngbTooltip="{{ 'game.main.dynamax.band' | translate }}"
+                                             [attr.aria-label]="'game.main.dynamax.band' | translate">
+                                             <img src="./Dynamax_Band.png"
+                                                  class="dynamax-band-overlay"
+                                                  alt="Dynamax Band">
+                                        </button>
+                                   }
 
                                    @if (getMegaStoneSprite(trainerTeam[i]); as megaStoneSprite) {
                                         <button

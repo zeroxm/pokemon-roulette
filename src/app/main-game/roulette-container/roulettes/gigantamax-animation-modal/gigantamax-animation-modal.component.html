@@ -1,0 +1,35 @@
+<!-- The phase name is the class on the root, and every effect below is written as a rule on that
+     class. Keeps the timing in TypeScript and the look entirely in CSS. -->
+<div class="gmax-container" [ngClass]="currentPhase" role="img" aria-label="Gigantamax animation">
+
+  <div class="gmax-backdrop"></div>
+  <div class="gmax-floor-glow"></div>
+
+  <div class="energy-field">
+    @for (mote of motes; track trackMote($index, mote)) {
+      <span class="energy-mote"
+            [style.--mote-x.px]="mote.offsetX"
+            [style.--mote-delay.ms]="mote.delayMs"
+            [style.--mote-duration.ms]="mote.durationMs"
+            [style.--mote-size.px]="mote.sizePx"></span>
+    }
+  </div>
+
+  <div class="beam-stack">
+    <div class="beam-column"></div>
+    <div class="beam-flare"></div>
+    <div class="beam-ring"></div>
+  </div>
+
+  <div class="sprite-stage">
+    <img class="sprite-base" [src]="baseSpriteUrl" alt="">
+    <img class="sprite-gmax" [src]="gmaxSpriteUrl" alt="">
+    <!-- Drops over the Pokemon so the sprite swap and the darkening happen unseen. -->
+    <img class="pokeball" [src]="pokeballUrl" alt="">
+  </div>
+
+  <div class="gmax-glyph">
+    <span class="glyph-core"></span>
+    <span class="glyph-ring"></span>
+  </div>
+</div>

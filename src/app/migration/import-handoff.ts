@@ -105,6 +105,9 @@ function toSnapshot(
       won: Boolean(entry?.won),
       shiny: Boolean(entry?.shiny),
       mega: Boolean(entry?.mega),
+      // The old origin predates Gigantamax entirely, so there is nothing to carry across. Merging
+      // is grow-only, so a false here can never clear a gmax earned on this origin.
+      gmax: false,
       // The old build never counted catches. One is the floor and the truth:
       // an entry exists because the Pokémon was obtained at least once.
       count: typeof entry?.count === 'number' && entry.count > 0 ? entry.count : 1,

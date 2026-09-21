@@ -5,7 +5,7 @@
     "explanations": "Meno spiegazioni",
     "muteAudio": "Disattiva audio",
     "skipShinyRolls": "Nascondi i tiri Shiny",
-    "skipMegaEvolutionAnimation": "Salta animazione Mega Evoluzione",
+    "skipMegaEvolutionAnimation": "Salta trasformazione Mega/Giga",
     "defaultGender": {
       "title": "Genere del personaggio",
       "male": "Sempre Ragazzo",
@@ -261,7 +261,8 @@
             "friendSafari": "Safari degli Amici",
             "areaZero": "Esplora Area Zero",
             "thriftyMegamart": "Supermarket Affaroni",
-            "ultraWormhole": "Ultravarco"
+            "ultraWormhole": "Ultravarco",
+            "maxRaidBattle": "Raid Dynamax"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Verde",
             "yellow": "Giallo"
           }
+        },
+        "maxRaid": {
+          "which": "Quale Pokémon c’è nella tana?"
         }
       },
       "trade": {
@@ -438,7 +442,10 @@
       "respin": {
         "multitask": "Multitasking x{{count}}"
       },
-      "unhandledState": "Qualcosa è uscito dalla mappa. Prova a riavviare il gioco."
+      "unhandledState": "Qualcosa è uscito dalla mappa. Prova a riavviare il gioco.",
+      "dynamax": {
+        "band": "Polsino Dynamax"
+      }
     },
     "map": {
       "vermilion": "You are in Vermilion City"
@@ -2200,7 +2207,42 @@
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
     "terapagos-stellar": "Terapagos (Stellar)",
-    "unknown": "Pokémon Sconosciuto"
+    "unknown": "Pokémon Sconosciuto",
+    "venusaur-gmax": "Venusaur (Gigamax)",
+    "charizard-gmax": "Charizard (Gigamax)",
+    "blastoise-gmax": "Blastoise (Gigamax)",
+    "butterfree-gmax": "Butterfree (Gigamax)",
+    "pikachu-gmax": "Pikachu (Gigamax)",
+    "meowth-gmax": "Meowth (Gigamax)",
+    "machamp-gmax": "Machamp (Gigamax)",
+    "gengar-gmax": "Gengar (Gigamax)",
+    "kingler-gmax": "Kingler (Gigamax)",
+    "lapras-gmax": "Lapras (Gigamax)",
+    "eevee-gmax": "Eevee (Gigamax)",
+    "snorlax-gmax": "Snorlax (Gigamax)",
+    "garbodor-gmax": "Garbodor (Gigamax)",
+    "melmetal-gmax": "Melmetal (Gigamax)",
+    "rillaboom-gmax": "Rillaboom (Gigamax)",
+    "cinderace-gmax": "Cinderace (Gigamax)",
+    "inteleon-gmax": "Inteleon (Gigamax)",
+    "corviknight-gmax": "Corviknight (Gigamax)",
+    "orbeetle-gmax": "Orbeetle (Gigamax)",
+    "drednaw-gmax": "Drednaw (Gigamax)",
+    "coalossal-gmax": "Coalossal (Gigamax)",
+    "flapple-gmax": "Flapple (Gigamax)",
+    "appletun-gmax": "Appletun (Gigamax)",
+    "sandaconda-gmax": "Sandaconda (Gigamax)",
+    "toxtricity-amped-gmax": "Toxtricity (Amped Gigamax)",
+    "centiskorch-gmax": "Centiskorch (Gigamax)",
+    "hatterene-gmax": "Hatterene (Gigamax)",
+    "grimmsnarl-gmax": "Grimmsnarl (Gigamax)",
+    "alcremie-gmax": "Alcremie (Gigamax)",
+    "copperajah-gmax": "Copperajah (Gigamax)",
+    "duraludon-gmax": "Duraludon (Gigamax)",
+    "eternatus-eternamax": "Eternatus (Eternamax)",
+    "urshifu-single-strike-gmax": "Urshifu (Single Strike Gigamax)",
+    "toxtricity-low-key-gmax": "Toxtricity (Low Key Gigamax)",
+    "urshifu-rapid-strike-gmax": "Urshifu (Rapid Strike Gigamax)"
   },
   "elite4": {
     "lorelei": {
@@ -3071,6 +3113,22 @@
     "world_tour": {
       "name": "Tour Mondiale",
       "description": "Gioca una partita in tutte e nove le regioni."
+    },
+    "evolved_beyond_3": {
+      "name": "Oltre l'Evoluzione",
+      "description": "Fai megaevolvere 25 Pokémon diversi."
+    },
+    "gigantamax_1": {
+      "name": "La Taglia Conta",
+      "description": "Gigamaxizza un Pokémon."
+    },
+    "gigantamax_2": {
+      "name": "Più Grandi Sono",
+      "description": "Gigamaxizza 5 Pokémon diversi."
+    },
+    "gigantamax_3": {
+      "name": "Campione di Galar",
+      "description": "Gigamaxizza 10 Pokémon diversi."
     }
   },
   "account": {

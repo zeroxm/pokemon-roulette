@@ -9,6 +9,13 @@ export interface PokedexEntry {
   shiny?: boolean;
   mega?: boolean;
   /**
+   * Has Gigantamaxed at least once.
+   *
+   * Separate from `mega` rather than folded into it: Galar replaces mega evolution entirely, so a
+   * player holds both flags for different species, and the achievements count them apart.
+   */
+  gmax?: boolean;
+  /**
    * Times this Pokémon has been obtained.
    *
    * A row exists because it was obtained at least once, so the minimum is 1 and
@@ -119,6 +126,27 @@ export class PokedexService {
     this.updatePokedex({ caught: updatedCaught });
   }
 
+  /**
+   * Permanently marks that the given Pokémon has Gigantamaxed at least once. No-op if already set.
+   *
+   * Takes the **base species** id, so Toxtricity Amped and Low Key count as one species rather
+   * than two, the same way the achievements count them.
+   */
+  markGmax(pokemonId: number): void {
+    const current = this.currentPokedex;
+    const key = String(pokemonId);
+    const existing = current.caught[key];
+
+    if (existing?.gmax) {
+      return;
+    }
+
+    const updatedCaught = { ...current.caught };
+    updatedCaught[key] = { ...existing, won: existing?.won ?? false, gmax: true };
+
+    this.updatePokedex({ caught: updatedCaught });
+  }
+
   /** Permanently marks that the given Pokémon has mega-evolved at least once. No-op if already set. */
   markMega(pokemonId: number): void {
     const current = this.currentPokedex;
@@ -196,6 +224,7 @@ export class PokedexService {
         won: entry.won,
         ...(entry.shiny ? { shiny: true } : {}),
         ...(entry.mega ? { mega: true } : {}),
+        ...(entry.gmax ? { gmax: true } : {}),
         count: typeof entry.count === 'number' && entry.count > 0 ? Math.floor(entry.count) : 1,
       };
     }
@@ -211,6 +240,7 @@ export class PokedexService {
       won: existing?.won ?? false,
       ...(nextShiny ? { shiny: true } : {}),
       ...(existing?.mega ? { mega: true } : {}),
+      ...(existing?.gmax ? { gmax: true } : {}),
       // A row exists because the Pokémon was obtained, so the floor is 1 even
       // for one registered without going through recordCatch.
       count: existing?.count ?? 1,

@@ -3,6 +3,7 @@ import { palafinForms } from '../trainer-service/palafin-forms';
 import { stickyBattleForms } from '../trainer-service/sticky-battle-forms';
 import { pokemonMegaForms } from '../trainer-service/pokemon-mega-forms';
 import { zygardeLadderForms } from '../trainer-service/zygarde-forms';
+import { gigantamaxForms } from '../trainer-service/gigantamax-forms';
 import { mimikyuForms } from '../trainer-service/mimikyu-forms';
 import { greninjaForms } from '../trainer-service/greninja-forms';
 
@@ -59,7 +60,13 @@ export const formRules: FormRule[] = [
     selection: { kind: 'base-to-battle' },
   })),
 
-  // Zygarde's cells gather as it fights: one rung per battle, kept for the rest of the run.
+  // Zygarde's cells gather as it fights: one rung per battle *won*, kept for the rest of the run.
+  //
+  // `battle-won` rather than `battle-start`, which is what it was first written as and was wrong:
+  // firing on entry meant the 10% form existed for exactly one screen, because the state stack
+  // puts a gym battle immediately after the adventure wheel that produced the Zygarde. A rung is
+  // a reward, so it is paid on the win.
+  //
   // `sticky` because it never reverts, `ladder` because it stops at Complete rather than wrapping
   // back to 10%. `team+stored` so a Zygarde parked in the PC does not fall behind the ladder.
   {
@@ -67,9 +74,24 @@ export const formRules: FormRule[] = [
     forms: zygardeLadderForms,
     scope: 'team+stored',
     persistence: 'sticky',
-    trigger: 'battle-start',
+    trigger: 'battle-won',
     selection: { kind: 'ladder' },
   },
+
+  // Gigantamax: Galar's replacement for mega evolution, and `manual` for the same reason mega is.
+  // The player taps the Dynamax Band on their lead; the rule says what that becomes, never that it
+  // should happen. `TrainerService.activateMax` owns the when, including the Galar-only check.
+  //
+  // Keyed on the *current* form id, which is what makes Toxtricity Amped and Low Key (and both
+  // Urshifu styles) reach their own Gigantamax with no special case here.
+  ...Object.entries(gigantamaxForms).map(([fromIdText, gmax]): FormRule => ({
+    id: `gmax:${fromIdText}`,
+    forms: [gmax],
+    scope: 'team',
+    persistence: 'temporary',
+    trigger: 'manual',
+    selection: { kind: 'to-form', fromId: Number(fromIdText) },
+  })),
 
   // Mega evolution: the player taps a stone mid-battle, so this rule is `manual` and never fires
   // from `applyAll`. Holding the stone selects *which* mega form; it is not permission to apply one.

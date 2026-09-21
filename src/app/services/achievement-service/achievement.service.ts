@@ -163,6 +163,7 @@ export class AchievementService {
     const caught = new Set<number>();
     const shinyIds = new Set<number>();
     let megaCount = 0;
+    let gmaxCount = 0;
     let highestCatchCount = 0;
 
     for (const [key, entry] of Object.entries(pokedex.caught)) {
@@ -180,6 +181,9 @@ export class AchievementService {
       if (entry.mega) {
         megaCount++;
       }
+      if (entry.gmax) {
+        gmaxCount++;
+      }
       highestCatchCount = Math.max(highestCatchCount, entry.count ?? 0);
     }
 
@@ -188,6 +192,7 @@ export class AchievementService {
       caught,
       shinyIds,
       megaCount,
+      gmaxCount,
       badges,
       highestCatchCount,
     };

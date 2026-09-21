@@ -5,7 +5,7 @@
     "explanations": "Moins d'explications",
     "muteAudio": "Couper l'Audio",
     "skipShinyRolls": "Omettre les Roulettes Shiny",
-    "skipMegaEvolutionAnimation": "Passer l'animation de Mega Evolution",
+    "skipMegaEvolutionAnimation": "Passer la transformation Méga/Giga",
     "defaultGender": {
       "title": "Genre du personnage",
       "male": "Toujours Garçon",
@@ -261,7 +261,8 @@
             "friendSafari": "Safari des Amis",
             "areaZero": "Explorer la Zone Zéro",
             "thriftyMegamart": "Bradley Prix",
-            "ultraWormhole": "Ultra-Brèche"
+            "ultraWormhole": "Ultra-Brèche",
+            "maxRaidBattle": "Raid Dynamax"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Verte",
             "yellow": "Jaune"
           }
+        },
+        "maxRaid": {
+          "which": "Quel Pokémon se trouve dans l’antre ?"
         }
       },
       "trade": {
@@ -438,7 +442,10 @@
       "respin": {
         "multitask": "Multitâche x{{count}}"
       },
-      "unhandledState": "Quelque chose est sorti de la carte. Essayez de redémarrer le jeu."
+      "unhandledState": "Quelque chose est sorti de la carte. Essayez de redémarrer le jeu.",
+      "dynamax": {
+        "band": "Poignet Dynamax"
+      }
     },
     "map": {
       "vermilion": "Vous êtes à Carmin-sur-Mer"
@@ -2200,7 +2207,42 @@
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
     "terapagos-stellar": "Terapagos (Stellar)",
-    "unknown": "Pokémon Inconnu"
+    "unknown": "Pokémon Inconnu",
+    "venusaur-gmax": "Florizarre (Gigamax)",
+    "charizard-gmax": "Dracaufeu (Gigamax)",
+    "blastoise-gmax": "Tortank (Gigamax)",
+    "butterfree-gmax": "Papilusion (Gigamax)",
+    "pikachu-gmax": "Pikachu (Gigamax)",
+    "meowth-gmax": "Miaouss (Gigamax)",
+    "machamp-gmax": "Mackogneur (Gigamax)",
+    "gengar-gmax": "Ectoplasma (Gigamax)",
+    "kingler-gmax": "Krabboss (Gigamax)",
+    "lapras-gmax": "Lokhlass (Gigamax)",
+    "eevee-gmax": "Évoli (Gigamax)",
+    "snorlax-gmax": "Ronflex (Gigamax)",
+    "garbodor-gmax": "Miasmax (Gigamax)",
+    "melmetal-gmax": "Melmetal (Gigamax)",
+    "rillaboom-gmax": "Gorythmic (Gigamax)",
+    "cinderace-gmax": "Pyrobut (Gigamax)",
+    "inteleon-gmax": "Lézargus (Gigamax)",
+    "corviknight-gmax": "Corvaillus (Gigamax)",
+    "orbeetle-gmax": "Astronelle (Gigamax)",
+    "drednaw-gmax": "Torgamord (Gigamax)",
+    "coalossal-gmax": "Monthracite (Gigamax)",
+    "flapple-gmax": "Pomdrapi (Gigamax)",
+    "appletun-gmax": "Dratatin (Gigamax)",
+    "sandaconda-gmax": "Dunaconda (Gigamax)",
+    "toxtricity-amped-gmax": "Salarsen (Amped Gigamax)",
+    "centiskorch-gmax": "Scolocendre (Gigamax)",
+    "hatterene-gmax": "Sorcilence (Gigamax)",
+    "grimmsnarl-gmax": "Angoliath (Gigamax)",
+    "alcremie-gmax": "Charmilly (Gigamax)",
+    "copperajah-gmax": "Pachyradjah (Gigamax)",
+    "duraludon-gmax": "Duralugon (Gigamax)",
+    "eternatus-eternamax": "Éthernatos (Eternamax)",
+    "urshifu-single-strike-gmax": "Shifours (Single Strike Gigamax)",
+    "toxtricity-low-key-gmax": "Salarsen (Low Key Gigamax)",
+    "urshifu-rapid-strike-gmax": "Shifours (Rapid Strike Gigamax)"
   },
   "elite4": {
     "lorelei": {
@@ -3071,6 +3113,22 @@
     "world_tour": {
       "name": "Tour du Monde",
       "description": "Jouez une partie dans les neuf régions."
+    },
+    "evolved_beyond_3": {
+      "name": "Au-delà de l'Évolution",
+      "description": "Méga-Évoluez 25 Pokémon différents."
+    },
+    "gigantamax_1": {
+      "name": "La Taille Compte",
+      "description": "Gigamaxifiez un Pokémon."
+    },
+    "gigantamax_2": {
+      "name": "Plus Ils Sont Grands",
+      "description": "Gigamaxifiez 5 Pokémon différents."
+    },
+    "gigantamax_3": {
+      "name": "Maître de Galar",
+      "description": "Gigamaxifiez 10 Pokémon différents."
     }
   },
   "account": {

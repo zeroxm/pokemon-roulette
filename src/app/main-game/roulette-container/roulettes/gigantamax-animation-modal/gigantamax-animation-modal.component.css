@@ -1,0 +1,309 @@
+/* Galar red, not the mega palette's purple: the two cinematics must read apart at a glance. */
+:host {
+  --gmax-red: rgba(232, 40, 76, 1);
+  --gmax-red-soft: rgba(232, 40, 76, 0.55);
+  --gmax-pink: rgba(255, 120, 160, 1);
+  --gmax-deep: rgba(96, 8, 32, 1);
+}
+
+.gmax-container {
+  position: relative;
+  /* Room for the swell to land. The stage is 260px and the last step reaches scale(1.48), so the
+     Pokemon is 385px at its biggest: at the old 380px the payoff was clipped almost exactly at
+     the top and bottom, which is the one frame that most needed to be seen.
+
+     `height` with a `min()` rather than `min-height`, because this modal is centred and not
+     scrollable: a min-height would beat any viewport cap and spill a fixed-height dialog off a
+     short screen, which is exactly how the PC modal trapped people. */
+  height: min(560px, 76vh);
+  overflow: hidden;
+  background: #000;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gmax-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, var(--gmax-deep) 0%, #000 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+}
+
+.cover .gmax-backdrop,
+.darken .gmax-backdrop,
+.vanish .gmax-backdrop,
+.charge .gmax-backdrop,
+.reveal .gmax-backdrop { opacity: 1; }
+
+.settle .gmax-backdrop { opacity: 0.6; }
+
+/* The energy comes up out of the ground, so the floor is lit before anything else happens. */
+.gmax-floor-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -60px;
+  width: 340px;
+  height: 120px;
+  transform: translateX(-50%) scaleY(0.3);
+  background: radial-gradient(ellipse at center, var(--gmax-red) 0%, transparent 70%);
+  opacity: 0;
+  filter: blur(6px);
+}
+
+.charge .gmax-floor-glow {
+  opacity: 0.9;
+  transform: translateX(-50%) scaleY(1);
+  transition: opacity 0.5s ease-out, transform 0.7s ease-out;
+}
+
+.reveal .gmax-floor-glow { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+
+.settle .gmax-floor-glow { opacity: 0.4; }
+
+.energy-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.energy-mote {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: var(--mote-size);
+  height: var(--mote-size);
+  margin-left: var(--mote-x);
+  border-radius: 50%;
+  background: var(--gmax-pink);
+  box-shadow: 0 0 10px var(--gmax-red);
+  opacity: 0;
+}
+
+.charge .energy-mote,
+.reveal .energy-mote {
+  animation: moteRise var(--mote-duration) linear var(--mote-delay) infinite;
+}
+
+@keyframes moteRise {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  15%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-360px) scale(1.1); }
+}
+
+.beam-stack {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 100%;
+  pointer-events: none;
+}
+
+.beam-column {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 90px;
+  height: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(to top, var(--gmax-red) 0%, var(--gmax-pink) 60%, transparent 100%);
+  filter: blur(3px);
+  opacity: 0;
+}
+
+.charge .beam-column {
+  height: 100%;
+  opacity: 0.95;
+  transition: height 0.45s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.3s ease-out;
+}
+
+.reveal .beam-column { height: 100%; opacity: 0.4; transition: opacity 0.6s ease-out; }
+.settle .beam-column { opacity: 0; transition: opacity 0.5s ease-out; }
+
+.beam-flare {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 60px 30px var(--gmax-red);
+  opacity: 0;
+}
+
+.reveal .beam-flare {
+  animation: flareBurst 0.7s ease-out forwards;
+}
+
+@keyframes flareBurst {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  40%  { opacity: 1; transform: translate(-50%, -50%) scale(2.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(4); }
+}
+
+.beam-ring {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 120px;
+  height: 120px;
+  transform: translate(-50%, -50%) scale(0.2);
+  border: 3px solid var(--gmax-pink);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.reveal .beam-ring { animation: ringExpand 0.9s ease-out forwards; }
+
+@keyframes ringExpand {
+  0%   { opacity: 0.9; transform: translate(-50%, -50%) scale(0.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3.4); }
+}
+
+.sprite-stage {
+  position: relative;
+  /* Tracks the viewport the same way the pane does. The pane is `min(560px, 76vh)` and the settle
+     scale is a fixed multiplier, so a fixed stage would overflow a short screen: at 260px the
+     settled Pokemon is 507px, which does not fit a 76vh pane below about a 670px viewport.
+     Keeping both viewport-relative holds the "nearly fills the pane" ratio at every size. */
+  width: min(260px, 34vh);
+  height: min(260px, 34vh);
+  z-index: 2;
+}
+
+.sprite-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* The Pokemon as the player brought it, in colour, right up until the ball is fully over it.
+   `prelude` and `cover` only: nothing may change underneath while the ball is still falling, or
+   the player watches the swap happen. */
+.sprite-base {
+  opacity: 1;
+  transform: scale(0.75);
+  transition: transform 0.6s ease-in, opacity 0.2s ease-in, filter 0.4s ease-out;
+}
+
+.cover .sprite-base { transform: scale(0.82); filter: drop-shadow(0 0 10px var(--gmax-red-soft)); }
+
+.darken .sprite-base,
+.vanish .sprite-base,
+.charge .sprite-base,
+.reveal .sprite-base,
+.settle .sprite-base { opacity: 0; }
+
+/* The silhouette. Appears at `darken`, behind a ball that is already fully over the Pokemon, at
+   the same size the base sprite was so the ball lifting reveals a shape rather than a jump. */
+.sprite-gmax {
+  opacity: 0;
+  transform: scale(0.82);
+  filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red));
+}
+
+.darken .sprite-gmax,
+.vanish .sprite-gmax,
+.charge .sprite-gmax { opacity: 1; }
+
+.darken .sprite-gmax { transition: filter 0.45s ease-in; }
+
+/* The payoff: three growing steps, each one tucking down before it springs up, with the colour
+   draining back in as it goes. It never brightens past its own artwork, so the last step lands on
+   the Pokemon as it really looks rather than on a washed-out version of it. */
+.reveal .sprite-gmax {
+  opacity: 1;
+  animation: gmaxSwell 1.9s cubic-bezier(0.22, 1.2, 0.35, 1) forwards;
+}
+
+@keyframes gmaxSwell {
+  /* Starts at 0.82, the silhouette size held through `vanish` and `charge`, and ends at 1.95,
+     exactly where `.settle` rests. Both ends have to match their neighbour or the size jumps at
+     the seam. The third step overshoots to 2.00 and recoils, so the biggest moment belongs to
+     the swell rather than to the phase that is only supposed to hold it. */
+  0%   { transform: scale(0.82) translateY(0);    filter: brightness(0.06) drop-shadow(0 0 18px var(--gmax-red)); }
+
+  /* first step */
+  7%   { transform: scale(0.70) translateY(8px);  filter: brightness(0.08) drop-shadow(0 0 20px var(--gmax-red)); }
+  22%  { transform: scale(1.15) translateY(-6px); filter: brightness(0.34) drop-shadow(0 0 34px var(--gmax-red)); }
+
+  /* second step */
+  31%  { transform: scale(1.04) translateY(5px);  filter: brightness(0.38) drop-shadow(0 0 30px var(--gmax-red)); }
+  49%  { transform: scale(1.52) translateY(-8px); filter: brightness(0.66) drop-shadow(0 0 44px var(--gmax-pink)); }
+
+  /* third step */
+  59%  { transform: scale(1.40) translateY(6px);  filter: brightness(0.72) drop-shadow(0 0 40px var(--gmax-red)); }
+  82%  { transform: scale(2.00) translateY(-9px); filter: brightness(0.94) drop-shadow(0 0 56px var(--gmax-pink)); }
+
+  92%  { transform: scale(1.88) translateY(2px);  filter: brightness(1) drop-shadow(0 0 38px var(--gmax-red)); }
+  100% { transform: scale(1.95) translateY(0);    filter: brightness(1) drop-shadow(0 0 30px var(--gmax-red)); }
+}
+
+/* Rests at very nearly the full pane: 1.95 of a stage that is 46% of the pane height puts the
+   Pokemon at about 90% of it, so the held frame reads as "this thing is now enormous" rather
+   than "this thing got a bit bigger". */
+.settle .sprite-gmax {
+  opacity: 1;
+  transform: scale(1.95);
+  filter: brightness(1) drop-shadow(0 0 18px var(--gmax-red-soft));
+  transition: transform 0.8s ease-out, filter 0.8s ease-out;
+}
+
+/* Drops from above, holds while the sprite drains underneath, then bursts away. */
+.pokeball {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transform: translateY(-140%) scale(0.35);
+  z-index: 4;
+}
+
+.cover .pokeball {
+  opacity: 1;
+  animation: pokeballDrop 0.6s cubic-bezier(0.3, 1.5, 0.4, 1) forwards;
+}
+
+@keyframes pokeballDrop {
+  0%   { opacity: 0; transform: translateY(-140%) scale(0.35) rotate(-25deg); }
+  55%  { opacity: 1; transform: translateY(6%)    scale(1.12) rotate(4deg); }
+  100% { opacity: 1; transform: translateY(0)     scale(1)    rotate(0deg); }
+}
+
+/* Held in place. Without this it snaps back to its off-screen start, because the `.cover` rule
+   stops applying the moment the phase class changes. */
+.darken .pokeball {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.vanish .pokeball {
+  opacity: 0;
+  animation: pokeballBurst 0.55s ease-in forwards;
+}
+
+@keyframes pokeballBurst {
+  0%   { opacity: 1; transform: scale(1)   rotate(0deg);   filter: brightness(1); }
+  35%  { opacity: 1; transform: scale(1.3) rotate(-8deg);  filter: brightness(3); }
+  100% { opacity: 0; transform: scale(2.6) rotate(-14deg); filter: brightness(4); }
+}
+
+.charge .pokeball,
+.reveal .pokeball,
+.settle .pokeball { opacity: 0; }
+
+@media (max-width: 680px) {
+  .gmax-container { height: min(420px, 68vh); }
+  .sprite-stage { width: min(200px, 30vh); height: min(200px, 30vh); }
+}

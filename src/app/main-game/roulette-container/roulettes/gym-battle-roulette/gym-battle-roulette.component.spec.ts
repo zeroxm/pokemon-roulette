@@ -15,6 +15,43 @@ import { GameStateService } from '../../../../services/game-state-service/game-s
 
 describe('GymBattleRouletteComponent', () => {
 
+  describe('maxModifier', () => {
+    // Galar's buff. The extra winning slices are the whole difference between a Dynamax and a
+    // Gigantamax: neither changes `power`.
+    it('is 0 with no Max state, which is every region but Galar', () => {
+      spyOn(trainerService, 'getMaxState').and.returnValue(null);
+      expect((component as any).maxModifier()).toBe(0);
+    });
+
+    it('is 1 for a Dynamax', () => {
+      spyOn(trainerService, 'getMaxState').and.returnValue(
+        { pokemon: { pokemonId: 1 } as PokemonItem, fromId: 1, gigantamax: false });
+      expect((component as any).maxModifier()).toBe(1);
+    });
+
+    it('is 2 for a Gigantamax', () => {
+      spyOn(trainerService, 'getMaxState').and.returnValue(
+        { pokemon: { pokemonId: 884 } as PokemonItem, fromId: 884, gigantamax: true });
+      expect((component as any).maxModifier()).toBe(2);
+    });
+
+    it('adds its slices to the victory odds', () => {
+      (component as any).trainerTeam = [{ power: 1 } as PokemonItem];
+      (component as any).trainerItems = [];
+
+      spyOn(trainerService, 'getMaxState').and.returnValue(null);
+      const withoutMax = ((component as any).buildVictoryOdds() as WheelItem[])
+        .filter(item => item.fillStyle === 'green').length;
+
+      (trainerService.getMaxState as jasmine.Spy).and.returnValue(
+        { pokemon: { pokemonId: 884 } as PokemonItem, fromId: 884, gigantamax: true });
+      const withGigantamax = ((component as any).buildVictoryOdds() as WheelItem[])
+        .filter(item => item.fillStyle === 'green').length;
+
+      expect(withGigantamax - withoutMax).toBe(2);
+    });
+  });
+
   describe('plusModifiers', () => {
     it('returns 0 for an empty team instead of NaN', () => {
       (component as any).trainerTeam = [];

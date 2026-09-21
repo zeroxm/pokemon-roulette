@@ -21,6 +21,13 @@ export type FormSelection =
    */
   | { kind: 'ladder' }
   /**
+   * One named form becomes one other form.
+   *
+   * `fromId` is carried here rather than read from `forms` for the same reason `item-gated` does
+   * it: the source is not among `forms`, because `forms` is what it becomes.
+   */
+  | { kind: 'to-form'; fromId: number }
+  /**
    * The form whose own `stone` the trainer holds; the rule does nothing without one.
    *
    * `baseId` is carried explicitly because the base Pokémon is not among `forms`: the forms are
@@ -37,6 +44,13 @@ export type FormSelection =
 export type FormTrigger =
   /** Fires automatically when a battle starts. */
   | 'battle-start'
+  /**
+   * Fires after a battle is won, not on entering one.
+   *
+   * The distinction matters for anything that is a *reward*: firing at the start hands it over
+   * for turning up, and a ladder rung earned that way is spent before the player has seen it.
+   */
+  | 'battle-won'
   /** Fires only when the player asks for it, through `forceApply`. Never from `applyAll`. */
   | 'manual';
 

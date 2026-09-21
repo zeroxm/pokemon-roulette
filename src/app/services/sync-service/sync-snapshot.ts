@@ -18,6 +18,7 @@ export interface SyncPokedexEntry {
   won: boolean;
   shiny: boolean;
   mega: boolean;
+  gmax: boolean;
   count: number;
 }
 
@@ -85,6 +86,7 @@ function mergePokedex(
           won: existing.won || entry.won,
           shiny: existing.shiny || entry.shiny,
           mega: existing.mega || entry.mega,
+          gmax: existing.gmax || entry.gmax,
           count: Math.max(existing.count, entry.count),
         }
       : entry;
@@ -169,6 +171,7 @@ function parsePokedex(value: unknown): Record<string, SyncPokedexEntry> {
       won: entry['won'] === true,
       shiny: entry['shiny'] === true,
       mega: entry['mega'] === true,
+      gmax: entry['gmax'] === true,
       count,
     };
   }

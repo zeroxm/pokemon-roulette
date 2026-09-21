@@ -5,7 +5,7 @@
     "explanations": "Weniger Hinweise",
     "muteAudio": "Stummschalten",
     "skipShinyRolls": "Shiny Roulette verstecken",
-    "skipMegaEvolutionAnimation": "Mega-Entwicklungsanimation überspringen",
+    "skipMegaEvolutionAnimation": "Mega-/Giga-Transformation überspringen",
     "defaultGender": {
       "title": "Geschlecht des Charakters",
       "male": "Immer Junge",
@@ -261,7 +261,8 @@
             "friendSafari": "Freundes-Safari",
             "areaZero": "Erkunde Zone Null",
             "thriftyMegamart": "Schnäppchenparadies",
-            "ultraWormhole": "Ultrapforte"
+            "ultraWormhole": "Ultrapforte",
+            "maxRaidBattle": "Dyna-Raid"
           }
         },
         "friendSafari": {
@@ -428,6 +429,9 @@
             "green": "Grün",
             "yellow": "Gelb"
           }
+        },
+        "maxRaid": {
+          "which": "Welches Pokémon ist im Nest?"
         }
       },
       "trade": {
@@ -438,7 +442,10 @@
       "respin": {
         "multitask": "Multitasking x{{count}}"
       },
-      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu."
+      "unhandledState": "Etwas ist von der Karte verschwunden. Starte das Spiel neu.",
+      "dynamax": {
+        "band": "Dyna-Band"
+      }
     },
     "map": {
       "vermilion": "Du bist in Orania City"
@@ -2200,7 +2207,42 @@
     "ogerpon-cornerstone-mask": "Ogerpon (Cornerstone Mask)",
     "terapagos-terastal": "Terapagos (Terastal)",
     "terapagos-stellar": "Terapagos (Stellar)",
-    "unknown": "Unbekanntes Pokémon"
+    "unknown": "Unbekanntes Pokémon",
+    "venusaur-gmax": "Bisaflor (Gigadynamax)",
+    "charizard-gmax": "Glurak (Gigadynamax)",
+    "blastoise-gmax": "Turtok (Gigadynamax)",
+    "butterfree-gmax": "Smettbo (Gigadynamax)",
+    "pikachu-gmax": "Pikachu (Gigadynamax)",
+    "meowth-gmax": "Mauzi (Gigadynamax)",
+    "machamp-gmax": "Machomei (Gigadynamax)",
+    "gengar-gmax": "Gengar (Gigadynamax)",
+    "kingler-gmax": "Kingler (Gigadynamax)",
+    "lapras-gmax": "Lapras (Gigadynamax)",
+    "eevee-gmax": "Evoli (Gigadynamax)",
+    "snorlax-gmax": "Relaxo (Gigadynamax)",
+    "garbodor-gmax": "Deponitox (Gigadynamax)",
+    "melmetal-gmax": "Melmetal (Gigadynamax)",
+    "rillaboom-gmax": "Gortrom (Gigadynamax)",
+    "cinderace-gmax": "Liberlo (Gigadynamax)",
+    "inteleon-gmax": "Intelleon (Gigadynamax)",
+    "corviknight-gmax": "Krarmor (Gigadynamax)",
+    "orbeetle-gmax": "Maritellit (Gigadynamax)",
+    "drednaw-gmax": "Kamalm (Gigadynamax)",
+    "coalossal-gmax": "Montecarbo (Gigadynamax)",
+    "flapple-gmax": "Drapfel (Gigadynamax)",
+    "appletun-gmax": "Schlapfel (Gigadynamax)",
+    "sandaconda-gmax": "Sanaconda (Gigadynamax)",
+    "toxtricity-amped-gmax": "Riffex (Amped Gigadynamax)",
+    "centiskorch-gmax": "Infernopod (Gigadynamax)",
+    "hatterene-gmax": "Silembrim (Gigadynamax)",
+    "grimmsnarl-gmax": "Olangaar (Gigadynamax)",
+    "alcremie-gmax": "Pokusan (Gigadynamax)",
+    "copperajah-gmax": "Patinaraja (Gigadynamax)",
+    "duraludon-gmax": "Duraludon (Gigadynamax)",
+    "eternatus-eternamax": "Endynalos (Eternamax)",
+    "urshifu-single-strike-gmax": "Wulaosu (Single Strike Gigadynamax)",
+    "toxtricity-low-key-gmax": "Riffex (Low Key Gigadynamax)",
+    "urshifu-rapid-strike-gmax": "Wulaosu (Rapid Strike Gigadynamax)"
   },
   "elite4": {
     "lorelei": {
@@ -3071,6 +3113,22 @@
     "world_tour": {
       "name": "Welttournee",
       "description": "Spiele einen Durchlauf in allen neun Regionen."
+    },
+    "evolved_beyond_3": {
+      "name": "Jenseits der Entwicklung",
+      "description": "Lass 25 verschiedene Pokémon mega-entwickeln."
+    },
+    "gigantamax_1": {
+      "name": "Auf die Größe kommt es an",
+      "description": "Gigadynamaximiere ein Pokémon."
+    },
+    "gigantamax_2": {
+      "name": "Je größer sie sind",
+      "description": "Gigadynamaximiere 5 verschiedene Pokémon."
+    },
+    "gigantamax_3": {
+      "name": "Champion von Galar",
+      "description": "Gigadynamaximiere 10 verschiedene Pokémon."
     }
   },
   "account": {

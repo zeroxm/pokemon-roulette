@@ -59,7 +59,7 @@ Removing either is a real behaviour change, not cleanup.
 
 ### Build budgets: read before adding assets or CSS
 
-Configured in `angular.json`: initial bundle **1.6 MB warn / 2 MB error**; per-component stylesheet **9 kB warn / 12 kB error**.
+Configured in `angular.json`: initial bundle **1.6 MB warn / 2 MB error**; per-component stylesheet **20 kB warn / 28 kB error**.
 
 These were raised deliberately. The previous values (1 MB / 4 kB) were breached on every build by the app's actual size, which trains everyone to ignore build warnings. The initial budget is now **2 MB warn / 2.5 MB error**, set by André: this is a game, its content grows, and a threshold that has to be renegotiated every few features is a threshold nobody reads. The error was moved up with the warning: leaving it at 2 MB would have made the build fail at exactly the point it was supposed to start warning, which is a wall, not a budget.
 
@@ -67,7 +67,12 @@ The number to watch is **transfer size**, currently ~243 kB gzipped for a 1.55 M
 
 Real headroom is available whenever it is wanted: `dom-to-image-more` is CommonJS, used only by the end-game share button, and sits in the initial bundle. Lazy-loading it would free more than every increment so far combined.
 
-Per-component CSS still has room: the largest, `mega-evolution-animation-modal.component.css`, is **8.52 kB** against a 9 kB warning.
+Per-component CSS was raised from 9 kB / 12 kB by André, for the same reason as the bundle: this
+is a game, the cinematics are content, and a stylesheet budget that has to be renegotiated every
+time an animation gains a beat is a budget nobody reads. The two transformation cinematics are the
+only components anywhere near it, at **8.52 kB** (`mega-evolution-animation-modal.component.css`)
+and **8.2 kB** (`gigantamax-animation-modal.component.css`); everything else in the app is under
+2 kB. Treat the new ceiling as headroom for those two, not as licence elsewhere.
 
 ## Two deployments, on purpose
 

@@ -250,6 +250,7 @@ export class SyncService {
         won: Boolean(entry.won),
         shiny: Boolean(entry.shiny),
         mega: Boolean(entry.mega),
+        gmax: Boolean(entry.gmax),
         count: entry.count && entry.count > 0 ? entry.count : 1,
       };
     }
@@ -267,7 +268,9 @@ export class SyncService {
 function toPokedexEntries(snapshot: SyncSnapshot): Record<string, PokedexEntry> {
   const caught: Record<string, PokedexEntry> = {};
   for (const [id, entry] of Object.entries(snapshot.pokedex)) {
-    caught[id] = { won: entry.won, shiny: entry.shiny, mega: entry.mega, count: entry.count };
+    caught[id] = {
+      won: entry.won, shiny: entry.shiny, mega: entry.mega, gmax: entry.gmax, count: entry.count,
+    };
   }
   return caught;
 }

@@ -6,6 +6,7 @@ import { PokemonItem } from '../../interfaces/pokemon-item';
 import { GameStateService } from '../game-state-service/game-state.service';
 import { FormRuleService } from '../form-rule-service/form-rule.service';
 import { ItemsService } from '../items-service/items.service';
+import { GenerationService } from '../generation-service/generation.service';
 import { GameState } from '../game-state-service/game-state';
 import { of } from 'rxjs';
 
@@ -206,19 +207,32 @@ describe('TrainerService', () => {
   });
 
   describe('Zygarde ladder', () => {
-    it('climbs one rung per battle and keeps it afterwards', () => {
+    // A rung is paid for *winning*, not for turning up. Entering a battle used to be enough,
+    // which meant the 10% form survived exactly one screen: the state stack puts a gym battle
+    // straight after the adventure wheel that produced the Zygarde.
+    const winABattle = (): void => {
+      emitGameState('gym-battle');
+      service.advanceFormLaddersAfterWin();
+      emitGameState('adventure-continues');
+    };
+
+    it('does not climb merely for entering a battle', () => {
       service.trainerTeam = [structuredClone(zygarde10)];
 
       emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10181);
+      expect(service.trainerTeam[0].power).toBe(5);
+    });
+
+    it('climbs one rung per win and keeps it afterwards', () => {
+      service.trainerTeam = [structuredClone(zygarde10)];
+
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(718);
       expect(service.trainerTeam[0].power).toBe(6);
 
-      // Sticky, so leaving the fight must not walk it back down.
-      emitGameState('adventure-continues');
-      expect(service.trainerTeam[0].pokemonId).toBe(718);
-      expect(service.trainerTeam[0].power).toBe(6);
-
-      emitGameState('gym-battle');
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
       expect(service.trainerTeam[0].power).toBe(7);
     });
@@ -227,23 +241,11 @@ describe('TrainerService', () => {
       service.trainerTeam = [structuredClone(zygarde10)];
 
       for (let battle = 0; battle < 5; battle++) {
-        emitGameState('gym-battle');
-        emitGameState('adventure-continues');
+        winABattle();
       }
 
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
       expect(service.trainerTeam[0].power).toBe(7);
-    });
-
-    it('climbs only once when a Rare Candy interrupts the battle', () => {
-      service.trainerTeam = [structuredClone(zygarde10)];
-
-      emitGameState('gym-battle');
-      gameStateService.repeatCurrentState();
-      emitGameState('select-from-pokemon-list');
-      emitGameState('gym-battle');
-
-      expect(service.trainerTeam[0].pokemonId).toBe(718);
     });
 
     it('carries shiny up the ladder', () => {
@@ -251,7 +253,7 @@ describe('TrainerService', () => {
       shiny.shiny = true;
       service.trainerTeam = [shiny];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.trainerTeam[0].pokemonId).toBe(718);
       expect(service.trainerTeam[0].shiny).toBeTrue();
@@ -261,7 +263,7 @@ describe('TrainerService', () => {
       service.trainerTeam = [structuredClone(bulbasaur)];
       service.storedPokemon = [structuredClone(zygarde10)];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.storedPokemon[0].pokemonId).toBe(718);
     });
@@ -270,12 +272,12 @@ describe('TrainerService', () => {
       // The whole point of the ladder wiring: `pokemonMegaForms` is keyed on 10120, which was
       // unreachable before, so Mega Zygarde was dead code.
       service.trainerTeam = [structuredClone(zygarde10)];
-      emitGameState('gym-battle');
-      emitGameState('adventure-continues');
-      emitGameState('gym-battle');
+      winABattle();
+      winABattle();
       expect(service.trainerTeam[0].pokemonId).toBe(10120);
 
       service.addToItems(structuredClone(TestBed.inject(ItemsService).getMegaStone('zygardite')));
+      emitGameState('gym-battle');
       service.forceMegaActivation(service.trainerTeam[0], 'zygardite');
 
       expect(service.trainerTeam[0].pokemonId).toBe(10301);
@@ -290,10 +292,167 @@ describe('TrainerService', () => {
     it('leaves other Pokemon alone', () => {
       service.trainerTeam = [structuredClone(bulbasaur)];
 
-      emitGameState('gym-battle');
+      winABattle();
 
       expect(service.trainerTeam[0].pokemonId).toBe(1);
       expect(service.trainerTeam[0].power).toBe(1);
+    });
+  });
+
+  describe('Galar: Dynamax and Gigantamax', () => {
+    // setGeneration takes a list index, not an id; Galar is id 8 at index 7.
+    const GALAR_INDEX = 7;
+    const KANTO_INDEX = 0;
+
+    const duraludon: PokemonItem = {
+      text: 'pokemon.duraludon', pokemonId: 884, fillStyle: 'white',
+      type1: 'steel', type2: 'dragon', sprite: null, shiny: false, power: 3, weight: 1,
+    };
+    const toxtricityLowKey: PokemonItem = {
+      text: 'pokemon.toxtricity-low-key', pokemonId: 10184, fillStyle: 'purple',
+      type1: 'electric', type2: 'poison', sprite: null, shiny: false, power: 3, weight: 1,
+    };
+
+    const inGalar = () => TestBed.inject(GenerationService).setGeneration(GALAR_INDEX);
+    const inKanto = () => TestBed.inject(GenerationService).setGeneration(KANTO_INDEX);
+
+    /** What tapping the Dynamax Band does: enter a fight, then activate. */
+    const tapTheBand = (team: PokemonItem[]): boolean => {
+      service.trainerTeam = team.map(p => structuredClone(p));
+      emitGameState('gym-battle');
+      return service.activateMax();
+    };
+
+    it('Gigantamaxes a capable lead', () => {
+      inGalar();
+
+      expect(tapTheBand([duraludon])).toBeTrue();
+      expect(service.trainerTeam[0].pokemonId).toBe(10225);
+      expect(service.getMaxState()?.gigantamax).toBeTrue();
+    });
+
+    it('does nothing until the player asks', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+
+      emitGameState('gym-battle');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('reverts when the battle ends', () => {
+      inGalar();
+      tapTheBand([duraludon]);
+
+      emitGameState('adventure-continues');
+
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('does not change power: the odds bonus is the whole buff', () => {
+      inGalar();
+      tapTheBand([duraludon]);
+
+      expect(service.trainerTeam[0].power).toBe(duraludon.power);
+    });
+
+    it('gives Low Key Toxtricity its own Gigantamax, not the Amped one', () => {
+      inGalar();
+
+      tapTheBand([toxtricityLowKey]);
+
+      expect(service.trainerTeam[0].pokemonId).toBe(10228);
+      expect(service.trainerTeam[0].text).toBe('pokemon.toxtricity-low-key-gmax');
+    });
+
+    it('remembers the form it transformed FROM, not the Gigantamax it became', () => {
+      // The Pokedex is marked from this. Reading it off the transformed Pokemon instead records
+      // the Gigantamax form id, which belongs to no species, so the entry lands on a phantom key
+      // and Toxtricity Amped and Low Key count as two species instead of one.
+      inGalar();
+
+      tapTheBand([toxtricityLowKey]);
+
+      expect(service.getMaxState()?.fromId).toBe(10184);
+    });
+
+    it('only the lead transforms', () => {
+      inGalar();
+
+      tapTheBand([bulbasaur, duraludon]);
+
+      expect(service.trainerTeam[1].pokemonId).toBe(884);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+    });
+
+    it('a lead with no Gigantamax form still Dynamaxes', () => {
+      inGalar();
+
+      expect(tapTheBand([bulbasaur])).toBeTrue();
+      expect(service.trainerTeam[0].pokemonId).toBe(1);
+      expect(service.getMaxState()?.gigantamax).toBeFalse();
+      expect(service.getMaxState()?.pokemon).toBe(service.trainerTeam[0]);
+    });
+
+    it('refuses a second activation in the same battle', () => {
+      inGalar();
+      tapTheBand([duraludon]);
+
+      expect(service.activateMax()).toBeFalse();
+    });
+
+    it('does nothing outside Galar', () => {
+      inKanto();
+
+      expect(tapTheBand([duraludon])).toBeFalse();
+      expect(service.trainerTeam[0].pokemonId).toBe(884);
+      expect(service.getMaxState()).toBeNull();
+    });
+
+    it('does nothing outside a battle', () => {
+      inGalar();
+      service.trainerTeam = [structuredClone(duraludon)];
+      emitGameState('adventure-continues');
+
+      expect(service.activateMax()).toBeFalse();
+    });
+
+    describe('canActivateMax, which is what shows the band', () => {
+      it('is true for a Galar lead in a battle', () => {
+        inGalar();
+        service.trainerTeam = [structuredClone(duraludon)];
+        emitGameState('gym-battle');
+
+        expect(service.canActivateMax()).toBeTrue();
+      });
+
+      it('is false once already Maxed', () => {
+        inGalar();
+        tapTheBand([duraludon]);
+
+        expect(service.canActivateMax()).toBeFalse();
+      });
+
+      it('is false outside a battle, and outside Galar', () => {
+        inGalar();
+        service.trainerTeam = [structuredClone(duraludon)];
+        emitGameState('adventure-continues');
+        expect(service.canActivateMax()).toBeFalse();
+
+        inKanto();
+        emitGameState('gym-battle');
+        expect(service.canActivateMax()).toBeFalse();
+      });
+
+      it('is false with an empty team', () => {
+        inGalar();
+        service.trainerTeam = [];
+        emitGameState('gym-battle');
+
+        expect(service.canActivateMax()).toBeFalse();
+      });
     });
   });
 
